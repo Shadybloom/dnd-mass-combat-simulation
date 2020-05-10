@@ -6,17 +6,11 @@
 
 ![Битва при Заме](/images/legio-vs-cartagos-goplites-Zama2.jpg)
 
-![Легион против гоплитов](/images/legio-vs-hoplites.png)
-
 То же самое [в динамике](/video/legionary-vs-hoplites.mp4).
 
-Ещё несколько скриншотов:
-
-![Злодеи vs злодеи](/images/battle-sorcerers-vs-warlocks.png)  
-![Бака vs бака](/images/duel-samurai-vs-barbarian.png)  
-![Няши vs злодеи](/images/battle-3.png)  
-
 ## Что уже сделано
+
+![Няши vs злодеи](/images/battle-3.png)  
 
 - Реализация правил D&D 5e — практически полная.
 - Все базовые классы героев — готовы до 5 уровня.
@@ -44,8 +38,6 @@
 
 Запустить можно из любого каталога:  
 `./battle_simulation.py -- help`
-
-![Пример запуска](/images/simulation.png)
 
 Если запустить без параметров, там будет сначала выбор карты, а затем зон спавна и отрядов. Зоны 0-4 это зелёные BLUEFOR, а зоны 5-9 красные OPFOR. Сторона конфликта задаётся выбором зоны спавна.  
 
