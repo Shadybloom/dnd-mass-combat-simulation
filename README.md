@@ -39,7 +39,7 @@
 ## Как этим пользоваться
 
 Запустить можно из любого каталога:  
-`./battle_simulation.py -- help`
+`./battle_simulation.py --help`
 
 ![Пример запуска](/images/simulation.png)
 
@@ -58,7 +58,7 @@
 `Database : ['Oni Rusus Gern']`
 
 Просто введите это название (или его часть) как название отряда. И бросьте их в бой:  
-`~/workspace/dnd-battle-simulation/battle_simulation.py -r 10 -R -m battle_map_near zone_0 'Oni Rusus Gern' zone_5 spearmans`
+`./battle_simulation.py -r 10 -R -m battle_map_near zone_0 'Oni Rusus Gern' zone_5 spearmans`
 
 Сколько боёв они смогут выдержать? Сколько гоблинов-в-секунду убьют? Ключ `-s` будет сохранять отряд в БД со всеми ранениями, потерями и растраченными боеприпасами, чтобы снова бросить их в бой:  
-`~/workspace/dnd-battle-simulation/battle_simulation.py -r 10 -R -s -m battle_map_near zone_0 'Oni Rusus Gern' zone_5 goblins`
+`./battle_simulation.py -r 10 -R -s -m battle_map_near zone_0 'Oni Rusus Gern' zone_5 goblins`
