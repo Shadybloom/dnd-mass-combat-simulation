@@ -27,7 +27,7 @@
 
 ## Как установить и запустить
 
-Скрипты проверялись только на GNU/Linux (но так-то должны работать везде).  
+Тестировалось только на GNU/Linux (но так-то должны работать везде).  
 `git clone https://github.com/Shadybloom/dnd-mass-combat-simulation`  
 Нужен питон третьей версии, например Python 3.7, а также sqlite3.  
 `sudo apt-get update && sudo apt-get install python3.7 sqlite3`  
@@ -36,10 +36,10 @@
 
 Модуль pathfinding, это AStarFinder, алгоритм поиска пути, с помощью которого солдаты ориентируются на пересечённой местности.
 
+## Как этим пользоваться
+
 Запустить можно из любого каталога:  
 `./battle_simulation.py -- help`
-
-## Как этим пользоваться
 
 ![Пример запуска](/images/simulation.png)
 
