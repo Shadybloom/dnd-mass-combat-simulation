@@ -649,13 +649,17 @@ class battle_simulation(battlescape):
             # TODO: вот здесь-то и нужен рассчёт потерь в отряде:
             # И выбор 'retreat', если всё совсем плохо.
             #commands_list = ['seek','engage','attack']
-            commands_list = ['retreat']
+            # TODO: disengage использует squad.enemy_recon.
+            # А разведка противника не обновляется без командира.
+            commands_list = ['disengage','dodge','attack']
+            #commands_list = ['retreat']
         if squad.commander:
             # Лучники и метатели дротиков должны чуть что отступать:
             if squad.behavior == 'archer':
                 #commands_list.append('seek')
                 commands_list.append('volley')
                 commands_list.append('spellcast')
+                commands_list.append('fireball')
                 if 'engage' in commands_list:
                     commands_list.remove('engage')
                     commands_list.append('disengage')
@@ -752,7 +756,8 @@ class battle_simulation(battlescape):
                     destination = self.find_spawn(soldier.place, soldier.enemy_side)
                     self.move_action(soldier, squad, destination, allow_replace = True)
         # Оборонительная тактика, если таков приказ (вторые ряды всё же атакуют):
-        if 'dodge' in squad.commands and soldier.near_enemies or soldier.danger > self.engage_danger:
+        if 'dodge' in squad.commands and soldier.near_enemies\
+                or soldier.danger > self.engage_danger:
             self.dodge_action(soldier)
         # Простые солдаты следуют за командиром, зная своё место в строю:
         if 'follow' in squad.commands and squad.commander and not soldier.near_enemies:
@@ -1550,12 +1555,12 @@ class battle_simulation(battlescape):
 
     def select_zone_spell(self, soldier, squad):
         """Выбор заклинания, бьющего по территории и точки атаки для него."""
-        # TODO: добавь выбор заклинания ниже определённого уровня. Чтобы огнешарами зря не бросаться.
         spell_choice_list = []
         for spell_slot in soldier.spellslots:
-            slot_spells_list = [attack for attack in soldier.spells if attack[0] == spell_slot
-                    and soldier.spells[attack].get('zone')]
-            spell_choice_list.extend(slot_spells_list)
+            if int(spell_slot[0]) <= 2 or 'fireball' in squad.commands:
+                slot_spells_list = [attack for attack in soldier.spells if attack[0] == spell_slot
+                        and soldier.spells[attack].get('zone')]
+                spell_choice_list.extend(slot_spells_list)
         if spell_choice_list:
             # Сортируем. Сначала заклинания высших уровней:
             spell_choice_list = sorted(spell_choice_list, reverse = True)
