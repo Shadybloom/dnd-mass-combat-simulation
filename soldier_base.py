@@ -349,6 +349,9 @@ class soldier():
             self.abilityes = self.get_class_abilityes(ability_list)
             #print(ability_list, old_char_class, '>>>', self.char_class)
         # Обновляем шаблон:
+        # TODO: маленькая проблема. Старые параметры в шаблоне сохраняются.
+        # Если у нас в старом шаблоне mount_combat True, то это перейдёт и в новый шаблон.
+        # Нельзя просто закомментировать #mount_combat у паладина 5 lvl. Нужно ставить False.
         self.__dict__.update(copy.deepcopy(self.metadict_chars[rank]))
         if not hasattr(self, 'class_features'):
             self.class_features = {}
