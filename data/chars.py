@@ -5125,6 +5125,8 @@ metadict_chars['Paladin 2 lvl (city sentry-weresefet)'] = {
     }
 
 metadict_chars['Paladin 3 lvl (city sentry-imeyer)'] = {
+    # TODO: Паладины 3 lvl с "Bless" и "Channel_Sacred_Weapon" имеют мод. атаки 12+
+    # Это отлично сочетается с "Feat_Great_Weapon_Master" и +10 урона за счёт -5 к атаке.
     'level':3,
     'char_class':'Paladin',
     'hit_dice':'1d10',
