@@ -867,7 +867,10 @@ class battle_simulation(battlescape):
             destination = frontline_distances[0][0]
         else:
             destination = enemy.place
-        if not soldier.near_enemies and ally_strenght >= enemy_strenght or 'brave' in squad.commands:
+        # Простые солдаты нападают вблизи только при двухкратном превосходстве союзников:
+        if not soldier.near_enemies and ally_strenght >= enemy_strenght * 2\
+                or soldier.hero == True and not soldier.near_enemies and ally_strenght >= enemy_strenght\
+                or 'brave' in squad.commands:
             self.move_action(soldier, squad, destination)
             recon_near = self.recon(soldier.place, distance = 1)
             soldier.set_near_enemies(recon_near)
