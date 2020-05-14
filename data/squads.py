@@ -83,9 +83,27 @@ metadict_squads['Company-dummy (sentinels)'] = {
 
 metadict_squads['Company-dummy (goblins)'] = {
     'Goblin (CR 1/4)':80 + dice_throw('3d12'),
-    'Hobgoblin (CR 1/2)':4,
-    'Hobgoblin-captain (CR 3)':1,
+    'Goblin Boss (CR 1)':3,
     }
+
+metadict_squads['Company-dummy (orks)'] = {
+    'Ork (CR 1/2)':80 + dice_throw('3d12'),
+    'Orog (CR 2)':3,
+    'Ork war chief (CR 4)':1,
+    }
+
+#----
+# Отряды:
+
+#metadict_squads['Squad-dummy (orks)'] = {
+#    'Ork (CR 1/2)':12,
+#    'Orog (CR 2)':1,
+#    }
+#
+#metadict_squads['Squad-dummy (hobgoblins)'] = {
+#    'Hobgoblin (CR 1/2)':12,
+#    'Hobgoblin-captain (CR 3)':1,
+#    }
 
 #----
 # Рекруты:

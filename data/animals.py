@@ -144,6 +144,45 @@ metadict_animals['Goblin (CR 1/4)'] = {
         },
     }
 
+metadict_animals['Goblin Boss (CR 1)'] = {
+    # Босс гоблинов
+    # TODO: расу подправь. Допили способности
+    # ------------------------------------------------------------
+    # Redirect_Attack меняется местами с соседом по строю. Реакции не требует?
+    # ------------------------------------------------------------
+    'level':6,
+    'challenge_rating':'1',
+    'hitpoints_medial':True,
+    'char_class':'Rogue',
+    'class_features':{
+        'Nimble_Escape':True,
+        'Redirect_Attack':True,
+        },
+    'abilityes':{
+        'strength':10,
+        'dexterity':14,
+        'constitution':10,
+        'intelligence':10,
+        'wisdom':8,
+        'charisma':10,
+        },
+    'hit_dice':'1d6',
+    'behavior':'commander',
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        # Пока оставим ему короткий лук.
+        'Chain Mail':1,
+        'Shield':1,
+        'Scimitar':1,
+        'Shortbow':1,
+        'Arrow':60,
+        },
+    }
+
 metadict_animals['Hobgoblin (CR 1/2)'] = {
     # Хобгоблин
     # TODO: расу подправь. Допили способности
@@ -217,9 +256,119 @@ metadict_animals['Hobgoblin-captain (CR 3)'] = {
         },
     }
 
+metadict_animals['Ork (CR 1/2)'] = {
+    # Орк, обычный орк.
+    # TODO: расу подправь. Допили способности
+    # ------------------------------------------------------------
+    # Aggressive. Движение на 30 футов бонусным действием. В engage_action
+    # ------------------------------------------------------------
+    'level':2,
+    'challenge_rating':'1/2',
+    'hitpoints_medial':True,
+    'char_class':'Warrior',
+    'class_features':{
+        'Aggressive':True,
+        },
+    'abilityes':{
+        'strength':16,
+        'dexterity':12,
+        'constitution':16,
+        'intelligence':7,
+        'wisdom':11,
+        'charisma':10,
+        },
+    'hit_dice':'1d8',
+    'behavior':'warrior',
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Hide Armor':1,
+        'Greataxe':1,
+        'Javelin':6,
+        },
+    }
+
+metadict_animals['Orog (CR 2)'] = {
+    # Орог. Умный орк.
+    # TODO: расу подправь. Допили способности
+    # ------------------------------------------------------------
+    # Aggressive. Движение на 30 футов бонусным действием. В engage_action
+    # ------------------------------------------------------------
+    'level':5,
+    'challenge_rating':'2',
+    'hitpoints_medial':True,
+    'char_class':'Warrior',
+    'class_features':{
+        'Aggressive':True,
+        'Extra_Attack':True,
+        },
+    'abilityes':{
+        'strength':18,
+        'dexterity':12,
+        'constitution':18,
+        'intelligence':12,
+        'wisdom':11,
+        'charisma':12,
+        },
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Plate Armor':1,
+        'Greataxe':1,
+        'Javelin':6,
+        },
+    }
+
+metadict_animals['Ork war chief (CR 4)'] = {
+    # Боевой вождь орков.
+    # TODO: расу подправь. Допили способности
+    # ------------------------------------------------------------
+    # Aggressive. Движение на 30 футов бонусным действием. В engage_action
+    # Gruumsh’s Fury. 1d8 дополнительного урона.
+    # Battle Cry (1/Day). Преимущество союзникам в радиусе 30 футов на один ход. Плюс бонусная атака.
+    # ------------------------------------------------------------
+    'level':11,
+    'challenge_rating':'4',
+    'hitpoints_medial':True,
+    'char_class':'Warrior',
+    'class_features':{
+        'Aggressive':True,
+        'Extra_Attack':True,
+        },
+    'abilityes':{
+        'strength':18,
+        'dexterity':12,
+        'constitution':18,
+        'intelligence':11,
+        'wisdom':11,
+        'charisma':16,
+        },
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Chain Mail':1,
+        'Greataxe':1,
+        'Javelin':6,
+        },
+    }
+
 metadict_animals['Bugbear (CR 1)'] = {
     # Медвежатник, багбир
     # TODO: расу подправь. Допили способности
+    # Это большое существо 2x2 тайла.
     # ------------------------------------------------------------
     # Brute. дополнительная кость урона оружия.
     # Surprise_Attack. лишние 2d6 урона если атакует внезапно.
