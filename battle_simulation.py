@@ -1850,7 +1850,7 @@ class battle_simulation(battlescape):
             if soldier.hitpoints <= 0 and not soldier.death and not soldier.stable:
                 soldier.set_death()
             if soldier.hitpoints <= 0 and not soldier.death and not soldier.stable:
-                if 'rescue' in squad.commands:
+                if hasattr(squad, 'commands') and 'rescue' in squad.commands:
                     self.rescue(soldier)
                     if not soldier.stable and soldier.level > 1 and soldier.death_save_loss >= 1:
                         self.rescue_magic(soldier)
