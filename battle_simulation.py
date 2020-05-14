@@ -654,6 +654,9 @@ class battle_simulation(battlescape):
             commands_list = ['disengage','dodge','attack']
             #commands_list = ['retreat']
         if squad.commander:
+            # Бесстрашные создания бесстрашны:
+            if squad.commander.__dict__.get('fearless'):
+                commands_list.append('brave')
             # Лучники и метатели дротиков должны чуть что отступать:
             if squad.behavior == 'archer':
                 #commands_list.append('seek')
