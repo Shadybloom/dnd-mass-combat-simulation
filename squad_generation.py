@@ -390,7 +390,7 @@ class squad_generation():
                 squad_initiative += soldier.initiative
         return squad_initiative
 
-    def throw_squad_moral(self, enemy_recon, commanders_list):
+    def throw_squad_moral(self, enemy_recon, commanders_list, advantage = False, disadvantage = False):
         """Каждый командир даёт от -1 до +2 к морали отряда, как повезёт.
         
         Бросок морали = 1d20 + мод_харизмы + бонус_мастерства
@@ -420,7 +420,7 @@ class squad_generation():
         for uuid in commanders_list_uuids:
             commander_moral = 0
             commander = self.metadict_soldiers[uuid]
-            morale_throw = dices.dice_throw('1d20')
+            morale_throw = dices.dice_throw_advantage('1d20', advantage, disadvantage)
             # TODO: здесь должне быть навык дипломатии/запугивания/обмана:
             result = morale_throw + commander.mods['charisma'] + commander.proficiency_bonus
             if morale_throw == 20:

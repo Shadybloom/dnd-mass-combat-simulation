@@ -587,13 +587,14 @@ class soldier_in_battle(soldier):
                     self.danger = 1
                     self.escape = True
 
-    def morality_check_escape(self, danger):
+    def morality_check_escape(self, danger, advantage = False, disadvantage = False):
         """Если опасность высока, боец боится и может сбежать.
         
         Это проверка 10 + уровень_опасности против спасброска харизмы.
         """
         danger_difficul = 10 + danger
-        danger_saving_throw = dices.dice_throw_advantage('1d20') + self.saves['charisma']
+        danger_saving_throw = dices.dice_throw_advantage('1d20', advantage, disadvantage)\
+                + self.saves['charisma']
         if danger_difficul > danger_saving_throw:
             return True
         else:

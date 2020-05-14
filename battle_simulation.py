@@ -724,7 +724,10 @@ class battle_simulation(battlescape):
             destination = random.choice(self.point_to_field(destination))
             self.move_action(soldier, squad, destination, allow_replace = False)
             # Испуганный боец может сбежать:
-            soldier.escape = soldier.morality_check_escape(soldier.danger)
+            if "morale" in squad.commands:
+                soldier.escape = soldier.morality_check_escape(soldier.danger, advantage = True)
+            else:
+                soldier.escape = soldier.morality_check_escape(soldier.danger)
             # Командир может отступить в глубину строя:
             if soldier.behavior == 'commander' or 'retreat' in squad.commands:
                 self.move_action(soldier, squad, destination, allow_replace = True)
