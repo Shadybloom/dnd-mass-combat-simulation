@@ -284,7 +284,7 @@ metadict_items['Glaive'] = {
     }
 
 metadict_items['Greataxe'] = {
-    # Бердыш
+    # Бердыш, секира
     'weapon':True,
     #'shield_breaker':True,
     'weapon_type':['martial','close','two_handed','heavy'],
@@ -1227,7 +1227,6 @@ metadict_items['Greatsword +1'] = {
     'cost (gp)':600,
     'cost (grams_of_gold)':600,
     }
-
 
 metadict_items['Glaive +1'] = {
     'weapon':True,

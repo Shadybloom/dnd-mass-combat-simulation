@@ -749,7 +749,7 @@ class gen_spells():
                 'savethrow':True,
                 'savethrow_ability':'dexterity',
                 'attacks_number':1,
-                'attack_range':10,
+                'attack_range':15,
                 'radius':5,
                 'damage_type':'fire',
                 'damage_dice':'3d6',
