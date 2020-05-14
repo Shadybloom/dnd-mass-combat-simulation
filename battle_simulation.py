@@ -410,11 +410,12 @@ class battle_simulation(battlescape):
         for battle_round in range(1, max_rounds +1):
             # Измеряем время раунда:
             start = timeit.default_timer()
-            # Тяжелораненые могут погибнуть:
-            self.fall_to_death()
             # Чистим карту от павших в прошлом раунде:
             self.clear_battlemap()
             for squad in self.squads.values():
+                # Тяжелораненые могут погибнуть:
+                self.fall_to_death(squad)
+                # Отряд делает ход:
                 self.round_run_squad(squad, commands)
                 # Выводим карту после хода каждого отряда:
                 print_ascii_map(self.gen_battlemap())
@@ -426,7 +427,7 @@ class battle_simulation(battlescape):
                 self.place_soldiers()
         # Уточняем потери по результатам боя:
         for squad in self.squads.values():
-            self.fall_to_death()
+            self.fall_to_death(squad)
             squad.casualty = self.calculate_casualty(squad)
 
     def round_run_squad(self, squad, commands = False):
@@ -654,9 +655,11 @@ class battle_simulation(battlescape):
             commands_list = ['disengage','dodge','attack']
             #commands_list = ['retreat']
         if squad.commander:
-            # Бесстрашные создания бесстрашны:
+            # Бесстрашные создания бесстрашны, зато трусоватые спасают своих:
             if squad.commander.__dict__.get('fearless'):
                 commands_list.append('brave')
+            else:
+                commands_list.append('rescue')
             # Лучники и метатели дротиков должны чуть что отступать:
             if squad.behavior == 'archer':
                 #commands_list.append('seek')
@@ -1830,13 +1833,13 @@ class battle_simulation(battlescape):
                     experience_new /= 2.5
                 squad.experience += round(experience_new)
 
-    def fall_to_death(self):
+    def fall_to_death(self, squad):
         """Тяжелораненые делают спасброски от смерти в начале каждого хода.
         
         Death Saving Throws:
         https://www.dandwiki.com/wiki/5e_SRD:Dropping_to_0_Hit_Points
         """
-        for soldier in self.metadict_soldiers.values():
+        for soldier in squad.metadict_soldiers.values():
             # Спящего от заклинания Sleep разбудят (или сам проснётся)
             if soldier.sleep and not soldier.captured:
                 self.rescue(soldier)
@@ -1847,9 +1850,10 @@ class battle_simulation(battlescape):
             if soldier.hitpoints <= 0 and not soldier.death and not soldier.stable:
                 soldier.set_death()
             if soldier.hitpoints <= 0 and not soldier.death and not soldier.stable:
-                self.rescue(soldier)
-                if not soldier.stable and soldier.level > 1 and soldier.death_save_loss >= 1:
-                    self.rescue_magic(soldier)
+                if 'rescue' in squad.commands:
+                    self.rescue(soldier)
+                    if not soldier.stable and soldier.level > 1 and soldier.death_save_loss >= 1:
+                        self.rescue_magic(soldier)
 
     def rescue(self, soldier):
         """Товарищи стабилизируют тяжелораненых и будят спящих.
