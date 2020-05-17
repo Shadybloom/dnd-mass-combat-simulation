@@ -117,11 +117,34 @@ class database():
         
         При этом распаковываем словарь в pickle и обновляем его.
         """
-        # TODO: здесь нужно синхронизировать таблицы БД и словарь бойца (который в pickle).
-        # Обновляй галочки на death и disabled; числа hitpoints, hitpoints_max, hitpoints_heal.
         sql_query = "SELECT * FROM soldiers WHERE id='{uuid}'".format(uuid=uuid_string)
         soldier_raw = self.cursor.execute(sql_query).fetchall()[0]
         soldier_dict = pickle.loads(soldier_raw[-1])
+        # Синхронизируем таблицу и словарь бойца (если правили БД):
+        soldier_death = int(soldier_raw[5])
+        soldier_disabled = int(soldier_raw[6])
+        soldier_captured = int(soldier_raw[7])
+        soldier_hitpoints = int(soldier_raw[10])
+        soldier_hitpoints_max = int(soldier_raw[11])
+        soldier_hitpoints_heal = int(soldier_raw[12])
+        if soldier_death:
+            soldier_dict['death'] = True
+        else:
+            soldier_dict['death'] = False
+        if soldier_disabled:
+            soldier_dict['disabled'] = True
+        else:
+            soldier_dict['disabled'] = False
+        if soldier_captured:
+            soldier_dict['captured'] = True
+        else:
+            soldier_dict['captured'] = False
+        soldier_dict['hitpoints'] = soldier_hitpoints
+        soldier_dict['hitpoints_max'] = soldier_hitpoints_max
+        soldier_dict['hitpoints_heal'] = soldier_hitpoints_heal
+        if soldier_hitpoints > 0:
+            soldier_dict['fall'] = False
+        print(soldier_hitpoints, soldier_dict['hitpoints'])
         return soldier_dict
 
     def purge_soldiers_table(self):
