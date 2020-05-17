@@ -1792,6 +1792,7 @@ metadict_chars['Warrior 5 lvl (mercenary heavy-infantry-captain)'] = {
 
 metadict_chars['Fighter 1 lvl (legionary sentinel-battler)'] = {
     # Бойцы в тяжёлых доспехах.
+    # TODO: Feat_Heavy_Armor_Master увеличивает силу на 1. Но он и так занебесно крут.
     'level':1,
     'char_class':'Fighter',
     'hit_dice':'1d10',
