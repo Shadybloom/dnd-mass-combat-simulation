@@ -56,6 +56,10 @@ def create_parser():
                         action='store_true', dest='injured', default=False,
                         help='Павшие с 0 hp тоже попадают на поле боя.'
                         )
+    parser.add_argument('--rest',
+                        action='store_true', dest='short_rest', default=False,
+                        help='Короткий отдых перед боем, лечение всех.'
+                        )
     return parser
 
 #-------------------------------------------------------------------------
@@ -138,6 +142,9 @@ class battle_simulation(battlescape):
             self.set_squad_bonus_hitpoints(squad)
             self.set_squad_bardic_inspiration(squad)
             self.set_squad_spell_bless(squad)
+            # Короткий отдых:
+            if namespace.short_rest:
+                self.set_squad_short_rest(squad)
         # Вывод карты до начала боя:
         #print_ascii_map(battle.gen_battlemap())
 
@@ -383,6 +390,21 @@ class battle_simulation(battlescape):
                     soldiers_list.append(soldier)
                     number -= 1
         return soldiers_list
+
+    def set_squad_short_rest(self, squad):
+        """Короткий отдых (1 час).
+
+        """
+        # TODO: Короткий отдых восстанавливает способности:
+        # - способности бойца
+        # - заклинания колдуна
+        # - перевязку можно повторить
+        bless_type = 'short_rest'
+        soldiers_list_elite = self.select_soldiers_for_bless(
+                len(squad.metadict_soldiers), squad.ally_side, bless_type)
+        for soldier in soldiers_list_elite:
+            soldier.set_short_rest_heal()
+            soldier.set_short_rest_restoration()
 
     def set_squad_battle_stat(self, attack_result, squad, attack_choice = None):
         """Подсчёт попадания, промахов и урона под каждый вид оружия."""

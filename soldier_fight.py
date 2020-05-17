@@ -59,6 +59,44 @@ class soldier_in_battle(soldier):
             self.bonus_hitpoints = bonus_hitpoints
         return self.hitpoints
 
+    def set_short_rest_heal(self):
+        """Короткий отдых (1 час). Позволяет подлечиться.
+
+        - Раненые лечатся на "hit_dice + constitution_mod"
+        https://www.dandwiki.com/wiki/5e_SRD:Short_Rest
+        """
+        # Лечение за счёт использования кости хитов:
+        for n in enumerate(range(0, self.level)):
+            if self.hitpoints < self.hitpoints_max and self.hit_dices_use < self.level:
+                rest_heal = dices.dice_throw_advantage(self.hit_dice) + self.mods['constitution']
+                self.set_hitpoints(heal = rest_heal)
+                self.hit_dices_use += 1
+
+    def set_short_rest_restoration(self):
+        """Короткий отдых (1 час). Восстанавливает способности.
+
+        https://www.dandwiki.com/wiki/5e_SRD:Short_Rest
+        """
+        # TODO: допиливай, здесь много всего.
+            # - Концентрация прерывается.
+            # - Эффекты заклинаний прекращаются.
+        # Восстанавливаются после короткого отдыха (short_rest):
+        if self.class_features.get('Second_Wind'):
+            self.second_wind = True
+        if self.class_features.get('Action_Surge'):
+            self.action_surge = True
+        if self.class_features.get('Feat_Inspiring_Leader'):
+            self.inspiring_leader = True
+        if self.proficiency.get('ki_points_max'):
+            self.ki_points = self.proficiency['ki_points_max']
+        # Восстанавливаются заклинания колдуна:
+        if self.char_class == 'Warlock':
+            self.spells_generator = spells.gen_spells(self)
+            self.spellslots = self.spells_generator.spellslots
+            self.spells = self.spells_generator.spells
+        # После отдыха можно повторить перевязку.
+        self.treated = False
+
     def set_actions_base(self, squad):
         """Расставляем переменные, используемые в бою.
         
@@ -112,9 +150,8 @@ class soldier_in_battle(soldier):
             self.blur = False
         if not hasattr(self, 'sacred_weapon'):
             self.sacred_weapon = False
-        # Не будем выкидывать павших на поле боя:
-        #if not hasattr(self, 'fall'):
-        #    self.fall = False
+        if not hasattr(self, 'fall'):
+            self.fall = False
         if not hasattr(self, 'disabled'):
             self.disabled = False
         if not hasattr(self, 'captured'):
@@ -131,6 +168,9 @@ class soldier_in_battle(soldier):
         # Бонусные хиты от Feat_Inspiring_Leader:
         if not hasattr(self, 'bonus_hitpoints'):
             self.bonus_hitpoints = 0
+        # Использованные для лечения на отдыхе кости хитов:
+        if not hasattr(self, 'hit_dices_use'):
+            self.hit_dices_use = 0
         # Перевязка от лекаря с Feat_Healer:
         if not hasattr(self, 'treated'):
             self.treated = False
@@ -140,25 +180,26 @@ class soldier_in_battle(soldier):
                 self.attacks_number = 2
             if self.class_features.get('Champion_Improved_Critical'):
                 self.crit_range = 19
-            # TODO: добавь проверку, а то Second_Wind восстанавливается в каждом бою.
-            if self.class_features.get('Second_Wind'):
+            # Восстанавливаются после короткого отдыха (short_rest):
+            if self.class_features.get('Second_Wind') and not hasattr(self, 'second_wind'):
                 self.second_wind = True
-            if self.class_features.get('Action_Surge'):
+            if self.class_features.get('Action_Surge') and not hasattr(self, 'action_surge'):
                 self.action_surge = True
-            if self.class_features.get('Lay_on_Hands'):
-                self.lay_on_hands = self.level * 5
             if self.class_features.get('Feat_Inspiring_Leader') and not hasattr(self, 'inspiring_leader'):
                 self.inspiring_leader = True
+            if self.proficiency.get('ki_points_max') and not hasattr(self, 'ki_points'):
+                self.ki_points = self.proficiency['ki_points_max']
+            # Восстанавливаются после долгого отдыха (long_rest):
+            if self.class_features.get('Lay_on_Hands') and not hasattr(self, 'lay_on_hands'):
+                self.lay_on_hands = self.level * 5
             if self.class_features.get('Bardic_Inspiration') and not hasattr(self, 'inspiring_bard_number'):
                 self.inspiring_bard_number = self.mods['charisma']
                 self.inspiring_bard_dice = self.proficiency['bardic_inspiration']
-            if self.proficiency.get('ki_points_max') and not hasattr(self, 'ki_points'):
-                self.ki_points = self.proficiency['ki_points_max']
             if self.proficiency.get('rages_max') and not hasattr(self, 'rages'):
                 self.rages = self.proficiency['rages_max']
             if self.class_features.get('Rage'):
                 self.rage_timer = 0
-            if self.class_features.get('Font_of_Magic'):
+            if self.class_features.get('Font_of_Magic') and not hasattr(self, 'sorcery_points'):
                 self.sorcery_points = self.proficiency.get('sorcery_points',0)
             if self.class_features.get('Warding_Flare') and not hasattr(self, 'warding_flare'):
                 self.warding_flare = self.mods['wisdom']
