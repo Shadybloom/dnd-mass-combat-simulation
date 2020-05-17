@@ -86,6 +86,11 @@ metadict_squads['Company-dummy (goblins)'] = {
     'Goblin Boss (CR 1)':3,
     }
 
+metadict_squads['Company-dummy (hobgoblins)'] = {
+    'Hobgoblin (CR 1/2)':80 + dice_throw('3d12'),
+    'Hobgoblin-captain (CR 3)':3,
+    }
+
 metadict_squads['Company-dummy (orks)'] = {
     'Ork (CR 1/2)':80 + dice_throw('3d12'),
     'Orog (CR 2)':3,
@@ -108,17 +113,17 @@ metadict_squads['Company-dummy (orks)'] = {
 #----
 # Рекруты:
 
-metadict_squads['Commander-dummy (wight)'] = {
-    'Wight (CR 3)':1,
-    }
-
-metadict_squads['Commander-dummy (Veteran)'] = {
-    'Veteran (CR 3)':1,
-    }
-
-metadict_squads['Commander-dummy (hobgoblin-captain)'] = {
-    'Hobgoblin-captain (CR 3)':1,
-    }
+#metadict_squads['Commander-dummy (wight)'] = {
+#    'Wight (CR 3)':1,
+#    }
+#
+#metadict_squads['Commander-dummy (Veteran)'] = {
+#    'Veteran (CR 3)':1,
+#    }
+#
+#metadict_squads['Commander-dummy (hobgoblin-captain)'] = {
+#    'Hobgoblin-captain (CR 3)':1,
+#    }
 
 metadict_squads['Commander-dummy (empyrean)'] = {
     'Empyrean (CR 23)':1,

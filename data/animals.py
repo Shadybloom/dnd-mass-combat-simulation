@@ -206,7 +206,7 @@ metadict_animals['Hobgoblin (CR 1/2)'] = {
         'charisma':9,
         },
     'hit_dice':'1d8',
-    'behavior':'archer',
+    'behavior':'warrior',
     'race':'Human-common',
     'weapon_skill':['simple','martial'],
     'armor_skill':['light','medium','heavy','shield'],
@@ -224,6 +224,9 @@ metadict_animals['Hobgoblin (CR 1/2)'] = {
 metadict_animals['Hobgoblin-captain (CR 3)'] = {
     # Капитан хобгоблинов.
     # TODO: расу подправь.
+    # ------------------------------------------------------------
+    # Martial_Advantage даёт +2d6 урона к удачной атаке, если рядом с врагом союзник.
+    # ------------------------------------------------------------
     'level':6,
     'challenge_rating':'1/2',
     'hitpoints_medial':True,
