@@ -597,7 +597,7 @@ class soldier_in_battle(soldier):
             self.escape = True
         # Каждые 10% потерянного здоровья увеличивают опасность:
         if self.hitpoints < self.hitpoints_max\
-                and not 'brave' in squad.commands\
+                and not 'fearless' in squad.commands\
                 and not self.equipment_weapon.get('Infusion of Healing'):
             hitpoints_danger = math.floor((1 - self.hitpoints / self.hitpoints_max) * 10)
             self.danger += hitpoints_danger
@@ -605,7 +605,7 @@ class soldier_in_battle(soldier):
             #    self.danger = 0
             #    self.escape = True
         # Каждые 10% потерь союзников также увеличивают угрозу:
-        if squad.casualty['casualty_percent'] > 0 and not 'brave' in squad.commands:
+        if squad.casualty['casualty_percent'] > 0 and not 'fearless' in squad.commands:
             casualty_danger = round(squad.casualty['casualty_percent'] / 10)
             self.danger += casualty_danger
         if self.behavior == 'archer':

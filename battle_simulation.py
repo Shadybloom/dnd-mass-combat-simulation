@@ -38,7 +38,7 @@ def create_parser():
                         )
     parser.add_argument('-c', '--commands',
                         action='store_true', dest='commands', default=False,
-                        help='Позволяет команды отрядам: dodge, brave, retreat, т.д. (-command -- отмена, auto -- автопилот)'
+                        help='Позволяет команды отрядам: dodge, fearless, retreat, т.д. (-command -- отмена, auto -- автопилот)'
                         )
     parser.add_argument('-v', '--visual',
                         action='store_true', dest='visual', default=False,
@@ -727,7 +727,7 @@ class battle_simulation(battlescape):
         if squad.commander:
             # Бесстрашные создания бесстрашны, зато трусоватые спасают своих:
             if squad.commander.__dict__.get('fearless'):
-                commands_list.append('brave')
+                commands_list.append('fearless')
             else:
                 commands_list.append('rescue')
             # Лучники и метатели дротиков должны чуть что отступать:
@@ -744,7 +744,7 @@ class battle_simulation(battlescape):
                     commands_list.append('dodge')
             # Бойцы у нас кавалерия:
             #if commander.char_class == 'Fighter' or commander.char_class == 'Barbarian':
-            #    commands_list.append('brave')
+            #    commands_list.append('fearless')
         if commands:
             # Ручной ввод команд отряду, если симуляция запущена с ключом --commands
             if not hasattr(squad, 'commands_manual') or not 'auto' in squad.commands_manual:
@@ -796,8 +796,8 @@ class battle_simulation(battlescape):
             destination = self.find_spawn(soldier.place, soldier.ally_side)
             destination = random.choice(self.point_to_field(destination))
             self.move_action(soldier, squad, destination, allow_replace = False)
-            # Испуганный боец может сбежать:
-            if "morale" in squad.commands:
+            # Испуганный боец может сбежать (но у храброго преимущество):
+            if "brave" in squad.commands:
                 soldier.escape = soldier.morality_check_escape(soldier.danger, advantage = True)
             else:
                 soldier.escape = soldier.morality_check_escape(soldier.danger)
@@ -823,7 +823,7 @@ class battle_simulation(battlescape):
                 self.move_action(soldier, squad, destination, allow_replace = True)
         # Командир ведёт бойцов автоматически, но не вырывается впереди строя:
         if 'lead' in squad.commands and soldier.behavior == 'commander':
-            if len(soldier.near_allies) >= 2 or 'brave' in squad.commands:
+            if len(soldier.near_allies) >= 2 or 'fearless' in squad.commands:
                 if hasattr(squad, 'destination') and squad.destination\
                         and not 'auto' in squad.commands:
                     self.move_action(soldier, squad, squad.destination, allow_replace = True)
@@ -849,7 +849,7 @@ class battle_simulation(battlescape):
             recon_near = self.recon(soldier.place, distance = 1)
             soldier.set_near_enemies(recon_near)
             soldier.set_danger(self.recon_action_danger(soldier, recon_near), squad)
-            if soldier.danger <= 0 or 'brave' in squad.commands:
+            if soldier.danger <= 0 or 'fearless' in squad.commands:
                 self.fireball_action(soldier, squad)
                 self.spellcast_action(soldier, squad, enemy)
         # Атака следует за 'engage', поэтому осматриваемся снова:
@@ -857,7 +857,7 @@ class battle_simulation(battlescape):
             recon_near = self.recon(soldier.place, distance = 1)
             soldier.set_near_enemies(recon_near)
             soldier.set_danger(self.recon_action_danger(soldier, recon_near), squad)
-            if soldier.danger <= 0 or 'brave' in squad.commands:
+            if soldier.danger <= 0 or 'fearless' in squad.commands:
                 self.attack_action(soldier, squad, enemy)
                 if 'engage' in squad.commands\
                         and not 'dodge' in squad.commands\
@@ -949,11 +949,11 @@ class battle_simulation(battlescape):
         # Простые солдаты нападают вблизи только при двухкратном превосходстве союзников:
         if not soldier.near_enemies and ally_strenght >= enemy_strenght * 2\
                 or soldier.hero == True and not soldier.near_enemies and ally_strenght >= enemy_strenght\
-                or 'brave' in squad.commands:
+                or 'fearless' in squad.commands:
             self.move_action(soldier, squad, destination)
             recon_near = self.recon(soldier.place, distance = 1)
             soldier.set_near_enemies(recon_near)
-            if not soldier.near_enemies or 'brave' in squad.commands:
+            if not soldier.near_enemies or 'fearless' in squad.commands:
                 self.move_action(soldier, squad, enemy.place, save_path = False)
                 if soldier.hero == True or soldier.behavior == 'commander':
                     self.move_action(soldier, squad, enemy.place, allow_replace = True)
