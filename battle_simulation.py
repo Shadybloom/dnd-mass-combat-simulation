@@ -1223,6 +1223,7 @@ class battle_simulation(battlescape):
                 if attack_choice[0] == 'close':
                     attacks_chain_bonus = soldier.set_martial_arts()
             # Роги умело выбивают командиров:
+            # TODO: для этого теперь есть команда "kill".
             elif soldier.char_class == 'Rogue':
                 if attack_choice[0] == 'ranged' and squad.enemies:
                     visible_enemies = self.find_visible_soldiers(
@@ -1791,13 +1792,15 @@ class battle_simulation(battlescape):
             near_enemies = self.find_enemies_near(soldier, distance = 2)
             if near_enemies:
                 return self.select_enemy(near_enemies)
-        # Сортируем цели по дистанции и берём по две, чтобы захватить всадника и коня:
-        if squad.enemies and soldier.behavior == 'commander':
+        # Командир выбирает целью вражеских командиров:
+        if squad.enemies and soldier.behavior == 'commander'\
+                or squad.enemies and "kill" in squad.commands:
             sorted_enemies = self.refind_soldiers_distance(soldier.place, squad.enemies)
             visible_enemies = self.find_visible_soldiers(
                     soldier.place, soldier.enemy_side, sorted_enemies,
                     max_number = 30, max_try = 60)
             return self.select_enemy(visible_enemies, select_strongest = True)
+        # Сортируем цели по дистанции и берём по две, чтобы захватить всадника и коня:
         elif squad.enemies:
             sorted_enemies = self.refind_soldiers_distance(soldier.place, squad.enemies)
             visible_enemies = self.find_visible_soldiers(
