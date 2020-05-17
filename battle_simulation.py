@@ -52,6 +52,10 @@ def create_parser():
                         action='store_true', dest='reinforce', default=False,
                         help='Подкрепления во время боя.'
                         )
+    parser.add_argument('-I', '--injured',
+                        action='store_true', dest='injured', default=False,
+                        help='Павшие с 0 hp тоже попадают на поле боя.'
+                        )
     return parser
 
 #-------------------------------------------------------------------------
@@ -128,8 +132,9 @@ class battle_simulation(battlescape):
             for soldier in squad.metadict_soldiers.values():
                 soldier.set_actions_base(squad)
                 soldier.set_actions(squad)
-        # Бонусные хитпоинты, от лидеров отряда для всей армии:
+        # Подготовка к бою (бонусные хиты, заклинания, отдых и лечение):
         for key,squad in self.squads.items():
+            self.set_squad_heal(squad)
             self.set_squad_bonus_hitpoints(squad)
             self.set_squad_bardic_inspiration(squad)
             self.set_squad_spell_bless(squad)
@@ -151,7 +156,7 @@ class battle_simulation(battlescape):
             if squad_type in squads_list_types:
                 squad.create_squad(squad_type)
             elif squad_type in squads_list_DB:
-                squad.load_squad_from_DB(squad_type)
+                squad.load_squad_from_DB(squad_type, namespace.injured)
             if zone in self.ally_zones:
                 squad.set_ally_side(self.ally_side)
                 squad.set_enemy_side(self.enemy_side)
@@ -257,6 +262,40 @@ class battle_simulation(battlescape):
                 soldier.set_place_in_order(place_in_order)
                 #print(soldier.behavior,soldier.place, soldier.place_in_order)
 
+    def set_squad_heal(self, squad):
+        """Лекари поднимают на ноги павших бойцов (ключ -I при запуске)
+
+        Feat_Healer:
+        - стабилизация раненого возвращает ему 1 hp.
+        - перевязка на 1d6+4 + максимум_кости_хитов
+        - только одна перевязка перед коротким/продолжительным отдыхом.
+        """
+        bless_list = []
+        bless_type = 'treated'
+        for soldier in squad.metadict_soldiers.values():
+            if soldier.class_features.get('Feat_Healer'):
+                bless_list.append(dices.dice_throw_advantage("1d6") + 4)
+        soldiers_list_elite = self.select_soldiers_for_bless(
+                len(self.metadict_soldiers), squad.ally_side, bless_type)
+        # Лечим раненых:
+        for soldier in soldiers_list_elite:
+            if not soldier.disabled and not soldier.death:
+                if bless_list and soldier.hitpoints <= soldier.hitpoints_max / 2:
+                    max_hit_dice = int(soldier.hit_dice.split('d')[1])
+                    heal = bless_list.pop() + max_hit_dice
+                    soldier.set_hitpoints(heal = heal)
+                    soldier.treated = True
+                    soldier.fall = False
+                    print('{side} Feat_Healer, {p} {b} {n} heal: {hit}/{hit_max} ({heal})'.format(
+                        side = soldier.ally_side,
+                        p = soldier.place,
+                        b = soldier.behavior,
+                        n = soldier.name,
+                        hit = soldier.hitpoints,
+                        hit_max = soldier.hitpoints_max,
+                        heal = heal,
+                        ))
+
     def set_squad_bonus_hitpoints(self, squad):
         """Бонусные хиты от способности командира.
         
@@ -281,7 +320,15 @@ class battle_simulation(battlescape):
         for soldier in soldiers_list_elite:
             if bless_list:
                 soldier.set_hitpoints(bonus_hitpoints = bless_list.pop())
-                #print(soldier.rank, soldier.bonus_hitpoints)
+                #print('{side} Feat_Inspiring_Leader, {p} {b} {n} bonus_hitpoints: {hitpoints}/{hitpoints_max} ({hitpoints_bonus})'.format(
+                #    side = soldier.ally_side,
+                #    p = soldier.place,
+                #    b = soldier.behavior,
+                #    n = soldier.name,
+                #    hitpoints = soldier.hitpoints + soldier.bonus_hitpoints,
+                #    hitpoints_max = soldier.hitpoints_max,
+                #    hitpoints_bonus = soldier.bonus_hitpoints,
+                #    ))
 
     def set_squad_bardic_inspiration(self, squad):
         """Барды дают бонус к атаке или спасброску вдохновлённых бойцов.

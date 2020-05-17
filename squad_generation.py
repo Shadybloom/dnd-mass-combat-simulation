@@ -80,7 +80,7 @@ class squad_generation():
         self.squad_cost = self.calculate_squad_cost()
         #self.set_hitpoints()
 
-    def load_squad_from_DB(self, squad_name):
+    def load_squad_from_DB(self, squad_name, get_injured = False):
         """Воссоздаём отряд из базы данных.
         
         Там только список солдат.
@@ -91,7 +91,7 @@ class squad_generation():
         self.name = squad_name
         self.name_translate = squad_name
         soldiers_uuid_list = self.database.print_squad_soldiers(squad_name)
-        self.metadict_soldiers = self.load_soldiers_from_DB(soldiers_uuid_list)
+        self.metadict_soldiers = self.load_soldiers_from_DB(soldiers_uuid_list, get_injured)
         self.squad_number = len(self.metadict_soldiers)
         self.soldiers_list = list(self.metadict_soldiers.keys())
         # Кое-какая обобщённая статистика:
@@ -101,16 +101,19 @@ class squad_generation():
         self.attack_mod = self.calculate_squad_attack_mod()
         self.squad_cost = self.calculate_squad_cost()
 
-    def load_soldiers_from_DB(self, soldiers_uuid_list):
+    def load_soldiers_from_DB(self, soldiers_uuid_list, get_injured = False):
         """Создаём солдат, загружая характеристики из базы данных."""
         metadict_soldiers = {}
         for uuid_string in soldiers_uuid_list:
             soldier_dict = self.database.soldier_from_database(uuid_string)
-            # TODO: раненых можно оставить на поле боя. Могут ведь и ещё больше пострадать:
-            if soldier_dict.get('fall') is not True and soldier_dict.get('hitpoints') > 0:
-                recruit = soldier_in_battle()
-                recruit.__dict__ = soldier_dict
-                metadict_soldiers[recruit.uuid] = recruit
+            if not soldier_dict.get('death')\
+                    and not soldier_dict.get('disabled')\
+                    and not soldier_dict.get('captured'):
+                if not soldier_dict.get('fall') and soldier_dict.get('hitpoints') > 0\
+                        or get_injured:
+                    recruit = soldier_in_battle()
+                    recruit.__dict__ = soldier_dict
+                    metadict_soldiers[recruit.uuid] = recruit
         # Сортируем бойцов по уровню, чтобы на вершине были командиры.
         metadict_soldiers = OrderedDict(reversed(sorted(metadict_soldiers.items(),key=lambda x: x[1].level)))
         return metadict_soldiers

@@ -144,7 +144,6 @@ class database():
         soldier_dict['hitpoints_heal'] = soldier_hitpoints_heal
         if soldier_hitpoints > 0:
             soldier_dict['fall'] = False
-        print(soldier_hitpoints, soldier_dict['hitpoints'])
         return soldier_dict
 
     def purge_soldiers_table(self):

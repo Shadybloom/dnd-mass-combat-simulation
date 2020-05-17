@@ -50,10 +50,11 @@ class soldier_in_battle(soldier):
         if damage:
             self.hitpoints -= damage
         if heal:
+            hitpoints_damage = self.hitpoints_max - self.hitpoints
+            if heal > hitpoints_damage:
+                heal = hitpoints_damage
             self.hitpoints += heal
             self.hitpoints_heal += heal
-            if self.hitpoints > self.hitpoints_max:
-                self.hitpoints = self.hitpoints_max
         if bonus_hitpoints:
             self.bonus_hitpoints = bonus_hitpoints
         return self.hitpoints
@@ -124,12 +125,15 @@ class soldier_in_battle(soldier):
         if not hasattr(self, 'defeats'):
             self.defeats = 0
         # В составе отряда могут быть "мёртвые души":
-        if not hasattr(self, 'death'):
+        if not hasattr(self, 'death') or not hasattr(self, 'stable'):
             self.death = False
             self.stable = False
         # Бонусные хиты от Feat_Inspiring_Leader:
         if not hasattr(self, 'bonus_hitpoints'):
             self.bonus_hitpoints = 0
+        # Перевязка от лекаря с Feat_Healer:
+        if not hasattr(self, 'treated'):
+            self.treated = False
         # Учитываем доступные приёмы:
         if self.class_features:
             if self.class_features.get('Extra_Attack'):
