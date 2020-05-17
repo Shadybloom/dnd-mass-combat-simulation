@@ -595,6 +595,7 @@ class battle_simulation(battlescape):
             # Смотрим, не на коне ли враг:
             if hasattr(enemy_soldier, 'mount_uuid')\
                     and enemy_soldier.mount_combat == True\
+                    and self.metadict_soldiers.get(enemy_soldier.mount_uuid)\
                     and self.metadict_soldiers[enemy_soldier.mount_uuid].place == enemy_soldier.place:
                 speed_list.append(self.metadict_soldiers[enemy_soldier.mount_uuid].base_speed)
             else:
@@ -1632,6 +1633,7 @@ class battle_simulation(battlescape):
             if soldier.class_features.get('Feat_Mounted_Combatant') == True\
                     and soldier.mount_combat\
                     and hasattr(soldier, 'mount_uuid')\
+                    and self.metadict_soldiers.get(soldier.mount_uuid)\
                     and self.metadict_soldiers[soldier.mount_uuid].place == soldier.place:
                 if not hasattr(enemy_soldier, 'mount_uuid')\
                         or hasattr(enemy_soldier, 'mount_uuid')\
@@ -1941,7 +1943,8 @@ class battle_simulation(battlescape):
                             soldier.ally_side, soldier.place, soldier.behavior,
                             soldier.hitpoints, soldier.hitpoints_max, soldier.escape))
                         # Проверяем, есть ли рядом с бойцом его ездовое животное:
-                        if hasattr(soldier, 'mount_uuid'):
+                        if hasattr(soldier, 'mount_uuid') and soldier.mount_uuid\
+                                and self.metadict_soldiers.get(soldier.mount_uuid):
                             mount_place_field = self.point_to_field(place, 3)
                             mount = self.metadict_soldiers[soldier.mount_uuid]
                             for point in mount_place_field:
