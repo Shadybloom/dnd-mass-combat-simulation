@@ -227,8 +227,17 @@ class battle_simulation(battlescape):
                                 #soldier_tuple = self.namedtuple_soldier(side,behavior,uuid)
                                 soldier_tuple = (squad.ally_side, soldier.behavior, soldier.uuid)
                                 # Дополняем словарь поля боя и вырубаем цикл, так как спавн занят:
-                                self.dict_battlespace[spawn_point.place].append(squad.ally_side)
-                                self.dict_battlespace[spawn_point.place].append(soldier_tuple)
+                                if soldier.size == 'medium' or soldier.size == 'small':
+                                    self.dict_battlespace[spawn_point.place].append(squad.ally_side)
+                                    self.dict_battlespace[spawn_point.place].append(soldier_tuple)
+                                # Большие существа занимают 2x2 тайла:
+                                elif soldier.size == 'large':
+                                    soldier_place_field = self.point_to_field_2x2(spawn_point.place)
+                                    for point in soldier_place_field:
+                                        if point in self.dict_battlespace:
+                                            self.dict_battlespace[point].append(soldier_tuple)
+                                            self.dict_battlespace[point].append(squad.ally_side)
+                                            self.dict_battlespace[point].append('mount_height')
                                 # Даём бойцу его координаты:
                                 squad.metadict_soldiers[uuid].set_coordinates(spawn_point.place)
                                 break
@@ -768,9 +777,23 @@ class battle_simulation(battlescape):
         # Разрешаем battle_action, move_action и т.д.
         soldier.set_actions(squad)
         # Запоминаем все точки вокруг, не занятые непроходимой местностью или границами зон:
-        soldier.near_zone = self.find_points_in_zone(soldier.place, distance = 1)
         # Находим противников и союзников в области 5 футов, 3x3 клетки:
-        recon_near = self.recon(soldier.place, distance = 1)
+        # Крупные создания осматривают большую зону вокруг себя.
+        if soldier.size == 'large':
+            soldier_tuple = (squad.ally_side, soldier.behavior, soldier.uuid)
+            soldier_place_field = self.point_to_field_2x2(soldier.place)
+            recon_near = {}
+            near_zone = []
+            for point in soldier_place_field:
+                if point in self.dict_battlespace and\
+                        soldier_tuple in self.dict_battlespace[point]:
+                    recon_near.update(self.recon(point, distance = 1))
+                    near_zone.extend(self.find_points_in_zone(point, distance = 1))
+            near_zone = list(set(near_zone))
+        else:
+            near_zone = self.find_points_in_zone(soldier.place, distance = 1)
+            recon_near = self.recon(soldier.place, distance = 1)
+        soldier.near_zone = near_zone
         soldier.set_near_allies(recon_near)
         soldier.set_near_enemies(recon_near)
         enemy = self.find_enemy(soldier, squad)
@@ -1106,17 +1129,30 @@ class battle_simulation(battlescape):
         
         Вызывается по одной клетке в move_action.
         """
-        # TODO: сделай солдат большого размера. Лошади уже есть.
         for el in self.dict_battlespace[coordinates]:
             if type(el) == tuple and el[-1] == uuid:
                 soldier_tuple = el
                 soldier_uuid = el[-1]
                 soldier = self.metadict_soldiers[soldier_uuid]
-                if hasattr(soldier, 'mount_uuid'):
+                if hasattr(soldier, 'mount_uuid') and soldier.mount_uuid:
                     self.change_place_mount(coordinates, destination, soldier)
-                self.dict_battlespace[coordinates].remove(el)
-                self.dict_battlespace[destination].append(soldier_tuple)
-                soldier.set_coordinates(destination)
+                if soldier.size == 'medium' or soldier.size == 'small':
+                    self.dict_battlespace[coordinates].remove(el)
+                    self.dict_battlespace[destination].append(soldier_tuple)
+                    soldier.set_coordinates(destination)
+                elif soldier.size == 'large':
+                    soldier_place_field = self.point_to_field(coordinates, 3)
+                    for point in soldier_place_field:
+                        if point in self.dict_battlespace\
+                                and soldier_tuple in self.dict_battlespace[point]:
+                            self.dict_battlespace[point].remove(el)
+                    #self.dict_battlespace[destination].append(soldier_tuple)
+                    destination_field = self.point_to_field_2x2(destination)
+                    for point in destination_field:
+                        if point in self.dict_battlespace and point != coordinates:
+                            self.dict_battlespace[point].append(soldier_tuple)
+                            self.dict_battlespace[point].append('mount_height')
+                    soldier.set_coordinates(destination)
         # Показывает ходы бойца:
         if namespace.visual:
             print_ascii_map(self.gen_battlemap())
@@ -1806,7 +1842,10 @@ class battle_simulation(battlescape):
         - В раиусе дальних атак (лук, праща, дротики)
         """
         if soldier.near_enemies:
-            return self.select_enemy(soldier.near_enemies)
+            if soldier.behavior == 'commander' or "kill" in squad.commands:
+                return self.select_enemy(soldier.near_enemies, select_strongest = True)
+            else:
+                return self.select_enemy(soldier.near_enemies)
         if 'reach' in [attack[0] for attack in soldier.attacks]:
             near_enemies = self.find_enemies_near(soldier, distance = 2)
             if near_enemies:
