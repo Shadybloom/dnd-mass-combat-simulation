@@ -2398,6 +2398,10 @@ metadict_chars['Monk 5 lvl (city windsong-warmonger)'] = {
     'hit_dice':'1d8',
     'behavior':'commander',
     'class_features':{
+        # TODO: Сделай Stunning_Strike. Пусть монах 5 lvl использует его, атакуя командиров.
+        # Тактика такова:
+        # - Атаковать с Flurry_of_Blows и Stunning_Strike (который отменяет спасброски)
+        # - Второй атакйо схватить и тащить.
         'Feat_Defensive_Duelist':True,
         'Unarmored_Defense':True,
         'Martial_Arts':True,

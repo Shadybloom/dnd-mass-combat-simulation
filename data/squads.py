@@ -66,33 +66,34 @@ metadict_squads['Company-militia (bowmans-hunters)'] = {
 # Рекруты:
 
 metadict_squads['Company-dummy (zombies)'] = {
-    'Zombie (CR 1/4)':80 + dice_throw('3d12'),
+    'Zombie (CR 1/4)':80 + dice_throw('1d12'),
     'Wight (CR 3)':1,
     }
 
 metadict_squads['Company-dummy (bandits)'] = {
-    'Bandit (CR 1/8)':80 + dice_throw('3d12'),
+    'Bandit (CR 1/8)':80 + dice_throw('1d12'),
     'Thug (CR 1/2)':4,
     'Veteran (CR 3)':1,
     }
 
 metadict_squads['Company-dummy (sentinels)'] = {
-    'Sentinel (CR 1/8)':80 + dice_throw('3d12'),
+    'Sentinel (CR 1/8)':80 + dice_throw('1d12'),
     'Veteran (CR 3)':1,
     }
 
 metadict_squads['Company-dummy (goblins)'] = {
-    'Goblin (CR 1/4)':80 + dice_throw('3d12'),
+    'Goblin (CR 1/4)':80 + dice_throw('1d12'),
     'Goblin Boss (CR 1)':3,
     }
 
 metadict_squads['Company-dummy (hobgoblins)'] = {
-    'Hobgoblin (CR 1/2)':80 + dice_throw('3d12'),
-    'Hobgoblin-captain (CR 3)':3,
+    'Hobgoblin (CR 1/2)':80 + dice_throw('1d12'),
+    'Bugbear (CR 1)':3,
+    'Hobgoblin-captain (CR 3)':1,
     }
 
 metadict_squads['Company-dummy (orks)'] = {
-    'Ork (CR 1/2)':80 + dice_throw('3d12'),
+    'Ork (CR 1/2)':80 + dice_throw('1d12'),
     'Orog (CR 2)':3,
     'Ork war chief (CR 4)':1,
     }

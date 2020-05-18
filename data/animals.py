@@ -393,7 +393,7 @@ metadict_animals['Bugbear (CR 1)'] = {
         'charisma':9,
         },
     'hit_dice':'1d8',
-    'behavior':'elite_warrior',
+    'behavior':'commander',
     'race':'Human-common',
     'weapon_skill':['simple','martial'],
     'armor_skill':['light','medium','heavy','shield'],
