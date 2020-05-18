@@ -1484,7 +1484,8 @@ class battle_simulation(battlescape):
                                 pass
                         bonfire_place = enemy_soldier.place
                         spell_dict['bonfire_place'] = bonfire_place
-                        self.dict_battlespace[bonfire_place].append('fire')
+                        #self.dict_battlespace[bonfire_place].append('fire')
+                        self.dict_battlespace[bonfire_place].insert(0, 'fire')
                         self.dict_battlespace[bonfire_place].append('danger_terrain')
                         self.dict_battlespace[bonfire_place].append('stop_terrain')
                         # Обновляем сетку, метка "fire" -- опасная зона.
