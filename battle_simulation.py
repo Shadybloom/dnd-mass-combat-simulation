@@ -1469,6 +1469,28 @@ class battle_simulation(battlescape):
                             advantage = advantage, disadvantage = disadvantage)
                     attack_result = enemy_soldier.take_attack(
                             spell_choice, attack_dict, self.metadict_soldiers)
+                    # Заклинание "Create_Bonfire" оставляет пожары:
+                    if spell_dict.get('effect') == 'bonfire':
+                        # TODO: поставь в начале хода атаку любого, кто оказался в зоне поражения.
+                        # Для этого нужна отдельная, универсальная функция.
+                        if soldier.concentration and soldier.concentration_spell.get('bonfire_place'):
+                            try:
+                                bonfire_place_old = soldier.concentration_spell['bonfire_place']
+                                self.dict_battlespace[bonfire_place_old].remove('fire')
+                                self.dict_battlespace[bonfire_place_old].remove('danger_terrain')
+                                self.dict_battlespace[bonfire_place_old].remove('stop_terrain')
+                            except ValueError:
+                                #traceback.print_exc()
+                                pass
+                        bonfire_place = enemy_soldier.place
+                        spell_dict['bonfire_place'] = bonfire_place
+                        self.dict_battlespace[bonfire_place].append('fire')
+                        self.dict_battlespace[bonfire_place].append('danger_terrain')
+                        self.dict_battlespace[bonfire_place].append('stop_terrain')
+                        # Обновляем сетку, метка "fire" -- опасная зона.
+                        self.matrix = self.map_to_matrix(self.battle_map, self.dict_battlespace)
+                        soldier.concentration_spell = spell_dict
+                        soldier.concentration = True
                 # Заклинания с показателем атаки мало отличаются от стрел и мечей:
                 elif spell_dict.get('attack_mod'):
                     attack_dict = soldier.attack(spell_dict, spell_choice,

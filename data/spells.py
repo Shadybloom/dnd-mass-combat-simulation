@@ -506,6 +506,47 @@ class gen_spells():
             spell_dict['damage_dice'] = '4d6'
         return spell_dict
 
+    def Create_Bonfire(self, spell_level):
+        """Газовая горелка чародея.
+
+        Level: Cantrip
+        Casting time: 1 Action
+        Range: 60 feet
+        Components: V, S
+        Duration: Concentration, up to 1 minute
+        https://www.dnd-spells.com/spell/create-bonfire
+        """
+        # TODO: допиливай, нужна метка местности "bonfire"
+        spell_dict = {
+                'effect':'bonfire',
+                'concentration':True,
+                'direct_hit':True,
+                'savethrow':True,
+                'savethrow_all':True,
+                'savethrow_ability':'dexterity',
+                'attacks_number':1,
+                'radius':5,
+                'attack_range':60,
+                'damage_type':'fire',
+                'damage_dice':'1d8',
+                'components':['verbal','somatic'],
+                'casting_time':'action',
+                'damage_mod':0,
+                'spell_level':spell_level,
+                'spell_save_DC':8 + self.find_spell_attack_mod(),
+                'spell_of_choice':'Create_Bonfire',
+                }
+        if self.mage.level >= 5:
+            spell_dict['damage_dice'] = '2d8'
+        if self.mage.level >= 11:
+            spell_dict['damage_dice'] = '3d8'
+        if self.mage.level >= 17:
+            spell_dict['damage_dice'] = '4d8'
+        return spell_dict
+
+#----
+# Subspells
+
     def Ice_Knife_Piercing(self, spell_level):
         """Главный поражающий элемент заклинания Ice_Knife."""
         # Субзаклинание от Ice_Knife.

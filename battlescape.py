@@ -945,6 +945,11 @@ class battlescape():
                     symbol_colored = '\x1b[48;5;10m' + symbol_colored
                 elif self.enemy_side in self.dict_battlespace[key]:
                     symbol_colored = '\x1b[48;5;9m' + symbol_colored
+            if 'fire' in self.dict_battlespace[key]:
+                if el[0] == self.enemy_side:
+                    symbol_colored = '\x1b[48;5;52m' + symbol_colored
+                elif el[0] == self.ally_side:
+                    symbol_colored = '\x1b[48;5;22m' + symbol_colored
             if 'volley' in self.dict_battlespace[key]:
                 #symbol_colored = '\x1b[48;5;23m' + symbol_colored
                 if type(el) == tuple:
