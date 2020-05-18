@@ -2096,6 +2096,13 @@ class battle_simulation(battlescape):
                     except ValueError:
                         #traceback.print_exc()
                         pass
+                # Убираем метки "Града стрел":
+                if el == 'volley':
+                    try:
+                        content.remove(el)
+                    except ValueError:
+                        #traceback.print_exc()
+                        pass
 
     def print_battle_statistics(self):
         """Вывод статистики после боя. Убитые, раненые по отрядам."""
