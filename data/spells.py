@@ -685,9 +685,9 @@ class gen_spells():
         https://www.dnd-spells.com/spell/sleep
         """
         spell_dict = {
+                'effect':'sleep',
                 'attacks_number':1,
                 'attack_range':90,
-                'effect':'sleep',
                 'damage_type':'sleep',
                 'damage_dice':'5d8',
                 'components':['verbal','somatic','material'],
@@ -1123,7 +1123,6 @@ class gen_spells():
         """Взрыв. Поражающих элементов нет, но контузит отлично.
 
         Level: 2
-        Level: 2
         Casting time: 1 Action
         Range: 60 feet
         Components: V, S, M (a chip of mica)
@@ -1151,6 +1150,33 @@ class gen_spells():
             dice = int(spell_dict['damage_dice'][0])
             dice += int(spell_level[0]) - 1
             spell_dict['damage_dice'] = str(dice) + spell_dict['damage_dice'][1:]
+        if self.mage.class_features.get('Metamagic_Distant_Spell'):
+            spell_dict['attack_range'] *= 2
+        return spell_dict
+
+    def Darkness(self, spell_level):
+        """Затемнение местности. Вокруг предмета, или вокруг точки.
+
+        Level: 2
+        Casting time: 1 Action
+        Range: 60 feet
+        Components: V, M (bat fur and a drop of pitch or piece of coal)
+        Duration: Concentration, up to 10 minutes
+        https://www.dnd-spells.com/spell/darkness
+        """
+        spell_dict = {
+                # Радиус 20 из-за круглой зоны. Получается 35 футов.
+                'effect':'darkness',
+                'direct_hit':True,
+                'attacks_number':1,
+                'attack_range':60,
+                'radius':20,
+                'components':['verbal','material'],
+                'casting_time':'action',
+                'spell_level':spell_level,
+                'spell_save_DC':8 + self.find_spell_attack_mod(),
+                'spell_of_choice':'Darkness',
+                }
         if self.mage.class_features.get('Metamagic_Distant_Spell'):
             spell_dict['attack_range'] *= 2
         return spell_dict

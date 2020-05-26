@@ -40,6 +40,10 @@ def create_parser():
                         action='store_true', dest='commands', default=False,
                         help='Позволяет команды отрядам: dodge, fearless, retreat, т.д. (-command -- отмена, auto -- автопилот)'
                         )
+    parser.add_argument('-w', '--weather',
+                        action='store', dest='weather', type=str,
+                        help='Добавляет эффекты погоды, доступно: night'
+                        )
     parser.add_argument('-v', '--visual',
                         action='store_true', dest='visual', default=False,
                         help='Показывает ходы каждого бойца.'
@@ -145,6 +149,13 @@ class battle_simulation(battlescape):
             # Короткий отдых:
             if namespace.short_rest:
                 self.set_squad_short_rest(squad)
+        # Эффекты погоды:
+        if namespace.weather:
+            weather_list = namespace.weather.split()
+            if 'night' in namespace.weather:
+                for point in self.dict_battlespace.keys():
+                    if not 'darkness' in self.dict_battlespace[point]:
+                        self.dict_battlespace[point].append('obscure_terrain')
         # Вывод карты до начала боя:
         #print_ascii_map(battle.gen_battlemap())
 
@@ -799,6 +810,12 @@ class battle_simulation(battlescape):
         enemy = self.find_enemy(soldier, squad)
         # Работает страхочуйка и мораль бойца:
         soldier.set_danger(self.recon_action_danger(soldier, recon_near), squad)
+        # Солдат отмечает местонахождение врага, если его ещё нет на линии фронта:
+        # Для битв в тумане Fog_Cloud и в темноте Darkness:
+        if soldier.near_enemies and squad.frontline:
+            for enemy in soldier.near_enemies:
+                if enemy.place not in squad.frontline:
+                    squad.frontline.append(enemy.place)
         #if soldier.danger > 0:
         #    print('{0} {1} {2} hp {3}/{4} danger {5}'.format(
         #    soldier.ally_side, soldier.place, soldier.rank,
@@ -894,7 +911,9 @@ class battle_simulation(battlescape):
         if 'volley' in squad.commands and not enemy and soldier.behavior == 'archer':
             self.volley_action(soldier, squad)
         # Лучники отступают, если враг близко:
-        if 'disengage' in squad.commands and enemy and enemy.distance <= squad.enemy_recon['move'] * 2:
+        if 'disengage' in squad.commands\
+                and enemy and squad.enemy_recon\
+                and enemy.distance <= squad.enemy_recon['move'] * 2:
             destination = self.find_spawn(soldier.place, soldier.ally_side)
             self.move_action(soldier, squad, destination, allow_replace = True)
         # Если действия таки не использовались -- защищаемся:
@@ -1153,6 +1172,17 @@ class battle_simulation(battlescape):
                             self.dict_battlespace[point].append(soldier_tuple)
                             self.dict_battlespace[point].append('mount_height')
                     soldier.set_coordinates(destination)
+                # Добавляем эффекты движения:
+                # TODO: добавь развеивание темноты по старым координатам.
+                if soldier.__dict__.get('darkness'):
+                    spell_dict = soldier.darkness_dict
+                    zone_radius = round(spell_dict['radius'] / self.tile_size)
+                    zone_list = self.find_points_in_zone(soldier.place, zone_radius)
+                    zone_list_circle = [point for point in zone_list\
+                            if inside_circle(point, soldier.place, zone_radius)]
+                    for point in zone_list_circle:
+                        if not 'darkness' in self.dict_battlespace[point]:
+                            self.dict_battlespace[point].append('obscure_terrain')
         # Показывает ходы бойца:
         if namespace.visual:
             print_ascii_map(self.gen_battlemap())
@@ -1444,6 +1474,7 @@ class battle_simulation(battlescape):
                     if soldier.class_features.get('Channel_Radiance_of_the_Dawn')\
                             and soldier.near_enemies and len(soldier.near_enemies) > 1\
                             and soldier.channel_divinity > 0:
+                        # TODO: добавь развеивание темноты "Darkness".
                         spell_choice = 'channel', 'Radiance_of_the_Dawn'
                         spell_dict = soldier.spells[spell_choice]
                         spell_dict['spell_choice'] = spell_choice
@@ -1466,6 +1497,23 @@ class battle_simulation(battlescape):
                         # Вот только целей у заклинания может быть несколько.
                         #if fear:
                         #    soldier.concentration = True
+                    continue
+                elif spell_dict.get('effect') == 'darkness':
+                    # Требует концентрации. Никакого спасброска.
+                    if soldier.concentration == True:
+                        break
+                    else:
+                        # TODO: Сделай уже функцию draw_circle.
+                        zone_radius = round(spell_dict['radius'] / self.tile_size)
+                        zone_list = self.find_points_in_zone(enemy_soldier.place, zone_radius)
+                        zone_list_circle = [point for point in zone_list\
+                                if inside_circle(point, enemy_soldier.place, zone_radius)]
+                        for point in zone_list_circle:
+                            self.dict_battlespace[point].append('obscure_terrain')
+                        enemy_soldier.darkness = True
+                        enemy_soldier.darkness_dict = spell_dict
+                        soldier.concentration = True
+                        soldier.concentration_spell = spell_dict
                     continue
                 # Заклинание Entangle:
                 elif spell_dict.get('effect') == 'entangle':
@@ -1521,6 +1569,7 @@ class battle_simulation(battlescape):
                         bonfire_place = enemy_soldier.place
                         spell_dict['bonfire_place'] = bonfire_place
                         #self.dict_battlespace[bonfire_place].append('fire')
+                        # TODO: не используй insert, это ломает battlemap
                         self.dict_battlespace[bonfire_place].insert(0, 'fire')
                         self.dict_battlespace[bonfire_place].append('danger_terrain')
                         self.dict_battlespace[bonfire_place].append('stop_terrain')
@@ -1780,6 +1829,9 @@ class battle_simulation(battlescape):
             disadvantage = True
         # Заклинание 'Размытый образ' прикрывает от атак:
         elif enemy_soldier.blur == True:
+            disadvantage = True
+        # В темноте/тумане сложно атаковать:
+        if 'obscure_terrain' in self.dict_battlespace[enemy_soldier.place]:
             disadvantage = True
         # Противника может защитить товарищ с Fighting_Style_Protection:
         elif len(enemy_soldier.near_allies) > 1:

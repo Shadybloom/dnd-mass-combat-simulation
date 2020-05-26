@@ -189,7 +189,6 @@ class battlescape():
             'T':['big_tree','total_cover_terrain','stop_terrain','zone_border'],
             # Недоступная местность (море, реки, каналы и ямы):
             '|':['wall','stop_terrain','zone_border'],
-            'f':['fire','stop_terrain','zone_border'],
             '~':['sea','water','stop_terrain', 'zone_border'],
             'P':['pond','water','stop_terrain','zone_border'],
             'R':['river','water','stop_terrain','zone_border'],
@@ -197,6 +196,8 @@ class battlescape():
             'o':['pit','stop_terrain','zone_border'],
             # Ловушки на карте:
             '*':['caltrops','good_terrain'],
+            #'d':['darkness','good_terrain',],
+            'f':['fire','stop_terrain','zone_border'],
             # Позиции войск на карте:
             # Это границы зон спавна, каждая принадлежит указанному отряду:
             '-':['horisontal_zone_border','zone_border','good_terrain'],
@@ -453,6 +454,9 @@ class battlescape():
             # ------------------------------------------------------------
             #print(coordinates, terrain, matrix_point)
             if 'total_cover_terrain' in terrain:
+                wall_cover = True
+                break
+            if 'obscure_terrain' in terrain and distance > 1:
                 wall_cover = True
                 break
             elif matrix_point >1:
@@ -932,6 +936,8 @@ class battlescape():
                     symbol_colored = '\x1b[48;5;8m' + symbol_colored
                 if 'mount_height' in self.dict_battlespace[key]:
                     symbol_colored = '\x1b[48;5;8m' + symbol_colored
+                if 'obscure_terrain' in self.dict_battlespace[key]:
+                    symbol_colored = '\x1b[48;5;18m' + symbol_colored
                 if soldiers_in_place > 1:
                     symbol_colored = '\x1b[4m' + symbol_colored
                 # TODO: сделай курсив для раненых и белый для отступающих.
