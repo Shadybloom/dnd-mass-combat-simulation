@@ -1239,6 +1239,17 @@ metadict_items['Glaive +1'] = {
     'cost (grams_of_gold)':600,
     }
 
+metadict_items['Long Spear +1'] = {
+    'weapon':True,
+    'weapon_type':['martial','close','reach','versatile','heavy','magic','+1'],
+    'damage_type':'piercing',
+    'damage_dice':'1d6',
+    'damage_dice_versatile':'1d8',
+    'weight (lb)':6,
+    'cost (gp)':600,
+    'cost (grams_of_gold)':600,
+    }
+
 #----
 # Ranged Weapons +1
 

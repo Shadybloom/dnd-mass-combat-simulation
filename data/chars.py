@@ -1792,13 +1792,16 @@ metadict_chars['Warrior 5 lvl (mercenary heavy-infantry-captain)'] = {
 
 metadict_chars['Fighter 1 lvl (legionary sentinel-battler)'] = {
     # Бойцы в тяжёлых доспехах.
-    # TODO: Feat_Heavy_Armor_Master увеличивает силу на 1. Но он и так занебесно крут.
     'level':1,
     'char_class':'Fighter',
     'hit_dice':'1d10',
     'behavior':'elite_warrior',
     'class_features':{
+        # Feat_Heavy_Armor_Master увеличивает силу на 1.
         'Feat_Heavy_Armor_Master':True,
+        'Ability_Score_Improvement':{
+            'strength':+1,
+            },
         'Fighting_Style_Protection':True,
         'Second_Wind':True,
         },
@@ -1826,6 +1829,9 @@ metadict_chars['Fighter 2 lvl (legionary sentinel-shieldman)'] = {
     'behavior':'elite_warrior',
     'class_features':{
         'Feat_Heavy_Armor_Master':True,
+        'Ability_Score_Improvement':{
+            'strength':+1,
+            },
         'Fighting_Style_Protection':True,
         'Second_Wind':True,
         'Action_Surge':True,
@@ -1855,6 +1861,9 @@ metadict_chars['Fighter 3 lvl (legionary sentinel-mystic)'] = {
     'behavior':'commander',
     'class_features':{
         'Feat_Heavy_Armor_Master':True,
+        'Ability_Score_Improvement':{
+            'strength':+1,
+            },
         'Fighting_Style_Protection':True,
         'Second_Wind':True,
         'Action_Surge':True,
@@ -1889,6 +1898,10 @@ metadict_chars['Fighter 4 lvl (legionary sentinel-lieutenant)'] = {
     'behavior':'commander',
     'class_features':{
         'Feat_Heavy_Armor_Master':True,
+        'Ability_Score_Improvement':{
+            'strength':+1,
+            'intelligence':+2,
+            },
         'Fighting_Style_Defence':True,
         'Second_Wind':True,
         'Action_Surge':True,
@@ -1903,9 +1916,6 @@ metadict_chars['Fighter 4 lvl (legionary sentinel-lieutenant)'] = {
             ('1_lvl', 'Magic_Missile'),
             ('1_lvl', 'Fog_Cloud'),
             ],
-        'Ability_Score_Improvement':{
-            'intelligence':+2,
-            },
         },
     'race':'Human-hero',
     'weapon_skill':['simple','martial'],
@@ -1927,6 +1937,10 @@ metadict_chars['Fighter 5 lvl (legionary sentinel-captain)'] = {
     'behavior':'commander',
     'class_features':{
         'Feat_Heavy_Armor_Master':True,
+        'Ability_Score_Improvement':{
+            'strength':+1,
+            'intelligence':+2,
+            },
         'Fighting_Style_Defence':True,
         'Second_Wind':True,
         'Action_Surge':True,
@@ -1941,9 +1955,6 @@ metadict_chars['Fighter 5 lvl (legionary sentinel-captain)'] = {
             ('1_lvl', 'Magic_Missile'),
             ('1_lvl', 'Fog_Cloud'),
             ],
-        'Ability_Score_Improvement':{
-            'intelligence':+2,
-            },
         'Extra_Attack':True,
         },
     'race':'Human-hero',
@@ -2215,6 +2226,9 @@ metadict_chars['Fighter 4 lvl (legionary horseman-lieutenant)'] = {
         'Martial_Archetype_Champion':True,
         'Champion_Improved_Critical':True,
         'Feat_Heavy_Armor_Master':True,
+        'Ability_Score_Improvement':{
+            'strength':+1,
+            },
         },
     'race':'Human-hero',
     'weapon_skill':['simple','martial'],
@@ -2251,6 +2265,9 @@ metadict_chars['Fighter 5 lvl (legionary horseman-captain)'] = {
         'Martial_Archetype_Champion':True,
         'Champion_Improved_Critical':True,
         'Feat_Heavy_Armor_Master':True,
+        'Ability_Score_Improvement':{
+            'strength':+1,
+            },
         'Extra_Attack':True,
         },
     'race':'Human-hero',
@@ -4839,6 +4856,7 @@ metadict_chars['Sorcerer 1 lvl (otherworld wildfire-novice)'] = {
     'behavior':'elite_warrior',
     'class_features':{
         #'Feat_Inspiring_Leader':True,
+        # Игнорируем сопротивление к огню.
         'Feat_Elemental_Adept':'fire',
         'Sorcerous_Origin_Draconic_Bloodline':True,
         'Spellcasting':True,
@@ -4919,6 +4937,7 @@ metadict_chars['Sorcerer 3 lvl (otherworld wildfire-enchanter)'] = {
     'hit_dice':'1d6',
     'behavior':'commander',
     'class_features':{
+        # TODO: Metamagic_Twinned_Spell сделай. Нужно же!
         #'Feat_Inspiring_Leader':True,
         'Feat_Elemental_Adept':'fire',
         'Sorcerous_Origin_Draconic_Bloodline':True,
@@ -5206,6 +5225,9 @@ metadict_chars['Paladin 4 lvl (city sentry-lieutenant)'] = {
         'Channel_Turn_The_Unholy':True,
         'Channel_Sacred_Weapon':True,
         'Feat_Heavy_Armor_Master':True,
+        'Ability_Score_Improvement':{
+            'strength':+1,
+            },
         },
     'race':'Human-hero',
     'weapon_skill':['simple','martial'],
@@ -5265,6 +5287,9 @@ metadict_chars['Paladin 5 lvl (city sentry-captain)'] = {
         'Channel_Turn_The_Unholy':True,
         'Channel_Sacred_Weapon':True,
         'Feat_Heavy_Armor_Master':True,
+        'Ability_Score_Improvement':{
+            'strength':+1,
+            },
         'Extra_Attack':True,
         },
     'race':'Human-hero',
@@ -5292,3 +5317,127 @@ metadict_chars['Paladin 5 lvl (city sentry-captain)'] = {
 #----
 # Паладины (пехота):
 
+metadict_chars['Paladin 1 lvl (Тзаангор) (паладины)'] = {
+    'level':1,
+    'char_class':'Paladin',
+    'hit_dice':'1d10',
+    'behavior':'elite_warrior',
+    'class_features':{
+        'Feat_Heavy_Armor_Master':True,
+        'Divine_Sense':True,
+        'Lay_on_Hands':True,
+        },
+    'race':'Human-hero',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'skills':[
+        'Athletics',
+        'Intimidation',
+        ],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        #'Infusion of Healing':1,
+        'Splint Armor':1,
+        'Heavy Shield':1,
+        'Battleaxe':1,
+        'Pilum':4,
+        },
+    #'mount_combat':True,
+    #'mount_type':'Riding Horse',
+    #'equipment_mount':{
+    #    },
+    }
+
+metadict_chars['Paladin 5 lvl (Тзаангор) (Протесилай II, «Держатель щита»)'] = {
+    # Клятвопреступник 5 lvl / паладин / человек-дориец / принципиально-злой
+    # https://dungeonmaster.ru/PlayerProfiles.aspx?module=9404
+    'level':5,
+    'char_class':'Paladin',
+    'hit_dice':'1d10',
+    'behavior':'commander',
+    'hitpoints_medial':True,
+    'abilityes':{
+        'strength':18,
+        'dexterity':10,
+        'constitution':14,
+        'intelligence':16,
+        'wisdom':12,
+        'charisma':18,
+        },
+    'class_features':{
+        'Feat_Heavy_Armor_Master':True,
+        'Divine_Sense':True,
+        'Lay_on_Hands':True,
+        'Fighting_Style_Defence':True,
+        'Divine_Smite':True,
+        'Spellcasting':True,
+        'Spells':[
+            # Подготовленные заклинания: 10 = 4 ХАР +2 уровень (5/2) +4 Домен
+            ('channel', 'Control_Undead'),
+            ('channel', 'Dreadful_Aspect'),
+            ('ritual', 'Zone_of_Truth'),
+            ('ritual', 'Find_Steed'),
+            ('1_lvl', 'Divine_Smite'),
+            ('2_lvl', 'Divine_Smite'),
+            ('1_lvl', 'Wrathful_Smite'),
+            ('1_lvl', 'Heroism'),
+            ('1_lvl', 'Command'),
+            ('1_lvl', 'Compelled_Duel'),
+            ('1_lvl', 'Hellish_Rebuke)'),
+            ('1_lvl', 'Inflict_Wounds)'),
+            ('2_lvl', 'Crown_of_madness'),
+            ('2_lvl', 'Darkness'),
+            ],
+        'Divine_Health':True,
+        'Oathbreaker':True,
+        'Channel_Control_Undead':True,
+        'Channel_Dreadful_Aspect':True,
+        'Feat_Keen_Mind':True,
+        'Extra_Attack':True,
+        },
+    'race':'Human-hero',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'skills':[
+        # === Strength
+        'Athletics',
+        # === Dexterity
+        #'Acrobatics',
+        #'Sleight_of_Hand',
+        #'Stealth',
+        # === Intelligence
+        #'Arcana',
+        #'History',
+        #'Investigation',
+        #'Nature',
+        #'Religion',
+        # === Wisdom
+        #'Animal_Handling',
+        'Insight',
+        #'Medicine',
+        'Perception',
+        'Survival',
+        # === Charisma
+        #'Deception',
+        'Intimidation',
+        #'Performance',
+        #'Persuasion',
+        ],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Rune of Absorbtion':2,
+        #'Rune of Shielding':1,
+        'Splint Armor':1,
+        'Heavy Shield':1,
+        'Shortsword':1,
+        'Long Spear +1':1,
+        'Pilum':4,
+        },
+    #'mount_combat':False,
+    #'mount_type':'Riding Horse',
+    #'equipment_mount':{
+    #    },
+    }

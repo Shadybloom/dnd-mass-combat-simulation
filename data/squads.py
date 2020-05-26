@@ -516,6 +516,11 @@ metadict_squads['Band-hero (paladins)'] = {
     'Paladin 1 lvl (city sentry-sefet)':6,
     }
 
+metadict_squads['Band-hero (paladins) (Тзаангор)'] = {
+    'Paladin 5 lvl (Тзаангор) (Протесилай II, «Держатель щита»)':1,
+    'Paladin 1 lvl (Тзаангор) (паладины)':6,
+    }
+
 #----
 # Герои (одиночки):
 
