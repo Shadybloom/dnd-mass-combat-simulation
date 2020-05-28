@@ -135,7 +135,8 @@ class battle_simulation(battlescape):
         self.metadict_soldiers = self.create_metadict_soldiers(self.squads)
         self.place_soldiers()
         for key,squad in self.squads.items():
-            self.set_squad_battle_order(squad, key.zone)
+            if 'commander' in [soldier.behavior for soldier in squad.metadict_soldiers.values()]:
+                self.set_squad_battle_order(squad, key.zone)
             #[print(el) for el in squad.battle_order.items()]
             for soldier in squad.metadict_soldiers.values():
                 soldier.set_actions_base(squad)
@@ -912,7 +913,7 @@ class battle_simulation(battlescape):
             self.volley_action(soldier, squad)
         # Лучники отступают, если враг близко:
         if 'disengage' in squad.commands\
-                and enemy and squad.enemy_recon\
+                and enemy and squad.__dict__.get('enemy_recon')\
                 and enemy.distance <= squad.enemy_recon['move'] * 2:
             destination = self.find_spawn(soldier.place, soldier.ally_side)
             self.move_action(soldier, squad, destination, allow_replace = True)
@@ -1175,6 +1176,7 @@ class battle_simulation(battlescape):
                 # Добавляем эффекты движения:
                 # TODO: добавь развеивание темноты по старым координатам.
                 if soldier.__dict__.get('darkness'):
+                    # TODO: Замечены редкие зависания. В бою с паладинской конницей. Непотняо, почему.
                     spell_dict = soldier.darkness_dict
                     zone_radius = round(spell_dict['radius'] / self.tile_size)
                     zone_list = self.find_points_in_zone(soldier.place, zone_radius)
@@ -1355,6 +1357,18 @@ class battle_simulation(battlescape):
                     spell_choice = soldier.spells_generator.find_spell('Divine_Smite')
                     self.spellcast_action(soldier, squad, enemy,
                             spell_choice, subspell = True, use_spell = True)
+                    # TODO: перенести Channel_Dreadful_Aspect в отдельное действие.
+                    if soldier.class_features.get('Channel_Dreadful_Aspect')\
+                            and soldier.near_enemies and len(soldier.near_enemies) > 1\
+                            and soldier.channel_divinity > 0:
+                        spell_choice = 'channel', 'Dreadful_Aspect'
+                        spell_dict = soldier.spells[spell_choice]
+                        spell_dict['spell_choice'] = spell_choice
+                        # TODO: делай через fireball_action
+                        #self.spellcast_action(soldier, squad, enemy,
+                        #        spell_choice, subspell = True, use_spell = False)
+                        self.fireball_action(soldier, squad, spell_dict, soldier.place, safe = True)
+                        soldier.channel_divinity -= 1
                 # Волшебный меч Sword of the Past:
                 if attack_result['hit'] and 'sword_burst' in attack_result['weapon_type']:
                     spell_choice = 'subspell', 'Sword_Burst'
@@ -1475,6 +1489,7 @@ class battle_simulation(battlescape):
                             and soldier.near_enemies and len(soldier.near_enemies) > 1\
                             and soldier.channel_divinity > 0:
                         # TODO: добавь развеивание темноты "Darkness".
+                        # Обязательно, потому что Сияние рассвета поражает только видимые цели.
                         spell_choice = 'channel', 'Radiance_of_the_Dawn'
                         spell_dict = soldier.spells[spell_choice]
                         spell_dict['spell_choice'] = spell_choice
@@ -1702,6 +1717,11 @@ class battle_simulation(battlescape):
                                 enemy_soldier.ally_side, counterspell_choice)
                         break
                 if safe and enemy.side in soldier.ally_side:
+                    continue
+                # Вызов страа от паладинского Dreadful_Aspect
+                if spell_dict.get('effect') == 'fear':
+                    enemy_soldier = self.metadict_soldiers[enemy.uuid]
+                    fear = enemy_soldier.set_fear(soldier, spell_dict['spell_save_DC'])
                     continue
                 # У заклинания Ice_Knife есть и шрапнель, и основной поражающий элемент:
                 if spell_dict.get('effect') == 'ice_knife' and enemy.place == zone_center:

@@ -186,6 +186,29 @@ class gen_spells():
                 }
         return spell_dict
 
+    def Dreadful_Aspect(self, spell_level):
+        """Пугающее присутствие антипаладина.
+
+        Channel_Dreadful_Aspect
+        """
+        spell_dict = {
+                'zone':True,
+                'effect':'fear',
+                'attacks_number':1,
+                'radius':30,
+                'attack_range':5,
+                'direct_hit':True,
+                'savethrow':True,
+                'savethrow_all':True,
+                'savethrow_ability':'wisdom',
+                'components':['verbal'],
+                'casting_time':'action',
+                'spell_level':spell_level,
+                'spell_save_DC':8 + self.find_spell_attack_mod(),
+                'spell_of_choice':'Dreadful_Aspect',
+                }
+        return spell_dict
+
 #----
 # Cantrips
 
