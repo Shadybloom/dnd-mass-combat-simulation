@@ -1090,7 +1090,7 @@ class battle_simulation(battlescape):
         if path:
             while path and soldier.move_pool > 0:
                 # Если ближайшая точка пути свободна, переходим на неё:
-                place = self.check_place(path[0])
+                place = self.check_place(soldier, path[0])
                 if place.free or free_path:
                     # TODO: пусть боец запоминает направление движения.
                     # -------------------------------------------------
@@ -1135,7 +1135,7 @@ class battle_simulation(battlescape):
                     destination_field = self.point_to_field(next_place, 1)
                     destination_slice = list(set(destination_field) & set(coordinates_field))
                     for destination in destination_slice:
-                        near_place = self.check_place(destination)
+                        near_place = self.check_place(soldier, destination)
                         if near_place.free:
                             path[0] = destination
                             break

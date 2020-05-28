@@ -327,8 +327,9 @@ class battlescape():
             matrix.append([])
             for x, el in enumerate(line, 0):
                 # Ноль, это недоступная территория:
+                # TODO: мы ставим 9 для морских существ.
                 if 'stop_terrain' in dict_battlespace[x,y]:
-                    matrix[y].append(0)
+                    matrix[y].append(9)
                 # Единица -- оптимум, числа выше -- сложней путь:
                 elif 'good_terrain' in dict_battlespace[x,y]:
                     matrix[y].append(1)
@@ -644,11 +645,16 @@ class battlescape():
                     return sight_line
             return sight_line
 
-    def check_place(self, place):
+    def check_place(self, soldier, place):
         """Проверка, не занята ли точка на пути бойца."""
         # TODO: Допили проверку пересечённой местности. Или выведи в move_action.
         for value in self.dict_battlespace[place]:
-            if value == 'stop_terrain':
+            if soldier.__dict__.get('water_walk') and value == 'water':
+                free_place = True
+                rough_place = False
+                soldier_tuple = None
+                break
+            elif value == 'stop_terrain':
                 free_place = False
                 rough_place = True
                 soldier_tuple = None
