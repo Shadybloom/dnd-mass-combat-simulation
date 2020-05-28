@@ -10,7 +10,120 @@ from data.items import *
 metadict_animals = {}
 
 #----
-# Чудовища и "Monsters_Manual":
+# Звери (дикий облик друида):
+
+metadict_animals['Giant Octopus (CR 1)'] = {
+    # https://roll20.net/compendium/dnd5e/Giant%20Octopus
+    'level':8,
+    'challenge_rating':'1',
+    'char_class':'Commoner',
+    #'behavior':'elite_warrior',
+    'behavior':'commander',
+    'hitpoints_medial':True,
+    'water_walk':True,
+    'fearless':True,
+    'class_features':{
+        # Чернильное облако делает воду затемнённой, obscure_terrain.
+        #'Grappler_AI':True,
+        'Hold_Breath':True,
+        'Water_Breathing':True,
+        'Underwater_Camouflage':True,
+        'Ink_Cloud':True,
+        },
+    'abilityes':{
+        'strength':17,
+        'dexterity':13,
+        'constitution':13, 
+        'intelligence':4,
+        'wisdom':10,
+        'charisma':4,
+        },
+    'hit_dice':'1d10',
+    'attacks':{
+        ('close', 'tentacles'): {
+            'attack_mod':5,
+            'damage_mod':3,
+            'weapon': False,
+            'weapon_type':['simple', 'close', 'restained'],
+            'damage_type':'bludgeoning',
+            'damage_dice':'2d6',
+            'attack_range':5,
+            'attack_type':'close',
+            'restained_difficult':16,
+            'weapon_skills_use': ['simple'],
+            'attack_mod_type':'strength',
+            'weapon_of_choice':'tentacles'},
+        ('reach', 'tentacles'): {
+            # TODO: Досягаемость тентаклей 15 футов, дальше чем копья.
+            # Но цель на кораблей, тянемся по диагонали, поэтому 10 футов.
+            'attack_mod':5,
+            'damage_mod':3,
+            'weapon': False,
+            'weapon_type':['simple', 'reach', 'restained'],
+            'damage_type':'bludgeoning',
+            'damage_dice':'2d6',
+            'attack_range':10,
+            'attack_type':'close',
+            'restained_difficult':16,
+            'weapon_skills_use': ['simple'],
+            'attack_mod_type':'strength',
+            'weapon_of_choice':'tentacles'},
+        },
+    'race':'Giant_octopus',
+    'weapon_skill':[],
+    #'armor_skill':['light','medium','heavy'],
+    'equipment_weapon':{},
+    'equipment_backpack':{},
+    'equipment_supply':{},
+    }
+
+metadict_animals['Brown Bear (CR 1)'] = {
+    # https://roll20.net/compendium/dnd5e/Brown%20Bear
+    'level':4,
+    'challenge_rating':'1',
+    'char_class':'Commoner',
+    'behavior':'elite_warrior',
+    'hitpoints_medial':True,
+    #'fearless':True,
+    'class_features':{
+        'Keen_Smell':True,
+        'Extra_Attack':True,
+        },
+    'abilityes':{
+        'strength':19,
+        'dexterity':10,
+        'constitution':16, 
+        'intelligence':2,
+        'wisdom':13,
+        'charisma':7,
+        },
+    'hit_dice':'1d10',
+    'attacks':{
+        # TODO допиливай атаки
+        ('close', 'claws'): {
+            'attack_mod':5,
+            'damage_mod':4,
+            'weapon': False,
+            'weapon_type':['simple'],
+            'damage_type':'slashing',
+            'damage_dice':'2d6',
+            'attack_range':5,
+            'attack_type':'close',
+            'weapon_skills_use': ['simple'],
+            'attack_mod_type':'strength',
+            'weapon_of_choice':'claws'},
+        },
+    'race':'Bear',
+    'weapon_skill':[],
+    # Медведи в доспехах? Почему бы и нет:
+    'armor_skill':['light','medium','heavy'],
+    'equipment_weapon':{},
+    'equipment_backpack':{},
+    'equipment_supply':horse_supply,
+    }
+
+#----
+# Чудовища из "Monsters_Manual":
 
 metadict_animals['Zombie (CR 1/4)'] = {
     # Зомби.

@@ -23,6 +23,27 @@ metadict_squads['test 100 warriors'] = {
     'Warrior 5 lvl (legionary infantry-captain)':1,
     }
 
+metadict_squads['test 12 animals'] = {
+    #'Brown Bear (CR 1)':12,
+    'Giant Octopus (CR 1)':12,
+    #'Empyrean (CR 23)':1,
+    }
+
+#----
+# Геройские отряды:
+
+metadict_squads['Company-regular (infantry-pikemans) (Тзаангор)'] = {
+    'Warrior 1 lvl (city pikeman)':80 + dice_throw('1d12'),
+    'Warrior 2 lvl (city pikeman-corporal)':20,
+    'Warrior 3 lvl (city pikeman-sergeant)':6,
+    'Warrior 4 lvl (city pikeman-lieutenant)':2,
+    }
+
+metadict_squads['Band-hero (paladins) (Тзаангор)'] = {
+    'Paladin 5 lvl (Тзаангор) (Протесилай II, «Держатель щита»)':1,
+    'Paladin 1 lvl (Тзаангор) (паладины)':6,
+    }
+
 #----
 # Ополчение
 
@@ -431,9 +452,8 @@ metadict_squads['Band-hero (rogues)'] = {
     }
 
 metadict_squads['Band-hero (rogues-arcane)'] = {
-    'Rogue 3 lvl (city cat-dodger)':6,
-    #'Rogue 4 lvl (city cat-runner)':1,
-    'Rogue 5 lvl (city cat-mastermind)':1,
+    'Rogue 4 lvl (city cat-runner)':1,
+    'Rogue 2 lvl (city cat-meow)':6,
     }
 
 metadict_squads['Band-hero (rangers)'] = {
@@ -514,11 +534,6 @@ metadict_squads['Band-hero (paladins)'] = {
     #'Paladin 3 lvl (city sentry-imeyer)':6,
     #'Paladin 2 lvl (city sentry-weresefet)':6,
     'Paladin 1 lvl (city sentry-sefet)':6,
-    }
-
-metadict_squads['Band-hero (paladins) (Тзаангор)'] = {
-    'Paladin 5 lvl (Тзаангор) (Протесилай II, «Держатель щита»)':1,
-    'Paladin 1 lvl (Тзаангор) (паладины)':6,
     }
 
 #----

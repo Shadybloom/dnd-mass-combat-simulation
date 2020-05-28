@@ -54,7 +54,7 @@ dict_races = {
         'Cat-hero':{
             # Коттаямские котики.
             'hero':True,
-            'size':'tiny',
+            'size':'small',
             'base_speed':40,
             'height_base_inches':12,
             'height_mod_dice':'1d2',
@@ -65,7 +65,7 @@ dict_races = {
             'wisdom':+1,
             },
         'Primevial':{
-            # Эмпиреи
+            # Эмпиреи, Empyrean
             'hero':True,
             'size':'large',
             'base_speed':50,
@@ -79,6 +79,28 @@ dict_races = {
             'hero':False,
             'size':'large',
             'base_speed':60,
+            'height_base_inches':56,
+            'height_mod_dice':'2d4',
+            'weight_base_lb':1000,
+            'weight_mod_dice':'2d20',
+            },
+        'Bear':{
+            # TODO: рост/вес подправь.
+            'hero':False,
+            'size':'large',
+            'base_speed':40,
+            'armor_class_natural':11,
+            'height_base_inches':56,
+            'height_mod_dice':'2d4',
+            'weight_base_lb':1000,
+            'weight_mod_dice':'2d20',
+            },
+        'Giant_octopus':{
+            # TODO: а какие осьминожки по росту/весу?
+            'hero':False,
+            'size':'large',
+            'base_speed':60,
+            'armor_class_natural':11,
             'height_base_inches':56,
             'height_mod_dice':'2d4',
             'weight_base_lb':1000,
