@@ -219,6 +219,9 @@ class soldier_in_battle(soldier):
                 self.resistance.append('slashing')
                 self.resistance.append('piercing')
                 self.resistance.append('bludgeoning')
+            if self.class_features.get('Ink_Cloud') and not hasattr(self, 'ink_cloud'):
+                self.ink_cloud = True
+                self.ink_cloud_radius = 20
         # Используем доступные приёмы:
         if self.class_features:
             # Font_of_Magic даёт 2 sorcery_points на 2 lvl чародея, можно вложить в лишний слот 1 lvl.
@@ -601,6 +604,10 @@ class soldier_in_battle(soldier):
                 and not self.equipment_weapon.get('Infusion of Healing'):
             hitpoints_danger = math.floor((1 - self.hitpoints / self.hitpoints_max) * 10)
             self.danger += hitpoints_danger
+            # Раненые осьминожки удирают:
+            if self.__dict__.get('water_walk') and self.hitpoints < (self.hitpoints_max / 2):
+                self.danger = 0
+                self.escape = True
             #if 'dodge' in squad.commands and self.hitpoints < (self.hitpoints_max / 2):
             #    self.danger = 0
             #    self.escape = True

@@ -21,10 +21,9 @@ metadict_animals['Giant Octopus (CR 1)'] = {
     'behavior':'commander',
     'hitpoints_medial':True,
     'water_walk':True,
-    'fearless':True,
+    #'fearless':True,
     'class_features':{
-        # Чернильное облако делает воду затемнённой, obscure_terrain.
-        #'Grappler_AI':True,
+        'Grappler_AI':True,
         'Hold_Breath':True,
         'Water_Breathing':True,
         'Underwater_Camouflage':True,

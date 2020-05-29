@@ -957,14 +957,20 @@ class battle_simulation(battlescape):
                     destination = [c1 + c2 for c1, c2 in zip(commander.place, soldier.place_in_order)]
                     break
             else:
-                destination = random.choice(commander.near_zone)
+                if commander.near_zone:
+                    destination = random.choice(commander.near_zone)
+                else:
+                    destination = commander.place
         # Абсолютная точность не нужна, боец не двигается, если его местов пределах 3x3 тайлов:
         if not destination in self.point_to_field(soldier.place, 1):
             try:
                 self.move_action(soldier, squad, destination)
             except KeyError:
                 #traceback.print_exc()
-                destination = random.choice(commander.near_zone)
+                if commander.near_zone:
+                    destination = random.choice(commander.near_zone)
+                else:
+                    destination = commander.place
                 self.move_action(soldier, squad, destination)
 
     def engage_action(self, soldier, squad, enemy, recon_near):
@@ -1344,6 +1350,11 @@ class battle_simulation(battlescape):
                 if attack_result['hit'] and 'prone' in attack_result['weapon_type']\
                         and not enemy_soldier.prone:
                     prone = enemy_soldier.set_fall_prone(soldier, advantage, disadvantage)
+                # Осьминоги могут оплести щупальцами:
+                if attack_result['hit'] and 'restained' in attack_result['weapon_type']\
+                        and not enemy_soldier.restained:
+                    restained = enemy_soldier.set_restained(attack_dict['restained_difficult'],
+                            advantage, disadvantage)
                 # Атаку рейнджера дополняет шрапнель от Hail_of_Thorns:
                 if attack_result['hit'] and soldier.thorns\
                         and enemy_soldier.near_allies and len(enemy_soldier.near_allies) > 2:
@@ -1439,6 +1450,27 @@ class battle_simulation(battlescape):
             if grappled and not enemy_soldier.behavior == 'mount':
                 if soldier.char_class == 'Monk':
                     destination = self.find_spawn(soldier.place, soldier.ally_side)
+                    self.move_action(soldier, squad, destination, allow_replace = True)
+                    self.change_place(enemy_soldier.place, soldier.place, enemy_soldier.uuid)
+                # Тактика осьминожек:
+                elif soldier.__dict__.get('water_walk')\
+                        and soldier.class_features.get('Grappler_AI'):
+                    destination = self.find_spawn(soldier.place, soldier.ally_side, random_range = 1)
+                    # TODO: чернильное облако осьминожек в отдельную функцию
+                    # Лучше бы его сделать частью функции sneak_action
+                    if soldier.class_features.get('Ink_Cloud') and soldier.__dict__.get('ink_cloud'):
+                        zone_radius = round(soldier.ink_cloud_radius / self.tile_size)
+                        zone_list = self.point_to_field(soldier.place, zone_radius)
+                        zone_list_circle = [point for point in zone_list\
+                                if inside_circle(point, enemy_soldier.place, zone_radius)]
+                        for point in zone_list_circle:
+                            if 'water' in self.dict_battlespace[point]\
+                                    and not 'obscure_terrain' in self.dict_battlespace[point]:
+                                self.dict_battlespace[point].append('obscure_terrain')
+                        soldier.ink_cloud = False
+                        if soldier.bonus_action:
+                            soldier.dash_action = True
+                            soldier.bonus_action = False
                     self.move_action(soldier, squad, destination, allow_replace = True)
                     self.change_place(enemy_soldier.place, soldier.place, enemy_soldier.uuid)
                 else:
