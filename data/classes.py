@@ -9,7 +9,7 @@ dict_class_abilityes = {
         'Barbarian':['strength','constitution','dexterity','charisma'],
         'Cleric':['wisdom','dexterity','constitution','charisma'],
         'Cleric-heavy':['wisdom','strength','dexterity','constitution'],
-        'Druid':['wisdom','constitution','dexterity','intelligence'],
+        'Druid':['wisdom','dexterity','constitution','intelligence'],
         'Fighter':['strength','constitution','dexterity','charisma'],
         'Eldritch_Knight':['strength','constitution','intelligence','dexterity'],
         'Monk':['dexterity','wisdom','constitution','strength'],

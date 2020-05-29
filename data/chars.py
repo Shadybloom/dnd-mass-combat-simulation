@@ -5315,7 +5315,7 @@ metadict_chars['Paladin 5 lvl (city sentry-captain)'] = {
     }
 
 #----
-# Паладины (пехота):
+# Паладины (свита) (Протесилай):
 
 metadict_chars['Paladin 1 lvl (Тзаангор) (паладины)'] = {
     'level':1,
@@ -5343,7 +5343,7 @@ metadict_chars['Paladin 1 lvl (Тзаангор) (паладины)'] = {
         'Battleaxe':1,
         'Pilum':4,
         },
-    #'mount_combat':True,
+    #'mount_combat':False,
     #'mount_type':'Riding Horse',
     #'equipment_mount':{
     #    },
@@ -5353,6 +5353,7 @@ metadict_chars['Paladin 5 lvl (Тзаангор) (Протесилай II, «Д�
     # Клятвопреступник 5 lvl / паладин / человек-дориец / принципиально-злой
     # https://dungeonmaster.ru/PlayerProfiles.aspx?module=9404
     'level':5,
+    'fearless':True,
     'char_class':'Paladin',
     'hit_dice':'1d10',
     'behavior':'commander',
@@ -5373,6 +5374,7 @@ metadict_chars['Paladin 5 lvl (Тзаангор) (Протесилай II, «Д�
         'Divine_Smite':True,
         'Spellcasting':True,
         'Spells':[
+            # TODO: Допили Героизм и Wrathful_Smite.
             # Подготовленные заклинания: 10 = 4 ХАР +2 уровень (5/2) +4 Домен
             ('channel', 'Control_Undead'),
             ('channel', 'Dreadful_Aspect'),
@@ -5438,6 +5440,123 @@ metadict_chars['Paladin 5 lvl (Тзаангор) (Протесилай II, «Д�
         },
     #'mount_combat':False,
     #'mount_type':'Riding Horse',
+    #'equipment_mount':{
+    #    },
+    }
+
+#----
+# Друиды (свита) (Ианта):
+
+metadict_chars['Druid 2 lvl (Vaarsuvius) (друиды Артемиды)'] = {
+    # TODO: поведение elite_warrior. Круг луны же.
+    'level':2,
+    'char_class':'Druid',
+    'hit_dice':'1d8',
+    'behavior':'archer',
+    'class_features':{
+        'Feat_Healer':True,
+        'Spellcasting':True,
+        'Spells':[
+            ('cantrip', 'Druidcraft'),
+            ('cantrip', 'Mold_Earth'),
+            ('ritual', 'Speak_with_Animals'),
+            ('1_lvl', 'Goodberry'),
+            ('1_lvl', 'Cure_Wounds'),
+            ('1_lvl', 'Entangle'),
+            ('1_lvl', 'Fog_Cloud'),
+            ],
+        'Druidic_Language':True,
+        'Wild_Shape':True,
+        'Druid_Circle_Moon':True,
+        'Combat_Wild_Shape':True,
+        'Circle_Forms':True,
+        },
+    'race':'Human-hero',
+    'weapon_skill':['simple','Scimitar'],
+    'armor_skill':['light','medium','shield'],
+    'skills':[
+        'Nature',
+        'Animal_Handling',
+        'Medicine',
+        'Perception',
+        'Survival',
+        ],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Rune of Armor':1,
+        },
+    #'mount_combat':True,
+    #'mount_type':'Warhorse',
+    #'equipment_mount':{
+    #    },
+    }
+
+metadict_chars['Druid 5 lvl (Vaarsuvius) (Ианта «Дочь бури»)'] = {
+    'level':5,
+    'char_class':'Druid',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'hitpoints_medial':True,
+    'abilityes':{
+        'strength':10,
+        'dexterity':14,
+        'constitution':12,
+        'intelligence':12,
+        'wisdom':20,
+        'charisma':16,
+        },
+    'class_features':{
+        # TODO: Feat_Tough на 4 lvl вместо развития мудрости
+        # Wild_Shape бонусным действием за счёт Круга Луны.
+        'Feat_Inspiring_Leader':True,
+        'Spellcasting':True,
+        'Spells':[
+            ('cantrip', 'Druidcraft'),
+            ('cantrip', 'Thorn_Whip'),
+            ('cantrip', 'Produce_Flame'),
+            ('ritual', 'Speak_with_Animals'),
+            ('ritual', 'Beast_Sense'),
+            ('ritual', 'Water_Breathing'),
+            ('ritual', 'Water_Walk'),
+            ('1_lvl', 'Goodberry'),
+            ('2_lvl', 'Moonbeam'),
+            ('2_lvl', 'Pass_Without_Trace'),
+            ('3_lvl', 'Call_Lightning'),
+            ('3_lvl', 'Dispel_Magic'),
+            ('3_lvl', 'Plant_Growth'),
+            ],
+        'Druidic_Language':True,
+        'Wild_Shape':True,
+        'Druid_Circle_Moon':True,
+        'Combat_Wild_Shape':True,
+        'Wild_Shape_Improvement':True,
+        'Feat_Tough':True,
+        },
+    'race':'Human-hero',
+    'weapon_skill':['simple','Scimitar'],
+    'armor_skill':['light','medium','shield'],
+    'skills':[
+        'Nature',
+        'Animal_Handling',
+        'Medicine',
+        'Perception',
+        'Survival',
+        ],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Rune of Absorbtion':1,
+        'Rune of Shielding':1,
+        'Half Plate':1,
+        'Shield':1,
+        'Longbow +1':1,
+        'Arrow':40,
+        },
+    #'mount_combat':True,
+    #'mount_type':'Warhorse',
     #'equipment_mount':{
     #    },
     }

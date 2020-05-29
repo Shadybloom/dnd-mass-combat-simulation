@@ -30,7 +30,7 @@ metadict_squads['test 12 animals'] = {
     }
 
 #----
-# Геройские отряды:
+# Геройские отряды (армия Протесилая):
 
 metadict_squads['Company-regular (infantry-pikemans) (Тзаангор)'] = {
     'Warrior 1 lvl (city pikeman)':80 + dice_throw('1d12'),
@@ -42,6 +42,14 @@ metadict_squads['Company-regular (infantry-pikemans) (Тзаангор)'] = {
 metadict_squads['Band-hero (paladins) (Тзаангор)'] = {
     'Paladin 5 lvl (Тзаангор) (Протесилай II, «Держатель щита»)':1,
     'Paladin 1 lvl (Тзаангор) (паладины)':6,
+    }
+
+#----
+# Геройские отряды (армия Ианты):
+
+metadict_squads['Squad-hero (druids) (Vaarsuvius)'] = {
+    'Druid 5 lvl (Vaarsuvius) (Ианта «Дочь бури»)':1,
+    'Druid 2 lvl (Vaarsuvius) (друиды Артемиды)':12,
     }
 
 #----
