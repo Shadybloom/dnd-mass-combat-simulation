@@ -309,6 +309,7 @@ class battle_simulation(battlescape):
         for soldier in soldiers_list_elite:
             if not soldier.disabled and not soldier.death:
                 if bless_list and soldier.hitpoints <= soldier.hitpoints_max / 2:
+                    #print(bless_type, soldier.rank)
                     max_hit_dice = int(soldier.hit_dice.split('d')[1])
                     heal = bless_list.pop() + max_hit_dice
                     soldier.set_hitpoints(heal = heal)
@@ -347,6 +348,7 @@ class battle_simulation(battlescape):
         # Наконец, раздаём бонусные хиты:
         for soldier in soldiers_list_elite:
             if bless_list:
+                #print(bless_type, soldier.rank)
                 soldier.set_hitpoints(bonus_hitpoints = bless_list.pop())
                 #print('{side} Feat_Inspiring_Leader, {p} {b} {n} bonus_hitpoints: {hitpoints}/{hitpoints_max} ({hitpoints_bonus})'.format(
                 #    side = soldier.ally_side,
@@ -374,6 +376,7 @@ class battle_simulation(battlescape):
                 len(bless_list), squad.ally_side, bless_type)
         for soldier in soldiers_list_elite:
             if bless_list:
+                #print(bless_type, soldier.rank)
                 soldier.bardic_inspiration = bless_list.pop()
                 #print(soldier.rank, soldier.bardic_inspiration)
 
@@ -390,6 +393,7 @@ class battle_simulation(battlescape):
                 len(bless_list), squad.ally_side, bless_type)
         for soldier in soldiers_list_elite:
             if bless_list:
+                #print(bless_type, soldier.rank)
                 soldier.bless = bless_list.pop()
                 soldier.bless_timer = spell_dict['effect_timer']
 

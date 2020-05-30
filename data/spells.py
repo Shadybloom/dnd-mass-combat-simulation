@@ -31,6 +31,12 @@ class gen_spells():
         for spell_slot, number in soldier.proficiency.get('spellslots').items():
             if number > 0:
                 self.spellslots[spell_slot] = number
+        # Feat_Magic_Initiate: добавляет заклинание 1 круга и слот для него:
+        if soldier.class_features.get('Feat_Magic_Initiate'):
+            if self.spellslots.get('1_lvl'):
+                self.spellslots['1_lvl'] +=1
+            else:
+                self.spellslots['1_lvl'] = 1
         # TODO: В отдельную функцию.
         # ------------------------------------------------------------
         # Нам нужен выбор случайных заклинаний, если в know_spells стоит random.
@@ -56,21 +62,26 @@ class gen_spells():
                 or self.mage.char_class == 'Eldritch_Knight'\
                 or self.mage.char_class == 'Rogue':
             attack_mod = self.mage.mods['intelligence'] + self.mage.proficiency_bonus
-        if self.mage.char_class == 'Sorcerer'\
+        elif self.mage.char_class == 'Sorcerer'\
                 or self.mage.char_class == 'Bard'\
                 or self.mage.char_class == 'Warlock'\
                 or self.mage.char_class == 'Barbarian'\
                 or self.mage.char_class == 'Paladin':
             attack_mod = self.mage.mods['charisma'] + self.mage.proficiency_bonus
-        if self.mage.char_class == 'Cleric'\
+        elif self.mage.char_class == 'Cleric'\
                 or self.mage.char_class == 'Cleric-heavy'\
                 or self.mage.char_class == 'Druid'\
                 or self.mage.char_class == 'Ranger'\
                 or self.mage.char_class == 'Monk':
             attack_mod = self.mage.mods['wisdom'] + self.mage.proficiency_bonus
-        # Монстры:
-        if self.mage.char_class == 'Empyrean':
+        elif self.mage.char_class == 'Empyrean':
             attack_mod = self.mage.mods['charisma'] + self.mage.proficiency_bonus
+        else:
+            # Если класса нет в списке, выбираем маскимальную характеристику:
+            mods = self.mage.mods
+            mods_list = [mods['intelligence'], mods['wisdom'], mods['charisma']]
+            attack_mod = max(mods_list) + self.mage.proficiency_bonus
+        # Монстры:
         return attack_mod
 
     def find_spell(self, spell_name):
