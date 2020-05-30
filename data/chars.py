@@ -5315,6 +5315,155 @@ metadict_chars['Paladin 5 lvl (city sentry-captain)'] = {
     }
 
 #----
+# Сариссофоры (армия) (Протесилай):
+
+metadict_chars['Warrior 1 lvl (Тзаангор) (гипасист)'] = {
+    'level':1,
+    'char_class':'Warrior',
+    'behavior':'warrior',
+    'hit_dice':'1d8',
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'skills':[
+        'Athletics',
+        ],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Studded Leather':1,
+        'Heavy Shield':1,
+        'Shortsword':1,
+        'Pike':1,
+        },
+    }
+
+metadict_chars['Warrior 2 lvl (Тзаангор) (ветеран)'] = {
+    'level':2,
+    'char_class':'Warrior',
+    'behavior':'elite_warrior',
+    'hit_dice':'1d8',
+    'class_features':{
+        'Fighting_Style_Defence':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'skills':[
+        'Athletics',
+        ],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Breastplate':1,
+        'Heavy Shield':1,
+        'Shortsword':1,
+        'Pike':1,
+        },
+    }
+
+metadict_chars['Warrior 3 lvl (Тзаангор) (ур-лодакос)'] = {
+    'level':3,
+    'char_class':'Warrior',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Defence':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'skills':[
+        'Athletics',
+        ],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Breastplate':1,
+        'Heavy Shield':1,
+        'Longsword':1,
+        'Pike':1,
+        },
+    }
+
+metadict_chars['Warrior 4 lvl (Тзаангор) (лодакос)'] = {
+    'level':4,
+    'char_class':'Warrior-officer',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Defence':True,
+        'Feat_Magic_Initiate':True,
+        'Spellcasting':True,
+        'Spells':[
+            ('cantrip', 'Resistance'),
+            ('cantrip', 'Spare_the_Dying'),
+            ('1_lvl', 'Bless'),
+            ],
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'skills':[
+        'Athletics',
+        ],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Rune of Shielding':1,
+        'Breastplate':1,
+        'Heavy Shield':1,
+        'Longsword':1,
+        'Pike':1,
+        },
+    #'mount_combat':False,
+    #'mount_type':'Riding Horse',
+    #'equipment_mount':{
+    #    },
+    }
+
+metadict_chars['Warrior 5 lvl (Тзаангор) (капитан)'] = {
+    'level':5,
+    'char_class':'Warrior-officer',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Defence':True,
+        'Feat_Magic_Initiate':True,
+        'Spellcasting':True,
+        'Spells':[
+            ('cantrip', 'Resistance'),
+            ('cantrip', 'Spare_the_Dying'),
+            ('1_lvl', 'Bless'),
+            ],
+        'Extra_Attack':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'skills':[
+        'Athletics',
+        ],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Rune of Absorbtion':1,
+        'Rune of Shielding':1,
+        'Half Plate':1,
+        'Heavy Shield':1,
+        'Longsword':1,
+        'Pike':1,
+        },
+    'mount_combat':False,
+    'mount_type':'Riding Horse',
+    'equipment_mount':{
+        },
+    }
+
+#----
 # Паладины (свита) (Протесилай):
 
 metadict_chars['Paladin 1 lvl (Тзаангор) (паладины)'] = {
@@ -5445,9 +5594,150 @@ metadict_chars['Paladin 5 lvl (Тзаангор) (Протесилай II, «Д�
     }
 
 #----
+# Дочери медведицы (армия) (Ианта):
+
+metadict_chars['Warrior 1 lvl (Vaarsuvius) (дочерь медведицы)'] = {
+    # Дочери Медведицы [80/80] [1 lvl] [ шкурная броня с медвежьим башкой вместо шлема, Оплон, ромфая, 6 дротиков] сдача 320 денариев
+    'level':1,
+    'char_class':'Warrior',
+    'hit_dice':'1d8',
+    'behavior':'warrior',
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'skills':[
+        'Stealth',
+        ],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Hide Armor':1,
+        'Heavy Shield':1,
+        'Glaive':1,
+        'Javelin':6,
+        },
+    }
+
+metadict_chars['Warrior 2 lvl (Vaarsuvius) (ветеран)'] = {
+    'level':2,
+    'char_class':'Warrior',
+    'hit_dice':'1d8',
+    'behavior':'elite_warrior',
+    'class_features':{
+        'Fighting_Style_Great_Weapon_Fighting':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'skills':[
+        'Stealth',
+        ],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Scale Mail':1,
+        'Heavy Shield':1,
+        'Glaive':1,
+        'Javelin':6,
+        },
+    }
+
+metadict_chars['Warrior 3 lvl (Vaarsuvius) (сержант)'] = {
+    'level':3,
+    'char_class':'Warrior',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Great_Weapon_Fighting':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'skills':[
+        'Stealth',
+        ],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Half Plate':1,
+        'Heavy Shield':1,
+        'Glaive':1,
+        'Javelin':6,
+        },
+    }
+
+metadict_chars['Warrior 4 lvl (Vaarsuvius) (первый помощник)'] = {
+    'level':4,
+    'char_class':'Warrior-officer',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Great_Weapon_Fighting':True,
+        #'Fighting_Style_Defence':True,
+        'Feat_Inspiring_Leader':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'skills':[
+        'Stealth',
+        ],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Rune of Shielding':1,
+        'Half Plate':1,
+        'Heavy Shield':1,
+        'Glaive':1,
+        'Javelin':6,
+        },
+    'mount_combat':False,
+    'mount_type':'Riding Horse',
+    'equipment_mount':{
+        },
+    }
+
+metadict_chars['Warrior 5 lvl (Vaarsuvius) (Филлис)'] = {
+    # Сестра Ианты
+    'level':5,
+    'char_class':'Warrior-officer',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Great_Weapon_Fighting':True,
+        #'Fighting_Style_Defence':True,
+        'Feat_Alert':True,
+        'Extra_Attack':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'skills':[
+        'Stealth',
+        ],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Rune of Absorbtion':1,
+        'Rune of Shielding':1,
+        'Half Plate':1,
+        'Heavy Shield':1,
+        'Glaive':1,
+        'Javelin':6,
+        },
+    'mount_combat':False,
+    'mount_type':'Riding Horse',
+    'equipment_mount':{
+        },
+    }
+
+#----
 # Друиды (свита) (Ианта):
 
-metadict_chars['Druid 2 lvl (Vaarsuvius) (друиды Артемиды)'] = {
+metadict_chars['Druid 2 lvl (Vaarsuvius) (друид Артемиды)'] = {
     # TODO: поведение elite_warrior. Круг луны же.
     'level':2,
     'char_class':'Druid',
@@ -5494,21 +5784,22 @@ metadict_chars['Druid 2 lvl (Vaarsuvius) (друиды Артемиды)'] = {
     }
 
 metadict_chars['Druid 5 lvl (Vaarsuvius) (Ианта «Дочь бури»)'] = {
+    # ЗАМЕТКА: накидка хитов.
     'level':5,
     'char_class':'Druid',
     'hit_dice':'1d8',
     'behavior':'commander',
-    'hitpoints_medial':True,
+    #'hitpoints_medial':True,
+    'hitpoints_base':8 + 19,
     'abilityes':{
         'strength':10,
         'dexterity':14,
-        'constitution':12,
+        'constitution':16,
         'intelligence':12,
         'wisdom':20,
         'charisma':16,
         },
     'class_features':{
-        # TODO: Feat_Tough на 4 lvl вместо развития мудрости
         # Wild_Shape бонусным действием за счёт Круга Луны.
         'Feat_Inspiring_Leader':True,
         'Spellcasting':True,
@@ -5532,7 +5823,8 @@ metadict_chars['Druid 5 lvl (Vaarsuvius) (Ианта «Дочь бури»)'] = 
         'Druid_Circle_Moon':True,
         'Combat_Wild_Shape':True,
         'Wild_Shape_Improvement':True,
-        'Feat_Tough':True,
+        #'Feat_Tough':True,
+        'Feat_Inspiring_Leader':True,
         },
     'race':'Human-hero',
     'weapon_skill':['simple','Scimitar'],

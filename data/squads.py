@@ -32,14 +32,14 @@ metadict_squads['test 12 animals'] = {
 #----
 # Геройские отряды (армия Протесилая):
 
-metadict_squads['Company-regular (infantry-pikemans) (Тзаангор)'] = {
-    'Warrior 1 lvl (city pikeman)':80 + dice_throw('1d12'),
-    'Warrior 2 lvl (city pikeman-corporal)':20,
-    'Warrior 3 lvl (city pikeman-sergeant)':6,
-    'Warrior 4 lvl (city pikeman-lieutenant)':2,
+metadict_squads['Company-regular (сариссофоры Спарты) (Тзаангор)'] = {
+    'Warrior 1 lvl (Тзаангор) (гипасист)':85,
+    'Warrior 2 lvl (Тзаангор) (ветеран)':20,
+    'Warrior 3 lvl (Тзаангор) (ур-лодакос)':6,
+    'Warrior 4 lvl (Тзаангор) (лодакос)':2,
     }
 
-metadict_squads['Band-hero (paladins) (Тзаангор)'] = {
+metadict_squads['Band-hero (паладины) (Тзаангор)'] = {
     'Paladin 5 lvl (Тзаангор) (Протесилай II, «Держатель щита»)':1,
     'Paladin 1 lvl (Тзаангор) (паладины)':6,
     }
@@ -47,9 +47,17 @@ metadict_squads['Band-hero (paladins) (Тзаангор)'] = {
 #----
 # Геройские отряды (армия Ианты):
 
-metadict_squads['Squad-hero (druids) (Vaarsuvius)'] = {
+metadict_squads['Company-regular (дочери медведицы) (Vaarsuvius)'] = {
+    'Warrior 1 lvl (Vaarsuvius) (дочерь медведицы)':85,
+    'Warrior 2 lvl (Vaarsuvius) (ветеран)':10,
+    'Warrior 3 lvl (Vaarsuvius) (сержант)':3,
+    'Warrior 5 lvl (Vaarsuvius) (Филлис)':1,
+    'Warrior 4 lvl (Vaarsuvius) (первый помощник)':1,
+    }
+
+metadict_squads['Squad-hero (друиды Артемиды) (Vaarsuvius)'] = {
     'Druid 5 lvl (Vaarsuvius) (Ианта «Дочь бури»)':1,
-    'Druid 2 lvl (Vaarsuvius) (друиды Артемиды)':12,
+    'Druid 2 lvl (Vaarsuvius) (друид Артемиды)':12,
     }
 
 #----
