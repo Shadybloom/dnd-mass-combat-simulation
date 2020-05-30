@@ -61,6 +61,14 @@ metadict_squads['Squad-hero (друиды Артемиды) (Vaarsuvius)'] = {
     }
 
 #----
+# Геройские отряды (армия Артаманаха):
+
+metadict_squads['Band-hero (снайперы Артаманаха) (ArbitraryNickname)'] = {
+    'Fighter 5 lvl (ArbitraryNickname) (Артаманах Рыбник)':1,
+    'Fighter 1 lvl (ArbitraryNickname) (снайпер)':6,
+    }
+
+#----
 # Ополчение
 
 metadict_squads['Company-militia (skirmisher-peltasts)'] = {

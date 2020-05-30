@@ -5852,3 +5852,88 @@ metadict_chars['Druid 5 lvl (Vaarsuvius) (Ианта «Дочь бури»)'] = 
     #'equipment_mount':{
     #    },
     }
+
+#----
+# Бойцы (свита) (Артаманах):
+
+metadict_chars['Fighter 1 lvl (ArbitraryNickname) (снайпер)'] = {
+    # Снайперы, корректируют "Град стрел" ополчения.
+    'level':1,
+    'char_class':'Battlemaster-archer',
+    'hit_dice':'1d10',
+    'behavior':'archer',
+    'class_features':{
+        'Feat_Sharpshooter':True,
+        'Fighting_Style_Archery':True,
+        'Second_Wind':True,
+        },
+    'race':'Human-hero',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'skills':[
+        'Perception',
+        ],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Rune of Armor':1,
+        'Shield':1,
+        'Shortsword':1,
+        'Longbow':1,
+        'Arrow':60,
+        },
+    #'mount_combat':False,
+    #'mount_type':'Riding Horse',
+    #'equipment_mount':{
+    #    },
+    }
+
+metadict_chars['Fighter 5 lvl (ArbitraryNickname) (Артаманах Рыбник)'] = {
+    # Лучник, мастер боевых искусств
+    'level':5,
+    'char_class':'Battlemaster-archer',
+    'hit_dice':'1d10',
+    'behavior':'commander',
+    'hitpoints_medial':True,
+    'abilityes':{
+        'strength':12,
+        'dexterity':20,
+        'constitution':12,
+        'intelligence':15,
+        'wisdom':10,
+        'charisma':16,
+        },
+    'class_features':{
+        # Сложные в реализации "Атака с манёвром" и "Удар командира"
+        # Заменяются на "Точная атака" и "Атака с угрозой"
+        'Feat_Sharpshooter':True,
+        'Fighting_Style_Archery':True,
+        'Second_Wind':True,
+        'Action_Surge':True,
+        'Martial_Archetype_Battlemaster':True,
+        'Combat_Superiority':True,
+        'Student_of_War':True,
+        #'Commander\'s_Strike':True,
+        #'Maneuvering_Attack':True,
+        'Parry':True,
+        'Menacing_Attack':True,
+        'Precision_Attack':True,
+        'Feat_Inspiring_Leader':True,
+        'Extra_Attack':True,
+        },
+    'race':'Human-hero',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Rune of Shielding':1,
+        'Rune of Armor':1,
+        'Shield':1,
+        'Longbow +1':1,
+        'Scimitar':1,
+        'Dagger':1,
+        'Arrow':60,
+        },
+    }
