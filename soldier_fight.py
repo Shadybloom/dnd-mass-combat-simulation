@@ -89,6 +89,8 @@ class soldier_in_battle(soldier):
             self.inspiring_leader = True
         if self.proficiency.get('ki_points_max'):
             self.ki_points = self.proficiency['ki_points_max']
+        if self.class_features.get('Martial_Archetype_Battlemaster'):
+            self.superiority_dices = self.proficiency['superiority_dices']
         # Восстанавливаются заклинания колдуна:
         if self.char_class == 'Warlock':
             self.spells_generator = spells.gen_spells(self)
@@ -185,6 +187,10 @@ class soldier_in_battle(soldier):
                 self.second_wind = True
             if self.class_features.get('Action_Surge') and not hasattr(self, 'action_surge'):
                 self.action_surge = True
+            if self.class_features.get('Martial_Archetype_Battlemaster')\
+                    and not hasattr(self, 'superiority_dices'):
+                self.superiority_dice = self.proficiency['superiority_dice']
+                self.superiority_dices = self.proficiency['superiority_dices']
             if self.class_features.get('Feat_Inspiring_Leader') and not hasattr(self, 'inspiring_leader'):
                 self.inspiring_leader = True
             if self.proficiency.get('ki_points_max') and not hasattr(self, 'ki_points'):
@@ -1105,6 +1111,8 @@ class soldier_in_battle(soldier):
         """
         target_cover = enemy.cover
         enemy_soldier = metadict_soldiers[enemy.uuid]
+        # Нельзя использовать два приёма баттлмастера за одну атаку:
+        superiority_use = False
         # Боец с двуручным оружием бросает щит (который использовал, чтобы добраться до стрелков)
         # Впрочем, лучники и пикионеры могут использовать щиты с дальней и reach-атакой.
         if attack_dict.get('weapon_type')\
@@ -1147,6 +1155,15 @@ class soldier_in_battle(soldier):
                 and not enemy_soldier.armor['armor_class'] > attack_throw_mod + self.bardic_inspiration:
             attack_throw_mod += self.bardic_inspiration
             self.bardic_inspiration = None
+        # Precision_Attack мастера боевых искусств:
+        if self.class_features.get('Precision_Attack') and not superiority_use:
+            superiority_dice_mid = round(int(self.superiority_dice[-1]) / 2)
+            if self.superiority_dices\
+                and enemy_soldier.armor['armor_class'] > attack_throw_mod\
+                and not enemy_soldier.armor['armor_class'] > attack_throw_mod + superiority_dice_mid:
+                attack_throw_mod += dices.dice_throw_advantage(self.superiority_dice)
+                self.superiority_dices -= 1
+                superiority_use = True
         # Great_Weapon_Fighting даёт преимущество по урону (в среднем +2 для диапазона 2d6):
         if attack_dict.get('weapon_skills_use')\
                 and 'Fighting_Style_Great_Weapon_Fighting' in attack_dict['weapon_skills_use']:
@@ -1211,6 +1228,23 @@ class soldier_in_battle(soldier):
                         and advantage and not disadvantage:
                     damage_throw_mod += 10
                     attack_throw_mod -=5
+        # Menacing_Attack мастера боевых искусств может испугать противника:
+        # TODO: испугать можно тольпо при попадании. А здесь попадание не гарантировано.
+        if self.class_features.get('Menacing_Attack') and not superiority_use:
+            if self.superiority_dices and not enemy_soldier.fear\
+                    and enemy_soldier.armor['armor_class'] < attack_throw_mod:
+                damage_throw_mod += dices.dice_throw_advantage(self.superiority_dice)
+                self.superiority_dices -= 1
+                superiority_use = True
+                fear = enemy_soldier.set_fear(self, 8 + max(self.mods.values()))
+                print('{side}, {c1} {s} Menacing_Attack >> {c2} {e} {succes}'.format(
+                    side = self.ally_side,
+                    c1 = self.place,
+                    s = self.behavior,
+                    c2 = enemy_soldier.place,
+                    e = enemy_soldier.behavior,
+                    succes = fear
+                    ))
         attack_result_dict = {
                 'damage':damage_throw_mod,
                 'attack':attack_throw_mod,
@@ -1590,6 +1624,17 @@ class soldier_in_battle(soldier):
                 damage -= damage_deflect
                 self.reaction = False
                 print('{0} {1} {2} {3} crit {4} damage {5} reaction deflect -{6}'.format(
+                    self.ally_side, self.place, self.behavior,
+                    attack_choice, attack_dict['attack_crit'],
+                    attack_dict['damage'], damage_deflect))
+        # Прирование мастера боевых искусств:
+        if attack_choice[0] == 'close' or attack_choice[0] == 'reach':
+            if self.class_features.get('Parry') and self.superiority_dices and self.reaction == True:
+                damage_deflect = dices.dice_throw(self.superiority_dice)\
+                        + self.mods['dexterity']
+                damage -= damage_deflect
+                self.reaction = False
+                print('{0} {1} {2} {3} crit {4} damage {5} reaction parry -{6}'.format(
                     self.ally_side, self.place, self.behavior,
                     attack_choice, attack_dict['attack_crit'],
                     attack_dict['damage'], damage_deflect))
