@@ -401,9 +401,21 @@ class battle_simulation(battlescape):
         """
         soldiers_list = [ ] 
         max_level = max([soldier.level for soldier in self.metadict_soldiers.values()])
+        # Сначала выбираем героев, а затем командиров и простых бойцов:
         for level in reversed(range(0, max_level +1)):
             for soldier in self.metadict_soldiers.values():
                 if not number <= 0\
+                        and soldier.hero\
+                        and not soldier.behavior == 'mount'\
+                        and not soldier.__dict__.get(bless_type)\
+                        and soldier.ally_side == ally_side\
+                        and soldier.level == level:
+                    soldiers_list.append(soldier)
+                    number -= 1
+        for level in reversed(range(0, max_level +1)):
+            for soldier in self.metadict_soldiers.values():
+                if not number <= 0\
+                        and not soldier.hero\
                         and not soldier.behavior == 'mount'\
                         and not soldier.__dict__.get(bless_type)\
                         and soldier.ally_side == ally_side\
