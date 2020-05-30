@@ -311,7 +311,7 @@ class battlescape():
             for point in field:
                 self.dict_battlespace[point].append(zone_name)
 
-    def map_to_matrix(self, battle_map, dict_battlespace):
+    def map_to_matrix(self, battle_map, dict_battlespace, water_walk = False):
         """Создаёт сетку для алгоритма поиска пути.
 
         Это двухмерный массив с числами, который повторяет карту.
@@ -326,10 +326,14 @@ class battlescape():
         for y, line in enumerate(battle_map, 0):
             matrix.append([])
             for x, el in enumerate(line, 0):
+                # Морские существа плавают:
+                if 'water' in dict_battlespace[x,y]\
+                        and 'stop_terrain' in dict_battlespace[x,y]\
+                        and water_walk:
+                    matrix[y].append(1)
                 # Ноль, это недоступная территория:
-                # TODO: мы ставим 9 для морских существ.
-                if 'stop_terrain' in dict_battlespace[x,y]:
-                    matrix[y].append(9)
+                elif 'stop_terrain' in dict_battlespace[x,y]:
+                    matrix[y].append(0)
                 # Единица -- оптимум, числа выше -- сложней путь:
                 elif 'good_terrain' in dict_battlespace[x,y]:
                     matrix[y].append(1)

@@ -70,8 +70,11 @@ metadict_animals['Giant Octopus (CR 1)'] = {
         },
     'race':'Giant_octopus',
     'weapon_skill':[],
-    #'armor_skill':['light','medium','heavy'],
-    'equipment_weapon':{},
+    'armor_skill':[],
+    # TODO: Лучше сделай передачу руны от друида:
+    'equipment_weapon':{
+            'Rune of Armor':1,
+            },
     'equipment_backpack':{},
     'equipment_supply':{},
     }
@@ -116,7 +119,9 @@ metadict_animals['Brown Bear (CR 1)'] = {
     'weapon_skill':[],
     # Медведи в доспехах? Почему бы и нет:
     'armor_skill':['light','medium','heavy'],
-    'equipment_weapon':{},
+    'equipment_weapon':{
+            'Rune of Armor':1,
+            },
     'equipment_backpack':{},
     'equipment_supply':horse_supply,
     }

@@ -522,6 +522,8 @@ class battle_simulation(battlescape):
 
     def round_run_squad(self, squad, commands = False):
         """Ход отряда."""
+        # Обновляем карту препятствий для поиска пути:
+        self.matrix = self.map_to_matrix(self.battle_map, self.dict_battlespace)
         # Список команд на текущий ход:
         self.set_squad_command_and_control(squad)
         squad.commands = self.squad_AI(squad, squad.commander, commands)
@@ -788,6 +790,9 @@ class battle_simulation(battlescape):
         """Ход отдельного бойца."""
         # Разрешаем battle_action, move_action и т.д.
         soldier.set_actions(squad)
+        # Морские существа могут плавать:
+        if soldier.__dict__.get('water_walk'):
+            self.matrix = self.map_to_matrix(self.battle_map, self.dict_battlespace, water_walk = True)
         # Запоминаем все точки вокруг, не занятые непроходимой местностью или границами зон:
         # Находим противников и союзников в области 5 футов, 3x3 клетки:
         # Крупные создания осматривают большую зону вокруг себя.
@@ -908,6 +913,23 @@ class battle_simulation(battlescape):
             if soldier.action_surge and len(soldier.near_enemies) >= 2:
                 if soldier.set_action_surge():
                     self.round_run_soldier(soldier, squad)
+            # TODO: чернильное облако осьминожек в отдельную функцию
+            # Лучше бы его сделать частью функции sneak_action
+            if soldier.near_enemies\
+                    and soldier.class_features.get('Ink_Cloud')\
+                    and soldier.__dict__.get('ink_cloud'):
+                zone_radius = round(soldier.ink_cloud_radius / self.tile_size)
+                zone_list = self.point_to_field(soldier.place, zone_radius)
+                zone_list_circle = [point for point in zone_list\
+                        if inside_circle(point, enemy.place, zone_radius)]
+                for point in zone_list_circle:
+                    if 'water' in self.dict_battlespace[point]\
+                            and not 'obscure_terrain' in self.dict_battlespace[point]:
+                        self.dict_battlespace[point].append('obscure_terrain')
+                soldier.ink_cloud = False
+                if soldier.bonus_action:
+                    soldier.dash_action = True
+                    soldier.bonus_action = False
         # Не видя врага, лучники стреляют навесом:
         if 'volley' in squad.commands and not enemy and soldier.behavior == 'archer':
             self.volley_action(soldier, squad)
@@ -1350,11 +1372,15 @@ class battle_simulation(battlescape):
                 if attack_result['hit'] and 'prone' in attack_result['weapon_type']\
                         and not enemy_soldier.prone:
                     prone = enemy_soldier.set_fall_prone(soldier, advantage, disadvantage)
-                # Осьминоги могут оплести щупальцами:
+                # Осьминоги могут оплести щупальцами и затащить в воду:
                 if attack_result['hit'] and 'restained' in attack_result['weapon_type']\
                         and not enemy_soldier.restained:
                     restained = enemy_soldier.set_restained(attack_dict['restained_difficult'],
                             advantage, disadvantage)
+                    if restained:
+                        destination = self.find_spawn(soldier.place, soldier.ally_side, random_range = 1)
+                        self.move_action(soldier, squad, destination, allow_replace = True)
+                        self.change_place(enemy_soldier.place, soldier.place, enemy_soldier.uuid)
                 # Атаку рейнджера дополняет шрапнель от Hail_of_Thorns:
                 if attack_result['hit'] and soldier.thorns\
                         and enemy_soldier.near_allies and len(enemy_soldier.near_allies) > 2:
@@ -1453,24 +1479,8 @@ class battle_simulation(battlescape):
                     self.move_action(soldier, squad, destination, allow_replace = True)
                     self.change_place(enemy_soldier.place, soldier.place, enemy_soldier.uuid)
                 # Тактика осьминожек:
-                elif soldier.__dict__.get('water_walk')\
-                        and soldier.class_features.get('Grappler_AI'):
+                elif soldier.class_features.get('Grappler_AI'):
                     destination = self.find_spawn(soldier.place, soldier.ally_side, random_range = 1)
-                    # TODO: чернильное облако осьминожек в отдельную функцию
-                    # Лучше бы его сделать частью функции sneak_action
-                    if soldier.class_features.get('Ink_Cloud') and soldier.__dict__.get('ink_cloud'):
-                        zone_radius = round(soldier.ink_cloud_radius / self.tile_size)
-                        zone_list = self.point_to_field(soldier.place, zone_radius)
-                        zone_list_circle = [point for point in zone_list\
-                                if inside_circle(point, enemy_soldier.place, zone_radius)]
-                        for point in zone_list_circle:
-                            if 'water' in self.dict_battlespace[point]\
-                                    and not 'obscure_terrain' in self.dict_battlespace[point]:
-                                self.dict_battlespace[point].append('obscure_terrain')
-                        soldier.ink_cloud = False
-                        if soldier.bonus_action:
-                            soldier.dash_action = True
-                            soldier.bonus_action = False
                     self.move_action(soldier, squad, destination, allow_replace = True)
                     self.change_place(enemy_soldier.place, soldier.place, enemy_soldier.uuid)
                 else:
