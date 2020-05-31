@@ -1218,16 +1218,23 @@ class battle_simulation(battlescape):
                             self.dict_battlespace[point].append('mount_height')
                     soldier.set_coordinates(destination)
                 # Добавляем эффекты движения:
-                # TODO: добавь развеивание темноты по старым координатам.
+                # TODO: Замечены редкие зависания. В бою с паладинской конницей. Непотняо, почему.
                 if soldier.__dict__.get('darkness'):
-                    # TODO: Замечены редкие зависания. В бою с паладинской конницей. Непотняо, почему.
                     spell_dict = soldier.darkness_dict
                     zone_radius = round(spell_dict['radius'] / self.tile_size)
+                    # Развеиваем тьму по старым координатам:
+                    zone_list = self.find_points_in_zone(coordinates, zone_radius)
+                    zone_list_circle = [point for point in zone_list\
+                            if inside_circle(point, coordinates, zone_radius)]
+                    for point in zone_list_circle:
+                        if 'obscure_terrain' in self.dict_battlespace[point]:
+                            self.dict_battlespace[point].remove('obscure_terrain')
+                    # Создаём тьму по новым координатам:
                     zone_list = self.find_points_in_zone(soldier.place, zone_radius)
                     zone_list_circle = [point for point in zone_list\
                             if inside_circle(point, soldier.place, zone_radius)]
                     for point in zone_list_circle:
-                        if not 'darkness' in self.dict_battlespace[point]:
+                        if not 'obscure_terrain' in self.dict_battlespace[point]:
                             self.dict_battlespace[point].append('obscure_terrain')
         # Показывает ходы бойца:
         if namespace.visual:
