@@ -1163,7 +1163,6 @@ metadict_items['Rune of Armor'] = {
 metadict_items['Sword of the Past'] = {
     # Клинок былого
     'weapon':True,
-    #'shield_breaker':True,
     'weapon_type':['martial','close','two_handed','heavy','magic','+2','sword_burst'],
     'damage_type':'slashing',
     'damage_dice':'2d6',
@@ -1173,14 +1172,15 @@ metadict_items['Sword of the Past'] = {
     }
 
 metadict_items['Empyrean_Maul'] = {
+    # Большие существа теперь наносят x2 урона оружием 2d6 --> 4d6:
     'weapon':True,
-    #'shield_breaker':True,
     'weapon_type':['martial','close','two_handed','heavy','magic', '+1'],
     'damage_type':'bludgeoning',
-    'damage_dice':'6d6',
-    'weight (lb)':10*4*4,
-    'cost (gp)':10*4*4*10,
-    'cost (grams_of_gold)':10*4*4*10,
+    'damage_dice':'2d6',
+    #'damage_dice':'6d6',
+    'weight (lb)':10*4,
+    'cost (gp)':300*60,
+    'cost (grams_of_gold)':300*60,
     }
 
 #----

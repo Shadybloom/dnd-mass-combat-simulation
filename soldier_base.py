@@ -841,7 +841,10 @@ class soldier():
             # Сравниваем два списка, в выводе совпадающие элементы:
             weapon_skill_check = list(set(self.weapon_skill) & set(weapon_type_list))
             weapon_skills_use = weapon_skill_check
-            proficiency_bonus = self.proficiency_bonus
+            if weapon_skill_check:
+                proficiency_bonus = self.proficiency_bonus
+            else:
+                proficiency_bonus = 0
         except Exception as error_output:
             print('Исключение select_attack_mod (солдат не владеет оружием):', self.rank, error_output)
             weapon_skills_use = []
@@ -872,17 +875,19 @@ class soldier():
         """Убираем оружие, используем только рукопашную атаку.
         
         Эта функция создаёт рукопашную атаку. У монахов должна быть.
+        Если у существа уже есть природная атака, то новая не создаётся.
         """
         metadict_attacks = {}
-        dict_attack = {}
-        dict_attack.update(self.dict_attack_unarmed)
-        dict_attack['attack_range'] = 5
-        dict_attack['attack_type'] = 'close'
-        dict_attack.update(self.select_attack_mod(dict_attack))
-        metadict_attacks['close','unarmed'] = {}
-        metadict_attacks['close','unarmed'].update(dict_attack)
         if self.metadict_chars[self.rank].get('attacks'):
             metadict_attacks.update(self.metadict_chars[self.rank]['attacks'])
+        else:
+            dict_attack = {}
+            dict_attack.update(self.dict_attack_unarmed)
+            dict_attack['attack_range'] = 5
+            dict_attack['attack_type'] = 'close'
+            dict_attack.update(self.select_attack_mod(dict_attack))
+            metadict_attacks['close','unarmed'] = {}
+            metadict_attacks['close','unarmed'].update(dict_attack)
         return metadict_attacks
 
     def get_weapon(self):
@@ -1000,6 +1005,11 @@ class soldier():
         damage_dice = dict_attack['damage_dice']
         weapon_type_list = dict_attack['weapon_type']
         weapon_skills_use = dict_attack['weapon_skills_use']
+        # Большие существа наносят x2 костей урона оружием
+        if self.size == 'large' and dict_attack.get('weapon'):
+            weapon_skills_use.append('large_size_x2_damage_dice')
+            dice = int(damage_dice[0]) * 2
+            damage_dice = str(dice) + damage_dice[1:]
         # Оружие с тегом versatile можно использовать как двуручное, если нет щита:
         if not self.armor['shield_use'] and 'damage_dice_versatile' in dict_attack:
             damage_dice = dict_attack['damage_dice_versatile']
