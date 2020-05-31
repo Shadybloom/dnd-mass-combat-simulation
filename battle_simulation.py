@@ -1424,9 +1424,6 @@ class battle_simulation(battlescape):
                         spell_choice = 'channel', 'Dreadful_Aspect'
                         spell_dict = soldier.spells[spell_choice]
                         spell_dict['spell_choice'] = spell_choice
-                        # TODO: делай через fireball_action
-                        #self.spellcast_action(soldier, squad, enemy,
-                        #        spell_choice, subspell = True, use_spell = False)
                         self.fireball_action(soldier, squad, spell_dict, soldier.place, safe = True)
                         soldier.channel_divinity -= 1
                 # Волшебный меч Sword of the Past:
@@ -1573,6 +1570,15 @@ class battle_simulation(battlescape):
                         break
                     else:
                         fear = enemy_soldier.set_fear(soldier, spell_dict['spell_save_DC'])
+                        if fear:
+                            print('{side_1}, {c1} {s} FEAR >> {side_2} {c2} {e}'.format(
+                                side_1 = soldier.ally_side,
+                                c1 = soldier.place,
+                                s = soldier.behavior,
+                                side_2 = enemy_soldier.ally_side,
+                                c2 = enemy_soldier.place,
+                                e = enemy_soldier.behavior,
+                                ))
                         # TODO: нам нужна функция концентрации.
                         # Вот только целей у заклинания может быть несколько.
                         #if fear:
@@ -1787,6 +1793,15 @@ class battle_simulation(battlescape):
                 if spell_dict.get('effect') == 'fear':
                     enemy_soldier = self.metadict_soldiers[enemy.uuid]
                     fear = enemy_soldier.set_fear(soldier, spell_dict['spell_save_DC'])
+                    if fear:
+                        print('{side_1}, {c1} {s} FEAR >> {side_2} {c2} {e}'.format(
+                            side_1 = soldier.ally_side,
+                            c1 = soldier.place,
+                            s = soldier.behavior,
+                            side_2 = enemy_soldier.ally_side,
+                            c2 = enemy_soldier.place,
+                            e = enemy_soldier.behavior,
+                            ))
                     continue
                 # У заклинания Ice_Knife есть и шрапнель, и основной поражающий элемент:
                 if spell_dict.get('effect') == 'ice_knife' and enemy.place == zone_center:

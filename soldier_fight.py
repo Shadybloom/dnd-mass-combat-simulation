@@ -297,6 +297,16 @@ class soldier_in_battle(soldier):
         self.dodge_action = False # это disadvantage для врагов за счёт battle_action.
         self.reckless_attack = False # тактика варвара, преимущество и себе, и врагам.
         self.shield = False # заклинание 'Shield' волшебника даёт +5 AC на один раунд.
+        # Испуганный бросает спасброски против страха:
+        if self.fear:
+            self.fear = self.set_fear(self.enemy_fear, self.fear_difficult)
+            if self.fear:
+                print('{side_1} {c1} {s} FEAR {fear}'.format(
+                    side_1 = self.ally_side,
+                    c1 = self.place,
+                    s = self.behavior,
+                    fear = self.fear
+                    ))
         # Схваченный не может двигаться (но пытается вырваться):
         if self.grappled or self.restained:
             self.move_action = False
@@ -598,12 +608,13 @@ class soldier_in_battle(soldier):
                 self.danger = 0
                 self.escape = False
                 return True
-        # Страх может быть вызван магией, cause_fear:
+        # Страх может быть вызван магией:
         if self.fear:
-            # TODO: добавь спасброски против страха каждый ход.
-            # Иначе заклинание cause_fear слишком эффективно.
-            self.danger = 1
-            self.escape = True
+            fear_danger = self.fear_difficult - 10
+            if self.danger < 0:
+                self.danger += fear_danger
+            else:
+                self.danger = fear_danger
         # Каждые 10% потерянного здоровья увеличивают опасность:
         if self.hitpoints < self.hitpoints_max\
                 and not 'fearless' in squad.commands\
@@ -943,8 +954,12 @@ class soldier_in_battle(soldier):
         if fear_savethrow <= fear_difficult:
             self.fear = True
             self.enemy_fear = enemy_soldier
+            self.fear_difficult = fear_difficult
             return True
         else:
+            self.fear = False
+            self.enemy_fear = None
+            self.fear_difficult = None
             return False
 
     def set_death(self):
@@ -1239,14 +1254,15 @@ class soldier_in_battle(soldier):
                 self.superiority_dices -= 1
                 superiority_use = True
                 fear = enemy_soldier.set_fear(self, 8 + max(self.mods.values()))
-                print('{side}, {c1} {s} Menacing_Attack >> {c2} {e} {succes}'.format(
-                    side = self.ally_side,
-                    c1 = self.place,
-                    s = self.behavior,
-                    c2 = enemy_soldier.place,
-                    e = enemy_soldier.behavior,
-                    succes = fear
-                    ))
+                if fear:
+                    print('{side_1}, {c1} {s} FEAR >> {side_2} {c2} {e}'.format(
+                        side_1 = self.ally_side,
+                        c1 = self.place,
+                        s = self.behavior,
+                        side_2 = enemy_soldier.ally_side,
+                        c2 = enemy_soldier.place,
+                        e = enemy_soldier.behavior,
+                        ))
         attack_result_dict = {
                 'damage':damage_throw_mod,
                 'attack':attack_throw_mod,
