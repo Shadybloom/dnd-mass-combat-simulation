@@ -611,7 +611,7 @@ class soldier_in_battle(soldier):
         # Страх может быть вызван магией:
         if self.fear:
             fear_danger = self.fear_difficult - 10
-            if self.danger < 0:
+            if self.danger > 0:
                 self.danger += fear_danger
             else:
                 self.danger = fear_danger
