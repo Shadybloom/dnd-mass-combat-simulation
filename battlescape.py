@@ -444,7 +444,6 @@ class battlescape():
         distance = len(sight_line)
         cover_sum = 0
         visibility = True
-        wall_cover = False
         for coordinates in sight_line:
             terrain = dict_battlespace[coordinates]
             x,y = coordinates[0],coordinates[1]
@@ -459,11 +458,25 @@ class battlescape():
             # ------------------------------------------------------------
             #print(coordinates, terrain, matrix_point)
             if 'total_cover_terrain' in terrain:
-                wall_cover = True
+                visibility = False
+                cover_sum = max_obstacle
                 break
-            if 'obscure_terrain' in terrain and distance > 1:
-                wall_cover = True
+            elif 'obscure_terrain' in terrain and distance > 1:
+                visibility = False
+                cover_sum = max_obstacle
                 break
+            elif 'height' in dict_battlespace[soldier_point]\
+                    or 'height' in dict_battlespace[enemy_point]:
+                x,y = enemy_point[0],enemy_point[1]
+                cover_sum = matrix[y][x]
+                visibility = True
+                continue
+            elif 'mount_height' in dict_battlespace[soldier_point]\
+                    or 'mount_height' in dict_battlespace[enemy_point]:
+                x,y = enemy_point[0],enemy_point[1]
+                cover_sum = matrix[y][x]
+                visibility = True
+                continue
             elif matrix_point >1:
                 cover_sum += matrix_point
             # TODO: оптимизировать
@@ -480,22 +493,6 @@ class battlescape():
                 cover_sum = max_obstacle
                 visibility = False
                 break
-        # Исключение, когда смотрят с возвышенности (или на возвышенность):
-        if 'height' in dict_battlespace[soldier_point]\
-                or 'height' in dict_battlespace[enemy_point]:
-            x,y = enemy_point[0],enemy_point[1]
-            cover_sum = matrix[y][x]
-            visibility = True
-        # Исключение, когда смотрят с высоты лошади:
-        if 'mount_height' in dict_battlespace[soldier_point]\
-                or 'mount_height' in dict_battlespace[enemy_point]:
-            x,y = enemy_point[0],enemy_point[1]
-            cover_sum = matrix[y][x]
-            visibility = True
-        # Стена даёт полное укрытие независимо от прочих условий:
-        if wall_cover == True:
-            cover_sum = max_obstacle
-            visibility = False
         vision_tuple = self.namedtuple_visibility(distance, cover_sum, visibility)
         return vision_tuple
 
