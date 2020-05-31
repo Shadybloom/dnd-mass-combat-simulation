@@ -10,6 +10,34 @@ from data.items import *
 metadict_animals = {}
 
 #----
+# Осадное вооружение:
+
+metadict_animals['Onager'] = {
+    # Игромеханически -- ездовые животные
+    # Онагр
+    'level':5,
+    'challenge_rating':'1/4',
+    'char_class':'Commoner',
+    'behavior':'mount',
+    'hitpoints_medial':True,
+    'abilityes':{
+        'strength':0,
+        'dexterity':0,
+        'constitution':0, 
+        'intelligence':0,
+        'wisdom':0,
+        'charisma':0,
+        },
+    'hit_dice':'1d12',
+    'race':'Catapult',
+    'weapon_skill':[],
+    'armor_skill':[],
+    'equipment_weapon':{},
+    'equipment_backpack':{},
+    'equipment_supply':{},
+    }
+
+#----
 # Звери (дикий облик друида):
 
 metadict_animals['Giant Octopus (CR 1)'] = {

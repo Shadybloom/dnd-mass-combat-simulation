@@ -1279,3 +1279,50 @@ metadict_items['Longbow +1'] = {
     'cost (gp)':600,
     'cost (grams_of_gold)':600,
     }
+
+#----
+# Artillery, осадное вооружение
+
+metadict_items['Catapult (fire)'] = {
+    # Онагр.
+    # TODO: допили функцию direct_hit
+    # Проверь, что с ней не так
+    'weapon':True,
+    'direct_hit':True,
+    'ammo_type':'Alchemist\'s Fire (25 lb)',
+    'weapon_type':['martial','volley','artillery','burning_shell'],
+    'spell_dict':{
+            'zone':True,
+            #'zone_shape':'2x2',
+            'zone_shape':'square',
+            'direct_hit':True,
+            'savethrow':True,
+            'savethrow_ability':'dexterity',
+            'attacks_number':1,
+            'attack_range':600,
+            'radius':5,
+            'damage_type':'fire',
+            'damage_dice':'2d6',
+            'components':[],
+            'casting_time':'action',
+            'damage_mod':0,
+            'spell_level':1,
+            'spell_save_DC':15,
+            'spell_choice':('shell','Alchemist\'s Fire'),
+            #'spell_of_choice':'Burning_Hands',
+            },
+    'damage_type':'fire',
+    'damage_dice':'6d6',
+    'shoot_range':150,
+    'shoot_range_max':600,
+    'weight (lb)':4000,
+    'cost (gp)':8 * 60,
+    'cost (grams_of_gold)':8 * 60,
+    }
+
+metadict_items['Alchemist\'s Fire (25 lb)'] = {
+    'ammo':True,
+    'weight (lb)':50,
+    'cost (gp)':15,
+    'cost (grams_of_gold)':15,
+    }

@@ -29,6 +29,11 @@ metadict_squads['test 12 animals'] = {
     #'Empyrean (CR 23)':1,
     }
 
+metadict_squads['test 4 onagers'] = {
+    'Warrior 3 lvl (siege engineer-apprentice) (onager-fire)':3,
+    'Warrior 4 lvl (siege engineer-master) (onager-fire)':1,
+    }
+
 #----
 # Геройские отряды (армия Протесилая):
 
@@ -46,6 +51,29 @@ metadict_squads['Band-hero (паладины) (Тзаангор)'] = {
 
 #----
 # Геройские отряды (армия Ианты):
+
+metadict_squads['Company-militia (охотницы) (Vaarsuvius)'] = {
+    'Commoner 1 lvl (Vaarsuvius) (охотница)':100,
+    'Warrior 3 lvl (Vaarsuvius) (меткий стрелок)':1,
+    }
+
+metadict_squads['Company-militia (дикарки) (Vaarsuvius)'] = {
+    'Commoner 1 lvl (Vaarsuvius) (дикарка)':100,
+    'Warrior 3 lvl (Vaarsuvius) (меткий стрелок)':1,
+    }
+
+metadict_squads['Company-militia (токсотаи) (Vaarsuvius)'] = {
+    'Commoner 1 lvl (Vaarsuvius) (токсотаи)':100,
+    'Warrior 3 lvl (Vaarsuvius) (меткий стрелок)':1,
+    }
+
+metadict_squads['Company-regular (стрелки Ианты) (Vaarsuvius)'] = {
+    'Warrior 1 lvl (Vaarsuvius) (стрелок)':85,
+    'Warrior 2 lvl (Vaarsuvius) (стрелок-ветеран)':10,
+    'Warrior 3 lvl (Vaarsuvius) (меткий стрелок)':3,
+    'Warrior 4 lvl (Vaarsuvius) (стрелок-лейтенант)':1,
+    #'Warrior 5 lvl (Vaarsuvius) (стрелок-капитан)':1,
+    }
 
 metadict_squads['Company-regular (дочери медведицы) (Vaarsuvius)'] = {
     'Warrior 1 lvl (Vaarsuvius) (дочерь медведицы)':85,

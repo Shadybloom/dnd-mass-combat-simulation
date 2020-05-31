@@ -106,4 +106,15 @@ dict_races = {
             'weight_base_lb':1000,
             'weight_mod_dice':'2d20',
             },
+        'Catapult':{
+            # Какая там базовая защита у деревянных предметов?
+            'hero':False,
+            'size':'large',
+            'base_speed':0,
+            'armor_class_natural':15,
+            'height_base_inches':56,
+            'height_mod_dice':'2d4',
+            'weight_base_lb':4000,
+            'weight_mod_dice':'2d20',
+            },
         }
