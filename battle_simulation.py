@@ -749,10 +749,12 @@ class battle_simulation(battlescape):
                 commands_list = ['lead','follow']
                 commands_list.append('attack')
                 commands_list.append('spellcast')
+                commands_list.append('fireball')
             elif squad.enemy_recon['distance'] <= save_distance:
                 commands_list = ['lead','follow','engage']
                 commands_list.append('attack')
                 commands_list.append('spellcast')
+                commands_list.append('channel')
         elif squad.commander and not squad.enemies:
             commands_list = ['lead','follow']
         elif not squad.commander:
@@ -912,6 +914,8 @@ class battle_simulation(battlescape):
             soldier.set_near_enemies(recon_near)
             soldier.set_danger(self.recon_action_danger(soldier, recon_near), squad)
             if soldier.danger <= 0 or 'fearless' in squad.commands:
+                if 'channel' in squad.commands:
+                    self.channel_action(soldier, squad, enemy)
                 self.fireball_action(soldier, squad)
                 self.spellcast_action(soldier, squad, enemy)
         # Атака следует за 'engage', поэтому осматриваемся снова:
@@ -1417,15 +1421,6 @@ class battle_simulation(battlescape):
                     spell_choice = soldier.spells_generator.find_spell('Divine_Smite')
                     self.spellcast_action(soldier, squad, enemy,
                             spell_choice, subspell = True, use_spell = True)
-                    # TODO: перенести Channel_Dreadful_Aspect в отдельное действие.
-                    if soldier.class_features.get('Channel_Dreadful_Aspect')\
-                            and soldier.near_enemies and len(soldier.near_enemies) > 1\
-                            and soldier.channel_divinity > 0:
-                        spell_choice = 'channel', 'Dreadful_Aspect'
-                        spell_dict = soldier.spells[spell_choice]
-                        spell_dict['spell_choice'] = spell_choice
-                        self.fireball_action(soldier, squad, spell_dict, soldier.place, safe = True)
-                        soldier.channel_divinity -= 1
                 # Волшебный меч Sword of the Past:
                 if attack_result['hit'] and 'sword_burst' in attack_result['weapon_type']:
                     spell_choice = 'subspell', 'Sword_Burst'
@@ -1547,21 +1542,9 @@ class battle_simulation(battlescape):
                 advantage, disadvantage = self.test_enemy_defence(soldier, enemy, spell_choice)
                 # Заклинание Word_of_Radiance, избирательно бьющее по врагам вблизи.
                 if spell_dict.get('effect') == 'burst':
-                    if soldier.class_features.get('Channel_Radiance_of_the_Dawn')\
-                            and soldier.near_enemies and len(soldier.near_enemies) > 1\
-                            and soldier.channel_divinity > 0:
-                        # TODO: добавь развеивание темноты "Darkness".
-                        # Обязательно, потому что Сияние рассвета поражает только видимые цели.
-                        spell_choice = 'channel', 'Radiance_of_the_Dawn'
-                        spell_dict = soldier.spells[spell_choice]
-                        spell_dict['spell_choice'] = spell_choice
-                        self.fireball_action(soldier, squad, spell_dict, soldier.place, safe = True)
-                        soldier.channel_divinity -= 1
-                        continue
-                    else:
-                        spell_dict['spell_choice'] = spell_choice
-                        self.fireball_action(soldier, squad, spell_dict, soldier.place, safe = True)
-                        continue
+                    spell_dict['spell_choice'] = spell_choice
+                    self.fireball_action(soldier, squad, spell_dict, soldier.place, safe = True)
+                    continue
                 # TODO: заклинания в отдельные функции.
                 # Заклинание Cause_Fear:
                 elif spell_dict.get('effect') == 'fear':
@@ -1698,6 +1681,29 @@ class battle_simulation(battlescape):
                         squad.enemies.pop(enemy.uuid)
                 # Обобщаем статистику атак (расход боеприпасов и прочее):
                 self.set_squad_battle_stat(attack_result, squad)
+
+    def channel_action(self, soldier, squad, enemy):
+        """Боец использует божественный канал."""
+        if soldier.battle_action:
+            enemy_soldier = self.metadict_soldiers[enemy.uuid]
+            if soldier.class_features.get('Channel_Dreadful_Aspect')\
+                    and soldier.near_enemies and len(soldier.near_enemies) > 1\
+                    and soldier.channel_divinity > 0:
+                spell_choice = 'channel', 'Dreadful_Aspect'
+                spell_dict = soldier.spells[spell_choice]
+                spell_dict['spell_choice'] = spell_choice
+                self.fireball_action(soldier, squad, spell_dict, soldier.place, safe = True)
+                soldier.channel_divinity -= 1
+            elif soldier.class_features.get('Channel_Radiance_of_the_Dawn')\
+                    and soldier.near_enemies and len(soldier.near_enemies) > 1\
+                    and soldier.channel_divinity > 0:
+                # TODO: добавь развеивание темноты "Darkness".
+                # Обязательно, потому что Сияние рассвета поражает только видимые цели.
+                spell_choice = 'channel', 'Radiance_of_the_Dawn'
+                spell_dict = soldier.spells[spell_choice]
+                spell_dict['spell_choice'] = spell_choice
+                self.fireball_action(soldier, squad, spell_dict, soldier.place, safe = True)
+                soldier.channel_divinity -= 1
 
     def find_target_for_debuff(self, soldier, enemy, debuff):
         """Ищет цели, на которые ещё не наложен выбранный эффект заклинания.
