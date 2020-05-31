@@ -2026,8 +2026,9 @@ metadict_chars['Fighter 2 lvl (legionary slayer-flanker)'] = {
 
 metadict_chars['Fighter 3 lvl (legionary slayer-champion)'] = {
     # TODO: В общем и целом бойцы-чемпионы уступают варварам. Самураев испытай.
+    # Пока что мастер боевых искусств.
     'level':3,
-    'char_class':'Fighter',
+    'char_class':'Battlemaster',
     'hit_dice':'1d10',
     'behavior':'commander',
     'class_features':{
@@ -2035,8 +2036,12 @@ metadict_chars['Fighter 3 lvl (legionary slayer-champion)'] = {
         'Fighting_Style_Great_Weapon_Fighting':True,
         'Second_Wind':True,
         'Action_Surge':True,
-        'Martial_Archetype_Champion':True,
-        'Champion_Improved_Critical':True,
+        'Martial_Archetype_Battlemaster':True,
+        'Combat_Superiority':True,
+        'Student_of_War':True,
+        'Parry':True,
+        'Menacing_Attack':True,
+        'Precision_Attack':True,
         },
     'race':'Human-hero',
     'weapon_skill':['simple','martial'],
@@ -2054,7 +2059,7 @@ metadict_chars['Fighter 3 lvl (legionary slayer-champion)'] = {
 
 metadict_chars['Fighter 4 lvl (legionary slayer-lieutenant)'] = {
     'level':4,
-    'char_class':'Fighter',
+    'char_class':'Battlemaster',
     'hit_dice':'1d10',
     'behavior':'commander',
     'class_features':{
@@ -2062,10 +2067,15 @@ metadict_chars['Fighter 4 lvl (legionary slayer-lieutenant)'] = {
         'Fighting_Style_Great_Weapon_Fighting':True,
         'Second_Wind':True,
         'Action_Surge':True,
-        'Martial_Archetype_Champion':True,
-        'Champion_Improved_Critical':True,
+        'Martial_Archetype_Battlemaster':True,
+        'Combat_Superiority':True,
+        'Student_of_War':True,
+        'Parry':True,
+        'Menacing_Attack':True,
+        'Precision_Attack':True,
+        'Feat_Heavy_Armor_Master':True,
         'Ability_Score_Improvement':{
-            'strength':+2,
+            'strength':+1,
             },
         },
     'race':'Human-hero',
@@ -2086,7 +2096,7 @@ metadict_chars['Fighter 4 lvl (legionary slayer-lieutenant)'] = {
 metadict_chars['Fighter 5 lvl (legionary slayer-captain)'] = {
     # Samurai
     'level':5,
-    'char_class':'Fighter',
+    'char_class':'Battlemaster',
     'hit_dice':'1d10',
     'behavior':'commander',
     'class_features':{
@@ -2094,10 +2104,15 @@ metadict_chars['Fighter 5 lvl (legionary slayer-captain)'] = {
         'Fighting_Style_Great_Weapon_Fighting':True,
         'Second_Wind':True,
         'Action_Surge':True,
-        'Martial_Archetype_Champion':True,
-        'Champion_Improved_Critical':True,
+        'Martial_Archetype_Battlemaster':True,
+        'Combat_Superiority':True,
+        'Student_of_War':True,
+        'Parry':True,
+        'Menacing_Attack':True,
+        'Precision_Attack':True,
+        'Feat_Heavy_Armor_Master':True,
         'Ability_Score_Improvement':{
-            'strength':+2,
+            'strength':+1,
             },
         'Extra_Attack':True,
         },
@@ -2111,7 +2126,7 @@ metadict_chars['Fighter 5 lvl (legionary slayer-captain)'] = {
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
         'Splint Armor':1,
-        'Heavy Shield':1,
+        'Shield':1,
         'Greatsword +1':1,
         },
     }
@@ -5473,6 +5488,9 @@ metadict_chars['Paladin 1 lvl (Тзаангор) (паладины)'] = {
     'behavior':'elite_warrior',
     'class_features':{
         'Feat_Heavy_Armor_Master':True,
+        'Ability_Score_Improvement':{
+            'strength':+1,
+            },
         'Divine_Sense':True,
         'Lay_on_Hands':True,
         },
@@ -5486,11 +5504,10 @@ metadict_chars['Paladin 1 lvl (Тзаангор) (паладины)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        #'Infusion of Healing':1,
+        'Infusion of Healing':1,
         'Splint Armor':1,
         'Heavy Shield':1,
         'Battleaxe':1,
-        'Pilum':4,
         },
     #'mount_combat':False,
     #'mount_type':'Riding Horse',
@@ -5583,9 +5600,9 @@ metadict_chars['Paladin 5 lvl (Тзаангор) (Протесилай II, «Д�
         #'Rune of Shielding':1,
         'Splint Armor':1,
         'Heavy Shield':1,
-        'Shortsword':1,
+        #'Shortsword':1,
         'Long Spear +1':1,
-        'Pilum':4,
+        #'Javelin':4,
         },
     #'mount_combat':False,
     #'mount_type':'Riding Horse',
