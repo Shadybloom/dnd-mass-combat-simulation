@@ -1067,23 +1067,25 @@ class soldier_in_battle(soldier):
         enemy_cover = enemy.cover
         spellslots_list = reversed(list(self.spellslots.keys()))
         for spell_slot in spellslots_list:
-            if distance >= 2 and spell_slot in [attack[0] for attack in self.spells]:
-                spell_attack = [attack for attack in self.spells if attack[0] == spell_slot
-                        and attack[1] == self.spells[attack]['spell_of_choice']]
-                if spell_attack:
-                    # TODO: лучше используй random.choice
-                    spell_attack = spell_attack[0]
-                    if distance <= round(self.spells[spell_attack]['attack_range'] / tile_size):
-                        #print(spell_attack, self.rank, self.spellslots)
-                        return spell_attack
-            if distance <= 2 and spell_slot in [attack[0] for attack in self.spells]:
-                spell_attack_list = [attack for attack in self.spells if attack[0] == spell_slot
-                        and attack[1] == self.spells[attack]['spell_of_choice']
-                        and self.spells[attack].get('effect',None) == 'burst']
-                if spell_attack_list:
-                    spell_attack = spell_attack_list[0]
-                    if distance <= round(self.spells[spell_attack]['attack_range'] / tile_size):
-                        return spell_attack
+            # Без приказа только заклинания 1 круга:
+            if int(spell_slot[0]) < 2 or 'fireball' in squad.commands:
+                if distance >= 2 and spell_slot in [attack[0] for attack in self.spells]:
+                    spell_attack = [attack for attack in self.spells if attack[0] == spell_slot
+                            and attack[1] == self.spells[attack]['spell_of_choice']]
+                    if spell_attack:
+                        # TODO: лучше используй random.choice
+                        spell_attack = spell_attack[0]
+                        if distance <= round(self.spells[spell_attack]['attack_range'] / tile_size):
+                            #print(spell_attack, self.rank, self.spellslots)
+                            return spell_attack
+                if distance <= 2 and spell_slot in [attack[0] for attack in self.spells]:
+                    spell_attack_list = [attack for attack in self.spells if attack[0] == spell_slot
+                            and attack[1] == self.spells[attack]['spell_of_choice']
+                            and self.spells[attack].get('effect',None) == 'burst']
+                    if spell_attack_list:
+                        spell_attack = spell_attack_list[0]
+                        if distance <= round(self.spells[spell_attack]['attack_range'] / tile_size):
+                            return spell_attack
         if distance >= 2 and 'cantrip' in [attack[0] for attack in self.spells]:
             spell_attack_list = [attack for attack in self.spells if attack[0] == 'cantrip'
                     and attack[1] == self.spells[attack]['spell_of_choice']

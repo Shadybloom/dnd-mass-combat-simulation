@@ -1833,7 +1833,8 @@ class battle_simulation(battlescape):
         """Выбор заклинания, бьющего по территории и точки атаки для него."""
         spell_choice_list = []
         for spell_slot in soldier.spellslots:
-            if int(spell_slot[0]) <= 2 or 'fireball' in squad.commands:
+            # Без приказа только заклинания 1 круга:
+            if int(spell_slot[0]) < 2 or 'fireball' in squad.commands:
                 slot_spells_list = [attack for attack in soldier.spells if attack[0] == spell_slot
                         and soldier.spells[attack].get('zone')]
                 spell_choice_list.extend(slot_spells_list)
