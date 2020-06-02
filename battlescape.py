@@ -445,7 +445,6 @@ class battlescape():
         cover_sum = 0
         visibility = True
         for coordinates in sight_line:
-            terrain = dict_battlespace[coordinates]
             x,y = coordinates[0],coordinates[1]
             matrix_point = matrix[y][x]
             # ЗАМЕТКА: видимость
@@ -456,12 +455,18 @@ class battlescape():
             # Люди тоже дают помеху взгляду. Но с помехами местности это не складывается.
             # 5-я шеренга строя на ровной как стол местности уже не видит врагов.
             # ------------------------------------------------------------
-            #print(coordinates, terrain, matrix_point)
-            if 'total_cover_terrain' in terrain:
+            #print(coordinates, dict_battlespace[coordinates], matrix_point)
+            # TODO: raycasting извне карты невозможен. Учти нижний-правый угол карты.
+            # Это может случиться, когда точка попадания катапульты вне края карты.
+            if x < 0 or y < 0:
                 visibility = False
                 cover_sum = max_obstacle
                 break
-            elif 'obscure_terrain' in terrain and distance > 1:
+            elif 'total_cover_terrain' in dict_battlespace[coordinates]:
+                visibility = False
+                cover_sum = max_obstacle
+                break
+            elif 'obscure_terrain' in dict_battlespace[coordinates] and distance > 1:
                 visibility = False
                 cover_sum = max_obstacle
                 break
@@ -486,7 +491,7 @@ class battlescape():
             # ------------------------------------------------------------
             elif coordinates != soldier_point and coordinates != enemy_point:
                 #print(coordinates, soldier_point, enemy_point)
-                if tuple in [type(el) for el in terrain]:
+                if tuple in [type(el) for el in dict_battlespace[coordinates]]:
                     cover_sum += 4
             # Прерываем обход линии взгляда, если видимость нулевая:
             if cover_sum >= max_obstacle:
