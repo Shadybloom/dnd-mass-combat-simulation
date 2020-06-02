@@ -209,6 +209,8 @@ class soldier_in_battle(soldier):
                 self.sorcery_points = self.proficiency.get('sorcery_points',0)
             if self.class_features.get('Warding_Flare') and not hasattr(self, 'warding_flare'):
                 self.warding_flare = self.mods['wisdom']
+            if self.class_features.get('War_Priest') and not hasattr(self, 'war_priest'):
+                self.war_priest = self.mods['wisdom']
             if self.proficiency.get('channel_divinity') and not hasattr(self, 'channel_divinity'):
                 self.channel_divinity = self.proficiency['channel_divinity']
             # Особенности монстров:

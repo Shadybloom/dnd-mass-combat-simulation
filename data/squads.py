@@ -35,16 +35,25 @@ metadict_squads['test 4 onagers'] = {
     }
 
 #----
+# Геройские отряды (армия Патрокла):
+
+metadict_squads['Band-hero (жрецы Патрокла) (Vened)'] = {
+    'Cleric 5 lvl (Vened) (Патрокл «Македонянин»)':1,
+    #'Cleric 1 lvl (Vened) (жрец домена войны)':12,
+    'Cleric 1 lvl (Vened) (жрец домена войны)':6,
+    }
+
+#----
 # Геройские отряды (армия Протесилая):
 
-metadict_squads['Company-regular (сариссофоры Спарты) (Тзаангор)'] = {
+metadict_squads['Company-regular (сариссофоры Протесилая) (Тзаангор)'] = {
     'Warrior 1 lvl (Тзаангор) (гипасист)':85,
     'Warrior 2 lvl (Тзаангор) (ветеран)':20,
     'Warrior 3 lvl (Тзаангор) (ур-лодакос)':6,
     'Warrior 4 lvl (Тзаангор) (лодакос)':2,
     }
 
-metadict_squads['Band-hero (паладины) (Тзаангор)'] = {
+metadict_squads['Band-hero (паладины Протесилая) (Тзаангор)'] = {
     'Paladin 5 lvl (Тзаангор) (Протесилай II, «Держатель щита»)':1,
     'Paladin 1 lvl (Тзаангор) (паладины)':6,
     }
@@ -52,17 +61,17 @@ metadict_squads['Band-hero (паладины) (Тзаангор)'] = {
 #----
 # Геройские отряды (армия Ианты):
 
-metadict_squads['Company-militia (охотницы) (Vaarsuvius)'] = {
+metadict_squads['Company-militia (охотницы Ианты) (Vaarsuvius)'] = {
     'Commoner 1 lvl (Vaarsuvius) (охотница)':100,
     'Warrior 3 lvl (Vaarsuvius) (меткий стрелок)':1,
     }
 
-metadict_squads['Company-militia (дикарки) (Vaarsuvius)'] = {
+metadict_squads['Company-militia (дикарки Ианты) (Vaarsuvius)'] = {
     'Commoner 1 lvl (Vaarsuvius) (дикарка)':100,
     'Warrior 3 lvl (Vaarsuvius) (меткий стрелок)':1,
     }
 
-metadict_squads['Company-militia (токсотаи) (Vaarsuvius)'] = {
+metadict_squads['Company-militia (токсотаи Ианты) (Vaarsuvius)'] = {
     'Commoner 1 lvl (Vaarsuvius) (токсотаи)':100,
     'Warrior 3 lvl (Vaarsuvius) (меткий стрелок)':1,
     }
@@ -75,7 +84,7 @@ metadict_squads['Company-regular (стрелки Ианты) (Vaarsuvius)'] = {
     #'Warrior 5 lvl (Vaarsuvius) (стрелок-капитан)':1,
     }
 
-metadict_squads['Company-regular (дочери медведицы) (Vaarsuvius)'] = {
+metadict_squads['Company-regular (дочери медведицы Ианты) (Vaarsuvius)'] = {
     'Warrior 1 lvl (Vaarsuvius) (дочерь медведицы)':85,
     'Warrior 2 lvl (Vaarsuvius) (ветеран)':10,
     'Warrior 3 lvl (Vaarsuvius) (сержант)':3,
@@ -83,7 +92,7 @@ metadict_squads['Company-regular (дочери медведицы) (Vaarsuvius)'
     'Warrior 4 lvl (Vaarsuvius) (первый помощник)':1,
     }
 
-metadict_squads['Squad-hero (друиды Артемиды) (Vaarsuvius)'] = {
+metadict_squads['Squad-hero (друиды Ианты) (Vaarsuvius)'] = {
     'Druid 5 lvl (Vaarsuvius) (Ианта «Дочь бури»)':1,
     'Druid 2 lvl (Vaarsuvius) (друид Артемиды)':12,
     }

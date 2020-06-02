@@ -6207,3 +6207,147 @@ metadict_chars['Fighter 5 lvl (ArbitraryNickname) (Артаманах Рыбни
         'Arrow':60,
         },
     }
+
+#----
+# Жрецы -- домен жизни:
+
+metadict_chars['Cleric 1 lvl (Vened) (жрец домена войны)'] = {
+    # В свите Патрокла БОЛЬШИЕ македонцы.
+    # TODO: Броня больших созданий должна весить в 2.5 раза больше.
+    # Добавим им бесстрашия, а то пугливы из-за большого размера.
+    'level':1,
+    'fearless':True,
+    'char_class':'Cleric',
+    'hit_dice':'1d8',
+    'behavior':'elite_warrior',
+    'class_features':{
+        # Даём халявный Feat_Heavy_Armor_Master, потому что большим созданиям нелегко.
+        'Feat_Tough':True,
+        'Feat_Heavy_Armor_Master':True,
+        'Ability_Score_Improvement':{
+            'strength':+1,
+            },
+        'Spellcasting':True,
+        'Spells':[
+            ('cantrip', 'Thaumaturgy'),
+            ('cantrip', 'Spare_the_Dying'),
+            ('cantrip', 'Sacred_Flame'),
+            #('cantrip', 'Word_of_Radiance'),
+            ('ritual', 'Detect_Poison_and_Disease'),
+            ('ritual', 'Purify_Food_and_Drink'),
+            #('ritual', 'Detect_Magic'),
+            ('1_lvl', 'Healing_Word'),
+            ('1_lvl', 'Bless'),
+            #('1_lvl', 'Cure_Wounds'),
+            #('1_lvl', 'Sanctuary'),
+            #('1_lvl', 'Shield_of_Faith'),
+            #('ritual', 'Ceremony'),
+            ],
+        'War_Domain':True,
+        'War_Priest':True,
+        'Disciple_of_Life':True,
+        },
+    'race':'Human-hero-big',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Splint Armor':1,
+        'Heavy Shield':1,
+        'Long Spear':1,
+        'Mace':1,
+        },
+    #'mount_combat':False,
+    #'mount_type':'Riding Horse',
+    #'equipment_mount':{
+    #    },
+    }
+
+metadict_chars['Cleric 5 lvl (Vened) (Патрокл «Македонянин»)'] = {
+    'level':5,
+    'fearless':True,
+    'char_class':'Cleric',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'hitpoints_medial':True,
+    'abilityes':{
+        'strength':19,
+        'dexterity':10,
+        'constitution':12,
+        'intelligence':10,
+        'wisdom':18,
+        'charisma':18,
+        },
+    'class_features':{
+        'Feat_Tough':True,
+        'Feat_Heavy_Armor_Master':True,
+        'Spellcasting':True,
+        'Spells':[
+            # TODO: Сделай Spirit_Guardians
+            # TODO: Сделай Crusader\'s Mantle. Там потрясающие +1d4 урона всем в радиусе 30 футов
+            # TODO: Обязательно сделай Calm_Emotions. Защита от страха.
+            ('cantrip', 'Thaumaturgy'),
+            ('cantrip', 'Spare_the_Dying'),
+            ('cantrip', 'Sacred_Flame'),
+            ('cantrip', 'Guidance'),
+            #('cantrip', 'Word_of_Radiance'),
+            ('ritual', 'Augury'),
+            #('ritual', 'Water_Walk'),
+            #('ritual', 'Meld_into_Stone'),
+            ('1_lvl', 'Healing_Word'),
+            ('2_lvl', 'Healing_Word'),
+            ('3_lvl', 'Healing_Word'),
+            ('1_lvl', 'Sanctuary'),
+            ('2_lvl', 'Gentle_Repose'),
+            ('2_lvl', 'Lesser_Restoration'),
+            ('2_lvl', 'Zone_of_Truth'),
+            ('3_lvl', 'Beacon_of_Hope'),
+            ('3_lvl', 'Revivify'),
+            ('3_lvl', 'Sending'),
+            # Доменные:
+            ('2_lvl', 'Magic_Weapon'),
+            ('2_lvl', 'Spiritual_Weapon'),
+            ('3_lvl', 'Crusader\'s Mantle'),
+            ('3_lvl', 'Spirit_Guardians'),
+            # Прочие:
+            #('3_lvl', 'Remove_Curse'),
+            #('3_lvl', 'Daylight'),
+            #('3_lvl', 'Clairvoyance'),
+            #('3_lvl', 'Mass_Healing_Word'),
+            #('3_lvl', 'Glyph_of_Warding'),
+            #('3_lvl', 'Spirit_Guardians'),
+            #('3_lvl', 'Speak_with_Dead'),
+            #('3_lvl', 'Tongues'),
+            #('3_lvl', 'Sending'),
+            #('3_lvl', 'Dispel_Magic'),
+            ],
+        'War_Domain':True,
+        'War_Priest':True,
+        'Channel_Turn_Undead':True,
+        'Channel_Guided_Strike':True,
+        'Ability_Score_Improvement':{
+            'wisdom':+2,
+            },
+        },
+    'race':'Human-hero-big',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Rune of Absorbtion':1,
+        'Rune of Shielding':1,
+        'Splint Armor':1,
+        'Heavy Shield':1,
+        'Long Spear +1':1,
+        'Shortsword':1,
+        },
+    #'mount_combat':False,
+    #'mount_type':'Riding Horse',
+    #'equipment_mount':{
+    #    },
+    }
+

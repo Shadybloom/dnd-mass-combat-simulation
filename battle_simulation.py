@@ -774,9 +774,10 @@ class battle_simulation(battlescape):
             # Лучники и метатели дротиков должны чуть что отступать:
             if squad.behavior == 'archer':
                 #commands_list.append('seek')
-                commands_list.append('volley')
                 commands_list.append('spellcast')
                 commands_list.append('fireball')
+                if commander.class_features.get('Feat_Sharpshooter'):
+                    commands_list.append('volley')
                 if 'engage' in commands_list:
                     commands_list.remove('engage')
                     commands_list.append('disengage')
@@ -1343,6 +1344,12 @@ class battle_simulation(battlescape):
             if soldier.class_features.get('Fighting_Style_Two_Weapon_Fighting'):
                 if attack_choice[0] == 'close' or attack_choice[0] == 'throw':
                     attacks_chain_bonus = soldier.set_two_weapon_fighting(attack_choice)
+            # Жрецы домена войны могут получить атаку за счёт бонусного действия:
+            if soldier.class_features.get('War_Priest') and soldier.war_priest > 0:
+                    attacks_chain_bonus += attack_choice
+                    soldier.bonus_action = False
+                    soldier.war_priest -= 1
+            # Варвары добавляют бонусы ярости:
             if soldier.char_class == 'Barbarian':
                 if attack_choice[0] == 'close':
                     soldier.set_rage()
