@@ -6309,7 +6309,7 @@ metadict_chars['Cleric 5 lvl (Vened) (Патрокл «Македонянин»)
             # Доменные:
             ('2_lvl', 'Magic_Weapon'),
             ('2_lvl', 'Spiritual_Weapon'),
-            ('3_lvl', 'Crusader\'s Mantle'),
+            ('3_lvl', 'Crusaders_Mantle'),
             ('3_lvl', 'Spirit_Guardians'),
             # Прочие:
             #('3_lvl', 'Remove_Curse'),

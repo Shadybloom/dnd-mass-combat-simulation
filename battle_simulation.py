@@ -1241,6 +1241,24 @@ class battle_simulation(battlescape):
                     for point in zone_list_circle:
                         if not 'obscure_terrain' in self.dict_battlespace[point]:
                             self.dict_battlespace[point].append('obscure_terrain')
+                # Мантия крестоносца даёт союзникам бонусный урон:
+                if soldier.__dict__.get('crusaders_mantle'):
+                    spell_dict = soldier.crusaders_mantle_dict
+                    zone_radius = round(spell_dict['radius'] / self.tile_size)
+                    # Развеиваем тьму по старым координатам:
+                    zone_list = self.find_points_in_zone(coordinates, zone_radius)
+                    zone_list_circle = [point for point in zone_list\
+                            if inside_circle(point, coordinates, zone_radius)]
+                    for point in zone_list_circle:
+                        if 'crusaders_mantle' in self.dict_battlespace[point]:
+                            self.dict_battlespace[point].remove('crusaders_mantle')
+                    # Создаём тьму по новым координатам:
+                    zone_list = self.find_points_in_zone(soldier.place, zone_radius)
+                    zone_list_circle = [point for point in zone_list\
+                            if inside_circle(point, soldier.place, zone_radius)]
+                    for point in zone_list_circle:
+                        if not 'crusaders_mantle' in self.dict_battlespace[point]:
+                            self.dict_battlespace[point].append('crusaders_mantle')
         # Показывает ходы бойца:
         if namespace.visual:
             print_ascii_map(self.gen_battlemap())
@@ -1440,6 +1458,22 @@ class battle_simulation(battlescape):
                     spell_dict = soldier.spells[spell_choice]
                     spell_dict['spell_choice'] = spell_choice
                     self.fireball_action(soldier, squad, spell_dict, soldier.place, safe = True)
+                # Эффект Crusaders_Mantle (срабатывает только для атак оружием):
+                if attack_result['hit'] and attack_dict.get('weapon') == True\
+                        and 'crusaders_mantle' in self.dict_battlespace[soldier.place]:
+                    # Находим создателя "Мантии крестоносца", если он союзный:
+                    spell_dict = [ally_soldier.crusaders_mantle_dict\
+                            for ally_soldier in self.metadict_soldiers.values()
+                            if ally_soldier.ally_side == soldier.ally_side
+                            and ally_soldier.crusaders_mantle]
+                    if spell_dict:
+                        spell_dict = spell_dict[0]
+                        spell_choice = 'aura', 'Crusaders_Mantle'
+                        spell_dict['spell_choice'] = spell_choice
+                        attack_dict = soldier.spell_attack(spell_dict, enemy,
+                                advantage = advantage, disadvantage = disadvantage)
+                        attack_result = enemy_soldier.take_attack(
+                                spell_choice, attack_dict, self.metadict_soldiers)
                 # Мастер тяжёлого оружия получает бонусную атаку, если убивает врага:
                 # 20 варварам 2 lvl это добавляет 25% атак. От 10 до 30 атак за минуту боя.
                 if attack_result['crit'] or attack_result['fatal_hit']:

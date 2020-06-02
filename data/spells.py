@@ -1339,3 +1339,29 @@ class gen_spells():
                 'spell_of_choice':'Magic_Missile',
                 }
         return spell_dict
+
+    def Crusaders_Mantle(self, spell_level):
+        """Дикие +1d4 урона всем союзникам в радиусе 30 футов.
+
+        Level: 3
+        Casting time: 1 Action
+        Range: Self
+        Components: V
+        Duration: Concentration, up to 1 minute
+        https://www.dnd-spells.com/spell/crusaders-mantle
+        """
+        spell_dict = {
+                'effect':'crusaders_mantle',
+                'direct_hit':True,
+                'attack_range':'self',
+                'radius':30,
+                'components':['verbal'],
+                'damage_type':'radiant',
+                'damage_dice':'1d4',
+                'casting_time':'action',
+                'spell_level':spell_level,
+                'damage_mod':0,
+                'spell_of_choice':'Magic_Missile',
+                }
+        return spell_dict
+

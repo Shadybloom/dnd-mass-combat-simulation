@@ -950,6 +950,12 @@ class battlescape():
                     symbol_colored = '\x1b[48;5;8m' + symbol_colored
                 if 'obscure_terrain' in self.dict_battlespace[key]:
                     symbol_colored = '\x1b[48;5;18m' + symbol_colored
+                if 'crusaders_mantle' in self.dict_battlespace[key]:
+                    symbol_colored = '\x1b[48;5;23m' + symbol_colored
+                    #if self.ally_side in el:
+                    #    symbol_colored = '\x1b[48;5;22m' + symbol_colored
+                    #elif self.enemy_side in el:
+                    #    symbol_colored = '\x1b[48;5;52m' + symbol_colored
                 if soldiers_in_place > 1:
                     symbol_colored = '\x1b[4m' + symbol_colored
                 # TODO: сделай курсив для раненых и белый для отступающих.

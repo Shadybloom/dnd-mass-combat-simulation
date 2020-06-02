@@ -152,6 +152,8 @@ class soldier_in_battle(soldier):
             self.blur = False
         if not hasattr(self, 'sacred_weapon'):
             self.sacred_weapon = False
+        if not hasattr(self, 'crusaders_mantle'):
+            self.crusaders_mantle = False
         if not hasattr(self, 'fall'):
             self.fall = False
         if not hasattr(self, 'disabled'):
@@ -277,6 +279,13 @@ class soldier_in_battle(soldier):
                     self.sacred_weapon_timer = spell_dict['effect_timer']
                     self.channel_divinity -= 1
                     break
+                if spell_dict.get('effect') is 'crusaders_mantle' and not self.crusaders_mantle:
+                    # TODO: сделай уже работающую концентрацию на заклинаниях!
+                    spell_dict = self.spells_generator.use_spell(spell)
+                    self.crusaders_mantle = True
+                    self.crusaders_mantle_dict = spell_dict
+                    self.crusaders_mantle_timer = 10
+                    break
 
     def set_actions(self, squad):
         """Доступные действия в 6-секундном раунде боя.
@@ -383,6 +392,13 @@ class soldier_in_battle(soldier):
                 self.blur_timer -= 1
             elif self.blur_timer == 0:
                 self.blur = None
+        # Заклинание Crusaders_Mantle
+        if self.crusaders_mantle:
+            if self.crusaders_mantle_timer > 0:
+                self.crusaders_mantle_timer -= 1
+            elif self.crusaders_mantle_timer == 0:
+                self.crusaders_mantle = None
+                self.crusaders_mantle_dict = None
         # Channel_Sacred_Weapon
         if self.sacred_weapon:
             if self.sacred_weapon_timer > 0:
