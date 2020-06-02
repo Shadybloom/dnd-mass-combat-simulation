@@ -570,9 +570,12 @@ class soldier():
             mounted_weigh = calculate_equipment_weight(self.equipment_mount, metadict_items)
             mounted_weigh += backpack_weight
             backpack_weight = 0
-        # TODO: нагрузка зависит от размера существа. Лошади же.
         light_load = self.abilityes['strength'] * 5
         maximum_load = self.abilityes['strength'] * 10
+        # Для крупных существ переносимый вес удваивается:
+        if self.size == 'large':
+            light_load *= 2
+            maximum_load *= 2
         # В бою боец носит только оружие и доспехи:
         battle_overload = False
         if equipment_weight > light_load:
@@ -668,14 +671,20 @@ class soldier():
         hit_dice = self.hit_dice
         constitution_mod = self.mods['constitution']
         bonus_hitpoints_constitution = constitution_mod * level
+        # Выбор среднего. У героев максимум хитов на 1 lvl, у монстров всё усредняется:
         if hasattr(self, 'hitpoints_medial') and self.hitpoints_medial:
-            hitpoints_levels = sum([(int(hit_dice.split('d')[1]) / 2 + 0.5) for x in range(level)])
-            hitpoints_max = hitpoints_levels + bonus_hitpoints_constitution
+            if self.hero:
+                level_1_hitpoints = int(hit_dice.split('d')[1])
+            else:
+                level_1_hitpoints = (int(hit_dice.split('d')[1]) / 2 + 1)
+            hitpoints_levels = sum([(int(hit_dice.split('d')[1]) / 2 + 1) for x in range(level - 1)])
+            hitpoints_max = level_1_hitpoints + hitpoints_levels + bonus_hitpoints_constitution
+        # Заданные хитпоинты, плюс бонус телосложения.
         elif hasattr(self, 'hitpoints_base') and self.hitpoints_base:
             hitpoints_levels = self.hitpoints_base
             hitpoints_max = hitpoints_levels + bonus_hitpoints_constitution
         else:
-            # На первом уровне максимум хитов:
+            # Броски костей хитов. На первом уровне максимум у всех:
             level_1_hitpoints = int(hit_dice.split('d')[1])
             bonus_hitpoints_levels = 0
             if level > 1:
