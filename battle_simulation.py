@@ -809,6 +809,8 @@ class battle_simulation(battlescape):
         """Ход отдельного бойца."""
         # Разрешаем battle_action, move_action и т.д.
         soldier.set_actions(squad)
+        # Зональные эффекты (заклинаний):
+        self.get_zone_effects(soldier, squad)
         # Морские существа могут плавать:
         if soldier.__dict__.get('water_walk'):
             self.matrix = self.map_to_matrix(self.battle_map, self.dict_battlespace, water_walk = True)
@@ -963,6 +965,45 @@ class battle_simulation(battlescape):
         # Если действия таки не использовались -- защищаемся:
         if soldier.battle_action or soldier.bonus_action:
             self.dodge_action(soldier)
+
+    def get_zone_effects(self, soldier, squad):
+        """Эффекты места (огонь, заклинание) действуют на солдата."""
+        # TODO: добавь эффект Create_Bonfire
+        # -------------------------------------------------
+        # Здесь нужна универсальная функция поиска источника урона.
+        # -------------------------------------------------
+        # Эффект заклинания Spirit_Guardians ранит и замедляет
+        if 'spirit_guardians' in self.dict_battlespace[soldier.place]:
+            # Находим создателя "Мантии крестоносца", если он союзный:
+            enemy_mages_list = [enemy_soldier\
+                    for enemy_soldier in self.metadict_soldiers.values()
+                    if enemy_soldier.ally_side != soldier.ally_side
+                    and enemy_soldier.spirit_guardians]
+            if enemy_mages_list:
+                enemy_soldier = enemy_mages_list[0]
+                spell_dict = enemy_soldier.spirit_guardians_dict
+                soldier_tuple_list = [el for el in self.dict_battlespace[soldier.place]
+                        if type(el) == tuple and el[-1] == soldier.uuid]
+                if soldier_tuple_list:
+                    soldier_tuple = soldier_tuple_list[0]
+                    target = soldier.place
+                    uuid = soldier_tuple[-1]
+                    cover = self.calculate_enemy_cover(target, target).cover
+                    distance = 0
+                    target_tuple = self.namedtuple_target(
+                            soldier_tuple[0],soldier_tuple[1],target,distance,cover,uuid)
+                    spell_choice = 'aura', 'Spirit_Guardians'
+                    attack_dict = enemy_soldier.spell_attack(spell_dict, target_tuple)
+                    attack_result = soldier.take_attack(
+                            spell_choice, attack_dict, self.metadict_soldiers)
+                    if attack_result['fatal_hit']:
+                        self.clear_battlemap()
+                        fall_place = soldier.place
+                        self.dict_battlespace[fall_place].append('fall_place')
+                        self.dict_battlespace[fall_place].append(soldier.ally_side)
+                    for squad in self.squads.values():
+                        if enemy_soldier.uuid in squad.metadict_soldiers:
+                            self.set_squad_battle_stat(attack_result, squad)
 
     def recon_action_danger(self, soldier, recon_near = None):
         """Оценка опасности ближней зоны"""
@@ -1223,8 +1264,13 @@ class battle_simulation(battlescape):
                             self.dict_battlespace[point].append('mount_height')
                     soldier.set_coordinates(destination)
                 # Добавляем эффекты движения:
-                # TODO: Замечены редкие зависания. В бою с паладинской конницей. Непотняо, почему.
+                # ------------------------------------------------------------
+                # Сделай универсальную функцию.
+                # Нам нужно только знать, что наносить на карту и что убирать.
+                # Плюс к тому радиус заклинания. И его форму (квадрат, круг).
+                # ------------------------------------------------------------
                 if soldier.__dict__.get('darkness'):
+                    # TODO: Замечены редкие зависания. В бою с паладинской конницей. Непотняо, почему.
                     spell_dict = soldier.darkness_dict
                     zone_radius = round(spell_dict['radius'] / self.tile_size)
                     # Развеиваем тьму по старым координатам:
@@ -1241,24 +1287,42 @@ class battle_simulation(battlescape):
                     for point in zone_list_circle:
                         if not 'obscure_terrain' in self.dict_battlespace[point]:
                             self.dict_battlespace[point].append('obscure_terrain')
-                # Мантия крестоносца даёт союзникам бонусный урон:
+                # Crusaders_Mantle даёт союзникам бонусный урон:
                 if soldier.__dict__.get('crusaders_mantle'):
                     spell_dict = soldier.crusaders_mantle_dict
                     zone_radius = round(spell_dict['radius'] / self.tile_size)
-                    # Развеиваем тьму по старым координатам:
+                    # Развеиваем по старым координатам:
                     zone_list = self.find_points_in_zone(coordinates, zone_radius)
                     zone_list_circle = [point for point in zone_list\
                             if inside_circle(point, coordinates, zone_radius)]
                     for point in zone_list_circle:
                         if 'crusaders_mantle' in self.dict_battlespace[point]:
                             self.dict_battlespace[point].remove('crusaders_mantle')
-                    # Создаём тьму по новым координатам:
+                    # Создаём по новым координатам:
                     zone_list = self.find_points_in_zone(soldier.place, zone_radius)
                     zone_list_circle = [point for point in zone_list\
                             if inside_circle(point, soldier.place, zone_radius)]
                     for point in zone_list_circle:
                         if not 'crusaders_mantle' in self.dict_battlespace[point]:
                             self.dict_battlespace[point].append('crusaders_mantle')
+                # Spirit_Guardians ранит противников:
+                if soldier.__dict__.get('spirit_guardians'):
+                    spell_dict = soldier.spirit_guardians_dict
+                    zone_radius = round(spell_dict['radius'] / self.tile_size)
+                    # Развеиваем по старым координатам:
+                    zone_list = self.find_points_in_zone(coordinates, zone_radius)
+                    zone_list_circle = [point for point in zone_list\
+                            if inside_circle(point, coordinates, zone_radius)]
+                    for point in zone_list_circle:
+                        if 'spirit_guardians' in self.dict_battlespace[point]:
+                            self.dict_battlespace[point].remove('spirit_guardians')
+                    # Создаём по новым координатам:
+                    zone_list = self.find_points_in_zone(soldier.place, zone_radius)
+                    zone_list_circle = [point for point in zone_list\
+                            if inside_circle(point, soldier.place, zone_radius)]
+                    for point in zone_list_circle:
+                        if not 'spirit_guardians' in self.dict_battlespace[point]:
+                            self.dict_battlespace[point].append('spirit_guardians')
         # Показывает ходы бойца:
         if namespace.visual:
             print_ascii_map(self.gen_battlemap())
@@ -1476,6 +1540,10 @@ class battle_simulation(battlescape):
                                     spell_choice, attack_dict, self.metadict_soldiers)
                             soldier.damage_absorbed = None
                 # Эффект Crusaders_Mantle (срабатывает только для атак оружием):
+                # ------------------------------------------------------------
+                # TODO: перенеси поиск создателя зоны в get_zone_effects.
+                # А здесь только сбрасываемый в set_actions атрибут.
+                # ------------------------------------------------------------
                 if attack_result['hit'] and attack_dict.get('weapon') == True\
                         and 'crusaders_mantle' in self.dict_battlespace[soldier.place]:
                     # Находим создателя "Мантии крестоносца", если он союзный:

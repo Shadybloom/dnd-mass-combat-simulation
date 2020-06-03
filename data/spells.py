@@ -1405,6 +1405,7 @@ class gen_spells():
         """
         spell_dict = {
                 'effect':'crusaders_mantle',
+                'effect_timer':10,
                 'direct_hit':True,
                 'attack_range':'self',
                 'radius':30,
@@ -1416,5 +1417,46 @@ class gen_spells():
                 'damage_mod':0,
                 'spell_of_choice':'Magic_Missile',
                 }
+        return spell_dict
+
+
+    def Spirit_Guardians(self, spell_level):
+        """Замедляют врагов клирика и наносят 3d8 урона.
+
+        - Создавая заклинание нужно указать видимых врагов.
+        - Заклинание действует ТОЛЬКО на них.
+
+        Level: 3
+        Casting time: 1 Action
+        Range: Self (15-foot-radius)
+        Components: V, S, M (a holy symbol)
+        Duration: Concentration, up to 10 minutes
+        https://www.dnd-spells.com/spell/spirit-guardians
+        """
+        # TODO: Поражает только указанных при касте врагов. Это важно!
+        # Но всегда можно забраться повыше и разглядеть всех.
+        spell_dict = {
+                'effect':'spirit_guardians',
+                'effect_timer':100,
+                'zone_danger':True,
+                'direct_hit':True,
+                'savethrow':True,
+                'savethrow_ability':'wisdom',
+                'attacks_number':1,
+                'radius':15,
+                'attack_range':'self',
+                'damage_type':'radiant',
+                'damage_dice':'3d8',
+                'components':['verbal','somatic','material'],
+                'casting_time':'action',
+                'damage_mod':0,
+                'spell_level':spell_level,
+                'spell_save_DC':8 + self.find_spell_attack_mod(),
+                'spell_of_choice':'Sacred_Flame',
+                }
+        if int(spell_level[0]) > 3:
+            dice = int(spell_dict['damage_dice'][0])
+            dice += int(spell_level[0]) - 1
+            spell_dict['damage_dice'] = str(dice) + spell_dict['damage_dice'][1:]
         return spell_dict
 

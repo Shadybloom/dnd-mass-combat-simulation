@@ -154,6 +154,8 @@ class soldier_in_battle(soldier):
             self.blur = False
         if not hasattr(self, 'sacred_weapon'):
             self.sacred_weapon = False
+        if not hasattr(self, 'spirit_guardians'):
+            self.spirit_guardians = False
         if not hasattr(self, 'crusaders_mantle'):
             self.crusaders_mantle = False
         if not hasattr(self, 'fall'):
@@ -270,12 +272,6 @@ class soldier_in_battle(soldier):
                         self.bonus_hitpoints = self.level * 2 + self.mods['intelligence']
                         self.arcane_ward = True
                         #print(self.hitpoints_max, self.bonus_hitpoints)
-                if spell_dict.get('effect') is 'shield_of_faith' and not self.concentration:
-                    spell_dict = self.spells_generator.use_spell(spell)
-                    self.shield_of_faith = True
-                    self.shield_of_faith_timer = spell_dict['effect_timer']
-                    self.concentration = True
-                    break
                 if spell_dict.get('blur') and not self.blur and not self.concentration:
                     self.spells_generator.use_spell(spell)
                     self.blur = True
@@ -288,12 +284,27 @@ class soldier_in_battle(soldier):
                     self.sacred_weapon_timer = spell_dict['effect_timer']
                     self.channel_divinity -= 1
                     break
+                # TODO: Из-за этих break применяется только одно заклинание из доступных.
+                # Лучше учитывай концентрацию.
+                if spell_dict.get('effect') is 'spirit_guardians' and not self.spirit_guardians:
+                    spell_dict = self.spells_generator.use_spell(spell)
+                    self.spirit_guardians = True
+                    self.spirit_guardians_dict = spell_dict
+                    self.spirit_guardians_timer = spell_dict['effect_timer']
+                    self.concentration = True
+                    break
                 if spell_dict.get('effect') is 'crusaders_mantle' and not self.crusaders_mantle:
                     # TODO: сделай уже работающую концентрацию на заклинаниях!
                     spell_dict = self.spells_generator.use_spell(spell)
                     self.crusaders_mantle = True
                     self.crusaders_mantle_dict = spell_dict
-                    self.crusaders_mantle_timer = 10
+                    self.crusaders_mantle_timer = spell_dict['effect_timer']
+                    self.concentration = True
+                    break
+                if spell_dict.get('effect') is 'shield_of_faith' and not self.concentration:
+                    spell_dict = self.spells_generator.use_spell(spell)
+                    self.shield_of_faith = True
+                    self.shield_of_faith_timer = spell_dict['effect_timer']
                     self.concentration = True
                     break
 
@@ -407,8 +418,15 @@ class soldier_in_battle(soldier):
             if self.crusaders_mantle_timer > 0:
                 self.crusaders_mantle_timer -= 1
             elif self.crusaders_mantle_timer == 0:
-                self.crusaders_mantle = None
+                self.crusaders_mantle = False
                 self.crusaders_mantle_dict = None
+        # Заклинание Spirit_Guardians
+        if self.spirit_guardians:
+            if self.spirit_guardians_timer > 0:
+                self.spirit_guardians_timer -= 1
+            elif self.spirit_guardians_timer == 0:
+                self.spirit_guardians = False
+                self.spirit_guardians_dict = None
         # Заклинание Shield_of_Faith
         if self.shield_of_faith:
             if self.shield_of_faith_timer > 0:

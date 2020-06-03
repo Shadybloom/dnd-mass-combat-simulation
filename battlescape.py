@@ -952,6 +952,8 @@ class battlescape():
                     symbol_colored = '\x1b[48;5;18m' + symbol_colored
                 if 'crusaders_mantle' in self.dict_battlespace[key]:
                     symbol_colored = '\x1b[48;5;23m' + symbol_colored
+                if 'spirit_guardians' in self.dict_battlespace[key]:
+                    symbol_colored = '\x1b[48;5;23m' + symbol_colored
                     #if self.ally_side in el:
                     #    symbol_colored = '\x1b[48;5;22m' + symbol_colored
                     #elif self.enemy_side in el:
