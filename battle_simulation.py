@@ -1843,6 +1843,12 @@ class battle_simulation(battlescape):
                 spell_dict['spell_choice'] = spell_choice
                 self.fireball_action(soldier, squad, spell_dict, soldier.place, safe = True)
                 soldier.channel_divinity -= 1
+            # Жрец домена бури усиливает заклинание до предела:
+            elif soldier.class_features.get('Channel_Destructive_Wrath')\
+                    and soldier.channel_divinity > 0:
+                soldier.destructive_wrath = True
+                self.fireball_action(soldier, squad)
+                soldier.channel_divinity -= 1
 
     def find_target_for_debuff(self, soldier, enemy, debuff):
         """Ищет цели, на которые ещё не наложен выбранный эффект заклинания.
@@ -1935,6 +1941,15 @@ class battle_simulation(battlescape):
                         print('DISPELL', soldier.ally_side, soldier.place, spell_choice, '<<',
                                 enemy_soldier.ally_side, counterspell_choice)
                         return False
+            # Жрец домена бури усиливает заклинание до предела:
+            if soldier.destructive_wrath and len(targets) > 3 and spell_dict.get('damage_type'):
+                if spell_dict['damage_type'] == 'thunder' or spell_dict['damage_type'] == 'lightning':
+                    spell_dict['destructive_wrath'] = True
+                    damage_mod = spell_dict['damage_mod']
+                    damage_mod += int(spell_dict['damage_dice'][0]) * int(spell_dict['damage_dice'][-1])
+                    spell_dict['damage_dice'] = '0d0'
+                    spell_dict['damage_mod'] = damage_mod
+                    soldier.destructive_wrath = False
             # Зональное заклинание поражает цели:
             for enemy in targets:
                 if safe and enemy.side in soldier.ally_side:

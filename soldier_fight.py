@@ -158,6 +158,9 @@ class soldier_in_battle(soldier):
             self.spirit_guardians = False
         if not hasattr(self, 'crusaders_mantle'):
             self.crusaders_mantle = False
+        if not hasattr(self, 'destructive_wrath'):
+            self.destructive_wrath = False
+        # Павшие, покалеченые, захваченые в плен:
         if not hasattr(self, 'fall'):
             self.fall = False
         if not hasattr(self, 'disabled'):
