@@ -874,12 +874,15 @@ class gen_spells():
         # 1d6 урона поглощённого типа можно направить атакой оружием в следующем раунде.
         spell_dict = {
                 'effect':'absorb',
+                'direct_hit':True,
+                'subspell':('subspell', 'Absorb_Elements_Strike'),
                 'attack_range':'self',
                 'absorb_damage_type':['acid','cold','fire','lightning','thunder'],
                 'damage_type':'absorbed',
                 'damage_dice':'1d6',
                 'components':['somatic'],
                 'casting_time':'reaction',
+                'damage_mod':0,
                 'spell_level':spell_level,
                 'spell_of_choice':'Magic_Missile',
                 }

@@ -1235,11 +1235,6 @@ class soldier_in_battle(soldier):
                     # Критический удар удваивает урон от скрытной атаки:
                     sneak_attack_throw = dices.dice_throw_advantage(self.proficiency['sneak_attack_dice'])
                     damage_throw += sneak_attack_throw
-        # Заклинание Absorb_Elements усиливает атаку за счёт поглощённой энергии:
-        if self.damage_absorbed:
-            damage_absorbed_throw = dices.dice_throw_advantage(self.damage_absorbed['damage_dice'])
-            damage_throw += damage_absorbed_throw
-            self.damage_absorbed = None
         # Наконец, выводим общий урон:
         damage_throw_mod = damage_throw + attack_dict['damage_mod']
         if damage_throw_mod < 0:

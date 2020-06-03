@@ -1453,11 +1453,28 @@ class battle_simulation(battlescape):
                     self.spellcast_action(soldier, squad, enemy,
                             spell_choice, subspell = True, use_spell = True)
                 # Волшебный меч Sword of the Past:
+                # ------------------------------------------------------------
+                # TODO: перенеси словарь заклинания в сам меч.
+                # Там правки в soldier_base, не забудь убрать
+                # Сделай универсальную функцию волшебного оружия.
+                # ------------------------------------------------------------
                 if attack_result['hit'] and 'sword_burst' in attack_result['weapon_type']:
                     spell_choice = 'subspell', 'Sword_Burst'
                     spell_dict = soldier.spells[spell_choice]
                     spell_dict['spell_choice'] = spell_choice
                     self.fireball_action(soldier, squad, spell_dict, soldier.place, safe = True)
+                # Заклинание Absorb_Elements усиливает атаку за счёт поглощённой энергии:
+                if attack_result['hit'] and attack_dict.get('weapon') == True:
+                    if attack_choice[0] == 'close' or attack_choice[0] == 'reach':
+                        if soldier.damage_absorbed:
+                            spell_dict = soldier.damage_absorbed
+                            spell_choice = soldier.damage_absorbed['subspell']
+                            spell_dict['spell_choice'] = spell_choice
+                            attack_dict = soldier.spell_attack(spell_dict, enemy,
+                                    advantage = advantage, disadvantage = disadvantage)
+                            attack_result = enemy_soldier.take_attack(
+                                    spell_choice, attack_dict, self.metadict_soldiers)
+                            soldier.damage_absorbed = None
                 # Эффект Crusaders_Mantle (срабатывает только для атак оружием):
                 if attack_result['hit'] and attack_dict.get('weapon') == True\
                         and 'crusaders_mantle' in self.dict_battlespace[soldier.place]:
