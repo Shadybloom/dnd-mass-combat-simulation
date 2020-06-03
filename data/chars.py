@@ -6222,7 +6222,8 @@ metadict_chars['Cleric 1 lvl (Vened) (жрец домена войны)'] = {
     'behavior':'elite_warrior',
     'class_features':{
         # Даём халявный Feat_Heavy_Armor_Master, потому что большим созданиям нелегко.
-        'Feat_Tough':True,
+        #'Feat_Tough':True,
+        'Feat_Inspiring_Leader':True,
         'Feat_Heavy_Armor_Master':True,
         'Ability_Score_Improvement':{
             'strength':+1,
@@ -6244,7 +6245,6 @@ metadict_chars['Cleric 1 lvl (Vened) (жрец домена войны)'] = {
             ],
         'War_Domain':True,
         'War_Priest':True,
-        'Disciple_of_Life':True,
         },
     'race':'Human-hero-big',
     'weapon_skill':['simple','martial'],
@@ -6280,11 +6280,11 @@ metadict_chars['Cleric 5 lvl (Vened) (Патрокл «Македонянин»)
         'charisma':18,
         },
     'class_features':{
-        'Feat_Tough':True,
+        #'Feat_Tough':True,
+        'Feat_Inspiring_Leader':True,
         'Feat_Heavy_Armor_Master':True,
         'Spellcasting':True,
         'Spells':[
-            # TODO: Сделай Spirit_Guardians
             ('cantrip', 'Mend'),
             ('cantrip', 'Thaumaturgy'),
             ('cantrip', 'Sacred_Flame'),
@@ -6309,9 +6309,6 @@ metadict_chars['Cleric 5 lvl (Vened) (Патрокл «Македонянин»)
         'War_Priest':True,
         'Channel_Turn_Undead':True,
         'Channel_Guided_Strike':True,
-        'Ability_Score_Improvement':{
-            'wisdom':+2,
-            },
         },
     'race':'Human-hero-big',
     'weapon_skill':['simple','martial'],
@@ -6326,6 +6323,245 @@ metadict_chars['Cleric 5 lvl (Vened) (Патрокл «Македонянин»)
         'Heavy Shield':1,
         'Long Spear +1':1,
         'Shortsword':1,
+        },
+    #'mount_combat':False,
+    #'mount_type':'Riding Horse',
+    #'equipment_mount':{
+    #    },
+    }
+
+#----
+# Жрецы -- домен бури:
+
+metadict_chars['Cleric 2 lvl (Mordodrukow) (жрец Зевса) (боевой)'] = {
+    'level':2,
+    'char_class':'Cleric-heavy',
+    'hit_dice':'1d8',
+    'behavior':'elite_warrior',
+    'class_features':{
+        # TODO: 'Wrath_of_the_Storm' "Гнев бури" (это контратака)
+        # TODO: Channel_Destructive_Wrath (максимальный урон заклинания)
+        'Feat_Heavy_Armor_Master':True,
+        'Ability_Score_Improvement':{
+            'strength':+1,
+            },
+        'Spellcasting':True,
+        'Spells':[
+            # TODO: сделай Thunderwave
+            ('cantrip', 'Mend'),
+            ('cantrip', 'Sacred_Flame'),
+            ('cantrip', 'Word_of_Radiance'),
+            ('ritual', 'Detect_Magic'),
+            ('1_lvl', 'Create_or_Destroy_Water'),
+            ('1_lvl', 'Thunderwave'),
+            ('1_lvl', 'Healing_Word'),
+            ('1_lvl', 'Bless'),
+            #('1_lvl', 'Shield_of_Faith'),
+            ],
+        'Tempest_Domain':True,
+        'Wrath_of_the_Storm':True,
+        'Channel_Destructive_Wrath':True,
+        },
+    'race':'Human-hero',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        # TODO: руна Longstrider
+        'Infusion of Healing':1,
+        'Splint Armor':1,
+        'Shield':1,
+        'Longsword':1,
+        },
+    #'mount_combat':False,
+    #'mount_type':'Riding Horse',
+    #'equipment_mount':{
+    #    },
+    }
+
+metadict_chars['Cleric 2 lvl (Mordodrukow) (жрец Зевса) (лекарь)'] = {
+    'level':2,
+    'char_class':'Cleric-heavy',
+    'hit_dice':'1d8',
+    'behavior':'elite_warrior',
+    'class_features':{
+        'Feat_Healer':True,
+        'Spellcasting':True,
+        'Spells':[
+            ('cantrip', 'Mend'),
+            ('cantrip', 'Sacred_Flame'),
+            ('cantrip', 'Spare_the_Dying'),
+            ('ritual', 'Detect_Magic'),
+            ('1_lvl', 'Create_or_Destroy_Water'),
+            ('1_lvl', 'Thunderwave'),
+            ('1_lvl', 'Healing_Word'),
+            ('1_lvl', 'Bless'),
+            #('1_lvl', 'Shield_of_Faith'),
+            ],
+        'Tempest_Domain':True,
+        'Wrath_of_the_Storm':True,
+        'Channel_Destructive_Wrath':True,
+        },
+    'race':'Human-hero',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        # TODO: руна Longstrider
+        'Infusion of Healing':1,
+        'Half Plate':1,
+        'Shield':1,
+        'Longsword':1,
+        },
+    #'mount_combat':False,
+    #'mount_type':'Riding Horse',
+    #'equipment_mount':{
+    #    },
+    }
+
+metadict_chars['Fighter 2 lvl (Mordodrukow) (темплар Зевса)'] = {
+    'level':2,
+    'char_class':'Fighter',
+    'hit_dice':'1d10',
+    'behavior':'elite_warrior',
+    'class_features':{
+        'Feat_Heavy_Armor_Master':True,
+        'Ability_Score_Improvement':{
+            'strength':+1,
+            },
+        'Fighting_Style_Defence':True,
+        'Second_Wind':True,
+        'Action_Surge':True,
+        },
+    'race':'Human-hero',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        # TODO: руна Longstrider
+        'Infusion of Healing':1,
+        'Splint Armor':1,
+        'Heavy Shield':1,
+        'Longsword':1,
+        #'Pilum':2,
+        },
+    #'mount_combat':False,
+    #'mount_type':'Riding Horse',
+    #'equipment_mount':{
+    #    },
+    }
+
+metadict_chars['Fighter 5 lvl (Mordodrukow) (Лонгин)'] = {
+    # Лучник, мастер боевых искусств
+    'level':5,
+    'commando':True,
+    'char_class':'Battlemaster-archer',
+    'hit_dice':'1d10',
+    'behavior':'commander',
+    'hitpoints_medial':True,
+    'abilityes':{
+        'strength':13,
+        'dexterity':20,
+        'constitution':18,
+        'intelligence':10,
+        'wisdom':18,
+        'charisma':10,
+        },
+    'class_features':{
+        # TODO: отталкивающая атака вместо Menacing_Attack.
+        'Feat_Resilient':'dexterity',
+        'Feat_Sharpshooter':True,
+        'Fighting_Style_Archery':True,
+        'Second_Wind':True,
+        'Action_Surge':True,
+        'Martial_Archetype_Battlemaster':True,
+        'Combat_Superiority':True,
+        'Student_of_War':True,
+        'Parry':True,
+        'Menacing_Attack':True,
+        'Precision_Attack':True,
+        'Extra_Attack':True,
+        },
+    'race':'Human-hero',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        # TODO: эссенция Героизма
+        'Infusion of Healing':1,
+        'Rune of Shielding':1,
+        'Studded Leather':1,
+        'Heavy Shield':1,
+        'Longbow +1':1,
+        'Scimitar':1,
+        'Dagger':1,
+        'Arrow':60,
+        },
+    }
+
+metadict_chars['Cleric 5 lvl (Mordodrukow) (Фарам «Друг Богов»)'] = {
+    'level':5,
+    'commando':True,
+    'char_class':'Cleric-heavy',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'hitpoints_medial':True,
+    'abilityes':{
+        'strength':18,
+        'dexterity':10,
+        'constitution':20,
+        'intelligence':10,
+        'wisdom':18,
+        'charisma':14,
+        },
+    'class_features':{
+        # TODO: Сделай Feat_Resilient. Даёт бонус мастрества к спасброску.
+        'Feat_Resilient':'constitution',
+        'Spellcasting':True,
+        'Spells':[
+            ('cantrip', 'Guidance'),
+            ('cantrip', 'Thaumaturgy'),
+            ('cantrip', 'Sacred_Flame'),
+            ('1_lvl', 'Fog_Cloud'),
+            ('1_lvl', 'Thunderwave'),
+            ('1_lvl', 'Healing_Word'),
+            ('2_lvl', 'Gust_of_Wind'),
+            ('2_lvl', 'Shatter'),
+            ('2_lvl', 'Aid'),
+            ('2_lvl', 'Hold_Person'),
+            ('2_lvl', 'Spiritual_Weapon'),
+            ('2_lvl', 'Warding_Bond'),
+            #('3_lvl', 'Call_Lightning'),
+            ('3_lvl', 'Sleet_Storm'),
+            ('3_lvl', 'Clairvoyance'),
+            ('3_lvl', 'Dispel_Magic'),
+            ('3_lvl', 'Sending'),
+            ('3_lvl', 'Spirit_Guardians'),
+            ],
+        'Tempest_Domain':True,
+        'Wrath_of_the_Storm':True,
+        'Channel_Turn_Undead':True,
+        'Channel_Destructive_Wrath':True,
+        'Feat_Heavy_Armor_Master':True,
+        },
+    'race':'Human-hero',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        # TODO: добавь "Infusion of Heroism"
+        # TODO: дслеай жезл с +1 к броску заклинаний.
+        'Infusion of Healing':1,
+        'Rune of Absorbtion':1,
+        'Rune of Shielding':1,
+        'Splint Armor':1,
+        'Heavy Shield':1,
+        'Longsword +1':1,
         },
     #'mount_combat':False,
     #'mount_type':'Riding Horse',

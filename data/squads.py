@@ -35,6 +35,17 @@ metadict_squads['test 4 onagers'] = {
     }
 
 #----
+# Геройские отряды (армия Фарама):
+
+metadict_squads['Band-hero (жрецы Фарама) (Mordodrukow)'] = {
+    'Cleric 5 lvl (Mordodrukow) (Фарам «Друг Богов»)':1,
+    'Cleric 2 lvl (Mordodrukow) (жрец Зевса) (боевой)':2,
+    'Cleric 2 lvl (Mordodrukow) (жрец Зевса) (лекарь)':2,
+    'Fighter 5 lvl (Mordodrukow) (Лонгин)':1,
+    'Fighter 2 lvl (Mordodrukow) (темплар Зевса)':2,
+    }
+
+#----
 # Геройские отряды (армия Патрокла):
 
 metadict_squads['Band-hero (жрецы Патрокла) (Vened)'] = {
