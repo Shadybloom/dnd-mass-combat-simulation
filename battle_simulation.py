@@ -771,6 +771,10 @@ class battle_simulation(battlescape):
                 commands_list.append('fearless')
             else:
                 commands_list.append('rescue')
+            # Талант "Идеальное взаимодействие". Свита атакует вражеских командиров:
+            if squad.commander.__dict__.get('commando'):
+                #commands_list.append('seek')
+                commands_list.append('kill')
             # Лучники и метатели дротиков должны чуть что отступать:
             if squad.behavior == 'archer':
                 #commands_list.append('seek')
@@ -1003,6 +1007,8 @@ class battle_simulation(battlescape):
                         self.dict_battlespace[fall_place].append(soldier.ally_side)
                     for squad in self.squads.values():
                         if enemy_soldier.uuid in squad.metadict_soldiers:
+                            if attack_result['fatal_hit']:
+                                self.set_squad_experience(squad, soldier)
                             self.set_squad_battle_stat(attack_result, squad)
 
     def recon_action_danger(self, soldier, recon_near = None):
