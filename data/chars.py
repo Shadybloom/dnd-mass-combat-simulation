@@ -6340,7 +6340,6 @@ metadict_chars['Cleric 2 lvl (Mordodrukow) (жрец Зевса) (боевой)'
     'behavior':'elite_warrior',
     'class_features':{
         # TODO: 'Wrath_of_the_Storm' "Гнев бури" (это контратака)
-        # TODO: Channel_Destructive_Wrath (максимальный урон заклинания)
         'Feat_Heavy_Armor_Master':True,
         'Ability_Score_Improvement':{
             'strength':+1,
@@ -6396,8 +6395,8 @@ metadict_chars['Cleric 2 lvl (Mordodrukow) (жрец Зевса) (лекарь)'
             ('1_lvl', 'Create_or_Destroy_Water'),
             ('1_lvl', 'Thunderwave'),
             ('1_lvl', 'Healing_Word'),
-            ('1_lvl', 'Bless'),
-            #('1_lvl', 'Shield_of_Faith'),
+            #('1_lvl', 'Bless'),
+            ('1_lvl', 'Shield_of_Faith'),
             ],
         'Tempest_Domain':True,
         'Wrath_of_the_Storm':True,
@@ -6472,7 +6471,8 @@ metadict_chars['Fighter 5 lvl (Mordodrukow) (Лонгин)'] = {
         },
     'class_features':{
         # TODO: отталкивающая атака вместо Menacing_Attack.
-        'Feat_Resilient':'dexterity',
+        #'Feat_Resilient':'dexterity',
+        'Feat_Alert':True,
         'Feat_Sharpshooter':True,
         'Fighting_Style_Archery':True,
         'Second_Wind':True,
@@ -6566,5 +6566,135 @@ metadict_chars['Cleric 5 lvl (Mordodrukow) (Фарам «Друг Богов»)'
     #'mount_combat':False,
     #'mount_type':'Riding Horse',
     #'equipment_mount':{
+    #    },
+    }
+
+#----
+# Лучники (армия) (Фарам):
+
+metadict_chars['Warrior 1 lvl (Mordodrukow) (рядовой)'] = {
+    'level':1,
+    'char_class':'Warrior-bowman',
+    'hit_dice':'1d8',
+    'behavior':'archer',
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Studded Leather':1,
+        'Dagger':1,
+        'Longbow':1,
+        'Arrow':60,
+        },
+    }
+
+metadict_chars['Warrior 2 lvl (Mordodrukow) (ветеран)'] = {
+    'level':2,
+    'char_class':'Warrior-bowman',
+    'hit_dice':'1d8',
+    'behavior':'archer',
+    'class_features':{
+        'Fighting_Style_Archery':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Studded Leather':1,
+        'Dagger':1,
+        'Shield':1,
+        'Longbow':1,
+        'Arrow':60,
+        },
+    }
+
+metadict_chars['Warrior 3 lvl (Mordodrukow) (сержант)'] = {
+    'level':3,
+    'char_class':'Warrior-bowman',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Archery':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Studded Leather':1,
+        'Scimitar':1,
+        'Heavy Shield':1,
+        'Longbow':1,
+        'Arrow':60,
+        },
+    }
+
+metadict_chars['Warrior 4 lvl (Mordodrukow) (лейтенант)'] = {
+    'level':4,
+    'char_class':'Warrior-bowman',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Archery':True,
+        'Feat_Sharpshooter':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Rune of Shielding':1,
+        'Rune of Absorbtion':1,
+        'Studded Leather':1,
+        'Heavy Shield':1,
+        'Scimitar':1,
+        'Longbow':1,
+        'Arrow':60,
+        },
+    #'mount_combat':False,
+    #'mount_type':'Riding Horse',
+    #'equipment_mount':{
+    #    #'Arrow':60,
+    #    },
+    }
+
+metadict_chars['Warrior 5 lvl (Mordodrukow) (капитан)'] = {
+    'level':5,
+    'char_class':'Warrior-bowman',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Archery':True,
+        'Feat_Sharpshooter':True,
+        'Extra_Attack':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Rune of Absorbtion':1,
+        'Rune of Shielding':1,
+        'Studded Leather':1,
+        'Heavy Shield':1,
+        'Scimitar':1,
+        'Longbow':1,
+        'Arrow':60,
+        },
+    #'mount_combat':False,
+    #'mount_type':'Riding Horse',
+    #'equipment_mount':{
+    #    #'Arrow':60,
     #    },
     }
