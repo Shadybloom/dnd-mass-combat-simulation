@@ -39,8 +39,13 @@ metadict_squads['test 4 onagers'] = {
 
 metadict_squads['Band-hero (жрецы Патрокла) (Vened)'] = {
     'Cleric 5 lvl (Vened) (Патрокл «Македонянин»)':1,
-    #'Cleric 1 lvl (Vened) (жрец домена войны)':12,
-    'Cleric 1 lvl (Vened) (жрец домена войны)':6,
+    'Cleric 1 lvl (Vened) (жрец домена войны)':12,
+    #'Cleric 1 lvl (Vened) (жрец домена войны)':6,
+    }
+
+metadict_squads['Band-hero (жрецы-лекари) (Vened)'] = {
+    'Cleric 5 lvl (city maatcarian-reviver)':1,
+    'Cleric 1 lvl (city maatcarian-acolyte)':12,
     }
 
 #----
