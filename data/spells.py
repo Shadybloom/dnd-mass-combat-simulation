@@ -685,6 +685,29 @@ class gen_spells():
             spell_dict['attacks_number'] += int(spell_level[0]) - 1
         return spell_dict
 
+    def Shield_of_Faith(self, spell_level):
+        """Дикие +2 к защите на 10 минут
+
+
+        Level: 1
+        Casting time: 1 Bonus Action
+        Range: 60 feet
+        Components: V, S, M (a small parchment with a bit of holy text written on it)
+        Duration: Concentration, up to 10 minutes
+        """
+        spell_dict = {
+                'effect':'shield_of_faith',
+                'effect_timer':100,
+                'concentration':True,
+                'attack_range':60,
+                'components':['verbal','somatic','material'],
+                'casting_time':'bonus_action',
+                'spell_level':spell_level,
+                'spell_save_DC':8 + self.find_spell_attack_mod(),
+                'spell_of_choice':'Bane',
+                }
+        return spell_dict
+
     def Cause_Fear(self, spell_level):
         """Защитный приём колдунов.
 

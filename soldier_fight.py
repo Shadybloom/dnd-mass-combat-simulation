@@ -148,6 +148,8 @@ class soldier_in_battle(soldier):
             self.arcane_ward = False
         if not hasattr(self, 'mage_armor'):
             self.mage_armor = False
+        if not hasattr(self, 'shield_of_faith'):
+            self.shield_of_faith = False
         if not hasattr(self, 'blur'):
             self.blur = False
         if not hasattr(self, 'sacred_weapon'):
@@ -268,10 +270,17 @@ class soldier_in_battle(soldier):
                         self.bonus_hitpoints = self.level * 2 + self.mods['intelligence']
                         self.arcane_ward = True
                         #print(self.hitpoints_max, self.bonus_hitpoints)
+                if spell_dict.get('effect') is 'shield_of_faith' and not self.concentration:
+                    spell_dict = self.spells_generator.use_spell(spell)
+                    self.shield_of_faith = True
+                    self.shield_of_faith_timer = spell_dict['effect_timer']
+                    self.concentration = True
+                    break
                 if spell_dict.get('blur') and not self.blur and not self.concentration:
                     self.spells_generator.use_spell(spell)
                     self.blur = True
                     self.blur_timer = 10
+                    self.concentration = True
                     break
                 if spell_dict.get('effect') is 'sacred_weapon' and not self.sacred_weapon:
                     #self.spells_generator.use_spell(spell)
@@ -285,6 +294,7 @@ class soldier_in_battle(soldier):
                     self.crusaders_mantle = True
                     self.crusaders_mantle_dict = spell_dict
                     self.crusaders_mantle_timer = 10
+                    self.concentration = True
                     break
 
     def set_actions(self, squad):
@@ -399,6 +409,12 @@ class soldier_in_battle(soldier):
             elif self.crusaders_mantle_timer == 0:
                 self.crusaders_mantle = None
                 self.crusaders_mantle_dict = None
+        # Заклинание Shield_of_Faith
+        if self.shield_of_faith:
+            if self.shield_of_faith_timer > 0:
+                self.shield_of_faith_timer -= 1
+            elif self.shield_of_faith_timer == 0:
+                self.shield_of_faith = False
         # Channel_Sacred_Weapon
         if self.sacred_weapon:
             if self.sacred_weapon_timer > 0:
@@ -1472,6 +1488,12 @@ class soldier_in_battle(soldier):
                     self.ally_side, self.place, self.behavior,
                     armor_class, armor_dict['armor_class'],
                     attack_choice, attack_dict['attack'], attack_dict['damage']))
+        # Заклинание "Shield_of_Faith" даёт прекрасные +2 к AC.
+        if self.shield_of_faith:
+            armor_class_no_impact += 2
+            armor_class_shield_impact += 2
+            armor_class_armor_impact += 2
+            armor_class += 2
         # TODO: в отдельную функцию:
         # Учитываем реакцию Feat_Defensive_Duelist:
         if attack_choice[0] == 'close' or attack_choice[0] == 'reach':

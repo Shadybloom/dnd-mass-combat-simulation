@@ -1690,7 +1690,8 @@ class battle_simulation(battlescape):
                     if spell_dict.get('effect') == 'bonfire':
                         # TODO: поставь в начале хода атаку любого, кто оказался в зоне поражения.
                         # Для этого нужна отдельная, универсальная функция.
-                        if soldier.concentration and soldier.concentration_spell.get('bonfire_place'):
+                        if soldier.concentration and soldier.__dict__.get('concentration_spell')\
+                                and soldier.concentration_spell.get('bonfire_place'):
                             try:
                                 bonfire_place_old = soldier.concentration_spell['bonfire_place']
                                 self.dict_battlespace[bonfire_place_old].remove('fire')
