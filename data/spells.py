@@ -1059,6 +1059,42 @@ class gen_spells():
             spell_dict['damage_dice'] = str(dice) + spell_dict['damage_dice'][1:]
         return spell_dict
 
+    def Thunderwave(self, spell_level):
+        """Ранит и отталкивает на 10 футов.
+
+        Level: 1
+        Casting time: 1 Action
+        Range: Self (15-foot cube)
+        Components: V, S
+        Duration: Instantaneous
+        https://www.dnd-spells.com/spell/thunderwave
+        """
+        # TODO: сделай отталкивание
+        # TODO: сделай Channel_Destructive_Wrath (максимальный урон заклинания)
+        spell_dict = {
+                'effect':'burst',
+                'direct_hit':True,
+                'savethrow':True,
+                'zone_shape':'square',
+                'savethrow_ability':'constitution',
+                'attacks_number':1,
+                'radius':5,
+                'attack_range':5,
+                'damage_type':'thunder',
+                'damage_dice':'2d8',
+                'components':['verbal', 'somatic'],
+                'casting_time':'action',
+                'damage_mod':0,
+                'spell_level':spell_level,
+                'spell_save_DC':8 + self.find_spell_attack_mod(),
+                'spell_of_choice':'Thunderwave',
+                }
+        if int(spell_level[0]) > 1:
+            dice = int(spell_dict['damage_dice'][0])
+            dice += int(spell_level[0]) - 1
+            spell_dict['damage_dice'] = str(dice) + spell_dict['damage_dice'][1:]
+        return spell_dict
+
 #----
 # 2 lvl
 
