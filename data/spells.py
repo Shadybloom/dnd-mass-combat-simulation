@@ -84,12 +84,17 @@ class gen_spells():
         # Монстры:
         return attack_mod
 
-    def find_spell(self, spell_name):
+    def find_spell(self, spell_name, effect = False):
         """Поиск заклинания из доступных.
         
+        Возможен по эффекту заклинания. Тогда spell_name это effect.
         Случайный выбор, если несколько одинаковых заклинаний на разных уровнях.
         """
-        spell_list = [spell for spell in self.spells if spell[-1] == spell_name]
+        if effect:
+            spell_list = [spell for spell in self.spells
+                    if self.spells[spell].get('effect') == spell_name]
+        else:
+            spell_list = [spell for spell in self.spells if spell[-1] == spell_name]
         if spell_list:
             spell_choice = random.choice(spell_list)
             return spell_choice
@@ -1325,6 +1330,8 @@ class gen_spells():
     def Counterspell(self, spell_level):
         """Защита от огнешаров
 
+        Дальность 300 футов. Нужно видеть врага.
+
         Level: 3
         Casting time: Special
         Range: 60 feet
@@ -1332,12 +1339,32 @@ class gen_spells():
         Duration: Instantaneous
         https://www.dnd-spells.com/spell/counterspell
         """
-        # Нет ограничения по дальности.
         spell_dict = {
                 'effect':'counterspell',
-                'attack_range':'self',
+                'attack_range':300,
                 'components':['somatic'],
                 'casting_time':'reaction',
+                'spell_level':spell_level,
+                'spell_of_choice':'Magic_Missile',
+                }
+        return spell_dict
+
+    def Dispel_Magic(self, spell_level):
+        """Можно использовать как импровизированный Counterspell
+
+        В этом случае используется подготовленное действие.
+
+        Level: 3
+        Casting time: 1 Action
+        Range: 120 feet
+        Components: V, S
+        Duration: Instantaneous
+        """
+        spell_dict = {
+                'effect':'counterspell',
+                'attack_range':120,
+                'components':['verbal','somatic'],
+                'casting_time':'action',
                 'spell_level':spell_level,
                 'spell_of_choice':'Magic_Missile',
                 }

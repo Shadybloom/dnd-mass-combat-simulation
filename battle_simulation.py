@@ -1838,25 +1838,30 @@ class battle_simulation(battlescape):
                     for point in danger_zone:
                         if not 'volley' in self.dict_battlespace[point]:
                             self.dict_battlespace[point].append('volley')
-            for enemy in targets:
-                # Враг может защититься контрзаклинанием, если угроза достаточно велика:
-                if spell_choice[0][0].isnumeric() and int(spell_choice[0][0]) >= 3:
-                    counterspell_enemies = [enemy_soldier\
-                            for enemy_soldier in self.metadict_soldiers.values()\
-                            if enemy_soldier.ally_side == soldier.enemy_side\
-                            and 'Counterspell' in [spell[-1] for spell in enemy_soldier.spells.keys()]]
-                    if counterspell_enemies:
-                        enemy_soldier = counterspell_enemies[0]
-                        counterspell_choice = [spell for spell in enemy_soldier.spells.keys()
-                                if 'Counterspell' in spell][0]
-                        counterspell_dict = enemy_soldier.spells_generator.use_spell(counterspell_choice)
+            # Враг может защититься контрзаклинанием, если угроза достаточно велика:
+            if spell_choice[0][0].isnumeric() and int(spell_choice[0][0]) >= 3:
+                counterspell_enemies = [enemy_soldier\
+                        for enemy_soldier in self.metadict_soldiers.values()\
+                        if enemy_soldier.ally_side == soldier.enemy_side\
+                        and enemy_soldier.spells_generator.find_spell('counterspell', effect = True)]
+                if counterspell_enemies:
+                    enemy_soldier = counterspell_enemies[0]
+                    vision_tuple = self.calculate_enemy_cover(enemy_soldier.place, soldier.place)
+                    # Контрзаклинание срабатывает только если враг видит мага:
+                    if vision_tuple.visibility:
+                        counterspell_choice = enemy_soldier.spells_generator.find_spell(
+                                'counterspell', effect = True)
+                        counterspell_dict = enemy_soldier.spells_generator.use_spell(
+                                counterspell_choice)
                         enemy_soldier.reaction = False
                         # TODO: здесь костыль. Сделай универсальное прерывание концентрации.
                         if soldier.call_lightning:
                             soldier.call_lightning_timer = 0
                         print('DISPELL', soldier.ally_side, soldier.place, spell_choice, '<<',
                                 enemy_soldier.ally_side, counterspell_choice)
-                        break
+                        return False
+            # Зональное заклинание поражает цели:
+            for enemy in targets:
                 if safe and enemy.side in soldier.ally_side:
                     continue
                 # Вызов страа от паладинского Dreadful_Aspect
