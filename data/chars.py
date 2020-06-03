@@ -6216,8 +6216,8 @@ metadict_chars['Cleric 1 lvl (Vened) (жрец домена войны)'] = {
     # TODO: Броня больших созданий должна весить в 2.5 раза больше.
     # Добавим им бесстрашия, а то пугливы из-за большого размера.
     'level':1,
-    'fearless':True,
-    'char_class':'Cleric',
+    #'fearless':True,
+    'char_class':'Cleric-heavy',
     'hit_dice':'1d8',
     'behavior':'elite_warrior',
     'class_features':{
@@ -6267,8 +6267,8 @@ metadict_chars['Cleric 1 lvl (Vened) (жрец домена войны)'] = {
 
 metadict_chars['Cleric 5 lvl (Vened) (Патрокл «Македонянин»)'] = {
     'level':5,
-    'fearless':True,
-    'char_class':'Cleric',
+    #'fearless':True,
+    'char_class':'Cleric-heavy',
     'hit_dice':'1d8',
     'behavior':'commander',
     'hitpoints_medial':True,
@@ -6286,7 +6286,6 @@ metadict_chars['Cleric 5 lvl (Vened) (Патрокл «Македонянин»)
         'Spellcasting':True,
         'Spells':[
             # TODO: Сделай Spirit_Guardians
-            # TODO: Сделай Crusader\'s Mantle. Там потрясающие +1d4 урона всем в радиусе 30 футов
             # TODO: Обязательно сделай Calm_Emotions. Защита от страха.
             ('cantrip', 'Thaumaturgy'),
             ('cantrip', 'Spare_the_Dying'),
@@ -6350,4 +6349,3 @@ metadict_chars['Cleric 5 lvl (Vened) (Патрокл «Македонянин»)
     #'equipment_mount':{
     #    },
     }
-
