@@ -112,6 +112,8 @@ class soldier_in_battle(soldier):
         self.move_pool = self.base_speed
         if hasattr(self, 'help_action') and self.help_action: 
             self.help_action = False
+        # Индивидуальные команды солдату:
+        self.commands = []
         # Общие для всех параметры:
         self.immunity = []
         self.resistance = []
@@ -318,6 +320,8 @@ class soldier_in_battle(soldier):
         https://www.dandwiki.com/wiki/5e_SRD:Combat_Turn
         Move, Action (Ready Action), Bonus Action, Reaction
         """
+        # Индивидуальные команды обновляются каждый ход:
+        self.commands = []
         # Даём боевые действия и пул движения:
         self.battle_action = True
         self.bonus_action = True
@@ -672,7 +676,7 @@ class soldier_in_battle(soldier):
                 self.danger = fear_danger
         # Каждые 10% потерянного здоровья увеличивают опасность:
         if self.hitpoints < self.hitpoints_max\
-                and not 'fearless' in squad.commands\
+                and not 'fearless' in self.commands\
                 and not self.equipment_weapon.get('Infusion of Healing'):
             hitpoints_danger = math.floor((1 - self.hitpoints / self.hitpoints_max) * 10)
             self.danger += hitpoints_danger
@@ -680,11 +684,11 @@ class soldier_in_battle(soldier):
             if self.__dict__.get('water_walk') and self.hitpoints < (self.hitpoints_max / 2):
                 self.danger = 0
                 self.escape = True
-            #if 'dodge' in squad.commands and self.hitpoints < (self.hitpoints_max / 2):
+            #if 'dodge' in self.commands and self.hitpoints < (self.hitpoints_max / 2):
             #    self.danger = 0
             #    self.escape = True
         # Каждые 10% потерь союзников также увеличивают угрозу:
-        if squad.casualty['casualty_percent'] > 0 and not 'fearless' in squad.commands:
+        if squad.casualty['casualty_percent'] > 0 and not 'fearless' in self.commands:
             casualty_danger = round(squad.casualty['casualty_percent'] / 10)
             self.danger += casualty_danger
         if self.behavior == 'archer':
@@ -696,7 +700,7 @@ class soldier_in_battle(soldier):
             #    self.danger = 1
             #    self.escape = True
             # Это же относится к магам, у которых закончились слоты заклинаний:
-            #if hasattr(self, 'spells') and not self.spellslots and 'dodge' in squad.commands:
+            #if hasattr(self, 'spells') and not self.spellslots and 'dodge' in self.commands:
             #    self.danger = 1
             #    self.escape = True
             # Если враг рядом, лучники тоже отступают (хотя могут и просто держать дистанцию).
@@ -707,7 +711,7 @@ class soldier_in_battle(soldier):
             # Конные лучники отступают, если ранен конь:
             if hasattr(self, 'mount_uuid') and self.mount_uuid in squad.metadict_soldiers:
                 mount = squad.metadict_soldiers[self.mount_uuid]
-                if mount.escape == True and 'dodge' in squad.commands:
+                if mount.escape == True and 'dodge' in self.commands:
                     self.danger = 1
                     self.escape = True
 
@@ -1138,7 +1142,7 @@ class soldier_in_battle(soldier):
         spellslots_list = reversed(list(self.spellslots.keys()))
         for spell_slot in spellslots_list:
             # Без приказа только заклинания 1 круга:
-            if int(spell_slot[0]) < 2 or 'fireball' in squad.commands:
+            if int(spell_slot[0]) < 2 or 'fireball' in self.commands:
                 if distance >= 2 and spell_slot in [attack[0] for attack in self.spells]:
                     spell_attack = [attack for attack in self.spells if attack[0] == spell_slot
                             and attack[1] == self.spells[attack]['spell_of_choice']]

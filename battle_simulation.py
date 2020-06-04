@@ -576,7 +576,8 @@ class battle_simulation(battlescape):
             squad.frontline = self.draw_frontline(squad.enemies)
             if squad.enemies:
                 # Разведка противника, обобщение данных:
-                squad.enemy_recon = self.recon_enemy_side(squad.enemies, squad.allies)
+                squad.enemy_recon = self.recon_enemy_side(
+                        squad.enemies, squad.allies, squad.commanders_list)
                 # Зоны концентрации врага с точки зрения командира:
                 squad.danger_points = battle.find_danger_zones(
                         squad.enemy_side, zone_length = 2,
@@ -680,7 +681,7 @@ class battle_simulation(battlescape):
         dict_casualty['casualty_percent'] = dict_casualty['fall_percent'] + dict_casualty['escape_percent']
         return dict_casualty
 
-    def recon_enemy_side(self, enemies_dict, allies_dict):
+    def recon_enemy_side(self, enemies_dict, allies_dict, commanders_list):
         """Изучаем видимых противников, делаем выводы.
         
         Ключевое:
@@ -688,6 +689,7 @@ class battle_simulation(battlescape):
         - средняя дистанция до врага.
         - тип и класс самых многочисленных бойцов.
         - распространённые атаки (ranged, throw, reach)
+        - зональные заклинания, например: Spirit_Guardians
         """
         enemy_recon = {}
         speed_list = []
@@ -697,6 +699,14 @@ class battle_simulation(battlescape):
         attacks_list = []
         danger_list = []
         ally_strenght_list = []
+        danger_places = []
+        # Обозначаем опасные зоны на поле боя
+        # TODO: учитывай только видимые командирам опасные точки.
+        for place, elements in self.dict_battlespace.items():
+            for el in elements:
+                if el == 'danger_terrain':
+                    danger_places.append(place)
+        # Интересны атаки, которые есть хотя бы у 25% бойцов отряда:
         attacks_sense_limit = 0.25
         for uuid, enemy_tuple in enemies_dict.items():
             enemy_soldier = self.metadict_soldiers[uuid]
@@ -738,6 +748,7 @@ class battle_simulation(battlescape):
         # Средняя дистанция до врага:
         enemy_recon['distance_medial'] = round(sum(distance_list) / len(enemies_dict))
         enemy_recon['distance'] = min(distance_list)
+        enemy_recon['danger_places'] = danger_places
         return enemy_recon
 
     def squad_AI(self, squad, commander, commands):
@@ -755,6 +766,26 @@ class battle_simulation(battlescape):
                 commands_list.append('attack')
                 commands_list.append('spellcast')
                 commands_list.append('channel')
+            # Оцениваем опасность зональных заклинаний. Например Spirit_Guardians:
+            if squad.enemy_recon['danger_places']:
+                danger_places = squad.enemy_recon['danger_places']
+                # TODO: сделай это полноценным циклом. Чтобы учитывать и Flaming_Sphere:
+                enemy_mages_list = [enemy for enemy in self.metadict_soldiers.values()
+                        if enemy.ally_side == commander.enemy_side
+                        and enemy.spirit_guardians]
+                if enemy_mages_list:
+                    zonal_spell_victims = [soldier for soldier in squad.metadict_soldiers.values()
+                            if hasattr(soldier, 'place') and soldier.place in danger_places]
+                    if zonal_spell_victims:
+                        commands_list.append('danger')
+                        if len(zonal_spell_victims) > len(squad.metadict_soldiers) / 10\
+                                and 'engage' in commands_list:
+                            commands_list.remove('engage')
+                            commands_list.append('disengage')
+                            #print(len(zonal_spell_victims))
+                        else:
+                            for soldier in zonal_spell_victims:
+                                soldier.commands.append('retreat')
         elif squad.commander and not squad.enemies:
             commands_list = ['lead','follow']
         elif not squad.commander:
@@ -818,6 +849,10 @@ class battle_simulation(battlescape):
         # Морские существа могут плавать:
         if soldier.__dict__.get('water_walk'):
             self.matrix = self.map_to_matrix(self.battle_map, self.dict_battlespace, water_walk = True)
+        # Команды отряду считаются личными:
+        if squad.commands:
+            soldier.commands.extend(squad.commands)
+            #soldier.commands = list(set(soldier.commands))
         # Осматриваем зону врагов, находим противника:
         self.recon_action(soldier, squad)
         enemy = self.find_enemy(soldier, squad)
@@ -842,29 +877,29 @@ class battle_simulation(battlescape):
             elif soldier.equipment_weapon.get('Infusion of Healing'):
                 soldier.use_potion_of_healing()
         # Солдат отступает, если опасность слишком велика:
-        if soldier.danger > self.engage_danger or 'retreat' in squad.commands:
+        if soldier.danger > self.engage_danger or 'retreat' in soldier.commands:
             destination = self.find_spawn(soldier.place, soldier.ally_side)
             destination = random.choice(self.point_to_field(destination))
             self.move_action(soldier, squad, destination, allow_replace = False)
             # Испуганный боец может сбежать (но у храброго преимущество):
-            if "brave" in squad.commands:
+            if "brave" in soldier.commands:
                 soldier.escape = soldier.morality_check_escape(soldier.danger, advantage = True)
             else:
                 soldier.escape = soldier.morality_check_escape(soldier.danger)
             # Командир может отступить в глубину строя:
-            if soldier.behavior == 'commander' or 'retreat' in squad.commands:
+            if soldier.behavior == 'commander' or 'retreat' in soldier.commands:
                 self.move_action(soldier, squad, destination, allow_replace = True)
-            if soldier.escape or 'retreat' in squad.commands:
+            if soldier.escape or 'retreat' in soldier.commands:
                 soldier.escape = True
                 self.move_action(soldier, squad, destination, allow_replace = True)
                 if 'spawn' in self.dict_battlespace[soldier.place]:
                     self.clear_battlemap()
         # Отряд может ускориться с dash_action, если таков приказ (и врагов нет рядом):
-        if 'dash' in squad.commands:
+        if 'dash' in soldier.commands:
             if not enemy or enemy.distance >= soldier.move_pool / 2:
                 self.dash_action(soldier)
         # Командир отряда может вести бойцов в ручном режиме:
-        if 'move' in squad.commands and not 'auto' in squad.commands\
+        if 'move' in soldier.commands and not 'auto' in soldier.commands\
                 and soldier.uuid == squad.commander.uuid:
             destination = list(input('---Куда идти? ("10 10", это x=10, y=10): ').split())
             destination = tuple([int(el) for el in destination])
@@ -872,12 +907,12 @@ class battle_simulation(battlescape):
                 squad.destination = destination
                 self.move_action(soldier, squad, destination, allow_replace = True)
         # Командир ведёт бойцов автоматически, но не вырывается впереди строя:
-        if 'lead' in squad.commands and soldier.behavior == 'commander':
-            if len(soldier.near_allies) >= 2 or 'fearless' in squad.commands:
+        if 'lead' in soldier.commands and soldier.behavior == 'commander':
+            if len(soldier.near_allies) >= 2 or 'fearless' in soldier.commands:
                 if hasattr(squad, 'destination') and squad.destination\
-                        and not 'auto' in squad.commands:
+                        and not 'auto' in soldier.commands:
                     self.move_action(soldier, squad, squad.destination, allow_replace = True)
-                elif enemy and 'dodge' in squad.commands:
+                elif enemy and 'dodge' in soldier.commands:
                     self.move_action(soldier, squad, enemy.place, allow_replace = False)
                 elif enemy:
                     self.move_action(soldier, squad, enemy.place, allow_replace = True)
@@ -885,31 +920,31 @@ class battle_simulation(battlescape):
                     destination = self.find_spawn(soldier.place, soldier.enemy_side)
                     self.move_action(soldier, squad, destination, allow_replace = True)
         # Оборонительная тактика, если таков приказ (вторые ряды всё же атакуют):
-        if 'dodge' in squad.commands and soldier.near_enemies\
+        if 'dodge' in soldier.commands and soldier.near_enemies\
                 or soldier.danger > self.engage_danger:
             self.dodge_action(soldier)
         # Простые солдаты следуют за командиром, зная своё место в строю:
-        if 'follow' in squad.commands and squad.commander and not soldier.near_enemies:
+        if 'follow' in soldier.commands and squad.commander and not soldier.near_enemies:
             self.follow_action(soldier, squad, squad.commander)
         # Боец наступает, если союзники рядом сильнее противника в точке назначения:
-        if 'engage' in squad.commands and enemy and not soldier.near_enemies:
+        if 'engage' in soldier.commands and enemy and not soldier.near_enemies:
             self.engage_action(soldier, squad, enemy)
         # Кастеры работают магией, сначала по группам, а потом целевой:
-        if 'spellcast' in squad.commands and enemy:
+        if 'spellcast' in soldier.commands and enemy:
             self.recon_action(soldier, squad)
-            if soldier.danger <= 0 or 'fearless' in squad.commands:
-                if 'channel' in squad.commands:
+            if soldier.danger <= 0 or 'fearless' in soldier.commands:
+                if 'channel' in soldier.commands:
                     self.channel_action(soldier, squad, enemy)
                 self.fireball_action(soldier, squad)
                 self.spellcast_action(soldier, squad, enemy)
         # Атака следует за 'engage', поэтому осматриваемся снова:
-        if 'attack' in squad.commands and enemy:
+        if 'attack' in soldier.commands and enemy:
             self.recon_action(soldier, squad)
-            if soldier.danger <= 0 or 'fearless' in squad.commands:
+            if soldier.danger <= 0 or 'fearless' in soldier.commands:
                 self.attack_action(soldier, squad, enemy)
-                if 'engage' in squad.commands\
-                        and not 'dodge' in squad.commands\
-                        and not 'disengage' in squad.commands:
+                if 'engage' in soldier.commands\
+                        and not 'dodge' in soldier.commands\
+                        and not 'disengage' in soldier.commands:
                     self.engage_action(soldier, squad, enemy)
             # Удвоенный ход бойца:
             if soldier.action_surge and len(soldier.near_enemies) >= 2:
@@ -933,10 +968,10 @@ class battle_simulation(battlescape):
                     soldier.dash_action = True
                     soldier.bonus_action = False
         # Не видя врага, лучники стреляют навесом:
-        if 'volley' in squad.commands and not enemy and soldier.behavior == 'archer':
+        if 'volley' in soldier.commands and not enemy and soldier.behavior == 'archer':
             self.volley_action(soldier, squad)
         # Лучники отступают, если враг близко:
-        if 'disengage' in squad.commands\
+        if 'disengage' in soldier.commands\
                 and enemy and squad.__dict__.get('enemy_recon')\
                 and enemy.distance <= squad.enemy_recon['move'] * 2:
             destination = self.find_spawn(soldier.place, soldier.ally_side)
@@ -1103,12 +1138,12 @@ class battle_simulation(battlescape):
         # Простые солдаты нападают вблизи только при двухкратном превосходстве союзников:
         if not soldier.near_enemies and ally_strenght >= enemy_strenght * 2\
                 or soldier.hero == True and not soldier.near_enemies and ally_strenght >= enemy_strenght\
-                or 'fearless' in squad.commands:
+                or 'fearless' in soldier.commands:
             # После движение осматриваемся снова в поисках врагов:
             self.move_action(soldier, squad, destination)
             recon_near = self.recon(soldier.place, distance = 1)
             soldier.set_near_enemies(recon_near)
-            if not soldier.near_enemies or 'fearless' in squad.commands:
+            if not soldier.near_enemies or 'fearless' in soldier.commands:
                 self.move_action(soldier, squad, enemy.place, save_path = False)
                 if soldier.hero == True or soldier.behavior == 'commander':
                     self.move_action(soldier, squad, enemy.place, allow_replace = True)
@@ -1199,6 +1234,10 @@ class battle_simulation(battlescape):
         if save_path and path and squad.frontline != None:
             # Безопасный путь, это остановка перед линией фронта:
             path = self.path_to_savepath(path, squad.frontline)
+        # Боец не идёт через опасные зоны:
+        if 'danger' in soldier.commands\
+                and list(set(path) & set(squad.enemy_recon.get('danger_places',[]))):
+            return False
         if path:
             while path and soldier.move_pool > 0:
                 # Если ближайшая точка пути свободна, переходим на неё:
@@ -1338,6 +1377,7 @@ class battle_simulation(battlescape):
                     for point in zone_list_circle:
                         if 'spirit_guardians' in self.dict_battlespace[point]:
                             self.dict_battlespace[point].remove('spirit_guardians')
+                            self.dict_battlespace[point].remove('danger_terrain')
                     # Создаём по новым координатам:
                     zone_list = self.find_points_in_zone(soldier.place, zone_radius)
                     zone_list_circle = [point for point in zone_list\
@@ -1345,6 +1385,7 @@ class battle_simulation(battlescape):
                     for point in zone_list_circle:
                         if not 'spirit_guardians' in self.dict_battlespace[point]:
                             self.dict_battlespace[point].append('spirit_guardians')
+                            self.dict_battlespace[point].append('danger_terrain')
         # Показывает ходы бойца:
         if namespace.visual:
             print_ascii_map(self.gen_battlemap())
@@ -2028,7 +2069,7 @@ class battle_simulation(battlescape):
         spell_choice_list = []
         for spell_slot in soldier.spellslots:
             # Без приказа только заклинания 1 круга:
-            if int(spell_slot[0]) < 2 or 'fireball' in squad.commands:
+            if int(spell_slot[0]) < 2 or 'fireball' in soldier.commands:
                 slot_spells_list = [attack for attack in soldier.spells if attack[0] == spell_slot
                         and soldier.spells[attack].get('zone')]
                 spell_choice_list.extend(slot_spells_list)
@@ -2154,7 +2195,7 @@ class battle_simulation(battlescape):
                     if ally_soldier.level < soldier.level or ally_soldier.level == 1:
                         if ally_soldier.uuid != soldier.uuid\
                                 and ally_soldier.danger <= self.engage_danger\
-                                and not 'dodge' in squad.commands\
+                                and not 'dodge' in soldier.commands\
                                 and not ally_soldier.hero\
                                 and not ally_soldier.class_features.get('Reckless_Attack')\
                                 and not ally_soldier.help_action:
@@ -2174,7 +2215,7 @@ class battle_simulation(battlescape):
         - В раиусе дальних атак (лук, праща, дротики)
         """
         if soldier.near_enemies:
-            if soldier.behavior == 'commander' or "kill" in squad.commands:
+            if soldier.behavior == 'commander' or "kill" in soldier.commands:
                 return self.select_enemy(soldier.near_enemies, select_strongest = True)
             else:
                 return self.select_enemy(soldier.near_enemies)
@@ -2188,7 +2229,7 @@ class battle_simulation(battlescape):
                 return self.select_enemy(near_enemies)
         # Командир выбирает целью вражеских командиров:
         if squad.enemies and soldier.behavior == 'commander'\
-                or squad.enemies and "kill" in squad.commands:
+                or squad.enemies and "kill" in soldier.commands:
             sorted_enemies = self.refind_soldiers_distance(soldier.place, squad.enemies)
             visible_enemies = self.find_visible_soldiers(
                     soldier.place, soldier.enemy_side, sorted_enemies,
@@ -2202,7 +2243,7 @@ class battle_simulation(battlescape):
                     max_number = 2, max_try = 6)
             return self.select_enemy(visible_enemies)
         # Ищем цели в зоне видимости без указания командира:
-        if 'seek' in squad.commands:
+        if 'seek' in soldier.commands:
             visible_enemies = self.find_visible_soldiers(soldier.place, soldier.enemy_side,
                     max_number = 2, max_try = 6)
             return self.select_enemy(visible_enemies)
@@ -2318,7 +2359,7 @@ class battle_simulation(battlescape):
             if soldier.hitpoints <= 0 and not soldier.death and not soldier.stable:
                 soldier.set_death()
             if soldier.hitpoints <= 0 and not soldier.death and not soldier.stable:
-                if hasattr(squad, 'commands') and 'rescue' in squad.commands:
+                if hasattr(squad, 'commands') and 'rescue' in soldier.commands:
                     self.rescue(soldier)
                     if not soldier.stable and soldier.level > 1 and soldier.death_save_loss >= 1:
                         self.rescue_magic(soldier)
