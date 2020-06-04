@@ -896,9 +896,7 @@ class battle_simulation(battlescape):
             self.engage_action(soldier, squad, enemy)
         # Кастеры работают магией, сначала по группам, а потом целевой:
         if 'spellcast' in squad.commands and enemy:
-            recon_near = self.recon(soldier.place, distance = 1)
-            soldier.set_near_enemies(recon_near)
-            soldier.set_danger(self.recon_action_danger(soldier), squad)
+            self.recon_action(soldier, squad)
             if soldier.danger <= 0 or 'fearless' in squad.commands:
                 if 'channel' in squad.commands:
                     self.channel_action(soldier, squad, enemy)
@@ -906,9 +904,7 @@ class battle_simulation(battlescape):
                 self.spellcast_action(soldier, squad, enemy)
         # Атака следует за 'engage', поэтому осматриваемся снова:
         if 'attack' in squad.commands and enemy:
-            recon_near = self.recon(soldier.place, distance = 1)
-            soldier.set_near_enemies(recon_near)
-            soldier.set_danger(self.recon_action_danger(soldier), squad)
+            self.recon_action(soldier, squad)
             if soldier.danger <= 0 or 'fearless' in squad.commands:
                 self.attack_action(soldier, squad, enemy)
                 if 'engage' in squad.commands\
@@ -1108,6 +1104,7 @@ class battle_simulation(battlescape):
         if not soldier.near_enemies and ally_strenght >= enemy_strenght * 2\
                 or soldier.hero == True and not soldier.near_enemies and ally_strenght >= enemy_strenght\
                 or 'fearless' in squad.commands:
+            # После движение осматриваемся снова в поисках врагов:
             self.move_action(soldier, squad, destination)
             recon_near = self.recon(soldier.place, distance = 1)
             soldier.set_near_enemies(recon_near)
@@ -1614,9 +1611,7 @@ class battle_simulation(battlescape):
                     self.dict_battlespace[fall_place].append('fall_place')
                     self.dict_battlespace[fall_place].append(enemy_soldier.ally_side)
                     # Осматриваемся, убираем жертву из списка целей бойца.
-                    recon_near = self.recon(soldier.place, distance = 1)
-                    soldier.set_near_enemies(recon_near)
-                    danger = self.danger_sense(recon_near, soldier.enemy_side)
+                    self.recon_action(soldier, squad)
                     if squad.enemies and enemy.uuid in squad.enemies:
                         squad.enemies.pop(enemy.uuid)
                     # Выбираем новую цель:
