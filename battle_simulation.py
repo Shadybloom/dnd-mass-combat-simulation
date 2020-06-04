@@ -818,31 +818,10 @@ class battle_simulation(battlescape):
         # Морские существа могут плавать:
         if soldier.__dict__.get('water_walk'):
             self.matrix = self.map_to_matrix(self.battle_map, self.dict_battlespace, water_walk = True)
-        # Запоминаем все точки вокруг, не занятые непроходимой местностью или границами зон:
-        # Находим противников и союзников в области 5 футов, 3x3 клетки:
-        # Крупные создания осматривают большую зону вокруг себя.
-        if soldier.size == 'large':
-            soldier_tuple = (squad.ally_side, soldier.behavior, soldier.uuid)
-            soldier_place_field = self.point_to_field_2x2(soldier.place)
-            recon_near = {}
-            near_zone = []
-            for point in soldier_place_field:
-                if point in self.dict_battlespace and\
-                        soldier_tuple in self.dict_battlespace[point]:
-                    recon_near.update(self.recon(point, distance = 1))
-                    near_zone.extend(self.find_points_in_zone(point, distance = 1))
-            near_zone = list(set(near_zone))
-        else:
-            near_zone = self.find_points_in_zone(soldier.place, distance = 1)
-            recon_near = self.recon(soldier.place, distance = 1)
-        soldier.near_zone = near_zone
-        soldier.set_near_allies(recon_near)
-        soldier.set_near_enemies(recon_near)
+        # Осматриваем зону врагов, находим противника:
+        self.recon_action(soldier, squad)
         enemy = self.find_enemy(soldier, squad)
-        # Работает страхочуйка и мораль бойца:
-        soldier.set_danger(self.recon_action_danger(soldier, recon_near), squad)
-        # Солдат отмечает местонахождение врага, если его ещё нет на линии фронта:
-        # Для битв в тумане Fog_Cloud и в темноте Darkness:
+        # Солдат отмечает местонахождение врага, если его ещё нет на линии фронта (для битв в темноте):
         if soldier.near_enemies and squad.frontline:
             for enemy in soldier.near_enemies:
                 if enemy.place not in squad.frontline:
@@ -914,12 +893,12 @@ class battle_simulation(battlescape):
             self.follow_action(soldier, squad, squad.commander)
         # Боец наступает, если союзники рядом сильнее противника в точке назначения:
         if 'engage' in squad.commands and enemy and not soldier.near_enemies:
-            self.engage_action(soldier, squad, enemy, recon_near)
+            self.engage_action(soldier, squad, enemy)
         # Кастеры работают магией, сначала по группам, а потом целевой:
         if 'spellcast' in squad.commands and enemy:
             recon_near = self.recon(soldier.place, distance = 1)
             soldier.set_near_enemies(recon_near)
-            soldier.set_danger(self.recon_action_danger(soldier, recon_near), squad)
+            soldier.set_danger(self.recon_action_danger(soldier), squad)
             if soldier.danger <= 0 or 'fearless' in squad.commands:
                 if 'channel' in squad.commands:
                     self.channel_action(soldier, squad, enemy)
@@ -929,13 +908,13 @@ class battle_simulation(battlescape):
         if 'attack' in squad.commands and enemy:
             recon_near = self.recon(soldier.place, distance = 1)
             soldier.set_near_enemies(recon_near)
-            soldier.set_danger(self.recon_action_danger(soldier, recon_near), squad)
+            soldier.set_danger(self.recon_action_danger(soldier), squad)
             if soldier.danger <= 0 or 'fearless' in squad.commands:
                 self.attack_action(soldier, squad, enemy)
                 if 'engage' in squad.commands\
                         and not 'dodge' in squad.commands\
                         and not 'disengage' in squad.commands:
-                    self.engage_action(soldier, squad, enemy, recon_near)
+                    self.engage_action(soldier, squad, enemy)
             # Удвоенный ход бойца:
             if soldier.action_surge and len(soldier.near_enemies) >= 2:
                 if soldier.set_action_surge():
@@ -969,6 +948,59 @@ class battle_simulation(battlescape):
         # Если действия таки не использовались -- защищаемся:
         if soldier.battle_action or soldier.bonus_action:
             self.dodge_action(soldier)
+
+    def recon_action(self, soldier, squad, distance = 1):
+        """Боец осматривает зону вокруг себя.
+        
+        - soldier.near_zone -- срез поля боя
+        - soldier.recon_near -- ближайшие существа
+        - soldier.near_allies -- ближайшие союзники
+        - soldier.near_enemies -- ближайшие враги
+        - soldier.danger -- оценка угрозы
+        """
+        # Крупные создания осматривают большую зону вокруг себя.
+        # Запоминаем все точки вокруг, не занятые непроходимой местностью или границами зон:
+        # Находим противников и союзников в области 5 футов, 3x3 клетки:
+        if soldier.size == 'large':
+            soldier_tuple = (squad.ally_side, soldier.behavior, soldier.uuid)
+            soldier_place_field = self.point_to_field_2x2(soldier.place)
+            recon_near = {}
+            near_zone = []
+            for point in soldier_place_field:
+                if point in self.dict_battlespace and\
+                        soldier_tuple in self.dict_battlespace[point]:
+                    recon_near.update(self.recon(point, distance))
+                    near_zone.extend(self.find_points_in_zone(point, distance))
+            near_zone = list(set(near_zone))
+        else:
+            near_zone = self.find_points_in_zone(soldier.place, distance)
+            recon_near = self.recon(soldier.place, distance)
+        soldier.near_zone = near_zone
+        soldier.recon_near = recon_near
+        soldier.set_near_allies(recon_near)
+        soldier.set_near_enemies(recon_near)
+        # Работает страхочуйка и мораль бойца:
+        soldier.set_danger(self.recon_action_danger(soldier, recon_near), squad)
+        return near_zone, recon_near
+
+    def recon_action_danger(self, soldier, recon_near = None, distance = 1):
+        """Оценка опасности ближней зоны"""
+        if not recon_near and soldier.recon_near:
+            recon_near = soldier.recon_near
+        elif not soldier.recon_near:
+            recon_near = self.recon(soldier.place, distance)
+        danger = self.danger_sense(recon_near, soldier.enemy_side)
+        # TODO: Кучи павших своих, это объективный показатель угрозы:
+        # -------------------------------------------------
+        # Но лучше подсчитывать это в soldier.set_danger
+        # На самом деле редкое явление, тяжелораненых вытаскивают.
+        # -------------------------------------------------
+        for point in soldier.near_zone:
+            if soldier.ally_side in self.dict_battlespace[point]:
+                for descript in self.dict_battlespace[point]:
+                    if descript == 'fall_place':
+                        danger +=1
+        return danger
 
     def get_zone_effects(self, soldier, squad):
         """Эффекты места (огонь, заклинание) действуют на солдата."""
@@ -1011,21 +1043,6 @@ class battle_simulation(battlescape):
                                 self.set_squad_experience(squad, soldier)
                             self.set_squad_battle_stat(attack_result, squad)
 
-    def recon_action_danger(self, soldier, recon_near = None):
-        """Оценка опасности ближней зоны"""
-        if not recon_near:
-            recon_near = self.recon(soldier.place, distance = 2)
-        danger = self.danger_sense(recon_near, soldier.enemy_side)
-        # TODO: Кучи павших своих, это объективный показатель угрозы:
-        # Но лучше подсчитывать это в soldier.set_danger
-        # На самом деле редкое явление, тяжелораненых вытаскивают.
-        for point in soldier.near_zone:
-            if soldier.ally_side in self.dict_battlespace[point]:
-                for descript in self.dict_battlespace[point]:
-                    if descript == 'fall_place':
-                        danger +=1
-        return danger
-
     def follow_action(self, soldier, squad, commander):
         """Солдат следует за командиром, стараясь держать строй.
         
@@ -1063,7 +1080,7 @@ class battle_simulation(battlescape):
                     destination = commander.place
                 self.move_action(soldier, squad, destination)
 
-    def engage_action(self, soldier, squad, enemy, recon_near):
+    def engage_action(self, soldier, squad, enemy, recon_near = None):
         """Солдат сближается с противником, готовясь атаковать.
         
         Как это работает:
@@ -1073,6 +1090,8 @@ class battle_simulation(battlescape):
         - И только после этого бросается к ближайшему врагу.
         Эта тактика защищает от окружения и провоцированных атак.
         """
+        if not recon_near:
+            recon_near = soldier.recon_near
         ally_strenght = self.danger_sense(recon_near, soldier.ally_side)
         recon_enemy = self.recon(enemy.place, 1, soldier.place)
         enemy_strenght = self.danger_sense(recon_enemy, soldier.enemy_side)
