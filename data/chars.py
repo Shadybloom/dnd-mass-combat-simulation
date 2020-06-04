@@ -6698,3 +6698,209 @@ metadict_chars['Warrior 5 lvl (Mordodrukow) (капитан)'] = {
     #    #'Arrow':60,
     #    },
     }
+
+#----
+# Бойцы (свита) (Гай Юлий):
+
+metadict_chars['Fighter 1 lvl (Katorjnik) (преторианец)'] = {
+    # Преторианцы, всадники.
+    'level':1,
+    'char_class':'Fighter-officer',
+    'hit_dice':'1d10',
+    'behavior':'elite_warrior',
+    'class_features':{
+        # Даю халявный Feat_Mounted_Combatant:
+        'Feat_Inspiring_Leader':True,
+        #'Feat_Mounted_Combatant':True,
+        'Fighting_Style_Protection':True,
+        'Second_Wind':True,
+        },
+    'race':'Human-hero',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Splint Armor':1,
+        'Shield':1,
+        'Longsword':1,
+        'Lance':1,
+        'Pilum':6,
+        },
+    #'mount_combat':True,
+    #'mount_type':'Warhorse',
+    #'equipment_mount':{
+    #    },
+    }
+
+metadict_chars['Fighter 5 lvl (Katorjnik) (Гай Юлий)'] = {
+    'level':5,
+    'char_class':'Fighter-officer',
+    'hit_dice':'1d10',
+    'behavior':'commander',
+    'hitpoints_medial':True,
+    'abilityes':{
+        'strength':20,
+        'dexterity':10,
+        'constitution':14,
+        'intelligence':14,
+        'wisdom':18,
+        'charisma':14,
+        },
+    'class_features':{
+        'Feat_Inspiring_Leader':True,
+        #'Feat_Mounted_Combatant':True,
+        'Fighting_Style_Protection':True,
+        'Second_Wind':True,
+        'Action_Surge':True,
+        'Martial_Archetype_Champion':True,
+        'Champion_Improved_Critical':True,
+        'Feat_Heavy_Armor_Master':True,
+        'Extra_Attack':True,
+        },
+    'race':'Human-hero',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Rune of Absorbtion':1,
+        'Rune of Shielding':1,
+        'Splint Armor':1,
+        'Shield':1,
+        'Longsword +1':1,
+        'Lance':1,
+        'Pilum':6,
+        },
+    #'mount_combat':True,
+    #'mount_type':'Warhorse',
+    #'equipment_mount':{
+    #    'Horse Scale Mail':1,
+    #    },
+    }
+
+#----
+# Легионеры (армия) (Гай Юлий):
+
+metadict_chars['Warrior 1 lvl (Katorjnik) (манипуларий)'] = {
+    # Исторически носили по 2 пилума, но шесть весомее (вот только пехота столько не унесёт).
+    'level':1,
+    'char_class':'Warrior',
+    'hit_dice':'1d8',
+    'behavior':'warrior',
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Studded Leather':1,
+        'Heavy Shield':1,
+        'Shortsword':1,
+        'Pilum':6,
+        },
+    }
+
+metadict_chars['Warrior 2 lvl (Katorjnik) (ветеран)'] = {
+    'level':2,
+    'char_class':'Warrior',
+    'hit_dice':'1d8',
+    'behavior':'elite_warrior',
+    'class_features':{
+        'Fighting_Style_Protection':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Scale Mail':1,
+        'Heavy Shield':1,
+        'Shortsword':1,
+        'Pilum':4,
+        },
+    }
+
+metadict_chars['Warrior 3 lvl (Katorjnik) (урагос)'] = {
+    # Десятник (декан, урагос)
+    'level':3,
+    'char_class':'Warrior',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Protection':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Breastplate':1,
+        'Heavy Shield':1,
+        'Shortsword':1,
+        'Pilum':4,
+        },
+    }
+
+metadict_chars['Warrior 4 lvl (Katorjnik) (опцион)'] = {
+    'level':4,
+    'char_class':'Warrior-officer',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Defence':True,
+        'Feat_Inspiring_Leader':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Rune of Shielding':1,
+        'Breastplate':1,
+        'Heavy Shield':1,
+        'Shortsword':1,
+        'Pilum':4,
+        },
+    #'mount_combat':False,
+    #'mount_type':'Riding Horse',
+    #'equipment_mount':{
+    #    },
+    }
+
+metadict_chars['Warrior 5 lvl (Katorjnik) (центурион)'] = {
+    'level':5,
+    'char_class':'Warrior-officer',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Defence':True,
+        'Feat_Inspiring_Leader':True,
+        'Extra_Attack':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Rune of Absorbtion':1,
+        'Rune of Shielding':1,
+        'Half Plate':1,
+        'Heavy Shield':1,
+        'Shortsword':1,
+        'Pilum':4,
+        },
+    #'mount_combat':False,
+    #'mount_type':'Riding Horse',
+    #'equipment_mount':{
+    #    },
+    }

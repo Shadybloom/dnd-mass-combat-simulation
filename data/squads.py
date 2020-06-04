@@ -35,6 +35,21 @@ metadict_squads['test 4 onagers'] = {
     }
 
 #----
+# Геройские отряды (армия Гая Юлия):
+
+metadict_squads['Company-regular (легионеры Гая Юлия) (Katorjnik)'] = {
+    'Warrior 1 lvl (Katorjnik) (манипуларий)':80,
+    'Warrior 2 lvl (Katorjnik) (ветеран)':20,
+    'Warrior 3 lvl (Katorjnik) (урагос)':6,
+    'Warrior 4 lvl (Katorjnik) (опцион)':2,
+    }
+
+metadict_squads['Band-hero (преторианцы Гая Юлия) (Katorjnik)'] = {
+    'Fighter 5 lvl (Katorjnik) (Гай Юлий)':1,
+    'Fighter 1 lvl (Katorjnik) (преторианец)':6,
+    }
+
+#----
 # Геройские отряды (армия Фарама):
 
 metadict_squads['Company-regular (лучники Фарама) (Mordodrukow)'] = {
@@ -61,10 +76,10 @@ metadict_squads['Band-hero (жрецы Патрокла) (Vened)'] = {
     #'Cleric 1 lvl (Vened) (жрец домена войны)':6,
     }
 
-metadict_squads['Band-hero (жрецы-лекари) (Vened)'] = {
-    'Cleric 5 lvl (city maatcarian-reviver)':1,
-    'Cleric 1 lvl (city maatcarian-acolyte)':12,
-    }
+#metadict_squads['Band-hero (жрецы-лекари) (Vened)'] = {
+#    'Cleric 5 lvl (city maatcarian-reviver)':1,
+#    'Cleric 1 lvl (city maatcarian-acolyte)':12,
+#    }
 
 #----
 # Геройские отряды (армия Протесилая):
