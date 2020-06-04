@@ -146,6 +146,7 @@ class battle_simulation(battlescape):
             self.set_squad_heal(squad)
             self.set_squad_bonus_hitpoints(squad)
             self.set_squad_bardic_inspiration(squad)
+            self.set_squad_spell_shield_of_faith(squad)
             self.set_squad_spell_bless(squad)
             # Короткий отдых:
             if namespace.short_rest:
@@ -380,12 +381,33 @@ class battle_simulation(battlescape):
                 soldier.bardic_inspiration = bless_list.pop()
                 #print(soldier.rank, soldier.bardic_inspiration)
 
+    def set_squad_spell_shield_of_faith(self, squad):
+        """Заклинание "Щит веры" (Shield_of_Faith)"""
+        bless_list = []
+        bless_type = 'shield_of_faith'
+        for soldier in squad.metadict_soldiers.values():
+            if hasattr(soldier, 'spells')\
+                    and not soldier.concentration\
+                    and soldier.spells_generator.find_spell('Shield_of_Faith'):
+                spell_dict = soldier.set_shield_of_faith()
+                for n in range(0, spell_dict['attacks_number']):
+                    bless_list.append(True)
+        soldiers_list_elite = self.select_soldiers_for_bless(
+                len(bless_list), squad.ally_side, bless_type)
+        for soldier in soldiers_list_elite:
+            if bless_list:
+                #print(bless_type, soldier.rank)
+                soldier.shield_of_faith = bless_list.pop()
+                soldier.shield_of_faith_timer = spell_dict['effect_timer']
+
     def set_squad_spell_bless(self, squad):
         """Заклинание "Благословение" (Bless)"""
         bless_list = []
         bless_type = 'bless'
         for soldier in squad.metadict_soldiers.values():
-            if hasattr(soldier, 'spells') and soldier.spells_generator.find_spell('Bless'):
+            if hasattr(soldier, 'spells')\
+                    and not soldier.concentration\
+                    and soldier.spells_generator.find_spell('Bless'):
                 spell_dict = soldier.set_bless()
                 for n in range(0, spell_dict['attacks_number']):
                     bless_list.append(dices.dice_throw_advantage(spell_dict['damage_dice']))
@@ -852,10 +874,11 @@ class battle_simulation(battlescape):
         # Команды отряду считаются личными:
         if squad.commands:
             soldier.commands.extend(squad.commands)
-            #soldier.commands = list(set(soldier.commands))
         # Осматриваем зону врагов, находим противника:
         self.recon_action(soldier, squad)
         enemy = self.find_enemy(soldier, squad)
+        if soldier.shield_of_faith:
+            print(soldier.rank)
         # Солдат отмечает местонахождение врага, если его ещё нет на линии фронта (для битв в темноте):
         if soldier.near_enemies and squad.frontline:
             for enemy in soldier.near_enemies:

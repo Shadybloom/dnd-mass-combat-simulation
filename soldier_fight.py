@@ -306,12 +306,13 @@ class soldier_in_battle(soldier):
                     self.crusaders_mantle_timer = spell_dict['effect_timer']
                     self.concentration = True
                     break
-                if spell_dict.get('effect') is 'shield_of_faith' and not self.concentration:
-                    spell_dict = self.spells_generator.use_spell(spell)
-                    self.shield_of_faith = True
-                    self.shield_of_faith_timer = spell_dict['effect_timer']
-                    self.concentration = True
-                    break
+                # Нет, не на себя, а на командира:
+                #if spell_dict.get('effect') is 'shield_of_faith' and not self.concentration:
+                #    spell_dict = self.spells_generator.use_spell(spell)
+                #    self.shield_of_faith = True
+                #    self.shield_of_faith_timer = spell_dict['effect_timer']
+                #    self.concentration = True
+                #    break
 
     def set_actions(self, squad):
         """Доступные действия в 6-секундном раунде боя.
@@ -496,6 +497,16 @@ class soldier_in_battle(soldier):
                     self.concentration_timer = 10
                     self.concentration = True
                     return spell_dict
+
+    def set_shield_of_faith(self):
+        """Жрец защищает другого с помощью Shield_of_Faith"""
+        if hasattr(self, 'spells'):
+            spell = self.spells_generator.find_spell('Shield_of_Faith')
+            spell_dict = dict(self.spells_generator.use_spell(spell))
+            spell_dict['spell_choice'] = spell
+            self.concentration_timer = spell_dict['effect_timer']
+            self.concentration = True
+            return spell_dict
 
     def set_frenzy(self, attack_choice):
         """Берсерк бесится.

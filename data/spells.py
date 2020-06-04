@@ -699,6 +699,7 @@ class gen_spells():
                 'effect':'shield_of_faith',
                 'effect_timer':100,
                 'concentration':True,
+                'attacks_number':1,
                 'attack_range':60,
                 'components':['verbal','somatic','material'],
                 'casting_time':'bonus_action',
