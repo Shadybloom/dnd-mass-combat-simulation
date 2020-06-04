@@ -374,6 +374,50 @@ battle_map_center = (
         '.....!aaaaaaaaaaaaaaaaaaaa!.....',
         )
 
+battle_map_hero_center_band = (
+        # Тест поля боя (10x60):
+        # Строй внизу -- свиное рыло. Самое то для варваров:
+        # http://zamok.ucoz.net/publ/sostav_armij_srednevekovja/1-1-0-31
+        '.....!aaaaaaaaaaaaaaaaaaaa!.....',
+        '.....!aaaaaaaaaaaaaaaaaaaa!.....',
+        '.....!cccccccccccccccccccc!.....',
+        '.....!wwwwwwwwwwwwwwwwwwww!.....',
+        '.....!wwwwwwwwwwwwwwwwwwww!.....',
+        '.....!wwwwwwwwwwwwwwwwwwww!.....',
+        '.....!wwwwwwwwwwwwwwwwwwww!.....',
+        '.....!wwwwwwwwwwwwwwwwwwww!.....',
+        '.....!wwwwwwwwwwwwwwwwwwww!.....',
+        '.....!6eeeeeeeeeeeeeeeeeee!.....',
+        '.....!5eeeeeeeeeeeeeeeeeee!.....',
+        '.....!--------------------!.....',
+        '.....!....................!.....',
+        '.....!....................!.....',
+        '.....!....................!.....',
+        '.....!....................!.....',
+        '.....!....................!.....',
+        '.....!....................!.....',
+        '.....!....................!.....',
+        '.....!....................!.....',
+        '.....!....................!.....',
+        '.....!....................!.....',
+        '.....!--------------------!.....',
+        '.....!eeeee!.eee...!eeeeee!.....',
+        '.....!eeeee!.eee...!eeeeee!.....',
+        '.....!wwwww!.ccc..0!wwwwww!.....',
+        '.....!wwwww!-------!wwwwww!.....',
+        '.....!1wwwwwcccccccwwwwwww!.....',
+        '.....!wwwwwwwwwwwwwwwwwwww!.....',
+        '.....!wwwwwwwwwwwwwwwwwwww!.....',
+        '.....!wwwwwwwwwwwwwwwwwwww!.....',
+        '.....!wwwwwwwwwwwwwwwwwwww!.....',
+        '.....!wwwwwwwwwwwwwwwwwwww!.....',
+        '.....!wwwwwwwwwwwwwwwwwwww!.....',
+        '.....!wwwwwwwwwwwwwwwwwwww!.....',
+        '.....!wwwwwwwwwwwwwwwwwwww!.....',
+        '.....!aaaaaaaaaaaaaaaaaaaa!.....',
+        '.....!aaaaaaaaaaaaaaaaaaaa!.....',
+        )
+
 battle_map_hero_center = (
         # Тест поля боя (10x60):
         # Строй внизу -- свиное рыло. Самое то для варваров:
