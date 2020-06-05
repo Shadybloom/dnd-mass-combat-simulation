@@ -819,6 +819,9 @@ class battle_simulation(battlescape):
             commands_list = ['disengage','dodge','attack']
             #commands_list = ['retreat']
         if squad.commander:
+            # Плохие командиры плохо поддерживают строй:
+            if squad.commander.level < 5:
+                commands_list.append('crowd')
             # Бесстрашные создания бесстрашны, зато трусоватые спасают своих:
             if squad.commander.__dict__.get('fearless'):
                 commands_list.append('fearless')
@@ -948,7 +951,10 @@ class battle_simulation(battlescape):
             self.dodge_action(soldier)
         # Простые солдаты следуют за командиром, зная своё место в строю:
         if 'follow' in soldier.commands and squad.commander and not soldier.near_enemies:
-            self.follow_action(soldier, squad, squad.commander)
+            if 'crowd' in soldier.commands:
+                self.follow_action(soldier, squad, squad.commander, accuracy = 3)
+            else:
+                self.follow_action(soldier, squad, squad.commander, accuracy = 1)
         # Боец наступает, если союзники рядом сильнее противника в точке назначения:
         if 'engage' in soldier.commands and enemy and not soldier.near_enemies:
             self.engage_action(soldier, squad, enemy)
@@ -1097,7 +1103,7 @@ class battle_simulation(battlescape):
                                 self.set_squad_experience(squad, soldier)
                             self.set_squad_battle_stat(attack_result, squad)
 
-    def follow_action(self, soldier, squad, commander):
+    def follow_action(self, soldier, squad, commander, accuracy = 1):
         """Солдат следует за командиром, стараясь держать строй.
         
         Как это работает:
@@ -1123,7 +1129,7 @@ class battle_simulation(battlescape):
                 else:
                     destination = commander.place
         # Абсолютная точность не нужна, боец не двигается, если его местов пределах 3x3 тайлов:
-        if not destination in self.point_to_field(soldier.place, 1):
+        if not destination in self.point_to_field(soldier.place, accuracy):
             try:
                 self.move_action(soldier, squad, destination)
             except KeyError:
