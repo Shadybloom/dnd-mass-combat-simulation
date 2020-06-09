@@ -529,6 +529,8 @@ if __name__ == '__main__':
         if name_string:
             squad.name = [name_string]
             squad.name_translate = squad.name
+            for soldier in reversed(list(squad.metadict_soldiers.values())):
+                soldier.squad_name = squad.name
         for soldier in reversed(list(squad.metadict_soldiers.values())):
             squad.database.soldier_to_database(soldier)
         squad.database.commit()
