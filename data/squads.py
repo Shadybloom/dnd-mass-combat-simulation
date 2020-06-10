@@ -42,6 +42,7 @@ metadict_squads['Company-regular (легионеры Гая Юлия) (Katorjnik
     'Warrior 2 lvl (Katorjnik) (ветеран)':20,
     'Warrior 3 lvl (Katorjnik) (урагос)':6,
     'Warrior 4 lvl (Katorjnik) (опцион)':2,
+    #'Warrior 5 lvl (Katorjnik) (центурион)':1,
     }
 
 metadict_squads['Band-hero (преторианцы Гая Юлия) (Katorjnik)'] = {
@@ -100,17 +101,20 @@ metadict_squads['Band-hero (паладины Протесилая) (Тзаанг
 # Геройские отряды (армия Ианты):
 
 metadict_squads['Company-militia (охотницы Ианты) (Vaarsuvius)'] = {
-    'Commoner 1 lvl (Vaarsuvius) (охотница)':100,
+    'Commoner 1 lvl (Vaarsuvius) (охотница)':95,
+    'Commoner 2 lvl (Vaarsuvius) (охотница-ветеран)':5,
     'Warrior 3 lvl (Vaarsuvius) (меткий стрелок)':1,
     }
 
 metadict_squads['Company-militia (дикарки Ианты) (Vaarsuvius)'] = {
-    'Commoner 1 lvl (Vaarsuvius) (дикарка)':100,
+    'Commoner 1 lvl (Vaarsuvius) (дикарка)':95,
+    'Commoner 2 lvl (Vaarsuvius) (дикарка-ветеран)':5,
     'Warrior 3 lvl (Vaarsuvius) (меткий стрелок)':1,
     }
 
 metadict_squads['Company-militia (токсотаи Ианты) (Vaarsuvius)'] = {
-    'Commoner 1 lvl (Vaarsuvius) (токсотаи)':100,
+    'Commoner 1 lvl (Vaarsuvius) (токсотай)':95,
+    'Commoner 2 lvl (Vaarsuvius) (токсотай-ветеран)':5,
     'Warrior 3 lvl (Vaarsuvius) (меткий стрелок)':1,
     }
 
@@ -180,6 +184,13 @@ metadict_squads['Company-militia (bowmans-hunters)'] = {
     'Commoner 2 lvl (militia bowman-corporal)':5,
     'Warrior 3 lvl (militia bowman-sergeant)':1,
     #'Warrior 4 lvl (militia bowman-lieutenant)':1,
+    }
+
+metadict_squads['Company-militia (crossbowmans)'] = {
+    'Commoner 1 lvl (militia crossbowman)':80 + dice_throw('3d12'),
+    'Commoner 2 lvl (militia crossbowman-corporal)':5,
+    'Warrior 3 lvl (militia crossbowman-sergeant)':1,
+    #'Warrior 4 lvl (militia crossbowman-lieutenant)':1,
     }
 
 #----

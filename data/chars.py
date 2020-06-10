@@ -469,6 +469,100 @@ metadict_chars['Warrior 4 lvl (militia swordsman-lieutenant)'] = {
     #    },
     }
 
+metadict_chars['Commoner 1 lvl (militia crossbowman)'] = {
+    # Арбалетчики Гастрафеты.
+    'level':1,
+    'char_class':'Commoner',
+    'behavior':'archer',
+    'hit_dice':'1d8',
+    'race':'Human-common',
+    'weapon_skill':['simple'],
+    'armor_skill':['light','medium','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':militia_pack,
+    'equipment_weapon':{
+        'Padded Armor':1,
+        'Dagger':1,
+        'Crossbow, Light':1,
+        'Crossbow Bolt':60,
+        },
+    }
+
+metadict_chars['Commoner 2 lvl (militia crossbowman-corporal)'] = {
+    'level':2,
+    'char_class':'Commoner',
+    'behavior':'archer',
+    'hit_dice':'1d8',
+    'race':'Human-common',
+    'weapon_skill':['simple'],
+    'armor_skill':['light','medium','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Studded Leather':1,
+        'Shield':1,
+        'Dagger':1,
+        'Crossbow, Light':1,
+        'Crossbow Bolt':60,
+        },
+    }
+
+metadict_chars['Warrior 3 lvl (militia crossbowman-sergeant)'] = {
+    'level':3,
+    'char_class':'Warrior-bowman',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        #'Fighting_Style_Archery':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Breastplate':1,
+        'Shield':1,
+        'Shortsword':1,
+        'Crossbow, Light':1,
+        'Crossbow Bolt':60,
+        },
+    }
+
+metadict_chars['Warrior 4 lvl (militia crossbowman-lieutenant)'] = {
+    # Лучший стрелок. Командует бойцами, направляя град стрел.
+    # Азимут такой-то, угол стрельбы такой-то. Всё на личном примере.
+    'level':4,
+    'char_class':'Warrior-bowman',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        #'Fighting_Style_Archery':True,
+        'Feat_Sharpshooter':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Rune of Absorbtion':1,
+        'Breastplate':1,
+        'Shield':1,
+        'Shortsword':1,
+        'Crossbow, Light':1,
+        'Crossbow Bolt':60,
+        },
+    #'mount_combat':False,
+    #'mount_type':'Riding Horse',
+    #'equipment_mount':{
+    #    #'Arrow':60,
+    #    },
+    }
+
+
 #----
 # Городское ополчение (отборные и неплохо вооружённые гоплиты)
     # TODO: подправь, теперь второй параметр для большинства бойцов, это ловкость.
@@ -5837,6 +5931,25 @@ metadict_chars['Commoner 1 lvl (Vaarsuvius) (охотница)'] = {
         },
     }
 
+metadict_chars['Commoner 2 lvl (Vaarsuvius) (охотница-ветеран)'] = {
+    'level':2,
+    'char_class':'Commoner',
+    'behavior':'archer',
+    'hit_dice':'1d8',
+    'race':'Human-common',
+    'weapon_skill':['simple'],
+    'armor_skill':['light','medium','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':militia_pack,
+    'equipment_weapon':{
+        'Studded Leather':1,
+        'Shield':1,
+        'Spear':1,
+        'Hunting Bow':1,
+        'Hunting Arrow':60,
+        },
+    }
+
 metadict_chars['Commoner 1 lvl (Vaarsuvius) (дикарка)'] = {
     'level':1,
     'char_class':'Commoner',
@@ -5856,8 +5969,46 @@ metadict_chars['Commoner 1 lvl (Vaarsuvius) (дикарка)'] = {
         },
     }
 
-metadict_chars['Commoner 1 lvl (Vaarsuvius) (токсотаи)'] = {
+metadict_chars['Commoner 2 lvl (Vaarsuvius) (дикарка-ветеран)'] = {
+    'level':2,
+    'char_class':'Commoner',
+    'behavior':'archer',
+    'hit_dice':'1d8',
+    'race':'Human-common',
+    'weapon_skill':['simple'],
+    'armor_skill':['light','medium','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':militia_pack,
+    'equipment_weapon':{
+        'Hide Armor':1,
+        'Shield':1,
+        'Handaxe':1,
+        'Sling real':1,
+        'Sling Bullet':10,
+        },
+    }
+
+metadict_chars['Commoner 1 lvl (Vaarsuvius) (токсотай)'] = {
     'level':1,
+    'char_class':'Commoner',
+    'behavior':'archer',
+    'hit_dice':'1d8',
+    'race':'Human-common',
+    'weapon_skill':['simple'],
+    'armor_skill':['light','medium','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':militia_pack,
+    'equipment_weapon':{
+        'Studded Leather':1,
+        'Shield':1,
+        'Dagger':1,
+        'Shortbow':1,
+        'Arrow':60,
+        },
+    }
+
+metadict_chars['Commoner 2 lvl (Vaarsuvius) (токсотай-ветеран)'] = {
+    'level':2,
     'char_class':'Commoner',
     'behavior':'archer',
     'hit_dice':'1d8',
@@ -5890,6 +6041,7 @@ metadict_chars['Warrior 1 lvl (Vaarsuvius) (стрелок)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
+        'Goodberry':1,
         'Leather Armor':1,
         'Dagger':1,
         'Longbow':1,
@@ -5911,6 +6063,7 @@ metadict_chars['Warrior 2 lvl (Vaarsuvius) (стрелок-ветеран)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
+        'Goodberry':1,
         'Scale Mail':1,
         'Dagger':1,
         'Shield':1,
@@ -6071,7 +6224,8 @@ metadict_chars['Druid 5 lvl (Vaarsuvius) (Ианта «Дочь бури»)'] = 
         },
     'class_features':{
         # Wild_Shape бонусным действием за счёт Круга Луны.
-        'Feat_Inspiring_Leader':True,
+        #'Feat_Inspiring_Leader':True,
+        'Feat_Sharpshooter':True,
         'Spellcasting':True,
         'Spells':[
             ('cantrip', 'Druidcraft'),
@@ -6270,7 +6424,8 @@ metadict_chars['Cleric 5 lvl (Vened) (Патрокл «Македонянин»)
     'char_class':'Cleric-heavy',
     'hit_dice':'1d8',
     'behavior':'commander',
-    'hitpoints_medial':True,
+    #'hitpoints_medial':True,
+    'hitpoints_base':8 + 18,
     'abilityes':{
         'strength':19,
         'dexterity':10,
