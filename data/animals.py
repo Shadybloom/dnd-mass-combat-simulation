@@ -865,3 +865,43 @@ metadict_animals['Warhorse'] = {
     'equipment_backpack':{},
     'equipment_supply':horse_supply,
     }
+
+metadict_animals['Horseclaw'] = {
+    # Когте-конь, когтеклюв, страус, чокобо.
+    # https://www.dandwiki.com/wiki/Chocobo_(3.5e_Creature)
+    'level':3,
+    'challenge_rating':'1/2',
+    'char_class':'Commoner',
+    'behavior':'mount',
+    #'hitpoints_medial':True,
+    'abilityes':{
+        'strength':18,
+        'dexterity':15,
+        'constitution':14, 
+        'intelligence':2,
+        'wisdom':11,
+        'charisma':7,
+        },
+    'hit_dice':'1d10',
+    'attacks':{
+        ('close', 'claws'): {
+            'attack_mod':6,
+            'damage_mod':4,
+            'weapon': False,
+            'weapon_type':['simple'],
+            'damage_type':'piercing',
+            'damage_dice':'2d6',
+            'attack_range':5,
+            'attack_type':'close',
+            'weapon_skills_use': ['simple'],
+            'attack_mod_type':'strength',
+            'weapon_of_choice':'claws'},
+        },
+    'race':'Horseclaw',
+    'weapon_skill':[],
+    # Чокобо учат бегать в доспехах:
+    'armor_skill':['light','medium','heavy'],
+    'equipment_weapon':{},
+    'equipment_backpack':{},
+    'equipment_supply':horse_supply,
+    }

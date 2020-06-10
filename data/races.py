@@ -100,6 +100,19 @@ dict_races = {
             'weight_base_lb':1000,
             'weight_mod_dice':'2d20',
             },
+        'Horseclaw':{
+            # Чокобо:
+            # https://www.dandwiki.com/wiki/Chocobo_(3.5e_Creature)
+            # У них прочные перья, природная броня -- 11.
+            'hero':False,
+            'size':'large',
+            'base_speed':60,
+            'armor_class_natural':11,
+            'height_base_inches':56,
+            'height_mod_dice':'2d4',
+            'weight_base_lb':1000,
+            'weight_mod_dice':'2d20',
+            },
         'Bear':{
             # TODO: рост/вес подправь.
             'hero':False,
