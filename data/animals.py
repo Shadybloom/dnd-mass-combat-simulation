@@ -439,6 +439,37 @@ metadict_animals['Ork (CR 1/2)'] = {
         },
     }
 
+metadict_animals['Ogre (CR 2)'] = {
+    # Огры
+    'level':7,
+    'fearless':True,
+    'challenge_rating':'2',
+    'hitpoints_medial':True,
+    'char_class':'Warrior',
+    'class_features':{
+        },
+    'abilityes':{
+        'strength':19,
+        'dexterity':8,
+        'constitution':16,
+        'intelligence':5,
+        'wisdom':7,
+        'charisma':7,
+        },
+    'hit_dice':'1d8',
+    'behavior':'elite_warrior',
+    'race':'Humanoid-big',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Hide Armor':1,
+        'Maul':1,
+        'Javelin':6,
+        },
+    }
+
 metadict_animals['Orog (CR 2)'] = {
     # Орог. Умный орк.
     # TODO: расу подправь. Допили способности
