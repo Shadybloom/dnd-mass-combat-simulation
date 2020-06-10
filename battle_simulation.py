@@ -816,8 +816,8 @@ class battle_simulation(battlescape):
             #commands_list = ['seek','engage','attack']
             # TODO: disengage использует squad.enemy_recon.
             # А разведка противника не обновляется без командира.
-            commands_list = ['disengage','dodge','attack']
-            #commands_list = ['retreat']
+            #commands_list = ['disengage','dodge','attack']
+            commands_list = ['retreat']
         if squad.commander:
             # Плохие командиры плохо поддерживают строй:
             if squad.commander.level < 5:
@@ -841,7 +841,7 @@ class battle_simulation(battlescape):
                 if 'engage' in commands_list:
                     commands_list.remove('engage')
                     commands_list.append('disengage')
-                if squad.enemies and squad.enemy_recon['distance'] <= save_distance * 2:
+                if squad.enemies and squad.enemy_recon['distance'] <= save_distance * 3:
                     commands_list.remove('lead')
                     commands_list.append('dodge')
             # Бойцы у нас кавалерия:
