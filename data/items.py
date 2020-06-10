@@ -1090,6 +1090,19 @@ metadict_items['Backpack'] = {
 #----
 # Magic items:
 
+metadict_items['Goodberry'] = {
+    # Размером как персик.
+    # Лечит 1 hp, стабилизирует раненого (с бинтом?)
+    # Стоимость заклинания от 1 lvl друида: 0.6 gp/10 ягод.
+    'potion':True,
+    'effect':'healing',
+    'healing_dice':'1d1',
+    'healing_mod':0,
+    'weight (lb)':1/10,
+    'cost (gp)':0.06,
+    'cost (grams_of_gold)':0.06,
+    }
+
 metadict_items['Infusion of Healing'] = {
     # Эссенции "перезаряжаются" друидами и жрецами.
     # Лечение равно костям хитов бойца. Для варвара 5 lvl это 5d12, в среднем 30 hp.

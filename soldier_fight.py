@@ -842,13 +842,22 @@ class soldier_in_battle(soldier):
         # Спящий считается вышедшим из боя:
         #self.fall = True
 
-    def first_aid(self, injured_ally, stabilizing_difficul = 10):
+    def first_aid(self, injured_ally, stabilizing_difficul = 10, advantage = False, disadvantage = False):
         """Боец пытается оказать первую помощь раненому.
         
         https://www.dandwiki.com/wiki/5e_SRD:Dropping_to_0_Hit_Points#Stabilizing_a_Creature
         """
+        # TODO: лучше сделай поиск предмета по эффекту "healing".
+        # Также учти Feat_Healer, что даёт автоматический успех.
         self.help_action = True
-        stabilizing_throw = dices.dice_throw_advantage('1d20') + self.saves['wisdom']
+        if self.equipment_weapon.get('Goodberry') and self.equipment_weapon['Goodberry'] > 0:
+            # TODO: potion_heal бери из словаря Goodberry.
+            stabilizing_difficul = 0
+            self.equipment_weapon['Goodberry'] -= 1
+            potion_heal = 1
+            injured_ally.set_hitpoints(heal = potion_heal)
+        stabilizing_throw = dices.dice_throw_advantage('1d20', advantage, disadvantage)\
+                + self.saves['wisdom']
         if stabilizing_throw >= stabilizing_difficul:
             return True
         else:
