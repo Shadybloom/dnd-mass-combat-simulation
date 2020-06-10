@@ -7063,7 +7063,7 @@ metadict_chars['Warrior 5 lvl (Katorjnik) (центурион)'] = {
 #----
 # Злодеи (герои) (кара'Ям):
 
-metadict_chars['Warlock 1 lvl (враг) (колдуны Кара\'Яма)'] = {
+metadict_chars['Warlock 1 lvl (враг) (колдун Кара\'Яма)'] = {
     'level':1,
     'char_class':'Warlock',
     'hit_dice':'1d8',
@@ -7171,7 +7171,7 @@ metadict_chars['Warlock 5 lvl (враг) (Кара\'Ям)'] = {
 #----
 # Злодеи (герои) (Кема'Эш):
 
-metadict_chars['Warlock 1 lvl (враг) (колдуны Кема\'Эша)'] = {
+metadict_chars['Warlock 1 lvl (враг) (колдун Кема\'Эша)'] = {
     'level':1,
     'char_class':'Warlock',
     'hit_dice':'1d8',
@@ -7271,5 +7271,76 @@ metadict_chars['Warlock 5 lvl (враг) (Кема\'Эш)'] = {
     'mount_combat':True,
     'mount_type':'Horseclaw',
     'equipment_mount':{
+        },
+    }
+
+#----
+# Злодеи (армии) (демоны Кема'Эша):
+
+metadict_chars['Commoner 1 lvl (враг) (карл)'] = {
+    # Карлы с дубинками. Ничего особенного, только шкуры у них крепкие.
+    'level':1,
+    'char_class':'Commoner',
+    'behavior':'warrior',
+    'hit_dice':'1d8',
+    'race':'Primevial-medium',
+    'weapon_skill':['simple'],
+    'armor_skill':['light','medium','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':militia_pack,
+    'equipment_weapon':{
+        'Mace':1,
+        'Shield':1,
+        'Javelin':6,
+        },
+    }
+
+metadict_chars['Commoner 1 lvl (враг) (карл-ветеран)'] = {
+    'level':2,
+    'char_class':'Commoner',
+    'behavior':'warrior',
+    'hit_dice':'1d8',
+    'race':'Primevial-medium',
+    'weapon_skill':['simple'],
+    'armor_skill':['light','medium','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':militia_pack,
+    'equipment_weapon':{
+        'Mace':1,
+        'Shield':1,
+        'Javelin':6,
+        },
+    }
+
+metadict_chars['Warrior 3 lvl (враг) (демон Кема\'Эша)'] = {
+    # Опасный гад.
+    # TODO: хм, почему-то он среднего размера получается.
+    # Это из-за генерации отряда. Подправь потом.
+    'level':3,
+    'fearless':True,
+    'char_class':'Warrior-officer',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Dueling':True,
+        },
+    'hitpoints_medial':True,
+    'abilityes':{
+        'strength':18,
+        'dexterity':14,
+        'constitution':18,
+        'intelligence':10,
+        'wisdom':12,
+        'charisma':14,
+        },
+    'hit_dice':'1d10',
+    'race':'Primevial',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':militia_pack,
+    'equipment_weapon':{
+        'Battleaxe':1,
+        'Shield':1,
+        'Javelin':6,
         },
     }

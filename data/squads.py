@@ -44,12 +44,18 @@ metadict_squads['test (ogres)'] = {
 
 metadict_squads['Band-hero (колдуны Кара\'Яма) (враг)'] = {
     'Warlock 5 lvl (враг) (Кара\'Ям)':1,
-    'Warlock 1 lvl (враг) (колдуны Кара\'Яма)':12,
+    'Warlock 1 lvl (враг) (колдун Кара\'Яма)':12,
     }
 
 metadict_squads['Band-hero (колдуны Кема\'Эша) (враг)'] = {
     'Warlock 5 lvl (враг) (Кема\'Эш)':1,
-    'Warlock 1 lvl (враг) (колдуны Кема\'Эша)':6,
+    'Warlock 1 lvl (враг) (колдун Кема\'Эша)':6,
+    }
+
+metadict_squads['Company-militia (демоны Кема\'Эша) (враг)'] = {
+    'Commoner 1 lvl (враг) (карл)':95,
+    'Commoner 1 lvl (враг) (карл-ветеран)':5,
+    'Warrior 3 lvl (враг) (демон Кема\'Эша)':1,
     }
 
 #----
