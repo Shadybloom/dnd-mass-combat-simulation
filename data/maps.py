@@ -334,6 +334,39 @@ battle_map = (
         '.....!aaaaaaaaaaaaaaaaaaaa!.....',
         )
 
+battle_map_barricades = (
+        # Тест поля боя (10x60):
+        '.....!wwwwwwwwwwwwwwwwwwww!.....',
+        '.....!wwwwwwwwwwwwwwwwwwww!.....',
+        '.....!cccccccccccccccccccc!.....',
+        '.....!eeeeeeeeeeeeeeeeeeee!.....',
+        '.....!aaaaaaaaaaaaaaaaaaaa!.....',
+        '.....!aaaaaaaaaaaaaaaaaaa5!.....',
+        '.....!aaaaaaaaaaaaaaaaaaaa!.....',
+        '.....!aaaaaaaaaaaaaaaaaaaa!.....',
+        '.....!AAAAAAAAAAAAAAAAAAAA!.....',
+        '.....!AAAAAAAAAAAAAAAAAAAA!.....',
+        '||||||||||||||||||||||||||||||||',
+        '.....!....................!.....',
+        '.....!--------------------!.....',
+        '.....!....................!.....',
+        '.....!....................!.....',
+        '.....!....................!.....',
+        '.....!....................!.....',
+        '.....!....................!.....',
+        '.....!....................!.....',
+        '.....!--------------------!.....',
+        '.....!...................0!.....',
+        '.....!AAAAAAAAAAAAAAAAAAAA!.....',
+        '.....!AAAAAAAAAAAAAAAAAAAA!.....',
+        '.....!cccccccccccccccccccc!.....',
+        '.....!aaaaaaaaaaaaaaaaaaaa!.....',
+        '.....!aaaaaaaaaaaaaaaaaaaa!.....',
+        '.....!aaaaaaaaaaaaaaaaaaaa!.....',
+        '.....!aaaaaaaaaaaaaaaaaaaa!.....',
+        '.....!aaaaaaaaaaaaaaaaaaaa!.....',
+        )
+
 battle_map_center = (
         # Тест поля боя (10x60):
         '.....!aaaaaaaaaaaaaaaaaaaa!.....',
@@ -545,6 +578,7 @@ battle_map_hero_mix = (
         '.....!aaaaaaaaaaaaaaaaaaaa!.....',
         '.....!aaaaaaaaaaaaaaaaaaaa!.....',
         )
+
 
 battle_map_hero_flank = (
         '.....!aaaaaaaaaaaaaaaaaaaa!......................................',
@@ -1124,6 +1158,28 @@ battle_map_forest = (
         '.T.#t!cccccccccccccccccccc!#t.T.',
         '#t.t.!aaaaaaaTaaaaaaaaaaaa!..t.#',
         '#..#t!aaaaaaaaaaaaaaaaaaaa!#..##',
+        )
+
+battle_map_long_road_ch1 = (
+        '.......ttT#..T..#tt...t..T#..T..#tt...t.....tT#..T..#tt...tT..#..T..#tt...t..t......#',
+        '.T.##....##...##..t..Tt.###...##..t..Tt.#t...##...##..t..T.#..#...##..t..Tt.#t.#.t..#',
+        '.#..T....#t.T..t......#.##t.T..t......#.#.#..#t.T..t.......#..t.T..t......#.##.#..#T.',
+        '-------------------------------------------------------------------------------------',
+        'aaaaaacaaaawwwwwweee.0!aaaaaawwwwwcee...3!......!7...aaacaaaaaa.!5.aaaaaaacaaaaaaaaaa',
+        'aaaaaacaaaawwwwwweee..!aaaaaawwwwwcee....!......!....aaacaaaaaa.!..aaaaaaacaaaaaaaaaa',
+        'aaaaaacaaaawwwwwweee..!aaaaaawwwwwcee....!......!....aaacaaaaaa.!..aaaaaaacaaaaaaaaaa',
+        'aaaaaacaaaawwwwwweee..!aaaaaawwwwwcee....!......!....aaacaaaaaa.!..aaaaaaacaaaaaaaaaa',
+        'aaaaaacaaaawwwwwweee..!aaaaaawwwwwcee....!......!....aaacaaaaaa.!..aaaaaaacaaaaaaaaaa',
+        '----------------------!aaaaaawwwwwcee....!......!....aaacaaaaaa.!--------------------',
+        'aaaaaacaaaawwwwwweee.1!aaaaaawwwwwcee....!......!....aaacaaaaaa.!..aaaaaaacaaaaaaaaaa',
+        'aaaaaacaaaawwwwwweee..!aaaaaawwwwwcee....!......!....aaacaaaaaa.!..aaaaaaacaaaaaaaaaa',
+        'aaaaaacaaaawwwwwweee..!aaaaaawwwwwcee....!......!....aaacaaaaaa.!..aaaaaaacaaaaaaaaaa',
+        'aaaaaacaaaawwwwwweee..!aaaaaawwwwwcee....!......!....aaacaaaaaa.!..aaaaaaacaaaaaaaaaa',
+        'aaaaaacaaaawwwwwweee..!aaaaaawwwwwcee....!......!....aaacaaaaaa.!..aaaaaaacaaaaaaaaaa',
+        '-------------------------------------------------------------------------------------',
+        '.......ttT#..T..#tt...t..T#..T..#tt...t.....tT#..T..#tt...tT..#..T..#tt...t..t......#',
+        '.T.##....##...##..t..Tt.###...##..t..Tt.#t...##...##..t..T.#..#...##..t..Tt.#t.#.t..#',
+        '.#..T....#t.T..t......#.##t.T..t......#.#.#..#t.T..t.......#..t.T..t......#.##.#..#T.',
         )
 
 battle_map_long_near = (
