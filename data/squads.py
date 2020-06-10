@@ -34,6 +34,24 @@ metadict_squads['test 4 onagers'] = {
     'Warrior 4 lvl (siege engineer-master) (onager-fire)':1,
     }
 
+metadict_squads['test (ogres)'] = {
+    'Ogre (CR 2)':4,
+    'Orog (CR 2)':1,
+    }
+
+#----
+# Враги (битва за Лемнос):
+
+metadict_squads['Band-hero (колдуны Кара\'Яма) (враг)'] = {
+    'Warlock 5 lvl (враг) (Кара\'Ям)':1,
+    'Warlock 1 lvl (враг) (колдуны Кара\'Яма)':12,
+    }
+
+metadict_squads['Band-hero (колдуны Кема\'Эша) (враг)'] = {
+    'Warlock 5 lvl (враг) (Кема\'Эш)':1,
+    'Warlock 1 lvl (враг) (колдуны Кема\'Эша)':6,
+    }
+
 #----
 # Геройские отряды (армия Гая Юлия):
 

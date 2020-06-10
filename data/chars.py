@@ -3005,7 +3005,7 @@ metadict_chars['Warlock 5 lvl (otherworld seeker-ascendant)'] = {
         'Eldritch_Invocations':True,
         'Invocation_Agonizing_Blast':True,
         'Invocation_Eldritch_Spear':True,
-        'Invocation_Book of_Ancient_Secrets':True,
+        'Invocation_Book_of_Ancient_Secrets':True,
         'Pact_Boon':True,
         'Pact_of_the_Tome':True,
         'Ability_Score_Improvement':{
@@ -7058,4 +7058,218 @@ metadict_chars['Warrior 5 lvl (Katorjnik) (центурион)'] = {
     #'mount_type':'Riding Horse',
     #'equipment_mount':{
     #    },
+    }
+
+#----
+# Злодеи (герои) (кара'Ям):
+
+metadict_chars['Warlock 1 lvl (враг) (колдуны Кара\'Яма)'] = {
+    'level':1,
+    'char_class':'Warlock',
+    'hit_dice':'1d8',
+    'behavior':'archer',
+    'class_features':{
+        'Feat_Mounted_Combatant':True,
+        'Otherworldly_Patron':True,
+        'Otherworldly_Patron_The_Fiend':True,
+        'Pact_Magic':True,
+        'Spells':[
+            ('cantrip', 'Eldritch_Blast'),
+            ('cantrip', 'Create_Bonfire'),
+            ('ritual', 'Unseen_Servant'),
+            ('1_lvl', 'Burning_Hands'),
+            #('1_lvl', 'Hex'),
+            ],
+        'Dark_One\'s_Blessing':True,
+        },
+    'race':'Human-hero',
+    'weapon_skill':['simple'],
+    'armor_skill':['light'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Rune of Armor':1,
+        'Dagger':1,
+        'Shortbow':1,
+        'Arrow':60,
+        },
+    'mount_combat':True,
+    'mount_type':'Horseclaw',
+    'equipment_mount':{
+        },
+    }
+
+metadict_chars['Warlock 5 lvl (враг) (Кара\'Ям)'] = {
+    # Свободно накладывает на себя смену облика: Invocation_Mask_of_Many_Faces
+    # Игнорирует сопротивление огню: Feat_Elemental_Adept
+    'level':5,
+    'char_class':'Warlock',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'hitpoints_medial':True,
+    'abilityes':{
+        'strength':10,
+        'dexterity':18,
+        'constitution':14,
+        'intelligence':16,
+        'wisdom':8,
+        'charisma':18,
+        },
+    'class_features':{
+        'Feat_Mounted_Combatant':True,
+        'Otherworldly_Patron':True,
+        'Otherworldly_Patron_The_Fiend':True,
+        'Pact_Magic':True,
+        'Spells':[
+            # Unseen_Servant для разминирования. Для учеников.
+            # Burning_Hands для учеников.
+            # TODO: Сделай Green_Flame_Blade.
+            ('cantrip', 'Eldritch_Blast'),
+            ('cantrip', 'Create_Bonfire'),
+            ('cantrip', 'Minor_Illusion'),
+            ('ritual', 'Detect_Magic'),
+            ('ritual', 'Unseen_Servant'),
+            ('3_lvl', 'Burning_Hands'),
+            ('3_lvl', 'Invisibility'),
+            ('3_lvl', 'Suggestion'),
+            ('3_lvl', 'Earthbind'),
+            ('3_lvl', 'Fireball'),
+            ('3_lvl', 'Fly'),
+            ],
+        'Dark_One\'s_Blessing':True,
+        'Eldritch_Invocations':True,
+        'Invocation_Eldritch_Spear':True,
+        'Invocation_Agonizing_Blast':True,
+        'Invocation_Mask_of_Many_Faces':True,
+        'Pact_Boon':True,
+        'Pact_of_the_Blade':True,
+        'Feat_Elemental_Adept':'fire',
+        },
+    'race':'Human-hero',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        # Добряника от друида Тик'Бо:
+        # Договор клинка, оружие +1.
+        'Goodberry':30,
+        'Rune of Absorbtion':1,
+        'Rune of Shielding':1,
+        'Rune of Armor':1,
+        'Shortsword +1':1,
+        'Shortbow +1':1,
+        'Arrow':60,
+        },
+    'mount_combat':True,
+    'mount_type':'Horseclaw',
+    'equipment_mount':{
+        },
+    }
+
+#----
+# Злодеи (герои) (Кема'Эш):
+
+metadict_chars['Warlock 1 lvl (враг) (колдуны Кема\'Эша)'] = {
+    'level':1,
+    'char_class':'Warlock',
+    'hit_dice':'1d8',
+    'behavior':'archer',
+    'class_features':{
+        'Feat_Mounted_Combatant':True,
+        'Otherworldly_Patron':True,
+        'Otherworldly_Patron_The_Fiend':True,
+        'Pact_Magic':True,
+        'Spells':[
+            # TODO: Сделай Hex
+            ('cantrip', 'Eldritch_Blast'),
+            ('cantrip', 'Create_Bonfire'),
+            ('1_lvl', 'Charm_Person'),
+            ('1_lvl', 'Burning_Hands'),
+            #('1_lvl', 'Hex'),
+            ],
+        'Dark_One\'s_Blessing':True,
+        },
+    'race':'Human-hero',
+    'weapon_skill':['simple'],
+    'armor_skill':['light'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Rune of Armor':1,
+        'Dagger':1,
+        'Shortbow':1,
+        'Arrow':60,
+        },
+    'mount_combat':True,
+    'mount_type':'Horseclaw',
+    'equipment_mount':{
+        },
+    }
+
+metadict_chars['Warlock 5 lvl (враг) (Кема\'Эш)'] = {
+    # Атакует издалека: Invocation_Eldritch_Spear.
+    # Воодушевляет своих: Feat_Inspiring_Leader.
+    # Передаёт команды с помощью Dancing_Lights и Message.
+    'level':5,
+    'char_class':'Warlock',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'hitpoints_medial':True,
+    'abilityes':{
+        'strength':10,
+        'dexterity':16,
+        'constitution':12,
+        'intelligence':14,
+        'wisdom':16,
+        'charisma':18,
+        },
+    'class_features':{
+        'Feat_Mounted_Combatant':True,
+        'Otherworldly_Patron':True,
+        'Otherworldly_Patron_The_Fiend':True,
+        'Pact_Magic':True,
+        'Spells':[
+            ('cantrip', 'Eldritch_Blast'),
+            ('cantrip', 'Minor_Illusion'),
+            ('cantrip', 'Prestidigitation'),
+            ('cantrip', 'Dancing_Lights'),
+            ('cantrip', 'Message'),
+            ('ritual', 'Detect_Magic'),
+            ('ritual', 'Identify'),
+            ('3_lvl', 'Charm_Person'),
+            ('3_lvl', 'Hex'),
+            ('3_lvl', 'Burning_Hands'),
+            ('3_lvl', 'Summon_Lesser_Demons'),
+            ('3_lvl', 'Fly'),
+            ],
+        'Dark_One\'s_Blessing':True,
+        'Eldritch_Invocations':True,
+        'Invocation_Agonizing_Blast':True,
+        'Invocation_Eldritch_Spear':True,
+        'Invocation_Book_of_Ancient_Secrets':True,
+        'Pact_Boon':True,
+        'Pact_of_the_Tome':True,
+        'Feat_Inspiring_Leader':True,
+        },
+    'race':'Human-hero',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Goodberry':30,
+        'Rune of Absorbtion':1,
+        'Rune of Shielding':1,
+        'Rune of Armor':1,
+        'Dagger':1,
+        'Shortbow +1':1,
+        'Arrow':60,
+        },
+    'mount_combat':True,
+    'mount_type':'Horseclaw',
+    'equipment_mount':{
+        },
     }
