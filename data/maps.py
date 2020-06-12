@@ -1161,6 +1161,8 @@ battle_map_forest = (
         )
 
 battle_map_long_road_ch1 = (
+        # Forest
+        # Бой на лесной дороги. Павсаний vs варлоки Кема'Эш и Кара'Ям.
         '.......ttT#..T..#tt...t..T#..T..#tt...t.....tT#..T..#tt...tT..#..T..#tt...t..t......#',
         '.T.##....##...##..t..Tt.###...##..t..Tt.#t...##...##..t..T.#..#...##..t..Tt.#t.#.t..#',
         '.#..T....#t.T..t......#.##t.T..t......#.#.#..#t.T..t.......#..t.T..t......#.##.#..#T.',
@@ -1180,6 +1182,35 @@ battle_map_long_road_ch1 = (
         '.......ttT#..T..#tt...t..T#..T..#tt...t.....tT#..T..#tt...tT..#..T..#tt...t..t......#',
         '.T.##....##...##..t..Tt.###...##..t..Tt.#t...##...##..t..T.#..#...##..t..Tt.#t.#.t..#',
         '.#..T....#t.T..t......#.##t.T..t......#.#.#..#t.T..t.......#..t.T..t......#.##.#..#T.',
+        )
+
+battle_map_long_camp_ch1 = (
+        # Бой на "Западных кручах". Ополчение Аксиотеи vs демоны Кема'Эша.
+        '-----------------------------------------------------',
+        '6..................|!0aaaaaaaaaaaaccaaaaaaaaaaaaaaaa!',
+        '...................|!aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa!',
+        '...................|!aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa!',
+        '...................|!aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa!',
+        '...................|!aaa!!!!!!!!!!!!!!!!!!!!!!!!!!aa!',
+        '...................|!aaa!5wwwwwwwwwwwwwwwwwwwwwww!aa!',
+        '...................|!aaa!wwwwwwwwwwwwwwwwwwwwwwww!aa!',
+        '...................|!aaa!wwwwwwwwwwwwwwwwwwwwwwww!aa!',
+        '...................|!aaa!wwwwwwwwwwwwwwwwwwwwwwww!aa!',
+        '...................|!aaa!wwwwwwwwwwwwwwwwwwwwwwww!aa!',
+        '...................|!aaa!wwwwwwwwwwwwwwwwwwwwwwww!aa!',
+        '...................|!aaa!wwwwwwwwwwwcwwwwwwwwwwww!aa!',
+        '...................|!aaa!wwwwwwwwwwwwwwwwwwwwwwww!aa!',
+        '...................|!aaa!wwwwwwwwwwwwwwwwwwwwwwww!aa!',
+        '...................|!aaa!wwwwwwwwwwwwwwwwwwwwwwww!aa!',
+        '...................|!aaa!wwwwwwwwwwwwwwwwwwwwwwww!aa!',
+        '...................|!aaa!wwwwwwwwwwwwwwwwwwwwwwww!aa!',
+        '...................|!aaa!wwwwwwwwwwwwwwwwwwwwwwww!aa!',
+        '...................|!aaa!wwwwwwwwwwwwwwwwwwwwwwww!aa!',
+        '...................|!aaa!wwwwwwwwwwwwwwwwwwwwwwww!aa!',
+        '...................|!aaa!!!!!!!!!!!!!!!!!!!!!!!!!!aa!',
+        '...................|!aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa!',
+        '...................|!aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa!',
+        '-----------------------------------------------------',
         )
 
 battle_map_long_near = (
