@@ -5675,7 +5675,7 @@ metadict_chars['Paladin 5 lvl (Тзаангор) (Протесилай II, «Д�
     # Клятвопреступник 5 lvl / паладин / человек-дориец / принципиально-злой
     # https://dungeonmaster.ru/PlayerProfiles.aspx?module=9404
     'level':5,
-    'fearless':True,
+    'fearless_AI':True,
     'char_class':'Paladin',
     'hit_dice':'1d10',
     'behavior':'commander',
@@ -6370,7 +6370,7 @@ metadict_chars['Cleric 1 lvl (Vened) (жрец домена войны)'] = {
     # TODO: Броня больших созданий должна весить в 2.5 раза больше.
     # Добавим им бесстрашия, а то пугливы из-за большого размера.
     'level':1,
-    #'fearless':True,
+    #'fearless_AI':True,
     'char_class':'Cleric-heavy',
     'hit_dice':'1d8',
     'behavior':'elite_warrior',
@@ -6420,7 +6420,7 @@ metadict_chars['Cleric 1 lvl (Vened) (жрец домена войны)'] = {
 
 metadict_chars['Cleric 5 lvl (Vened) (Патрокл «Македонянин»)'] = {
     'level':5,
-    #'fearless':True,
+    #'fearless_AI':True,
     'char_class':'Cleric-heavy',
     'hit_dice':'1d8',
     'behavior':'commander',
@@ -6883,10 +6883,10 @@ metadict_chars['Fighter 1 lvl (Katorjnik) (преторианец)'] = {
         'Lance':1,
         'Pilum':6,
         },
-    #'mount_combat':True,
-    #'mount_type':'Warhorse',
-    #'equipment_mount':{
-    #    },
+    'mount_combat':True,
+    'mount_type':'Warhorse',
+    'equipment_mount':{
+        },
     }
 
 metadict_chars['Fighter 5 lvl (Katorjnik) (Гай Юлий)'] = {
@@ -6929,11 +6929,11 @@ metadict_chars['Fighter 5 lvl (Katorjnik) (Гай Юлий)'] = {
         'Lance':1,
         'Pilum':6,
         },
-    #'mount_combat':True,
-    #'mount_type':'Warhorse',
-    #'equipment_mount':{
-    #    'Horse Scale Mail':1,
-    #    },
+    'mount_combat':True,
+    'mount_type':'Warhorse',
+    'equipment_mount':{
+        'Horse Scale Mail':1,
+        },
     }
 
 #----
@@ -7317,11 +7317,15 @@ metadict_chars['Warrior 3 lvl (враг) (демон Кема\'Эша)'] = {
     # TODO: хм, почему-то он среднего размера получается.
     # Это из-за генерации отряда. Подправь потом.
     'level':3,
-    'fearless':True,
+    #'fearless_AI':True,
+    'hunter_AI':True,
+    'killer_AI':True,
     'char_class':'Warrior-officer',
     'behavior':'commander',
     'class_features':{
-        'Fighting_Style_Dueling':True,
+        # TODO: лучше дай ему ярость варвара.
+        #'Fighting_Style_Dueling':True,
+        #'Wight_Resistance':True,
         },
     'hitpoints_medial':True,
     'abilityes':{
@@ -7330,7 +7334,7 @@ metadict_chars['Warrior 3 lvl (враг) (демон Кема\'Эша)'] = {
         'constitution':18,
         'intelligence':10,
         'wisdom':12,
-        'charisma':14,
+        'charisma':16,
         },
     'hit_dice':'1d10',
     'race':'Primevial',
