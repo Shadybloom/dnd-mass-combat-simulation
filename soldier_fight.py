@@ -1056,12 +1056,17 @@ class soldier_in_battle(soldier):
             self.death = False
         elif not self.stable == True and not self.death == True:
             reaper_throw = dices.dice_throw('1d20')
-            # Схваченных не убивают, а только оглушают:
-            if self.grappled:
-                self.death_save_success = 3
-                self.stable = True
-                self.captured = True
-                return('stable', self.stable)
+            # Схваченных легко убить, или взять в плен:
+            if self.grappled and self.enemy_grappler:
+                if 'kill' in self.enemy_grappler.commands:
+                    self.death_save_loss = 3
+                    self.death = True
+                    return('death', self.death)
+                else:
+                    self.death_save_success = 3
+                    self.stable = True
+                    self.captured = True
+                    return('stable', self.stable)
             # Тяжелейшие ранения, если атака лишь чуть не убила бойца:
             if self.hitpoints <= -(self.hitpoints_max / 2):
                 self.disabled = True

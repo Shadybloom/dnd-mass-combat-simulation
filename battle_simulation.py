@@ -153,7 +153,7 @@ class battle_simulation(battlescape):
                 self.set_squad_short_rest(squad)
         # Эффекты погоды:
         if namespace.weather:
-            weather_list = namespace.weather.split()
+            #weather_list = namespace.weather.split()
             if 'night' in namespace.weather:
                 for point in self.dict_battlespace.keys():
                     if not 'darkness' in self.dict_battlespace[point]:
@@ -823,14 +823,22 @@ class battle_simulation(battlescape):
             if squad.commander.level < 5:
                 commands_list.append('crowd')
             # Бесстрашные создания бесстрашны, зато трусоватые спасают своих:
-            if squad.commander.__dict__.get('fearless'):
+            if squad.commander.__dict__.get('fearless_AI'):
                 commands_list.append('fearless')
             else:
                 commands_list.append('rescue')
+            # Поиск и атака всех:
+            if squad.commander.__dict__.get('hunter_AI'):
+                commands_list = ['seek','engage']
+                commands_list.append('attack')
+                commands_list.append('spellcast')
+                commands_list.append('fireball')
+            if squad.commander.__dict__.get('killer_AI'):
+                commands_list.append('kill')
             # Талант "Идеальное взаимодействие". Свита атакует вражеских командиров:
             if squad.commander.__dict__.get('commando'):
                 #commands_list.append('seek')
-                commands_list.append('kill')
+                commands_list.append('hunt')
             # Лучники и метатели дротиков должны чуть что отступать:
             if squad.behavior == 'archer':
                 #commands_list.append('seek')
@@ -917,6 +925,9 @@ class battle_simulation(battlescape):
                 self.move_action(soldier, squad, destination, allow_replace = True)
             if soldier.escape or 'retreat' in soldier.commands:
                 soldier.escape = True
+                # Солдатам в ловушке некуда бежать:
+                if namespace.weather and 'trap' in namespace.weather:
+                    soldier.escape = False
                 self.move_action(soldier, squad, destination, allow_replace = True)
                 if 'spawn' in self.dict_battlespace[soldier.place]:
                     self.clear_battlemap()
@@ -1533,7 +1544,7 @@ class battle_simulation(battlescape):
                 if attack_choice[0] == 'close':
                     attacks_chain_bonus = soldier.set_martial_arts()
             # Роги умело выбивают командиров:
-            # TODO: для этого теперь есть команда "kill".
+            # TODO: для этого теперь есть команда "hunt".
             elif soldier.char_class == 'Rogue':
                 if attack_choice[0] == 'ranged' and squad.enemies:
                     visible_enemies = self.find_visible_soldiers(
@@ -2244,7 +2255,7 @@ class battle_simulation(battlescape):
         - В раиусе дальних атак (лук, праща, дротики)
         """
         if soldier.near_enemies:
-            if soldier.behavior == 'commander' or "kill" in soldier.commands:
+            if soldier.behavior == 'commander' or "hunt" in soldier.commands:
                 return self.select_enemy(soldier.near_enemies, select_strongest = True)
             else:
                 return self.select_enemy(soldier.near_enemies)
@@ -2258,7 +2269,7 @@ class battle_simulation(battlescape):
                 return self.select_enemy(near_enemies)
         # Командир выбирает целью вражеских командиров:
         if squad.enemies and soldier.behavior == 'commander'\
-                or squad.enemies and "kill" in soldier.commands:
+                or squad.enemies and "hunt" in soldier.commands:
             sorted_enemies = self.refind_soldiers_distance(soldier.place, squad.enemies)
             visible_enemies = self.find_visible_soldiers(
                     soldier.place, soldier.enemy_side, sorted_enemies,
@@ -2470,6 +2481,9 @@ class battle_simulation(battlescape):
                         #if 'fall_place' in content and soldier.ally_side in content:
                         #    content.remove('fall_place')
                         #    content.remove(soldier.ally_side)
+                    # Солдаты в ловушке не могут сбежать:
+                    elif namespace.weather and 'trap' in namespace.weather:
+                        continue
                     elif soldier.escape == True\
                             and 'spawn' in content\
                             and soldier.ally_side in content:
