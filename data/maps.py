@@ -1184,6 +1184,84 @@ battle_map_long_road_ch1 = (
         '.#..T....#t.T..t......#.##t.T..t......#.#.#..#t.T..t.......#..t.T..t......#.##.#..#T.',
         )
 
+battle_map_long_archers_ch1 = (
+        # Лучники Энзифа на холме vs гастаты Юлия.
+        'aaaaaaaaaAAA..!..........................................................!.....................',
+        'aaaaaaaaaAAA..!..........................................................!.....................',
+        'aaaaaaaaaAAA..!......t..t..t..t..t..t..t..t..t..t..t..t..t..t..t..t......!.....................',
+        'aaaaaaaaaAAA..!..........................................................!..ewwwwwwwwwwaaaaaaaa',
+        'aaaaaaaaaAAA..!..........................................................!..ewwwwwwwwwwaaaaaaaa',
+        'aaaaaaaaaAAA..!......t..t..t..t..t..t..t..t..t..t..t..t..t..t..t..t......!..ewwwwwwwwwwaaaaaaaa',
+        'aaaaaaaaaAAA..!..........................................................!..ewwwwwwwwwwaaaaaaaa',
+        'aaaaaaaaaAAA.5!..........................................................!0.ewwwwwwwwwwaaaaaaaa',
+        'aaaaaCaaaAAA.6!......t..t..t..t..t..t..t..t..t..t..t..t..t..t..t..t......!1.ewwwwwwwwwcaaaaaaaa',
+        'aaaaaCaaaAAA..!..........................................................!..ewwwwwwwwwcaaaaaaaa',
+        'aaaaaCaaaAAA..!..........................................................!..ewwwwwwwwwcaaaaaaaa',
+        'aaaaaCaaaAAA..!......t..t..t..t..t..t..t..t..t..t..t..t..t..t..t..t......!..ewwwwwwwwwcaaaaaaaa',
+        'aaaaaaaaaAAA..!..........................................................!..ewwwwwwwwwwaaaaaaaa',
+        'aaaaaaaaaAAA..!..........................................................!..ewwwwwwwwwwaaaaaaaa',
+        'aaaaaaaaaAAA..!......t..t..t..t..t..t..t..t..t..t..t..t..t..t..t..t......!..ewwwwwwwwwwaaaaaaaa',
+        'aaaaaaaaaAAA..!..........................................................!..ewwwwwwwwwwaaaaaaaa',
+        'aaaaaaaaaAAA..!..........................................................!..ewwwwwwwwwwaaaaaaaa',
+        'aaaaaaaaaAAA..!......t..t..t..t..t..t..t..t..t..t..t..t..t..t..t..t......!..ewwwwwwwwwwaaaaaaaa',
+        'aaaaaaaaaAAA..!..........................................................!---------------------',
+        'aaaaaaaaaAAA..!..........................................................!t..t..t..t..t..t..t..',
+        'aaaaaaaaaAAA..!......t..t..t..t..t..t..t..t..t..t..t..t..t..t..t..t......!t..t..t..t..t..t..t..',
+        'aaaaaaaaaAAA..!..........................................................!t..t..t..t..t..t..t..',
+        )
+
+battle_map_long_archers_cliff_ch1 = (
+        # Лучники Энзифа на холме vs гастаты Юлия.
+        'aaaaaaaaaAAA..!||||......................................................!.....................',
+        'aaaaaaaaaAAA..!||||..t..t..t..t..t..t..t..t..t..t..t..t..t..t..t..t......!.....................',
+        'aaaaaaaaaAAA..!||||......................................................!..ewwwwwwwwwwaaaaaaaa',
+        'aaaaaCaaaAAA..!||||..t..t..t..t..t..t..t..t..t..t..t..t..t..t..t..t......!..ewwwwwwwwwwaaaaaaaa',
+        'aaaaaCaaaAAA..!||||......................................................!..ewwwwwwwwwwaaaaaaaa',
+        'aaaaaCaaaAAA..!||||..t..t..t..t..t..t..t..t..t..t..t..t..t..t..t..t......!..ewwwwwwwwwwaaaaaaaa',
+        'aaaaaCaaaAAA.5!||||......................................................!0.ewwwwwwwwwwaaaaaaaa',
+        'aaaaaCaaaAAA.6!||||..t..t..t..t..t..t..t..t..t..t..t..t..t..t..t..t......!1.ewwwwwwwwwcaaaaaaaa',
+        'aaaaaCaaaAAA..!||||......................................................!..ewwwwwwwwwcaaaaaaaa',
+        'aaaaaCaaaAAA..!||||..t..t..t..t..t..t..t..t..t..t..t..t..t..t..t..t......!..ewwwwwwwwwwaaaaaaaa',
+        'aaaaaCaaaAAA..!||||......................................................!..ewwwwwwwwwcaaaaaaaa',
+        'aaaaaCaaaAAA..!||||..t..t..t..t..t..t..t..t..t..t..t..t..t..t..t..t......!..ewwwwwwwwwcaaaaaaaa',
+        'aaaaaCaaaAAA..!||||......................................................!..ewwwwwwwwwwaaaaaaaa',
+        'aaaaaaaaaAAA..!||||..t..t..t..t..t..t..t..t..t..t..t..t..t..t..t..t......!..ewwwwwwwwwwaaaaaaaa',
+        'aaaaaaaaaAAA..!||||......................................................!..ewwwwwwwwwwaaaaaaaa',
+        'aaaaaaaaaAAA..!||||..t..t..t..t..t..t..t..t..t..t..t..t..t..t..t..t......!..ewwwwwwwwwwaaaaaaaa',
+        'aaaaaaaaaAAA..!||||......................................................!..ewwwwwwwwwwaaaaaaaa',
+        'aaaaaaaaaAAA..!||||..t..t..t..t..t..t..t..t..t..t..t..t..t..t..t..t......!..ewwwwwwwwwwaaaaaaaa',
+        'aaaaaaaaaAAA..!||||......................................................!..ewwwwwwwwwwaaaaaaaa',
+        'aaaaaaaaaAAA..!||||..t..t..t..t..t..t..t..t..t..t..t..t..t..t..t..t......!..ewwwwwwwwwwaaaaaaaa',
+        'aaaaaaaaaAAA..!||||......................................................!---------------------',
+        'aaaaaaaaaAAA..!||||..t..t..t..t..t..t..t..t..t..t..t..t..t..t..t..t......!t..t..t..t..t..t..t..',
+        )
+
+battle_map_long_archers_enzif_ch1 = (
+        # Обстрел следопытами преторианцев
+        'AAA..!||||......................................................!.....................',
+        'AAA..!||||..t..t..t..t..t..t..t..t..t..t..t..t..t..t..t..t......!.....................',
+        'AAA..!||||......................................................!..ewwwwwwwwwwaaaaaaaa',
+        'AAA..!||||..t..t..t..t..t..t..t..t..t..t..t..t..t..t..t..t......!..ewwwwwwwwwwaaaaaaaa',
+        'AAA..!||||......................................................!..ewwwwwwwwwwaaaaaaaa',
+        'AAA..!||||..t..t..t..t..t..t..t..t..t..t..t..t..t..t..t..t......!..ewwwwwwwwwwaaaaaaaa',
+        'CCC.5!||||......................................................!0.ewwwwwwwwwwaaaaaaaa',
+        'CCC.6!||||..t..t..t..t..t..t..t..t..t..t..t..t..t..t..t..t......!1.ewwwwwwwwwcaaaaaaaa',
+        'CCC..!||||......................................................!..ewwwwwwwwwcaaaaaaaa',
+        'CCC..!||||..t..t..t..t..t..t..t..t..t..t..t..t..t..t..t..t......!..ewwwwwwwwwwaaaaaaaa',
+        'CCC..!||||......................................................!..ewwwwwwwwwcaaaaaaaa',
+        'CCC..!||||..t..t..t..t..t..t..t..t..t..t..t..t..t..t..t..t......!..ewwwwwwwwwcaaaaaaaa',
+        'AAA..!||||......................................................!..ewwwwwwwwwwaaaaaaaa',
+        'AAA..!||||..t..t..t..t..t..t..t..t..t..t..t..t..t..t..t..t......!..ewwwwwwwwwwaaaaaaaa',
+        'AAA..!||||......................................................!..ewwwwwwwwwwaaaaaaaa',
+        'AAA..!||||..t..t..t..t..t..t..t..t..t..t..t..t..t..t..t..t......!..ewwwwwwwwwwaaaaaaaa',
+        'AAA..!||||......................................................!..ewwwwwwwwwwaaaaaaaa',
+        'AAA..!||||..t..t..t..t..t..t..t..t..t..t..t..t..t..t..t..t......!..ewwwwwwwwwwaaaaaaaa',
+        'AAA..!||||......................................................!..ewwwwwwwwwwaaaaaaaa',
+        'AAA..!||||..t..t..t..t..t..t..t..t..t..t..t..t..t..t..t..t......!..ewwwwwwwwwwaaaaaaaa',
+        'AAA..!||||......................................................!---------------------',
+        'AAA..!||||..t..t..t..t..t..t..t..t..t..t..t..t..t..t..t..t......!t..t..t..t..t..t..t..',
+        )
+
 battle_map_long_camp_ch1 = (
         # Бой на "Западных кручах". Ополчение Аксиотеи vs демоны Кема'Эша.
         '-----------------------------------------------------',
