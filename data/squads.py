@@ -52,10 +52,22 @@ metadict_squads['Band-hero (колдуны Кема\'Эша) (враг)'] = {
     'Warlock 1 lvl (враг) (колдун Кема\'Эша)':6,
     }
 
+metadict_squads['Band-hero (следопыты Энзифа) (враг)'] = {
+    'Ranger 5 lvl (враг) (Энзиф «Ходи-гора»)':1,
+    'Ranger 1 lvl (враг) (следопыт Энзифа)':12,
+    }
+
 metadict_squads['Company-militia (демоны Кема\'Эша) (враг)'] = {
     'Commoner 1 lvl (враг) (карл)':95,
     'Commoner 1 lvl (враг) (карл-ветеран)':5,
     'Warrior 3 lvl (враг) (демон Кема\'Эша)':1,
+    }
+
+metadict_squads['Company-regular (лучники Энзифа) (враг)'] = {
+    'Warrior 1 lvl (sqythian bowman)':185,
+    'Warrior 2 lvl (sqythian bowman-corporal)':10,
+    'Warrior 3 lvl (sqythian bowman-sergeant)':3,
+    'Warrior 4 lvl (sqythian bowman-lieutenant)':1,
     }
 
 #----

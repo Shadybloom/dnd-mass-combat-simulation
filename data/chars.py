@@ -7275,6 +7275,93 @@ metadict_chars['Warlock 5 lvl (враг) (Кема\'Эш)'] = {
     }
 
 #----
+# Злодеи (герои) (Энзиф):
+
+metadict_chars['Ranger 1 lvl (враг) (следопыт Энзифа)'] = {
+    'level':1,
+    'char_class':'Ranger',
+    'hit_dice':'1d10',
+    'behavior':'archer',
+    'class_features':{
+        'Feat_Sharpshooter':True,
+        'Favored_Enemy_Humans':True,
+        'Natural_Explorer':True,
+        },
+    'race':'Human-hero',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Studded Leather':1,
+        'Shield':1,
+        'Shortsword':1,
+        'Longbow':1,
+        'Arrow':60,
+        },
+    #'mount_combat':True,
+    #'mount_type':'Light Warhorse',
+    #'equipment_mount':{
+    #    },
+    }
+
+metadict_chars['Ranger 5 lvl (враг) (Энзиф «Ходи-гора»)'] = {
+    'level':5,
+    'char_class':'Ranger',
+    'hit_dice':'1d10',
+    'behavior':'commander',
+    'hitpoints_medial':True,
+    'abilityes':{
+        'strength':18,
+        'dexterity':18,
+        'constitution':16,
+        'intelligence':8,
+        'wisdom':12,
+        'charisma':14,
+        },
+    'class_features':{
+        'Feat_Sharpshooter':True,
+        'Favored_Enemy_Humans':True,
+        'Natural_Explorer':True,
+        'Spellcasting':True,
+        'Spells':[
+            ('ritual', 'Animal_Messenger'),
+            ('1_lvl', 'Absorb_Elements'),
+            ('2_lvl', 'Pass_Without_Trace'),
+            ('2_lvl', 'Find_Traps'),
+            ('2_lvl', 'Spike_Growth'),
+            ],
+        'Fighting_Style_Archery':True,
+        'Primeval_Awareness':True,
+        'Ranger_Archetype_Hunter':True,
+        'Hunter_Horde_Breaker':True,
+        'Feat_Great_Weapon_Master':True,
+        'Extra_Attack':True,
+        },
+    'race':'Human-hero',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Rune of Absorbtion':1,
+        'Rune of Shielding':1,
+        'Studded Leather':1,
+        'Shield':1,
+        'Shortsword':1,
+        'Longbow +1':1,
+        'Arrow':60,
+        'Maul':1,
+        },
+    #'mount_combat':True,
+    #'mount_type':'Light Warhorse',
+    #'equipment_mount':{
+    #    },
+    }
+
+#----
 # Злодеи (армии) (демоны Кема'Эша):
 
 metadict_chars['Commoner 1 lvl (враг) (карл)'] = {
