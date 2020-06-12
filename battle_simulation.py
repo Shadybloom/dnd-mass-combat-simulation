@@ -2275,17 +2275,17 @@ class battle_simulation(battlescape):
                     soldier.place, soldier.enemy_side, sorted_enemies,
                     max_number = 30, max_try = 60)
             return self.select_enemy(visible_enemies, select_strongest = True)
-        # Сортируем цели по дистанции и берём по две, чтобы захватить всадника и коня:
+        # Сортируем цели по дистанции и берём по три, чтобы захватить всадника и коня:
         elif squad.enemies:
             sorted_enemies = self.refind_soldiers_distance(soldier.place, squad.enemies)
             visible_enemies = self.find_visible_soldiers(
                     soldier.place, soldier.enemy_side, sorted_enemies,
-                    max_number = 2, max_try = 6)
+                    max_number = 3, max_try = 6)
             return self.select_enemy(visible_enemies)
         # Ищем цели в зоне видимости без указания командира:
         if 'seek' in soldier.commands:
             visible_enemies = self.find_visible_soldiers(soldier.place, soldier.enemy_side,
-                    max_number = 2, max_try = 6)
+                    max_number = 3, max_try = 6)
             return self.select_enemy(visible_enemies)
 
     def select_enemy(self, near_enemies, select_strongest = False, select_weaker = False):
