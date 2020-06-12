@@ -42,7 +42,7 @@ def create_parser():
                         )
     parser.add_argument('-w', '--weather',
                         action='store', dest='weather', type=str,
-                        help='Добавляет эффекты погоды, доступно: night'
+                        help='Добавляет эффекты погоды, доступно: night, wind'
                         )
     parser.add_argument('-v', '--visual',
                         action='store_true', dest='visual', default=False,
@@ -156,8 +156,12 @@ class battle_simulation(battlescape):
             #weather_list = namespace.weather.split()
             if 'night' in namespace.weather:
                 for point in self.dict_battlespace.keys():
-                    if not 'darkness' in self.dict_battlespace[point]:
+                    if not 'obscure_terrain' in self.dict_battlespace[point]:
                         self.dict_battlespace[point].append('obscure_terrain')
+            if 'wind' in namespace.weather:
+                for point in self.dict_battlespace.keys():
+                    if not 'warding_wind' in self.dict_battlespace[point]:
+                        self.dict_battlespace[point].append('warding_wind')
         # Вывод карты до начала боя:
         #print_ascii_map(battle.gen_battlemap())
 
@@ -2194,6 +2198,12 @@ class battle_simulation(battlescape):
         # В темноте/тумане сложно атаковать:
         if 'obscure_terrain' in self.dict_battlespace[enemy_soldier.place]:
             disadvantage = True
+        # Сильный ветер мешает стрелкам:
+        if attack_choice[0] == 'throw'\
+                or attack_choice[0] == 'ranged'\
+                or attack_choice[0] == 'volley':
+            if 'warding_wind' in self.dict_battlespace[enemy_soldier.place]:
+                disadvantage = True
         # Противника может защитить товарищ с Fighting_Style_Protection:
         elif len(enemy_soldier.near_allies) > 1:
             for soldier_tuple in enemy_soldier.near_allies:

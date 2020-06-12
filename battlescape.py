@@ -224,7 +224,7 @@ class battlescape():
             # Укреплённые позиции (лучники на возвышенностях):
             'W':['barrikade','cover_terrain','spawn','warrior'],
             'E':['barrikade','cover_terrain','spawn','elite_warrior'],
-            'C':['barrikade','cover_terrain','spawn','commander'],
+            'C':['barrikade','height','cover_terrain','spawn','commander'],
             'A':['barrikade','height','cover_terrain','spawn','archer'],
             #'A':['barrikade','cover_terrain','spawn','archer'],
             }
