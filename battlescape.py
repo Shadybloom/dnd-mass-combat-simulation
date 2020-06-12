@@ -476,12 +476,12 @@ class battlescape():
                 cover_sum = matrix[y][x]
                 visibility = True
                 continue
-            elif 'mount_height' in dict_battlespace[soldier_point]\
-                    or 'mount_height' in dict_battlespace[enemy_point]:
-                x,y = enemy_point[0],enemy_point[1]
-                cover_sum = matrix[y][x]
-                visibility = True
-                continue
+            #elif 'mount_height' in dict_battlespace[soldier_point]\
+            #        or 'mount_height' in dict_battlespace[enemy_point]:
+            #    x,y = enemy_point[0],enemy_point[1]
+            #    cover_sum = matrix[y][x]
+            #    visibility = True
+            #    continue
             elif matrix_point >1:
                 cover_sum += matrix_point
             # TODO: оптимизировать
@@ -497,6 +497,11 @@ class battlescape():
             if cover_sum >= max_obstacle:
                 cover_sum = max_obstacle
                 visibility = False
+                # Всадник на конец всё-таки заметен. Но прикрытие на 3/4 всё равно есть:
+                if 'mount_height' in dict_battlespace[soldier_point]\
+                        or 'mount_height' in dict_battlespace[enemy_point]:
+                    cover_sum = max_obstacle -1
+                    visibility = True
                 break
         vision_tuple = self.namedtuple_visibility(distance, cover_sum, visibility)
         return vision_tuple
