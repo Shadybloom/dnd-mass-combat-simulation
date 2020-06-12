@@ -361,6 +361,8 @@ class soldier():
             if not check_hero and self.hero:
                 self.abilityes = self.add_race_abilityes()
                 self.abilityes = self.add_hero_abilityes()
+        self.body = self.gen_height_and_weight()
+        self.size = self.body['size']
         self.set_improvement_abilityes()
         self.proficiency = self.find_class_proficiency()
         self.proficiency_bonus = self.proficiency['proficiency_bonus']
