@@ -6303,6 +6303,53 @@ metadict_chars['Druid 2 lvl (Vaarsuvius) (друид Артемиды)'] = {
     #    },
     }
 
+metadict_chars['Druid 2 lvl (Vaarsuvius) (друид Агата)'] = {
+    'level':2,
+    'char_class':'Druid',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Feat_Healer':True,
+        'Spellcasting':True,
+        'Spells':[
+            ('cantrip', 'Druidcraft'),
+            ('cantrip', 'Mold_Earth'),
+            ('ritual', 'Speak_with_Animals'),
+            ('1_lvl', 'Goodberry'),
+            ('1_lvl', 'Cure_Wounds'),
+            ('1_lvl', 'Entangle'),
+            ('1_lvl', 'Fog_Cloud'),
+            ],
+        'Druidic_Language':True,
+        'Wild_Shape':True,
+        'Wild_Shape_Form':'Brown Bear (CR 1)',
+        #'Wild_Shape_Form':'Giant Octopus (CR 1)',
+        'Druid_Circle_Moon':True,
+        'Combat_Wild_Shape':True,
+        'Circle_Forms':True,
+        },
+    'race':'Human-hero',
+    'weapon_skill':['simple','Scimitar'],
+    'armor_skill':['light','medium','shield'],
+    'skills':[
+        'Nature',
+        'Animal_Handling',
+        'Medicine',
+        'Perception',
+        'Survival',
+        ],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Rune of Armor':1,
+        },
+    #'mount_combat':True,
+    #'mount_type':'Warhorse',
+    #'equipment_mount':{
+    #    },
+    }
+
 metadict_chars['Druid 5 lvl (Vaarsuvius) (Ианта «Дочь бури»)'] = {
     # ЗАМЕТКА: накидка хитов.
     'level':5,
@@ -7510,6 +7557,7 @@ metadict_chars['Warrior 3 lvl (враг) (демон Кема\'Эша)'] = {
         # TODO: лучше дай ему ярость варвара.
         #'Fighting_Style_Dueling':True,
         #'Wight_Resistance':True,
+        'Regeneration':3,
         },
     'hitpoints_medial':True,
     'abilityes':{

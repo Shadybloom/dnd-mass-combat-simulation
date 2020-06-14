@@ -74,8 +74,8 @@ metadict_squads['Band-hero (следопыты Энзифа) (враг)'] = {
     }
 
 metadict_squads['Company-militia (демоны Кема\'Эша) (враг)'] = {
-    'Commoner 1 lvl (враг) (карл)':95,
-    'Commoner 1 lvl (враг) (карл-ветеран)':5,
+    'Commoner 1 lvl (враг) (карл)':80,
+    'Commoner 1 lvl (враг) (карл-ветеран)':4,
     'Warrior 3 lvl (враг) (демон Кема\'Эша)':1,
     }
 
@@ -189,6 +189,10 @@ metadict_squads['Company-regular (дочери медведицы Ианты) (V
 metadict_squads['Squad-hero (друиды Ианты) (Vaarsuvius)'] = {
     'Druid 5 lvl (Vaarsuvius) (Ианта «Дочь бури»)':1,
     'Druid 2 lvl (Vaarsuvius) (друид Артемиды)':12,
+    }
+
+metadict_squads['Squad-hero (друид Агата) (Vaarsuvius)'] = {
+    'Druid 2 lvl (Vaarsuvius) (друид Агата)':1,
     }
 
 #----
