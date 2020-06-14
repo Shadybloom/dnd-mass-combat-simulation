@@ -4206,8 +4206,8 @@ metadict_chars['Rogue 2 lvl (city cat-meow)'] = {
     'char_class':'Rogue',
     'hit_dice':'1d8',
     'behavior':'elite_warrior',
+    #'Grappler_AI':True,
     'class_features':{
-        #'Grappler_AI':True,
         'Feat_Alert':True,
         'Expertise':True,
         'Sneak_Attack':True,
@@ -4232,8 +4232,8 @@ metadict_chars['Rogue 3 lvl (city cat-dodger)'] = {
     'char_class':'Arcane_Tricker',
     'hit_dice':'1d8',
     'behavior':'elite_warrior',
+    #'Grappler_AI':True,
     'class_features':{
-        #'Grappler_AI':True,
         'Feat_Alert':True,
         'Expertise':True,
         'Sneak_Attack':True,
@@ -6027,6 +6027,101 @@ metadict_chars['Commoner 2 lvl (Vaarsuvius) (токсотай-ветеран)'] 
     }
 
 #----
+# Ополчение (армия) (Павсаний):
+
+metadict_chars['Commoner 1 lvl (друг) (сатир-охотник)'] = {
+    # Сатиры
+    'level':1,
+    'char_class':'Commoner',
+    'behavior':'warrior',
+    'hit_dice':'1d8',
+    'race':'Satyr',
+    'weapon_skill':['simple'],
+    'armor_skill':['light','medium','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':militia_pack,
+    'equipment_weapon':{
+        'Studded Leather':1,
+        'Shield':1,
+        'Spear':1,
+        'Hunting Bow':1,
+        'Hunting Arrow':60,
+        },
+    }
+
+metadict_chars['Commoner 2 lvl (друг) (сатир-ветеран)'] = {
+    'level':2,
+    'char_class':'Commoner',
+    'behavior':'warrior',
+    'hit_dice':'1d8',
+    'race':'Satyr',
+    'weapon_skill':['simple'],
+    'armor_skill':['light','medium','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':militia_pack,
+    'equipment_weapon':{
+        'Studded Leather':1,
+        'Shield':1,
+        'Spear':1,
+        'Hunting Bow':1,
+        'Hunting Arrow':60,
+        },
+    }
+
+metadict_chars['Warrior 3 lvl (друг) (сатир-сержант)'] = {
+    'level':3,
+    'char_class':'Warrior-bowman',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Archery':True,
+        },
+    'race':'Satyr',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Breastplate':1,
+        'Shield':1,
+        'Shortsword':1,
+        'Longbow':1,
+        'Arrow':60,
+        },
+    }
+
+metadict_chars['Warrior 4 lvl (друг) (сын Павсания)'] = {
+    'level':4,
+    'char_class':'Warrior-officer',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Archery':True,
+        'Feat_Inspiring_Leader':True,
+        },
+    'race':'Satyr',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Rune of Shielding':1,
+        'Breastplate':1,
+        'Shield':1,
+        'Shortsword':1,
+        'Longbow':1,
+        'Arrow':60,
+        },
+    #'mount_combat':False,
+    #'mount_type':'Riding Horse',
+    #'equipment_mount':{
+    #    #'Arrow':60,
+    #    },
+    }
+
+#----
 # Лучники (армия) (Ианта):
 
 metadict_chars['Warrior 1 lvl (Vaarsuvius) (стрелок)'] = {
@@ -6161,11 +6256,11 @@ metadict_chars['Warrior 5 lvl (Vaarsuvius) (стрелок-капитан)'] = {
 # Друиды (свита) (Ианта):
 
 metadict_chars['Druid 2 lvl (Vaarsuvius) (друид Артемиды)'] = {
-    # TODO: поведение elite_warrior. Круг луны же.
+    # TODO: допиливай Wild_Shape
     'level':2,
     'char_class':'Druid',
     'hit_dice':'1d8',
-    'behavior':'archer',
+    'behavior':'elite_warrior',
     'class_features':{
         'Feat_Healer':True,
         'Spellcasting':True,
@@ -6180,6 +6275,8 @@ metadict_chars['Druid 2 lvl (Vaarsuvius) (друид Артемиды)'] = {
             ],
         'Druidic_Language':True,
         'Wild_Shape':True,
+        'Wild_Shape_Form':'Brown Bear (CR 1)',
+        #'Wild_Shape_Form':'Giant Octopus (CR 1)',
         'Druid_Circle_Moon':True,
         'Combat_Wild_Shape':True,
         'Circle_Forms':True,

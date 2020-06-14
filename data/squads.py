@@ -40,6 +40,22 @@ metadict_squads['test (ogres)'] = {
     }
 
 #----
+# Друзья (битва за Лемнос):
+
+metadict_squads['Company-militia (сатиры Павсания) (друг)'] = {
+    'Commoner 1 lvl (друг) (сатир-охотник)':95,
+    'Commoner 2 lvl (друг) (сатир-ветеран)':5,
+    'Warrior 3 lvl (друг) (сатир-сержант)':1,
+    }
+
+metadict_squads['Company-militia (сатиры Павсания, сына Павсания) (друг)'] = {
+    'Commoner 1 lvl (друг) (сатир-охотник)':95,
+    'Commoner 2 lvl (друг) (сатир-ветеран)':5,
+    'Warrior 4 lvl (друг) (сын Павсания)':1,
+    'Warrior 3 lvl (друг) (сатир-сержант)':1,
+    }
+
+#----
 # Враги (битва за Лемнос):
 
 metadict_squads['Band-hero (колдуны Кара\'Яма) (враг)'] = {
