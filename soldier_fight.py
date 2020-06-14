@@ -383,6 +383,11 @@ class soldier_in_battle(soldier):
         if self.__dict__.get('fearless_AI'):
             self.fearless = True
             self.commands.append('fearless')
+        # Особенности монстров:
+        # Регенерация троллей и демонов:
+        if self.class_features.get('Regeneration')\
+                and self.hitpoints < self.hitpoints_max:
+            self.set_hitpoints(heal = self.class_features['Regeneration'])
         # TODO: упрости проверку до if self.rage:
         # Работа способностей, ограниченных по времени:
         if self.class_features.get('Rage'):
@@ -1071,6 +1076,11 @@ class soldier_in_battle(soldier):
                     self.stable = True
                     self.captured = True
                     return('stable', self.stable)
+            # Тролли и прочие с регенерацией стабилизируются сами:
+            if self.class_features.get('Regeneration'):
+                self.death_save_success = 3
+                self.stable = True
+                return('stable', self.stable)
             # Тяжелейшие ранения, если атака лишь чуть не убила бойца:
             if self.hitpoints <= -(self.hitpoints_max / 2):
                 self.disabled = True
