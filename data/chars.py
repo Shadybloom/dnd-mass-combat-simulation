@@ -6275,8 +6275,8 @@ metadict_chars['Druid 2 lvl (Vaarsuvius) (друид Артемиды)'] = {
             ],
         'Druidic_Language':True,
         'Wild_Shape':True,
-        'Wild_Shape_Form':'Brown Bear (CR 1)',
-        #'Wild_Shape_Form':'Giant Octopus (CR 1)',
+        #'Wild_Shape_Form':'Brown Bear (CR 1)',
+        'Wild_Shape_Form':'Giant Octopus (CR 1)',
         'Druid_Circle_Moon':True,
         'Combat_Wild_Shape':True,
         'Circle_Forms':True,
@@ -6308,6 +6308,11 @@ metadict_chars['Druid 2 lvl (Vaarsuvius) (друид Агата)'] = {
     'char_class':'Druid',
     'hit_dice':'1d8',
     'behavior':'commander',
+    'fearless_AI':True,
+    'hunter_AI':True,
+    'killer_AI':True,
+    # Прибытие на таком-то раунде боя:
+    #'arrival':5,
     'class_features':{
         'Feat_Healer':True,
         'Spellcasting':True,
@@ -6388,6 +6393,8 @@ metadict_chars['Druid 5 lvl (Vaarsuvius) (Ианта «Дочь бури»)'] = 
             ],
         'Druidic_Language':True,
         'Wild_Shape':True,
+        #'Wild_Shape_Form':'Brown Bear (CR 1)',
+        'Wild_Shape_Form':'Giant Octopus (CR 1)',
         'Druid_Circle_Moon':True,
         'Combat_Wild_Shape':True,
         'Wild_Shape_Improvement':True,
@@ -7545,8 +7552,6 @@ metadict_chars['Commoner 1 lvl (враг) (карл-ветеран)'] = {
 
 metadict_chars['Warrior 3 lvl (враг) (демон Кема\'Эша)'] = {
     # Опасный гад.
-    # TODO: хм, почему-то он среднего размера получается.
-    # Это из-за генерации отряда. Подправь потом.
     'level':3,
     #'fearless_AI':True,
     'hunter_AI':True,
@@ -7554,9 +7559,6 @@ metadict_chars['Warrior 3 lvl (враг) (демон Кема\'Эша)'] = {
     'char_class':'Warrior-officer',
     'behavior':'commander',
     'class_features':{
-        # TODO: лучше дай ему ярость варвара.
-        #'Fighting_Style_Dueling':True,
-        #'Wight_Resistance':True,
         'Regeneration':3,
         },
     'hitpoints_medial':True,
