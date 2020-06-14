@@ -128,6 +128,7 @@ class soldier_in_battle(soldier):
         self.fear = False
         self.mockery = False
         self.sleep = False
+        self.wild_shape = False
         self.damage_absorbed = None
         self.bardic_inspiration = None
         # Концентрация на заклинаниях:
@@ -206,6 +207,8 @@ class soldier_in_battle(soldier):
                 self.inspiring_leader = True
             if self.proficiency.get('ki_points_max') and not hasattr(self, 'ki_points'):
                 self.ki_points = self.proficiency['ki_points_max']
+            if self.proficiency.get('wild_shape') and not hasattr(self, 'wild_shape_number'):
+                self.wild_shape_number = self.proficiency['wild_shape']
             # Восстанавливаются после долгого отдыха (long_rest):
             if self.class_features.get('Lay_on_Hands') and not hasattr(self, 'lay_on_hands'):
                 self.lay_on_hands = self.level * 5
@@ -379,6 +382,11 @@ class soldier_in_battle(soldier):
         self.near_zone = [ ]
         self.near_allies = [ ]
         self.near_enemies = [ ]
+        # Возвращение друида в обычную форму, если не осталось бонусных хитов:
+        if self.wild_shape and self.bonus_hitpoints <= 0:
+            self.wild_shape = False
+            self.wild_shape_old_form['hitpoints'] = self.hitpoints
+            self.__dict__.update(copy.deepcopy(self.wild_shape_old_form))
         # Бесстрашные бойцы бесстрашны:
         if self.__dict__.get('fearless_AI'):
             self.fearless = True
@@ -456,6 +464,43 @@ class soldier_in_battle(soldier):
                 self.sacred_weapon_timer -= 1
             elif self.sacred_weapon_timer == 0:
                 self.sacred_weapon = None
+
+    def set_change_form(self):
+        """Друид меняет форму
+        
+        """
+        if self.class_features.get('Wild_Shape_Form')\
+                and self.class_features['Wild_Shape_Form'] in self.metadict_animals\
+                and not self.wild_shape:
+            if self.battle_action or self.bonus_action and self.class_features.get('Combat_Wild_Shape'):
+                if self.class_features.get('Combat_Wild_Shape'):
+                    self.bonus_action = False
+                else:
+                    self.battle_action = False
+                # Сохраняем старую форму, чтобы восстановить:
+                animal_type = self.class_features['Wild_Shape_Form']
+                self.wild_shape_old_form = copy.deepcopy(self.__dict__)
+                # Меняем форму:
+                self.rank = animal_type
+                self.__dict__.update(copy.deepcopy(self.metadict_animals[animal_type]))
+                self.body = self.gen_height_and_weight()
+                self.size = self.body['size']
+                self.proficiency = self.find_class_proficiency()
+                self.proficiency_bonus = self.proficiency['proficiency_bonus']
+                self.overload = self.calculate_overload()
+                self.base_speed = self.overload['base_speed']
+                self.mods = self.calculate_mods()
+                self.saves = self.calculate_saves()
+                self.armor = self.takeoff_armor()
+                self.armor.update(self.get_armor())
+                self.attacks = self.takeoff_weapon()
+                self.attacks.update(self.get_weapon())
+                self.attacks.update(self.modify_attacks())
+                # Хиты изменённой формы, это бонусные хиты:
+                self.bonus_hitpoints = self.calculate_hitpoints()
+                self.behavior = self.wild_shape_old_form['behavior']
+                self.wild_shape = True
+                self.wild_shape_number -= 1
 
     def set_rage(self):
         """Варвар злится.
@@ -1065,6 +1110,11 @@ class soldier_in_battle(soldier):
             self.death = False
         elif not self.stable == True and not self.death == True:
             reaper_throw = dices.dice_throw('1d20')
+            # Возвращение друида в обычную форму, если выбыл:
+            if self.wild_shape:
+                self.wild_shape = False
+                self.wild_shape_old_form['hitpoints'] = self.hitpoints
+                self.__dict__.update(copy.deepcopy(self.wild_shape_old_form))
             # Схваченных легко убить, или взять в плен:
             if self.grappled and self.enemy_grappler:
                 if 'kill' in self.enemy_grappler.commands:

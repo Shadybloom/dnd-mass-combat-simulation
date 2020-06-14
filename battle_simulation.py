@@ -892,8 +892,6 @@ class battle_simulation(battlescape):
         # Осматриваем зону врагов, находим противника:
         self.recon_action(soldier, squad)
         enemy = self.find_enemy(soldier, squad)
-        if soldier.shield_of_faith:
-            print(soldier.rank)
         # Солдат отмечает местонахождение врага, если его ещё нет на линии фронта (для битв в темноте):
         if soldier.near_enemies and squad.frontline:
             for enemy in soldier.near_enemies:
@@ -976,6 +974,11 @@ class battle_simulation(battlescape):
         # Кастеры работают магией, сначала по группам, а потом целевой:
         if 'spellcast' in soldier.commands and enemy:
             self.recon_action(soldier, squad)
+            # Друиды меняют форму, если враг рядом:
+            if soldier.class_features.get('Wild_Shape'):
+                if soldier.near_enemies or 'change' in soldier.commands:
+                    soldier.set_change_form()
+            # Кастеры колдуют:
             if soldier.danger <= 0 or 'fearless' in soldier.commands:
                 if 'channel' in soldier.commands:
                     self.channel_action(soldier, squad, enemy)
