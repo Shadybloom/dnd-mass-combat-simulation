@@ -135,7 +135,7 @@ dict_races = {
             'weight_mod_dice':'2d20',
             },
         'Horseclaw':{
-            # Чокобо:
+            # Чокобо, когтеклюв:
             # https://www.dandwiki.com/wiki/Chocobo_(3.5e_Creature)
             # У них прочные перья, природная броня -- 11.
             'hero':False,
