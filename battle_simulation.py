@@ -1585,7 +1585,7 @@ class battle_simulation(battlescape):
                             and not enemy_soldier.size == 'large'\
                             or enemy_soldier.sleep\
                             or soldier.char_class == 'Monk'\
-                            or soldier.class_features.get('Grappler_AI'):
+                            or soldier.__dict__.get('Grappler_AI'):
                         wrestling_action = self.wrestling_action(soldier, squad,
                                 enemy_soldier, advantage, disadvantage)
                         if wrestling_action != None:
@@ -1731,7 +1731,7 @@ class battle_simulation(battlescape):
                     self.move_action(soldier, squad, destination, allow_replace = True)
                     self.change_place(enemy_soldier.place, soldier.place, enemy_soldier.uuid)
                 # Тактика осьминожек:
-                elif soldier.class_features.get('Grappler_AI'):
+                elif soldier.__dict__.get('Grappler_AI'):
                     destination = self.find_spawn(soldier.place, soldier.ally_side, random_range = 1)
                     self.move_action(soldier, squad, destination, allow_replace = True)
                     self.change_place(enemy_soldier.place, soldier.place, enemy_soldier.uuid)
@@ -2598,14 +2598,16 @@ class battle_simulation(battlescape):
         squads_list_DB = self.database.print_squads()
         for squad in self.squads.values():
             if squad.name in squads_list_DB:
-                print('Отряд будет сохранён в БД: ', squad.name, self.database.database_path)
-                for soldier in squad.metadict_soldiers.values():
-                    print('SAVE: {0} {1} {2} hp: {3}/{4} vic/def {5}/{6}'.format(
-                        soldier.ally_side, soldier.rank, soldier.name,
-                        soldier.hitpoints, soldier.hitpoints_max, soldier.victories, soldier.defeats,
-                        ))
-                    self.database.soldier_to_database(soldier)
-                self.database.commit()
+                string_number = input('---Сохраняем исход боя? (y/n)')
+                if string_number and string_number == 'y':
+                    print('Отряд будет сохранён в БД: ', squad.name, self.database.database_path)
+                    for soldier in squad.metadict_soldiers.values():
+                        print('SAVE: {0} {1} {2} hp: {3}/{4} vic/def {5}/{6}'.format(
+                            soldier.ally_side, soldier.rank, soldier.name,
+                            soldier.hitpoints, soldier.hitpoints_max, soldier.victories, soldier.defeats,
+                            ))
+                        self.database.soldier_to_database(soldier)
+                    self.database.commit()
 
 #-------------------------------------------------------------------------
 # Интерфейс:

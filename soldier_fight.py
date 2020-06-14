@@ -379,6 +379,10 @@ class soldier_in_battle(soldier):
         self.near_zone = [ ]
         self.near_allies = [ ]
         self.near_enemies = [ ]
+        # Бесстрашные бойцы бесстрашны:
+        if self.__dict__.get('fearless_AI'):
+            self.fearless = True
+            self.commands.append('fearless')
         # TODO: упрости проверку до if self.rage:
         # Работа способностей, ограниченных по времени:
         if self.class_features.get('Rage'):

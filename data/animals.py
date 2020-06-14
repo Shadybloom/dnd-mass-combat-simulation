@@ -49,9 +49,11 @@ metadict_animals['Giant Octopus (CR 1)'] = {
     'behavior':'commander',
     'hitpoints_medial':True,
     'water_walk':True,
-    #'fearless':True,
+    'Grappler_AI':True,
+    'hunter_AI':True,
+    'killer_AI':True,
+    #'fearless_AI':True,
     'class_features':{
-        'Grappler_AI':True,
         'Hold_Breath':True,
         'Water_Breathing':True,
         'Underwater_Camouflage':True,
@@ -114,7 +116,7 @@ metadict_animals['Brown Bear (CR 1)'] = {
     'char_class':'Commoner',
     'behavior':'elite_warrior',
     'hitpoints_medial':True,
-    #'fearless':True,
+    #'fearless_AI':True,
     'class_features':{
         'Keen_Smell':True,
         'Extra_Attack':True,
@@ -163,11 +165,13 @@ metadict_animals['Zombie (CR 1/4)'] = {
     'challenge_rating':'1/4',
     'char_class':'Commoner',
     'behavior':'warrior',
-    'fearless':True,
+    'fearless_AI':True,
     'hitpoints_medial':True,
+    #'Grappler_AI':True,
+    #'hunter_AI':True,
+    #'killer_AI':True,
     'class_features':{
         'Undead_Fortitude':True,
-        #'Grappler_AI':True,
         },
     'abilityes':{
         'strength':13,
@@ -209,7 +213,7 @@ metadict_animals['Wight (CR 3)'] = {
     'challenge_rating':'3',
     'char_class':'Warrior-officer',
     'behavior':'commander',
-    'fearless':True,
+    #'fearless_AI':True,
     'hitpoints_medial':True,
     'sunlight_sensitive':True,
     'class_features':{
@@ -442,10 +446,11 @@ metadict_animals['Ork (CR 1/2)'] = {
 metadict_animals['Ogre (CR 2)'] = {
     # Огры
     'level':7,
-    'fearless':True,
     'challenge_rating':'2',
     'hitpoints_medial':True,
     'char_class':'Warrior',
+    'behavior':'elite_warrior',
+    #'fearless_AI':True,
     'class_features':{
         },
     'abilityes':{
@@ -457,7 +462,6 @@ metadict_animals['Ogre (CR 2)'] = {
         'charisma':7,
         },
     'hit_dice':'1d8',
-    'behavior':'elite_warrior',
     'race':'Humanoid-big',
     'weapon_skill':['simple','martial'],
     'armor_skill':['light','medium','heavy','shield'],
@@ -719,7 +723,7 @@ metadict_animals['Empyrean (CR 23)'] = {
     'level':19,
     'challenge_rating':'23',
     'hitpoints_medial':True,
-    'fearless':True,
+    'fearless_AI':True,
     'char_class':'Empyrean',
     'class_features':{
         # Вторая атака легендартным действием.
