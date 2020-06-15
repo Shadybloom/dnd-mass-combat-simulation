@@ -786,7 +786,7 @@ class battle_simulation(battlescape):
                 commands_list = ['lead','follow']
                 commands_list.append('attack')
                 commands_list.append('spellcast')
-                commands_list.append('fireball')
+                #commands_list.append('fireball')
             elif squad.enemy_recon['distance'] <= save_distance:
                 commands_list = ['lead','follow','engage']
                 commands_list.append('attack')
@@ -833,10 +833,8 @@ class battle_simulation(battlescape):
                 commands_list.append('rescue')
             # Поиск и атака всех:
             if squad.commander.__dict__.get('hunter_AI'):
-                commands_list = ['seek','engage']
-                commands_list.append('attack')
+                commands_list = ['seek','engage','attack']
                 commands_list.append('spellcast')
-                commands_list.append('fireball')
             if squad.commander.__dict__.get('killer_AI'):
                 commands_list.append('kill')
             # Талант "Идеальное взаимодействие". Свита атакует вражеских командиров:
@@ -847,7 +845,7 @@ class battle_simulation(battlescape):
             if squad.behavior == 'archer':
                 #commands_list.append('seek')
                 commands_list.append('spellcast')
-                commands_list.append('fireball')
+                #commands_list.append('fireball')
                 if commander.class_features.get('Feat_Sharpshooter'):
                     commands_list.append('volley')
                 if 'engage' in commands_list:
@@ -2726,11 +2724,11 @@ if __name__ == '__main__':
     battle.prepare_battlefield(selected_map, zones_squads_dict)
     try:
         battle.start(max_rounds = namespace.rounds, commands = namespace.commands)
+        # Смотрим сколько народу пострадало:
+        battle.print_battle_statistics()
         # Сохраняем отряды в БД:
         if namespace.save:
             battle.save_soldiers_to_database()
-        # Смотрим сколько народу пострадало:
-        battle.print_battle_statistics()
     except KeyboardInterrupt:
         #traceback.print_exc()
         battle.print_battle_statistics()
