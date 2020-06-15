@@ -849,11 +849,12 @@ class battle_simulation(battlescape):
                 if commander.class_features.get('Feat_Sharpshooter'):
                     commands_list.append('volley')
                 if 'engage' in commands_list:
-                    commands_list.remove('engage')
                     commands_list.append('disengage')
+                    commands_list.remove('engage')
                 if squad.enemies and squad.enemy_recon['distance'] <= save_distance * 3:
-                    commands_list.remove('lead')
                     commands_list.append('dodge')
+                    if 'lead' in commands_list:
+                        commands_list.remove('lead')
             # Бойцы у нас кавалерия:
             #if commander.char_class == 'Fighter' or commander.char_class == 'Barbarian':
             #    commands_list.append('fearless')
