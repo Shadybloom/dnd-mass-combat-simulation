@@ -41,7 +41,6 @@ metadict_squads['test (ogres)'] = {
 
 metadict_squads['test enemy (CR 1)'] = {
     'Warrior 3 lvl (враг) (демон Кема\'Эша)':1,
-    'Ogre (CR 2)':1,
     }
 
 metadict_squads['test party (1 lvl)'] = {

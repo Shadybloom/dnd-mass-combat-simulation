@@ -3704,8 +3704,8 @@ metadict_chars['Cleric 1 lvl (war cleric)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        #'Infusion of Healing':1,
-        'Chain Mail':1,
+        'Infusion of Healing':1,
+        'Splint Armor':1,
         'Shield':1,
         'Mace':1,
         },
