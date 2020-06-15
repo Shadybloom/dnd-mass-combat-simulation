@@ -39,6 +39,25 @@ metadict_squads['test (ogres)'] = {
     'Orog (CR 2)':1,
     }
 
+metadict_squads['test enemy (CR 1)'] = {
+    'Warrior 3 lvl (враг) (демон Кема\'Эша)':1,
+    'Ogre (CR 2)':1,
+    }
+
+metadict_squads['test party (1 lvl)'] = {
+    # Тестовая партия для оценки CR:
+    # Воин, клирик, вор и маг:
+        # Боец -- лучник с боевым стилем
+        # Клерик -- "Воодушевляющий лидер" и командир, колдует "Bless"
+        # Рога -- с ножом и арбалетом
+        # Волшебник -- с "Волшебной стрелой"
+    #'Barbarian 1 lvl (thracian slayer-dogface)':1,
+    'Fighter 1 lvl (ArbitraryNickname) (снайпер)':1,
+    'Cleric 1 lvl (war cleric)':1,
+    'Rogue 1 lvl (city cat-nyamo)':1,
+    'Wizard 1 lvl (otherworld mage-disciple)':1,
+    }
+
 #----
 # Друзья (битва за Лемнос):
 

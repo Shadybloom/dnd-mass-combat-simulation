@@ -3669,6 +3669,53 @@ metadict_chars['Bard 5 lvl (otherworld singer-leader)'] = {
     }
 
 #----
+# Жрецы -- домен войны:
+
+metadict_chars['Cleric 1 lvl (war cleric)'] = {
+    'level':1,
+    'char_class':'Cleric-heavy',
+    'hit_dice':'1d8',
+    #'hunter_AI':True,
+    #'killer_AI':True,
+    'behavior':'commander',
+    'class_features':{
+        'Feat_Inspiring_Leader':True,
+        'Spellcasting':True,
+        'Spells':[
+            ('cantrip', 'Mend'),
+            ('cantrip', 'Sacred_Flame'),
+            ('cantrip', 'Spare_the_Dying'),
+            #('cantrip', 'Word_of_Radiance'),
+            ('ritual', 'Detect_Poison_and_Disease'),
+            ('ritual', 'Purify_Food_and_Drink'),
+            #('ritual', 'Detect_Magic'),
+            #('1_lvl', 'Healing_Word'),
+            ('1_lvl', 'Bless'),
+            ('1_lvl', 'Cure_Wounds'),
+            #('1_lvl', 'Guiding_Bolt'),
+            #('1_lvl', 'Shield_of_Faith'),
+            ],
+        'War_Domain':True,
+        'War_Priest':True,
+        },
+    'race':'Human-hero',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        #'Infusion of Healing':1,
+        'Chain Mail':1,
+        'Shield':1,
+        'Mace':1,
+        },
+    #'mount_combat':False,
+    #'mount_type':'Riding Horse',
+    #'equipment_mount':{
+    #    },
+    }
+
+#----
 # Жрецы -- домен жизни:
 
 metadict_chars['Cleric 1 lvl (city maatcarian-acolyte)'] = {
@@ -4200,6 +4247,32 @@ metadict_chars['Cleric 5 lvl (city luminary-reviver)'] = {
 
 #----
 # Воры-котики:
+
+metadict_chars['Rogue 1 lvl (city cat-nyamo)'] = {
+    'level':1,
+    'char_class':'Rogue',
+    'hit_dice':'1d8',
+    'behavior':'elite_warrior',
+    #'Grappler_AI':True,
+    'class_features':{
+        'Feat_Alert':True,
+        'Expertise':True,
+        'Sneak_Attack':True,
+        'Thieves\' Cant':True,
+        },
+    'race':'Cat-hero',
+    'weapon_skill':['simple'],
+    'armor_skill':[],
+    'equipment_supply':{},
+    'equipment_backpack':{},
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Rune of Armor':1,
+        'Crossbow, Light':1,
+        'Crossbow Bolt':60,
+        'Dagger':1,
+        },
+    }
 
 metadict_chars['Rogue 2 lvl (city cat-meow)'] = {
     'level':2,
@@ -6311,8 +6384,6 @@ metadict_chars['Druid 2 lvl (Vaarsuvius) (друид Агата)'] = {
     'fearless_AI':True,
     'hunter_AI':True,
     'killer_AI':True,
-    # Прибытие на таком-то раунде боя:
-    #'arrival':5,
     'class_features':{
         'Feat_Healer':True,
         'Spellcasting':True,
