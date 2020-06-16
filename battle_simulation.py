@@ -355,9 +355,8 @@ class battle_simulation(battlescape):
             if bless_list:
                 #print(bless_type, soldier.rank)
                 soldier.set_hitpoints(bonus_hitpoints = bless_list.pop())
-                #print('{side} Feat_Inspiring_Leader, {p} {b} {n} bonus_hitpoints: {hitpoints}/{hitpoints_max} ({hitpoints_bonus})'.format(
+                #print('{side} Feat_Inspiring_Leader, {b} {n} bonus_hitpoints: {hitpoints}/{hitpoints_max} ({hitpoints_bonus})'.format(
                 #    side = soldier.ally_side,
-                #    p = soldier.place,
                 #    b = soldier.behavior,
                 #    n = soldier.name,
                 #    hitpoints = soldier.hitpoints + soldier.bonus_hitpoints,

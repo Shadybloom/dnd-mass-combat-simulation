@@ -210,6 +210,7 @@ class database():
         sql_query = "SELECT squad_name FROM soldiers"
         squads_list = self.cursor.execute(sql_query).fetchall()
         squads_list = [el[0] for el in set(squads_list)]
+        squads_list = list(sorted(squads_list))
         return squads_list
 
     def print_squad_soldiers(self, squad_name):

@@ -9,7 +9,8 @@ dict_class_abilityes = {
         'Barbarian':['strength','constitution','dexterity','charisma'],
         'Cleric':['wisdom','dexterity','constitution','charisma'],
         'Cleric-heavy':['wisdom','strength','constitution','dexterity'],
-        'Druid':['wisdom','dexterity','constitution','intelligence'],
+        # Друиды Ианты
+        'Druid':['wisdom','dexterity','constitution','intelligence','charisma','strength'],
         'Fighter':['strength','constitution','dexterity','charisma'],
         'Fighter-officer':['strength','charisma','constitution','dexterity'],
         'Eldritch_Knight':['strength','constitution','intelligence','dexterity'],
