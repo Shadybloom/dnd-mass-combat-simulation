@@ -1923,19 +1923,19 @@ class battle_simulation(battlescape):
 
     def channel_action(self, soldier, squad, enemy):
         """Боец использует божественный канал."""
-        if soldier.battle_action:
+        if soldier.battle_action\
+                and soldier.__dict__.get('channel_divinity')\
+                and soldier.channel_divinity > 0:
             enemy_soldier = self.metadict_soldiers[enemy.uuid]
             if soldier.class_features.get('Channel_Dreadful_Aspect')\
-                    and soldier.near_enemies and len(soldier.near_enemies) > 1\
-                    and soldier.channel_divinity > 0:
+                    and soldier.near_enemies and len(soldier.near_enemies) > 1:
                 spell_choice = 'channel', 'Dreadful_Aspect'
                 spell_dict = soldier.spells[spell_choice]
                 spell_dict['spell_choice'] = spell_choice
                 self.fireball_action(soldier, squad, spell_dict, soldier.place, safe = True)
                 soldier.channel_divinity -= 1
             elif soldier.class_features.get('Channel_Radiance_of_the_Dawn')\
-                    and soldier.near_enemies and len(soldier.near_enemies) > 1\
-                    and soldier.channel_divinity > 0:
+                    and soldier.near_enemies and len(soldier.near_enemies) > 1:
                 # TODO: добавь развеивание темноты "Darkness".
                 # Обязательно, потому что Сияние рассвета поражает только видимые цели.
                 spell_choice = 'channel', 'Radiance_of_the_Dawn'
@@ -1943,9 +1943,15 @@ class battle_simulation(battlescape):
                 spell_dict['spell_choice'] = spell_choice
                 self.fireball_action(soldier, squad, spell_dict, soldier.place, safe = True)
                 soldier.channel_divinity -= 1
+            elif soldier.class_features.get('Channel_Sacred_Weapon')\
+                    and not soldier.sacred_weapon:
+                soldier.sacred_weapon = soldier.mods['charisma']
+                soldier.sacred_weapon_timer = 10
+                soldier.channel_divinity -= 1
+                soldier.battle_action = False
+                print('NYA')
             # Жрец домена бури усиливает заклинание до предела:
-            elif soldier.class_features.get('Channel_Destructive_Wrath')\
-                    and soldier.channel_divinity > 0:
+            elif soldier.class_features.get('Channel_Destructive_Wrath'):
                 soldier.destructive_wrath = True
                 self.fireball_action(soldier, squad)
                 soldier.channel_divinity -= 1

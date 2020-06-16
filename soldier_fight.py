@@ -255,20 +255,9 @@ class soldier_in_battle(soldier):
                     else:
                         self.spellslots['1_lvl'] = 1
                         self.sorcery_points -= 2
-        # Используем предметы перед боем:
-        # TODO: некрасиво сделано. Но в soldier_base переносить не хочется.
-        # Вообще, можно считать "Infusion of Claws" оружием и использовать базовый метод.
-        #if self.equipment_weapon.get('Infusion of Claws'):
-        #    self.equipment_weapon['Infusion of Claws'] -= 1
-        #    dict_attack = copy.deepcopy(self.metadict_items['Infusion of Claws'])
-        #    dict_attack['attack_range'] = 5
-        #    dict_attack['attack_type'] = 'close'
-        #    dict_attack.update(self.select_attack_mod(dict_attack))
-        #    dict_attack.update(self.attack_modify_features(dict_attack))
-        #    self.attacks['close','claws'] = dict_attack
-        #    self.attacks.update(self.modify_attacks())
-        #    print(self.attacks)
         # Используем заклинания перед боем:
+        # TODO: перенеси это в отдельную функцию.
+        # Нужно сочетать с командами вроде "spellcast" и "channel"
         if hasattr(self, 'spells'):
             for spell, spell_dict in self.spells.items():
                 if spell_dict.get('armor') and not self.armor['armor_use']:
@@ -285,12 +274,6 @@ class soldier_in_battle(soldier):
                     self.blur = True
                     self.blur_timer = 10
                     self.concentration = True
-                    break
-                if spell_dict.get('effect') is 'sacred_weapon' and not self.sacred_weapon:
-                    #self.spells_generator.use_spell(spell)
-                    self.sacred_weapon = spell_dict['attack_mod']
-                    self.sacred_weapon_timer = spell_dict['effect_timer']
-                    self.channel_divinity -= 1
                     break
                 # TODO: Из-за этих break применяется только одно заклинание из доступных.
                 # Лучше учитывай концентрацию.
