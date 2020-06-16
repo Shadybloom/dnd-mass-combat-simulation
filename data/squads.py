@@ -104,8 +104,19 @@ metadict_squads['Company-regular (лучники Энзифа) (враг)'] = {
     'Warrior 4 lvl (sqythian bowman-lieutenant)':1,
     }
 
+metadict_squads['Band-hero (паладины Магора) (враг)'] = {
+    'Paladin 5 lvl (враг) (Магор «Детоед»)':1,
+    'Paladin 1 lvl (враг) (паладин Магора)':6,
+    }
+
 #----
 # Геройские отряды (армия Гая Юлия):
+
+metadict_squads['Company-militia (гастаты Гая Юлия) (Katorjnik)'] = {
+    'Commoner 1 lvl (militia spearman)':95,
+    'Commoner 2 lvl (militia spearman-corporal)':5,
+    'Warrior 3 lvl (militia spearman-sergeant)':1,
+    }
 
 metadict_squads['Company-regular (легионеры Гая Юлия) (Katorjnik)'] = {
     'Warrior 1 lvl (Katorjnik) (манипуларий)':80,

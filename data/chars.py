@@ -7584,6 +7584,107 @@ metadict_chars['Ranger 5 lvl (враг) (Энзиф «Ходи-гора»)'] = {
     }
 
 #----
+# Злодеи (герои) (Магор):
+
+metadict_chars['Paladin 1 lvl (враг) (паладин Магора)'] = {
+    'level':1,
+    'char_class':'Paladin',
+    'hit_dice':'1d10',
+    'behavior':'elite_warrior',
+    'class_features':{
+        'Feat_Tough':True,
+        'Feat_Heavy_Armor_Master':True,
+        'Ability_Score_Improvement':{
+            'strength':+1,
+            },
+        'Divine_Sense':True,
+        'Lay_on_Hands':True,
+        },
+    'race':'Human-hero-big',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Splint Armor':1,
+        'Heavy Shield':1,
+        'Flait':1,
+        'Long Spear':1,
+        },
+    #'mount_combat':False,
+    #'mount_type':'Riding Horse',
+    #'equipment_mount':{
+    #    },
+    }
+
+metadict_chars['Paladin 5 lvl (враг) (Магор «Детоед»)'] = {
+    'level':5,
+    'char_class':'Paladin',
+    'hit_dice':'1d10',
+    'behavior':'commander',
+    'hitpoints_medial':True,
+    'abilityes':{
+        'strength':18,
+        'dexterity':10,
+        'constitution':18,
+        'intelligence':10,
+        'wisdom':12,
+        'charisma':18,
+        },
+    'class_features':{
+        # TODO: Сделай Feat_Shield_Master.
+        'Feat_Tough':True,
+        'Feat_Inspiring_Leader':True,
+        'Feat_Heavy_Armor_Master':True,
+        'Ability_Score_Improvement':{
+            'strength':+1,
+            },
+        'Divine_Sense':True,
+        'Lay_on_Hands':True,
+        'Fighting_Style_Defence':True,
+        'Divine_Smite':True,
+        'Spellcasting':True,
+        'Spells':[
+            ('channel', 'Sacred_Weapon'),
+            ('1_lvl', 'Divine_Smite'),
+            ('2_lvl', 'Divine_Smite'),
+            ('1_lvl', 'Bless'),
+            ('1_lvl', 'Heroism'),
+            ('1_lvl', 'Shield_of_Faith'),
+            ('1_lvl', 'Protection_from_Evil_and_Good'),
+            ('1_lvl', 'Sanctuary'),
+            ('1_lvl', 'Command'),
+            ('2_lvl', 'Lesser_Restoration'),
+            ('2_lvl', 'Zone_of_Truth'),
+            ('2_lvl', 'Find_Steed'),
+            ],
+        'Divine_Health':True,
+        'Oath_of_Devotion':True,
+        'Channel_Turn_The_Unholy':True,
+        'Channel_Sacred_Weapon':True,
+        'Extra_Attack':True,
+        },
+    'race':'Human-hero-big',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Rune of Absorbtion':2,
+        'Splint Armor':1,
+        'Heavy Shield':1,
+        'Flait +1':1,
+        'Long Spear':1,
+        },
+    #'mount_combat':False,
+    #'mount_type':'Riding Horse',
+    #'equipment_mount':{
+    #    },
+    }
+
+#----
 # Злодеи (армии) (демоны Кема'Эша):
 
 metadict_chars['Commoner 1 lvl (враг) (карл)'] = {

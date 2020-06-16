@@ -1233,6 +1233,27 @@ metadict_items['Longsword +1'] = {
     'cost (grams_of_gold)':600,
     }
 
+metadict_items['Battleaxe +1'] = {
+    'weapon':True,
+    'weapon_type':['martial','close','versatile','magic','+1'],
+    'damage_type':'slashing',
+    'damage_dice':'1d8',
+    'damage_dice_versatile':'1d10',
+    'weight (lb)':4,
+    'cost (gp)':600,
+    'cost (grams_of_gold)':600,
+    }
+
+metadict_items['Flait +1'] = {
+    'weapon':True,
+    'weapon_type':['martial','close','magic','+1'],
+    'damage_type':'bludgeoning',
+    'damage_dice':'1d8',
+    'weight (lb)':2,
+    'cost (gp)':600,
+    'cost (grams_of_gold)':600,
+    }
+
 metadict_items['Greatsword +1'] = {
     'weapon':True,
     #'shield_breaker':True,
