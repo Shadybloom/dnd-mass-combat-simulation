@@ -1220,11 +1220,11 @@ class soldier_in_battle(soldier):
             # Без приказа только заклинания 1 круга:
             if int(spell_slot[0]) < 2 or 'fireball' in self.commands:
                 if distance >= 2 and spell_slot in [attack[0] for attack in self.spells]:
-                    spell_attack = [attack for attack in self.spells if attack[0] == spell_slot
+                    spell_attack_list = [attack for attack in self.spells if attack[0] == spell_slot
                             and attack[1] == self.spells[attack]['spell_of_choice']]
-                    if spell_attack:
-                        # TODO: лучше используй random.choice
-                        spell_attack = spell_attack[0]
+                    if spell_attack_list:
+                        print(spell_attack_list)
+                        spell_attack = random.choice(spell_attack_list)
                         if distance <= round(self.spells[spell_attack]['attack_range'] / tile_size):
                             #print(spell_attack, self.rank, self.spellslots)
                             return spell_attack
