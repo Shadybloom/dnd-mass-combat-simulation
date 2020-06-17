@@ -198,6 +198,21 @@ metadict_items['Crossbow, Light'] = {
     'shoot_range_max':320,
     'weight (lb)':5,
     'cost (gp)':25,
+    'cost (grams_of_gold)':30,
+    }
+
+metadict_items['Crossbow, Heavy'] = {
+    # Скорпион. Считается простым оружием. Станковый, потому очень тяжёлый.
+    'weapon':True,
+    'loading':True,
+    'ammo_type':'Crossbow Bolt',
+    'weapon_type':['simple','ranged','volley','two_handed','heavy'],
+    'damage_type':'piercing',
+    'damage_dice':'1d8',
+    'shoot_range':100,
+    'shoot_range_max':600,
+    'weight (lb)':28,
+    'cost (gp)':50,
     'cost (grams_of_gold)':50,
     }
 
@@ -424,21 +439,6 @@ metadict_items['Shortsword'] = {
 
 #----
 # Martial Ranged Weapons
-
-metadict_items['Crossbow, Heavy'] = {
-    # Скорпион.
-    'weapon':True,
-    'loading':True,
-    'ammo_type':'Crossbow Bolt',
-    'weapon_type':['martial','ranged','volley','two_handed','heavy'],
-    'damage_type':'piercing',
-    'damage_dice':'1d8',
-    'shoot_range':100,
-    'shoot_range_max':400,
-    'weight (lb)':18,
-    'cost (gp)':50,
-    'cost (grams_of_gold)':100,
-    }
 
 metadict_items['Longbow'] = {
     # TODO: урон 1d6, потому что иначе лучники просто уничтожают.

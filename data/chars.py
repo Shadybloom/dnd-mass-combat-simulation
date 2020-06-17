@@ -562,6 +562,94 @@ metadict_chars['Warrior 4 lvl (militia crossbowman-lieutenant)'] = {
     #    },
     }
 
+metadict_chars['Commoner 1 lvl (militia heavy crossbowman)'] = {
+    # Арбалетчики. "Скорпионы"
+    'level':1,
+    'char_class':'Commoner',
+    'behavior':'archer',
+    'hit_dice':'1d8',
+    'race':'Human-common',
+    'weapon_skill':['simple'],
+    'armor_skill':['light','medium','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':militia_pack,
+    'equipment_weapon':{
+        'Dagger':1,
+        'Crossbow, Heavy':1,
+        'Crossbow Bolt':60,
+        },
+    }
+
+metadict_chars['Commoner 2 lvl (militia heavy crossbowman-corporal)'] = {
+    'level':2,
+    'char_class':'Commoner',
+    'behavior':'archer',
+    'hit_dice':'1d8',
+    'race':'Human-common',
+    'weapon_skill':['simple'],
+    'armor_skill':['light','medium','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Dagger':1,
+        'Crossbow, Heavy':1,
+        'Crossbow Bolt':60,
+        },
+    }
+
+metadict_chars['Warrior 3 lvl (militia heavy crossbowman-sergeant)'] = {
+    'level':3,
+    'char_class':'Warrior-bowman',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        #'Fighting_Style_Archery':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Breastplate':1,
+        'Shortsword':1,
+        'Crossbow, Heavy':1,
+        'Crossbow Bolt':60,
+        },
+    }
+
+metadict_chars['Warrior 4 lvl (militia heavy crossbowman-lieutenant)'] = {
+    # Лучший стрелок. Командует бойцами, направляя град стрел.
+    # Азимут такой-то, угол стрельбы такой-то. Всё на личном примере.
+    'level':4,
+    'char_class':'Warrior-bowman',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        #'Fighting_Style_Archery':True,
+        'Feat_Sharpshooter':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Rune of Absorbtion':1,
+        'Breastplate':1,
+        'Shortsword':1,
+        'Crossbow, Heavy':1,
+        'Crossbow Bolt':60,
+        },
+    #'mount_combat':False,
+    #'mount_type':'Riding Horse',
+    #'equipment_mount':{
+    #    #'Arrow':60,
+    #    },
+    }
+
 
 #----
 # Городское ополчение (отборные и неплохо вооружённые гоплиты)

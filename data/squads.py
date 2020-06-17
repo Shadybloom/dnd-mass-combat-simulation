@@ -278,6 +278,13 @@ metadict_squads['Company-militia (crossbowmans)'] = {
     #'Warrior 4 lvl (militia crossbowman-lieutenant)':1,
     }
 
+metadict_squads['Company-militia (heavy crossbowmans)'] = {
+    'Commoner 1 lvl (militia heavy crossbowman)':80 + dice_throw('3d12'),
+    'Commoner 2 lvl (militia heavy crossbowman-corporal)':5,
+    'Warrior 3 lvl (militia heavy crossbowman-sergeant)':1,
+    #'Warrior 4 lvl (militia heavy crossbowman-lieutenant)':1,
+    }
+
 #----
 # Рекруты:
 
