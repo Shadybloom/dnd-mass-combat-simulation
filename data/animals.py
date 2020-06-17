@@ -131,7 +131,6 @@ metadict_animals['Brown Bear (CR 1)'] = {
         },
     'hit_dice':'1d10',
     'attacks':{
-        # TODO допиливай атаки
         ('close', 'claws'): {
             'attack_mod':5,
             'damage_mod':4,
@@ -144,6 +143,18 @@ metadict_animals['Brown Bear (CR 1)'] = {
             'weapon_skills_use': ['simple'],
             'attack_mod_type':'strength',
             'weapon_of_choice':'claws'},
+        ('close', 'bite'): {
+            'attack_mod':5,
+            'damage_mod':4,
+            'weapon': False,
+            'weapon_type':['simple'],
+            'damage_type':'piercing',
+            'damage_dice':'1d8',
+            'attack_range':5,
+            'attack_type':'close',
+            'weapon_skills_use': ['simple'],
+            'attack_mod_type':'strength',
+            'weapon_of_choice':'bite'},
         },
     'race':'Bear',
     'weapon_skill':[],
