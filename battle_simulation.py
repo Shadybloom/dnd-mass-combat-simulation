@@ -785,12 +785,14 @@ class battle_simulation(battlescape):
                 commands_list = ['lead','follow']
                 commands_list.append('attack')
                 commands_list.append('spellcast')
+                commands_list.append('runes')
                 #commands_list.append('fireball')
             elif squad.enemy_recon['distance'] <= save_distance:
                 commands_list = ['lead','follow','engage']
                 commands_list.append('attack')
                 commands_list.append('spellcast')
                 commands_list.append('channel')
+                commands_list.append('runes')
             # Оцениваем опасность зональных заклинаний. Например Spirit_Guardians:
             if squad.enemy_recon['danger_places']:
                 danger_places = squad.enemy_recon['danger_places']

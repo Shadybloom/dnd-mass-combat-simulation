@@ -151,6 +151,8 @@ class soldier_in_battle(soldier):
             self.arcane_ward = False
         if not hasattr(self, 'mage_armor'):
             self.mage_armor = False
+        if not hasattr(self, 'heroism'):
+            self.heroism = False
         if not hasattr(self, 'shield_of_faith'):
             self.shield_of_faith = False
         if not hasattr(self, 'blur'):
@@ -256,8 +258,8 @@ class soldier_in_battle(soldier):
                         self.spellslots['1_lvl'] = 1
                         self.sorcery_points -= 2
         # Используем заклинания перед боем:
-        # TODO: перенеси это в отдельную функцию.
-        # Нужно сочетать с командами вроде "spellcast" и "channel"
+        # TODO: перенеси это в отдельную функцию, чтобы сочетать с командами вроде "spellcast" и "channel"
+        # Очевидно, функция должна исполняться, когда командиром уже выбраны команды отряду.
         if hasattr(self, 'spells'):
             for spell, spell_dict in self.spells.items():
                 if spell_dict.get('armor') and not self.armor['armor_use']:
@@ -1223,7 +1225,6 @@ class soldier_in_battle(soldier):
                     spell_attack_list = [attack for attack in self.spells if attack[0] == spell_slot
                             and attack[1] == self.spells[attack]['spell_of_choice']]
                     if spell_attack_list:
-                        print(spell_attack_list)
                         spell_attack = random.choice(spell_attack_list)
                         if distance <= round(self.spells[spell_attack]['attack_range'] / tile_size):
                             #print(spell_attack, self.rank, self.spellslots)
@@ -1552,7 +1553,10 @@ class soldier_in_battle(soldier):
         attack_dict['savethrow_bonus'] = savethrow_bonus
         # TODO: в отдельную функцию:
         # Реакцией срабатывает волшебный щит.
-        if self.equipment_weapon.get('Rune of Shielding') and self.reaction == True and not self.shield:
+        if 'runes' in self.commands\
+                and self.equipment_weapon.get('Rune of Shielding')\
+                and self.reaction == True\
+                and not self.shield:
             if attack_dict.get('attack') and attack_dict['attack'] > armor_class\
                     or attack_choice[-1] == 'Magic_Missile':
                 self.equipment_weapon['Rune of Shielding'] -= 1
@@ -1728,7 +1732,9 @@ class soldier_in_battle(soldier):
             damage = round(damage * 0.5)
         # Homebrew, руна с Absorb_Elements:
         if not attack_dict['damage_type'] in self.resistance:
-            if self.equipment_weapon.get('Rune of Absorbtion') and self.reaction == True:
+            if 'runes' in self.commands\
+                    and self.equipment_weapon.get('Rune of Absorbtion')\
+                    and self.reaction == True:
                 absorb_list = self.metadict_items['Rune of Absorbtion']['absorb_damage_type']
                 if attack_dict['damage_type'] in absorb_list:
                     self.reaction = False
