@@ -1000,7 +1000,13 @@ class soldier():
             dict_attack.update(self.attack_modify_features(dict_attack))
             dict_attack.update(self.attack_modify_magic(dict_attack))
             metadict_attacks[attack_name] = dict_attack
-            metadict_attacks[attack_name]['weapon_of_choice'] = self.find_weapon_of_choice(attack_name[0])
+            # Укзаываем оптимальное оружие только для атак оружием.
+            # Выбор природных атак рандомный, либо указан в самих атаках.
+            if dict_attack.get('weapon') == True:
+                metadict_attacks[attack_name]['weapon_of_choice']\
+                        = self.find_weapon_of_choice(attack_name[0])
+            elif not 'weapon_of_choice' in dict_attack:
+                metadict_attacks[attack_name]['weapon_of_choice'] = None
         return metadict_attacks
 
     def attack_modify_features(self, dict_attack):

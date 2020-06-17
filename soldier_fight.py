@@ -1181,16 +1181,19 @@ class soldier_in_battle(soldier):
         # Но выбирает он ту, в которой оружие дороже, или навыков к нему больше.
         # ------------------------------------------------------------
         if distance <= 1 and 'close' in [attack[0] for attack in self.attacks]:
-            close_attack = [attack for attack in self.attacks if attack[0] == 'close'
-                    and attack[1] == self.attacks[attack]['weapon_of_choice']][0]
+            close_attack_list = [attack for attack in self.attacks if attack[0] == 'close'
+                    and attack[1] == self.attacks[attack]['weapon_of_choice']]
+            close_attack = random.choice(close_attack_list)
             return close_attack
         if distance <= 2 and 'reach' in [attack[0] for attack in self.attacks]:
-            reach_attack = [attack for attack in self.attacks if attack[0] == 'reach'
-                    and attack[1] == self.attacks[attack]['weapon_of_choice']][0]
+            reach_attack_list = [attack for attack in self.attacks if attack[0] == 'reach'
+                    and attack[1] == self.attacks[attack]['weapon_of_choice']]
+            reach_attack = random.choice(reach_attack_list)
             return reach_attack
         if distance >= 2 and 'throw' in [attack[0] for attack in self.attacks]:
-            throw_attack = [attack for attack in self.attacks if attack[0] == 'throw'
-                    and attack[1] == self.attacks[attack]['weapon_of_choice']][0]
+            throw_attack_list = [attack for attack in self.attacks if attack[0] == 'throw'
+                    and attack[1] == self.attacks[attack]['weapon_of_choice']]
+            throw_attack = random.choice(throw_attack_list)
             # Метатли дротиков работают с максимальной дистанции:
             if self.behavior == 'archer'\
                     and distance <= round(self.attacks[throw_attack]['attack_range_max'] / tile_size):
@@ -1200,8 +1203,9 @@ class soldier_in_battle(soldier):
                     and distance <= round(self.attacks[throw_attack]['attack_range'] / tile_size):
                 return throw_attack
         if distance >= 2 and 'ranged' in [attack[0] for attack in self.attacks]:
-            ranged_attack = [attack for attack in self.attacks if attack[0] == 'ranged'
-                    and attack[1] == self.attacks[attack]['weapon_of_choice']][0]
+            ranged_attack_list = [attack for attack in self.attacks if attack[0] == 'ranged'
+                    and attack[1] == self.attacks[attack]['weapon_of_choice']]
+            ranged_attack = random.choice(ranged_attack_list)
             if distance <= round(self.attacks[ranged_attack]['attack_range_max'] / tile_size):
                 return ranged_attack
 
