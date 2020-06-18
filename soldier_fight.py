@@ -1217,8 +1217,9 @@ class soldier_in_battle(soldier):
         if distance <= 1 and 'close' in [attack[0] for attack in self.attacks]:
             close_attack_list = [attack for attack in self.attacks if attack[0] == 'close'
                     and attack[1] == self.attacks[attack]['weapon_of_choice']]
-            close_attack = random.choice(close_attack_list)
-            return close_attack
+            if close_attack_list:
+                close_attack = random.choice(close_attack_list)
+                return close_attack
         if distance <= 2 and 'reach' in [attack[0] for attack in self.attacks]:
             reach_attack_list = [attack for attack in self.attacks if attack[0] == 'reach'
                     and attack[1] == self.attacks[attack]['weapon_of_choice']]
