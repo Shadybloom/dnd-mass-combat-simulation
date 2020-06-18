@@ -864,18 +864,26 @@ class soldier_in_battle(soldier):
             else:
                 return False
 
-    def use_potion_of_healing(self):
+    def use_potion_of_healing(self, use_battle_action = True):
         """Боец использует зелье лечения.
         
         Лечение равно костям хитов бойца. Для варвара 5 lvl это 5d12, в среднем 30 hp.
         """
-        # TODO: есть мнение, что лечение слишком сильное.
+        # TODO: есть мнение, что лечение эссенцией слишком сильное.
         # Варвар с x3 лечилками восстанавливает аж 90 хитов.
         # Когда паладин с его Lay_on_Hands получает всего 25 хитов.
-        if self.equipment_weapon.get('Infusion of Healing'):
-            if self.equipment_weapon['Infusion of Healing'] > 0 and self.battle_action:
+        if self.battle_action or use_battle_action == False:
+            if self.equipment_weapon.get('Infusion of Healing') > 0:
                 self.equipment_weapon['Infusion of Healing'] -= 1
                 potion_heal = round(sum([dices.dice_throw(self.hit_dice) for x in range(self.level)]))
+                self.set_hitpoints(heal = potion_heal)
+                self.battle_action = False
+                print('{0} {1} {2} heal (potion): {3}'.format(
+                    self.ally_side, self.place, self.behavior, potion_heal))
+                return True
+            elif self.equipment_weapon.get('Goodberry') > 0:
+                self.equipment_weapon['Goodberry'] -= 1
+                potion_heal = 1
                 self.set_hitpoints(heal = potion_heal)
                 self.battle_action = False
                 print('{0} {1} {2} heal (potion): {3}'.format(
@@ -903,16 +911,22 @@ class soldier_in_battle(soldier):
         """Боец пытается оказать первую помощь раненому.
         
         https://www.dandwiki.com/wiki/5e_SRD:Dropping_to_0_Hit_Points#Stabilizing_a_Creature
+        - Добряника обнуляет сложность стабилизации, потому что стабилизирует даже +1 hp.
         """
         # TODO: лучше сделай поиск предмета по эффекту "healing".
-        # Также учти Feat_Healer, что даёт автоматический успех.
+        # potion_heal бери из словаря Goodberry.
         self.help_action = True
-        if self.equipment_weapon.get('Goodberry') and self.equipment_weapon['Goodberry'] > 0:
-            # TODO: potion_heal бери из словаря Goodberry.
-            stabilizing_difficul = 0
-            self.equipment_weapon['Goodberry'] -= 1
+        if injured_ally.equipment_weapon.get('Goodberry')\
+                and injured_ally.equipment_weapon['Goodberry'] > 0:
+            injured_ally.equipment_weapon['Goodberry'] -= 1
             potion_heal = 1
             injured_ally.set_hitpoints(heal = potion_heal)
+            stabilizing_difficul = 0
+            print('{0} {1} {2} (help_action) >> {3}, {4}, {5} heal (potion): {6}'.format(
+                self.ally_side, self.place, self.behavior,
+                injured_ally.ally_side, injured_ally.place, injured_ally.behavior,
+                potion_heal))
+        # TODO: Учти Feat_Healer, что даёт автоматический успех стабилизации. И набор лекаря.
         stabilizing_throw = dices.dice_throw_advantage('1d20', advantage, disadvantage)\
                 + self.saves['wisdom']
         if stabilizing_throw >= stabilizing_difficul:

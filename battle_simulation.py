@@ -838,7 +838,7 @@ class battle_simulation(battlescape):
             # TODO: disengage использует squad.enemy_recon.
             # А разведка противника не обновляется без командира.
             #commands_list = ['disengage','dodge','attack']
-            commands_list = ['retreat']
+            commands_list = ['retreat', 'rescue']
         if squad.commander:
             # Плохие командиры плохо поддерживают строй:
             if squad.commander.level < 5:
@@ -926,7 +926,8 @@ class battle_simulation(battlescape):
                 soldier.set_second_wind()
             elif soldier.lay_on_hands:
                 soldier.set_lay_of_hands()
-            elif soldier.equipment_weapon.get('Infusion of Healing'):
+            elif soldier.equipment_weapon.get('Infusion of Healing')\
+                    or soldier.equipment_weapon.get('Goodberry'):
                 soldier.use_potion_of_healing()
         # Солдат отступает, если опасность слишком велика:
         if soldier.danger > self.engage_danger or 'retreat' in soldier.commands:
@@ -1967,7 +1968,6 @@ class battle_simulation(battlescape):
                 soldier.sacred_weapon_timer = 10
                 soldier.channel_divinity -= 1
                 soldier.battle_action = False
-                print('NYA')
             # Жрец домена бури усиливает заклинание до предела:
             elif soldier.class_features.get('Channel_Destructive_Wrath'):
                 soldier.destructive_wrath = True
@@ -2426,7 +2426,7 @@ class battle_simulation(battlescape):
         for soldier in squad.metadict_soldiers.values():
             # Спящего от заклинания Sleep разбудят (или сам проснётся)
             if soldier.sleep and not soldier.captured:
-                self.rescue(soldier)
+                self.rescue(soldier, squad)
                 soldier.sleep_timer -= 1
                 if soldier.sleep_timer <= 0:
                     soldier.sleep = False
@@ -2434,12 +2434,16 @@ class battle_simulation(battlescape):
             if soldier.hitpoints <= 0 and not soldier.death and not soldier.stable:
                 soldier.set_death()
             if soldier.hitpoints <= 0 and not soldier.death and not soldier.stable:
-                if hasattr(squad, 'commands') and 'rescue' in soldier.commands:
-                    self.rescue(soldier)
+                if hasattr(squad, 'commands') and 'rescue' in squad.commands:
+                    self.rescue(soldier, squad)
                     if not soldier.stable and soldier.level > 1 and soldier.death_save_loss >= 1:
                         self.rescue_magic(soldier)
+            # Офицеров лечат эссенциями и добряникой:
+            elif soldier.hitpoints <= 0 and soldier.stable and soldier.level >= 3:
+                if hasattr(squad, 'commands') and 'rescue' in squad.commands:
+                    self.rescue(soldier, squad)
 
-    def rescue(self, soldier):
+    def rescue(self, soldier, squad):
         """Товарищи стабилизируют тяжелораненых и будят спящих.
         
         Как это работает:
@@ -2449,32 +2453,39 @@ class battle_simulation(battlescape):
         """
         # Раненого можно вытащить, если он не схвачен:
         if not soldier.grappled and not soldier.behavior == 'mount':
-            recon_near = self.recon(soldier.place, distance = 1)
-            soldier.set_near_allies(recon_near)
+            self.recon_action(soldier, squad)
             for ally in soldier.near_allies:
                 ally_soldier = self.metadict_soldiers[ally.uuid]
                 if len(ally_soldier.near_enemies) <= 1\
                         and not ally_soldier.hitpoints <= 0\
                         and not ally_soldier.uuid == soldier.uuid\
-                        and not ally_soldier.escape and not ally_soldier.sleep\
-                        and not soldier.place == ally_soldier.place\
-                        and 'fall_place' in self.dict_battlespace[soldier.place]\
-                        and soldier.ally_side in self.dict_battlespace[soldier.place]:
-                    self.dict_battlespace[soldier.place].remove('fall_place')
-                    self.dict_battlespace[soldier.place].remove(soldier.ally_side)
-                    self.change_place(soldier.place, ally_soldier.place, soldier.uuid)
-                    soldier.captured = False
+                        and not ally_soldier.escape and not ally_soldier.sleep:
+                    # Если рядом враги, раненого вытаскивают из боя:
+                    if len(soldier.near_enemies) > 0:
+                        if 'fall_place' in self.dict_battlespace[soldier.place]\
+                                and not soldier.place == ally_soldier.place\
+                                and soldier.ally_side in self.dict_battlespace[soldier.place]:
+                            self.dict_battlespace[soldier.place].remove('fall_place')
+                            self.dict_battlespace[soldier.place].remove(soldier.ally_side)
+                        self.change_place(soldier.place, ally_soldier.place, soldier.uuid)
                     if soldier.sleep:
                         soldier.sleep_timer = 0
                         soldier.sleep = False
                         break
-                    # Только одна попытка первой помощи за ход:
-                    elif ally_soldier.first_aid(soldier):
-                        soldier.stable = True
+                    elif soldier.captured:
+                        soldier.captured = False
                         break
+                    # Только одна попытка первой помощи за ход:
                     else:
-                        self.dict_battlespace[soldier.place].append('fall_place')
-                        self.dict_battlespace[soldier.place].append(soldier.ally_side)
+                        if not soldier.stable:
+                            soldier.stable = ally_soldier.first_aid(soldier)
+                        elif soldier.stable and soldier.hitpoints <= 0:
+                            ally_soldier.first_aid(soldier)
+                        if not soldier.stable\
+                                and not 'fall_place' in self.dict_battlespace[soldier.place]:
+                            self.dict_battlespace[soldier.place].append('fall_place')
+                            self.dict_battlespace[soldier.place].append(soldier.ally_side)
+                        soldier.stable = True
                         break
 
     def rescue_magic(self, soldier):
