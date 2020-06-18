@@ -146,7 +146,6 @@ class soldier_in_battle(soldier):
         self.fear = False
         self.mockery = False
         self.sleep = False
-        self.wild_shape = False
         self.damage_absorbed = None
         self.bardic_inspiration = None
         # Концентрация на заклинаниях:
@@ -165,6 +164,10 @@ class soldier_in_battle(soldier):
         self.second_wind = False
         self.lay_on_hands = 0
         self.shield = False
+        if not hasattr(self, 'wild_shape'):
+            self.wild_shape = False
+        if not hasattr(self, 'wild_shape_old_form'):
+            self.wild_shape_old_form = None
         if not hasattr(self, 'arcane_ward'):
             self.arcane_ward = False
         if not hasattr(self, 'mage_armor'):
