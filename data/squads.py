@@ -145,8 +145,13 @@ metadict_squads['Band-hero (жрецы Фарама) (Mordodrukow)'] = {
     'Cleric 5 lvl (Mordodrukow) (Фарам «Друг Богов»)':1,
     'Cleric 2 lvl (Mordodrukow) (жрец Зевса) (боевой)':2,
     'Cleric 2 lvl (Mordodrukow) (жрец Зевса) (лекарь)':2,
-    'Fighter 5 lvl (Mordodrukow) (Лонгин)':1,
+    #'Fighter 5 lvl (Mordodrukow) (Лонгин)':1,
     'Fighter 2 lvl (Mordodrukow) (темплар Зевса)':2,
+    }
+
+metadict_squads['Band-hero (снайпер Лонгин) (Mordodrukow)'] = {
+    # Отдельно от команды Фарама:
+    'Fighter 5 lvl (Mordodrukow) (Лонгин)':1,
     }
 
 #----
