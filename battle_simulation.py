@@ -2377,7 +2377,8 @@ class battle_simulation(battlescape):
     def find_spawn(self, soldier_coordinates, side, random_range = 10):
         """Если боец не видит врага, то по крайней мере знает примерное направление.
         
-        Он выбирает случайную точку спавна врага в диапазоне дистанций и следует к ней.
+        - Он выбирает случайную точку спавна врага в диапазоне дистанций и следует к ней.
+        - Если не находит, то возвращает координаты самого бойца.
         """
         coord_dict = {}
         for el in self.spawn_list:
@@ -2387,10 +2388,13 @@ class battle_simulation(battlescape):
         coord_dict = OrderedDict(sorted(coord_dict.items(),key=lambda x: x[1]))
         if len(coord_dict) < random_range:
             random_range = len(coord_dict)
-        key_number = random.randrange(0, int(len(coord_dict) / random_range))
-        for n, key in enumerate(coord_dict.keys()):
-            if n == key_number:
-                return key
+        if len(coord_dict) > 0:
+            key_number = random.randrange(0, int(len(coord_dict) / random_range))
+            for n, key in enumerate(coord_dict.keys()):
+                if n == key_number:
+                    return key
+        else:
+            return soldier_coordinates
 
     def set_squad_experience(self, squad, enemy_soldier):
         """Отряд получает опыт за победу над врагом.
