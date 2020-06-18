@@ -184,26 +184,30 @@ metadict_squads['Band-hero (паладины Протесилая) (Тзаанг
 metadict_squads['Company-militia (охотницы Ианты) (Vaarsuvius)'] = {
     'Commoner 1 lvl (Vaarsuvius) (охотница)':95,
     'Commoner 2 lvl (Vaarsuvius) (охотница-ветеран)':5,
-    'Warrior 3 lvl (Vaarsuvius) (меткий стрелок)':1,
+    'Warrior 3 lvl (Vaarsuvius) (меткий стрелок-отставник)':1,
     }
 
 metadict_squads['Company-militia (дикарки Ианты) (Vaarsuvius)'] = {
     'Commoner 1 lvl (Vaarsuvius) (дикарка)':95,
     'Commoner 2 lvl (Vaarsuvius) (дикарка-ветеран)':5,
-    'Warrior 3 lvl (Vaarsuvius) (меткий стрелок)':1,
+    'Warrior 3 lvl (Vaarsuvius) (меткий стрелок-отставник)':1,
     }
 
 metadict_squads['Company-militia (токсотаи Ианты) (Vaarsuvius)'] = {
+    # Ианта отправила лейтенанта в отряд Токсотаев. Стрелками командует сама.
     'Commoner 1 lvl (Vaarsuvius) (токсотай)':95,
     'Commoner 2 lvl (Vaarsuvius) (токсотай-ветеран)':5,
-    'Warrior 3 lvl (Vaarsuvius) (меткий стрелок)':1,
+    'Warrior 3 lvl (Vaarsuvius) (меткий стрелок-отставник)':1,
+    'Warrior 4 lvl (Vaarsuvius) (стрелок-лейтенант)':1,
     }
 
 metadict_squads['Company-regular (стрелки Ианты) (Vaarsuvius)'] = {
+    # Ианта отправила лейтенанта в отряд Токсотаев. Стрелками командует сама.
     'Warrior 1 lvl (Vaarsuvius) (стрелок)':85,
     'Warrior 2 lvl (Vaarsuvius) (стрелок-ветеран)':10,
     'Warrior 3 lvl (Vaarsuvius) (меткий стрелок)':3,
-    'Warrior 4 lvl (Vaarsuvius) (стрелок-лейтенант)':1,
+    'Druid 5 lvl (Vaarsuvius) (Ианта «Дочь бури»)':1,
+    #'Warrior 4 lvl (Vaarsuvius) (стрелок-лейтенант)':1,
     #'Warrior 5 lvl (Vaarsuvius) (стрелок-капитан)':1,
     }
 
@@ -216,8 +220,16 @@ metadict_squads['Company-regular (дочери медведицы Ианты) (V
     }
 
 metadict_squads['Squad-hero (друиды Ианты) (Vaarsuvius)'] = {
-    'Druid 5 lvl (Vaarsuvius) (Ианта «Дочь бури»)':1,
-    'Druid 2 lvl (Vaarsuvius) (друид Артемиды)':12,
+    # TODO: Добавь отряду "осьминожек" командира Психею:
+    # Друидки Ианты:
+        # - Иокаста (с Филлис)
+        # - Мелина (с Фарамом)
+        # - Агата (с Юлием)
+        # - Хлоя (при Ианте)
+        # - Психея (с осьминожками на дне)
+    #'Druid 5 lvl (Vaarsuvius) (Ианта «Дочь бури»)':1,
+    'Druid 2 lvl (Vaarsuvius) (друид Артемиды)':8,
+    #'Druid 2 lvl (Vaarsuvius) (друид Артемиды)':12,
     }
 
 metadict_squads['Squad-hero (друид Агата) (Vaarsuvius)'] = {

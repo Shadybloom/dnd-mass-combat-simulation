@@ -6111,6 +6111,30 @@ metadict_chars['Commoner 2 lvl (Vaarsuvius) (охотница-ветеран)'] 
         },
     }
 
+metadict_chars['Warrior 3 lvl (Vaarsuvius) (меткий стрелок-отставник)'] = {
+    'level':3,
+    'char_class':'Warrior-bowman',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Archery':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Goodberry':30,
+        'Infusion of Healing':1,
+        'Breastplate':1,
+        'Dagger':1,
+        'Shield':1,
+        'Longbow':1,
+        'Arrow':60,
+        },
+    }
+
 metadict_chars['Commoner 1 lvl (Vaarsuvius) (дикарка)'] = {
     'level':1,
     'char_class':'Commoner',
@@ -6342,6 +6366,7 @@ metadict_chars['Warrior 3 lvl (Vaarsuvius) (меткий стрелок)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
+        'Goodberry':30,
         'Infusion of Healing':1,
         'Breastplate':1,
         'Dagger':1,
