@@ -6973,7 +6973,8 @@ metadict_chars['Fighter 2 lvl (Mordodrukow) (темплар Зевса)'] = {
 metadict_chars['Fighter 5 lvl (Mordodrukow) (Лонгин)'] = {
     # Лучник, мастер боевых искусств
     'level':5,
-    'commando':True,
+    'commando_AI':True,
+    'killer_AI':True,
     'char_class':'Battlemaster-archer',
     'hit_dice':'1d10',
     'behavior':'commander',
@@ -7022,7 +7023,7 @@ metadict_chars['Fighter 5 lvl (Mordodrukow) (Лонгин)'] = {
 
 metadict_chars['Cleric 5 lvl (Mordodrukow) (Фарам «Друг Богов»)'] = {
     'level':5,
-    'commando':True,
+    'commando_AI':True,
     'char_class':'Cleric-heavy',
     'hit_dice':'1d8',
     'behavior':'commander',
