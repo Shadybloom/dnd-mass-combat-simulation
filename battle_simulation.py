@@ -855,7 +855,7 @@ class battle_simulation(battlescape):
             if squad.commander.__dict__.get('killer_AI'):
                 commands_list.append('kill')
             # Талант "Идеальное взаимодействие". Свита атакует вражеских командиров:
-            if squad.commander.__dict__.get('commando'):
+            if squad.commander.__dict__.get('commando_AI'):
                 #commands_list.append('seek')
                 commands_list.append('hunt')
             # Лучники и метатели дротиков должны чуть что отступать:
@@ -1595,9 +1595,9 @@ class battle_simulation(battlescape):
                     break
                 # Боец подготавливает атаку:
                 attack_choice = attacks_chain.pop(0)
-                advantage, disadvantage = self.test_enemy_defence(soldier, enemy, attack_choice)
+                advantage, disadvantage = self.test_enemy_defence(soldier, enemy_soldier, attack_choice)
                 if not advantage:
-                    advantage = self.break_enemy_defence(soldier, squad, enemy, attack_choice)
+                    advantage = self.break_enemy_defence(soldier, squad, enemy_soldier, attack_choice)
                 # Вместо атаки можно перейти в рукопашный бой (сбивание с ног, захваты, разоружение):
                 if attack_choice[0] == 'close':
                     if len(soldier.near_allies) > 2\
@@ -1723,6 +1723,10 @@ class battle_simulation(battlescape):
                     if soldier.near_enemies:
                         enemy = random.choice(soldier.near_enemies)
                         enemy_soldier = self.metadict_soldiers[enemy.uuid]
+                    else: 
+                        enemy = self.find_enemy(soldier, squad)
+                        if enemy:
+                            enemy_soldier = self.metadict_soldiers[enemy.uuid]
                 # Обобщаем статистику атак (расход боеприпасов и прочее):
                 self.set_squad_battle_stat(attack_result, squad)
 
@@ -1796,7 +1800,7 @@ class battle_simulation(battlescape):
             soldier.battle_action = False
             while spell_chain:
                 spell_choice = spell_chain.pop(0)
-                advantage, disadvantage = self.test_enemy_defence(soldier, enemy, spell_choice)
+                advantage, disadvantage = self.test_enemy_defence(soldier, enemy_soldier, spell_choice)
                 # Заклинание Word_of_Radiance, избирательно бьющее по врагам вблизи.
                 if spell_dict.get('effect') == 'burst':
                     spell_dict['spell_choice'] = spell_choice
@@ -2097,7 +2101,7 @@ class battle_simulation(battlescape):
                     self.spellcast_action(soldier, squad, enemy,
                             spell_choice = spell_dict['subspell'], subspell = True, use_spell = False)
                 enemy_soldier = self.metadict_soldiers[enemy.uuid]
-                advantage, disadvantage = self.test_enemy_defence(soldier, enemy, spell_choice)
+                advantage, disadvantage = self.test_enemy_defence(soldier, enemy_soldier, spell_choice)
                 attack_dict = soldier.spell_attack(spell_dict, enemy,
                         advantage = advantage, disadvantage = disadvantage)
                 attack_result = enemy_soldier.take_attack(
@@ -2170,7 +2174,7 @@ class battle_simulation(battlescape):
         elif soldier.near_enemies and len(soldier.near_enemies) >= 3:
             return True
 
-    def test_enemy_defence(self, soldier, enemy, attack_choice):
+    def test_enemy_defence(self, soldier, enemy_soldier, attack_choice):
         """Проверяем, есть ли преимущества и помехи в атаке на врага.
        
         Возможные преимущества:
@@ -2183,7 +2187,6 @@ class battle_simulation(battlescape):
         """
         advantage = False
         disadvantage = False
-        enemy_soldier = self.metadict_soldiers[enemy.uuid]
         # Опутанный крайне уязвим:
         if enemy_soldier.restained == True:
             advantage = True
@@ -2246,16 +2249,15 @@ class battle_simulation(battlescape):
         # Жрец домена света может поставить помеху на одиночную атаку (на дистанции до 30 футов):
         elif hasattr(enemy_soldier, 'warding_flare') and enemy_soldier.warding_flare > 0\
                 and enemy_soldier.reaction\
-                and (enemy.distance * self.tile_size) <= 30:
+                and distance_measure(enemy_soldier.place, soldier.place) <= 30 / self.tile_size:
             enemy_soldier.warding_flare -= 1
             enemy_soldier.reaction = False
             disadvantage = True
         return advantage, disadvantage
 
-    def break_enemy_defence(self, soldier, squad, enemy, attack_choice):
+    def break_enemy_defence(self, soldier, squad, enemy_soldier, attack_choice):
         """Проверяем, есть ли преимущества или помехи в атаке на врага."""
         advantage = False
-        enemy_soldier = self.metadict_soldiers[enemy.uuid]
         # Безрассудная атака варвара, преимущество своим, преимущество врагу:
         if attack_choice[0] == 'close' or attack_choice[0] == 'reach'\
                 and soldier.class_features.get('Reckless_Attack'):

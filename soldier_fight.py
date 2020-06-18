@@ -1120,63 +1120,62 @@ class soldier_in_battle(soldier):
         Death Saving Throws:
         https://www.dandwiki.com/wiki/5e_SRD:Dropping_to_0_Hit_Points
         """
-        #self.fall = True
-        if not hasattr(self, 'death_save_success') or not hasattr(self, 'death_save_loss'):
+        if not hasattr(self, 'death_save_success')\
+                and not hasattr(self, 'death_save_loss'):
             self.death_save_loss = 0
             self.death_save_success = 0
-            self.disabled = False
-            self.stable = False
-            self.death = False
-        elif not self.stable == True and not self.death == True:
-            reaper_throw = dices.dice_throw('1d20')
-            # Возвращение друида в обычную форму, если выбыл:
-            if self.wild_shape:
-                self.wild_shape = False
-                self.wild_shape_old_form['hitpoints'] = self.hitpoints
-                self.__dict__.update(copy.deepcopy(self.wild_shape_old_form))
-            # Схваченных легко убить, или взять в плен:
-            if self.grappled and self.enemy_grappler:
-                if 'kill' in self.enemy_grappler.commands:
-                    self.death_save_loss = 3
-                    self.death = True
-                    return('death', self.death)
-                else:
-                    self.death_save_success = 3
-                    self.stable = True
-                    self.captured = True
-                    return('stable', self.stable)
-            # Тролли и прочие с регенерацией стабилизируются сами:
-            if self.class_features.get('Regeneration'):
-                self.death_save_success = 3
-                self.stable = True
-                return('stable', self.stable)
-            # Тяжелейшие ранения, если атака лишь чуть не убила бойца:
-            if self.hitpoints <= -(self.hitpoints_max / 2):
-                self.disabled = True
-                #print('disabled', self.rank, self.hitpoints)
-            # Мгновенная смерть, если атака увела хиты в минусовой максимум:
-            if self.hitpoints <= -(self.hitpoints_max):
+        # Возвращение друида в обычную форму, если выбыл:
+        if self.wild_shape:
+            self.wild_shape = False
+            self.wild_shape_old_form['hitpoints'] = self.hitpoints
+            self.__dict__.update(copy.deepcopy(self.wild_shape_old_form))
+        # Тролли и прочие создания с регенерацией стабилизируются сами:
+        # Их нельзя убить, уведя хиты в минусовой максимум. Только огнём.
+        if self.class_features.get('Regeneration'):
+            self.death_save_success = 3
+            self.stable = True
+            return False
+        # Схваченного легко убить, или взять в плен:
+        if self.grappled and self.enemy_grappler:
+            if 'kill' in self.enemy_grappler.commands:
                 self.death_save_loss = 3
                 self.death = True
-            # Иначе борьба за жизнь, где всё в руках судьбя:
+                return True
             else:
-                if reaper_throw == 20:
-                    self.death_save_success += 2
-                elif reaper_throw >= 10:
-                    self.death_save_success += 1
-                elif reaper_throw == 1:
-                    self.death_save_loss += 2
-                else:
-                    self.death_save_loss += 1
+                self.death_save_success = 3
+                self.stable = True
+                self.captured = True
+                return False
+        # Мгновенная смерть, если атака увела хиты в минусовой максимум:
+        if self.hitpoints <= -(self.hitpoints_max):
+            self.death_save_loss = 3
+            self.death = True
+            return True
+        # Тяжелейшие ранения, если атака лишь чуть не убила бойца:
+        elif self.hitpoints <= -(self.hitpoints_max / 2):
+            self.disabled = True
+        # Иначе борьба за жизнь, где всё в руках судьбя:
+        if not self.stable == True and not self.death == True:
+            # Играем в рулетку с мрачным жнецом:
+            reaper_throw = dices.dice_throw('1d20')
+            if reaper_throw == 20:
+                self.death_save_success += 2
+            elif reaper_throw >= 10:
+                self.death_save_success += 1
+            elif reaper_throw == 1:
+                self.death_save_loss += 2
+            else:
+                self.death_save_loss += 1
             if self.death_save_success >= 3:
                 self.stable = True
             elif self.death_save_loss >= 3:
                 self.death = True
-                print('{0} {1} {2} {3} hp {4}/{5} throw {6} result {7}:{8} stable {9} dead {10}'.format(
-                    self.ally_side, self.place, self.behavior, self.name,
-                    self.hitpoints, self.hitpoints_max,
-                    reaper_throw, self.death_save_success, self.death_save_loss,
-                    self.stable, self.death))
+        if self.death:
+            print('{0} {1} {2} {3} hp {4}/{5} throw {6} result {7}:{8} stable {9} dead {10}'.format(
+                self.ally_side, self.place, self.behavior, self.name,
+                self.hitpoints, self.hitpoints_max,
+                reaper_throw, self.death_save_success, self.death_save_loss,
+                self.stable, self.death))
 
     def check_savethrow_advantage(self, savethrow_type):
         """Способности могут дать преимущество на спасбросок."""
@@ -1408,7 +1407,8 @@ class soldier_in_battle(soldier):
             if 'Sharpshooter' in attack_dict['weapon_skills_use']:
                 if enemy_soldier.armor['armor_class'] <= attack_dict['attack_mod'] + 10\
                         and enemy_soldier.hitpoints > damage_throw_mod\
-                        and advantage and not disadvantage:
+                        and advantage and not disadvantage\
+                        or 'kill' in self.commands:
                     damage_throw_mod += 10
                     attack_throw_mod -=5
         # Menacing_Attack мастера боевых искусств может испугать противника:
