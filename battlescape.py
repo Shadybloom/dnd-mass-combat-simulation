@@ -224,10 +224,10 @@ class battlescape():
             # Укреплённые позиции (лучники на возвышенностях):
             'W':['barrikade','cover_terrain','spawn','warrior'],
             'E':['barrikade','cover_terrain','spawn','elite_warrior'],
-            'C':['barrikade','cover_terrain','spawn','commander'],
-            #'C':['barrikade','height','cover_terrain','spawn','commander'],
-            'A':['barrikade','height','cover_terrain','spawn','archer'],
+            #'C':['barrikade','cover_terrain','spawn','commander'],
             #'A':['barrikade','cover_terrain','spawn','archer'],
+            'C':['barrikade','height','cover_terrain','spawn','commander'],
+            'A':['barrikade','height','cover_terrain','spawn','archer'],
             }
     # Выбор точек спавна определяется ролью бойца (behavior) в metadict_chars
     spawn_types = (
