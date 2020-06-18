@@ -876,7 +876,7 @@ class soldier_in_battle(soldier):
         # Варвар с x3 лечилками восстанавливает аж 90 хитов.
         # Когда паладин с его Lay_on_Hands получает всего 25 хитов.
         if self.battle_action or use_battle_action == False:
-            if self.equipment_weapon.get('Infusion of Healing') > 0:
+            if self.equipment_weapon.get('Infusion of Healing', 0) > 0:
                 self.equipment_weapon['Infusion of Healing'] -= 1
                 potion_heal = round(sum([dices.dice_throw(self.hit_dice) for x in range(self.level)]))
                 self.set_hitpoints(heal = potion_heal)
@@ -884,7 +884,7 @@ class soldier_in_battle(soldier):
                 print('{0} {1} {2} heal (potion): {3}'.format(
                     self.ally_side, self.place, self.behavior, potion_heal))
                 return True
-            elif self.equipment_weapon.get('Goodberry') > 0:
+            elif self.equipment_weapon.get('Goodberry', 0) > 0:
                 self.equipment_weapon['Goodberry'] -= 1
                 potion_heal = 1
                 self.set_hitpoints(heal = potion_heal)
@@ -919,8 +919,7 @@ class soldier_in_battle(soldier):
         # TODO: лучше сделай поиск предмета по эффекту "healing".
         # potion_heal бери из словаря Goodberry.
         self.help_action = True
-        if injured_ally.equipment_weapon.get('Goodberry')\
-                and injured_ally.equipment_weapon['Goodberry'] > 0:
+        if injured_ally.equipment_weapon.get('Goodberry', 0) > 0:
             injured_ally.equipment_weapon['Goodberry'] -= 1
             potion_heal = 1
             injured_ally.set_hitpoints(heal = potion_heal)
