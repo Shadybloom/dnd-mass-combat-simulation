@@ -64,6 +64,10 @@ def create_parser():
                         action='store_true', dest='short_rest', default=False,
                         help='Короткий отдых перед боем, лечение всех.'
                         )
+    parser.add_argument('--rearm',
+                        action='store_true', dest='rearm', default=False,
+                        help='Пополнение боекомплекта, оружия, щитов.'
+                        )
     return parser
 
 #-------------------------------------------------------------------------
@@ -148,6 +152,9 @@ class battle_simulation(battlescape):
             self.set_squad_bardic_inspiration(squad)
             self.set_squad_spell_shield_of_faith(squad)
             self.set_squad_spell_bless(squad)
+            # Пополнение боекомплекта:
+            if namespace.rearm:
+                self.set_squad_rearm(squad)
             # Короткий отдых:
             if namespace.short_rest:
                 self.set_squad_short_rest(squad)
@@ -453,6 +460,14 @@ class battle_simulation(battlescape):
                     number -= 1
         return soldiers_list
 
+    def set_squad_rearm(self, squad):
+        """Пополнение боекомплекта."""
+        bless_type = 'rearm'
+        soldiers_list_elite = self.select_soldiers_for_bless(
+                len(squad.metadict_soldiers), squad.ally_side, bless_type)
+        for soldier in soldiers_list_elite:
+            soldier.set_short_rest_rearm()
+
     def set_squad_short_rest(self, squad):
         """Короткий отдых (1 час).
 
@@ -465,6 +480,7 @@ class battle_simulation(battlescape):
         soldiers_list_elite = self.select_soldiers_for_bless(
                 len(squad.metadict_soldiers), squad.ally_side, bless_type)
         for soldier in soldiers_list_elite:
+            soldier.set_short_rest_rearm()
             soldier.set_short_rest_heal()
             soldier.set_short_rest_restoration()
 

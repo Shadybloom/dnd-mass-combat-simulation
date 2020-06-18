@@ -59,6 +59,24 @@ class soldier_in_battle(soldier):
             self.bonus_hitpoints = bonus_hitpoints
         return self.hitpoints
 
+    def set_short_rest_rearm(self):
+        """Солдаты обновляют вооружение, боекомплект.
+
+        - Берётся экипировка из шаблона.
+        - Пересчитывается вес снаряжения.
+        - Восстананавливается список атак (стрелы/дротики могли кончиться)
+        - Восстанавливается защита (щиты могли поломать пилумами)
+        """
+        self.equipment_weapon = copy.deepcopy(self.metadict_chars[self.rank]['equipment_weapon'])
+        self.overload = self.calculate_overload()
+        self.base_speed = self.overload['base_speed']
+        self.armor = self.takeoff_armor()
+        self.armor.update(self.get_armor())
+        self.attacks = self.takeoff_weapon()
+        self.attacks.update(self.get_weapon())
+        self.attacks.update(self.modify_attacks())
+        pass
+
     def set_short_rest_heal(self):
         """Короткий отдых (1 час). Позволяет подлечиться.
 
