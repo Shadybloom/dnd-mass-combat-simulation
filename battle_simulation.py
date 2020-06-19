@@ -807,7 +807,7 @@ class battle_simulation(battlescape):
                 commands_list = ['lead','follow','engage']
                 commands_list.append('attack')
                 commands_list.append('spellcast')
-                commands_list.append('channel')
+                #commands_list.append('channel')
                 commands_list.append('runes')
             # Оцениваем опасность зональных заклинаний. Например Spirit_Guardians:
             if squad.enemy_recon['danger_places']:
@@ -840,6 +840,10 @@ class battle_simulation(battlescape):
             #commands_list = ['disengage','dodge','attack']
             commands_list = ['retreat', 'rescue']
         if squad.commander:
+            # Чучела, иллюзии и механизмы просто стоят:
+            if squad.commander.__dict__.get('inactive_AI'):
+                commands_list = []
+                commands_list.append('fearless')
             # Плохие командиры плохо поддерживают строй:
             if squad.commander.level < 5:
                 commands_list.append('crowd')
