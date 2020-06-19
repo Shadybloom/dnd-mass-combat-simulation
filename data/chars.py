@@ -574,6 +574,7 @@ metadict_chars['Commoner 1 lvl (militia heavy crossbowman)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':militia_pack,
     'equipment_weapon':{
+        'Padded Armor':1,
         'Dagger':1,
         'Crossbow, Heavy':1,
         'Crossbow Bolt':60,
@@ -591,6 +592,8 @@ metadict_chars['Commoner 2 lvl (militia heavy crossbowman-corporal)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
+        'Studded Leather':1,
+        'Shield':1,
         'Dagger':1,
         'Crossbow, Heavy':1,
         'Crossbow Bolt':60,
@@ -613,6 +616,7 @@ metadict_chars['Warrior 3 lvl (militia heavy crossbowman-sergeant)'] = {
     'equipment_weapon':{
         'Infusion of Healing':1,
         'Breastplate':1,
+        'Shield':1,
         'Shortsword':1,
         'Crossbow, Heavy':1,
         'Crossbow Bolt':60,
@@ -639,6 +643,7 @@ metadict_chars['Warrior 4 lvl (militia heavy crossbowman-lieutenant)'] = {
         'Infusion of Healing':1,
         'Rune of Absorbtion':1,
         'Breastplate':1,
+        'Shield':1,
         'Shortsword':1,
         'Crossbow, Heavy':1,
         'Crossbow Bolt':60,
