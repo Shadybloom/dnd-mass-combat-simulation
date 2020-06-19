@@ -57,6 +57,12 @@ metadict_squads['test party (1 lvl)'] = {
     'Wizard 1 lvl (otherworld mage-disciple)':1,
     }
 
+metadict_squads['Company-dummy (чучела)'] = {
+    # Просто чучела на кораблях.
+    'Dummy (CR 0)':100,
+    'Dummy-officer (CR 0)':4,
+    }
+
 #----
 # Друзья (битва за Лемнос):
 

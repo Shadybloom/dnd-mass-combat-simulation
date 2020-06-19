@@ -43,6 +43,16 @@ dict_races = {
             'weight_base_lb':110,
             'weight_mod_dice':'2d4',
             },
+        'Human-dummy':{
+            # Чучело, без скорости передвижения.
+            'hero':False,
+            'size':'medium',
+            'base_speed':0,
+            'height_base_inches':4 * 12 + 8,
+            'height_mod_dice':'2d10',
+            'weight_base_lb':110,
+            'weight_mod_dice':'2d4',
+            },
         'Satyr':{
             # Умеют создавать пьянящую добрянику.
             # Сложно очаровать, невозможно усыпить магией.

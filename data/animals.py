@@ -38,6 +38,71 @@ metadict_animals['Onager'] = {
     }
 
 #----
+# Предметы:
+
+metadict_animals['Dummy (CR 0)'] = {
+    # Просто чучело в броне.
+    'level':2,
+    'challenge_rating':'0',
+    'char_class':'Commoner',
+    'behavior':'warrior',
+    'inactive_AI':True,
+    'hitpoints_medial':True,
+    'class_features':{
+        'Undead_Fortitude':True,
+        },
+    'abilityes':{
+        'strength':0,
+        'dexterity':0,
+        'constitution':10,
+        'intelligence':0,
+        'wisdom':0,
+        'charisma':0,
+        },
+    'hit_dice':'1d8',
+    'race':'Human-dummy',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_weapon':{
+        'Ring Mail':1,
+        'Heavy Shield':1,
+        },
+    'equipment_backpack':{},
+    'equipment_supply':{},
+    }
+
+metadict_animals['Dummy-officer (CR 0)'] = {
+    # Чучело офицера
+    'level':4,
+    'challenge_rating':'0',
+    'char_class':'Commoner',
+    'behavior':'commander',
+    'inactive_AI':True,
+    'hitpoints_medial':True,
+    'class_features':{
+        'Undead_Fortitude':True,
+        },
+    'abilityes':{
+        'strength':0,
+        'dexterity':0,
+        'constitution':10,
+        'intelligence':0,
+        'wisdom':0,
+        'charisma':0,
+        },
+    'hit_dice':'1d8',
+    'race':'Human-dummy',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_weapon':{
+        'Splint Armor':1,
+        'Heavy Shield':1,
+        },
+    'equipment_backpack':{},
+    'equipment_supply':{},
+    }
+
+#----
 # Звери (дикий облик друида):
 
 metadict_animals['Giant Octopus (CR 1)'] = {
