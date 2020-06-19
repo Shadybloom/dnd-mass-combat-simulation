@@ -164,6 +164,12 @@ class soldier_in_battle(soldier):
         self.second_wind = False
         self.lay_on_hands = 0
         self.shield = False
+        # Щит в боевое положение:
+        if not hasattr(self, 'shield_ready'):
+            if self.armor['shield_use']:
+                self.shield_ready = True
+            else:
+                self.shield_ready = False
         if not hasattr(self, 'wild_shape'):
             self.wild_shape = False
         if not hasattr(self, 'wild_shape_old_form'):
@@ -346,6 +352,9 @@ class soldier_in_battle(soldier):
         self.dodge_action = False # это disadvantage для врагов за счёт battle_action.
         self.reckless_attack = False # тактика варвара, преимущество и себе, и врагам.
         self.shield = False # заклинание 'Shield' волшебника даёт +5 AC на один раунд.
+        # Щит возвращается в боевое положение (если в прошлом ходу использовалось двуручное оружие):
+        if self.armor['shield_use'] and not self.shield_ready:
+            self.set_shield()
         # Испуганный бросает спасброски против страха:
         if self.fear:
             self.fear = self.set_fear(self.enemy_fear, self.fear_difficult)
@@ -1065,7 +1074,7 @@ class soldier_in_battle(soldier):
         if self.sleep:
             disarm_savethrow = 0
         if disarm_savethrow <= disarm_difficul:
-            return self.unset_shield()
+            return self.unset_shield(disarm = True)
         else:
             return False
 
@@ -1300,10 +1309,10 @@ class soldier_in_battle(soldier):
         enemy_soldier = metadict_soldiers[enemy.uuid]
         # Нельзя использовать два приёма баттлмастера за одну атаку:
         superiority_use = False
-        # Боец с двуручным оружием бросает щит (который использовал, чтобы добраться до стрелков)
-        # Впрочем, лучники и пикионеры могут использовать щиты с дальней и reach-атакой.
+        # Боец с двуручным оружием не может использовать щит:
+        # Но только в том раунде, в котором пользовался двуручным оружием.
+        # В set_actions щит каждый раз возвращается в боевое положение.
         if attack_dict.get('weapon_type')\
-                and attack_choice[0] == 'close'\
                 and 'two_handed' in attack_dict['weapon_type']\
                 and self.armor['shield_use']:
             self.unset_shield()
@@ -1492,14 +1501,36 @@ class soldier_in_battle(soldier):
             self.overload = self.calculate_overload()
             self.base_speed = self.overload['base_speed']
 
-    def unset_shield(self):
-        """Бросаем щит, если он есть."""
-        if self.armor['shield_use']:
+    def set_shield(self):
+        """Щит в боевое положение.
+        
+        Во время стрельбы из лука и ходов с атаками двуручным оружием он висит на перевязи.
+        """
+        if self.armor['shield_use']\
+                and self.shield_ready == False\
+                and self.armor['armor_class_shield'] > 0:
+            self.armor['armor_class'] += self.armor['armor_class_shield']
+            self.armor['armor_class_armor_impact'] += self.armor['armor_class_shield']
+            self.armor['armor_class_shield_impact'] += self.armor['armor_class_shield']
+            self.shield_ready = True
+            return True
+
+    def unset_shield(self, disarm = False):
+        """Отбрасываем щит на перевязь.
+        
+        Или отбираем у бойца щит вовсе.
+        """
+        if self.armor['shield_use']\
+                and self.shield_ready == True\
+                and self.armor['armor_class_shield'] > 0\
+                or disarm == True:
             self.armor['armor_class'] -= self.armor['armor_class_shield']
             self.armor['armor_class_armor_impact'] -= self.armor['armor_class_shield']
             self.armor['armor_class_shield_impact'] -= self.armor['armor_class_shield']
-            self.armor['armor_class_shield'] = 0
-            self.armor['shield_use'] = None
+            self.shield_ready = False
+            if disarm:
+                self.armor['shield_use'] = None
+                self.armor['armor_class_shield'] = 0
             return True
 
     def set_shield_break(self):
@@ -1514,7 +1545,9 @@ class soldier_in_battle(soldier):
             self.armor['armor_class_armor_impact'] -= 1
             self.armor['armor_class_shield_impact'] -= 1
             self.armor['armor_class_shield'] -= 1
+            self.armor_class_shield = self.armor['armor_class_shield']
             if self.armor['armor_class_shield'] <= 0:
+                self.armor_class_shield = 0
                 self.armor['armor_class_shield'] = 0
                 shield_type = self.armor['shield_use']
                 self.equipment_weapon[shield_type] = 0
