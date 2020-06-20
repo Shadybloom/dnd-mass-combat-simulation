@@ -856,8 +856,12 @@ class battle_simulation(battlescape):
             if squad.commander.__dict__.get('hunter_AI'):
                 commands_list = ['seek','engage','attack']
                 commands_list.append('spellcast')
+            # Убийцы убивают схваченного врага. Снайпера стрелют с Feat_Sharpshooter:
             if squad.commander.__dict__.get('killer_AI'):
                 commands_list.append('kill')
+            # Друиды превращаются в первом же раунде боя:
+            if squad.commander.__dict__.get('changer_AI'):
+                commands_list.append('change')
             # Талант "Идеальное взаимодействие". Свита атакует вражеских командиров:
             if squad.commander.__dict__.get('commando_AI'):
                 #commands_list.append('seek')
