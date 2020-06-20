@@ -1243,6 +1243,10 @@ class soldier_in_battle(soldier):
             if self.behavior == 'archer'\
                     and distance <= round(self.attacks[throw_attack]['attack_range_max'] / tile_size):
                 return throw_attack
+            # Застрельщики с пилумами тоже могут метать издалека по команде:
+            elif 'volley' in self.commands\
+                    and distance <= round(self.attacks[throw_attack]['attack_range_max'] / tile_size):
+                return throw_attack
             # Бойцы ближнего боя подпускают пехоту врага поближе и метают прицельно:
             elif self.behavior != 'archer'\
                     and distance <= round(self.attacks[throw_attack]['attack_range'] / tile_size):
