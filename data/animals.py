@@ -106,17 +106,17 @@ metadict_animals['Dummy-officer (CR 0)'] = {
 # Звери (дикий облик друида):
 
 metadict_animals['Giant Octopus (CR 1)'] = {
+    # Осьминожки Психеи убивают врагов.
     # https://roll20.net/compendium/dnd5e/Giant%20Octopus
     'level':8,
     'challenge_rating':'1',
     'char_class':'Commoner',
-    #'behavior':'elite_warrior',
-    'behavior':'commander',
+    'behavior':'elite_warrior',
     'hitpoints_medial':True,
     'water_walk':True,
-    'Grappler_AI':True,
     'hunter_AI':True,
     'killer_AI':True,
+    #'Grappler_AI':True,
     #'fearless_AI':True,
     'class_features':{
         'Hold_Breath':True,
@@ -170,6 +170,137 @@ metadict_animals['Giant Octopus (CR 1)'] = {
     'equipment_weapon':{
             'Rune of Armor':1,
             },
+    'equipment_backpack':{},
+    'equipment_supply':{},
+    }
+
+metadict_animals['Giant Octopus (conjured) (CR 1)'] = {
+    # Осьминоги Тик-Бо стараются не убивать.
+    # Призванное существо.
+    'level':8,
+    'challenge_rating':'1',
+    'char_class':'Commoner',
+    'behavior':'elite_warrior',
+    'hitpoints_medial':True,
+    'water_walk':True,
+    #'fearless_AI':True,
+    #'hunter_AI':True,
+    #'Grappler_AI':True,
+    #'killer_AI':True,
+    'class_features':{
+        'Hold_Breath':True,
+        'Water_Breathing':True,
+        'Underwater_Camouflage':True,
+        'Ink_Cloud':True,
+        },
+    'abilityes':{
+        'strength':17,
+        'dexterity':13,
+        'constitution':13, 
+        'intelligence':4,
+        'wisdom':10,
+        'charisma':4,
+        },
+    'hit_dice':'1d10',
+    'attacks':{
+        ('close', 'tentacles'): {
+            'attack_mod':5,
+            'damage_mod':3,
+            'weapon': False,
+            'weapon_type':['simple', 'close', 'restained'],
+            'damage_type':'bludgeoning',
+            'damage_dice':'2d6',
+            'attack_range':5,
+            'attack_type':'close',
+            'restained_difficult':16,
+            'weapon_skills_use': ['simple'],
+            'attack_mod_type':'strength',
+            'weapon_of_choice':'tentacles'},
+        ('reach', 'tentacles'): {
+            # TODO: Досягаемость тентаклей 15 футов, дальше чем копья.
+            # Но цель на кораблей, тянемся по диагонали, поэтому 10 футов.
+            'attack_mod':5,
+            'damage_mod':3,
+            'weapon': False,
+            'weapon_type':['simple', 'reach', 'restained'],
+            'damage_type':'bludgeoning',
+            'damage_dice':'2d6',
+            'attack_range':10,
+            'attack_type':'close',
+            'restained_difficult':16,
+            'weapon_skills_use': ['simple'],
+            'attack_mod_type':'strength',
+            'weapon_of_choice':'tentacles'},
+        },
+    'race':'Giant_octopus',
+    'weapon_skill':[],
+    'armor_skill':[],
+    'equipment_weapon':{},
+    'equipment_backpack':{},
+    'equipment_supply':{},
+    }
+
+metadict_animals['Giant Octopus (mount) (CR 1)'] = {
+    # Призванное существо
+    'level':8,
+    'challenge_rating':'1',
+    'char_class':'Commoner',
+    'behavior':'mount',
+    'hitpoints_medial':True,
+    'water_walk':True,
+    'Grappler_AI':True,
+    #'hunter_AI':True,
+    #'killer_AI':True,
+    #'fearless_AI':True,
+    'class_features':{
+        'Hold_Breath':True,
+        'Water_Breathing':True,
+        'Underwater_Camouflage':True,
+        'Ink_Cloud':True,
+        },
+    'abilityes':{
+        'strength':17,
+        'dexterity':13,
+        'constitution':13, 
+        'intelligence':4,
+        'wisdom':10,
+        'charisma':4,
+        },
+    'hit_dice':'1d10',
+    'attacks':{
+        ('close', 'tentacles'): {
+            'attack_mod':5,
+            'damage_mod':3,
+            'weapon': False,
+            'weapon_type':['simple', 'close', 'restained'],
+            'damage_type':'bludgeoning',
+            'damage_dice':'2d6',
+            'attack_range':5,
+            'attack_type':'close',
+            'restained_difficult':16,
+            'weapon_skills_use': ['simple'],
+            'attack_mod_type':'strength',
+            'weapon_of_choice':'tentacles'},
+        ('reach', 'tentacles'): {
+            # TODO: Досягаемость тентаклей 15 футов, дальше чем копья.
+            # Но цель на кораблей, тянемся по диагонали, поэтому 10 футов.
+            'attack_mod':5,
+            'damage_mod':3,
+            'weapon': False,
+            'weapon_type':['simple', 'reach', 'restained'],
+            'damage_type':'bludgeoning',
+            'damage_dice':'2d6',
+            'attack_range':10,
+            'attack_type':'close',
+            'restained_difficult':16,
+            'weapon_skills_use': ['simple'],
+            'attack_mod_type':'strength',
+            'weapon_of_choice':'tentacles'},
+        },
+    'race':'Giant_octopus',
+    'weapon_skill':[],
+    'armor_skill':[],
+    'equipment_weapon':{},
     'equipment_backpack':{},
     'equipment_supply':{},
     }

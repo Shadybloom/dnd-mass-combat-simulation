@@ -97,6 +97,25 @@ metadict_squads['Band-hero (следопыты Энзифа) (враг)'] = {
     'Ranger 1 lvl (враг) (следопыт Энзифа)':12,
     }
 
+metadict_squads['Band-hero (паладины Магора) (враг)'] = {
+    'Paladin 5 lvl (враг) (Магор «Детоед»)':1,
+    'Paladin 1 lvl (враг) (паладин Магора)':6,
+    }
+
+metadict_squads['Band-hero (снайперы Хана\'Вама) (враг)'] = {
+    # "Верные ученики" и "Многочисленная свита"
+    'Fighter 5 lvl (враг) (Хана\'Вам)':1,
+    'Fighter 1 lvl (враг) (снайпер Хана\'Вама)':12,
+    }
+
+metadict_squads['Band-hero (друиды Тик-Бо) (враг)'] = {
+    # Шесть друидов и Тик-Бо на осьминогах, пять осьминогов сопровождают:
+    # TODO: Сделай ездовых осьминогов, а пока тпусть так:
+    'Druid 5 lvl (враг) (Тик-Бо «Робкий»)':1,
+    'Druid 1 lvl (враг) (друид Тик-Бо)':6,
+    'Giant Octopus (conjured) (CR 1)':12,
+    }
+
 metadict_squads['Company-militia (демоны Кема\'Эша) (враг)'] = {
     'Commoner 1 lvl (враг) (карл)':80,
     'Commoner 1 lvl (враг) (карл-ветеран)':4,
@@ -110,9 +129,19 @@ metadict_squads['Company-regular (лучники Энзифа) (враг)'] = {
     'Warrior 4 lvl (sqythian bowman-lieutenant)':1,
     }
 
-metadict_squads['Band-hero (паладины Магора) (враг)'] = {
-    'Paladin 5 lvl (враг) (Магор «Детоед»)':1,
-    'Paladin 1 lvl (враг) (паладин Магора)':6,
+metadict_squads['Company-regular (сариссофоры Магора) (враг)'] = {
+    'Warrior 1 lvl (city pikeman)':75,
+    'Warrior 2 lvl (city pikeman-corporal)':20,
+    'Warrior 3 lvl (city pikeman-sergeant)':6,
+    'Warrior 4 lvl (city pikeman-lieutenant)':2,
+    }
+
+metadict_squads['Band-hero (лучники Хана\'Вама) (враг)'] = {
+    'Warrior 1 lvl (sqythian bowman)':80 + dice_throw('1d12'),
+    'Warrior 2 lvl (sqythian bowman-corporal)':10,
+    'Warrior 3 lvl (sqythian bowman-sergeant)':3,
+    'Warrior 4 lvl (sqythian bowman-lieutenant)':1,
+    'Warrior 5 lvl (sqythian bowman-captain)':1,
     }
 
 #----
@@ -125,7 +154,7 @@ metadict_squads['Company-militia (гастаты Гая Юлия) (Katorjnik)'] 
     }
 
 metadict_squads['Company-regular (легионеры Гая Юлия) (Katorjnik)'] = {
-    'Warrior 1 lvl (Katorjnik) (манипуларий)':80,
+    'Warrior 1 lvl (Katorjnik) (манипуларий)':75,
     'Warrior 2 lvl (Katorjnik) (ветеран)':20,
     'Warrior 3 lvl (Katorjnik) (урагос)':6,
     'Warrior 4 lvl (Katorjnik) (опцион)':2,
@@ -166,19 +195,13 @@ metadict_squads['Band-hero (снайпер Лонгин) (Mordodrukow)'] = {
 metadict_squads['Band-hero (жрецы Патрокла) (Vened)'] = {
     'Cleric 5 lvl (Vened) (Патрокл «Македонянин»)':1,
     'Cleric 1 lvl (Vened) (жрец домена войны)':12,
-    #'Cleric 1 lvl (Vened) (жрец домена войны)':6,
     }
-
-#metadict_squads['Band-hero (жрецы-лекари) (Vened)'] = {
-#    'Cleric 5 lvl (city maatcarian-reviver)':1,
-#    'Cleric 1 lvl (city maatcarian-acolyte)':12,
-#    }
 
 #----
 # Геройские отряды (армия Протесилая):
 
 metadict_squads['Company-regular (сариссофоры Протесилая) (Тзаангор)'] = {
-    'Warrior 1 lvl (Тзаангор) (гипасист)':85,
+    'Warrior 1 lvl (Тзаангор) (гипасист)':75,
     'Warrior 2 lvl (Тзаангор) (ветеран)':20,
     'Warrior 3 lvl (Тзаангор) (ур-лодакос)':6,
     'Warrior 4 lvl (Тзаангор) (лодакос)':2,
@@ -233,13 +256,18 @@ metadict_squads['Company-regular (дочери медведицы Ианты) (V
 metadict_squads['Squad-hero (друиды Ианты) (Vaarsuvius)'] = {
     # TODO: Добавь отряду "осьминожек" командира Психею:
     # Друидки Ианты:
+        # - Хлоя (при Ианте, её дочь)
         # - Иокаста (с Филлис)
         # - Мелина (с Фарамом)
-        # - Агата (с Юлием)
-        # - Хлоя (при Ианте)
+        # - Агата (дочь Атанасии "Бессмертной", погибла на "Кручах")
         # - Психея (с осьминожками на дне)
+        # - Психея (глава "Подводной стражи" осьминожек, садист)
+        #     - Мелина (в "Подводной страже", любит Ксантию)
+        #     - Роксана (в "Подводной страже", не говорит, нет языка)
+        #     - Ксантия (в "Подводной страже", любит Мелину)
     #'Druid 5 lvl (Vaarsuvius) (Ианта «Дочь бури»)':1,
-    'Druid 2 lvl (Vaarsuvius) (друид Артемиды)':8,
+    'Druid 2 lvl (Vaarsuvius) (друид Психея)':1,
+    'Druid 2 lvl (Vaarsuvius) (друид Артемиды)':7,
     #'Druid 2 lvl (Vaarsuvius) (друид Артемиды)':12,
     }
 

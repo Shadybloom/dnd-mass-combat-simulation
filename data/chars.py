@@ -6474,7 +6474,6 @@ metadict_chars['Warrior 5 lvl (Vaarsuvius) (стрелок-капитан)'] = {
 # Друиды (свита) (Ианта):
 
 metadict_chars['Druid 2 lvl (Vaarsuvius) (друид Артемиды)'] = {
-    # TODO: допиливай Wild_Shape
     'level':2,
     'char_class':'Druid',
     'hit_dice':'1d8',
@@ -6545,6 +6544,56 @@ metadict_chars['Druid 2 lvl (Vaarsuvius) (друид Агата)'] = {
         'Wild_Shape':True,
         'Wild_Shape_Form':'Brown Bear (CR 1)',
         #'Wild_Shape_Form':'Giant Octopus (CR 1)',
+        'Druid_Circle_Moon':True,
+        'Combat_Wild_Shape':True,
+        'Circle_Forms':True,
+        },
+    'race':'Human-hero',
+    'weapon_skill':['simple','Scimitar'],
+    'armor_skill':['light','medium','shield'],
+    'skills':[
+        'Nature',
+        'Animal_Handling',
+        'Medicine',
+        'Perception',
+        'Survival',
+        ],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Rune of Armor':1,
+        },
+    #'mount_combat':True,
+    #'mount_type':'Warhorse',
+    #'equipment_mount':{
+    #    },
+    }
+
+metadict_chars['Druid 2 lvl (Vaarsuvius) (друид Психея)'] = {
+    # Глава "Подводной стражи" Агаты, 45 лет, лицо в шрамах, садист.
+    'level':2,
+    'char_class':'Druid',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'killer_AI':True,
+    'changer_AI':True,
+    'class_features':{
+        'Feat_Healer':True,
+        'Spellcasting':True,
+        'Spells':[
+            ('cantrip', 'Druidcraft'),
+            ('cantrip', 'Mold_Earth'),
+            ('ritual', 'Speak_with_Animals'),
+            ('1_lvl', 'Goodberry'),
+            ('1_lvl', 'Cure_Wounds'),
+            ('1_lvl', 'Entangle'),
+            ('1_lvl', 'Fog_Cloud'),
+            ],
+        'Druidic_Language':True,
+        'Wild_Shape':True,
+        #'Wild_Shape_Form':'Brown Bear (CR 1)',
+        'Wild_Shape_Form':'Giant Octopus (CR 1)',
         'Druid_Circle_Moon':True,
         'Combat_Wild_Shape':True,
         'Circle_Forms':True,
@@ -6978,11 +7027,11 @@ metadict_chars['Fighter 2 lvl (Mordodrukow) (темплар Зевса)'] = {
 metadict_chars['Fighter 5 lvl (Mordodrukow) (Лонгин)'] = {
     # Лучник, мастер боевых искусств
     'level':5,
-    'commando_AI':True,
-    'killer_AI':True,
     'char_class':'Battlemaster-archer',
     'hit_dice':'1d10',
     'behavior':'commander',
+    'killer_AI':True,
+    'commando_AI':True,
     'hitpoints_medial':True,
     'abilityes':{
         'strength':13,
@@ -7520,7 +7569,7 @@ metadict_chars['Warlock 5 lvl (враг) (Кара\'Ям)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        # Добряника от друида Тик'Бо:
+        # Добряника от друида Тик-Бо:
         # Договор клинка, оружие +1.
         'Goodberry':30,
         'Rune of Absorbtion':1,
@@ -7781,10 +7830,9 @@ metadict_chars['Paladin 5 lvl (враг) (Магор «Детоед»)'] = {
     'class_features':{
         # TODO: Сделай Feat_Shield_Master.
         'Feat_Tough':True,
-        'Feat_Inspiring_Leader':True,
         'Feat_Heavy_Armor_Master':True,
         'Ability_Score_Improvement':{
-            'strength':+1,
+            'strength':+3,
             },
         'Divine_Sense':True,
         'Lay_on_Hands':True,
@@ -7817,8 +7865,8 @@ metadict_chars['Paladin 5 lvl (враг) (Магор «Детоед»)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
-        'Rune of Absorbtion':2,
+        'Infusion of Healing':2,
+        'Rune of Absorbtion':1,
         'Splint Armor':1,
         'Heavy Shield':1,
         'Flait +1':1,
@@ -7826,6 +7874,193 @@ metadict_chars['Paladin 5 lvl (враг) (Магор «Детоед»)'] = {
         },
     #'mount_combat':False,
     #'mount_type':'Riding Horse',
+    #'equipment_mount':{
+    #    },
+    }
+
+#----
+# Злодеи (герои) (Хана'Вам):
+
+metadict_chars['Fighter 1 lvl (враг) (снайпер Хана\'Вама)'] = {
+    # Снайперы, корректируют "Град стрел" ополчения.
+    'level':1,
+    'char_class':'Battlemaster-archer',
+    'hit_dice':'1d10',
+    'behavior':'archer',
+    'class_features':{
+        'Feat_Sharpshooter':True,
+        'Fighting_Style_Archery':True,
+        'Second_Wind':True,
+        },
+    'race':'Human-hero',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'skills':[
+        'Perception',
+        ],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Rune of Armor':1,
+        'Shield':1,
+        'Shortsword':1,
+        'Longbow':1,
+        'Arrow':60,
+        },
+    #'mount_combat':False,
+    #'mount_type':'Riding Horse',
+    #'equipment_mount':{
+    #    },
+    }
+
+metadict_chars['Fighter 5 lvl (враг) (Хана\'Вам)'] = {
+    # Лучник-чемпион
+    'level':5,
+    'char_class':'Battlemaster-archer',
+    'hit_dice':'1d10',
+    'behavior':'commander',
+    'killer_AI':True,
+    'hitpoints_medial':True,
+    'abilityes':{
+        'strength':12,
+        'dexterity':20,
+        'constitution':12,
+        'intelligence':16,
+        'wisdom':10,
+        'charisma':16,
+        },
+    'class_features':{
+        'Feat_Sharpshooter':True,
+        'Fighting_Style_Archery':True,
+        'Second_Wind':True,
+        'Action_Surge':True,
+        'Martial_Archetype_Champion':True,
+        'Champion_Improved_Critical':True,
+        'Feat_Inspiring_Leader':True,
+        'Extra_Attack':True,
+        },
+    'race':'Human-hero',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Rune of Shielding':1,
+        'Rune of Armor':1,
+        'Heavy Shield':1,
+        'Scimitar +1':1,
+        'Longbow +1':1,
+        'Arrow':60,
+        },
+    }
+
+#----
+# Злодеи (герои) (Тик-Бо):
+
+metadict_chars['Druid 1 lvl (враг) (друид Тик-Бо)'] = {
+    # На них "Водное дыхание" или "Хождение по воде"
+    'level':1,
+    'water_walk':True,
+    'char_class':'Druid',
+    'hit_dice':'1d8',
+    'behavior':'archer',
+    'class_features':{
+        'Feat_Healer':True,
+        'Spellcasting':True,
+        'Spells':[
+            # Число заклинаний -- мод_мудрости + уровень_друида:
+            # Goodberry -- 2 слота = 20 хитов на завтра. 20 друидов 2 lvl = 600 хитов лечения.
+            ('cantrip', 'Druidcraft'),
+            ('cantrip', 'Mold_Earth'),
+            #('cantrip', 'Magic_Stone'),
+            #('ritual', 'Speak_with_Animals'),
+            ('1_lvl', 'Healing_Word'),
+            ('1_lvl', 'Entangle'),
+            ('1_lvl', 'Fog_Cloud'),
+            ('1_lvl', 'Goodberry'),
+            ],
+        'Druidic_Language':True,
+        },
+    'race':'Human-hero',
+    'weapon_skill':['simple','Scimitar'],
+    'armor_skill':['light','medium','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Rune of Armor':1,
+        'Heavy Shield':1,
+        'Club':1,
+        'Sling real':1,
+        'Sling Bullet':10,
+        },
+    #'mount_combat':True,
+    #'mount_type':'Giant Octopus (mount) (CR 1)',
+    #'equipment_mount':{
+    #    },
+    }
+
+metadict_chars['Druid 5 lvl (враг) (Тик-Бо «Робкий»)'] = {
+    # Пацифист, призыватель зверей.
+    'level':5,
+    'water_walk':True,
+    'char_class':'Druid',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'fearless_AI':True,
+    'hitpoints_medial':True,
+    'abilityes':{
+        'strength':10,
+        'dexterity':14,
+        'constitution':14,
+        'intelligence':16,
+        'wisdom':18,
+        'charisma':14,
+        },
+    'class_features':{
+        'Feat_Healer':True,
+        'Spellcasting':True,
+        'Spells':[
+            ('cantrip', 'Druidcraft'),
+            ('cantrip', 'Mold_Earth'),
+            ('cantrip', 'Guidance'),
+            ('ritual', 'Speak_with_Animals'),
+            ('ritual', 'Water_Breathing'),
+            ('ritual', 'Water_Walk'),
+            ('1_lvl', 'Entangle'),
+            ('1_lvl', 'Absorb_Elements'),
+            ('2_lvl', 'Pass_Without_Trace'),
+            ('2_lvl', 'Lesser_Restoration'),
+            ('2_lvl', 'Healing_Spirit'),
+            ('3_lvl', 'Conjure_Animals'),
+            ('3_lvl', 'Plant_Growth'),
+            ],
+        'Druidic_Language':True,
+        'Wild_Shape':True,
+        'Druid_Circle_Forest':True,
+        'Natural_Recovery':True,
+        'Wild_Shape_Improvement':True,
+        'Ability_Score_Improvement':{
+            'wisdom':+2,
+            },
+        },
+    'race':'Human-hero',
+    'weapon_skill':['simple','Scimitar'],
+    'armor_skill':['light','medium','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Rune of Shielding':1,
+        'Rune of Armor':1,
+        'Heavy Shield':1,
+        'Club':1,
+        'Sling real':1,
+        'Sling Bullet':10,
+        },
+    #'mount_combat':True,
+    #'mount_type':'Giant Octopus (mount) (CR 1)',
     #'equipment_mount':{
     #    },
     }
