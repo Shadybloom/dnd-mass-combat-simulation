@@ -840,13 +840,16 @@ class battle_simulation(battlescape):
             #commands_list = ['disengage','dodge','attack']
             commands_list = ['retreat', 'rescue']
         if squad.commander:
+            # Плохие командиры плохо поддерживают строй:
+            if squad.commander.level < 5:
+                commands_list.append('crowd')
             # Чучела, иллюзии и механизмы просто стоят:
             if squad.commander.__dict__.get('inactive_AI'):
                 commands_list = []
                 commands_list.append('fearless')
-            # Плохие командиры плохо поддерживают строй:
-            if squad.commander.level < 5:
-                commands_list.append('crowd')
+            # Добавляем град стрел без лишних расчётов:
+            if squad.commander.__dict__.get('volley_AI'):
+                commands_list.append('volley')
             # Бесстрашные создания бесстрашны, зато трусоватые спасают своих:
             if squad.commander.__dict__.get('fearless_AI'):
                 commands_list.append('fearless')
