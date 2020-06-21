@@ -7948,7 +7948,7 @@ metadict_chars['Fighter 5 lvl (враг) (Хана\'Вам)'] = {
         'Infusion of Healing':1,
         'Rune of Shielding':1,
         'Rune of Armor':1,
-        'Heavy Shield':1,
+        'Shield':1,
         'Scimitar +1':1,
         'Longbow +1':1,
         'Arrow':60,
