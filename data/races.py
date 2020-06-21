@@ -45,6 +45,7 @@ dict_races = {
             },
         'Human-dummy':{
             # Чучело, без скорости передвижения.
+            'armor_class_natural':15,
             'hero':False,
             'size':'medium',
             'base_speed':0,

@@ -1348,7 +1348,7 @@ metadict_items['Catapult (fire)'] = {
             'spell_choice':('shell','Alchemist\'s Fire'),
             #'spell_of_choice':'Burning_Hands',
             },
-    'damage_type':'fire',
+    'damage_type':'bludgeoning',
     'damage_dice':'6d6',
     'shoot_range':150,
     'shoot_range_max':600,
@@ -1357,9 +1357,91 @@ metadict_items['Catapult (fire)'] = {
     'cost (grams_of_gold)':8 * 60,
     }
 
+metadict_items['Trap (fire)'] = {
+    'weapon':True,
+    'direct_hit':True,
+    'ammo_type':'Alchemist\'s Fire (100 lb)',
+    'weapon_type':['martial','volley','artillery','burning_shell'],
+    'spell_dict':{
+            'zone':True,
+            #'zone_shape':'2x2',
+            #'zone_shape':'square',
+            'direct_hit':True,
+            'savethrow':True,
+            'savethrow_ability':'dexterity',
+            'attacks_number':1,
+            'attack_range':600,
+            'radius':15,
+            'damage_type':'fire',
+            'damage_dice':'3d6',
+            'components':[],
+            'casting_time':'action',
+            'damage_mod':0,
+            'spell_level':1,
+            'spell_save_DC':15,
+            'spell_choice':('explosion','Alchemist\'s Fire'),
+            #'spell_of_choice':'Burning_Hands',
+            },
+    'damage_type':'bludgeoning',
+    'damage_dice':'0d0',
+    'shoot_range':150,
+    'shoot_range_max':600,
+    'weight (lb)':4000,
+    'cost (gp)':60,
+    'cost (grams_of_gold)':60,
+    }
+
+metadict_items['Glyph (lightning)'] = {
+    'weapon':True,
+    'direct_hit':True,
+    'ammo_type':'Glyph',
+    'weapon_type':['martial','volley','artillery','burning_shell'],
+    'spell_dict':{
+            'zone':True,
+            #'zone_shape':'2x2',
+            #'zone_shape':'square',
+            'direct_hit':True,
+            'savethrow':True,
+            'savethrow_ability':'dexterity',
+            'attacks_number':1,
+            'attack_range':600,
+            'radius':25,
+            'damage_type':'lightning',
+            'damage_dice':'5d8',
+            'components':[],
+            'casting_time':'action',
+            'damage_mod':0,
+            'spell_level':3,
+            'spell_save_DC':15,
+            'spell_choice':('glyph_of_warding','Lightning'),
+            #'spell_of_choice':'Burning_Hands',
+            },
+    'damage_type':'bludgeoning',
+    'damage_dice':'0d0',
+    'shoot_range':150,
+    'shoot_range_max':600,
+    'weight (lb)':4000,
+    'cost (gp)':60,
+    'cost (grams_of_gold)':60,
+    }
+
+metadict_items['Glyph'] = {
+    'ammo':True,
+    'weight (lb)':1,
+    'cost (gp)':240,
+    'cost (grams_of_gold)':240,
+    }
+
 metadict_items['Alchemist\'s Fire (25 lb)'] = {
     'ammo':True,
     'weight (lb)':50,
     'cost (gp)':15,
     'cost (grams_of_gold)':15,
+    }
+
+metadict_items['Alchemist\'s Fire (100 lb)'] = {
+    'ammo':True,
+    'weight (lb)':150,
+    'cost (gp)':60,
+    'cost (grams_of_gold)':60,
     }

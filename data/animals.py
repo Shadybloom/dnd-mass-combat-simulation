@@ -38,11 +38,107 @@ metadict_animals['Onager'] = {
     }
 
 #----
+# Ловушки.
+
+metadict_animals['Trap (commander)'] = {
+    'level':5,
+    'volley_AI':True,
+    #'inactive_AI':True,
+    'challenge_rating':'1/4',
+    'char_class':'Commoner',
+    'behavior':'commander',
+    'hitpoints_medial':True,
+    'class_features':{
+        'Feat_Sharpshooter':True,
+        },
+    'abilityes':{
+        'strength':10,
+        'dexterity':10,
+        'constitution':10, 
+        'intelligence':10,
+        'wisdom':10,
+        'charisma':10,
+        },
+    'hit_dice':'1d12',
+    'race':'Catapult',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':[],
+    'equipment_weapon':{
+        #'Glyph (lightning)':1,
+        #'Glyph':1,
+        },
+    'equipment_backpack':{},
+    'equipment_supply':{},
+    }
+
+metadict_animals['Trap (Glyph of Warding) (Lightning)'] = {
+    'level':5,
+    'volley_AI':True,
+    #'inactive_AI':True,
+    'challenge_rating':'1/4',
+    'char_class':'Commoner',
+    'behavior':'archer',
+    'hitpoints_medial':True,
+    'class_features':{
+        'Feat_Sharpshooter':True,
+        },
+    'abilityes':{
+        'strength':10,
+        'dexterity':10,
+        'constitution':10, 
+        'intelligence':10,
+        'wisdom':10,
+        'charisma':10,
+        },
+    'hit_dice':'1d12',
+    'race':'Catapult',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':[],
+    'equipment_weapon':{
+        'Glyph (lightning)':1,
+        'Glyph':1,
+        },
+    'equipment_backpack':{},
+    'equipment_supply':{},
+    }
+
+metadict_animals['Trap (Alchemist\'s Fire)'] = {
+    'level':5,
+    'volley_AI':True,
+    #'inactive_AI':True,
+    'challenge_rating':'1/4',
+    'char_class':'Commoner',
+    'behavior':'archer',
+    'hitpoints_medial':True,
+    'class_features':{
+        'Feat_Sharpshooter':True,
+        },
+    'abilityes':{
+        'strength':10,
+        'dexterity':10,
+        'constitution':10, 
+        'intelligence':10,
+        'wisdom':10,
+        'charisma':10,
+        },
+    'hit_dice':'1d12',
+    'race':'Catapult',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':[],
+    'equipment_weapon':{
+        'Trap (fire)':1,
+        'Alchemist\'s Fire (100 lb)':1,
+        },
+    'equipment_backpack':{},
+    'equipment_supply':{},
+    }
+
+#----
 # Предметы:
 
 metadict_animals['Dummy (CR 0)'] = {
     # Просто чучело в броне.
-    'level':2,
+    'level':1,
     'challenge_rating':'0',
     'char_class':'Commoner',
     'behavior':'warrior',
@@ -64,8 +160,8 @@ metadict_animals['Dummy (CR 0)'] = {
     'weapon_skill':['simple','martial'],
     'armor_skill':['light','medium','heavy','shield'],
     'equipment_weapon':{
-        'Ring Mail':1,
-        'Heavy Shield':1,
+        #'Ring Mail':1,
+        #'Heavy Shield':1,
         },
     'equipment_backpack':{},
     'equipment_supply':{},
@@ -73,7 +169,7 @@ metadict_animals['Dummy (CR 0)'] = {
 
 metadict_animals['Dummy-officer (CR 0)'] = {
     # Чучело офицера
-    'level':4,
+    'level':3,
     'challenge_rating':'0',
     'char_class':'Commoner',
     'behavior':'commander',
@@ -95,7 +191,8 @@ metadict_animals['Dummy-officer (CR 0)'] = {
     'weapon_skill':['simple','martial'],
     'armor_skill':['light','medium','heavy','shield'],
     'equipment_weapon':{
-        'Splint Armor':1,
+        #'Splint Armor':1,
+        'Ring Mail':1,
         'Heavy Shield':1,
         },
     'equipment_backpack':{},

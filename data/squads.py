@@ -34,6 +34,17 @@ metadict_squads['test 4 onagers'] = {
     'Warrior 4 lvl (siege engineer-master) (onager-fire)':1,
     }
 
+metadict_squads['traps (lightning)'] = {
+    'Trap (Glyph of Warding) (Lightning)':1,
+    'Trap (commander)':1,
+    }
+
+metadict_squads['traps (fire)'] = {
+    # Восемь бочек алхимичесого огня на корабль
+    'Trap (Alchemist\'s Fire)':8,
+    'Trap (commander)':1,
+    }
+
 metadict_squads['test (ogres)'] = {
     'Ogre (CR 2)':4,
     'Orog (CR 2)':1,
@@ -57,7 +68,7 @@ metadict_squads['test party (1 lvl)'] = {
     'Wizard 1 lvl (otherworld mage-disciple)':1,
     }
 
-metadict_squads['Company-dummy (чучела)'] = {
+metadict_squads['Company-dummy (куклы)'] = {
     # Просто чучела на кораблях.
     'Dummy (CR 0)':100,
     'Dummy-officer (CR 0)':4,
@@ -102,7 +113,7 @@ metadict_squads['Band-hero (паладины Магора) (враг)'] = {
     'Paladin 1 lvl (враг) (паладин Магора)':6,
     }
 
-metadict_squads['Band-hero (снайперы Хана\'Вама) (враг)'] = {
+metadict_squads['Band-hero (снайперы Хана-Вама) (враг)'] = {
     # "Верные ученики" и "Многочисленная свита"
     'Fighter 5 lvl (враг) (Хана\'Вам)':1,
     'Fighter 1 lvl (враг) (снайпер Хана\'Вама)':12,
@@ -136,8 +147,8 @@ metadict_squads['Company-regular (сариссофоры Магора) (враг
     'Warrior 4 lvl (city pikeman-lieutenant)':2,
     }
 
-metadict_squads['Band-hero (лучники Хана\'Вама) (враг)'] = {
-    'Warrior 1 lvl (sqythian bowman)':80 + dice_throw('1d12'),
+metadict_squads['Company-regular (лучники Хана-Вама) (враг)'] = {
+    'Warrior 1 lvl (sqythian bowman)':75,
     'Warrior 2 lvl (sqythian bowman-corporal)':10,
     'Warrior 3 lvl (sqythian bowman-sergeant)':3,
     'Warrior 4 lvl (sqythian bowman-lieutenant)':1,
@@ -197,6 +208,19 @@ metadict_squads['Band-hero (жрецы Патрокла) (Vened)'] = {
     'Cleric 1 lvl (Vened) (жрец домена войны)':12,
     }
 
+metadict_squads['Company-regular (онагры Патрокла) (Vened)'] = {
+    'Warrior 3 lvl (siege engineer-apprentice) (onager-fire)':7,
+    'Warrior 4 lvl (siege engineer-master) (onager-fire)':1,
+    }
+
+metadict_squads['Company-militia (скорпионы Патрокла) (Vened)'] = {
+    # Отряд ополчения с тяжёлыми арбалетами:
+    'Commoner 1 lvl (militia heavy crossbowman)':80 + dice_throw('3d12'),
+    'Commoner 2 lvl (militia heavy crossbowman-corporal)':5,
+    'Warrior 3 lvl (militia heavy crossbowman-sergeant)':1,
+    #'Warrior 4 lvl (militia heavy crossbowman-lieutenant)':1,
+    }
+
 #----
 # Геройские отряды (армия Протесилая):
 
@@ -231,11 +255,11 @@ metadict_squads['Company-militia (токсотаи Ианты) (Vaarsuvius)'] = 
     # Ианта отправила лейтенанта в отряд Токсотаев. Стрелками командует сама.
     'Commoner 1 lvl (Vaarsuvius) (токсотай)':95,
     'Commoner 2 lvl (Vaarsuvius) (токсотай-ветеран)':5,
-    'Warrior 3 lvl (Vaarsuvius) (меткий стрелок-отставник)':1,
     'Warrior 4 lvl (Vaarsuvius) (стрелок-лейтенант)':1,
+    'Warrior 3 lvl (Vaarsuvius) (меткий стрелок-отставник)':1,
     }
 
-metadict_squads['Company-regular (стрелки Ианты) (Vaarsuvius)'] = {
+metadict_squads['Company-regular (лучники Ианты) (Vaarsuvius)'] = {
     # Ианта отправила лейтенанта в отряд Токсотаев. Стрелками командует сама.
     'Warrior 1 lvl (Vaarsuvius) (стрелок)':85,
     'Warrior 2 lvl (Vaarsuvius) (стрелок-ветеран)':10,
