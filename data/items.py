@@ -336,6 +336,12 @@ metadict_items['Lance'] = {
     # Контос (contus).
     # You have disadvantage when you use a lance to attack a target within 5 feet of you.
     # Also, a lance requires two hands to wield when you aren't mounted. 
+    # Боевой конь (400 килограмм), плюс всадник 100 килограмм:
+        # https://www.dandwiki.com/wiki/SRD:Heavy_Warhorse
+        # Скорость -- 16 км/час (4.4 м/с) (80 футов/раунд)
+        # Импульс: (400 + 100) * 4.4 = 2200 кг*м/с
+        # Полная энергия: (500 * 4.4 ** 2) / 2 = 4 840 джоулей (как пуля АКМ)
+    # Сила удара рыцарского лэнса (16 км/час) -- 300-600 Дж (600 Дж пробивает 2-мм кирасу)
     'weapon':True,
     'only_mounted':True,
     'disadvantage_close':True,
@@ -441,9 +447,10 @@ metadict_items['Shortsword'] = {
 # Martial Ranged Weapons
 
 metadict_items['Longbow'] = {
-    # TODO: урон 1d6, потому что иначе лучники просто уничтожают.
     # Композитный лук, но не английский "длинный лук":
-    # https://upload.wikimedia.org/wikipedia/commons/c/c5/KaiyuanBowStrung.jpg
+        # https://upload.wikimedia.org/wikipedia/commons/c/c5/KaiyuanBowStrung.jpg
+    # Стрела лонгбоу на 10 метрах (натяжение 150 фунтов, длина натяжения 30 дюймов) -- 150 Дж 
+    # Урон 1d6, потому что иначе лучники просто уничтожают.
     'weapon':True,
     'ammo_type':'Arrow',
     'weapon_type':['martial','ranged','volley','two_handed'],
