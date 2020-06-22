@@ -1650,7 +1650,8 @@ class battle_simulation(battlescape):
                 # Паладин добивает врага с помощью Divine_Smite:
                 if attack_result['hit'] and not attack_result['fatal_hit']\
                         and hasattr(soldier, 'spells') and soldier.spells\
-                        and soldier.spells_generator.find_spell('Divine_Smite'):
+                        and soldier.spells_generator.find_spell('Divine_Smite')\
+                        and 'spellcast' in soldier.commands:
                     spell_choice = soldier.spells_generator.find_spell('Divine_Smite')
                     self.spellcast_action(soldier, squad, enemy,
                             spell_choice, subspell = True, use_spell = True)
