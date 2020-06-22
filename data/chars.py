@@ -7026,10 +7026,12 @@ metadict_chars['Fighter 2 lvl (Mordodrukow) (темплар Зевса)'] = {
 
 metadict_chars['Fighter 5 lvl (Mordodrukow) (Лонгин)'] = {
     # Лучник, мастер боевых искусств
+    # Талант: "Идеальное взаимодействие". Преимущество командиру, помеха врагу.
     'level':5,
     'char_class':'Battlemaster-archer',
     'hit_dice':'1d10',
     'behavior':'commander',
+    'squad_advantage':True,
     'killer_AI':True,
     'commando_AI':True,
     'hitpoints_medial':True,
@@ -7076,11 +7078,13 @@ metadict_chars['Fighter 5 lvl (Mordodrukow) (Лонгин)'] = {
     }
 
 metadict_chars['Cleric 5 lvl (Mordodrukow) (Фарам «Друг Богов»)'] = {
+    # Талант: "Идеальное взаимодействие". Преимущество командиру, помеха врагу.
     'level':5,
-    'commando_AI':True,
     'char_class':'Cleric-heavy',
     'hit_dice':'1d8',
     'behavior':'commander',
+    'squad_advantage':True,
+    'commando_AI':True,
     'hitpoints_medial':True,
     'abilityes':{
         'strength':18,

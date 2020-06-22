@@ -2199,6 +2199,9 @@ class battle_simulation(battlescape):
         """
         advantage = False
         disadvantage = False
+        # Homebrew, идеальное взаимодействие свиты:
+        if enemy_soldier.__dict__.get('squad_advantage'):
+            disadvantage = True
         # Опутанный крайне уязвим:
         if enemy_soldier.restained == True:
             advantage = True
@@ -2270,6 +2273,9 @@ class battle_simulation(battlescape):
     def break_enemy_defence(self, soldier, squad, enemy_soldier, attack_choice):
         """Проверяем, есть ли преимущества или помехи в атаке на врага."""
         advantage = False
+        # Homebrew, идеальное взаимодействие свиты:
+        if soldier.__dict__.get('squad_advantage'):
+            return advantage
         # Безрассудная атака варвара, преимущество своим, преимущество врагу:
         if attack_choice[0] == 'close' or attack_choice[0] == 'reach'\
                 and soldier.class_features.get('Reckless_Attack'):
