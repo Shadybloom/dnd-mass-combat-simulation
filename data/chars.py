@@ -7818,6 +7818,7 @@ metadict_chars['Paladin 5 lvl (враг) (Магор «Детоед»)'] = {
     'char_class':'Paladin',
     'hit_dice':'1d10',
     'behavior':'commander',
+    'killer_AI':True,
     'hitpoints_medial':True,
     'abilityes':{
         'strength':18,
