@@ -170,6 +170,13 @@ class soldier_in_battle(soldier):
                 self.shield_ready = True
             else:
                 self.shield_ready = False
+        # Правим изменившиеся параметры в человеческой форме друида:
+        if self.__dict__.get('wild_shape_old_form'):
+            self.wild_shape_old_form['ally_side'] = self.ally_side
+            self.wild_shape_old_form['enemy_side'] = self.enemy_side
+            self.wild_shape_old_form['initiative'] = self.initiative
+            self.wild_shape_old_form['place'] = self.place
+            self.wild_shape_old_form['place_in_order'] = self.place_in_order
         if not hasattr(self, 'wild_shape'):
             self.wild_shape = False
         if not hasattr(self, 'wild_shape_old_form'):
