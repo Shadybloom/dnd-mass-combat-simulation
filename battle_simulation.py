@@ -169,6 +169,10 @@ class battle_simulation(battlescape):
                 for point in self.dict_battlespace.keys():
                     if not 'warding_wind' in self.dict_battlespace[point]:
                         self.dict_battlespace[point].append('warding_wind')
+            if 'water' in namespace.weather:
+                for point in self.dict_battlespace.keys():
+                    if not 'water' in self.dict_battlespace[point]:
+                        self.dict_battlespace[point].append('water')
         # Вывод карты до начала боя:
         #print_ascii_map(battle.gen_battlemap())
 
@@ -2205,6 +2209,10 @@ class battle_simulation(battlescape):
         # Homebrew, идеальное взаимодействие свиты:
         if enemy_soldier.__dict__.get('squad_advantage'):
             disadvantage = True
+        # Homebrew, солдаты без умения плавать уязвимы:
+        if not enemy_soldier.water_walk\
+                and 'water' in self.dict_battlespace[enemy_soldier.place]:
+            advantage = True
         # Опутанный крайне уязвим:
         if enemy_soldier.restained == True:
             advantage = True
@@ -2243,6 +2251,11 @@ class battle_simulation(battlescape):
             disadvantage = True
         # В темноте/тумане сложно атаковать:
         if 'obscure_terrain' in self.dict_battlespace[enemy_soldier.place]:
+            disadvantage = True
+        # Homebrew, солдаты без умения плавать уязвимы:
+        if not soldier.water_walk\
+                and 'water' in self.dict_battlespace[soldier.place]:
+            print('NYA')
             disadvantage = True
         # Сильный ветер мешает стрелкам:
         if attack_choice[0] == 'throw'\

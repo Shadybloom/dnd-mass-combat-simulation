@@ -179,6 +179,8 @@ class soldier_in_battle(soldier):
             self.wild_shape_old_form['place_in_order'] = self.place_in_order
         if not hasattr(self, 'wild_shape'):
             self.wild_shape = False
+        if not hasattr(self, 'water_walk'):
+            self.water_walk = False
         if not hasattr(self, 'wild_shape_old_form'):
             self.wild_shape_old_form = None
         if not hasattr(self, 'arcane_ward'):
