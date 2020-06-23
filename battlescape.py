@@ -224,10 +224,12 @@ class battlescape():
             # Укреплённые позиции (лучники на возвышенностях):
             'W':['barrikade','cover_terrain','spawn','warrior'],
             'E':['barrikade','cover_terrain','spawn','elite_warrior'],
-            #'C':['barrikade','cover_terrain','spawn','commander'],
-            #'A':['barrikade','cover_terrain','spawn','archer'],
-            'C':['barrikade','height','cover_terrain','spawn','commander'],
-            'A':['barrikade','height','cover_terrain','spawn','archer'],
+            'C':['barrikade','cover_terrain','spawn','commander'],
+            'A':['barrikade','cover_terrain','spawn','archer'],
+            #'C':['barrikade','height','cover_terrain','spawn','commander'],
+            #'A':['barrikade','height','cover_terrain','spawn','archer'],
+            'H':['barrikade','height','cover_terrain','spawn','commander'],
+            'h':['barrikade','height','cover_terrain','spawn','archer'],
             }
     # Выбор точек спавна определяется ролью бойца (behavior) в metadict_chars
     spawn_types = (
@@ -429,6 +431,7 @@ class battlescape():
         http://www.roguebasin.com/index.php?title=Line_of_Sight
         http://www.roguebasin.com/index.php?title=Bresenham%27s_Line_Algorithm#Python
         """
+        # TODO: отдели помехи взгляду от матрицы поиска пути:
         matrix = self.matrix
         dict_battlespace = self.dict_battlespace
         # Bresenham's line algorithm:
@@ -445,7 +448,7 @@ class battlescape():
         distance = len(sight_line)
         cover_sum = 0
         visibility = True
-        for coordinates in sight_line:
+        for n, coordinates in enumerate(sight_line):
             x,y = coordinates[0],coordinates[1]
             matrix_point = matrix[y][x]
             # ЗАМЕТКА: видимость
@@ -463,26 +466,16 @@ class battlescape():
                 visibility = False
                 cover_sum = max_obstacle
                 break
+            # Стены подземелий перегораживают взгляд:
             elif 'total_cover_terrain' in dict_battlespace[coordinates]:
                 visibility = False
                 cover_sum = max_obstacle
                 break
+            # Облака дыма/тумана мешают видеть:
             elif 'obscure_terrain' in dict_battlespace[coordinates] and distance > 1:
                 visibility = False
                 cover_sum = max_obstacle
                 break
-            elif 'height' in dict_battlespace[soldier_point]\
-                    or 'height' in dict_battlespace[enemy_point]:
-                x,y = enemy_point[0],enemy_point[1]
-                cover_sum = matrix[y][x]
-                visibility = True
-                continue
-            #elif 'mount_height' in dict_battlespace[soldier_point]\
-            #        or 'mount_height' in dict_battlespace[enemy_point]:
-            #    x,y = enemy_point[0],enemy_point[1]
-            #    cover_sum = matrix[y][x]
-            #    visibility = True
-            #    continue
             elif matrix_point >1:
                 cover_sum += matrix_point
             # TODO: оптимизировать
@@ -498,10 +491,22 @@ class battlescape():
             if cover_sum >= max_obstacle:
                 cover_sum = max_obstacle
                 visibility = False
-                # Всадник на конец всё-таки заметен. Но прикрытие на 3/4 всё равно есть:
+                # Высоты помогают видеть все ряды врага:
+                # 60-футовый холм на дистанции 150-200 футов даёт угол в 17-22 градуса:
+                if 'height' in dict_battlespace[soldier_point]\
+                        or 'height' in dict_battlespace[enemy_point]:
+                    cover_sum = max_obstacle -3
+                    visibility = True
+                    # Враг может укрыться под крепостной стеной или отвесным склоном:
+                    # Это 25-футовая мёртва зона для 25-футовой стены:
+                    if 'wall' in dict_battlespace[soldier_point] and distance < 5\
+                            or 'wall' in dict_battlespace[enemy_point] and distance < 5:
+                        cover_sum = max_obstacle
+                        visibility = False
+                # Всадник в рядах пехоты заметен. Но прикрытие на 3/4 есть:
                 if 'mount_height' in dict_battlespace[soldier_point]\
-                        or 'mount_height' in dict_battlespace[enemy_point]:
-                    cover_sum = max_obstacle -1
+                        or 'mount_height' in dict_battlespace[enemy_point] and distance < 5:
+                    cover_sum = max_obstacle -3
                     visibility = True
                 break
         vision_tuple = self.namedtuple_visibility(distance, cover_sum, visibility)
