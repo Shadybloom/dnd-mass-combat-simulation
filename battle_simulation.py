@@ -1604,6 +1604,9 @@ class battle_simulation(battlescape):
                 # Иногда заканчиваются боеприпасы:
                 if not soldier.attacks.get(attacks_chain[0]):
                     break
+                # Иногда заканчиваются и враги:
+                if not enemy:
+                    break
                 # Боец подготавливает атаку:
                 attack_choice = attacks_chain.pop(0)
                 advantage, disadvantage = self.test_enemy_defence(soldier, enemy_soldier, attack_choice)
