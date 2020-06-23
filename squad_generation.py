@@ -415,6 +415,8 @@ class squad_generation():
         if enemy_recon:
             # Число врагов относительно числа наших:
             # Например: 200/100 * 10 = 20 (это сложность броска морали)
+            if enemy_recon['ally_strenght'] <= 0:
+                enemy_recon['ally_strenght'] = 1
             morale_throw_DC = round(enemy_recon['enemy_strenght'] / enemy_recon['ally_strenght'] * 10)
         else:
             morale_throw_DC = 0
