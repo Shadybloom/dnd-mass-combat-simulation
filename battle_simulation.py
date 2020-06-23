@@ -866,6 +866,8 @@ class battle_simulation(battlescape):
             # Убийцы убивают схваченного врага. Снайпера стрелют с Feat_Sharpshooter:
             if squad.commander.__dict__.get('killer_AI'):
                 commands_list.append('kill')
+            if squad.commander.__dict__.get('grappler_AI'):
+                commands_list.append('grapple')
             # Друиды превращаются в первом же раунде боя:
             if squad.commander.__dict__.get('changer_AI'):
                 commands_list.append('change')
@@ -1621,9 +1623,8 @@ class battle_simulation(battlescape):
                     if len(soldier.near_allies) > 2\
                             and len(soldier.near_enemies) == 1\
                             and not enemy_soldier.size == 'large'\
-                            or enemy_soldier.sleep\
-                            or soldier.char_class == 'Monk'\
-                            or soldier.__dict__.get('Grappler_AI'):
+                            or 'grapple' in soldier.commands\
+                            or enemy_soldier.sleep:
                         wrestling_action = self.wrestling_action(soldier, squad,
                                 enemy_soldier, advantage, disadvantage)
                         if wrestling_action != None:
@@ -1769,13 +1770,8 @@ class battle_simulation(battlescape):
             grappled = enemy_soldier.set_grappled(soldier, advantage, disadvantage)
             # Боец становится на место схваченного врага, а борцуха-монах выдирает его из строя:
             if grappled and not enemy_soldier.behavior == 'mount':
-                if soldier.char_class == 'Monk':
+                if 'grapple' in soldier.commands:
                     destination = self.find_spawn(soldier.place, soldier.ally_side)
-                    self.move_action(soldier, squad, destination, allow_replace = True)
-                    self.change_place(enemy_soldier.place, soldier.place, enemy_soldier.uuid)
-                # Тактика осьминожек:
-                elif soldier.__dict__.get('Grappler_AI'):
-                    destination = self.find_spawn(soldier.place, soldier.ally_side, random_range = 1)
                     self.move_action(soldier, squad, destination, allow_replace = True)
                     self.change_place(enemy_soldier.place, soldier.place, enemy_soldier.uuid)
                 else:
@@ -2255,7 +2251,6 @@ class battle_simulation(battlescape):
         # Homebrew, солдаты без умения плавать уязвимы:
         if not soldier.water_walk\
                 and 'water' in self.dict_battlespace[soldier.place]:
-            print('NYA')
             disadvantage = True
         # Сильный ветер мешает стрелкам:
         if attack_choice[0] == 'throw'\

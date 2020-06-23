@@ -2614,6 +2614,7 @@ metadict_chars['Monk 3 lvl (city windsong-lorekeeper)'] = {
     'char_class':'Monk',
     'hit_dice':'1d8',
     'behavior':'commander',
+    'grappler_AI':True,
     'class_features':{
         'Feat_Defensive_Duelist':True,
         'Unarmored_Defense':True,
@@ -2644,6 +2645,7 @@ metadict_chars['Monk 4 lvl (city windsong-oathkeeper)'] = {
     'char_class':'Monk',
     'hit_dice':'1d8',
     'behavior':'commander',
+    'grappler_AI':True,
     'class_features':{
         'Feat_Defensive_Duelist':True,
         'Unarmored_Defense':True,
@@ -2678,6 +2680,7 @@ metadict_chars['Monk 5 lvl (city windsong-warmonger)'] = {
     'char_class':'Monk',
     'hit_dice':'1d8',
     'behavior':'commander',
+    'grappler_AI':True,
     'class_features':{
         # TODO: Сделай Stunning_Strike. Пусть монах 5 lvl использует его, атакуя командиров.
         # Тактика такова:
@@ -4346,7 +4349,6 @@ metadict_chars['Rogue 1 lvl (city cat-nyamo)'] = {
     'char_class':'Rogue',
     'hit_dice':'1d8',
     'behavior':'elite_warrior',
-    #'Grappler_AI':True,
     'class_features':{
         'Feat_Alert':True,
         'Expertise':True,
@@ -4372,7 +4374,6 @@ metadict_chars['Rogue 2 lvl (city cat-meow)'] = {
     'char_class':'Rogue',
     'hit_dice':'1d8',
     'behavior':'elite_warrior',
-    #'Grappler_AI':True,
     'class_features':{
         'Feat_Alert':True,
         'Expertise':True,
@@ -4398,7 +4399,7 @@ metadict_chars['Rogue 3 lvl (city cat-dodger)'] = {
     'char_class':'Arcane_Tricker',
     'hit_dice':'1d8',
     'behavior':'elite_warrior',
-    #'Grappler_AI':True,
+    'grappler_AI':True,
     'class_features':{
         'Feat_Alert':True,
         'Expertise':True,
@@ -4435,6 +4436,7 @@ metadict_chars['Rogue 4 lvl (city cat-runner)'] = {
     'char_class':'Arcane_Tricker',
     'hit_dice':'1d8',
     'behavior':'commander',
+    'grappler_AI':True,
     'class_features':{
         'Feat_Alert':True,
         'Expertise':True,
@@ -4477,6 +4479,7 @@ metadict_chars['Rogue 5 lvl (city cat-mastermind)'] = {
     'char_class':'Arcane_Tricker',
     'hit_dice':'1d8',
     'behavior':'commander',
+    'grappler_AI':True,
     'class_features':{
         'Feat_Alert':True,
         'Expertise':True,

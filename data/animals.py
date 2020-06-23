@@ -213,7 +213,7 @@ metadict_animals['Giant Octopus (CR 1)'] = {
     'water_walk':True,
     'hunter_AI':True,
     'killer_AI':True,
-    #'Grappler_AI':True,
+    'grappler_AI':True,
     #'fearless_AI':True,
     'class_features':{
         'Hold_Breath':True,
@@ -280,10 +280,10 @@ metadict_animals['Giant Octopus (conjured) (CR 1)'] = {
     'behavior':'elite_warrior',
     'hitpoints_medial':True,
     'water_walk':True,
-    #'fearless_AI':True,
-    #'hunter_AI':True,
-    #'Grappler_AI':True,
     #'killer_AI':True,
+    #'hunter_AI':True,
+    'grappler_AI':True,
+    #'fearless_AI':True,
     'class_features':{
         'Hold_Breath':True,
         'Water_Breathing':True,
@@ -345,9 +345,9 @@ metadict_animals['Giant Octopus (mount) (CR 1)'] = {
     'behavior':'mount',
     'hitpoints_medial':True,
     'water_walk':True,
-    'Grappler_AI':True,
     #'hunter_AI':True,
     #'killer_AI':True,
+    #'grappler_AI':True,
     #'fearless_AI':True,
     'class_features':{
         'Hold_Breath':True,
@@ -471,7 +471,7 @@ metadict_animals['Zombie (CR 1/4)'] = {
     'behavior':'warrior',
     'fearless_AI':True,
     'hitpoints_medial':True,
-    #'Grappler_AI':True,
+    #'grappler_AI':True,
     #'hunter_AI':True,
     #'killer_AI':True,
     'class_features':{
