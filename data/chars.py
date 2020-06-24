@@ -1215,6 +1215,134 @@ metadict_chars['Warrior 5 lvl (persian bowman-captain)'] = {
     }
 
 #----
+# Вспомогательные войска, пращники.
+
+metadict_chars['Warrior 1 lvl (balear slinger)'] = {
+    'level':1,
+    'char_class':'Warrior-bowman',
+    'behavior':'warrior',
+    'hit_dice':'1d8',
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Hide Armor':1,
+        'Heavy Shield':1,
+        'Mace':1,
+        'Sling real':1,
+        'Sling Bullet':10,
+        },
+    }
+
+metadict_chars['Warrior 2 lvl (balear slinger-corporal)'] = {
+    'level':2,
+    'char_class':'Warrior-bowman',
+    'behavior':'elite_warrior',
+    'class_features':{
+        'Fighting_Style_Protection':True,
+        },
+    'hit_dice':'1d8',
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Hide Armor':1,
+        'Heavy Shield':1,
+        'Mace':1,
+        'Sling real':1,
+        'Sling Bullet':10,
+        },
+    }
+
+metadict_chars['Warrior 3 lvl (balear slinger-sergeant)'] = {
+    'level':3,
+    'char_class':'Warrior-bowman',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Protection':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Breastplate':1,
+        'Heavy Shield':1,
+        'Mace':1,
+        'Sling real':1,
+        'Sling Bullet':10,
+        },
+    }
+
+metadict_chars['Warrior 4 lvl (balear slinger-lieutenant)'] = {
+    'level':4,
+    'char_class':'Warrior-bowman',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Protection':True,
+        'Feat_Sharpshooter':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Rune of Shielding':1,
+        'Breastplate':1,
+        'Heavy Shield':1,
+        'Mace':1,
+        'Sling real':1,
+        'Sling Bullet':10,
+        },
+    #'mount_combat':False,
+    #'mount_type':'Riding Horse',
+    #'equipment_mount':{
+    #    },
+    }
+
+metadict_chars['Warrior 5 lvl (balear slinger-captain)'] = {
+    'level':5,
+    'char_class':'Warrior-bowman',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Protection':True,
+        'Feat_Sharpshooter':True,
+        'Extra_Attack':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Rune of Absorbtion':1,
+        'Rune of Shielding':1,
+        'Half Plate':1,
+        'Heavy Shield':1,
+        'Mace':1,
+        'Sling real':1,
+        'Sling Bullet':10,
+        },
+    #'mount_combat':False,
+    #'mount_type':'Riding Horse',
+    #'equipment_mount':{
+    #    },
+    }
+
+#----
 # Вспомогательные войска, лучники.
 
 metadict_chars['Warrior 1 lvl (cilician infantry)'] = {
@@ -1342,6 +1470,140 @@ metadict_chars['Warrior 5 lvl (cilician infantry-captain)'] = {
         },
     'mount_combat':False,
     'mount_type':'Riding Horse',
+    'equipment_mount':{
+        },
+    }
+
+#----
+# Вспомогательные войска, кавалерия.
+
+metadict_chars['Warrior 1 lvl (cavalry archer)'] = {
+    # Лёгкая кавалерия кочевников
+    'level':1,
+    'char_class':'Warrior-bowman',
+    'hit_dice':'1d8',
+    'behavior':'archer',
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Padded Armor':1,
+        'Dagger':1,
+        'Shortbow':1,
+        'Arrow':60,
+        },
+    'mount_combat':True,
+    'mount_type':'Light Warhorse',
+    'equipment_mount':{
+        },
+    }
+
+metadict_chars['Warrior 2 lvl (cavalry archer-corporal)'] = {
+    'level':2,
+    'char_class':'Warrior-bowman',
+    'hit_dice':'1d8',
+    'behavior':'archer',
+    'class_features':{
+        'Fighting_Style_Archery':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Studded Leather':1,
+        'Shortsword':1,
+        'Shortbow':1,
+        'Arrow':60,
+        },
+    'mount_combat':True,
+    'mount_type':'Light Warhorse',
+    'equipment_mount':{
+        },
+    }
+
+metadict_chars['Warrior 3 lvl (cavalry archer-sergeant)'] = {
+    'level':3,
+    'char_class':'Warrior-bowman',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Archery':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Breastplate':1,
+        'Shortsword':1,
+        'Shortbow':1,
+        'Arrow':60,
+        },
+    'mount_combat':True,
+    'mount_type':'Warhorse',
+    'equipment_mount':{
+        },
+    }
+
+metadict_chars['Warrior 4 lvl (cavalry archer-lieutenant)'] = {
+    'level':4,
+    'char_class':'Warrior-bowman',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Archery':True,
+        'Feat_Sharpshooter':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Rune of Shielding':1,
+        'Breastplate':1,
+        'Shortsword':1,
+        'Shortbow':1,
+        'Arrow':60,
+        },
+    'mount_combat':True,
+    'mount_type':'Warhorse',
+    'equipment_mount':{
+        },
+    }
+
+metadict_chars['Warrior 5 lvl (cavalry archer-captain)'] = {
+    'level':5,
+    'char_class':'Warrior-officer',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Archery':True,
+        'Feat_Sharpshooter':True,
+        'Extra_Attack':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Rune of Shielding':1,
+        'Rune of Armor':1,
+        'Shortsword':1,
+        'Shortbow':1,
+        'Arrow':60,
+        },
+    'mount_combat':True,
+    'mount_type':'Warhorse',
     'equipment_mount':{
         },
     }

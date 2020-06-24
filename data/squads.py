@@ -124,7 +124,7 @@ metadict_squads['Band-hero (друиды Тик-Бо) (враг)'] = {
     # TODO: Сделай ездовых осьминогов, а пока тпусть так:
     'Druid 5 lvl (враг) (Тик-Бо «Робкий»)':1,
     'Druid 1 lvl (враг) (друид Тик-Бо)':6,
-    'Giant Octopus (conjured) (CR 1)':12,
+    #'Giant Octopus (conjured) (CR 1)':12,
     }
 
 metadict_squads['Company-militia (демоны Кема\'Эша) (враг)'] = {
@@ -153,6 +153,20 @@ metadict_squads['Company-regular (лучники Хана-Вама) (враг)']
     'Warrior 3 lvl (sqythian bowman-sergeant)':3,
     'Warrior 4 lvl (sqythian bowman-lieutenant)':1,
     'Warrior 5 lvl (sqythian bowman-captain)':1,
+    }
+
+metadict_squads['Company-regular (пращники Тик-Бо) (враг)'] = {
+    'Warrior 1 lvl (balear slinger)':75,
+    'Warrior 2 lvl (balear slinger-corporal)':10,
+    'Warrior 3 lvl (balear slinger-sergeant)':3,
+    'Warrior 4 lvl (balear slinger-lieutenant)':1,
+    }
+
+metadict_squads['Company-regular (кавалерия Кара-Яма) (враг)'] = {
+    'Warrior 1 lvl (cavalry archer)':35,
+    'Warrior 2 lvl (cavalry archer-corporal)':10,
+    'Warrior 3 lvl (cavalry archer-sergeant)':3,
+    'Warrior 4 lvl (cavalry archer-lieutenant)':1,
     }
 
 #----
@@ -541,6 +555,14 @@ metadict_squads['Company-regular (bowmans-scythian)'] = {
     'Warrior 3 lvl (sqythian bowman-sergeant)':3,
     'Warrior 4 lvl (sqythian bowman-lieutenant)':1,
     'Warrior 5 lvl (sqythian bowman-captain)':1,
+    }
+
+metadict_squads['Company-regular (slingers-balear)'] = {
+    'Warrior 1 lvl (balear slinger)':80 + dice_throw('1d12'),
+    'Warrior 2 lvl (balear slinger-corporal)':10,
+    'Warrior 3 lvl (balear slinger-sergeant)':3,
+    'Warrior 4 lvl (balear slinger-lieutenant)':1,
+    'Warrior 5 lvl (balear slinger-captain)':1,
     }
 
 #----
