@@ -307,22 +307,22 @@ class soldier_in_battle(soldier):
                         self.bonus_hitpoints = self.level * 2 + self.mods['intelligence']
                         self.arcane_ward = True
                         #print(self.hitpoints_max, self.bonus_hitpoints)
+                # TODO: Из-за этих break применяется только одно заклинание из доступных.
                 if spell_dict.get('blur') and not self.blur and not self.concentration:
                     self.spells_generator.use_spell(spell)
                     self.blur = True
                     self.blur_timer = 10
                     self.concentration = True
                     break
-                # TODO: Из-за этих break применяется только одно заклинание из доступных.
                 # Лучше учитывай концентрацию.
-                if spell_dict.get('effect') is 'spirit_guardians' and not self.spirit_guardians:
+                if spell_dict.get('effect') == 'spirit_guardians' and not self.spirit_guardians:
                     spell_dict = self.spells_generator.use_spell(spell)
                     self.spirit_guardians = True
                     self.spirit_guardians_dict = spell_dict
                     self.spirit_guardians_timer = spell_dict['effect_timer']
                     self.concentration = True
                     break
-                if spell_dict.get('effect') is 'crusaders_mantle' and not self.crusaders_mantle:
+                if spell_dict.get('effect') == 'crusaders_mantle' and not self.crusaders_mantle:
                     # TODO: сделай уже работающую концентрацию на заклинаниях!
                     spell_dict = self.spells_generator.use_spell(spell)
                     self.crusaders_mantle = True
@@ -331,7 +331,7 @@ class soldier_in_battle(soldier):
                     self.concentration = True
                     break
                 # Нет, не на себя, а на командира:
-                #if spell_dict.get('effect') is 'shield_of_faith' and not self.concentration:
+                #if spell_dict.get('effect') == 'shield_of_faith' and not self.concentration:
                 #    spell_dict = self.spells_generator.use_spell(spell)
                 #    self.shield_of_faith = True
                 #    self.shield_of_faith_timer = spell_dict['effect_timer']
