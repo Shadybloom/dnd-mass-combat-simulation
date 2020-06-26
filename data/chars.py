@@ -6299,10 +6299,10 @@ metadict_chars['Warrior 4 lvl (Vaarsuvius) (первый помощник)'] = {
         'Glaive':1,
         'Javelin':5,
         },
-    'mount_combat':False,
-    'mount_type':'Riding Horse',
-    'equipment_mount':{
-        },
+    #'mount_combat':False,
+    #'mount_type':'Riding Horse',
+    #'equipment_mount':{
+    #    },
     }
 
 metadict_chars['Warrior 5 lvl (Vaarsuvius) (Филлис)'] = {
@@ -6326,6 +6326,7 @@ metadict_chars['Warrior 5 lvl (Vaarsuvius) (Филлис)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
+        'Goodberry':30,
         'Infusion of Healing':1,
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
@@ -6334,10 +6335,10 @@ metadict_chars['Warrior 5 lvl (Vaarsuvius) (Филлис)'] = {
         'Glaive':1,
         'Javelin':5,
         },
-    'mount_combat':False,
-    'mount_type':'Riding Horse',
-    'equipment_mount':{
-        },
+    #'mount_combat':False,
+    #'mount_type':'Riding Horse',
+    #'equipment_mount':{
+    #    },
     }
 
 #----
@@ -7044,14 +7045,14 @@ metadict_chars['Fighter 5 lvl (ArbitraryNickname) (Артаманах Рыбни
     }
 
 #----
-# Жрецы -- домен жизни:
+# Жрецы (свита) (Патрокл «Македонянин»):
+# Жрецы -- домен войны:
 
 metadict_chars['Cleric 1 lvl (Vened) (жрец домена войны)'] = {
     # В свите Патрокла БОЛЬШИЕ македонцы.
     # TODO: Броня больших созданий должна весить в 2.5 раза больше.
     # Добавим им бесстрашия, а то пугливы из-за большого размера.
     'level':1,
-    #'fearless_AI':True,
     'char_class':'Cleric-heavy',
     'hit_dice':'1d8',
     'behavior':'elite_warrior',
@@ -7072,9 +7073,9 @@ metadict_chars['Cleric 1 lvl (Vened) (жрец домена войны)'] = {
             ('ritual', 'Detect_Poison_and_Disease'),
             ('ritual', 'Purify_Food_and_Drink'),
             #('ritual', 'Detect_Magic'),
-            #('1_lvl', 'Healing_Word'),
+            ('1_lvl', 'Healing_Word'),
             ('1_lvl', 'Bless'),
-            ('1_lvl', 'Cure_Wounds'),
+            #('1_lvl', 'Cure_Wounds'),
             #('1_lvl', 'Guiding_Bolt'),
             #('1_lvl', 'Shield_of_Faith'),
             ],
@@ -7091,8 +7092,9 @@ metadict_chars['Cleric 1 lvl (Vened) (жрец домена войны)'] = {
         'Splint Armor':1,
         'Heavy Shield':1,
         'Long Spear':1,
-        'Mace':1,
+        'Longsword':1,
         },
+    # TODO: ездовые животные -- волы
     #'mount_combat':False,
     #'mount_type':'Riding Horse',
     #'equipment_mount':{
@@ -7101,7 +7103,6 @@ metadict_chars['Cleric 1 lvl (Vened) (жрец домена войны)'] = {
 
 metadict_chars['Cleric 5 lvl (Vened) (Патрокл «Македонянин»)'] = {
     'level':5,
-    #'fearless_AI':True,
     'char_class':'Cleric-heavy',
     'hit_dice':'1d8',
     'behavior':'commander',
@@ -7137,7 +7138,7 @@ metadict_chars['Cleric 5 lvl (Vened) (Патрокл «Македонянин»)
             ('2_lvl', 'Enhance_Ability'),
             ('2_lvl', 'Prayer_of_Healing'),
             ('3_lvl', 'Spirit_Guardians'),
-            #('3_lvl', 'Crusaders_Mantle'),
+            ('3_lvl', 'Crusaders_Mantle'),
             ('3_lvl', 'Dispel_Magic'),
             ('3_lvl', 'Revivify'),
             ],
@@ -7152,14 +7153,16 @@ metadict_chars['Cleric 5 lvl (Vened) (Патрокл «Македонянин»)
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
+        'Goodberry':30,
         'Infusion of Healing':1,
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
         'Splint Armor':1,
         'Heavy Shield':1,
         'Long Spear +1':1,
-        'Shortsword':1,
+        'Longsword':1,
         },
+    # TODO: ездовые животные -- волы
     #'mount_combat':False,
     #'mount_type':'Riding Horse',
     #'equipment_mount':{
@@ -7167,6 +7170,111 @@ metadict_chars['Cleric 5 lvl (Vened) (Патрокл «Македонянин»)
     }
 
 #----
+# Жрецы (свита) (Патрокл «Македонянин»):
+
+metadict_chars['Druid 1 lvl (Vened) (друид Патрокла)'] = {
+    'level':1,
+    'char_class':'Druid-heavy',
+    'hit_dice':'1d8',
+    'behavior':'archer',
+    'class_features':{
+        'Feat_Healer':True,
+        'Spellcasting':True,
+        'Spells':[
+            # Число заклинаний -- мод_мудрости + уровень_друида:
+            # Goodberry -- 2 слота = 20 хитов на завтра. 20 друидов 2 lvl = 600 хитов лечения.
+            ('cantrip', 'Druidcraft'),
+            ('cantrip', 'Thorn_Whip'),
+            ('1_lvl', 'Thunderwave'),
+            ('1_lvl', 'Goodberry'),
+            ('1_lvl', 'Cure_Wounds'),
+            ],
+        'Druidic_Language':True,
+        },
+    'race':'Human-hero-big',
+    'weapon_skill':['simple','Scimitar'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Splint Armor':1,
+        'Heavy Shield':1,
+        'Longsword':1,
+        'Long Spear':1,
+        },
+    # TODO: ездовые животные -- волы
+    #'mount_combat':True,
+    #'mount_type':'Giant Octopus (mount) (CR 1)',
+    #'equipment_mount':{
+    #    },
+    }
+
+metadict_chars['Druid 5 lvl (Vened) (Брат Патрокла)'] = {
+    'level':5,
+    'char_class':'Druid',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'hitpoints_medial':True,
+    'abilityes':{
+        'strength':20,
+        'dexterity':10,
+        'constitution':12,
+        'intelligence':18,
+        'wisdom':18,
+        'charisma':10,
+        },
+    'class_features':{
+        'Feat_Healer':True,
+        'Feat_Heavy_Armor_Master':True,
+        'Spellcasting':True,
+        'Spells':[
+            ('cantrip', 'Thorn_Whip'),
+            ('cantrip', 'Mend'),
+            ('cantrip', 'Druidcraft'),
+            #('ritual', 'Speak_with_Animals'),
+            #('ritual', 'Water_Breathing'),
+            ('ritual', 'Water_Walk'),
+            ('1_lvl', 'Thunderwave'),
+            ('1_lvl', 'Goodberry'),
+            ('1_lvl', 'Cure_Wounds'),
+            ('2_lvl', 'Heat_Metal'),
+            ('2_lvl', 'Flame_Blade'),
+            ('2_lvl', 'Spike_Growth'),
+            ('3_lvl', 'Dispel_Magic'),
+            ('3_lvl', 'Wind_Wall'),
+            ],
+        'Druidic_Language':True,
+        'Wild_Shape':True,
+        'Wild_Shape_Form':'Brown Bear (CR 1)',
+        #'Wild_Shape_Form':'Giant Octopus (CR 1)',
+        'Druid_Circle_Moon':True,
+        'Combat_Wild_Shape':True,
+        'Wild_Shape_Improvement':True,
+        },
+    'race':'Human-hero-big',
+    'weapon_skill':['simple','Scimitar'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Rune of Shielding':1,
+        'Rune of Absorbtion':1,
+        'Splint Armor':1,
+        'Heavy Shield':1,
+        'Longsword +1':1,
+        'Long Spear':1,
+        },
+    # TODO: ездовые животные -- волы
+    #'mount_combat':False,
+    #'mount_type':'Giant Octopus (mount) (CR 1)',
+    #'equipment_mount':{
+    #    },
+    }
+
+#----
+# Жрецы (свита) (Фарам «Друг богов»):
 # Жрецы -- домен бури:
 
 metadict_chars['Cleric 2 lvl (Mordodrukow) (жрец Зевса) (боевой)'] = {
@@ -8278,7 +8386,7 @@ metadict_chars['Druid 5 lvl (враг) (Тик-Бо «Робкий»)'] = {
     'char_class':'Druid',
     'hit_dice':'1d8',
     'behavior':'commander',
-    'fearless_AI':True,
+    #'fearless_AI':True,
     'hitpoints_medial':True,
     'abilityes':{
         'strength':10,

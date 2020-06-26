@@ -155,6 +155,13 @@ metadict_squads['Company-regular (лучники Хана-Вама) (враг)']
     'Warrior 5 lvl (sqythian bowman-captain)':1,
     }
 
+metadict_squads['Company-regular (пираты Кара-Яма) (конные) (враг)'] = {
+    'Warrior 1 lvl (cavalry archer)':6,
+    'Warrior 2 lvl (cavalry archer-corporal)':10,
+    'Warrior 3 lvl (cavalry archer-sergeant)':3,
+    'Warrior 4 lvl (cavalry archer-lieutenant)':1,
+    }
+
 metadict_squads['Company-regular (пращники Тик-Бо) (враг)'] = {
     'Warrior 1 lvl (balear slinger)':75,
     'Warrior 2 lvl (balear slinger-corporal)':10,
@@ -162,11 +169,11 @@ metadict_squads['Company-regular (пращники Тик-Бо) (враг)'] = {
     'Warrior 4 lvl (balear slinger-lieutenant)':1,
     }
 
-metadict_squads['Company-regular (кавалерия Кара-Яма) (враг)'] = {
-    'Warrior 1 lvl (cavalry archer)':35,
-    'Warrior 2 lvl (cavalry archer-corporal)':10,
-    'Warrior 3 lvl (cavalry archer-sergeant)':3,
-    'Warrior 4 lvl (cavalry archer-lieutenant)':1,
+metadict_squads['Company-regular (пираты Кема-Эша) (враг)'] = {
+    'Warrior 1 lvl (cilician infantry)':75,
+    'Warrior 2 lvl (cilician infantry-corporal)':10,
+    'Warrior 3 lvl (cilician infantry-sergeant)':3,
+    'Warrior 4 lvl (cilician infantry-lieutenant)':1,
     }
 
 #----
@@ -219,7 +226,14 @@ metadict_squads['Band-hero (снайпер Лонгин) (Mordodrukow)'] = {
 
 metadict_squads['Band-hero (жрецы Патрокла) (Vened)'] = {
     'Cleric 5 lvl (Vened) (Патрокл «Македонянин»)':1,
-    'Cleric 1 lvl (Vened) (жрец домена войны)':12,
+    'Cleric 1 lvl (Vened) (жрец домена войны)':10,
+    #'Druid 5 lvl (Vened) (Брат Патрокла)':1,
+    #'Druid 1 lvl (Vened) (друид Патрокла)':2,
+    }
+
+metadict_squads['Band-hero (друиды Патрокла) (Vened)'] = {
+    'Druid 5 lvl (Vened) (Брат Патрокла)':1,
+    'Druid 1 lvl (Vened) (друид Патрокла)':2,
     }
 
 metadict_squads['Company-regular (онагры Патрокла) (Vened)'] = {
@@ -228,11 +242,19 @@ metadict_squads['Company-regular (онагры Патрокла) (Vened)'] = {
     }
 
 metadict_squads['Company-militia (скорпионы Патрокла) (Vened)'] = {
+    # TODO: переименуй в тяжёлых арбалетчиков для следующего боя.
     # Отряд ополчения с тяжёлыми арбалетами:
     'Commoner 1 lvl (militia heavy crossbowman)':80 + dice_throw('3d12'),
     'Commoner 2 lvl (militia heavy crossbowman-corporal)':5,
     'Warrior 3 lvl (militia heavy crossbowman-sergeant)':1,
     #'Warrior 4 lvl (militia heavy crossbowman-lieutenant)':1,
+    }
+
+metadict_squads['Company-regular (сариссофоры Патрокла) (Vened)'] = {
+    'Warrior 1 lvl (city pikeman)':85,
+    'Warrior 2 lvl (city pikeman-corporal)':10,
+    'Warrior 3 lvl (city pikeman-sergeant)':3,
+    'Warrior 4 lvl (city pikeman-lieutenant)':1,
     }
 
 #----
