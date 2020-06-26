@@ -297,7 +297,9 @@ class battlescape():
                 # Обозначаем выходы с поля боя (края карты):
                 if y == 0 or y == self.battle_map_height - 1\
                         or x == 0 or x == self.battle_map_length - 1:
-                    dict_battlespace[x,y].append('exit')
+                    if not 'stop_terrain' in dict_battlespace[x,y]\
+                            and not 'zone_border' in dict_battlespace[x,y]:
+                        dict_battlespace[x,y].append('exit')
         #for key,value in dict_battlespace.items():
         #    print(key,value)
         return dict_battlespace
