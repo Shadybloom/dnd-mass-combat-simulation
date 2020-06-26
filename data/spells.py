@@ -637,16 +637,19 @@ class gen_spells():
         Duration: Instantaneous
         https://www.dnd-spells.com/spell/healing-word
         """
+        # Дистанция заклинания увеличена до 120 футов.
+        # TODO: в damage_mod получается мод_характеристики + proficiency_bonus.
+        # А должно быть только мод_характеристики.
         spell_dict = {
                 'direct_hit':True,
                 'attacks_number':1,
-                'attack_range':60,
+                'attack_range':120,
                 'damage_type':'heal',
                 'damage_dice':'1d4',
                 'components':['verbal'],
-                'casting_time':'action',
+                'casting_time':'bonus_action',
                 'spell_level':spell_level,
-                'damage_mod':0,
+                'damage_mod':self.find_spell_attack_mod(),
                 'spell_save_DC':8 + self.find_spell_attack_mod(),
                 'spell_of_choice':'Bane',
                 }

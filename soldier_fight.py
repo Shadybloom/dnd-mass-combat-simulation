@@ -954,6 +954,29 @@ class soldier_in_battle(soldier):
         else:
             return False
 
+    def first_aid_spell(self, injured_ally, spell_choice, vision_tuple):
+        """Лекарь использует заклинание лечения.
+        
+        - Лекарь должен видеть раненого.
+        - Раненый должен быть на дистанции заклинания.
+        """
+        distance_max = round(self.spells[spell_choice].get('attack_range', 0) / self.tile_size)
+        casting_action = self.spells[spell_choice].get('casting_time', None)
+        # casting_action должно иметь значение "battle_action" или "bonus_action":
+        if casting_action and self.__dict__.get(casting_action)\
+                and vision_tuple.distance <= distance_max:
+            self.__dict__[casting_action] = False
+            spell_dict = self.spells_generator.use_spell(spell_choice)
+            heal = dices.dice_throw_advantage(spell_dict['damage_dice']) + spell_dict['damage_mod']
+            injured_ally.set_hitpoints(heal)
+            print('{0} {1} {2} (help_action) >> {3}, {4}, {5} heal (spell): {6}'.format(
+                self.ally_side, self.place, self.behavior,
+                injured_ally.ally_side, injured_ally.place, injured_ally.behavior,
+                heal))
+            return True
+        else:
+            return False
+
     def set_fall_prone(self, enemy_soldier, advantage = False, disadvantage = False):
         """Бойца пытаются сбить с ног.
         
