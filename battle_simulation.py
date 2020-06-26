@@ -2733,7 +2733,10 @@ class interface(battlescape):
         spawn_zones_list = list(spawn_zones_dict.keys())
         squads_list = list(sorted(squads.metadict_squads.keys()))
         # Пополняем список отрядами из базы данных:
-        print('Database :', self.database.print_squads())
+        print('Database [{n}]: {squads}'.format(
+            n = len(self.database.print_squads()),
+            squads = self.database.print_squads(),
+            ))
         squads_list.extend(self.database.print_squads())
         #print('------------------------------------------------------------')
         zones_squads_dict = {}
