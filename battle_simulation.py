@@ -201,6 +201,9 @@ class battle_simulation(battlescape):
             squad.set_hitpoints()
             squad.set_initiative()
             squad.initiative = squad.throw_squad_initiative()
+            squad.zone = zone
+            squad.type = squad_type
+            squad.exit_points = self.find_zone_exit_points(squad.zone)
             squad_tuple = self.namedtuple_squad(zone, squad_type, squad.initiative)
             ready_squads[squad_tuple] = squad
         # Отряды сортированы в порядке командирских бросков инициативы:
@@ -269,6 +272,20 @@ class battle_simulation(battlescape):
                                 # Даём бойцу его координаты:
                                 squad.metadict_soldiers[uuid].set_coordinates(spawn_point.place)
                                 break
+
+    def find_zone_exit_points(self, zone):
+        """Точки выхода с карты для бегущих с поля боя.
+        
+        Это точки с меткой "exit" в зоне спавна отряда:
+        - Метки "exit" ставятся по краям карты, если край не занят "stop_terrain" или "zone_border".
+        - Если зона спавна отряда не встречается с краем карты, то он не сможет сбежать с поля боя.
+        """
+        exit_points = []
+        for place, content in self.dict_battlespace.items():
+            if 'exit' in content and zone in content:
+                exit_points.append(place)
+        return exit_points
+
 
     def set_squad_battle_order(self, squad, squad_zone):
         """Солдаты запоминают своё положение в строю относительно командира.
@@ -957,14 +974,16 @@ class battle_simulation(battlescape):
             # Командир может отступить в глубину строя:
             if soldier.behavior == 'commander' or 'retreat' in soldier.commands:
                 self.move_action(soldier, squad, destination, allow_replace = True)
-        # Солдат бежит, если испуган:
+        # Солдат бежит, если испуган, или таков приказ:
         elif soldier.escape or 'retreat' in soldier.commands:
             soldier.escape = True
             self.dash_action(soldier)
-            # Солдатам в ловушке некуда бежать:
-            #if namespace.weather and 'trap' in namespace.weather:
-            #    soldier.escape = False
-            destination = self.find_spawn(soldier.place, soldier.ally_side, find_exit = True)
+            # Бегство к выходу из карты, или к зоне спавна отряда:
+            if len(squad.exit_points) > 0:
+                destination = random.choice(squad.exit_points)
+            else:
+                destination = self.find_spawn(soldier.place, soldier.ally_side)
+                destination = random.choice(self.point_to_field(destination))
             self.move_action(soldier, squad, destination, allow_replace = True)
             if 'exit' in self.dict_battlespace[soldier.place]:
                 self.clear_battlemap()
@@ -2409,23 +2428,17 @@ class battle_simulation(battlescape):
                     target_list.append(target)
         return target_list
 
-    def find_spawn(self, soldier_coordinates, side, random_range = 10, find_exit = False):
+    def find_spawn(self, soldier_coordinates, side, random_range = 10):
         """Если боец не видит врага, то по крайней мере знает примерное направление.
         
         - Он выбирает случайную точку спавна врага в диапазоне дистанций и следует к ней.
         - Если не находит, то возвращает координаты самого бойца.
         """
         coord_dict = {}
-        if not find_exit:
-            for el in self.spawn_list:
-                if side in self.dict_battlespace[el.place] and 'spawn' in self.dict_battlespace[el.place]:
-                    distance = round(distance_measure(soldier_coordinates, el.place))
-                    coord_dict[el.place] = distance
-        if find_exit:
-            for el in self.spawn_list:
-                if 'exit' in self.dict_battlespace[el.place] and 'spawn' in self.dict_battlespace[el.place]:
-                    distance = round(distance_measure(soldier_coordinates, el.place))
-                    coord_dict[el.place] = distance
+        for el in self.spawn_list:
+            if side in self.dict_battlespace[el.place] and 'spawn' in self.dict_battlespace[el.place]:
+                distance = round(distance_measure(soldier_coordinates, el.place))
+                coord_dict[el.place] = distance
         coord_dict = OrderedDict(sorted(coord_dict.items(),key=lambda x: x[1]))
         if len(coord_dict) < random_range:
             random_range = len(coord_dict)
@@ -2587,9 +2600,6 @@ class battle_simulation(battlescape):
                         #if 'fall_place' in content and soldier.ally_side in content:
                         #    content.remove('fall_place')
                         #    content.remove(soldier.ally_side)
-                    # Солдаты в ловушке не могут сбежать:
-                    elif namespace.weather and 'trap' in namespace.weather:
-                        continue
                     elif soldier.escape and 'exit' in content:
                         content.remove(el)
                         soldier.defeat = True
