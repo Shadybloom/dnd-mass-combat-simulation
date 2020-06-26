@@ -934,11 +934,8 @@ class battle_simulation(battlescape):
         #    print('{0} {1} {2} hp {3}/{4} danger {5}'.format(
         #    soldier.ally_side, soldier.place, soldier.rank,
         #    soldier.hitpoints, soldier.hitpoints_max, soldier.danger))
-        # Бойцы отступают и лечатся зельями, если это необходимо:
+        # Бойцы лечатся зельями, если это необходимо:
         if soldier.hitpoints <= soldier.hitpoints_max / 2:
-            destination = self.find_spawn(soldier.place, soldier.ally_side)
-            destination = random.choice(self.point_to_field(destination))
-            self.move_action(soldier, squad, destination, allow_replace = True)
             if soldier.second_wind:
                 soldier.set_second_wind()
             elif soldier.lay_on_hands:
@@ -947,8 +944,8 @@ class battle_simulation(battlescape):
                 soldier.use_potion_of_healing()
             elif soldier.equipment_weapon.get('Goodberry'):
                 soldier.use_potion_of_healing()
-        # Солдат отступает, если опасность слишком велика:
-        if soldier.danger > self.engage_danger or 'retreat' in soldier.commands:
+        # Солдат отступает к точке спавна, если опасность слишком велика:
+        if soldier.danger > self.engage_danger and not soldier.escape:
             destination = self.find_spawn(soldier.place, soldier.ally_side)
             destination = random.choice(self.point_to_field(destination))
             self.move_action(soldier, squad, destination, allow_replace = False)
@@ -960,14 +957,17 @@ class battle_simulation(battlescape):
             # Командир может отступить в глубину строя:
             if soldier.behavior == 'commander' or 'retreat' in soldier.commands:
                 self.move_action(soldier, squad, destination, allow_replace = True)
-            if soldier.escape or 'retreat' in soldier.commands:
-                soldier.escape = True
-                # Солдатам в ловушке некуда бежать:
-                if namespace.weather and 'trap' in namespace.weather:
-                    soldier.escape = False
-                self.move_action(soldier, squad, destination, allow_replace = True)
-                if 'spawn' in self.dict_battlespace[soldier.place]:
-                    self.clear_battlemap()
+        # Солдат бежит, если испуган:
+        elif soldier.escape or 'retreat' in soldier.commands:
+            soldier.escape = True
+            self.dash_action(soldier)
+            # Солдатам в ловушке некуда бежать:
+            #if namespace.weather and 'trap' in namespace.weather:
+            #    soldier.escape = False
+            destination = self.find_spawn(soldier.place, soldier.ally_side, find_exit = True)
+            self.move_action(soldier, squad, destination, allow_replace = True)
+            if 'exit' in self.dict_battlespace[soldier.place]:
+                self.clear_battlemap()
         # Отряд может ускориться с dash_action, если таков приказ (и врагов нет рядом):
         if 'dash' in soldier.commands:
             if not enemy or enemy.distance >= soldier.move_pool / 2:
@@ -1313,6 +1313,9 @@ class battle_simulation(battlescape):
         И считаем следующую точку пути любой подходящей из среза.
         """
         path = self.pathfinder(soldier, squad, destination)
+        # Удаляем последнюю точку, если там кто-то/что-то есть:
+        if destination in path and not self.check_place(soldier, destination).free:
+            enemy_point = path.pop(-1)
         if save_path and path and squad.frontline != None:
             # Безопасный путь, это остановка перед линией фронта:
             path = self.path_to_savepath(path, squad.frontline)
@@ -2406,17 +2409,23 @@ class battle_simulation(battlescape):
                     target_list.append(target)
         return target_list
 
-    def find_spawn(self, soldier_coordinates, side, random_range = 10):
+    def find_spawn(self, soldier_coordinates, side, random_range = 10, find_exit = False):
         """Если боец не видит врага, то по крайней мере знает примерное направление.
         
         - Он выбирает случайную точку спавна врага в диапазоне дистанций и следует к ней.
         - Если не находит, то возвращает координаты самого бойца.
         """
         coord_dict = {}
-        for el in self.spawn_list:
-            if side in self.dict_battlespace[el.place]:
-                distance = round(distance_measure(soldier_coordinates, el.place))
-                coord_dict[el.place] = distance
+        if not find_exit:
+            for el in self.spawn_list:
+                if side in self.dict_battlespace[el.place] and 'spawn' in self.dict_battlespace[el.place]:
+                    distance = round(distance_measure(soldier_coordinates, el.place))
+                    coord_dict[el.place] = distance
+        if find_exit:
+            for el in self.spawn_list:
+                if 'exit' in self.dict_battlespace[el.place] and 'spawn' in self.dict_battlespace[el.place]:
+                    distance = round(distance_measure(soldier_coordinates, el.place))
+                    coord_dict[el.place] = distance
         coord_dict = OrderedDict(sorted(coord_dict.items(),key=lambda x: x[1]))
         if len(coord_dict) < random_range:
             random_range = len(coord_dict)
@@ -2581,9 +2590,7 @@ class battle_simulation(battlescape):
                     # Солдаты в ловушке не могут сбежать:
                     elif namespace.weather and 'trap' in namespace.weather:
                         continue
-                    elif soldier.escape == True\
-                            and 'spawn' in content\
-                            and soldier.ally_side in content:
+                    elif soldier.escape and 'exit' in content:
                         content.remove(el)
                         soldier.defeat = True
                         print('{0} {1} {2} hp {3}/{4} retreat {5}'.format(

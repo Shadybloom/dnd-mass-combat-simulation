@@ -638,10 +638,9 @@ class battlescape():
         start = grid.node(soldier_coordinates[0],soldier_coordinates[1])
         end = grid.node(point_coordinate[0],point_coordinate[1])
         path, runs = self.finder.find_path(start, end, grid)
-        # Удаляем первую и последнюю точки (там наш боей и враг)
+        # Удаляем первую точку, там наш солдат:
         if len(path) > 1:
             soldier_point = path.pop(0)
-            enemy_point = path.pop(-1)
         #print('operations:', runs, 'path length:', len(path))
         #print(grid.grid_str(path=path, start=start, end=end))
         return path
@@ -653,9 +652,9 @@ class battlescape():
         Между прочим bresenham в 300 раз быстрее, чем AStarFinder.
         """
         sight_line = sight_line_to_list(soldier_coordinates, point_coordinates)
+        # Удаляем первую точку, там наш солдат:
         if len(sight_line) > 1:
             soldier_point = sight_line.pop(0)
-            enemy_point = sight_line.pop(-1)
             for place in sight_line:
                 if 'stop_terrain' in self.dict_battlespace[place]:
                     sight_line = None
