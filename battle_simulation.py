@@ -1745,6 +1745,12 @@ class battle_simulation(battlescape):
                     enemy_soldier.prone = True
                     if attack_result['crit']:
                         enemy_soldier.disabled = True
+                    # Врага можно повязать за счёт боевого действия следующего раунда, если таков приказ: 
+                    if 'enslave' in soldier.commands:
+                        wrestling_action = self.wrestling_action(soldier, squad,
+                                enemy_soldier, advantage, disadvantage)
+                        enemy_soldier.captured = True
+                        soldier.help_action = False
                     # Колдун с Dark_One\'s_Blessing получает бонусные хиты:
                     if soldier.class_features.get('Dark_One\'s_Blessing'):
                         bonus_hitpoints_bless = soldier.mods['charisma'] + soldier.level
