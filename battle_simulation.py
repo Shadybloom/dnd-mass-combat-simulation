@@ -1740,7 +1740,9 @@ class battle_simulation(battlescape):
                 # Добавляем опыт отряду:
                 if attack_result['fatal_hit']:
                     self.set_squad_experience(squad, enemy_soldier)
-                    soldier.victories += 1
+                    # Учитываются только честные победы:
+                    if not enemy_soldier.escape:
+                        soldier.victories += 1
                     enemy_soldier.defeats += 1
                     enemy_soldier.prone = True
                     if attack_result['crit']:
@@ -1965,7 +1967,9 @@ class battle_simulation(battlescape):
                 # Добавляем опыт отряду:
                 if attack_result['fatal_hit']:
                     self.set_squad_experience(squad, enemy_soldier)
-                    soldier.victories += 1
+                    # Учитываются только честные победы:
+                    if not enemy_soldier.escape:
+                        soldier.victories += 1
                     enemy_soldier.defeats += 1
                     enemy_soldier.prone = True
                     if attack_result['crit']:
@@ -2153,7 +2157,9 @@ class battle_simulation(battlescape):
                 # Добавляем опыт отряду:
                 if attack_result['fatal_hit']:
                     self.set_squad_experience(squad, enemy_soldier)
-                    soldier.victories += 1
+                    # Учитываются только честные победы:
+                    if not enemy_soldier.escape:
+                        soldier.victories += 1
                     enemy_soldier.defeats += 1
                     enemy_soldier.prone = True
                     if attack_result['crit']:
