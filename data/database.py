@@ -55,6 +55,7 @@ class database():
         soldier.near_zone = []
         soldier.near_allies = []
         soldier.near_enemies = []
+        soldier.enemy_fear = None
         soldier.enemy_grappler = None
         # Сбрасываем параметры человеческой формы друида, но сохраняем её:
         if soldier.__dict__.get('wild_shape_old_form'):
@@ -70,6 +71,7 @@ class database():
             soldier.wild_shape_old_form['near_zone'] = []
             soldier.wild_shape_old_form['near_allies'] = []
             soldier.wild_shape_old_form['near_enemies'] = []
+            soldier.wild_shape_old_form['enemy_fear'] = None
             soldier.wild_shape_old_form['enemy_grappler'] = None
         # Все раненые в конце боя считаются стабилизированными:
         if soldier.hitpoints <= 0 and not soldier.death and not soldier.stable:

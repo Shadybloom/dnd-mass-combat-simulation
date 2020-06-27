@@ -144,6 +144,7 @@ class soldier_in_battle(soldier):
         self.help_action = False
         # Эффекты заклинаний:
         self.fear = False
+        self.enemy_fear = None
         self.mockery = False
         self.sleep = False
         self.damage_absorbed = None
