@@ -145,6 +145,7 @@ class database():
         soldier_hitpoints = int(soldier_raw[10])
         soldier_hitpoints_max = int(soldier_raw[11])
         soldier_hitpoints_heal = int(soldier_raw[12])
+        squad_name = [str(soldier_raw[1])]
         if soldier_death:
             soldier_dict['death'] = True
         else:
@@ -157,6 +158,7 @@ class database():
             soldier_dict['captured'] = True
         else:
             soldier_dict['captured'] = False
+        soldier_dict['squad_name'] = squad_name
         soldier_dict['hitpoints'] = soldier_hitpoints
         soldier_dict['hitpoints_max'] = soldier_hitpoints_max
         soldier_dict['hitpoints_heal'] = soldier_hitpoints_heal
