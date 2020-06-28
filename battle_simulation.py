@@ -1019,7 +1019,7 @@ class battle_simulation(battlescape):
                     self.move_action(soldier, squad, enemy.place, allow_replace = False)
                 elif enemy:
                     self.move_action(soldier, squad, enemy.place, allow_replace = True)
-                elif len(squad.danger_points) > 0 and squad.danger_points[first(squad.danger_points)] > 0:
+                elif len(squad.danger_points) > 0:
                     destination = first(squad.danger_points)
                     self.move_action(soldier, squad, destination, allow_replace = True)
                 else:
@@ -1036,8 +1036,12 @@ class battle_simulation(battlescape):
             else:
                 self.follow_action(soldier, squad, squad.commander, accuracy = 1)
         # Боец наступает, если союзники рядом сильнее противника в точке назначения:
-        if 'engage' in soldier.commands and enemy and not soldier.near_enemies:
-            self.engage_action(soldier, squad, enemy)
+        if 'engage' in soldier.commands and not soldier.near_enemies:
+            if enemy:
+                self.engage_action(soldier, squad, enemy.place)
+            elif len(squad.danger_points) > 0:
+                destination = random.choice(list(squad.danger_points.keys()))
+                self.engage_action(soldier, squad, destination)
         # Кастеры работают магией, сначала по группам, а потом целевой:
         if 'spellcast' in soldier.commands and enemy:
             self.recon_action(soldier, squad)
@@ -1059,7 +1063,7 @@ class battle_simulation(battlescape):
                 if 'engage' in soldier.commands\
                         and not 'dodge' in soldier.commands\
                         and not 'disengage' in soldier.commands:
-                    self.engage_action(soldier, squad, enemy)
+                    self.engage_action(soldier, squad, enemy.place)
             # Удвоенный ход бойца:
             if soldier.action_surge and len(soldier.near_enemies) >= 2:
                 if soldier.set_action_surge():
@@ -1225,7 +1229,7 @@ class battle_simulation(battlescape):
                     destination = commander.place
                 self.move_action(soldier, squad, destination)
 
-    def engage_action(self, soldier, squad, enemy, recon_near = None):
+    def engage_action(self, soldier, squad, enemy_place, recon_near = None):
         """Солдат сближается с противником, готовясь атаковать.
         
         Как это работает:
@@ -1238,7 +1242,7 @@ class battle_simulation(battlescape):
         if not recon_near:
             recon_near = soldier.recon_near
         ally_strenght = self.danger_sense(recon_near, soldier.ally_side)
-        recon_enemy = self.recon(enemy.place, 1, soldier.place)
+        recon_enemy = self.recon(enemy_place, 1, soldier.place)
         enemy_strenght = self.danger_sense(recon_enemy, soldier.enemy_side)
         if squad.frontline:
             frontline_distances = []
@@ -1248,7 +1252,7 @@ class battle_simulation(battlescape):
             frontline_distances = sorted(frontline_distances,key=lambda x: x[1])
             destination = frontline_distances[0][0]
         else:
-            destination = enemy.place
+            destination = enemy_place
         # Простые солдаты нападают вблизи только при двухкратном превосходстве союзников:
         if not soldier.near_enemies and ally_strenght >= enemy_strenght * 2\
                 or soldier.hero == True and not soldier.near_enemies and ally_strenght >= enemy_strenght\
@@ -1258,9 +1262,9 @@ class battle_simulation(battlescape):
             recon_near = self.recon(soldier.place, distance = 1)
             soldier.set_near_enemies(recon_near)
             if not soldier.near_enemies or 'fearless' in soldier.commands:
-                self.move_action(soldier, squad, enemy.place, save_path = False)
+                self.move_action(soldier, squad, enemy_place, save_path = False)
                 if soldier.hero == True or soldier.behavior == 'commander':
-                    self.move_action(soldier, squad, enemy.place, allow_replace = True)
+                    self.move_action(soldier, squad, enemy_place, allow_replace = True)
 
     def dodge_action(self, soldier):
         """Боец защищается.

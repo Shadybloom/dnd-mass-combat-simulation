@@ -472,7 +472,7 @@ class battlescape():
                 cover_sum = max_obstacle
                 break
             # Облака дыма/тумана мешают видеть:
-            elif 'obscure_terrain' in dict_battlespace[coordinates] and distance > 1:
+            elif 'obscure_terrain' in dict_battlespace[coordinates] and distance > 2:
                 visibility = False
                 cover_sum = max_obstacle
                 break
