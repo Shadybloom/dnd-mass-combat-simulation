@@ -1364,6 +1364,40 @@ metadict_items['Catapult (fire)'] = {
     'cost (grams_of_gold)':8 * 60,
     }
 
+metadict_items['Trap (Boulders)'] = {
+    'weapon':True,
+    'direct_hit':True,
+    'ammo_type':'Boulders',
+    'weapon_type':['martial','volley','artillery','burning_shell'],
+    'spell_dict':{
+            'zone':True,
+            #'zone_shape':'2x2',
+            #'zone_shape':'square',
+            'direct_hit':True,
+            'savethrow':True,
+            'savethrow_ability':'dexterity',
+            'attacks_number':1,
+            'attack_range':600,
+            'radius':15,
+            'damage_type':'bludgeoning',
+            'damage_dice':'3d6',
+            'components':[],
+            'casting_time':'action',
+            'damage_mod':0,
+            'spell_level':1,
+            'spell_save_DC':15,
+            'spell_choice':('explosion','Boulders'),
+            #'spell_of_choice':'Burning_Hands',
+            },
+    'damage_type':'bludgeoning',
+    'damage_dice':'0d0',
+    'shoot_range':150,
+    'shoot_range_max':600,
+    'weight (lb)':4000,
+    'cost (gp)':60,
+    'cost (grams_of_gold)':60,
+    }
+
 metadict_items['Trap (fire)'] = {
     'weapon':True,
     'direct_hit':True,
@@ -1437,6 +1471,13 @@ metadict_items['Glyph'] = {
     'weight (lb)':1,
     'cost (gp)':240,
     'cost (grams_of_gold)':240,
+    }
+
+metadict_items['Boulders'] = {
+    'ammo':True,
+    'weight (lb)':2000,
+    'cost (gp)':0.01,
+    'cost (grams_of_gold)':0.01,
     }
 
 metadict_items['Alchemist\'s Fire (25 lb)'] = {

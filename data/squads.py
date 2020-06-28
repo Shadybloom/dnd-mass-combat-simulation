@@ -39,6 +39,11 @@ metadict_squads['traps (lightning)'] = {
     'Trap (commander)':1,
     }
 
+metadict_squads['traps (boulders)'] = {
+    'Trap (Boulders)':1,
+    'Trap (commander)':1,
+    }
+
 metadict_squads['traps (fire)'] = {
     # Восемь бочек алхимичесого огня на корабль
     'Trap (Alchemist\'s Fire)':8,

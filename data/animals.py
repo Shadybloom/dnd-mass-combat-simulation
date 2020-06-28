@@ -133,6 +133,37 @@ metadict_animals['Trap (Alchemist\'s Fire)'] = {
     'equipment_supply':{},
     }
 
+metadict_animals['Trap (Boulders)'] = {
+    'level':5,
+    'volley_AI':True,
+    #'inactive_AI':True,
+    'challenge_rating':'1/4',
+    'char_class':'Commoner',
+    'behavior':'archer',
+    'hitpoints_medial':True,
+    'class_features':{
+        'Feat_Sharpshooter':True,
+        },
+    'abilityes':{
+        'strength':10,
+        'dexterity':10,
+        'constitution':10, 
+        'intelligence':10,
+        'wisdom':10,
+        'charisma':10,
+        },
+    'hit_dice':'1d12',
+    'race':'Catapult',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':[],
+    'equipment_weapon':{
+        'Trap (Boulders)':1,
+        'Boulders':1,
+        },
+    'equipment_backpack':{},
+    'equipment_supply':{},
+    }
+
 #----
 # Предметы:
 
