@@ -71,6 +71,16 @@ def create_parser():
     return parser
 
 #-------------------------------------------------------------------------
+# Функции:
+
+def first(s):
+    '''Return the first element from an ordered collection
+       or an arbitrary element from an unordered collection.
+       Raise StopIteration if the collection is empty.
+    '''
+    return next(iter(s))
+
+#-------------------------------------------------------------------------
 # Классы:
 
 class battle_simulation(battlescape):
@@ -1009,6 +1019,9 @@ class battle_simulation(battlescape):
                     self.move_action(soldier, squad, enemy.place, allow_replace = False)
                 elif enemy:
                     self.move_action(soldier, squad, enemy.place, allow_replace = True)
+                elif len(squad.danger_points) > 0 and squad.danger_points[first(squad.danger_points)] > 0:
+                    destination = first(squad.danger_points)
+                    self.move_action(soldier, squad, destination, allow_replace = True)
                 else:
                     destination = self.find_spawn(soldier.place, soldier.enemy_side)
                     self.move_action(soldier, squad, destination, allow_replace = True)
