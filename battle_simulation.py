@@ -1757,7 +1757,9 @@ class battle_simulation(battlescape):
                         soldier.bonus_action = False
                 # Добавляем опыт отряду:
                 if attack_result['fatal_hit']:
-                    self.set_squad_experience(squad, enemy_soldier)
+                    # TODO: три одинаковых блока в коде. Перенеси в отдельную функцию:
+                    if not enemy_soldier.defeat:
+                        self.set_squad_experience(squad, enemy_soldier)
                     # Учитываются только честные победы:
                     if not enemy_soldier.escape:
                         soldier.victories += 1
@@ -1984,7 +1986,8 @@ class battle_simulation(battlescape):
                     continue
                 # Добавляем опыт отряду:
                 if attack_result['fatal_hit']:
-                    self.set_squad_experience(squad, enemy_soldier)
+                    if not enemy_soldier.defeat:
+                        self.set_squad_experience(squad, enemy_soldier)
                     # Учитываются только честные победы:
                     if not enemy_soldier.escape:
                         soldier.victories += 1
@@ -2174,7 +2177,8 @@ class battle_simulation(battlescape):
                         spell_choice, attack_dict, self.metadict_soldiers)
                 # Добавляем опыт отряду:
                 if attack_result['fatal_hit']:
-                    self.set_squad_experience(squad, enemy_soldier)
+                    if not enemy_soldier.defeat:
+                        self.set_squad_experience(squad, enemy_soldier)
                     # Учитываются только честные победы:
                     if not enemy_soldier.escape:
                         soldier.victories += 1
