@@ -18,9 +18,24 @@ metadict_squads = {}
 #    'Warrior 5 lvl (legionary infantry-captain)':1,
 #    }
 
-metadict_squads['test 100 warriors'] = {
-    'Warrior 1 lvl (legionary infantry)':100,
-    'Warrior 5 lvl (legionary infantry-captain)':1,
+metadict_squads['Company-test (standard) (greataxes)'] = {
+    'Warrior 1 lvl (standard) (Greataxe)':100,
+    'Trap (commander)':1,
+    }
+
+metadict_squads['Company-test (standard) (disadvantage) (greataxes)'] = {
+    'Warrior 1 lvl (standard) (disadvantage) (Greataxe)':100,
+    'Trap (commander)':1,
+    }
+
+metadict_squads['Company-test (standard) (bless + disadvantage) (greataxes)'] = {
+    'Warrior 1 lvl (standard) (bless + disadvantage) (Greataxe)':100,
+    'Trap (commander)':1,
+    }
+
+metadict_squads['Company-test (standard) (battleaxes)'] = {
+    'Warrior 1 lvl (standard) (Battleaxe + Shield)':100,
+    'Trap (commander)':1,
     }
 
 metadict_squads['test 12 animals'] = {

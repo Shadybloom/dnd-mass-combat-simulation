@@ -923,6 +923,134 @@ metadict_animals['Bugbear (CR 1)'] = {
     }
 
 #----
+# Тестовые существа:
+
+metadict_animals['Warrior 1 lvl (standard) (Greataxe)'] = {
+    # Боец средних параметров с Greataxe.
+    'level':1,
+    'challenge_rating':'1/8',
+    'char_class':'Commoner',
+    'behavior':'warrior',
+    'hunter_AI':True,
+    'fearless_AI':True,
+    'hitpoints_base':10,
+    'abilityes':{
+        'strength':10,
+        'dexterity':10,
+        'constitution':10,
+        'intelligence':10,
+        'wisdom':10,
+        'charisma':10,
+        },
+    'hit_dice':'1d8',
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_weapon':{
+        'Ring Mail':1,
+        'Greataxe':1,
+        },
+    'equipment_backpack':{},
+    'equipment_supply':{},
+    }
+
+metadict_animals['Warrior 1 lvl (standard) (disadvantage) (Greataxe)'] = {
+    # Боец средних параметров с Greataxe.
+    'level':1,
+    'challenge_rating':'1/8',
+    'char_class':'Commoner',
+    'behavior':'warrior',
+    'hunter_AI':True,
+    'fearless_AI':True,
+    'squad_disadvantage':True,
+    'hitpoints_base':10,
+    'abilityes':{
+        'strength':10,
+        'dexterity':10,
+        'constitution':10,
+        'intelligence':10,
+        'wisdom':10,
+        'charisma':10,
+        },
+    'hit_dice':'1d8',
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_weapon':{
+        'Ring Mail':1,
+        'Greataxe':1,
+        },
+    'equipment_backpack':{},
+    'equipment_supply':{},
+    }
+
+metadict_animals['Warrior 1 lvl (standard) (bless + disadvantage) (Greataxe)'] = {
+    'level':1,
+    'challenge_rating':'1/8',
+    'char_class':'Commoner',
+    'behavior':'warrior',
+    'hunter_AI':True,
+    'fearless_AI':True,
+    'squad_disadvantage':True,
+    'hitpoints_base':10,
+    'abilityes':{
+        'strength':10,
+        'dexterity':10,
+        'constitution':10,
+        'intelligence':10,
+        'wisdom':10,
+        'charisma':10,
+        },
+    'class_features':{
+        'Feat_Magic_Initiate':True,
+        'Spellcasting':True,
+        'Spells':[
+            ('1_lvl', 'Bless'),
+            ],
+        },
+    'hit_dice':'1d8',
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_weapon':{
+        'Ring Mail':1,
+        'Greataxe':1,
+        },
+    'equipment_backpack':{},
+    'equipment_supply':{},
+    }
+
+metadict_animals['Warrior 1 lvl (standard) (Battleaxe + Shield)'] = {
+    # Боец средних параметров с Greataxe.
+    'level':1,
+    'challenge_rating':'1/8',
+    'char_class':'Commoner',
+    'behavior':'warrior',
+    'hunter_AI':True,
+    'fearless_AI':True,
+    'hitpoints_base':10,
+    'abilityes':{
+        'strength':10,
+        'dexterity':10,
+        'constitution':10,
+        'intelligence':10,
+        'wisdom':10,
+        'charisma':10,
+        },
+    'hit_dice':'1d8',
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_weapon':{
+        'Ring Mail':1,
+        'Battleaxe':1,
+        'Shield':1,
+        },
+    'equipment_backpack':{},
+    'equipment_supply':{},
+    }
+
+#----
 # Персонажи мастера из Monsters_Manual:
 
 metadict_animals['Sentinel (CR 1/8)'] = {
