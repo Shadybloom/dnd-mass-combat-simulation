@@ -491,6 +491,97 @@ metadict_animals['Brown Bear (CR 1)'] = {
     'equipment_supply':horse_supply,
     }
 
+metadict_animals['Mastiff, dog (CR 1/8)'] = {
+    # TODO: могут сбить с ног
+    # https://roll20.net/compendium/dnd5e/Mastiff
+    'level':1,
+    'challenge_rating':'1/8',
+    'char_class':'Commoner',
+    'behavior':'warrior',
+    'hitpoints_medial':True,
+    #'fearless_AI':True,
+    'grappler_AI':True,
+    'hunter_AI':True,
+    'class_features':{
+        'Keen_Smell':True,
+        },
+    'abilityes':{
+        'strength':13,
+        'dexterity':14,
+        'constitution':12, 
+        'intelligence':3,
+        'wisdom':12,
+        'charisma':7,
+        },
+    'hit_dice':'1d8',
+    'attacks':{
+        ('close', 'bite'): {
+            'attack_mod':3,
+            'damage_mod':1,
+            'weapon': False,
+            'weapon_type':['simple'],
+            'damage_type':'piercing',
+            'damage_dice':'1d6',
+            'attack_range':5,
+            'attack_type':'close',
+            'weapon_skills_use': ['simple'],
+            'attack_mod_type':'strength',
+            'weapon_of_choice':'bite'},
+        },
+    'race':'Dog',
+    'weapon_skill':[],
+    'armor_skill':['light','medium','heavy'],
+    'equipment_weapon':{
+            },
+    'equipment_backpack':{},
+    'equipment_supply':{},
+    }
+
+metadict_animals['Mastiff, big-dog (CR 1/2)'] = {
+    # TODO: переделай в лютоволка.
+    'level':3,
+    'challenge_rating':'1/2',
+    'char_class':'Commoner',
+    'behavior':'commander',
+    'hitpoints_medial':True,
+    'fearless_AI':True,
+    'grappler_AI':True,
+    'hunter_AI':True,
+    'class_features':{
+        'Keen_Smell':True,
+        },
+    'abilityes':{
+        'strength':18,
+        'dexterity':18,
+        'constitution':18, 
+        'intelligence':3,
+        'wisdom':14,
+        'charisma':7,
+        },
+    'hit_dice':'1d10',
+    'attacks':{
+        ('close', 'bite'): {
+            'attack_mod':6,
+            'damage_mod':4,
+            'weapon': False,
+            'weapon_type':['simple'],
+            'damage_type':'piercing',
+            'damage_dice':'2d6',
+            'attack_range':5,
+            'attack_type':'close',
+            'weapon_skills_use': ['simple'],
+            'attack_mod_type':'strength',
+            'weapon_of_choice':'bite'},
+        },
+    'race':'Dog',
+    'weapon_skill':[],
+    'armor_skill':['light','medium','heavy'],
+    'equipment_weapon':{
+            },
+    'equipment_backpack':{},
+    'equipment_supply':{},
+    }
+
 #----
 # Чудовища из "Monsters_Manual":
 

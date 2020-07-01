@@ -141,10 +141,15 @@ metadict_squads['Band-hero (снайперы Хана-Вама) (враг)'] = {
 
 metadict_squads['Band-hero (друиды Тик-Бо) (враг)'] = {
     # Шесть друидов и Тик-Бо на осьминогах, пять осьминогов сопровождают:
-    # TODO: Сделай ездовых осьминогов, а пока тпусть так:
     'Druid 5 lvl (враг) (Тик-Бо «Робкий»)':1,
     'Druid 1 lvl (враг) (друид Тик-Бо)':6,
     #'Giant Octopus (conjured) (CR 1)':12,
+    }
+
+metadict_squads['Band-hero (мастиффы Тик-Бо) (враг)'] = {
+    # Призванные собаки:
+    'Mastiff, big-dog (CR 1/2)':4,
+    'Mastiff, dog (CR 1/8)':80,
     }
 
 metadict_squads['Company-militia (демоны Кема\'Эша) (враг)'] = {

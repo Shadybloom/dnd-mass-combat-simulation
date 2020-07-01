@@ -101,6 +101,16 @@ dict_races = {
             'wisdom':+1,
             'charisma':+1,
             },
+        'Dog':{
+            # Мастиффы.
+            'hero':False,
+            'size':'small',
+            'base_speed':40,
+            'height_base_inches':12,
+            'height_mod_dice':'1d2',
+            'weight_base_lb':4,
+            'weight_mod_dice':'1d2',
+            },
         'Cat-hero':{
             # Коттаямские котики.
             'hero':True,
