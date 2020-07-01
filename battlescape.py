@@ -196,6 +196,7 @@ class battlescape():
             'o':['pit','stop_terrain','zone_border'],
             # Ловушки на карте:
             '*':['caltrops','good_terrain'],
+            's':['smoke','obscure_terrain','good_terrain'],
             #'d':['darkness','good_terrain',],
             'f':['fire','stop_terrain','zone_border'],
             # Позиции войск на карте:
