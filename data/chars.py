@@ -8295,10 +8295,10 @@ metadict_chars['Fighter 1 lvl (враг) (снайпер Хана\'Вама)'] =
         'Longbow':1,
         'Arrow':60,
         },
-    #'mount_combat':False,
-    #'mount_type':'Riding Horse',
-    #'equipment_mount':{
-    #    },
+    'mount_combat':True,
+    'mount_type':'Riding Horse',
+    'equipment_mount':{
+        },
     }
 
 metadict_chars['Fighter 5 lvl (враг) (Хана\'Вам)'] = {
@@ -8340,6 +8340,10 @@ metadict_chars['Fighter 5 lvl (враг) (Хана\'Вам)'] = {
         'Scimitar +1':1,
         'Longbow +1':1,
         'Arrow':60,
+        },
+    'mount_combat':True,
+    'mount_type':'Riding Horse',
+    'equipment_mount':{
         },
     }
 
@@ -8383,10 +8387,10 @@ metadict_chars['Druid 1 lvl (враг) (друид Тик-Бо)'] = {
         'Sling real':1,
         'Sling Bullet':10,
         },
-    #'mount_combat':True,
-    #'mount_type':'Giant Octopus (mount) (CR 1)',
-    #'equipment_mount':{
-    #    },
+    'mount_combat':True,
+    'mount_type':'Riding Horse',
+    'equipment_mount':{
+        },
     }
 
 metadict_chars['Druid 5 lvl (враг) (Тик-Бо «Робкий»)'] = {
@@ -8439,6 +8443,7 @@ metadict_chars['Druid 5 lvl (враг) (Тик-Бо «Робкий»)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
+        'Goodberry':30,
         'Infusion of Healing':1,
         'Rune of Shielding':1,
         'Rune of Armor':1,
@@ -8447,10 +8452,10 @@ metadict_chars['Druid 5 lvl (враг) (Тик-Бо «Робкий»)'] = {
         'Sling real':1,
         'Sling Bullet':10,
         },
-    #'mount_combat':True,
-    #'mount_type':'Giant Octopus (mount) (CR 1)',
-    #'equipment_mount':{
-    #    },
+    'mount_combat':True,
+    'mount_type':'Riding Horse',
+    'equipment_mount':{
+        },
     }
 
 #----
