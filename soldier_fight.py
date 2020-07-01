@@ -825,6 +825,7 @@ class soldier_in_battle(soldier):
         # Просто указываем, что реакция сработала:
         if self.class_features.get('Fighting_Style_Protection')\
                 and self.armor['shield_use'] != None\
+                and self.shield_ready\
                 and self.reaction:
             self.reaction = False
             return True
