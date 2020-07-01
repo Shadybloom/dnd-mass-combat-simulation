@@ -101,7 +101,7 @@ class database_stat():
                     elif soldier.rank in dict_disabled:
                         dict_disabled[soldier.rank] += 1
                 elif hasattr(soldier, 'captured') and soldier.captured == True\
-                        and soldier.behavior == 'mount':
+                        and not soldier.behavior == 'mount':
                     if not soldier.rank in dict_capture:
                         dict_capture[soldier.rank] = 1
                     elif soldier.rank in dict_capture:
