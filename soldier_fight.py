@@ -1661,6 +1661,29 @@ class soldier_in_battle(soldier):
             armor_class += 5
             savethrow_bonus += 5
         attack_dict['savethrow_bonus'] = savethrow_bonus
+        # Заклинание "Shield_of_Faith" даёт прекрасные +2 к AC.
+        if self.shield_of_faith:
+            armor_class_no_impact += 2
+            armor_class_shield_impact += 2
+            armor_class_armor_impact += 2
+            armor_class += 2
+        # TODO: в отдельную функцию:
+        # Учитываем реакцию Feat_Defensive_Duelist:
+        if attack_choice[0] == 'close' or attack_choice[0] == 'reach':
+            if self.class_features.get('Feat_Defensive_Duelist')\
+                    and self.reaction == True\
+                    and attack_dict['attack'] > armor_class\
+                    and attack_dict['attack'] < armor_class + self.proficiency_bonus:
+                armor_class_shield_impact += self.proficiency_bonus
+                armor_class_armor_impact += self.proficiency_bonus
+                armor_class += self.proficiency_bonus
+                self.reaction = False
+                # Всё работает, вывод можно убрать:
+                if attack_dict['attack'] <= armor_class and not attack_dict['attack_crit']:
+                    print('[+++] {0} {1} {2} reaction Def Duel {3}/{4} << {5}, atc {6} dmg {7}'.format(
+                        self.ally_side, self.place, self.behavior,
+                        armor_class, armor_dict['armor_class'],
+                        attack_choice, attack_dict['attack'], attack_dict['damage']))
         # TODO: в отдельную функцию:
         # Реакцией срабатывает волшебный щит.
         if 'runes' in self.commands\
@@ -1703,35 +1726,6 @@ class soldier_in_battle(soldier):
                     self.ally_side, self.place, self.behavior,
                     armor_class, armor_dict['armor_class'],
                     attack_choice, attack_dict['attack'], attack_dict['damage']))
-        # Заклинание "Shield_of_Faith" даёт прекрасные +2 к AC.
-        if self.shield_of_faith:
-            armor_class_no_impact += 2
-            armor_class_shield_impact += 2
-            armor_class_armor_impact += 2
-            armor_class += 2
-        # TODO: в отдельную функцию:
-        # Учитываем реакцию Feat_Defensive_Duelist:
-        if attack_choice[0] == 'close' or attack_choice[0] == 'reach':
-            if self.class_features.get('Feat_Defensive_Duelist')\
-                    and self.reaction == True\
-                    and attack_dict['attack'] > armor_class:
-                armor_class_shield_impact += self.proficiency_bonus
-                armor_class_armor_impact += self.proficiency_bonus
-                armor_class += self.proficiency_bonus
-                self.reaction = False
-                # Всё работает, вывод можно убрать:
-                if attack_dict['attack'] <= armor_class and not attack_dict['attack_crit']:
-                    print('[+++] {0} {1} {2} reaction Def Duel {3}/{4} << {5}, atc {6} dmg {7}'.format(
-                        self.ally_side, self.place, self.behavior,
-                        armor_class, armor_dict['armor_class'],
-                        attack_choice, attack_dict['attack'], attack_dict['damage']))
-                    #success = True
-                    #print('[+++] {0} {1} {2} cover {3} reaction Def Duel {4}/{5} AC crit {6}, success {7}, damage {8}'.format(
-                    #    self.ally_side, self.place, self.behavior,
-                    #    cover, armor_class, armor_dict['armor_class'],
-                    #    attack_dict['attack_crit'], success, attack_dict['damage']))
-                #else:
-                #    success = False
         # TODO: в отдельную функцию:
         # Лошадка может попросить защиты у хозяина с Feat_Mounted_Combatant:
         if attack_dict.get('attack'):
