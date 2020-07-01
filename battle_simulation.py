@@ -1351,7 +1351,7 @@ class battle_simulation(battlescape):
         """
         path = self.pathfinder(soldier, squad, destination)
         # Удаляем последнюю точку, если там кто-то/что-то есть:
-        if destination in path and not self.check_place(soldier, destination).free:
+        if path and destination in path and not self.check_place(soldier, destination).free:
             enemy_point = path.pop(-1)
         if save_path and path and squad.frontline != None:
             # Безопасный путь, это остановка перед линией фронта:
