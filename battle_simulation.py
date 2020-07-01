@@ -2255,6 +2255,10 @@ class battle_simulation(battlescape):
         """
         advantage = False
         disadvantage = False
+        # Homebrew, постоянная помеха:
+        # TODO: замени на отравление алкоголем и "добряникой" сатиров:
+        if soldier.__dict__.get('squad_disadvantage'):
+            disadvantage = True
         # Homebrew, идеальное взаимодействие свиты:
         if enemy_soldier.__dict__.get('squad_advantage'):
             disadvantage = True
@@ -2318,7 +2322,8 @@ class battle_simulation(battlescape):
                 if enemy_ally.class_features.get('Fighting_Style_Protection')\
                         and enemy_ally.reaction == True\
                         and enemy_ally.uuid != enemy_soldier.uuid\
-                        and enemy_ally.armor['shield_use'] != None:
+                        and enemy_ally.armor['shield_use'] != None\
+                        and enemy_ally.shield_ready:
                     disadvantage = enemy_ally.set_protection(enemy_soldier)
                     #print('{0} {1} {2} attack {3} {4} {5} reaction protect from {6} {7} {8}'.format(
                     #    soldier.ally_side, soldier.place, soldier.behavior,
