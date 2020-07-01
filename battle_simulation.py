@@ -495,7 +495,7 @@ class battle_simulation(battlescape):
         """Пополнение боекомплекта."""
         bless_type = 'rearm'
         soldiers_list_elite = self.select_soldiers_for_bless(
-                len(squad.metadict_soldiers), squad.ally_side, bless_type)
+                len(self.metadict_soldiers), squad.ally_side, bless_type)
         for soldier in soldiers_list_elite:
             soldier.set_short_rest_rearm()
 
@@ -509,7 +509,7 @@ class battle_simulation(battlescape):
         # - перевязку можно повторить
         bless_type = 'short_rest'
         soldiers_list_elite = self.select_soldiers_for_bless(
-                len(squad.metadict_soldiers), squad.ally_side, bless_type)
+                len(self.metadict_soldiers), squad.ally_side, bless_type)
         for soldier in soldiers_list_elite:
             soldier.set_short_rest_rearm()
             soldier.set_short_rest_heal()
@@ -1039,6 +1039,7 @@ class battle_simulation(battlescape):
         if 'engage' in soldier.commands and not soldier.near_enemies:
             if enemy:
                 self.engage_action(soldier, squad, enemy.place)
+            # Если не видно врага, ищем зону его конценрации:
             elif len(squad.danger_points) > 0:
                 destination = random.choice(list(squad.danger_points.keys()))
                 self.engage_action(soldier, squad, destination)
