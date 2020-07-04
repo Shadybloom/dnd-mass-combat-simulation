@@ -4,6 +4,8 @@
 from data import database
 from squad_generation import *
 
+from collections import Counter
+
 #-------------------------------------------------------------------------
 # Аргументы командной строки:
 
@@ -61,6 +63,7 @@ class database_stat():
         """Данные по отрядам из БД.
         
         """
+        trophy_dict = {}
         for squad_name in self.database.print_squads():
             squad = squad_generation()
             squad.load_squad_from_DB(squad_name, get_all = True)
@@ -89,13 +92,22 @@ class database_stat():
             dict_disabled = {}
             dict_capture = {}
             dict_fall = {}
+            # Стоимость пополнения, по снаряжению:
+            reinforce_cost = 0
+            # Стоимость снаряжения врага:
+            trophy_cost = 0
             for soldier in squad.metadict_soldiers.values():
-                if hasattr(soldier, 'death') and soldier.death == True:
+                if hasattr(soldier, 'death') and soldier.death == True\
+                        and not soldier.behavior == 'mount':
                     if not soldier.rank in dict_dead:
                         dict_dead[soldier.rank] = 1
                     elif soldier.rank in dict_dead:
                         dict_dead[soldier.rank] += 1
-                elif hasattr(soldier, 'disabled') and soldier.disabled == True:
+                    reinforce_cost += soldier.unit_cost['equipment_cost']
+                    trophy_cost += soldier.unit_cost['equipment_cost']
+                    trophy_dict = dict(Counter(trophy_dict) + Counter(soldier.equipment_weapon))
+                elif hasattr(soldier, 'disabled') and soldier.disabled == True\
+                        and not soldier.behavior == 'mount':
                     if not soldier.rank in dict_disabled:
                         dict_disabled[soldier.rank] = 1
                     elif soldier.rank in dict_disabled:
@@ -106,6 +118,8 @@ class database_stat():
                         dict_capture[soldier.rank] = 1
                     elif soldier.rank in dict_capture:
                         dict_capture[soldier.rank] += 1
+                    trophy_cost += soldier.unit_cost['equipment_cost']
+                    trophy_dict = dict(Counter(trophy_dict) + Counter(soldier.equipment_weapon))
                 elif soldier.hitpoints <= 0:
                     if not soldier.rank in dict_fall:
                         dict_fall[soldier.rank] = 1
@@ -121,7 +135,9 @@ class database_stat():
                 squad_combativity = '○'
             #print('{s} [{c}/{c_max}] [{n:>3}/{n_max:<3}] [capt:{cap:<2}] [dead:{dead:<2}] [dis:{dis:<2}] {name}'.format(
             #print('[?/? -- командиры] [??/??? -- боеспособные] [c -- пленные] [d -- убитые]')
-            print('{s} [{c}/{c_max}] [{n:>3}/{n_max:<3}] [c:{cap:<2}] [d:{dead:<2}] {name}'.format(
+            print('{s} [{c}/{c_max}] [{n:>3}/{n_max:<3}] [c:{cap:<2}] [i:{dis:<2}] [d:{dead:<2}] {name}'.format(
+            #print('{s} [{c}/{c_max}] [{n:>3}/{n_max:<3}] [v:{vic:<2}] [c:{cap:<2}] [i:{dis:<2}] [d:{dead:<2}] {name}'.format(
+            #print('{s} [{c}/{c_max}] [{n:>3}/{n_max:<3}] [c:{cap:<2}] [d:{dead:<2}] [r:{re:<2}] [t:{trophy:<2}] {name}'.format(
                     s = squad_combativity,
                     n = ready_soldiers,
                     n_max = all_soldiers,
@@ -130,6 +146,9 @@ class database_stat():
                     name = squad.name,
                     hp = squad_hitpoints_new,
                     hp_max = squad_hitpoints_max,
+                    vic = squad_victories,
+                    re = round(reinforce_cost),
+                    trophy = round(trophy_cost),
                     dead = sum(dict_dead.values()),
                     dis = sum(dict_disabled.values()),
                     cap = sum(dict_capture.values()),
@@ -143,6 +162,9 @@ class database_stat():
             #    print('captured', el, key)
             #for key, el in dict_fall.items():
             #    print('fall', el, key)
+        # Список трофеев:
+        #for key, value in trophy_dict.items():
+        #    print(key, value)
 
 if __name__ == '__main__':
     stat = database_stat()
