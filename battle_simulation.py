@@ -357,7 +357,7 @@ class battle_simulation(battlescape):
                     heal = bless_list.pop() + max_hit_dice
                     soldier.set_hitpoints(heal = heal)
                     soldier.treated = True
-                    soldier.fall = False
+                    #soldier.fall = False
                     print('{side} Feat_Healer, {p} {b} {n} heal: {hit}/{hit_max} ({heal})'.format(
                         side = soldier.ally_side,
                         p = soldier.place,
@@ -1758,8 +1758,7 @@ class battle_simulation(battlescape):
                 # Добавляем опыт отряду:
                 if attack_result['fatal_hit']:
                     # TODO: три одинаковых блока в коде. Перенеси в отдельную функцию:
-                    if not enemy_soldier.defeat:
-                        self.set_squad_experience(squad, enemy_soldier)
+                    self.set_squad_experience(squad, enemy_soldier)
                     # Учитываются только честные победы:
                     if not enemy_soldier.escape:
                         soldier.victories += 1
@@ -1986,8 +1985,7 @@ class battle_simulation(battlescape):
                     continue
                 # Добавляем опыт отряду:
                 if attack_result['fatal_hit']:
-                    if not enemy_soldier.defeat:
-                        self.set_squad_experience(squad, enemy_soldier)
+                    self.set_squad_experience(squad, enemy_soldier)
                     # Учитываются только честные победы:
                     if not enemy_soldier.escape:
                         soldier.victories += 1
@@ -2177,8 +2175,7 @@ class battle_simulation(battlescape):
                         spell_choice, attack_dict, self.metadict_soldiers)
                 # Добавляем опыт отряду:
                 if attack_result['fatal_hit']:
-                    if not enemy_soldier.defeat:
-                        self.set_squad_experience(squad, enemy_soldier)
+                    self.set_squad_experience(squad, enemy_soldier)
                     # Учитываются только честные победы:
                     if not enemy_soldier.escape:
                         soldier.victories += 1
@@ -2499,20 +2496,22 @@ class battle_simulation(battlescape):
             squad.experience = 0
         if enemy_soldier.hitpoints <= 0 and not enemy_soldier.defeat:
             enemy_soldier.defeat = True
-            # Опыт от показателя опасности:
-            if hasattr(enemy_soldier, 'challenge_rating')\
-                    and enemy_soldier.challenge_rating in self.challenge_rating_experience_dict:
-                experience_new = self.challenge_rating_experience_dict[enemy_soldier.challenge_rating]
-                squad.experience += round(experience_new)
-            else:
-                # Опыт за уровень врага:
-                # 1 lvl: 25*2^(1-1) = 25 exp; 5 lvl: 25*2^(5-1) = 400 exp
-                experience_new = 25 * 2 ** (enemy_soldier.level - 1)
-                if hasattr(enemy_soldier, 'hero') and enemy_soldier.hero:
-                    experience_new *= 2
-                elif enemy_soldier.char_class == 'Commoner':
-                    experience_new /= 2.5
-                squad.experience += round(experience_new)
+            if not enemy_soldier.fall:
+                enemy_soldier.fall = True
+                # Опыт от показателя опасности:
+                if hasattr(enemy_soldier, 'challenge_rating')\
+                        and enemy_soldier.challenge_rating in self.challenge_rating_experience_dict:
+                    experience_new = self.challenge_rating_experience_dict[enemy_soldier.challenge_rating]
+                    squad.experience += round(experience_new)
+                else:
+                    # Опыт за уровень врага:
+                    # 1 lvl: 25*2^(1-1) = 25 exp; 5 lvl: 25*2^(5-1) = 400 exp
+                    experience_new = 25 * 2 ** (enemy_soldier.level - 1)
+                    if hasattr(enemy_soldier, 'hero') and enemy_soldier.hero:
+                        experience_new *= 2
+                    elif enemy_soldier.char_class == 'Commoner':
+                        experience_new /= 2.5
+                    squad.experience += round(experience_new)
 
     def fall_to_death(self, squad):
         """Тяжелораненые делают спасброски от смерти в начале каждого хода.

@@ -348,6 +348,11 @@ class soldier_in_battle(soldier):
         """
         # Индивидуальные команды обновляются каждый ход:
         self.commands = []
+        # Боец может оказаться в бою раненым:
+        if self.hitpoints <= 0:
+            self.fall = True
+        else:
+            self.fall = False
         # Даём боевые действия и пул движения:
         self.battle_action = True
         self.bonus_action = True
