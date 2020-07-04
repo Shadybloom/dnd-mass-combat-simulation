@@ -233,6 +233,7 @@ class squad_generation():
     def calculate_squad_overload(self):
         """Суммарный вес снаряжения отряда и число перегруженных бойцов."""
         overload_soldiers = 0
+        lightload_soldiers = 0
         squad_overload = {}
         for soldier in self.metadict_soldiers.values():
             for key, value in soldier.overload.items():
@@ -242,9 +243,14 @@ class squad_generation():
                     squad_overload[key] += value
                 elif key == 'battle_overload' and value == True:
                     overload_soldiers += 1
+                elif key == 'battle_lightload' and value == True:
+                    lightload_soldiers += 1
         squad_overload.pop('base_speed'),
-        squad_overload.pop('battle_overload'), squad_overload.pop('travel_overload')
+        squad_overload.pop('battle_lightload'),
+        squad_overload.pop('battle_overload'),
+        squad_overload.pop('travel_overload')
         squad_overload['overload_soldiers'] = overload_soldiers
+        squad_overload['lightload_soldiers'] = lightload_soldiers
         return squad_overload
 
     def calculate_squad_armor_class(self):

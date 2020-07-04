@@ -572,17 +572,25 @@ class soldier():
             mounted_weigh = calculate_equipment_weight(self.equipment_mount, metadict_items)
             mounted_weigh += backpack_weight
             backpack_weight = 0
-        light_load = self.abilityes['strength'] * 5
+        light_load = self.abilityes['strength'] * 2.5
+        normal_load = self.abilityes['strength'] * 5
         maximum_load = self.abilityes['strength'] * 10
         # Для крупных существ переносимый вес удваивается:
         if self.size == 'large':
             light_load *= 2
+            normal_load *= 2
             maximum_load *= 2
         # В бою боец носит только оружие и доспехи:
         battle_overload = False
-        if equipment_weight > light_load:
+        battle_lightload = False
+        # Если нагрузка чрезмерна, убавляем скорости:
+        if equipment_weight > normal_load:
             battle_overload = True
             base_speed += -10
+        # Если нагрузка очень лёгкая, то добавляем скорости:
+        #elif equipment_weight <= light_load:
+        #    battle_lightload = True
+        #    base_speed += 5
         # В походе пеший боец тащит ещё и рюкзак (спальник, вода, сухари, инструменты):
         travel_overload = False
         if equipment_weight + backpack_weight > maximum_load:
@@ -592,8 +600,10 @@ class soldier():
                 'backpack_weight (lb)':backpack_weight,
                 'property_weight (lb)':backpack_weight + equipment_weight + mounted_weigh,
                 'supply_weight (lb)':supply_weight,
+                'normal_load (lb)':normal_load,
                 'light_load (lb)':light_load,
                 'maximum_load (lb)':maximum_load,
+                'battle_lightload':battle_lightload,
                 'battle_overload':battle_overload,
                 'travel_overload':travel_overload,
                 'base_speed':base_speed,
