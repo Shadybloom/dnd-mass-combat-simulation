@@ -1117,7 +1117,7 @@ metadict_items['Infusion of Healing'] = {
     'effect':'healing',
     #'healing_dice':'2d4',
     #'healing_mod':2,
-    'weight (lb)':1/2,
+    #'weight (lb)':1/2,
     'cost (gp)':50,
     'cost (grams_of_gold)':60,
     }
@@ -1129,7 +1129,7 @@ metadict_items['Infusion of Claws'] = {
     'weapon_type':['simple','close','finesse','magic','+1'],
     'damage_type':'piercing',
     'damage_dice':'1d6',
-    'weight (lb)':1/2,
+    #'weight (lb)':1/2,
     'cost (gp)':240,
     'cost (grams_of_gold)':240,
     }
@@ -1144,7 +1144,7 @@ metadict_items['Rune of Absorbtion'] = {
     'damage_type':'absorbed',
     'damage_dice':'1d6',
     'damage_mod':0,
-    'weight (lb)':1/2,
+    #'weight (lb)':1/2,
     'cost (gp)':240,
     'cost (grams_of_gold)':240,
     }
@@ -1152,7 +1152,7 @@ metadict_items['Rune of Absorbtion'] = {
 metadict_items['Rune of Shielding'] = {
     'potion':True,
     'effect':'shield',
-    'weight (lb)':1/2,
+    #'weight (lb)':1/2,
     'cost (gp)':240,
     'cost (grams_of_gold)':240,
     }
@@ -1164,7 +1164,7 @@ metadict_items['Rune of Armor'] = {
     'effect':'armor',
     'armor_type':'Force',
     'armor_class_armor':13,
-    'weight (lb)':1/2,
+    #'weight (lb)':1/2,
     'cost (gp)':240,
     'cost (grams_of_gold)':240,
     }
