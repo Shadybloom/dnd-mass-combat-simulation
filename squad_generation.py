@@ -245,10 +245,10 @@ class squad_generation():
                     overload_soldiers += 1
                 elif key == 'battle_lightload' and value == True:
                     lightload_soldiers += 1
-        squad_overload.pop('base_speed'),
-        squad_overload.pop('battle_lightload'),
-        squad_overload.pop('battle_overload'),
-        squad_overload.pop('travel_overload')
+        #squad_overload.pop('base_speed'),
+        #squad_overload.pop('battle_lightload'),
+        #squad_overload.pop('battle_overload'),
+        #squad_overload.pop('travel_overload')
         squad_overload['overload_soldiers'] = overload_soldiers
         squad_overload['lightload_soldiers'] = lightload_soldiers
         return squad_overload
