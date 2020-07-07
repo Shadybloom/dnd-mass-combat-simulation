@@ -18,51 +18,20 @@ metadict_squads = {}
 #    'Warrior 5 lvl (legionary infantry-captain)':1,
 #    }
 
-metadict_squads['Company-test (standard) (greataxes)'] = {
-    'Warrior 1 lvl (standard) (Greataxe)':100,
-    'Trap (commander)':1,
-    }
-
-metadict_squads['Company-test (standard) (disadvantage) (greataxes)'] = {
-    'Warrior 1 lvl (standard) (disadvantage) (Greataxe)':100,
-    'Trap (commander)':1,
-    }
-
-metadict_squads['Company-test (standard) (bless + disadvantage) (greataxes)'] = {
-    'Warrior 1 lvl (standard) (bless + disadvantage) (Greataxe)':100,
-    'Trap (commander)':1,
-    }
-
-metadict_squads['Company-test (standard) (battleaxes)'] = {
-    'Warrior 1 lvl (standard) (Battleaxe + Shield)':100,
-    'Trap (commander)':1,
-    }
-
 metadict_squads['test 12 animals'] = {
     #'Brown Bear (CR 1)':12,
     'Giant Octopus (CR 1)':12,
     #'Empyrean (CR 23)':1,
     }
 
-metadict_squads['test 4 onagers'] = {
-    'Warrior 3 lvl (siege engineer-apprentice) (onager-fire)':3,
-    'Warrior 4 lvl (siege engineer-master) (onager-fire)':1,
+metadict_squads['10 onagers, онагры (siege)'] = {
+    'Warrior 3 lvl (siege engineer-apprentice) (onager-siege)':10,
+    'Warrior 4 lvl (siege engineer-master)':1,
     }
 
-metadict_squads['traps (lightning)'] = {
-    'Trap (Glyph of Warding) (Lightning)':1,
-    'Trap (commander)':1,
-    }
-
-metadict_squads['traps (boulders)'] = {
-    'Trap (Boulders)':1,
-    'Trap (commander)':1,
-    }
-
-metadict_squads['traps (fire)'] = {
-    # Восемь бочек алхимичесого огня на корабль
-    'Trap (Alchemist\'s Fire)':8,
-    'Trap (commander)':1,
+metadict_squads['10 onagers, онагры (fire)'] = {
+    'Warrior 3 lvl (siege engineer-apprentice) (onager-fire)':10,
+    'Warrior 4 lvl (siege engineer-master)':1,
     }
 
 metadict_squads['test (ogres)'] = {
@@ -92,6 +61,69 @@ metadict_squads['Company-dummy (куклы)'] = {
     # Просто чучела на кораблях.
     'Dummy (CR 0)':100,
     'Dummy-officer (CR 0)':4,
+    }
+
+#----
+# Тесты отрядов:
+
+metadict_squads['Company-test (standard) (greataxes)'] = {
+    # Тесты типовых отрядов для Vened'а.
+    'Warrior 1 lvl (standard) (Greataxe)':100,
+    'Trap (commander)':1,
+    }
+
+metadict_squads['Company-test (standard) (disadvantage) (greataxes)'] = {
+    'Warrior 1 lvl (standard) (disadvantage) (Greataxe)':100,
+    'Trap (commander)':1,
+    }
+
+metadict_squads['Company-test (standard) (bless + disadvantage) (greataxes)'] = {
+    'Warrior 1 lvl (standard) (bless + disadvantage) (Greataxe)':100,
+    'Trap (commander)':1,
+    }
+
+metadict_squads['Company-test (standard) (battleaxes)'] = {
+    'Warrior 1 lvl (standard) (Battleaxe + Shield)':100,
+    'Trap (commander)':1,
+    }
+
+#----
+# Осадная техника:
+
+metadict_squads['traps (lightning)'] = {
+    # Защитные руны
+    'Trap (Glyph of Warding) (Lightning)':1,
+    'Trap (commander)':1,
+    }
+
+metadict_squads['traps (boulders)'] = {
+    # Лавина
+    'Trap (Boulders)':1,
+    'Trap (commander)':1,
+    }
+
+metadict_squads['traps (fire)'] = {
+    # Осьминожки со 100 lb. бочками алхимического огня.
+    # Восемь бочек алхимичесого огня на корабль.
+    'Trap (Alchemist\'s Fire)':8,
+    'Trap (commander)':1,
+    }
+
+metadict_squads['traps (fire) (bombarding)'] = {
+    # 12 бочей на гигантских орлах.
+    # 1200 lb. алхимического огня.
+    'Trap (Alchemist\'s Fire)':12,
+    'Trap (commander)':1,
+    }
+
+#----
+# Корабли:
+
+metadict_squads['Ship (trireme)'] = {
+    # Триера. 50 тонн водоизмещения, 50 объектов 10x10 футов.
+    'Ship (deck)':24,
+    'Ship (board)':24,
+    'Ship (command)':2,
     }
 
 #----
@@ -187,11 +219,10 @@ metadict_squads['Company-regular (пираты Кара-Яма) (конные) (
     'Warrior 4 lvl (cavalry archer-lieutenant)':1,
     }
 
-metadict_squads['Company-regular (пращники Тик-Бо) (враг)'] = {
-    'Warrior 1 lvl (balear slinger)':75,
-    'Warrior 2 lvl (balear slinger-corporal)':10,
-    'Warrior 3 lvl (balear slinger-sergeant)':3,
-    'Warrior 4 lvl (balear slinger-lieutenant)':1,
+metadict_squads['Company-regular (пираты Кара-Яма) (пешие) (враг)'] = {
+    # Лучшие в конном отряде.
+    'Warrior 1 lvl (cilician infantry)':70,
+    'Warrior 3 lvl (cilician infantry-sergeant)':1,
     }
 
 metadict_squads['Company-regular (пираты Кема-Эша) (враг)'] = {
@@ -199,6 +230,13 @@ metadict_squads['Company-regular (пираты Кема-Эша) (враг)'] = {
     'Warrior 2 lvl (cilician infantry-corporal)':10,
     'Warrior 3 lvl (cilician infantry-sergeant)':3,
     'Warrior 4 lvl (cilician infantry-lieutenant)':1,
+    }
+
+metadict_squads['Company-regular (пращники Тик-Бо) (враг)'] = {
+    'Warrior 1 lvl (balear slinger)':75,
+    'Warrior 2 lvl (balear slinger-corporal)':10,
+    'Warrior 3 lvl (balear slinger-sergeant)':3,
+    'Warrior 4 lvl (balear slinger-lieutenant)':1,
     }
 
 #----
@@ -215,7 +253,14 @@ metadict_squads['Company-regular (легионеры Гая Юлия) (Katorjnik
     'Warrior 2 lvl (Katorjnik) (ветеран)':20,
     'Warrior 3 lvl (Katorjnik) (урагос)':6,
     'Warrior 4 lvl (Katorjnik) (опцион)':2,
-    #'Warrior 5 lvl (Katorjnik) (центурион)':1,
+    'Warrior 5 lvl (Katorjnik) (центурион)':1,
+    }
+
+metadict_squads['Company-regular (ветераны Гая Юлия) (Katorjnik)'] = {
+    'Warrior 2 lvl (Katorjnik) (ветеран)':90,
+    'Warrior 3 lvl (Katorjnik) (урагос)':6,
+    'Warrior 4 lvl (Katorjnik) (опцион)':2,
+    'Warrior 5 lvl (Katorjnik) (центурион)':2,
     }
 
 metadict_squads['Band-hero (преторианцы Гая Юлия) (Katorjnik)'] = {
@@ -262,8 +307,8 @@ metadict_squads['Band-hero (друиды Патрокла) (Vened)'] = {
     }
 
 metadict_squads['Company-regular (онагры Патрокла) (Vened)'] = {
-    'Warrior 3 lvl (siege engineer-apprentice) (onager-fire)':7,
-    'Warrior 4 lvl (siege engineer-master) (onager-fire)':1,
+    'Warrior 3 lvl (siege engineer-apprentice) (onager-fire)':8,
+    'Warrior 4 lvl (siege engineer-master)':1,
     }
 
 metadict_squads['Company-militia (скорпионы Патрокла) (Vened)'] = {

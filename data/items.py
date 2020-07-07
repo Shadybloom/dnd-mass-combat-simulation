@@ -1117,7 +1117,7 @@ metadict_items['Infusion of Healing'] = {
     'effect':'healing',
     #'healing_dice':'2d4',
     #'healing_mod':2,
-    #'weight (lb)':1/2,
+    'weight (lb)':0,
     'cost (gp)':50,
     'cost (grams_of_gold)':60,
     }
@@ -1129,7 +1129,7 @@ metadict_items['Infusion of Claws'] = {
     'weapon_type':['simple','close','finesse','magic','+1'],
     'damage_type':'piercing',
     'damage_dice':'1d6',
-    #'weight (lb)':1/2,
+    'weight (lb)':0,
     'cost (gp)':240,
     'cost (grams_of_gold)':240,
     }
@@ -1144,7 +1144,7 @@ metadict_items['Rune of Absorbtion'] = {
     'damage_type':'absorbed',
     'damage_dice':'1d6',
     'damage_mod':0,
-    #'weight (lb)':1/2,
+    'weight (lb)':1/2,
     'cost (gp)':240,
     'cost (grams_of_gold)':240,
     }
@@ -1152,7 +1152,7 @@ metadict_items['Rune of Absorbtion'] = {
 metadict_items['Rune of Shielding'] = {
     'potion':True,
     'effect':'shield',
-    #'weight (lb)':1/2,
+    'weight (lb)':1/2,
     'cost (gp)':240,
     'cost (grams_of_gold)':240,
     }
@@ -1164,7 +1164,7 @@ metadict_items['Rune of Armor'] = {
     'effect':'armor',
     'armor_type':'Force',
     'armor_class_armor':13,
-    #'weight (lb)':1/2,
+    'weight (lb)':1/2,
     'cost (gp)':240,
     'cost (grams_of_gold)':240,
     }
@@ -1329,16 +1329,17 @@ metadict_items['Longbow +1'] = {
 
 metadict_items['Catapult (fire)'] = {
     # Онагр.
-    # TODO: допили функцию direct_hit
-    # Проверь, что с ней не так
     'weapon':True,
     'direct_hit':True,
+    'savethrow':True,
+    #'savethrow_all':True,
+    'savethrow_ability':'dexterity',
     'ammo_type':'Alchemist\'s Fire (25 lb)',
-    'weapon_type':['martial','volley','artillery','burning_shell'],
+    'weapon_type':['martial','ranged','volley','artillery','burning_shell'],
     'spell_dict':{
             'zone':True,
-            #'zone_shape':'2x2',
-            'zone_shape':'square',
+            'zone_shape':'2x2',
+            #'zone_shape':'square',
             'direct_hit':True,
             'savethrow':True,
             'savethrow_ability':'dexterity',
@@ -1355,13 +1356,30 @@ metadict_items['Catapult (fire)'] = {
             'spell_choice':('shell','Alchemist\'s Fire'),
             #'spell_of_choice':'Burning_Hands',
             },
-    'damage_type':'bludgeoning',
+    'damage_type':'fire',
     'damage_dice':'6d6',
     'shoot_range':150,
     'shoot_range_max':600,
     'weight (lb)':4000,
-    'cost (gp)':8 * 60,
-    'cost (grams_of_gold)':8 * 60,
+    'cost (gp)':16 * 60,
+    'cost (grams_of_gold)':16 * 60,
+    }
+
+metadict_items['Catapult (siege)'] = {
+    'weapon':True,
+    'direct_hit':True,
+    'savethrow':True,
+    'savethrow_all':True,
+    'savethrow_ability':'dexterity',
+    'ammo_type':'Boulder (50 lb)',
+    'weapon_type':['martial','ranged','volley','artillery'],
+    'damage_type':'bludgeoning',
+    'damage_dice':'5d10',
+    'shoot_range':150,
+    'shoot_range_max':600,
+    'weight (lb)':4000,
+    'cost (gp)':16 * 60,
+    'cost (grams_of_gold)':16 * 60,
     }
 
 metadict_items['Trap (Boulders)'] = {
@@ -1471,6 +1489,13 @@ metadict_items['Glyph'] = {
     'weight (lb)':1,
     'cost (gp)':240,
     'cost (grams_of_gold)':240,
+    }
+
+metadict_items['Boulder (50 lb)'] = {
+    'ammo':True,
+    'weight (lb)':50,
+    'cost (gp)':0.01,
+    'cost (grams_of_gold)':0.01,
     }
 
 metadict_items['Boulders'] = {

@@ -190,15 +190,29 @@ dict_races = {
             'weight_base_lb':1000,
             'weight_mod_dice':'2d20',
             },
-        'Catapult':{
-            # Какая там базовая защита у деревянных предметов?
+        'Object-wood-big':{
+            # У больших деревянных предметов 15 AC
             'hero':False,
+            'object':True,
             'size':'large',
             'base_speed':0,
             'armor_class_natural':15,
             'height_base_inches':56,
             'height_mod_dice':'2d4',
             'weight_base_lb':4000,
+            'weight_mod_dice':'2d20',
+            },
+        'Object-wood-ship-part':{
+            # 10x10-футовая часть корпуса.
+            # Водоизмещение триеры -- 50 тонны (1/50 часть корпуса = 2000 lb)
+            'hero':False,
+            'object':True,
+            'size':'large',
+            'base_speed':0,
+            'armor_class_natural':15,
+            'height_base_inches':56,
+            'height_mod_dice':'2d4',
+            'weight_base_lb':2000,
             'weight_mod_dice':'2d20',
             },
         }

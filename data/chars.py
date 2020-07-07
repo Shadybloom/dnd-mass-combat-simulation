@@ -2258,7 +2258,7 @@ metadict_chars['Warrior 3 lvl (siege engineer-apprentice) (onager-fire)'] = {
         'Shield':1,
         'Shortsword':1,
         'Catapult (fire)':1,
-        'Alchemist\'s Fire (25 lb)':1,
+        'Alchemist\'s Fire (25 lb)':10,
         },
     'mount_combat':True,
     'mount_type':'Onager',
@@ -2267,13 +2267,42 @@ metadict_chars['Warrior 3 lvl (siege engineer-apprentice) (onager-fire)'] = {
         },
     }
 
-metadict_chars['Warrior 4 lvl (siege engineer-master) (onager-fire)'] = {
+metadict_chars['Warrior 3 lvl (siege engineer-apprentice) (onager-siege)'] = {
+    'level':3,
+    'char_class':'Warrior-bowman',
+    'hit_dice':'1d8',
+    'behavior':'archer',
+    'class_features':{
+        'Fighting_Style_Archery':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Breastplate':1,
+        'Shield':1,
+        'Shortsword':1,
+        'Catapult (siege)':1,
+        'Boulder (50 lb)':10,
+        },
+    'mount_combat':True,
+    'mount_type':'Onager',
+    'equipment_mount':{
+        #'Alchemist\'s Fire (25 lb)':10,
+        },
+    }
+
+metadict_chars['Warrior 4 lvl (siege engineer-master)'] = {
+    # Командует онаграми, сам не стреляет.
     'level':4,
     'char_class':'Warrior-bowman',
     'hit_dice':'1d8',
     'behavior':'commander',
     'class_features':{
-        #'Fighting_Style_Archery':True,
+        'Fighting_Style_Archery':True,
         'Feat_Sharpshooter':True,
         },
     'race':'Human-common',
@@ -2282,20 +2311,19 @@ metadict_chars['Warrior 4 lvl (siege engineer-master) (onager-fire)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        # Управляет онагром:
         'Infusion of Healing':1,
         'Rune of Shielding':1,
         'Breastplate':1,
         'Shield':1,
         'Shortsword':1,
-        'Catapult (fire)':1,
-        'Alchemist\'s Fire (25 lb)':1,
-        },
-    'mount_combat':True,
-    'mount_type':'Onager',
-    'equipment_mount':{
+        #'Catapult (fire)':1,
         #'Alchemist\'s Fire (25 lb)':10,
         },
+    #'mount_combat':True,
+    #'mount_type':'Onager',
+    #'equipment_mount':{
+    #    #'Alchemist\'s Fire (25 lb)':10,
+    #    },
     }
 
 #----
@@ -6893,6 +6921,7 @@ metadict_chars['Druid 2 lvl (Vaarsuvius) (друид Психея)'] = {
     }
 
 metadict_chars['Druid 5 lvl (Vaarsuvius) (Ианта «Дочь бури»)'] = {
+    # TODO: Переход на 6 lvl
     # ЗАМЕТКА: накидка хитов.
     'level':5,
     'char_class':'Druid',
@@ -7055,6 +7084,7 @@ metadict_chars['Fighter 5 lvl (ArbitraryNickname) (Артаманах Рыбни
 # Жрецы -- домен войны:
 
 metadict_chars['Cleric 1 lvl (Vened) (жрец домена войны)'] = {
+    # TODO: Переход на 2 lvl
     # В свите Патрокла БОЛЬШИЕ македонцы.
     # TODO: Броня больших созданий должна весить в 2.5 раза больше.
     # Добавим им бесстрашия, а то пугливы из-за большого размера.
@@ -7108,12 +7138,13 @@ metadict_chars['Cleric 1 lvl (Vened) (жрец домена войны)'] = {
     }
 
 metadict_chars['Cleric 5 lvl (Vened) (Патрокл «Македонянин»)'] = {
-    'level':5,
+    # TODO: Переход на 6 lvl
+    'level':6,
     'char_class':'Cleric-heavy',
     'hit_dice':'1d8',
     'behavior':'commander',
     #'hitpoints_medial':True,
-    'hitpoints_base':8 + 18,
+    'hitpoints_base':8 + 18 + 4,
     'abilityes':{
         'strength':19,
         'dexterity':10,
@@ -7183,7 +7214,7 @@ metadict_chars['Druid 1 lvl (Vened) (друид Патрокла)'] = {
     'level':1,
     'char_class':'Druid-heavy',
     'hit_dice':'1d8',
-    'behavior':'archer',
+    'behavior':'elite_warrior',
     'class_features':{
         'Feat_Healer':True,
         'Spellcasting':True,
@@ -7205,6 +7236,7 @@ metadict_chars['Druid 1 lvl (Vened) (друид Патрокла)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
+        'Goodberry':30,
         'Infusion of Healing':1,
         'Splint Armor':1,
         'Heavy Shield':1,
@@ -7267,6 +7299,7 @@ metadict_chars['Druid 5 lvl (Vened) (Брат Патрокла)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
+        'Goodberry':30,
         'Infusion of Healing':1,
         'Rune of Shielding':1,
         'Rune of Absorbtion':1,
@@ -7461,6 +7494,7 @@ metadict_chars['Fighter 5 lvl (Mordodrukow) (Лонгин)'] = {
 
 metadict_chars['Cleric 5 lvl (Mordodrukow) (Фарам «Друг Богов»)'] = {
     # Талант: "Идеальное взаимодействие". Преимущество командиру, помеха врагу.
+    # TODO: Переход на 6 lvl
     'level':5,
     'char_class':'Cleric-heavy',
     'hit_dice':'1d8',
@@ -7661,6 +7695,7 @@ metadict_chars['Warrior 5 lvl (Mordodrukow) (капитан)'] = {
 # Бойцы (свита) (Гай Юлий):
 
 metadict_chars['Fighter 1 lvl (Katorjnik) (преторианец)'] = {
+    # TODO: Переход на 2 lvl
     # Преторианцы, всадники.
     'level':1,
     'char_class':'Fighter-officer',
@@ -7693,6 +7728,7 @@ metadict_chars['Fighter 1 lvl (Katorjnik) (преторианец)'] = {
     }
 
 metadict_chars['Fighter 5 lvl (Katorjnik) (Гай Юлий)'] = {
+    # TODO: Переход на 6 lvl
     'level':5,
     'char_class':'Fighter-officer',
     'hit_dice':'1d10',
@@ -7757,7 +7793,7 @@ metadict_chars['Warrior 1 lvl (Katorjnik) (манипуларий)'] = {
         'Studded Leather':1,
         'Heavy Shield':1,
         'Shortsword':1,
-        'Pilum':6,
+        'Pilum':7,
         },
     }
 
@@ -7778,7 +7814,7 @@ metadict_chars['Warrior 2 lvl (Katorjnik) (ветеран)'] = {
         'Scale Mail':1,
         'Heavy Shield':1,
         'Shortsword':1,
-        'Pilum':4,
+        'Pilum':5,
         },
     }
 
@@ -7801,7 +7837,7 @@ metadict_chars['Warrior 3 lvl (Katorjnik) (урагос)'] = {
         'Breastplate':1,
         'Heavy Shield':1,
         'Shortsword':1,
-        'Pilum':4,
+        'Pilum':5,
         },
     }
 
@@ -7825,7 +7861,7 @@ metadict_chars['Warrior 4 lvl (Katorjnik) (опцион)'] = {
         'Breastplate':1,
         'Heavy Shield':1,
         'Shortsword':1,
-        'Pilum':4,
+        'Pilum':5,
         },
     #'mount_combat':False,
     #'mount_type':'Riding Horse',
@@ -7855,7 +7891,7 @@ metadict_chars['Warrior 5 lvl (Katorjnik) (центурион)'] = {
         'Half Plate':1,
         'Heavy Shield':1,
         'Shortsword':1,
-        'Pilum':4,
+        'Pilum':5,
         },
     #'mount_combat':False,
     #'mount_type':'Riding Horse',
