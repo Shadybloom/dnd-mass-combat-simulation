@@ -1745,7 +1745,7 @@ class soldier_in_battle(soldier):
                     attack_result = master.take_attack(
                             attack_choice, attack_dict, metadict_soldiers)
                     return attack_result
-        if attack_dict.get('attack'):
+        if attack_dict.get('attack') and not attack_dict.get('direct_hit'):
             if attack_dict['attack_crit'] == True:
                 result['hit'] = True
                 result['crit'] = True
@@ -1797,7 +1797,7 @@ class soldier_in_battle(soldier):
             self.sleep_timer = 0
             self.sleep = False
         # Удачный спасбросок может уполовинить урон:
-        if attack_dict.get('savethrow'):
+        if attack_dict.get('savethrow') and not self.__dict__.get('savethrow_autofall'):
             savethrow_ability = attack_dict['savethrow_ability']
             # Помеха врага -- преимущество нам:
             advantage = attack_dict['disadvantage']
@@ -1807,7 +1807,7 @@ class soldier_in_battle(soldier):
                     advantage = True
                 if self.restained:
                     disadvantage = True
-            damage_difficul = attack_dict['spell_save_DC']
+            damage_difficul = attack_dict.get('spell_save_DC', attack_dict.get('attack_throw'))
             damage_savethrow = dices.dice_throw_advantage('1d20', advantage, disadvantage)\
                     + self.saves[savethrow_ability] + attack_dict['savethrow_bonus']
             # Заклинание Bless усиливает спасброски:
@@ -1830,6 +1830,9 @@ class soldier_in_battle(soldier):
             if not damage == 0 and attack_dict.get('effect'):
                 if attack_dict['effect'] == 'mockery':
                     self.mockery = True
+        # Крупные объекты (стены, корабли) имеют порог урона:
+        if self.__dict__.get('ignore_damage'):
+            damage -= self.ignore_damage
         # Умелые бойцы получают меньше урона в тяжёлой броне:
         if self.class_features.get('Feat_Heavy_Armor_Master'):
             if attack_dict['damage_type'] == 'bludgeoning'\
