@@ -1568,12 +1568,6 @@ class battle_simulation(battlescape):
             else:
                 target = random.choice(self.point_to_field(target, round(distance / 10)))
             target = tuple(target)
-            # Снаряды катапульт:
-            if 'artillery' in soldier.attacks[attack_choice]['weapon_type']:
-                if 'burning_shell' in soldier.attacks[attack_choice]['weapon_type']:
-                    spell_dict = soldier.attacks[attack_choice].get('spell_dict')
-                    if spell_dict:
-                        self.fireball_action(soldier, squad, spell_dict, target, safe = False)
             # Смотрим, есть ли кто в точке попадания:
             if target in self.dict_battlespace.keys():
                 if not 'volley' in self.dict_battlespace[target]:
@@ -1590,6 +1584,12 @@ class battle_simulation(battlescape):
                     # Стрелы расходуются, если летят совсем не туда:
                     soldier.attacks[attack_choice]['ammo'] -= 1
                     self.set_squad_battle_stat(soldier.attacks.get(attack_choice), squad, attack_choice)
+            # Снаряды катапульт:
+            if 'artillery' in soldier.attacks[attack_choice]['weapon_type']:
+                if 'burning_shell' in soldier.attacks[attack_choice]['weapon_type']:
+                    spell_dict = soldier.attacks[attack_choice].get('spell_dict')
+                    if spell_dict:
+                        self.fireball_action(soldier, squad, spell_dict, target, safe = False)
 
     def attack_action(self, soldier, squad, enemy, attack_choice = None):
         """Боец выбирает противника и атакует."""
