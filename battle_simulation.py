@@ -149,7 +149,8 @@ class battle_simulation(battlescape):
         self.metadict_soldiers = self.create_metadict_soldiers(self.squads)
         self.place_soldiers()
         for key,squad in self.squads.items():
-            if 'commander' in [soldier.behavior for soldier in squad.metadict_soldiers.values()]:
+            if 'commander' in [soldier.behavior for soldier in squad.metadict_soldiers.values()
+                    if soldier.__dict__.get('place')]:
                 self.set_squad_battle_order(squad, key.zone)
             #[print(el) for el in squad.battle_order.items()]
             for soldier in squad.metadict_soldiers.values():
