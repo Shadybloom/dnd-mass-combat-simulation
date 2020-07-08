@@ -76,18 +76,22 @@ class database_stat():
                 if not soldier.hitpoints <= 0])
             all_soldiers = len([soldier for soldier\
                 in squad.metadict_soldiers.values()\
-                if not soldier.behavior == 'mount'])
+                if not soldier.behavior == 'mount'
+                and not soldier.__dict__.get('mechanism')])
             ready_soldiers = len([soldier for soldier\
                 in squad.metadict_soldiers.values()\
                 if soldier.hitpoints >= soldier.hitpoints_max / 2\
+                and not soldier.__dict__.get('mechanism')\
                 and not soldier.behavior == 'mount'])
             commanders = len([soldier for soldier\
                 in squad.metadict_soldiers.values()\
-                if soldier.behavior == 'commander'])
+                if soldier.behavior == 'commander'
+                and not soldier.__dict__.get('mechanism')])
             ready_commanders = len([soldier for soldier\
                 in squad.metadict_soldiers.values()\
                 if soldier.behavior == 'commander'
-                and soldier.hitpoints >= soldier.hitpoints_max / 3])
+                and soldier.hitpoints >= soldier.hitpoints_max / 3
+                and not soldier.__dict__.get('mechanism')])
             dict_dead = {}
             dict_disabled = {}
             dict_capture = {}
