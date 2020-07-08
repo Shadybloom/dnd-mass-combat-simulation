@@ -1889,6 +1889,10 @@ class soldier_in_battle(soldier):
             damage = damage - shield_of_bravery
             if self.bonus_hitpoints < 0:
                 self.bonus_hitpoints = 0
+            if damage < 0:
+                attack_dict['bonus_hitpoints_damage'] = damage + shield_of_bravery
+            else:
+                attack_dict['bonus_hitpoints_damage'] = shield_of_bravery
         # Отражение/перехват стрел монахом (15-25 срабатываний за бой с лучниками):
         # https://www.dandwiki.com/wiki/5e_SRD:Monk#Deflect_Missiles
         if attack_choice[0] == 'throw' or attack_choice[0] == 'ranged' or attack_choice[0] == 'volley':

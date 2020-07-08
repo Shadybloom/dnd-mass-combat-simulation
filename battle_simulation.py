@@ -169,6 +169,9 @@ class battle_simulation(battlescape):
             # Короткий отдых:
             if namespace.short_rest:
                 self.set_squad_short_rest(squad)
+            # Сумма бонусных хитов отряда:
+            squad.bonus_hitpoints_max = sum([soldier.bonus_hitpoints for soldier\
+                in squad.metadict_soldiers.values()])
         # Эффекты погоды:
         if namespace.weather:
             #weather_list = namespace.weather.split()
@@ -526,6 +529,7 @@ class battle_simulation(battlescape):
         attack_key_fatal = tuple(list(attack_choice) + ['fatal'])
         attack_key_miss = tuple(list(attack_choice) + ['miss'])
         attack_key_damage = tuple(list(attack_choice) + ['damage'])
+        attack_key_damage_temp_hp = tuple(list(attack_choice) + ['damage_temp_hp'])
         attack_key_shield_impact = tuple(list(attack_choice) + ['shield_impact'])
         attack_key_hit_friendly = tuple(list(attack_choice) + ['damage_friend'])
         if attack_result.get('hit')\
@@ -534,6 +538,14 @@ class battle_simulation(battlescape):
                 squad.battle_stat[attack_key_damage] = attack_result['damage']
             elif attack_key_damage in squad.battle_stat and attack_result['damage'] > 0:
                 squad.battle_stat[attack_key_damage] += attack_result['damage']
+            if not attack_key_damage_temp_hp in squad.battle_stat\
+                    and attack_result.get('bonus_hitpoints_damage',0) > 0:
+                squad.battle_stat[attack_key_damage_temp_hp] = attack_result.get(
+                        'bonus_hitpoints_damage',0)
+            elif attack_key_damage_temp_hp in squad.battle_stat\
+                    and attack_result.get('bonus_hitpoints_damage',0) > 0:
+                squad.battle_stat[attack_key_damage_temp_hp] += attack_result.get(
+                        'bonus_hitpoints_damage',0)
             if not attack_key_hit in squad.battle_stat:
                 squad.battle_stat[attack_key_hit] = 1
             else:
@@ -872,6 +884,12 @@ class battle_simulation(battlescape):
             #commands_list = ['disengage','dodge','attack']
             commands_list = ['retreat', 'rescue']
         if squad.commander:
+            # Осторожный командир позволяет раненым отступать:
+            if squad.commander.__dict__.get('carefull_AI'):
+                commands_list.append('carefull')
+            # Добавляем град стрел без лишних расчётов:
+            if squad.commander.__dict__.get('volley_AI'):
+                commands_list.append('volley')
             # Плохие командиры плохо поддерживают строй:
             if squad.commander.level < 5:
                 commands_list.append('crowd')
@@ -879,9 +897,6 @@ class battle_simulation(battlescape):
             if squad.commander.__dict__.get('inactive_AI'):
                 commands_list = []
                 commands_list.append('fearless')
-            # Добавляем град стрел без лишних расчётов:
-            if squad.commander.__dict__.get('volley_AI'):
-                commands_list.append('volley')
             # Бесстрашные создания бесстрашны, зато трусоватые спасают своих:
             if squad.commander.__dict__.get('fearless_AI'):
                 commands_list.append('fearless')
@@ -963,7 +978,12 @@ class battle_simulation(battlescape):
         #    soldier.ally_side, soldier.place, soldier.rank,
         #    soldier.hitpoints, soldier.hitpoints_max, soldier.danger))
         # Бойцы лечатся зельями, если это необходимо:
-        if soldier.hitpoints <= soldier.hitpoints_max / 2:
+        if soldier.hitpoints <= soldier.hitpoints_max * 0.5\
+                or 'carefull' in soldier.commands\
+                and soldier.hitpoints < soldier.hitpoints_max * 0.75:
+            destination = self.find_spawn(soldier.place, soldier.ally_side)
+            destination = random.choice(self.point_to_field(destination))
+            self.move_action(soldier, squad, destination, allow_replace = False)
             if soldier.second_wind:
                 soldier.set_second_wind()
             elif soldier.lay_on_hands:
@@ -972,6 +992,7 @@ class battle_simulation(battlescape):
                 soldier.use_potion_of_healing()
             elif soldier.equipment_weapon.get('Goodberry'):
                 soldier.use_potion_of_healing()
+            self.dodge_action(soldier)
         # Солдат отступает к точке спавна, если опасность слишком велика:
         if soldier.danger > self.engage_danger and not soldier.escape:
             destination = self.find_spawn(soldier.place, soldier.ally_side)
@@ -2684,14 +2705,20 @@ class battle_simulation(battlescape):
             squad_hitpoints_new = sum([soldier.hitpoints for soldier\
                 in squad.metadict_soldiers.values()\
                 if not soldier.hitpoints <= 0])
+            squad_bonus_hitpoints_new = sum([soldier.bonus_hitpoints for soldier\
+                in squad.metadict_soldiers.values()])
             print('--------------------------------------------------------------------------------')
-            print('{0} {1} {2} exp {3} hp {4}/{5} (dead {6}% disabled {7}% captured {8}%) fall {9}%, injured {10}%, light {11}%, escape {12}% lucky {13}%'.format(
+            #print('{0} {1} {2} exp {3} hp {4}/{5} (dead {6}% disabled {7}% captured {8}%) fall {9}%, injured {10}%, light {11}%, escape {12}% lucky {13}%'.format(
+            print('{0} {1} {2} exp {3} hp {4}/{5} (temp_hp {n}/{b}) (dead {6}% disabled {7}% captured {8}%) fall {9}%, injured {10}%, light {11}%, escape {12}% lucky {13}%'.format(
                     squad.ally_side, key.zone, key.type, squad.experience,
                     squad_hitpoints_new, squad_hitpoints_max,
                     casualty['dead_percent'], casualty['disabled_percent'],
                     casualty['captured_percent'], casualty['fall_percent'],
                     casualty['injured_percent'], casualty['light_injured_percent'],
-                    casualty['escape_percent'], casualty['lucky_one_percent']))
+                    casualty['escape_percent'], casualty['lucky_one_percent'],
+                    b = squad.bonus_hitpoints_max,
+                    n = squad_bonus_hitpoints_new,
+                    ))
             dict_dead = {}
             dict_disabled = {}
             dict_capture = {}
