@@ -520,11 +520,14 @@ if __name__ == '__main__':
         #print(soldier.behavior, sum(soldier.abilityes.values()), soldier.abilityes)
         #if hasattr(soldier, 'spells'):
         #    print(soldier.spells, soldier.spells_generator.spellslots)
-        #print(soldier.rank, soldier.overload)
-        print(soldier.rank,
-                'cost:', soldier.unit_cost['equipment_cost'],
-                'hp:', soldier.hitpoints_max, 'AC:', soldier.armor['armor_class'],
-                )
+        print('{r} cost: {c} hp: {hp:>2} AC: {ac} load {l}/{l_max}'.format(
+            r = soldier.rank,
+            c = soldier.unit_cost['equipment_cost'],
+            hp = soldier.hitpoints_max,
+            ac = soldier.armor['armor_class'],
+            l = soldier.overload['equipment_weight (lb)'],
+            l_max = soldier.overload['normal_load (lb)'],
+            ))
         #if soldier.hero:
         #    print(soldier.abilityes, sum(soldier.abilityes.values()))
         #print(soldier.rank, soldier.abilityes['charisma'], sum(soldier.abilityes.values()))
