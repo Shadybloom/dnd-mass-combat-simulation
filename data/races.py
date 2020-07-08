@@ -193,7 +193,6 @@ dict_races = {
         'Object-wood-big':{
             # У больших деревянных предметов 15 AC
             'hero':False,
-            'object':True,
             'size':'large',
             'base_speed':0,
             'armor_class_natural':15,
@@ -206,7 +205,6 @@ dict_races = {
             # 10x10-футовая часть корпуса.
             # Водоизмещение триеры -- 50 тонны (1/50 часть корпуса = 2000 lb)
             'hero':False,
-            'object':True,
             'size':'large',
             'base_speed':0,
             'armor_class_natural':15,

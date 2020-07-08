@@ -16,6 +16,7 @@ metadict_animals['Onager'] = {
     # Игромеханически -- ездовые животные
     # Онагр
     'level':5,
+    'mechanism':True,
     'challenge_rating':'1/4',
     'char_class':'Commoner',
     'behavior':'mount',
@@ -40,9 +41,10 @@ metadict_animals['Onager'] = {
 #----
 # Корабли.
 
-metadict_animals['Ship (deck)'] = {
+metadict_animals['Ship trireme (deck)'] = {
     # Палуба триеры. Порог урона -- 10
     'level':5,
+    'mechanism':True,
     'ignore_damage':10,
     'savethrow_autofall':True,
     'inactive_AI':True,
@@ -67,10 +69,11 @@ metadict_animals['Ship (deck)'] = {
     'equipment_supply':{},
     }
 
-metadict_animals['Ship (board)'] = {
+metadict_animals['Ship trireme (board)'] = {
     # Борт триеры. Порог урона -- 15
     # По поведению "elite_warrior" мы располагаем "бойцов" на карте. Так борта окажутся по бортам.
     'level':5,
+    'mechanism':True,
     'ignore_damage':15,
     'savethrow_autofall':True,
     'inactive_AI':True,
@@ -95,11 +98,176 @@ metadict_animals['Ship (board)'] = {
     'equipment_supply':{},
     }
 
-metadict_animals['Ship (command)'] = {
+metadict_animals['Ship trireme (command)'] = {
     # Нос и корма триеры.
     # Борт триеры. Порог урона -- 15
     'level':10,
+    'mechanism':True,
     'ignore_damage':15,
+    'inactive_AI':True,
+    'challenge_rating':'1',
+    'char_class':'Commoner',
+    'behavior':'commander',
+    'hitpoints_medial':True,
+    'abilityes':{
+        'strength':10,
+        'dexterity':10,
+        'constitution':10, 
+        'intelligence':10,
+        'wisdom':10,
+        'charisma':10,
+        },
+    'hit_dice':'1d10',
+    'race':'Object-wood-ship-part',
+    'weapon_skill':[],
+    'armor_skill':[],
+    'equipment_weapon':{},
+    'equipment_backpack':{},
+    'equipment_supply':{},
+    }
+
+metadict_animals['Ship pentere (deck)'] = {
+    # Палуба пентеры.
+    'level':5,
+    'mechanism':True,
+    'ignore_damage':10,
+    'savethrow_autofall':True,
+    'inactive_AI':True,
+    'challenge_rating':'1/4',
+    'char_class':'Commoner',
+    'behavior':'warrior',
+    'hitpoints_medial':True,
+    'abilityes':{
+        'strength':10,
+        'dexterity':10,
+        'constitution':10, 
+        'intelligence':10,
+        'wisdom':10,
+        'charisma':10,
+        },
+    'hit_dice':'1d10',
+    'race':'Object-wood-ship-part',
+    'weapon_skill':[],
+    'armor_skill':[],
+    'equipment_weapon':{},
+    'equipment_backpack':{},
+    'equipment_supply':{},
+    }
+
+metadict_animals['Ship pentere (board)'] = {
+    # Борт пентеры. Больше хитов.
+    'level':10,
+    'mechanism':True,
+    'ignore_damage':15,
+    'savethrow_autofall':True,
+    'inactive_AI':True,
+    'challenge_rating':'1/4',
+    'char_class':'Commoner',
+    'behavior':'elite_warrior',
+    'hitpoints_medial':True,
+    'abilityes':{
+        'strength':10,
+        'dexterity':10,
+        'constitution':10, 
+        'intelligence':10,
+        'wisdom':10,
+        'charisma':10,
+        },
+    'hit_dice':'1d10',
+    'race':'Object-wood-ship-part',
+    'weapon_skill':[],
+    'armor_skill':[],
+    'equipment_weapon':{},
+    'equipment_backpack':{},
+    'equipment_supply':{},
+    }
+
+metadict_animals['Ship pentere (command)'] = {
+    # Нос и корма пентеры.
+    'level':10,
+    'mechanism':True,
+    'ignore_damage':15,
+    'inactive_AI':True,
+    'challenge_rating':'1',
+    'char_class':'Commoner',
+    'behavior':'commander',
+    'hitpoints_medial':True,
+    'abilityes':{
+        'strength':10,
+        'dexterity':10,
+        'constitution':10, 
+        'intelligence':10,
+        'wisdom':10,
+        'charisma':10,
+        },
+    'hit_dice':'1d10',
+    'race':'Object-wood-ship-part',
+    'weapon_skill':[],
+    'armor_skill':[],
+    'equipment_weapon':{},
+    'equipment_backpack':{},
+    'equipment_supply':{},
+    }
+
+metadict_animals['Ship trage (deck)'] = {
+    # Палуба торгового корабля.
+    'level':5,
+    'mechanism':True,
+    'ignore_damage':5,
+    'savethrow_autofall':True,
+    'inactive_AI':True,
+    'challenge_rating':'1/4',
+    'char_class':'Commoner',
+    'behavior':'warrior',
+    'hitpoints_medial':True,
+    'abilityes':{
+        'strength':10,
+        'dexterity':10,
+        'constitution':10, 
+        'intelligence':10,
+        'wisdom':10,
+        'charisma':10,
+        },
+    'hit_dice':'1d10',
+    'race':'Object-wood-ship-part',
+    'weapon_skill':[],
+    'armor_skill':[],
+    'equipment_weapon':{},
+    'equipment_backpack':{},
+    'equipment_supply':{},
+    }
+
+metadict_animals['Ship trage (board)'] = {
+    'level':5,
+    'mechanism':True,
+    'ignore_damage':10,
+    'savethrow_autofall':True,
+    'inactive_AI':True,
+    'challenge_rating':'1/4',
+    'char_class':'Commoner',
+    'behavior':'elite_warrior',
+    'hitpoints_medial':True,
+    'abilityes':{
+        'strength':10,
+        'dexterity':10,
+        'constitution':10, 
+        'intelligence':10,
+        'wisdom':10,
+        'charisma':10,
+        },
+    'hit_dice':'1d10',
+    'race':'Object-wood-ship-part',
+    'weapon_skill':[],
+    'armor_skill':[],
+    'equipment_weapon':{},
+    'equipment_backpack':{},
+    'equipment_supply':{},
+    }
+
+metadict_animals['Ship trage (command)'] = {
+    'level':5,
+    'mechanism':True,
+    'ignore_damage':10,
     'inactive_AI':True,
     'challenge_rating':'1',
     'char_class':'Commoner',

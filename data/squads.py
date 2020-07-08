@@ -24,12 +24,12 @@ metadict_squads['test 12 animals'] = {
     #'Empyrean (CR 23)':1,
     }
 
-metadict_squads['10 onagers, онагры (siege)'] = {
+metadict_squads['10 onagers (siege)'] = {
     'Warrior 3 lvl (siege engineer-apprentice) (onager-siege)':10,
     'Warrior 4 lvl (siege engineer-master)':1,
     }
 
-metadict_squads['10 onagers, онагры (fire)'] = {
+metadict_squads['10 onagers (fire)'] = {
     'Warrior 3 lvl (siege engineer-apprentice) (onager-fire)':10,
     'Warrior 4 lvl (siege engineer-master)':1,
     }
@@ -102,7 +102,7 @@ metadict_squads['traps (boulders)'] = {
     'Trap (commander)':1,
     }
 
-metadict_squads['traps (fire)'] = {
+metadict_squads['traps (fire) (octopus)'] = {
     # Осьминожки со 100 lb. бочками алхимического огня.
     # Восемь бочек алхимичесого огня на корабль.
     'Trap (Alchemist\'s Fire)':8,
@@ -119,11 +119,24 @@ metadict_squads['traps (fire) (bombarding)'] = {
 #----
 # Корабли:
 
+metadict_squads['Ship (trage)'] = {
+    'Ship trage (deck)':24,
+    'Ship trage (board)':24,
+    'Ship trage (command)':2,
+    }
+
 metadict_squads['Ship (trireme)'] = {
-    # Триера. 50 тонн водоизмещения, 50 объектов 10x10 футов.
-    'Ship (deck)':24,
-    'Ship (board)':24,
-    'Ship (command)':2,
+    # Триера. 50 тонн водоизмещения (пустая), 50 объектов 10x10 футов.
+    'Ship trireme (deck)':24,
+    'Ship trireme (board)':24,
+    'Ship trireme (command)':2,
+    }
+
+metadict_squads['Ship (pentere)'] = {
+    # Пентера. 150 тонн водоизмещения, 50 объектов 10x10 футов.
+    'Ship pentere (deck)':24,
+    'Ship pentere (board)':24,
+    'Ship pentere (command)':2,
     }
 
 #----
@@ -306,8 +319,13 @@ metadict_squads['Band-hero (друиды Патрокла) (Vened)'] = {
     'Druid 1 lvl (Vened) (друид Патрокла)':2,
     }
 
-metadict_squads['Company-regular (онагры Патрокла) (Vened)'] = {
+metadict_squads['Company-regular (онагры Патрокла) (fire) (Vened)'] = {
     'Warrior 3 lvl (siege engineer-apprentice) (onager-fire)':8,
+    'Warrior 4 lvl (siege engineer-master)':1,
+    }
+
+metadict_squads['Company-regular (онагры Патрокла) (siege) (Vened)'] = {
+    'Warrior 3 lvl (siege engineer-apprentice) (onager-siege)':8,
     'Warrior 4 lvl (siege engineer-master)':1,
     }
 
