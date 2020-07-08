@@ -7797,6 +7797,27 @@ metadict_chars['Warrior 1 lvl (Katorjnik) (манипуларий)'] = {
         },
     }
 
+metadict_chars['Warrior 2 lvl (Katorjnik) (ветеран) (кольчуга)'] = {
+    'level':2,
+    'char_class':'Warrior',
+    'hit_dice':'1d8',
+    'behavior':'warrior',
+    'class_features':{
+        'Fighting_Style_Protection':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Chain Shirt':1,
+        'Heavy Shield':1,
+        'Shortsword':1,
+        'Pilum':7,
+        },
+    }
+
 metadict_chars['Warrior 2 lvl (Katorjnik) (ветеран)'] = {
     'level':2,
     'char_class':'Warrior',
@@ -7814,7 +7835,7 @@ metadict_chars['Warrior 2 lvl (Katorjnik) (ветеран)'] = {
         'Scale Mail':1,
         'Heavy Shield':1,
         'Shortsword':1,
-        'Pilum':5,
+        'Pilum':2,
         },
     }
 
@@ -7837,7 +7858,7 @@ metadict_chars['Warrior 3 lvl (Katorjnik) (урагос)'] = {
         'Breastplate':1,
         'Heavy Shield':1,
         'Shortsword':1,
-        'Pilum':5,
+        'Pilum':7,
         },
     }
 
@@ -7861,7 +7882,7 @@ metadict_chars['Warrior 4 lvl (Katorjnik) (опцион)'] = {
         'Breastplate':1,
         'Heavy Shield':1,
         'Shortsword':1,
-        'Pilum':5,
+        'Pilum':7,
         },
     #'mount_combat':False,
     #'mount_type':'Riding Horse',
@@ -7873,6 +7894,7 @@ metadict_chars['Warrior 5 lvl (Katorjnik) (центурион)'] = {
     'level':5,
     'char_class':'Warrior-officer',
     'hit_dice':'1d8',
+    #'carefull_AI':True,
     'behavior':'commander',
     'class_features':{
         'Fighting_Style_Defence':True,
@@ -7891,7 +7913,7 @@ metadict_chars['Warrior 5 lvl (Katorjnik) (центурион)'] = {
         'Half Plate':1,
         'Heavy Shield':1,
         'Shortsword':1,
-        'Pilum':5,
+        'Pilum':3,
         },
     #'mount_combat':False,
     #'mount_type':'Riding Horse',

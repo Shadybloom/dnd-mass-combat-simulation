@@ -270,11 +270,20 @@ metadict_squads['Company-regular (легионеры Гая Юлия) (Katorjnik
     }
 
 metadict_squads['Company-regular (ветераны Гая Юлия) (Katorjnik)'] = {
-    'Warrior 2 lvl (Katorjnik) (ветеран)':90,
+    'Warrior 2 lvl (Katorjnik) (ветеран) (кольчуга)':50,
+    'Warrior 2 lvl (Katorjnik) (ветеран)':40,
     'Warrior 3 lvl (Katorjnik) (урагос)':6,
-    'Warrior 4 lvl (Katorjnik) (опцион)':2,
     'Warrior 5 lvl (Katorjnik) (центурион)':2,
+    'Warrior 4 lvl (Katorjnik) (опцион)':2,
     }
+
+#metadict_squads['Company-regular (ветераны Гая Юлия) (смешанный) (Katorjnik)'] = {
+#    'Warrior 1 lvl (Katorjnik) (манипуларий)':46,
+#    'Warrior 2 lvl (Katorjnik) (ветеран)':44,
+#    'Warrior 3 lvl (Katorjnik) (урагос)':7,
+#    'Warrior 5 lvl (Katorjnik) (центурион)':2,
+#    'Warrior 4 lvl (Katorjnik) (опцион)':5,
+#    }
 
 metadict_squads['Band-hero (преторианцы Гая Юлия) (Katorjnik)'] = {
     'Fighter 5 lvl (Katorjnik) (Гай Юлий)':1,
