@@ -1215,8 +1215,8 @@ metadict_items['Shortsword +1'] = {
     'damage_type':'piercing',
     'damage_dice':'1d6',
     'weight (lb)':2,
-    'cost (gp)':600,
-    'cost (grams_of_gold)':600,
+    'cost (gp)':30*60,
+    'cost (grams_of_gold)':30*60,
     }
 
 metadict_items['Scimitar +1'] = {
@@ -1225,8 +1225,8 @@ metadict_items['Scimitar +1'] = {
     'damage_type':'slashing',
     'damage_dice':'1d6',
     'weight (lb)':3,
-    'cost (gp)':600,
-    'cost (grams_of_gold)':600,
+    'cost (gp)':30*60,
+    'cost (grams_of_gold)':30*60,
     }
 
 metadict_items['Longsword +1'] = {
@@ -1236,8 +1236,8 @@ metadict_items['Longsword +1'] = {
     'damage_dice':'1d8',
     'damage_dice_versatile':'1d10',
     'weight (lb)':3,
-    'cost (gp)':600,
-    'cost (grams_of_gold)':600,
+    'cost (gp)':30*60,
+    'cost (grams_of_gold)':30*60,
     }
 
 metadict_items['Battleaxe +1'] = {
@@ -1247,8 +1247,8 @@ metadict_items['Battleaxe +1'] = {
     'damage_dice':'1d8',
     'damage_dice_versatile':'1d10',
     'weight (lb)':4,
-    'cost (gp)':600,
-    'cost (grams_of_gold)':600,
+    'cost (gp)':30*60,
+    'cost (grams_of_gold)':30*60,
     }
 
 metadict_items['Flait +1'] = {
@@ -1257,8 +1257,8 @@ metadict_items['Flait +1'] = {
     'damage_type':'bludgeoning',
     'damage_dice':'1d8',
     'weight (lb)':2,
-    'cost (gp)':600,
-    'cost (grams_of_gold)':600,
+    'cost (gp)':30*60,
+    'cost (grams_of_gold)':30*60,
     }
 
 metadict_items['Greatsword +1'] = {
@@ -1268,8 +1268,8 @@ metadict_items['Greatsword +1'] = {
     'damage_type':'slashing',
     'damage_dice':'2d6',
     'weight (lb)':6,
-    'cost (gp)':600,
-    'cost (grams_of_gold)':600,
+    'cost (gp)':30*60,
+    'cost (grams_of_gold)':30*60,
     }
 
 metadict_items['Glaive +1'] = {
@@ -1279,8 +1279,8 @@ metadict_items['Glaive +1'] = {
     'damage_type':'slashing',
     'damage_dice':'1d10',
     'weight (lb)':6,
-    'cost (gp)':600,
-    'cost (grams_of_gold)':600,
+    'cost (gp)':30*60,
+    'cost (grams_of_gold)':30*60,
     }
 
 metadict_items['Long Spear +1'] = {
@@ -1290,8 +1290,8 @@ metadict_items['Long Spear +1'] = {
     'damage_dice':'1d6',
     'damage_dice_versatile':'1d8',
     'weight (lb)':6,
-    'cost (gp)':600,
-    'cost (grams_of_gold)':600,
+    'cost (gp)':30*60,
+    'cost (grams_of_gold)':30*60,
     }
 
 #----
@@ -1306,8 +1306,8 @@ metadict_items['Shortbow +1'] = {
     'shoot_range':80,
     'shoot_range_max':320,
     'weight (lb)':2,
-    'cost (gp)':600,
-    'cost (grams_of_gold)':600,
+    'cost (gp)':30*60,
+    'cost (grams_of_gold)':30*60,
     }
 
 metadict_items['Longbow +1'] = {
@@ -1320,8 +1320,8 @@ metadict_items['Longbow +1'] = {
     'shoot_range':150,
     'shoot_range_max':600,
     'weight (lb)':2,
-    'cost (gp)':600,
-    'cost (grams_of_gold)':600,
+    'cost (gp)':30*60,
+    'cost (grams_of_gold)':30*60,
     }
 
 #----
@@ -1419,6 +1419,8 @@ metadict_items['Trap (Boulders)'] = {
 metadict_items['Trap (fire)'] = {
     'weapon':True,
     'direct_hit':True,
+    'savethrow':True,
+    #'savethrow_all':True,
     'ammo_type':'Alchemist\'s Fire (100 lb)',
     'weapon_type':['martial','volley','artillery','burning_shell'],
     'spell_dict':{
@@ -1441,8 +1443,8 @@ metadict_items['Trap (fire)'] = {
             'spell_choice':('explosion','Alchemist\'s Fire'),
             #'spell_of_choice':'Burning_Hands',
             },
-    'damage_type':'bludgeoning',
-    'damage_dice':'0d0',
+    'damage_type':'fire',
+    'damage_dice':'6d6',
     'shoot_range':150,
     'shoot_range_max':600,
     'weight (lb)':4000,
