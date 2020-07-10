@@ -3361,6 +3361,7 @@ metadict_chars['Warlock 4 lvl (otherworld seeker-envoy)'] = {
 
 metadict_chars['Warlock 5 lvl (otherworld seeker-ascendant)'] = {
     'level':5,
+    'fireball_AI':True,
     'char_class':'Warlock',
     'hit_dice':'1d8',
     'behavior':'commander',
@@ -3460,6 +3461,7 @@ metadict_chars['Wizard 2 lvl (city cat-weaver)'] = {
 
 metadict_chars['Wizard 5 lvl (city cat-seer)'] = {
     'level':5,
+    'fireball_AI':True,
     'char_class':'Wizard',
     'hit_dice':'1d6',
     'behavior':'commander',
@@ -3722,6 +3724,7 @@ metadict_chars['Wizard 4 lvl (otherworld mage-savant)'] = {
 
 metadict_chars['Wizard 5 lvl (otherworld mage-seer)'] = {
     'level':5,
+    'fireball_AI':True,
     'char_class':'Wizard',
     'hit_dice':'1d6',
     'behavior':'commander',
@@ -3990,6 +3993,7 @@ metadict_chars['Bard 4 lvl (otherworld singer-pathfinder)'] = {
 
 metadict_chars['Bard 5 lvl (otherworld singer-leader)'] = {
     'level':5,
+    'fireball_AI':True,
     'char_class':'Bard',
     'hit_dice':'1d8',
     'behavior':'commander',
@@ -4295,6 +4299,7 @@ metadict_chars['Cleric 4 lvl (city maatcarian-arbiter)'] = {
 
 metadict_chars['Cleric 5 lvl (city maatcarian-reviver)'] = {
     'level':5,
+    'fireball_AI':True,
     'char_class':'Cleric',
     'hit_dice':'1d8',
     'behavior':'commander',
@@ -4565,6 +4570,7 @@ metadict_chars['Cleric 4 lvl (city luminary-arbiter)'] = {
 
 metadict_chars['Cleric 5 lvl (city luminary-reviver)'] = {
     'level':5,
+    'fireball_AI':True,
     'char_class':'Cleric-heavy',
     'hit_dice':'1d8',
     'behavior':'commander',
@@ -4769,6 +4775,7 @@ metadict_chars['Rogue 4 lvl (city cat-runner)'] = {
 
 metadict_chars['Rogue 5 lvl (city cat-mastermind)'] = {
     'level':5,
+    'fireball_AI':True,
     'char_class':'Arcane_Tricker',
     'hit_dice':'1d8',
     'behavior':'commander',
@@ -4950,6 +4957,7 @@ metadict_chars['Rogue 4 lvl (mercenary phantom-lieutenant)'] = {
 
 metadict_chars['Rogue 5 lvl (mercenary phantom-captain)'] = {
     'level':5,
+    'fireball_AI':True,
     'char_class':'Rogue',
     'hit_dice':'1d8',
     'behavior':'commander',
@@ -5418,6 +5426,7 @@ metadict_chars['Druid 4 lvl (otherworld terian-wonderman)'] = {
 
 metadict_chars['Druid 5 lvl (otherworld terian-loremaster)'] = {
     'level':5,
+    'fireball_AI':True,
     'char_class':'Druid',
     'hit_dice':'1d8',
     'behavior':'commander',
@@ -5658,6 +5667,7 @@ metadict_chars['Sorcerer 4 lvl (otherworld wildfire-paragon)'] = {
 
 metadict_chars['Sorcerer 5 lvl (otherworld wildfire-ravager)'] = {
     'level':5,
+    'fireball_AI':True,
     'char_class':'Sorcerer',
     'hit_dice':'1d6',
     'behavior':'commander',
@@ -8585,4 +8595,88 @@ metadict_chars['Warrior 3 lvl (враг) (демон Кема\'Эша)'] = {
         'Shield':1,
         'Javelin':6,
         },
+    }
+
+#----
+# Нейтралы (армии) (Бронзовые гоплиты Менона):
+
+metadict_chars['Warrior 4 lvl (Менон) (бронзовый гоплит)'] = {
+    # Умертвие.
+    'level':4,
+    'char_class':'Warrior-officer',
+    'hit_dice':'1d8',
+    'behavior':'elite_warrior',
+    'class_features':{
+        'Fighting_Style_Defence':True,
+        'Feat_Magic_Initiate':True,
+        'Spellcasting':True,
+        'Spells':[
+            ('cantrip', 'Sword_Burst'),
+            ('cantrip', 'Frostbite'),
+            #('cantrip', 'Mold_Earth'),
+            ('1_lvl', 'Fog_Cloud'),
+            #('1_lvl', 'Magic_Missile'),
+            #('1_lvl', 'Sleep'),
+            ],
+        },
+    'race':'Human-hero',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        # Нежить не может использовать эссенции:
+        'Infusion of Healing':1,
+        'Rune of Absorbtion':1,
+        'Rune of Shielding':1,
+        'Plate Armor':1,
+        'Heavy Shield':1,
+        'Longsword':1,
+        },
+    #'mount_combat':False,
+    #'mount_type':'Riding Horse',
+    #'equipment_mount':{
+    #    },
+    }
+
+metadict_chars['Warrior 5 lvl (Менон) (бронзовый гоплит-капитан)'] = {
+    'level':5,
+    'killer_AI':True,
+    'fearless_AI':True,
+    #'hunter_AI':True,
+    'char_class':'Warrior-officer',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Defence':True,
+        'Feat_Magic_Initiate':True,
+        'Spellcasting':True,
+        'Spells':[
+            ('cantrip', 'Sword_Burst'),
+            ('cantrip', 'Frostbite'),
+            #('cantrip', 'Message'),
+            ('1_lvl', 'Fog_Cloud'),
+            #('1_lvl', 'Magic_Missile'),
+            #('1_lvl', 'Sleep'),
+            ],
+        'Extra_Attack':True,
+        },
+    'race':'Human-hero',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        # Нежить не может использовать эссенции:
+        'Infusion of Healing':1,
+        'Rune of Absorbtion':1,
+        'Rune of Shielding':1,
+        'Plate Armor':1,
+        'Heavy Shield':1,
+        'Longsword':1,
+        },
+    #'mount_combat':False,
+    #'mount_type':'Riding Horse',
+    #'equipment_mount':{
+    #    },
     }
