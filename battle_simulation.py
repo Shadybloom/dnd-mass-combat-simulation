@@ -156,6 +156,8 @@ class battle_simulation(battlescape):
             for soldier in squad.metadict_soldiers.values():
                 soldier.set_actions_base(squad)
                 soldier.set_actions(squad)
+            # Командование отряда начинает свою работу:
+            self.set_squad_command_and_control(squad)
         # Подготовка к бою (бонусные хиты, заклинания, отдых и лечение):
         for key,squad in self.squads.items():
             self.set_squad_heal(squad)
@@ -846,12 +848,10 @@ class battle_simulation(battlescape):
                 commands_list.append('attack')
                 commands_list.append('spellcast')
                 commands_list.append('runes')
-                #commands_list.append('fireball')
             elif squad.enemy_recon['distance'] <= save_distance:
                 commands_list = ['lead','follow','engage']
                 commands_list.append('attack')
                 commands_list.append('spellcast')
-                #commands_list.append('channel')
                 commands_list.append('runes')
             # Оцениваем опасность зональных заклинаний. Например Spirit_Guardians:
             if squad.enemy_recon['danger_places']:
@@ -890,6 +890,10 @@ class battle_simulation(battlescape):
             # Добавляем град стрел без лишних расчётов:
             if squad.commander.__dict__.get('volley_AI'):
                 commands_list.append('volley')
+            # Разрешаем заклинания 3 lvl и "божественный канал":
+            if squad.commander.__dict__.get('fireball_AI'):
+                commands_list.append('fireball')
+                commands_list.append('channel')
             # Плохие командиры плохо поддерживают строй:
             if squad.commander.level < 5:
                 commands_list.append('crowd')
