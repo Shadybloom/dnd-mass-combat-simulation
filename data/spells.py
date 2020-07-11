@@ -712,6 +712,33 @@ class gen_spells():
                 }
         return spell_dict
 
+    def Fog_Cloud(self, spell_level):
+        """Великое и ужасное.
+
+        Level: 1
+        Casting time: 1 Action
+        Range: 120 feet
+        Components: V, S
+        Duration: Concentration, up to 1 hour
+        https://www.dnd-spells.com/spell/fog-cloud
+        """
+        spell_dict = {
+                'effect':'fog',
+                'concentration':True,
+                'attacks_number':1,
+                'radius':20,
+                'attack_range':120,
+                'components':['verbal','somatic'],
+                'casting_time':'action',
+                'spell_level':spell_level,
+                'spell_save_DC':8 + self.find_spell_attack_mod(),
+                'spell_of_choice':'Cause_Fear',
+                }
+        # Радиус облака растёт на 20 футов за каждый уровень выше первого:
+        if int(spell_level[0]) > 1:
+            spell_dict['radius'] += 20 * int(spell_level[0])
+        return spell_dict
+
     def Cause_Fear(self, spell_level):
         """Защитный приём колдунов.
 

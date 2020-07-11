@@ -884,9 +884,14 @@ class battle_simulation(battlescape):
             #commands_list = ['disengage','dodge','attack']
             commands_list = ['retreat', 'rescue']
         if squad.commander:
+            # Захват пленных:
+            if squad.commander.__dict__.get('enslave_AI'):
+                commands_list.append('enslave')
+            # Скрытные командиры прячутся за "Fog_Cloud":
             # Осторожный командир позволяет раненым отступать:
             if squad.commander.__dict__.get('carefull_AI'):
                 commands_list.append('carefull')
+                commands_list.append('sneak')
             # Добавляем град стрел без лишних расчётов:
             if squad.commander.__dict__.get('volley_AI'):
                 commands_list.append('volley')
@@ -1082,6 +1087,12 @@ class battle_simulation(battlescape):
                     self.channel_action(soldier, squad, enemy)
                 self.fireball_action(soldier, squad)
                 self.spellcast_action(soldier, squad, enemy)
+        # Осьминожки прячутся в чернильном облаке, остальные в "Fog_Cloud".
+        if 'sneak' in soldier.commands and enemy and squad.__dict__.get('enemy_recon'):
+            if self.metadict_soldiers[enemy.uuid].hero\
+                    or 'throw' in squad.enemy_recon['attacks']\
+                    or 'ranged' in squad.enemy_recon['attacks']:
+                self.sneak_action(soldier, squad, enemy)
         # Атака следует за 'engage', поэтому осматриваемся снова:
         if 'attack' in soldier.commands and enemy:
             self.recon_action(soldier, squad)
@@ -1095,23 +1106,6 @@ class battle_simulation(battlescape):
             if soldier.action_surge and len(soldier.near_enemies) >= 2:
                 if soldier.set_action_surge():
                     self.round_run_soldier(soldier, squad)
-            # TODO: чернильное облако осьминожек в отдельную функцию
-            # Лучше бы его сделать частью функции sneak_action
-            if soldier.near_enemies\
-                    and soldier.class_features.get('Ink_Cloud')\
-                    and soldier.__dict__.get('ink_cloud'):
-                zone_radius = round(soldier.ink_cloud_radius / self.tile_size)
-                zone_list = self.point_to_field(soldier.place, zone_radius)
-                zone_list_circle = [point for point in zone_list\
-                        if inside_circle(point, enemy.place, zone_radius)]
-                for point in zone_list_circle:
-                    if 'water' in self.dict_battlespace[point]\
-                            and not 'obscure_terrain' in self.dict_battlespace[point]:
-                        self.dict_battlespace[point].append('obscure_terrain')
-                soldier.ink_cloud = False
-                if soldier.bonus_action:
-                    soldier.dash_action = True
-                    soldier.bonus_action = False
         # Не видя врага, лучники стреляют навесом:
         if 'volley' in soldier.commands and not enemy and soldier.behavior == 'archer':
             self.volley_action(soldier, squad)
@@ -1124,6 +1118,31 @@ class battle_simulation(battlescape):
         # Если действия таки не использовались -- защищаемся:
         if soldier.battle_action or soldier.bonus_action:
             self.dodge_action(soldier)
+
+    def sneak_action(self, soldier, squad, enemy):
+        """Боец прячется с помощью "Туманного облака".
+        
+        - осьминожки прячутся в "Чернильном облаке"
+        """
+        # Чернильное облако осьминожек:
+        if 'spellcast' in soldier.commands\
+                and soldier.spells_generator.find_spell('Fog_Cloud')\
+                and not 'obscure_terrain' in self.dict_battlespace[soldier.place]:
+            spell_choice = soldier.spells_generator.find_spell('Fog_Cloud')
+            self.spellcast_action(soldier, squad, enemy, spell_choice)
+        if soldier.__dict__.get('ink_cloud') and soldier.near_enemies:
+            zone_radius = round(soldier.ink_cloud_radius / self.tile_size)
+            zone_list = self.point_to_field(soldier.place, zone_radius)
+            zone_list_circle = [point for point in zone_list\
+                    if inside_circle(point, enemy.place, zone_radius)]
+            for point in zone_list_circle:
+                if 'water' in self.dict_battlespace[point]\
+                        and not 'obscure_terrain' in self.dict_battlespace[point]:
+                    self.dict_battlespace[point].append('obscure_terrain')
+            soldier.ink_cloud = False
+            if soldier.bonus_action:
+                soldier.dash_action = True
+                soldier.bonus_action = False
 
     def recon_action(self, soldier, squad, distance = 1):
         """Боец осматривает зону вокруг себя.
@@ -1933,6 +1952,19 @@ class battle_simulation(battlescape):
                             self.dict_battlespace[point].append('obscure_terrain')
                         enemy_soldier.darkness = True
                         enemy_soldier.darkness_dict = spell_dict
+                        soldier.concentration = True
+                        soldier.concentration_spell = spell_dict
+                    continue
+                elif spell_dict.get('effect') == 'fog':
+                    if soldier.concentration == True:
+                        break
+                    else:
+                        zone_radius = round(spell_dict['radius'] / self.tile_size)
+                        zone_list = self.find_points_in_zone(enemy_soldier.place, zone_radius)
+                        zone_list_circle = [point for point in zone_list\
+                                if inside_circle(point, enemy_soldier.place, zone_radius)]
+                        for point in zone_list_circle:
+                            self.dict_battlespace[point].append('obscure_terrain')
                         soldier.concentration = True
                         soldier.concentration_spell = spell_dict
                     continue
