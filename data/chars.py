@@ -8642,7 +8642,8 @@ metadict_chars['Warrior 4 lvl (Менон) (бронзовый гоплит)'] =
 metadict_chars['Warrior 5 lvl (Менон) (бронзовый гоплит-капитан)'] = {
     'level':5,
     'killer_AI':True,
-    'fearless_AI':True,
+    'carefull_AI':True,
+    #'fearless_AI':True,
     #'hunter_AI':True,
     'char_class':'Warrior-officer',
     'hit_dice':'1d8',
