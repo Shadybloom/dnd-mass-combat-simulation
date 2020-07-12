@@ -997,6 +997,8 @@ class battle_simulation(battlescape):
                 soldier.set_second_wind()
             elif soldier.lay_on_hands:
                 soldier.set_lay_of_hands()
+            elif soldier.equipment_weapon.get('Infusion of Heroism'):
+                soldier.use_potion_of_heroism()
             elif soldier.equipment_weapon.get('Infusion of Healing'):
                 soldier.use_potion_of_healing()
             elif soldier.equipment_weapon.get('Goodberry'):

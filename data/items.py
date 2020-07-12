@@ -1125,6 +1125,15 @@ metadict_items['Infusion of Healing'] = {
     'cost (grams_of_gold)':60,
     }
 
+metadict_items['Infusion of Heroism'] = {
+    # Бесстрашие и +1 бонусных_хитов/уровень каждый раунд. Действует минуту.  
+    'potion':True,
+    'effect':'heroism',
+    'weight (lb)':0,
+    'cost (gp)':50,
+    'cost (grams_of_gold)':60 * 4,
+    }
+
 metadict_items['Infusion of Claws'] = {
     # Эссенции "перезаряжаются" друидами и жрецами.
     'potion':True,
@@ -1134,7 +1143,7 @@ metadict_items['Infusion of Claws'] = {
     'damage_dice':'1d6',
     'weight (lb)':0,
     'cost (gp)':240,
-    'cost (grams_of_gold)':240,
+    'cost (grams_of_gold)':60 * 4,
     }
 
 metadict_items['Rune of Absorbtion'] = {
@@ -1149,7 +1158,7 @@ metadict_items['Rune of Absorbtion'] = {
     'damage_mod':0,
     'weight (lb)':1/2,
     'cost (gp)':240,
-    'cost (grams_of_gold)':240,
+    'cost (grams_of_gold)':60 * 4,
     }
 
 metadict_items['Rune of Shielding'] = {
@@ -1157,7 +1166,7 @@ metadict_items['Rune of Shielding'] = {
     'effect':'shield',
     'weight (lb)':1/2,
     'cost (gp)':240,
-    'cost (grams_of_gold)':240,
+    'cost (grams_of_gold)':60 * 4,
     }
 
 metadict_items['Rune of Armor'] = {
@@ -1169,7 +1178,7 @@ metadict_items['Rune of Armor'] = {
     'armor_class_armor':13,
     'weight (lb)':1/2,
     'cost (gp)':240,
-    'cost (grams_of_gold)':240,
+    'cost (grams_of_gold)':60 * 4,
     }
 
 #----

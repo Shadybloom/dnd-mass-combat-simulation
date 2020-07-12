@@ -418,7 +418,8 @@ class soldier_in_battle(soldier):
             self.wild_shape_old_form['hitpoints'] = self.hitpoints
             self.__dict__.update(copy.deepcopy(self.wild_shape_old_form))
         # Бесстрашные бойцы бесстрашны:
-        if self.__dict__.get('fearless_AI'):
+        if self.__dict__.get('fearless_AI')\
+                or self.__dict__.get('heroism'):
             self.fearless = True
             self.commands.append('fearless')
         # Особенности монстров:
@@ -436,6 +437,13 @@ class soldier_in_battle(soldier):
                 self.resistance = []
                 self.frenzy = False
                 self.rage = False
+        if self.heroism:
+            if self.heroism_timer > 0:
+                self.heroism_timer -= 1
+                if self.bonus_hitpoints < self.level:
+                    self.bonus_hitpoints = self.level
+            elif self.heroism_timer == 0:
+                self.heroism = None
         # TODO: сделай универсальную систему для заклинаний с концентрацией:
         # Нужен универсальный таймер концентрации.
         # Заклинание Bless:
@@ -916,6 +924,22 @@ class soldier_in_battle(soldier):
                 self.battle_action = False
                 print('{0} {1} {2} heal (potion): {3}'.format(
                     self.ally_side, self.place, self.behavior, potion_heal))
+                return True
+            else:
+                return False
+
+    def use_potion_of_heroism(self, use_battle_action = True):
+        """Боец использует зелье героизма.
+        
+        Homebrew: даёт +1 hp/уровень в течении минуты.
+        """
+        if self.battle_action or use_battle_action == False:
+            if self.equipment_weapon.get('Infusion of Heroism', 0) > 0:
+                self.equipment_weapon['Infusion of Heroism'] -= 1
+                self.heroism_timer = 10
+                self.heroism = True
+                if self.bonus_hitpoints < self.level:
+                    self.bonus_hitpoints = self.level
                 return True
             else:
                 return False
