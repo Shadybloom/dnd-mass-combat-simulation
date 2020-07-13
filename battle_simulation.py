@@ -160,7 +160,6 @@ class battle_simulation(battlescape):
             self.set_squad_command_and_control(squad)
         # Подготовка к бою (бонусные хиты, заклинания, отдых и лечение):
         for key,squad in self.squads.items():
-            self.set_squad_heal(squad)
             self.set_squad_bonus_hitpoints(squad)
             self.set_squad_bardic_inspiration(squad)
             self.set_squad_spell_shield_of_faith(squad)
@@ -170,6 +169,8 @@ class battle_simulation(battlescape):
                 self.set_squad_rearm(squad)
             # Короткий отдых:
             if namespace.short_rest:
+                for n in range (0,60):
+                    self.set_squad_heal(squad)
                 self.set_squad_short_rest(squad)
             # Сумма бонусных хитов отряда:
             squad.bonus_hitpoints_max = sum([soldier.bonus_hitpoints for soldier\
