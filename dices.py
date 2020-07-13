@@ -218,3 +218,15 @@ if __name__ == '__main__':
     #    numbers_list.append(tribe_number)
     #medial_number = sum(numbers_list) / len(numbers_list)
     #print(medial_number, max(numbers_list), min(numbers_list))
+
+    ## Грабёж владения:
+    #numbers_list = []
+    #for n in range (0,1000):
+    #    tribe_number = dice_throw_advantage('1d100', advantage = True, disadvantage = False)
+    #    numbers_list.append(tribe_number)
+    #medial_number = round(sum(numbers_list) / len(numbers_list), 1)
+    #print('medial: {mid_n} max: {max_n} min: {min_n}'.format(
+    #    mid_n = medial_number,
+    #    max_n = max(numbers_list),
+    #    min_n = min(numbers_list),
+    #    ))
