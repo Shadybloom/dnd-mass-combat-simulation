@@ -701,6 +701,9 @@ class soldier_in_battle(soldier):
         initiative = dices.dice_throw('1d20') + self.mods['dexterity']
         if self.class_features.get('Feat_Alert'):
             initiative += 5
+        # Homebrew: талант "Идеальное взаимодействие". Всегда первый ход.
+        if self.__dict__.get('squad_advantage'):
+            initiative += 100
         self.initiative = initiative
 
     def set_coordinates(self, place):
@@ -1222,8 +1225,8 @@ class soldier_in_battle(soldier):
             self.disabled = True
         # Механизмы не бросают спасброски:
         if self.__dict__.get('mechanism') and not self.death:
-            self.death_save_success = 3
-            self.stable = True
+            #self.death_save_success = 3
+            #self.stable = True
             return False
         # Тролли и прочие создания с регенерацией стабилизируются сами:
         # Их нельзя убить, уведя хиты в минусовой максимум. Только огнём.
