@@ -1033,7 +1033,9 @@ class soldier():
         weapon_type_list = dict_attack['weapon_type']
         weapon_skills_use = dict_attack['weapon_skills_use']
         # Большие существа наносят x2 костей урона оружием
-        if self.size == 'large' and dict_attack.get('weapon'):
+        if self.size == 'large'\
+                and dict_attack.get('weapon')\
+                and not 'large_size_x2_damage_dice' in weapon_skills_use:
             weapon_skills_use.append('large_size_x2_damage_dice')
             dice = int(damage_dice[0]) * 2
             damage_dice = str(dice) + damage_dice[1:]
