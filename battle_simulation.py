@@ -896,6 +896,8 @@ class battle_simulation(battlescape):
             # Добавляем град стрел без лишних расчётов:
             if squad.commander.__dict__.get('volley_AI'):
                 commands_list.append('volley')
+                if squad.commander.__dict__.get('volley_AI_random'):
+                    commands_list.append('volley_random')
             # Разрешаем заклинания 3 lvl и "божественный канал":
             if squad.commander.__dict__.get('fireball_AI'):
                 commands_list.append('fireball')
@@ -1610,7 +1612,9 @@ class battle_simulation(battlescape):
                     break
         # Рассчитываем зону обстрела (зависит от положения бойца в строю и рассеивания стрел):
         if attack_choice:
-            if hasattr(soldier, 'place_in_order') and soldier.place_in_order:
+            if 'volley_random' in soldier.commands:
+                target = random.choice(self.point_to_field(target, round(distance / 5)))
+            elif hasattr(soldier, 'place_in_order') and soldier.place_in_order:
                 target = [c1 + c2 for c1, c2 in zip(target, soldier.place_in_order)]
             else:
                 target = random.choice(self.point_to_field(target, round(distance / 10)))
