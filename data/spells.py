@@ -723,10 +723,12 @@ class gen_spells():
         https://www.dnd-spells.com/spell/fog-cloud
         """
         spell_dict = {
+                # TODO: зона поражения 25 футов, потому что у меня функция занижает 20.
                 'effect':'fog',
                 'concentration':True,
                 'attacks_number':1,
-                'radius':20,
+                #'radius':20,
+                'radius':25,
                 'attack_range':120,
                 'components':['verbal','somatic'],
                 'casting_time':'action',

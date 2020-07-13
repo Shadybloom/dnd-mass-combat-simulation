@@ -7558,7 +7558,8 @@ metadict_chars['Cleric 5 lvl (Mordodrukow) (Фарам «Друг Богов»)'
     'equipment_weapon':{
         # TODO: добавь "Infusion of Heroism"
         # TODO: дслеай жезл с +1 к броску заклинаний.
-        'Infusion of Healing':1,
+        #'Infusion of Healing':1,
+        'Infusion of Heroism':1,
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
         'Splint Armor':1,
@@ -8680,4 +8681,83 @@ metadict_chars['Warrior 5 lvl (Менон) (бронзовый гоплит-ка
     #'mount_type':'Riding Horse',
     #'equipment_mount':{
     #    },
+    }
+
+#----
+
+metadict_chars['Barbarian 2 lvl (варвар Радаманта)'] = {
+    'level':2,
+    'char_class':'Barbarian',
+    'hit_dice':'1d12',
+    'behavior':'elite_warrior',
+    'class_features':{
+        'Feat_Mounted_Combatant':True,
+        'Unarmored_Defense':True,
+        'Rage':True,
+        'Reckless_Attack':True,
+        'Danger_Sense':True,
+        },
+    'race':'Human-hero',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':2,
+        'Scale Mail':1,
+        'Shield':1,
+        'Longsword':1,
+        'Lance':1,
+        'Javelin':6,
+        },
+    'mount_combat':True,
+    'mount_type':'Warhorse',
+    'equipment_mount':{
+        'Scale Mail':1,
+        },
+    }
+
+metadict_chars['Barbarian 5 lvl (Радамант «Бдительный»)'] = {
+    'level':5,
+    'char_class':'Barbarian',
+    'hit_dice':'1d12',
+    'behavior':'commander',
+    'hitpoints_medial':True,
+    'abilityes':{
+        'strength':18,
+        'dexterity':14,
+        'constitution':18,
+        'intelligence':10,
+        'wisdom':12,
+        'charisma':16,
+        },
+    'class_features':{
+        'Feat_Alert':True,
+        'Feat_Mounted_Combatant':True,
+        'Unarmored_Defense':True,
+        'Rage':True,
+        'Reckless_Attack':True,
+        'Danger_Sense':True,
+        'Primal_Path_Berserker':True,
+        'Berserker_Frenzy':True,
+        'Extra_Attack':True,
+        },
+    'race':'Human-hero',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':3,
+        'Half Plate':1,
+        'Shield':1,
+        'Longsword +1':1,
+        'Lance':1,
+        'Javelin':6,
+        },
+    'mount_combat':True,
+    'mount_type':'Warhorse',
+    'equipment_mount':{
+        'Scale Mail':1,
+        },
     }
