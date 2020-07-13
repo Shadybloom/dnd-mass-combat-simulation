@@ -2693,7 +2693,8 @@ class battle_simulation(battlescape):
                 if type(el) == tuple:
                     uuid = el[-1]
                     soldier = self.metadict_soldiers[uuid]
-                    if soldier.defeat:
+                    if soldier.defeat and not soldier.__dict__.get('mechanism')\
+                            or soldier.death and soldier.__dict__.get('mechanism'):
                         content.remove(el)
                         #soldier.place = None
                         #if 'fall_place' in content and soldier.ally_side in content:
