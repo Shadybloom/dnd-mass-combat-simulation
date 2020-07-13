@@ -1973,6 +1973,6 @@ class soldier_in_battle(soldier):
             #    self.ally_side, self.place, self.rank,
             #    attack_choice, attack_dict['attack_crit'],
             #    attack_dict['damage'], self.hitpoints, self.hitpoints_max))
-        if self.hitpoints <= 0 and damage > 0:
+        if self.hitpoints <= 0 and damage > 0 and not self.defeat:
             attack_dict['fatal_hit'] = True
         return attack_dict
