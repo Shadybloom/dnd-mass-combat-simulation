@@ -140,6 +140,16 @@ metadict_squads['Ship (pentere)'] = {
     }
 
 #----
+# Нейтралы. Чудовища.:
+
+metadict_squads['Company-regular (дактили горы Ушур) (враг)'] = {
+    'Дактиль-кусатель (CR 1/2)':50,
+    'Дактиль-хвататель (CR 1/2)':40,
+    'Дактиль-ломатель (CR 1)':9,
+    'Дактиль-сжиратель (CR 2)':3,
+    }
+
+#----
 # Нейтралы, Иллирийский союз (Менон Теварин):
 
 metadict_squads['Squad-hero (бронзовые гоплиты Менона) (нейтрал)'] = {
@@ -262,6 +272,14 @@ metadict_squads['Company-regular (пращники Тик-Бо) (враг)'] = {
     'Warrior 2 lvl (balear slinger-corporal)':10,
     'Warrior 3 lvl (balear slinger-sergeant)':3,
     'Warrior 4 lvl (balear slinger-lieutenant)':1,
+    }
+
+#----
+# Армия Акхена Ваджета:
+
+metadict_squads['Squad-hero (варвары Радаманта) (враг)'] = {
+    'Barbarian 2 lvl (варвар Радаманта)':9,
+    'Barbarian 5 lvl (Радамант «Бдительный»)':1,
     }
 
 #----

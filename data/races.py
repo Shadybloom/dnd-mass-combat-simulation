@@ -124,7 +124,7 @@ dict_races = {
             'intelligence':+1,
             'wisdom':+1,
             },
-        'Primevial':{
+        'Primevial-large':{
             # Эмпиреи, Empyrean
             'hero':True,
             'size':'large',
