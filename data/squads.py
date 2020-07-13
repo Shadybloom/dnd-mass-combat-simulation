@@ -93,8 +93,13 @@ metadict_squads['Company-test (standard) (battleaxes)'] = {
 metadict_squads['weather (lightning-storm)'] = {
     # Непогода
     'Weather (lightning)':4,
-    'Weather (waves)':4,
-    'Trap (commander)':1,
+    'Weather (storm-god)':1,
+    }
+
+metadict_squads['weather (waves-storm)'] = {
+    # Непогода
+    'Weather (lightning)':4,
+    'Weather (storm-god)':1,
     }
 
 metadict_squads['traps (lightning)'] = {
