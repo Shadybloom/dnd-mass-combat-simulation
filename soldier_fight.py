@@ -182,6 +182,8 @@ class soldier_in_battle(soldier):
             self.wild_shape = False
         if not hasattr(self, 'water_walk'):
             self.water_walk = False
+        if not hasattr(self, 'air_walk'):
+            self.air_walk = False
         if not hasattr(self, 'wild_shape_old_form'):
             self.wild_shape_old_form = None
         if not hasattr(self, 'arcane_ward'):
@@ -1294,6 +1296,7 @@ class soldier_in_battle(soldier):
         # ------------------------------------------------------------
         # У бойца может быть куча разных атак (рукопашная, копьём, мечом)
         # Но выбирает он ту, в которой оружие дороже, или навыков к нему больше.
+        # А если лучшей атаки нет (оружие потерялось), то какую-нибудь другую из подходящих.
         # ------------------------------------------------------------
         if distance <= 1 and 'close' in [attack[0] for attack in self.attacks]:
             close_attack_list = [attack for attack in self.attacks if attack[0] == 'close'
@@ -1301,15 +1304,28 @@ class soldier_in_battle(soldier):
             if close_attack_list:
                 close_attack = random.choice(close_attack_list)
                 return close_attack
+            else:
+                close_attack_list = [attack for attack in self.attacks if attack[0] == 'close']
+                close_attack = random.choice(close_attack_list)
+                return close_attack
         if distance <= 2 and 'reach' in [attack[0] for attack in self.attacks]:
             reach_attack_list = [attack for attack in self.attacks if attack[0] == 'reach'
                     and attack[1] == self.attacks[attack]['weapon_of_choice']]
-            reach_attack = random.choice(reach_attack_list)
-            return reach_attack
+            if reach_attack_list:
+                reach_attack = random.choice(reach_attack_list)
+                return reach_attack
+            else:
+                reach_attack_list = [attack for attack in self.attacks if attack[0] == 'reach']
+                reach_attack = random.choice(reach_attack_list)
+                return reach_attack
         if distance >= 2 and 'throw' in [attack[0] for attack in self.attacks]:
             throw_attack_list = [attack for attack in self.attacks if attack[0] == 'throw'
                     and attack[1] == self.attacks[attack]['weapon_of_choice']]
-            throw_attack = random.choice(throw_attack_list)
+            if throw_attack_list:
+                throw_attack = random.choice(throw_attack_list)
+            else:
+                throw_attack_list = [attack for attack in self.attacks if attack[0] == 'throw']
+                throw_attack = random.choice(throw_attack_list)
             # Метатли дротиков работают с максимальной дистанции:
             if self.behavior == 'archer'\
                     and distance <= round(self.attacks[throw_attack]['attack_range_max'] / tile_size):
@@ -1325,7 +1341,11 @@ class soldier_in_battle(soldier):
         if distance >= 2 and 'ranged' in [attack[0] for attack in self.attacks]:
             ranged_attack_list = [attack for attack in self.attacks if attack[0] == 'ranged'
                     and attack[1] == self.attacks[attack]['weapon_of_choice']]
-            ranged_attack = random.choice(ranged_attack_list)
+            if ranged_attack_list:
+                ranged_attack = random.choice(ranged_attack_list)
+            else:
+                ranged_attack_list = [attack for attack in self.attacks if attack[0] == 'ranged']
+                ranged_attack = random.choice(ranged_attack_list)
             if distance <= round(self.attacks[ranged_attack]['attack_range_max'] / tile_size):
                 return ranged_attack
 
