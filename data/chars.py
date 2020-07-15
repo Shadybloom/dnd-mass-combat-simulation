@@ -8655,7 +8655,7 @@ metadict_chars['Warrior 3 lvl (враг) (демон Кема\'Эша)'] = {
         'charisma':16,
         },
     'hit_dice':'1d10',
-    'race':'Primevial',
+    'race':'Primevial-large',
     'weapon_skill':['simple','martial'],
     'armor_skill':['light','medium','shield'],
     'equipment_supply':soldier_supply,
