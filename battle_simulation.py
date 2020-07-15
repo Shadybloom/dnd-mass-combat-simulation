@@ -634,7 +634,8 @@ class battle_simulation(battlescape):
         # Боец действует, только если он находится на карте и боеспособен:
         for uuid, soldier in squad.metadict_soldiers.items():
             if soldier.get_coordinates() and soldier.hitpoints > 0\
-                    and not soldier.sleep and not soldier.defeat:
+                    and not soldier.sleep and not soldier.defeat\
+                    and not 'inactive' in squad.commands:
                 self.round_run_soldier(soldier, squad)
 
     def set_squad_command_and_control(self, squad):
@@ -908,7 +909,7 @@ class battle_simulation(battlescape):
             # Чучела, иллюзии и механизмы просто стоят:
             if squad.commander.__dict__.get('inactive_AI'):
                 commands_list = []
-                commands_list.append('fearless')
+                commands_list.append('inactive')
             # Бесстрашные создания бесстрашны, зато трусоватые спасают своих:
             if squad.commander.__dict__.get('fearless_AI'):
                 commands_list.append('fearless')
