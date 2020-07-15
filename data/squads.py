@@ -123,6 +123,7 @@ metadict_squads['weather (шторм Посейдона)'] = {
     'Weather (storm-god)':1,
     }
 
+
 #----
 # Объекты, строения:
 
@@ -184,13 +185,21 @@ metadict_squads['Ship (pentere)'] = {
     }
 
 #----
-# Нейтралы. Чудовища.:
+# Нейтралы. Чудовища:
 
 metadict_squads['Company-regular (дактили горы Ушур) (враг)'] = {
     'Дактиль-кусатель (CR 1/2)':50,
     'Дактиль-хвататель (CR 1/2)':40,
     'Дактиль-ломатель (CR 1)':9,
     'Дактиль-сжиратель (CR 2)':3,
+    }
+
+#----
+# Нейтралы. Призванные существа:
+
+metadict_squads['Company-regular (громовые птицы) (враг)'] = {
+    'Громовая птица (Thunderbird) (CR 1)':10,
+    'Громовая птица-вожак (Thunderbird) (CR 1)':2,
     }
 
 #----
@@ -219,6 +228,15 @@ metadict_squads['Company-militia (сатиры Павсания, сына Пав
     'Commoner 2 lvl (друг) (сатир-ветеран)':5,
     'Warrior 4 lvl (друг) (сын Павсания)':1,
     'Warrior 3 lvl (друг) (сатир-сержант)':1,
+    }
+
+metadict_squads['Company-regular (легионеры мостовика Отто) (друг)'] = {
+    # Сам Отто бежал с Фарамом, отряд остался оборонять мост.
+    'Warrior 1 lvl (legionary infantry)':80 + dice_throw('1d12'),
+    'Warrior 2 lvl (legionary infantry-corporal)':10,
+    'Warrior 3 lvl (legionary infantry-sergeant)':3,
+    'Warrior 4 lvl (legionary infantry-lieutenant)':1,
+    #'Warrior 5 lvl (legionary infantry-captain)':1,
     }
 
 #----

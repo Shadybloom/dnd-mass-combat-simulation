@@ -168,6 +168,17 @@ dict_races = {
             'weight_base_lb':1000,
             'weight_mod_dice':'2d20',
             },
+        'Bird-medium':{
+            # TODO: скорость 150-300 футов.
+            # Но пока disengage недопилен, пусть будет так.
+            'hero':False,
+            'size':'medium',
+            'base_speed':60,
+            'height_base_inches':4 * 12 + 8,
+            'height_mod_dice':'2d10',
+            'weight_base_lb':110,
+            'weight_mod_dice':'2d4',
+            },
         'Bear':{
             # TODO: рост/вес подправь.
             'hero':False,
