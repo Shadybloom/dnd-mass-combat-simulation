@@ -900,7 +900,7 @@ class soldier():
         """
         metadict_attacks = {}
         if self.metadict_chars[self.rank].get('attacks'):
-            metadict_attacks.update(self.metadict_chars[self.rank]['attacks'])
+            metadict_attacks.update(copy.deepcopy(self.metadict_chars[self.rank]['attacks']))
         else:
             dict_attack = {}
             dict_attack.update(self.dict_attack_unarmed)
