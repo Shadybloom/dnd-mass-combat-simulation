@@ -39,6 +39,65 @@ metadict_animals['Onager'] = {
     }
 
 #----
+# Объекты.
+
+metadict_animals['Bridge-support (stone)'] = {
+    # Каменная опора моста
+    'level':10,
+    'mechanism':True,
+    'ignore_damage':20,
+    'savethrow_autofall':True,
+    'inactive_AI':True,
+    'challenge_rating':'1/4',
+    'char_class':'Commoner',
+    'behavior':'commander',
+    'hitpoints_medial':True,
+    'abilityes':{
+        'strength':10,
+        'dexterity':10,
+        'constitution':10, 
+        'intelligence':10,
+        'wisdom':10,
+        'charisma':10,
+        },
+    'hit_dice':'1d10',
+    'race':'Object-wood-ship-part',
+    'weapon_skill':[],
+    'armor_skill':[],
+    'equipment_weapon':{},
+    'equipment_backpack':{},
+    'equipment_supply':{},
+    }
+
+metadict_animals['Bridge (stone)'] = {
+    # Пролёт моста
+    'level':5,
+    'mechanism':True,
+    'ignore_damage':20,
+    'savethrow_autofall':True,
+    'inactive_AI':True,
+    'challenge_rating':'1/4',
+    'char_class':'Commoner',
+    'behavior':'warrior',
+    'hitpoints_medial':True,
+    'abilityes':{
+        'strength':10,
+        'dexterity':10,
+        'constitution':10, 
+        'intelligence':10,
+        'wisdom':10,
+        'charisma':10,
+        },
+    'hit_dice':'1d10',
+    'race':'Object-wood-ship-part',
+    'weapon_skill':[],
+    'armor_skill':[],
+    'equipment_weapon':{},
+    'equipment_backpack':{},
+    'equipment_supply':{},
+    }
+
+#----
 # Корабли.
 
 metadict_animals['Ship trireme (deck)'] = {
@@ -297,8 +356,6 @@ metadict_animals['Weather (lightning)'] = {
     'level':5,
     'volley_AI':True,
     'mechanism':True,
-    'ignore_damage':10,
-    'savethrow_autofall':True,
     'challenge_rating':'1/4',
     'char_class':'Commoner',
     'behavior':'archer',
@@ -321,27 +378,27 @@ metadict_animals['Weather (lightning)'] = {
             'weapon_type':['simple','ranged','volley','artillery','burning_shell'],
             'spell_dict':{
                     'zone':True,
-                    #'zone_shape':'2x2',
+                    'zone_shape':'2x2',
                     'direct_hit':True,
                     'savethrow':True,
                     'savethrow_ability':'dexterity',
                     'attacks_number':1,
                     'attack_range':600,
-                    'radius':10,
-                    'damage_type':'thunder',
-                    'damage_dice':'1d10',
+                    'radius':5,
+                    'damage_type':'lightning',
+                    'damage_dice':'3d10',
                     'components':[],
                     'casting_time':'action',
                     'damage_mod':0,
                     'spell_level':3,
                     'spell_save_DC':15,
-                    'spell_choice':('storm','Thunder'),
+                    'spell_choice':('storm','Lightning'),
                     },
             'damage_type':'lightning',
-            'damage_dice':'3d10',
+            'damage_dice':'0d0',
             'ammo':1000,
-            'attack_range':150 / 5,
-            'attack_range_max':600 / 5,
+            'attack_range':150,
+            'attack_range_max':600,
             'weapon_skills_use': ['simple'],
             'attack_mod_type':'strength',
             'weapon_of_choice':'Lightning'},
@@ -355,11 +412,12 @@ metadict_animals['Weather (lightning)'] = {
     }
 
 metadict_animals['Weather (waves)'] = {
+    # TODO:
+    # Корабль без управления всегда проваливает спасброски,
+    # Корабль с капитаном и рулевым на палубе бросает капитанские спасброски ловкости.
     'level':5,
     'volley_AI':True,
     'mechanism':True,
-    'ignore_damage':10,
-    'savethrow_autofall':True,
     'challenge_rating':'1/4',
     'char_class':'Commoner',
     'behavior':'archer',
@@ -388,9 +446,9 @@ metadict_animals['Weather (waves)'] = {
                     'savethrow_ability':'dexterity',
                     'attacks_number':1,
                     'attack_range':600,
-                    'radius':20,
+                    'radius':120,
                     'damage_type':'bludgeoning',
-                    'damage_dice':'1d10',
+                    'damage_dice':'2d10',
                     'components':[],
                     'casting_time':'action',
                     'damage_mod':0,
@@ -399,13 +457,13 @@ metadict_animals['Weather (waves)'] = {
                     'spell_choice':('storm','Waves'),
                     },
             'damage_type':'bludgeoning',
-            'damage_dice':'2d10',
-            'ammo':10000,
-            'attack_range':150 / 5,
-            'attack_range_max':600 / 5,
+            'damage_dice':'0d0',
+            'ammo':1000,
+            'attack_range':150,
+            'attack_range_max':600,
             'weapon_skills_use': ['simple'],
             'attack_mod_type':'strength',
-            'weapon_of_choice':'Lightning'},
+            'weapon_of_choice':'Waves'},
         },
     'race':'Object-wood-ship-part',
     'weapon_skill':[],
@@ -1439,6 +1497,70 @@ metadict_animals['Bugbear (CR 1)'] = {
 
 #----
 # Тестовые существа:
+
+metadict_animals['Warrior 1 lvl (standard) (Shortbow) (archery)'] = {
+    'level':1,
+    'challenge_rating':'1/8',
+    'char_class':'Commoner',
+    'behavior':'archer',
+    'hunter_AI':True,
+    'fearless_AI':True,
+    'hitpoints_base':10,
+    'class_features':{
+        'Fighting_Style_Archery':True,
+        },
+    'abilityes':{
+        'strength':10,
+        'dexterity':10,
+        'constitution':10,
+        'intelligence':10,
+        'wisdom':10,
+        'charisma':10,
+        },
+    'hit_dice':'1d8',
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_weapon':{
+        'Ring Mail':1,
+        'Shortbow':1,
+        'Arrow':60,
+        },
+    'equipment_backpack':{},
+    'equipment_supply':{},
+    }
+
+metadict_animals['Warrior 1 lvl (standard) (Shortbow)'] = {
+    'level':1,
+    'challenge_rating':'1/8',
+    'char_class':'Commoner',
+    'behavior':'archer',
+    'hunter_AI':True,
+    'fearless_AI':True,
+    'hitpoints_base':10,
+    #'class_features':{
+    #    'Fighting_Style_Archery':True,
+    #    },
+    'abilityes':{
+        'strength':10,
+        'dexterity':10,
+        'constitution':10,
+        'intelligence':10,
+        'wisdom':10,
+        'charisma':10,
+        },
+    'hit_dice':'1d8',
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_weapon':{
+        'Ring Mail':1,
+        'Shortbow':1,
+        'Arrow':60,
+        },
+    'equipment_backpack':{},
+    'equipment_supply':{},
+    }
 
 metadict_animals['Warrior 1 lvl (standard) (Greataxe)'] = {
     # Боец средних параметров с Greataxe.

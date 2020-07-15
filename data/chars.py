@@ -1994,6 +1994,72 @@ metadict_chars['Warrior 5 lvl (shekelesh infantry-captain)'] = {
 #----
 # Легион, ромеи
 
+metadict_chars['Warrior 1 lvl (legionary infantry-siege)'] = {
+    # С двуручной киркой, чтобы разбивать укрепления. Чисто для тестов.
+    'level':1,
+    'hunter_AI':True,
+    'fearless_AI':True,
+    'char_class':'Warrior',
+    'hit_dice':'1d8',
+    'behavior':'warrior',
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Studded Leather':1,
+        'Greataxe':1,
+        },
+    }
+
+metadict_chars['Warrior 2 lvl (legionary infantry-siege-corporal)'] = {
+    'level':2,
+    'hunter_AI':True,
+    'fearless_AI':True,
+    'char_class':'Warrior',
+    'hit_dice':'1d8',
+    'behavior':'elite_warrior',
+    'class_features':{
+        #'Fighting_Style_Protection':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Scale Mail':1,
+        'Greataxe':1,
+        },
+    }
+
+metadict_chars['Warrior 3 lvl (legionary infantry-siege-sergeant)'] = {
+    # Десятник (декан, урагос)
+    'level':3,
+    'hunter_AI':True,
+    'fearless_AI':True,
+    'char_class':'Warrior',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        #'Fighting_Style_Protection':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Breastplate':1,
+        'Greataxe':1,
+        },
+    }
+
+#----
+# Легион, ромеи (осадное вооружение)
+
 metadict_chars['Warrior 1 lvl (legionary infantry)'] = {
     # Исторически носили по 2 пилума, но шесть весомее (вот только пехота столько не унесёт).
     'level':1,
@@ -7252,6 +7318,7 @@ metadict_chars['Druid 1 lvl (Vened) (друид Патрокла)'] = {
         'Heavy Shield':1,
         'Longsword':1,
         'Long Spear':1,
+        #'Greataxe':1,
         },
     # TODO: ездовые животные -- волы
     #'mount_combat':True,
@@ -7317,6 +7384,7 @@ metadict_chars['Druid 5 lvl (Vened) (Брат Патрокла)'] = {
         'Heavy Shield':1,
         'Longsword +1':1,
         'Long Spear':1,
+        #'Greataxe':1,
         },
     # TODO: ездовые животные -- волы
     #'mount_combat':False,
@@ -7506,6 +7574,7 @@ metadict_chars['Cleric 5 lvl (Mordodrukow) (Фарам «Друг Богов»)'
     # Талант: "Идеальное взаимодействие". Преимущество командиру, помеха врагу.
     # TODO: Переход на 6 lvl
     'level':5,
+    'fireball_AI':True,
     'char_class':'Cleric-heavy',
     'hit_dice':'1d8',
     'behavior':'commander',
@@ -7537,12 +7606,12 @@ metadict_chars['Cleric 5 lvl (Mordodrukow) (Фарам «Друг Богов»)'
             ('2_lvl', 'Hold_Person'),
             ('2_lvl', 'Spiritual_Weapon'),
             ('2_lvl', 'Warding_Bond'),
-            #('3_lvl', 'Call_Lightning'),
+            ('3_lvl', 'Call_Lightning'),
             ('3_lvl', 'Sleet_Storm'),
             ('3_lvl', 'Clairvoyance'),
             ('3_lvl', 'Dispel_Magic'),
             ('3_lvl', 'Sending'),
-            ('3_lvl', 'Spirit_Guardians'),
+            #('3_lvl', 'Spirit_Guardians'),
             ],
         'Tempest_Domain':True,
         'Wrath_of_the_Storm':True,

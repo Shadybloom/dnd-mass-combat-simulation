@@ -66,6 +66,22 @@ metadict_squads['Company-dummy (куклы)'] = {
 #----
 # Тесты отрядов:
 
+metadict_squads['Company-test (осадные инженеры) (Greataxe)'] = {
+    'Warrior 1 lvl (legionary infantry-siege)':80 + dice_throw('1d12'),
+    'Warrior 2 lvl (legionary infantry-siege-corporal)':10,
+    'Warrior 3 lvl (legionary infantry-siege-sergeant)':3,
+    }
+
+metadict_squads['Company-test (standard) (shortbow)'] = {
+    'Warrior 1 lvl (standard) (Shortbow)':100,
+    'Trap (commander)':1,
+    }
+
+metadict_squads['Company-test (standard) (shortbow) (archery)'] = {
+    'Warrior 1 lvl (standard) (Shortbow) (archery)':100,
+    'Trap (commander)':1,
+    }
+
 metadict_squads['Company-test (standard) (greataxes)'] = {
     # Тесты типовых отрядов для Vened'а.
     'Warrior 1 lvl (standard) (Greataxe)':100,
@@ -88,19 +104,35 @@ metadict_squads['Company-test (standard) (battleaxes)'] = {
     }
 
 #----
-# Осадная техника:
+# Погода:
 
 metadict_squads['weather (lightning-storm)'] = {
-    # Непогода
+    # Морской шторм
+    'Weather (waves)':4,
     'Weather (lightning)':4,
     'Weather (storm-god)':1,
     }
 
-metadict_squads['weather (waves-storm)'] = {
-    # Непогода
+metadict_squads['weather (молнии Зевса)'] = {
     'Weather (lightning)':4,
     'Weather (storm-god)':1,
     }
+
+metadict_squads['weather (шторм Посейдона)'] = {
+    'Weather (waves)':4,
+    'Weather (storm-god)':1,
+    }
+
+#----
+# Объекты, строения:
+
+metadict_squads['каменный мост'] = {
+    'Bridge-support (stone)':8,
+    'Bridge (stone)':16,
+    }
+
+#----
+# Осадная техника:
 
 metadict_squads['traps (lightning)'] = {
     # Защитные руны
