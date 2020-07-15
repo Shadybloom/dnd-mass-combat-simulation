@@ -1730,6 +1730,12 @@ class battle_simulation(battlescape):
                 # Противник получает атаку:
                 attack_result = enemy_soldier.take_attack(
                         attack_choice, attack_dict, self.metadict_soldiers)
+                # Атака заклинанием в оружии:
+                # TODO: пока что только зональные заклинания
+                if attack_result.get('spell_dict'):
+                    spell_dict = attack_result['spell_dict']
+                    if spell_dict.get('zone'):
+                        self.fireball_action(soldier, squad, spell_dict, enemy.place)
                 # Монашьи боласы могут сбить с ног:
                 if attack_result['hit'] and 'prone' in attack_result['weapon_type']\
                         and not enemy_soldier.prone:
@@ -1743,11 +1749,6 @@ class battle_simulation(battlescape):
                         destination = self.find_spawn(soldier.place, soldier.ally_side, random_range = 1)
                         self.move_action(soldier, squad, destination, allow_replace = True)
                         self.change_place(enemy_soldier.place, soldier.place, enemy_soldier.uuid)
-                # Атака заклинанием в оружии:
-                if attack_result['hit'] and attack_result.get('spell_dict'):
-                    spell_dict = attack_result['spell_dict']
-                    if spell_dict.get('zone'):
-                        self.fireball_action(soldier, squad, spell_dict, enemy.place)
                 # Атаку рейнджера дополняет шрапнель от Hail_of_Thorns:
                 if attack_result['hit'] and soldier.thorns\
                         and enemy_soldier.near_allies and len(enemy_soldier.near_allies) > 2:
