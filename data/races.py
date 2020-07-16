@@ -201,6 +201,15 @@ dict_races = {
             'weight_base_lb':1000,
             'weight_mod_dice':'2d20',
             },
+        'Elemental-air':{
+            'hero':False,
+            'size':'large',
+            'base_speed':90,
+            'height_base_inches':56,
+            'height_mod_dice':'2d4',
+            'weight_base_lb':2000,
+            'weight_mod_dice':'2d20',
+            },
         'Object-wood-big':{
             # У больших деревянных предметов 15 AC
             'hero':False,
