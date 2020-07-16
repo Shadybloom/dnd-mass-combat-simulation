@@ -2235,6 +2235,9 @@ class battle_simulation(battlescape):
                             e = enemy_soldier.behavior,
                             ))
                     continue
+                # Перемещение в центр зоны заклинания (whirlwind воздушного элементаля)
+                if spell_dict.get('effect') == 'move':
+                    self.change_place(soldier.place, zone_center, soldier.uuid)
                 # У заклинания Ice_Knife есть и шрапнель, и основной поражающий элемент:
                 if spell_dict.get('effect') == 'ice_knife' and enemy.place == zone_center:
                     self.spellcast_action(soldier, squad, enemy,
