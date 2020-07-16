@@ -1275,7 +1275,7 @@ metadict_animals['Earth Elemental (CR 5)'] = {
     'class_features':{
         'Extra_Attack':True,
         'Earth_Elemental_Resistance':True,
-        'Earth_Elemental_vulnerability':True,
+        'Earth_Elemental_Vulnerability':True,
         'Earth_Glide':True,
         'Siege_Monster':True,
         },

@@ -142,6 +142,7 @@ class soldier_in_battle(soldier):
         # Общие для всех параметры:
         self.immunity = []
         self.resistance = []
+        self.vultenability = []
         self.defeat = False
         self.escape = False
         self.prone = False
@@ -275,7 +276,7 @@ class soldier_in_battle(soldier):
                 self.war_priest = self.mods['wisdom']
             if self.proficiency.get('channel_divinity') and not hasattr(self, 'channel_divinity'):
                 self.channel_divinity = self.proficiency['channel_divinity']
-            # Особенности монстров:
+            # Сопротивляемость монстров:
             if self.class_features.get('Wight_Resistance'):
                 self.resistance.append('slashing')
                 self.resistance.append('piercing')
@@ -291,7 +292,10 @@ class soldier_in_battle(soldier):
                 self.resistance.append('slashing')
                 self.resistance.append('piercing')
                 self.resistance.append('bludgeoning')
-            # Особенности монстров:
+            # Уязвимости монстров:
+            if self.class_features.get('Earth_Elemental_Vulnerability'):
+                self.vultenability.append('thunder')
+            # Иммунитет монстров:
             if self.class_features.get('Empyrean_Immunity'):
                 self.immunity.append('slashing')
                 self.immunity.append('piercing')
@@ -1975,20 +1979,25 @@ class soldier_in_battle(soldier):
                         self.damage_absorbed = spell_dict
                         #print(self.resistance, damage, self.hitpoints_max)
                         break
-        # Варвары -- настоящие чудовища, плевать они хотели на копья и мечи:
-        # TODO: волшебное оружие преодолевает сопротивляемость варваров.
-        if attack_dict['damage_type'] in self.resistance:
+        # Иммунитет к видам урона.
+        # Урон от магического оружия преодолевает иммунитет.
+        if attack_dict['damage_type'] in self.immunity:
+            if attack_dict.get('weapon_type') and 'magic' in attack_dict['weapon_type']:
+                damage = damage
+            else:
+                damage = 0
+        # Сопротивляемость к видам урона.
+        # Урон от магического оружия преодолевает сопротивляемость.
+        elif attack_dict['damage_type'] in self.resistance:
             if enemy_soldier.class_features.get('Feat_Elemental_Adept') == attack_dict['damage_type']:
                 damage = damage
             elif attack_dict.get('weapon_type') and 'magic' in attack_dict['weapon_type']:
                 damage = damage
             else:
                 damage = round(damage * 0.5)
-        if attack_dict['damage_type'] in self.immunity:
-            if attack_dict.get('weapon_type') and 'magic' in attack_dict['weapon_type']:
-                damage = damage
-            else:
-                damage = 0
+        # Уязвимость к видам урона:
+        elif attack_dict['damage_type'] in self.vultenability:
+            damage = round(damage * 2)
         # Бонусные хиты от Feat_Inspiring_Leader и подобного:
         if self.bonus_hitpoints and self.bonus_hitpoints > 0:
             shield_of_bravery = self.bonus_hitpoints
