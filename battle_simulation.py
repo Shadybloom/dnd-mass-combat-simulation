@@ -847,11 +847,13 @@ class battle_simulation(battlescape):
             save_distance = squad.enemy_recon['move']
             if squad.enemy_recon['distance'] > save_distance:
                 commands_list = ['lead','follow']
+                commands_list.append('carefull')
                 commands_list.append('attack')
                 commands_list.append('spellcast')
                 commands_list.append('runes')
             elif squad.enemy_recon['distance'] <= save_distance:
                 commands_list = ['lead','follow','engage']
+                commands_list.append('carefull')
                 commands_list.append('attack')
                 commands_list.append('spellcast')
                 commands_list.append('runes')
@@ -892,7 +894,7 @@ class battle_simulation(battlescape):
             # Скрытные командиры прячутся за "Fog_Cloud":
             # Осторожный командир позволяет раненым отступать:
             if squad.commander.__dict__.get('carefull_AI'):
-                commands_list.append('carefull')
+                commands_list.append('very_carefull')
                 commands_list.append('sneak')
             # Добавляем град стрел без лишних расчётов:
             if squad.commander.__dict__.get('volley_AI'):
@@ -920,6 +922,7 @@ class battle_simulation(battlescape):
                 commands_list = ['engage','attack']
                 commands_list.append('spellcast')
                 commands_list.append('seek')
+                #commands_list.append('carefull')
             if squad.commander.__dict__.get('predator_AI'):
                 commands_list.append('select_weaker')
             elif squad.commander.__dict__.get('hunter_AI'):
@@ -991,17 +994,14 @@ class battle_simulation(battlescape):
             for enemy in soldier.near_enemies:
                 if enemy.place not in squad.frontline:
                     squad.frontline.append(enemy.place)
-        #if soldier.danger > 0:
-        #    print('{0} {1} {2} hp {3}/{4} danger {5}'.format(
-        #    soldier.ally_side, soldier.place, soldier.rank,
-        #    soldier.hitpoints, soldier.hitpoints_max, soldier.danger))
-        # Бойцы лечатся зельями, если это необходимо:
+        # Бойцы лечатся зельями и отступают, если это необходимо:
         if soldier.hitpoints <= soldier.hitpoints_max * 0.5\
-                or 'carefull' in soldier.commands\
+                or 'very_carefull' in soldier.commands\
                 and soldier.hitpoints < soldier.hitpoints_max * 0.75:
-            destination = self.find_spawn(soldier.place, soldier.ally_side)
-            destination = random.choice(self.point_to_field(destination))
-            self.move_action(soldier, squad, destination, allow_replace = False)
+            if 'carefull' in soldier.commands or 'very_carefull' in soldier.commands:
+                destination = self.find_spawn(soldier.place, soldier.ally_side)
+                destination = random.choice(self.point_to_field(destination))
+                self.move_action(soldier, squad, destination, allow_replace = True)
             if soldier.second_wind:
                 soldier.set_second_wind()
             elif soldier.lay_on_hands:
