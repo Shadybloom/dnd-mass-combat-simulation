@@ -916,9 +916,17 @@ class battle_simulation(battlescape):
             else:
                 commands_list.append('rescue')
             # Поиск и атака всех:
-            if squad.commander.__dict__.get('hunter_AI'):
-                commands_list = ['seek','engage','attack']
+            if squad.commander.__dict__.get('seeker_AI'):
+                commands_list = ['engage','attack']
                 commands_list.append('spellcast')
+                commands_list.append('seek')
+            if squad.commander.__dict__.get('predator_AI'):
+                commands_list.append('select_weaker')
+            elif squad.commander.__dict__.get('hunter_AI'):
+                commands_list.append('select_strongest')
+            # Талант "Идеальное взаимодействие". Свита атакует вражеских командиров:
+            elif squad.commander.__dict__.get('commando_AI'):
+                commands_list.append('select_strongest')
             # Убийцы убивают схваченного врага. Снайпера стрелют с Feat_Sharpshooter:
             if squad.commander.__dict__.get('killer_AI'):
                 commands_list.append('kill')
@@ -929,13 +937,8 @@ class battle_simulation(battlescape):
             # Друиды превращаются в первом же раунде боя:
             if squad.commander.__dict__.get('changer_AI'):
                 commands_list.append('change')
-            # Талант "Идеальное взаимодействие". Свита атакует вражеских командиров:
-            if squad.commander.__dict__.get('commando_AI'):
-                #commands_list.append('seek')
-                commands_list.append('hunt')
             # Лучники и метатели дротиков должны чуть что отступать:
             if squad.behavior == 'archer':
-                #commands_list.append('seek')
                 commands_list.append('spellcast')
                 #commands_list.append('fireball')
                 if commander.class_features.get('Feat_Sharpshooter'):
@@ -1681,16 +1684,16 @@ class battle_simulation(battlescape):
                 if attack_choice[0] == 'close':
                     attacks_chain_bonus = soldier.set_martial_arts()
             # Роги умело выбивают командиров:
-            # TODO: для этого теперь есть команда "hunt".
-            elif soldier.char_class == 'Rogue':
-                if attack_choice[0] == 'ranged' and squad.enemies:
-                    visible_enemies = self.find_visible_soldiers(
-                            soldier.place, soldier.enemy_side, squad.enemies,
-                            max_number = 30, max_try = 60)
-                    enemy_commander = self.select_enemy(visible_enemies, select_strongest = True)
-                    if enemy_commander:
-                        enemy = enemy_commander
-                        enemy_soldier = self.metadict_soldiers[enemy_commander.uuid]
+            # TODO: для этого теперь есть команда "select_strongest".
+            #elif soldier.char_class == 'Rogue':
+            #    if attack_choice[0] == 'ranged' and squad.enemies:
+            #        visible_enemies = self.find_visible_soldiers(
+            #                soldier.place, soldier.enemy_side, squad.enemies,
+            #                max_number = 30, max_try = 60)
+            #        enemy_commander = soldier.select_enemy(visible_enemies, select_strongest = True)
+            #        if enemy_commander:
+            #            enemy = enemy_commander
+            #            enemy_soldier = self.metadict_soldiers[enemy_commander.uuid]
             # Рейнджеры выбирают групповые цели:
             elif soldier.char_class == 'Ranger':
                 if attack_choice[0] == 'ranged':
@@ -2457,60 +2460,35 @@ class battle_simulation(battlescape):
         - В раиусе дальних атак (лук, праща, дротики)
         """
         if soldier.near_enemies:
-            if soldier.behavior == 'commander' or "hunt" in soldier.commands:
-                return self.select_enemy(soldier.near_enemies, select_strongest = True)
-            else:
-                return self.select_enemy(soldier.near_enemies)
+            return soldier.select_enemy(soldier.near_enemies)
         if 'reach' in [attack[0] for attack in soldier.attacks]:
             near_enemies = self.find_enemies_near(soldier, distance = 2)
             if near_enemies:
-                return self.select_enemy(near_enemies)
+                return soldier.select_enemy(near_enemies)
         if 'throw' in [attack[0] for attack in soldier.attacks]:
             near_enemies = self.find_enemies_near(soldier, distance = 2)
             if near_enemies:
-                return self.select_enemy(near_enemies)
+                return soldier.select_enemy(near_enemies)
         # Командир выбирает целью вражеских командиров:
         if squad.enemies and soldier.behavior == 'commander'\
-                or squad.enemies and "hunt" in soldier.commands:
+                or squad.enemies and "select_strongest" in soldier.commands:
             sorted_enemies = self.refind_soldiers_distance(soldier.place, squad.enemies)
             visible_enemies = self.find_visible_soldiers(
                     soldier.place, soldier.enemy_side, sorted_enemies,
                     max_number = 30, max_try = 60)
-            return self.select_enemy(visible_enemies, select_strongest = True)
+            return soldier.select_enemy(visible_enemies, select_strongest = True)
         # Сортируем цели по дистанции и берём по три, чтобы захватить всадника и коня:
         elif squad.enemies:
             sorted_enemies = self.refind_soldiers_distance(soldier.place, squad.enemies)
             visible_enemies = self.find_visible_soldiers(
                     soldier.place, soldier.enemy_side, sorted_enemies,
                     max_number = 3, max_try = 6)
-            return self.select_enemy(visible_enemies)
+            return soldier.select_enemy(visible_enemies)
         # Ищем цели в зоне видимости без указания командира:
         if 'seek' in soldier.commands:
             visible_enemies = self.find_visible_soldiers(soldier.place, soldier.enemy_side,
                     max_number = 3, max_try = 6)
-            return self.select_enemy(visible_enemies)
-
-    def select_enemy(self, near_enemies, select_strongest = False, select_weaker = False):
-        """Выбираем слабейшего/сильнейшего врага из списка целей.
-        
-        Лучшая тактика в текущих условиях боя -- выбивать слабейших.
-        """
-        # На входе может быть как список, так и словарь:
-        if type(near_enemies) == dict:
-            near_enemies = near_enemies.values()
-        # Список типов противников, отсортированный по уровню угрозы:
-        if select_strongest == True:
-            danger_list = list(self.dict_danger.keys())
-        elif select_weaker == True:
-            danger_list = reversed(list(self.dict_danger.keys()))
-        else:
-            danger_list = (list(self.dict_danger.keys()))
-            random.shuffle(danger_list)
-        # Выбор первого врага, который сильнейший/слабейший из списка угроз:
-        for enemy_type in danger_list:
-            for target in near_enemies:
-                if target.type == enemy_type:
-                    return target
+            return soldier.select_enemy(visible_enemies)
 
     def find_enemies_near(self, soldier, distance = 1):
         """Боец осматривается и ищет ближайшего врага.

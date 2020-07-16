@@ -1997,7 +1997,7 @@ metadict_chars['Warrior 5 lvl (shekelesh infantry-captain)'] = {
 metadict_chars['Warrior 1 lvl (legionary infantry-siege)'] = {
     # С двуручной киркой, чтобы разбивать укрепления. Чисто для тестов.
     'level':1,
-    'hunter_AI':True,
+    'seeker_AI':True,
     'fearless_AI':True,
     'char_class':'Warrior',
     'hit_dice':'1d8',
@@ -2015,7 +2015,7 @@ metadict_chars['Warrior 1 lvl (legionary infantry-siege)'] = {
 
 metadict_chars['Warrior 2 lvl (legionary infantry-siege-corporal)'] = {
     'level':2,
-    'hunter_AI':True,
+    'seeker_AI':True,
     'fearless_AI':True,
     'char_class':'Warrior',
     'hit_dice':'1d8',
@@ -2037,7 +2037,7 @@ metadict_chars['Warrior 2 lvl (legionary infantry-siege-corporal)'] = {
 metadict_chars['Warrior 3 lvl (legionary infantry-siege-sergeant)'] = {
     # Десятник (декан, урагос)
     'level':3,
-    'hunter_AI':True,
+    'seeker_AI':True,
     'fearless_AI':True,
     'char_class':'Warrior',
     'hit_dice':'1d8',
@@ -4131,7 +4131,7 @@ metadict_chars['Cleric 1 lvl (war cleric)'] = {
     'level':1,
     'char_class':'Cleric-heavy',
     'hit_dice':'1d8',
-    #'hunter_AI':True,
+    #'seeker_AI':True,
     #'killer_AI':True,
     'behavior':'commander',
     'class_features':{
@@ -6900,7 +6900,7 @@ metadict_chars['Druid 2 lvl (Vaarsuvius) (друид Агата)'] = {
     'hit_dice':'1d8',
     'behavior':'commander',
     'fearless_AI':True,
-    'hunter_AI':True,
+    'seeker_AI':True,
     'killer_AI':True,
     'class_features':{
         'Feat_Healer':True,
@@ -7606,12 +7606,12 @@ metadict_chars['Cleric 5 lvl (Mordodrukow) (Фарам «Друг Богов»)'
             ('2_lvl', 'Hold_Person'),
             ('2_lvl', 'Spiritual_Weapon'),
             ('2_lvl', 'Warding_Bond'),
-            ('3_lvl', 'Call_Lightning'),
+            #('3_lvl', 'Call_Lightning'),
             ('3_lvl', 'Sleet_Storm'),
             ('3_lvl', 'Clairvoyance'),
             ('3_lvl', 'Dispel_Magic'),
             ('3_lvl', 'Sending'),
-            #('3_lvl', 'Spirit_Guardians'),
+            ('3_lvl', 'Spirit_Guardians'),
             ],
         'Tempest_Domain':True,
         'Wrath_of_the_Storm':True,
@@ -8638,7 +8638,7 @@ metadict_chars['Warrior 3 lvl (враг) (демон Кема\'Эша)'] = {
     # Опасный гад.
     'level':3,
     #'fearless_AI':True,
-    'hunter_AI':True,
+    'seeker_AI':True,
     'killer_AI':True,
     'char_class':'Warrior-officer',
     'behavior':'commander',
@@ -8714,7 +8714,7 @@ metadict_chars['Warrior 5 lvl (Менон) (бронзовый гоплит-ка
     'killer_AI':True,
     'carefull_AI':True,
     #'fearless_AI':True,
-    #'hunter_AI':True,
+    #'seeker_AI':True,
     'char_class':'Warrior-officer',
     'hit_dice':'1d8',
     'behavior':'commander',

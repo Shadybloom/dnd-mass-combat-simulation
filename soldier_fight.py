@@ -31,6 +31,13 @@ class soldier_in_battle(soldier):
     attacks_number = 1
     # Размер тайла -- 5 футов (1.5 метра):
     tile_size = 5
+    dict_danger = {
+            'commander':3,
+            'elite_warrior':2,
+            'warrior':1,
+            'archer':1,
+            'mount':1,
+            }
 
     def set_hitpoints(self, damage = None, heal = None, bonus_hitpoints = None):
         """Контроль хитпоинтов в начале и в ходе боя.
@@ -1298,6 +1305,32 @@ class soldier_in_battle(soldier):
             self.move_pool -= distance
         if self.move_pool <= 0:
             self.move_action = False
+
+    def select_enemy(self, near_enemies, select_strongest = False, select_weaker = False):
+        """Выбираем слабейшего/сильнейшего врага из списка целей.
+        
+        Лучшая тактика в текущих условиях боя -- выбивать слабейших.
+        """
+        if 'select_weaker' in self.commands:
+            select_weaker = True
+        elif 'select_strongest' in self.commands:
+            select_strongest = True
+        # На входе может быть как список, так и словарь:
+        if type(near_enemies) == dict:
+            near_enemies = near_enemies.values()
+        # Список типов противников, отсортированный по уровню угрозы:
+        if select_weaker == True:
+            danger_list = reversed(list(self.dict_danger.keys()))
+        elif select_strongest == True:
+            danger_list = list(self.dict_danger.keys())
+        else:
+            danger_list = (list(self.dict_danger.keys()))
+            random.shuffle(danger_list)
+        # Выбор первого врага, который сильнейший/слабейший из списка угроз:
+        for enemy_type in danger_list:
+            for target in near_enemies:
+                if target.type == enemy_type:
+                    return target    
 
     def select_attack(self, squad, enemy, tile_size = 5):
         """Боец выбирает атаку, уже зная врага.
