@@ -1170,6 +1170,7 @@ metadict_animals['Air Elemental (CR 5)'] = {
     'hunter_AI':True,
     'killer_AI':True,
     'fearless_AI':True,
+    'no_grappler_AI':True,
     'air_walk':True,
     'water_walk':True,
     'challenge_rating':'5',

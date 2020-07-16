@@ -924,6 +924,8 @@ class battle_simulation(battlescape):
                 commands_list.append('kill')
             if squad.commander.__dict__.get('grappler_AI'):
                 commands_list.append('grapple')
+            elif squad.commander.__dict__.get('no_grappler_AI'):
+                commands_list.append('no_grapple')
             # Друиды превращаются в первом же раунде боя:
             if squad.commander.__dict__.get('changer_AI'):
                 commands_list.append('change')
@@ -1713,7 +1715,7 @@ class battle_simulation(battlescape):
                 if not advantage:
                     advantage = self.break_enemy_defence(soldier, squad, enemy_soldier, attack_choice)
                 # Вместо атаки можно перейти в рукопашный бой (сбивание с ног, захваты, разоружение):
-                if attack_choice[0] == 'close':
+                if attack_choice[0] == 'close' and not 'no_grapple' in soldier.commands:
                     if len(soldier.near_allies) > 2\
                             and len(soldier.near_enemies) == 1\
                             and not enemy_soldier.size == 'large'\
