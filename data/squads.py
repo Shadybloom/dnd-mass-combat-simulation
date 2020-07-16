@@ -197,13 +197,17 @@ metadict_squads['Company-regular (дактили горы Ушур) (враг)']
 #----
 # Нейтралы. Призванные существа:
 
-metadict_squads['Company-regular (громовые птицы) (нейтрал)'] = {
+metadict_squads['Company-regular (громовые птицы) (призванные)'] = {
     'Громовая птица (Thunderbird) (CR 1)':10,
     'Громовая птица-вожак (Thunderbird) (CR 1)':2,
     }
 
-metadict_squads['Company-regular (воздушные элементали) (нейтрал)'] = {
+metadict_squads['Company-regular (воздушные элементали) (призванные)'] = {
     'Air Elemental (CR 5)':6,
+    }
+
+metadict_squads['Company-regular (земляные элементали) (призванные)'] = {
+    'Earth Elemental (CR 5)':6,
     }
 
 #----

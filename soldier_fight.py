@@ -287,6 +287,10 @@ class soldier_in_battle(soldier):
                 self.resistance.append('bludgeoning')
                 self.resistance.append('thunder')
                 self.resistance.append('lightning')
+            if self.class_features.get('Earth_Elemental_Resistance'):
+                self.resistance.append('slashing')
+                self.resistance.append('piercing')
+                self.resistance.append('bludgeoning')
             # Особенности монстров:
             if self.class_features.get('Empyrean_Immunity'):
                 self.immunity.append('slashing')
@@ -1895,6 +1899,10 @@ class soldier_in_battle(soldier):
         if self.sleep:
             self.sleep_timer = 0
             self.sleep = False
+        # Урон предметам от осадных монстров удваивается:
+        if attack_dict.get('weapon_type') and 'siege' in attack_dict['weapon_type']\
+                and self.__dict__.get('mechanism'):
+            damage *= 2
         # Удачный спасбросок может уполовинить урон:
         if attack_dict.get('savethrow') and not self.__dict__.get('savethrow_autofall'):
             savethrow_ability = attack_dict['savethrow_ability']

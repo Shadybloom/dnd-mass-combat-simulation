@@ -1169,7 +1169,6 @@ metadict_animals['Wight (CR 3)'] = {
     }
 
 metadict_animals['Air Elemental (CR 5)'] = {
-    # TODO: Элементали иногда пользуются рукопашными атаками. Запрети.
     'level':12,
     'killer_AI':True,
     'seeker_AI':True,
@@ -1252,6 +1251,70 @@ metadict_animals['Air Elemental (CR 5)'] = {
             'weapon_of_choice':'whirlwind'},
         },
     'race':'Elemental-air',
+    'weapon_skill':[],
+    'armor_skill':[],
+    'equipment_weapon':{},
+    'equipment_backpack':{},
+    'equipment_supply':{},
+    }
+
+metadict_animals['Earth Elemental (CR 5)'] = {
+    # TODO: уязвимость к урону звуком.
+    # TODO: сделай особенность оружия "siege". Удвоенный урон предметам.
+    'level':12,
+    'killer_AI':True,
+    'seeker_AI':True,
+    #'hunter_AI':True,
+    #'predator_AI':True,
+    'fearless_AI':True,
+    'no_grappler_AI':True,
+    'challenge_rating':'5',
+    'char_class':'Warrior',
+    'behavior':'commander',
+    'hitpoints_medial':True,
+    'class_features':{
+        'Extra_Attack':True,
+        'Earth_Elemental_Resistance':True,
+        'Earth_Elemental_vulnerability':True,
+        'Earth_Glide':True,
+        'Siege_Monster':True,
+        },
+    'abilityes':{
+        'strength':20,
+        'dexterity':8,
+        'constitution':20,
+        'intelligence':5,
+        'wisdom':10,
+        'charisma':5,
+        },
+    'hit_dice':'1d10',
+    'attacks':{
+        ('close', 'slam'): {
+            'attack_mod':8,
+            'damage_mod':5,
+            'weapon': False,
+            'weapon_type':['simple','close','siege'],
+            'damage_type':'bludgeoning',
+            'damage_dice':'2d8',
+            'attack_range':5,
+            'attack_type':'close',
+            'weapon_skills_use': ['simple'],
+            'attack_mod_type':'strength',
+            'weapon_of_choice':'slam'},
+        ('reach', 'slam'): {
+            'attack_mod':8,
+            'damage_mod':5,
+            'weapon': False,
+            'weapon_type':['simple','reach','siege'],
+            'damage_type':'bludgeoning',
+            'damage_dice':'2d8',
+            'attack_range':10,
+            'attack_type':'reach',
+            'weapon_skills_use': ['simple'],
+            'attack_mod_type':'strength',
+            'weapon_of_choice':'slam'},
+        },
+    'race':'Elemental-earth',
     'weapon_skill':[],
     'armor_skill':[],
     'equipment_weapon':{},
