@@ -274,6 +274,12 @@ class soldier_in_battle(soldier):
                 self.resistance.append('piercing')
                 self.resistance.append('bludgeoning')
                 self.resistance.append('necrotic_energy')
+            if self.class_features.get('Air_Elemental_Resistance'):
+                self.resistance.append('slashing')
+                self.resistance.append('piercing')
+                self.resistance.append('bludgeoning')
+                self.resistance.append('thunder')
+                self.resistance.append('lightning')
             # Особенности монстров:
             if self.class_features.get('Empyrean_Immunity'):
                 self.immunity.append('slashing')
@@ -425,6 +431,14 @@ class soldier_in_battle(soldier):
             self.fearless = True
             self.commands.append('fearless')
         # Особенности монстров:
+        # Перезярядка воздушных элементалей:
+        # TODO: пока что это просто восстановление списка атак. Топорно.
+        if self.class_features.get('Recharge'):
+            recharge_throw = dices.dice_throw(self.class_features['Recharge_dice'])
+            if recharge_throw in self.class_features['Recharge_numbers']:
+                self.attacks = self.takeoff_weapon()
+                self.attacks.update(self.get_weapon())
+                self.attacks.update(self.modify_attacks())
         # Регенерация троллей и демонов:
         if self.class_features.get('Regeneration')\
                 and self.hitpoints < self.hitpoints_max:
@@ -1591,7 +1605,7 @@ class soldier_in_battle(soldier):
         for attack in attacks_list:
             if attack[-1] == weapon_type:
                 self.attacks.pop(attack)
-        if ammo_type:
+        if ammo_type and ammo_type in self.equipment_weapon:
             self.equipment_weapon[ammo_type] = 0
             self.overload = self.calculate_overload()
             self.base_speed = self.overload['base_speed']
