@@ -101,6 +101,7 @@ class battle_simulation(battlescape):
     enemy_zones = ['zone_5','zone_6','zone_7','zone_8','zone_9']
     # Опыт от показателя опасности:
     challenge_rating_experience_dict = {
+            '-':0,
             '0':10,
             '1/8':25,
             '1/4':50,

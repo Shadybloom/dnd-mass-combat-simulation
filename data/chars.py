@@ -2352,7 +2352,7 @@ metadict_chars['Warrior 3 lvl (siege engineer-apprentice) (onager-siege)'] = {
         'Shield':1,
         'Shortsword':1,
         'Catapult (siege)':1,
-        'Boulder (50 lb)':10,
+        'Boulder (50 lb)':60,
         },
     'mount_combat':True,
     'mount_type':'Onager',

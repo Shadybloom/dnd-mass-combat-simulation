@@ -292,6 +292,10 @@ class soldier_in_battle(soldier):
                 self.resistance.append('slashing')
                 self.resistance.append('piercing')
                 self.resistance.append('bludgeoning')
+            if self.class_features.get('Wood_Object_Resistance'):
+                self.resistance.append('slashing')
+                self.resistance.append('piercing')
+                self.resistance.append('bludgeoning')
             # Уязвимости монстров:
             if self.class_features.get('Earth_Elemental_Vulnerability'):
                 self.vultenability.append('thunder')
