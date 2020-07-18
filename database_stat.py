@@ -64,6 +64,7 @@ class database_stat():
         
         """
         trophy_dict = {}
+        print('[1/1 -- командиры] [8/107 -- боеспособные] [c:37 -- пленные] [i:24 -- калеки] [d:23 -- погибшие]')
         for squad_name in self.database.print_squads():
             squad = squad_generation()
             squad.load_squad_from_DB(squad_name, get_all = True)
