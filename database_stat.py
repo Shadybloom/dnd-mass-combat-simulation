@@ -16,6 +16,7 @@ class database_stat():
     database = database.database()
     # Опыт от показателя опасности:
     challenge_rating_experience_dict = {
+            '-':10,
             '0':10,
             '1/8':25,
             '1/4':50,
