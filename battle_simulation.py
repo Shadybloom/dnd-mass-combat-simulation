@@ -1631,7 +1631,8 @@ class battle_simulation(battlescape):
             if 'volley_random' in soldier.commands:
                 target = random.choice(self.point_to_field(target, round(distance / 5)))
             elif hasattr(soldier, 'place_in_order') and soldier.place_in_order:
-                target = [c1 + c2 for c1, c2 in zip(target, soldier.place_in_order)]
+                target_point = [c1 + c2 for c1, c2 in zip(target, soldier.place_in_order)]
+                target = random.choice(self.point_to_field(target_point, round(distance / 10)))
             else:
                 target = random.choice(self.point_to_field(target, round(distance / 10)))
             target = tuple(target)
