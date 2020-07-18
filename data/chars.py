@@ -5070,8 +5070,8 @@ metadict_chars['Ranger 1 lvl (otherworld wanderer-scout)'] = {
     'behavior':'archer',
     'class_features':{
         'Feat_Sharpshooter':True,
-        'Favored_Enemy_Humans':True,
-        'Natural_Explorer':True,
+        'Favored_Enemy':['humans'],
+        'Natural_Explorer':['forest'],
         },
     'race':'Human-hero',
     'weapon_skill':['simple','martial'],
@@ -5099,8 +5099,8 @@ metadict_chars['Ranger 2 lvl (otherworld wanderer-marksman)'] = {
     'behavior':'archer',
     'class_features':{
         'Feat_Sharpshooter':True,
-        'Favored_Enemy_Humans':True,
-        'Natural_Explorer':True,
+        'Favored_Enemy':['humans'],
+        'Natural_Explorer':['forest'],
         'Spellcasting':True,
         'Spells':[
             #('ritual', 'Speak_with_Animals'),
@@ -5143,8 +5143,8 @@ metadict_chars['Ranger 3 lvl (otherworld wanderer-hunter)'] = {
     'behavior':'commander',
     'class_features':{
         'Feat_Sharpshooter':True,
-        'Favored_Enemy_Humans':True,
-        'Natural_Explorer':True,
+        'Favored_Enemy':['humans'],
+        'Natural_Explorer':['forest'],
         'Spellcasting':True,
         'Spells':[
             ('1_lvl', 'Absorb_Elements'),
@@ -5183,8 +5183,8 @@ metadict_chars['Ranger 4 lvl (otherworld wanderer-lieutenant)'] = {
     'behavior':'commander',
     'class_features':{
         'Feat_Sharpshooter':True,
-        'Favored_Enemy_Humans':True,
-        'Natural_Explorer':True,
+        'Favored_Enemy':['humans'],
+        'Natural_Explorer':['forest'],
         'Spellcasting':True,
         'Spells':[
             ('1_lvl', 'Absorb_Elements'),
@@ -5224,8 +5224,8 @@ metadict_chars['Ranger 5 lvl (otherworld wanderer-captain)'] = {
     'behavior':'commander',
     'class_features':{
         'Feat_Sharpshooter':True,
-        'Favored_Enemy_Humans':True,
-        'Natural_Explorer':True,
+        'Favored_Enemy':['humans'],
+        'Natural_Explorer':['forest'],
         'Spellcasting':True,
         'Spells':[
             ('ritual', 'Alarm'),
@@ -7431,8 +7431,8 @@ metadict_chars['Cleric 2 lvl (Mordodrukow) (жрец Зевса) (боевой)'
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        # TODO: руна Longstrider
         'Infusion of Healing':1,
+        'Infusion of Longstrider':1,
         'Splint Armor':1,
         'Shield':1,
         'Longsword':1,
@@ -7472,8 +7472,8 @@ metadict_chars['Cleric 2 lvl (Mordodrukow) (жрец Зевса) (лекарь)'
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        # TODO: руна Longstrider
         'Infusion of Healing':1,
+        'Infusion of Longstrider':1,
         'Half Plate':1,
         'Shield':1,
         'Longsword':1,
@@ -7504,8 +7504,8 @@ metadict_chars['Fighter 2 lvl (Mordodrukow) (темплар Зевса)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        # TODO: руна Longstrider
         'Infusion of Healing':1,
+        'Infusion of Longstrider':1,
         'Splint Armor':1,
         'Heavy Shield':1,
         'Longsword':1,
@@ -8002,6 +8002,235 @@ metadict_chars['Warrior 5 lvl (Katorjnik) (центурион)'] = {
     }
 
 #----
+# Следопыты (свита) (Сакатр Ка'Ален):
+
+metadict_chars['Ranger 2 lvl (Gogan) (следопыт Сакатра)'] = {
+    'level':2,
+    'char_class':'Ranger',
+    'hit_dice':'1d10',
+    'behavior':'archer',
+    'class_features':{
+        'Feat_Sharpshooter':True,
+        'Favored_Enemy':['humans'],
+        'Natural_Explorer':['sea'],
+        'Spellcasting':True,
+        'Spells':[
+            ('1_lvl', 'Fog_Cloud'),
+            ('1_lvl', 'Hail_of_Thorns'),
+            ],
+        'Fighting_Style_Archery':True,
+        },
+    'race':'Human-hero',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Goodberry':5,
+        'Infusion of Healing':1,
+        'Infusion of Longstrider':1,
+        'Breastplate':1,
+        'Shield':1,
+        'Shortsword':1,
+        'Longbow':1,
+        'Arrow':60,
+        },
+    #'mount_combat':True,
+    #'mount_type':'Light Warhorse',
+    #'equipment_mount':{
+    #    },
+    }
+
+metadict_chars['Ranger 7 lvl (Gogan) (Сакатр Ка-Ален)'] = {
+    'level':7,
+    #'killer_AI':True,
+    'char_class':'Ranger',
+    'hit_dice':'1d10',
+    'behavior':'commander',
+    'hitpoints_medial':True,
+    'abilityes':{
+        'strength':11,
+        'dexterity':20,
+        'constitution':14,
+        'intelligence':14,
+        'wisdom':16,
+        'charisma':17,
+        },
+    'class_features':{
+        # TODO: добавь "Оборонительную тактику" следопыта, какую выберет Сакатр.
+        'Feat_Sharpshooter':True,
+        'Favored_Enemy':['humans', 'sea_monsters'],
+        'Natural_Explorer':['sea', 'coast'],
+        'Spellcasting':True,
+        'Spells':[
+            # TODO: сделай Spike_Growth
+            ('ritual', 'Animal_Messenger'),
+            ('1_lvl', 'Goodberry'),
+            ('1_lvl', 'Fog_Cloud'),
+            ('1_lvl', 'Hail_of_Thorns'),
+            ('2_lvl', 'Pass_Without_Trace'),
+            #('2_lvl', 'Spike_Growth'),
+            ],
+        'Fighting_Style_Archery':True,
+        'Primeval_Awareness':True,
+        'Ranger_Archetype_Hunter':True,
+        'Hunter_Horde_Breaker':True,
+        'Extra_Attack':True,
+        },
+    'race':'Human-hero',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Goodberry':15,
+        'Infusion of Healing':1,
+        'Infusion of Longstrider':1,
+        'Rune of Shielding':1,
+        'Studded Leather':1,
+        'Shield':1,
+        'Scimitar':1,
+        'Longbow +1':1,
+        'Arrow':60,
+        },
+    #'mount_combat':True,
+    #'mount_type':'Light Warhorse',
+    #'equipment_mount':{
+    #    },
+    }
+
+#----
+# Пираты (армия) (Сакатр Ка'Ален):
+
+metadict_chars['Warrior 1 lvl (Gogan) (кимерийский пират)'] = {
+    'level':1,
+    'char_class':'Warrior-bowman',
+    'hit_dice':'1d8',
+    'behavior':'warrior',
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Studded Leather':1,
+        'Shield':1,
+        'Shortsword':1,
+        'Shortbow':1,
+        'Arrow':60,
+        },
+    }
+
+metadict_chars['Warrior 2 lvl (Gogan) (кимерийский пират-ветеран)'] = {
+    'level':2,
+    'char_class':'Warrior-bowman',
+    'hit_dice':'1d8',
+    'behavior':'elite_warrior',
+    'class_features':{
+        'Fighting_Style_Archery':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Scale Mail':1,
+        'Shield':1,
+        'Rapier':1,
+        'Dagger':1,
+        'Shortbow':1,
+        'Arrow':60,
+        },
+    }
+
+metadict_chars['Warrior 3 lvl (Gogan) (кимерийский пират-сержант)'] = {
+    'level':3,
+    'char_class':'Warrior',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Archery':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Breastplate':1,
+        'Shield':1,
+        'Rapier':1,
+        'Dagger':1,
+        'Shortbow':1,
+        'Arrow':60,
+        },
+    }
+
+metadict_chars['Warrior 4 lvl (Gogan) (кимерийский пират-лейтенант)'] = {
+    'level':4,
+    'char_class':'Warrior-officer',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Archery':True,
+        'Feat_Inspiring_Leader':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Rune of Shielding':1,
+        'Breastplate':1,
+        'Shield':1,
+        'Rapier':1,
+        'Dagger':1,
+        'Shortbow':1,
+        'Arrow':60,
+        },
+    #'mount_combat':False,
+    #'mount_type':'Riding Horse',
+    #'equipment_mount':{
+    #    },
+    }
+
+metadict_chars['Warrior 5 lvl (Gogan) (кимерийский пират-капитан)'] = {
+    'level':5,
+    #'volley_AI':True,
+    'char_class':'Warrior-officer',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Archery':True,
+        'Feat_Inspiring_Leader':True,
+        'Extra_Attack':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Rune of Shielding':1,
+        'Breastplate':1,
+        'Shield':1,
+        'Rapier':1,
+        'Dagger':1,
+        'Shortbow':1,
+        'Arrow':60,
+        },
+    #'mount_combat':False,
+    #'mount_type':'Riding Horse',
+    #'equipment_mount':{
+    #    },
+    }
+
+#----
 # Злодеи (герои) (кара'Ям):
 
 metadict_chars['Warlock 1 lvl (враг) (колдун Кара\'Яма)'] = {
@@ -8225,8 +8454,8 @@ metadict_chars['Ranger 1 lvl (враг) (следопыт Энзифа)'] = {
     'behavior':'archer',
     'class_features':{
         'Feat_Sharpshooter':True,
-        'Favored_Enemy_Humans':True,
-        'Natural_Explorer':True,
+        'Favored_Enemy':['humans'],
+        'Natural_Explorer':['forest'],
         },
     'race':'Human-hero',
     'weapon_skill':['simple','martial'],
@@ -8263,8 +8492,8 @@ metadict_chars['Ranger 5 lvl (враг) (Энзиф «Ходи-гора»)'] = {
         },
     'class_features':{
         'Feat_Sharpshooter':True,
-        'Favored_Enemy_Humans':True,
-        'Natural_Explorer':True,
+        'Favored_Enemy':['humans'],
+        'Natural_Explorer':['forest'],
         'Spellcasting':True,
         'Spells':[
             ('ritual', 'Animal_Messenger'),

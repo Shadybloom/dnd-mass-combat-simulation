@@ -19,7 +19,7 @@ dict_class_abilityes = {
         'Battlemaster':['strength','constitution','dexterity','charisma'],
         'Monk':['dexterity','wisdom','constitution','strength'],
         'Paladin':['strength','charisma','constitution'],
-        'Ranger':['dexterity','wisdom','constitution'],
+        'Ranger':['dexterity','wisdom','constitution','strength'],
         'Rogue':['dexterity','charisma','constitution','intelligence'],
         'Arcane_Tricker':['dexterity','intelligence','constitution','charisma'],
         'Sorcerer':['charisma','dexterity','constitution'],

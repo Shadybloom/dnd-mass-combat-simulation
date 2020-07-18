@@ -421,6 +421,22 @@ metadict_squads['Squad-hero (варвары Радаманта) (враг)'] = {
     }
 
 #----
+# Геройские отряды (армия Сакатра):
+
+metadict_squads['Squad-hero (следопыты Сакатра) (Gogan)'] = {
+    'Ranger 7 lvl (Gogan) (Сакатр Ка-Ален)':1,
+    'Ranger 2 lvl (Gogan) (следопыт Сакатра)':6,
+    }
+
+metadict_squads['Company-regular (пираты Сакатра) (Gogan)'] = {
+    'Warrior 1 lvl (Gogan) (кимерийский пират)':185,
+    'Warrior 2 lvl (Gogan) (кимерийский пират-ветеран)':10,
+    'Warrior 3 lvl (Gogan) (кимерийский пират-сержант)':3,
+    'Warrior 5 lvl (Gogan) (кимерийский пират-капитан)':1,
+    'Warrior 4 lvl (Gogan) (кимерийский пират-лейтенант)':1,
+    }
+
+#----
 # Геройские отряды (армия Гая Юлия):
 
 metadict_squads['Company-militia (гастаты Гая Юлия) (Katorjnik)'] = {
