@@ -182,6 +182,9 @@ metadict_animals['Ship trireme (deck)'] = {
     'char_class':'Commoner',
     'behavior':'warrior',
     'hitpoints_medial':True,
+    'class_features':{
+        'Wood_Object_Resistance':True,
+        },
     'abilityes':{
         'strength':10,
         'dexterity':10,
@@ -200,17 +203,19 @@ metadict_animals['Ship trireme (deck)'] = {
     }
 
 metadict_animals['Ship trireme (board)'] = {
-    # Борт триеры. Порог урона -- 15
-    # По поведению "elite_warrior" мы располагаем "бойцов" на карте. Так борта окажутся по бортам.
+    # Борт триеры.
     'level':5,
     'mechanism':True,
-    'ignore_damage':15,
+    'ignore_damage':20,
     'savethrow_autofall':True,
     'inactive_AI':True,
     'challenge_rating':'-',
     'char_class':'Commoner',
     'behavior':'elite_warrior',
     'hitpoints_medial':True,
+    'class_features':{
+        'Wood_Object_Resistance':True,
+        },
     'abilityes':{
         'strength':10,
         'dexterity':10,
@@ -230,15 +235,17 @@ metadict_animals['Ship trireme (board)'] = {
 
 metadict_animals['Ship trireme (command)'] = {
     # Нос и корма триеры.
-    # Борт триеры. Порог урона -- 15
     'level':10,
     'mechanism':True,
-    'ignore_damage':15,
+    'ignore_damage':20,
     'inactive_AI':True,
     'challenge_rating':'1',
     'char_class':'Commoner',
     'behavior':'commander',
     'hitpoints_medial':True,
+    'class_features':{
+        'Wood_Object_Resistance':True,
+        },
     'abilityes':{
         'strength':10,
         'dexterity':10,
@@ -260,13 +267,16 @@ metadict_animals['Ship pentere (deck)'] = {
     # Палуба пентеры.
     'level':5,
     'mechanism':True,
-    'ignore_damage':10,
+    'ignore_damage':15,
     'savethrow_autofall':True,
     'inactive_AI':True,
     'challenge_rating':'-',
     'char_class':'Commoner',
     'behavior':'warrior',
     'hitpoints_medial':True,
+    'class_features':{
+        'Wood_Object_Resistance':True,
+        },
     'abilityes':{
         'strength':10,
         'dexterity':10,
@@ -288,13 +298,16 @@ metadict_animals['Ship pentere (board)'] = {
     # Борт пентеры. Больше хитов.
     'level':10,
     'mechanism':True,
-    'ignore_damage':15,
+    'ignore_damage':20,
     'savethrow_autofall':True,
     'inactive_AI':True,
     'challenge_rating':'-',
     'char_class':'Commoner',
     'behavior':'elite_warrior',
     'hitpoints_medial':True,
+    'class_features':{
+        'Wood_Object_Resistance':True,
+        },
     'abilityes':{
         'strength':10,
         'dexterity':10,
@@ -316,12 +329,15 @@ metadict_animals['Ship pentere (command)'] = {
     # Нос и корма пентеры.
     'level':10,
     'mechanism':True,
-    'ignore_damage':15,
+    'ignore_damage':20,
     'inactive_AI':True,
     'challenge_rating':'1',
     'char_class':'Commoner',
     'behavior':'commander',
     'hitpoints_medial':True,
+    'class_features':{
+        'Wood_Object_Resistance':True,
+        },
     'abilityes':{
         'strength':10,
         'dexterity':10,
@@ -343,13 +359,16 @@ metadict_animals['Ship trage (deck)'] = {
     # Палуба торгового корабля.
     'level':5,
     'mechanism':True,
-    'ignore_damage':5,
+    'ignore_damage':10,
     'savethrow_autofall':True,
     'inactive_AI':True,
     'challenge_rating':'-',
     'char_class':'Commoner',
     'behavior':'warrior',
     'hitpoints_medial':True,
+    'class_features':{
+        'Wood_Object_Resistance':True,
+        },
     'abilityes':{
         'strength':10,
         'dexterity':10,
@@ -370,13 +389,16 @@ metadict_animals['Ship trage (deck)'] = {
 metadict_animals['Ship trage (board)'] = {
     'level':5,
     'mechanism':True,
-    'ignore_damage':10,
+    'ignore_damage':18,
     'savethrow_autofall':True,
     'inactive_AI':True,
     'challenge_rating':'-',
     'char_class':'Commoner',
     'behavior':'elite_warrior',
     'hitpoints_medial':True,
+    'class_features':{
+        'Wood_Object_Resistance':True,
+        },
     'abilityes':{
         'strength':10,
         'dexterity':10,
@@ -397,12 +419,15 @@ metadict_animals['Ship trage (board)'] = {
 metadict_animals['Ship trage (command)'] = {
     'level':5,
     'mechanism':True,
-    'ignore_damage':10,
+    'ignore_damage':15,
     'inactive_AI':True,
     'challenge_rating':'1',
     'char_class':'Commoner',
     'behavior':'commander',
     'hitpoints_medial':True,
+    'class_features':{
+        'Wood_Object_Resistance':True,
+        },
     'abilityes':{
         'strength':10,
         'dexterity':10,
@@ -519,7 +544,9 @@ metadict_animals['Weather (waves)'] = {
                     'attack_range':600,
                     'radius':120,
                     'damage_type':'bludgeoning',
-                    'damage_dice':'2d10',
+                    # Удвоенный урон сооружениям:
+                    'weapon_type':['siege'],
+                    'damage_dice':'2d6',
                     'components':[],
                     'casting_time':'action',
                     'damage_mod':0,
@@ -796,10 +823,10 @@ metadict_animals['Giant Octopus (CR 1)'] = {
     'hitpoints_medial':True,
     'water_walk':True,
     #'seeker_AI':True,
-    'killer_AI':True,
+    #'killer_AI':True,
     'hunter_AI':True,
     'grappler_AI':True,
-    #'fearless_AI':True,
+    'fearless_AI':True,
     'class_features':{
         'Hold_Breath':True,
         'Water_Breathing':True,
@@ -856,20 +883,19 @@ metadict_animals['Giant Octopus (CR 1)'] = {
     'equipment_supply':{},
     }
 
-metadict_animals['Giant Octopus (conjured) (CR 1)'] = {
-    # Осьминоги Тик-Бо стараются не убивать.
+metadict_animals['Giant Octopus (commander) (CR 1)'] = {
     # Призванное существо.
     'level':8,
     'challenge_rating':'1',
     'char_class':'Commoner',
-    'behavior':'elite_warrior',
+    'behavior':'commander',
     'hitpoints_medial':True,
     'water_walk':True,
-    #'killer_AI':True,
     #'seeker_AI':True,
+    #'killer_AI':True,
     'hunter_AI':True,
     'grappler_AI':True,
-    #'fearless_AI':True,
+    'fearless_AI':True,
     'class_features':{
         'Hold_Breath':True,
         'Water_Breathing':True,

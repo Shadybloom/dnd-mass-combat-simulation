@@ -273,6 +273,11 @@ metadict_squads['Company-regular (земляные элементали) (при
     'Earth Elemental (CR 5)':6,
     }
 
+metadict_squads['Company-regular (гигантские осьминоги) (призванные)'] = {
+    'Giant Octopus (CR 1)':10,
+    'Giant Octopus (commander) (CR 1)':2,
+    }
+
 #----
 # Нейтралы, Иллирийский союз (Менон Теварин):
 
