@@ -73,7 +73,7 @@ metadict_animals['Palisade (wood)'] = {
     }
 
 metadict_animals['Wall (stone)'] = {
-    # Крепостная стена
+    # Крепостная стена, каменная стена
     'level':20,
     'mechanism':True,
     'ignore_damage':30,
