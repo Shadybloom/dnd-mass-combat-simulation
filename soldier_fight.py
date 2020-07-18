@@ -441,9 +441,7 @@ class soldier_in_battle(soldier):
         self.near_enemies = [ ]
         # Возвращение друида в обычную форму, если не осталось бонусных хитов:
         if self.wild_shape and self.bonus_hitpoints <= 0:
-            self.wild_shape = False
-            self.wild_shape_old_form['hitpoints'] = self.hitpoints
-            self.__dict__.update(copy.deepcopy(self.wild_shape_old_form))
+            self.return_old_form()
         # Бесстрашные бойцы бесстрашны:
         if self.__dict__.get('fearless_AI')\
                 or self.__dict__.get('heroism'):
@@ -574,6 +572,14 @@ class soldier_in_battle(soldier):
                 self.behavior = self.wild_shape_old_form['behavior']
                 self.wild_shape = True
                 self.wild_shape_number -= 1
+
+    def return_old_form(self):
+        """Друид возвращает облик человека.
+        
+        """
+        self.wild_shape = False
+        self.wild_shape_old_form['hitpoints'] = self.hitpoints
+        self.__dict__.update(copy.deepcopy(self.wild_shape_old_form))
 
     def set_rage(self):
         """Варвар злится.
@@ -1236,9 +1242,7 @@ class soldier_in_battle(soldier):
             self.death_save_success = 0
         # Возвращение друида в обычную форму, если выбыл:
         if self.wild_shape:
-            self.wild_shape = False
-            self.wild_shape_old_form['hitpoints'] = self.hitpoints
-            self.__dict__.update(copy.deepcopy(self.wild_shape_old_form))
+            self.return_old_form()
         # Схваченного легко убить, или взять в плен:
         if self.grappled and self.enemy_grappler:
             if 'kill' in self.enemy_grappler.commands:

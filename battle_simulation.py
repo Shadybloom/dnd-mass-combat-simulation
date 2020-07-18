@@ -168,10 +168,10 @@ class battle_simulation(battlescape):
             # Пополнение боекомплекта:
             if namespace.rearm:
                 self.set_squad_rearm(squad)
-            # Короткий отдых:
+            # Короткий отдых (но сначала перевязка):
             if namespace.short_rest:
                 for n in range (0,60):
-                    self.set_squad_heal(squad)
+                    self.set_squad_heal(squad, heal_all = True)
                 self.set_squad_short_rest(squad)
             # Сумма бонусных хитов отряда:
             squad.bonus_hitpoints_max = sum([soldier.bonus_hitpoints for soldier\
@@ -341,7 +341,7 @@ class battle_simulation(battlescape):
                 soldier.set_place_in_order(place_in_order)
                 #print(soldier.behavior,soldier.place, soldier.place_in_order)
 
-    def set_squad_heal(self, squad):
+    def set_squad_heal(self, squad, heal_all = False):
         """Лекари поднимают на ноги павших бойцов (ключ -I при запуске)
 
         Feat_Healer:
@@ -359,7 +359,8 @@ class battle_simulation(battlescape):
         # Лечим раненых:
         for soldier in soldiers_list_elite:
             if not soldier.disabled and not soldier.death:
-                if bless_list and soldier.hitpoints <= soldier.hitpoints_max / 2:
+                if bless_list and soldier.hitpoints <= soldier.hitpoints_max / 2\
+                        or bless_list and heal_all and soldier.hitpoints < soldier.hitpoints_max:
                     #print(bless_type, soldier.rank)
                     max_hit_dice = int(soldier.hit_dice.split('d')[1])
                     heal = bless_list.pop() + max_hit_dice
@@ -474,6 +475,8 @@ class battle_simulation(battlescape):
         Сначала офицеры, затем ветераны, после обычные бойцы.
         Ездовых животных не выбираем.
         """
+        # TODO: В список не должны включаться объекты с тегом mechanism
+        # А вот лошадок можно и нужно лечить, добавь параметр get_all
         soldiers_list = [ ] 
         max_level = max([soldier.level for soldier in self.metadict_soldiers.values()])
         # Сначала выбираем героев, а затем командиров и простых бойцов:
@@ -522,6 +525,12 @@ class battle_simulation(battlescape):
             soldier.set_short_rest_rearm()
             soldier.set_short_rest_heal()
             soldier.set_short_rest_restoration()
+            # Убираем бонусные хитпоинты (хотя они бывают разных типов):
+            if soldier.bonus_hitpoints:
+                soldier.set_hitpoints(bonus_hitpoints = 0)
+            # Друид возвращает облик человека:
+            if soldier.wild_shape:
+                soldier.return_old_form()
 
     def set_squad_battle_stat(self, attack_result, squad, attack_choice = None):
         """Подсчёт попадания, промахов и урона под каждый вид оружия."""
