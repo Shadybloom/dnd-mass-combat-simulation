@@ -8670,7 +8670,7 @@ metadict_chars['Warrior 3 lvl (враг) (демон Кема\'Эша)'] = {
 #----
 # Нейтралы (армии) (Бронзовые гоплиты Менона):
 
-metadict_chars['Warrior 4 lvl (Менон) (бронзовый гоплит)'] = {
+metadict_chars['Warrior 4 lvl (нейтрал) (бронзовый гоплит Менона)'] = {
     # Умертвие.
     'level':4,
     'char_class':'Warrior-officer',
@@ -8709,7 +8709,7 @@ metadict_chars['Warrior 4 lvl (Менон) (бронзовый гоплит)'] =
     #    },
     }
 
-metadict_chars['Warrior 5 lvl (Менон) (бронзовый гоплит-капитан)'] = {
+metadict_chars['Warrior 5 lvl (нейтрал) (бронзовый гоплит-капитан Менона)'] = {
     'level':5,
     'killer_AI':True,
     'carefull_AI':True,
@@ -8753,6 +8753,62 @@ metadict_chars['Warrior 5 lvl (Менон) (бронзовый гоплит-ка
     }
 
 #----
+# Нейтралы (герои) (Карагос):
+
+metadict_chars['Barbarian 9 lvl (нейтрал) (Карагос «Мудрый»)'] = {
+    'level':9,
+    'char_class':'Barbarian',
+    'hit_dice':'1d12',
+    'behavior':'commander',
+    'hitpoints_medial':True,
+    'abilityes':{
+        'strength':19,
+        'dexterity':18,
+        'constitution':19,
+        'intelligence':16,
+        'wisdom':18,
+        'charisma':18,
+        },
+    'class_features':{
+        # TODO:
+        # 1. сделай Fast_Movement (+10 футов скорости)
+        # 2. сделай Brutal_Critical (плюс кость урона при крите)
+        # 3. сделай Feral_Instinct (защищает от неожиданных атак)
+        # 4. сделай Mindless_Rage (защищает от очарования и страха)
+        'Feat_Great_Weapon_Master':True,
+        'Unarmored_Defense':True,
+        'Rage':True,
+        'Reckless_Attack':True,
+        'Danger_Sense':True,
+        'Primal_Path_Berserker':True,
+        'Berserker_Frenzy':True,
+        'Fast_Movement':True,
+        'Feral_Instinct':True,
+        'Mindless_Rage':True,
+        'Extra_Attack':True,
+        'Ability_Score_Improvement':{
+            'dexterity':+2,
+            'strength':+1,
+            'constitution':+1,
+            },
+        },
+    'race':'Human-hero',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':3,
+        'Sword of the Past':1,
+        },
+    #'mount_combat':False,
+    #'mount_type':'Warhorse',
+    #'equipment_mount':{
+    #    },
+    }
+
+#----
+# Злодеи (герои) (Радамант):
 
 metadict_chars['Barbarian 2 lvl (варвар Радаманта)'] = {
     'level':2,

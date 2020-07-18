@@ -24,6 +24,50 @@ metadict_squads['test 12 animals'] = {
     #'Empyrean (CR 23)':1,
     }
 
+metadict_squads['характеристики правителей'] = {
+    # Влом делать отдельно, так рольнём:
+        # 1 герой 5+ lvl на 16 героев 1 lvl
+        # 1 герой 7+ lvl на 62 героев 1 lvl
+        # 1 герой 9+ lvl на 250 героев 1 lvl
+    # Дер-Кето
+    # Cleric 1 lvl (city maatcarian-acolyte) sum:104 STR:16 DEX:18 CON:17 INT:17 WIS:19 CHA:17
+    #'Cleric 1 lvl (city maatcarian-acolyte)':250,
+    # Тинв:
+    # Wizard 2 lvl (city cat-weaver) sum:101 STR:14 DEX:19 CON:17 INT:19 WIS:16 CHA:16
+    #'Wizard 2 lvl (city cat-weaver)':250,
+    # Ри:
+    # Rogue 1 lvl (city cat-nyamo) sum:97 STR:12 DEX:20 CON:16 INT:17 WIS:15 CHA:17
+    #'Rogue 1 lvl (city cat-nyamo)':250,
+    # Акхен:
+    # Druid 1 lvl (otherworld terian-forester) sum:101 STR:12 DEX:19 CON:18 INT:18 WIS:19 CHA:15
+    #'Druid 1 lvl (otherworld terian-forester)':250,
+    # Кумар:
+    # Monk 1 lvl (city windsong-apprentice) sum:104 STR:17 DEX:19 CON:17 INT:16 WIS:18 CHA:17
+    #'Monk 1 lvl (city windsong-apprentice)':250,
+    # Карагос:
+    # Barbarian 1 lvl (thracian slayer-dogface) sum:108 STR:19 DEX:18 CON:19 INT:18 WIS:16 CHA:18
+    #'Barbarian 1 lvl (thracian slayer-dogface)':250,
+    # Накиями:
+    # Ranger 1 lvl (otherworld wanderer-scout) sum:101 STR:15 DEX:18 CON:15 INT:18 WIS:17 CHA:18
+    #'Ranger 1 lvl (otherworld wanderer-scout)':250,
+    # Крассиус:
+    # Bard 1 lvl (otherworld singer-follower) sum:95 STR:15 DEX:18 CON:10 INT:16 WIS:17 CHA:19
+    #'Bard 1 lvl (otherworld singer-follower)':250,
+    # Руна:
+    # Paladin 1 lvl (city sentry-sefet) sum:100 STR:18 DEX:16 CON:17 INT:17 WIS:15 CHA:17
+    #'Paladin 1 lvl (city sentry-sefet)':250,
+    # Чара:
+    # Warlock 1 lvl (otherworld seeker-follower) sum:97 STR:15 DEX:18 CON:16 INT:15 WIS:15 CHA:18
+    # Ашера:
+    # Empyrean (CR 23) sum:151 STR:30 DEX:21 CON:30 INT:21 WIS:22 CHA:27
+    # Менон:
+    # Wizard 1 lvl (otherworld mage-disciple) sum:100 STR:16 DEX:17 CON:17 INT:19 WIS:17 CHA:14
+    #'Wizard 1 lvl (otherworld mage-disciple)':1000,
+    # Кирос:
+    # Fighter 1 lvl (legionary sentinel-battler) sum:103 STR:19 DEX:17 CON:18 INT:16 WIS:16 CHA:17
+    #'Fighter 1 lvl (legionary sentinel-battler)':2000,
+    }
+
 metadict_squads['10 onagers (siege)'] = {
     'Warrior 3 lvl (siege engineer-apprentice) (onager-siege)':10,
     'Warrior 4 lvl (siege engineer-master)':1,
@@ -236,8 +280,8 @@ metadict_squads['Squad-hero (бронзовые гоплиты Менона) (н
     # Всего у Менона 110 бронзовых гоплитов:
     #'Warrior 4 lvl (Менон) (бронзовый гоплит)':80,
     #'Warrior 5 lvl (Менон) (бронзовый гоплит-капитан)':30,
-    'Warrior 4 lvl (Менон) (бронзовый гоплит)':10,
-    'Warrior 5 lvl (Менон) (бронзовый гоплит-капитан)':4,
+    'Warrior 4 lvl (нейтрал) (бронзовый гоплит Менона)':10,
+    'Warrior 5 lvl (нейтрал) (бронзовый гоплит-капитан Менона)':4,
     'Zombie (CR 1/4)':80 + dice_throw('1d12'),
     }
 
@@ -1071,6 +1115,14 @@ metadict_squads['Band-hero (paladins)'] = {
     #'Paladin 3 lvl (city sentry-imeyer)':6,
     #'Paladin 2 lvl (city sentry-weresefet)':6,
     'Paladin 1 lvl (city sentry-sefet)':6,
+    }
+
+#----
+# Герои (правители):
+
+metadict_squads['Squad-hero (варвары Карагоса) (нейтрал)'] = {
+    # Он потерял всю свою свиту.
+    'Barbarian 9 lvl (нейтрал) (Карагос «Мудрый»)':1,
     }
 
 #----
