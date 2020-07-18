@@ -529,7 +529,16 @@ if __name__ == '__main__':
             l_max = soldier.overload['normal_load (lb)'],
             ))
         #if soldier.hero:
-        #    print(soldier.abilityes, sum(soldier.abilityes.values()))
+        #    print('{r} sum:{s} STR:{str} DEX:{dex} CON:{con} INT:{int} WIS:{wis} CHA:{cha}'.format(
+        #        r = soldier.rank,
+        #        s = sum(soldier.abilityes.values()),
+        #        str = soldier.abilityes['strength'],
+        #        dex = soldier.abilityes['dexterity'],
+        #        con = soldier.abilityes['constitution'],
+        #        int = soldier.abilityes['intelligence'],
+        #        wis = soldier.abilityes['wisdom'],
+        #        cha = soldier.abilityes['charisma'],
+        #        ))
         #print(soldier.rank, soldier.abilityes['charisma'], sum(soldier.abilityes.values()))
         #print('---------------------')
         #for key, value in soldier.__dict__.items():
