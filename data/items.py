@@ -1161,6 +1161,14 @@ metadict_items['Rune of Absorbtion'] = {
     'cost (grams_of_gold)':60 * 4,
     }
 
+metadict_items['Infusion of Longstrider'] = {
+    'potion':True,
+    'effect':'longstrider',
+    'weight (lb)':1/2,
+    'cost (gp)':60,
+    'cost (grams_of_gold)':60,
+    }
+
 metadict_items['Rune of Shielding'] = {
     'potion':True,
     'effect':'shield',

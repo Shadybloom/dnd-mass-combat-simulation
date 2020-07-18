@@ -386,6 +386,8 @@ class soldier_in_battle(soldier):
         self.reaction = True
         self.move_action = True
         self.move_pool = self.base_speed
+        if  self.equipment_weapon.get('Infusion of Longstrider'):
+            self.move_pool +10
         if self.help_action:
             self.help_action = False
             self.battle_action = False
