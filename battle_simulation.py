@@ -276,7 +276,9 @@ class battle_simulation(battlescape):
                                 #soldier_tuple = self.namedtuple_soldier(side,behavior,uuid)
                                 soldier_tuple = (squad.ally_side, soldier.behavior, soldier.uuid)
                                 # Дополняем словарь поля боя и вырубаем цикл, так как спавн занят:
-                                if soldier.size == 'medium' or soldier.size == 'small':
+                                if soldier.size == 'medium'\
+                                        or soldier.size == 'small'\
+                                        or soldier.size == 'tiny':
                                     self.dict_battlespace[spawn_point.place].append(squad.ally_side)
                                     self.dict_battlespace[spawn_point.place].append(soldier_tuple)
                                 # Большие существа занимают 2x2 тайла:
@@ -1426,6 +1428,8 @@ class battle_simulation(battlescape):
         if 'danger' in soldier.commands\
                 and list(set(path) & set(squad.enemy_recon.get('danger_places',[]))):
             return False
+        #if 'free_path' in soldier.commands or soldier.__dict__.get('free_path'):
+        #    free_path = True
         if path:
             while path and soldier.move_pool > 0:
                 # Если ближайшая точка пути свободна, переходим на неё:
@@ -1442,24 +1446,32 @@ class battle_simulation(battlescape):
                     soldier.move(self.tile_size, place.rough)
                     self.change_place(prev_place, next_place, soldier.uuid)
                 # Если точка занята ездовым животным бойца, то можно двигаться:
-                elif not place.free and place.unit\
-                        and hasattr(soldier, 'mount_uuid')\
-                        and place.unit[1] == 'mount'\
-                        and place.unit[-1] == soldier.mount_uuid:
+                elif not place.free and place.units\
+                        and soldier.__dict__.get('mount_uuid')\
+                        and 'mount' in place.units[0]\
+                        and soldier.mount_uuid in place.units[0]:
+                    next_place = path.pop(0)
+                    prev_place = soldier.place
+                    soldier.move(self.tile_size, place.rough)
+                    self.change_place(prev_place, next_place, soldier.uuid)
+                # Если размер существа маленький, то их может быть по 4 на точке:
+                elif not place.free and place.units\
+                        and soldier.size == 'tiny'\
+                        and len(place.units) < 4:
                     next_place = path.pop(0)
                     prev_place = soldier.place
                     soldier.move(self.tile_size, place.rough)
                     self.change_place(prev_place, next_place, soldier.uuid)
                 # Если точка занята союзником, можно поменяться с ним местами:
-                elif not place.free and allow_replace and place.unit\
-                        and place.unit[0] == soldier.ally_side:
-                    unit_uuid = place.unit[-1]
+                elif not place.free and allow_replace and place.units\
+                        and soldier.ally_side in place.units[0]:
+                    unit_uuid = place.units[0][-1]
                     next_place = path.pop(0)
                     prev_place = soldier.place
                     soldier.move(self.tile_size, place.rough)
                     self.change_place(prev_place, next_place, soldier.uuid)
                     # Многотайловых лошадей не трогаем, мимо протискиваемся:
-                    if place.unit[1] != 'mount':
+                    if not 'mount' in place.units[0]:
                         self.change_place(next_place, prev_place, unit_uuid)
                 # Если точка занята кем-то, можно шагнуть по диагонали и вернуться на путь:
                 elif not place.free and allow_manoeuvre:
@@ -1495,7 +1507,9 @@ class battle_simulation(battlescape):
                 soldier = self.metadict_soldiers[soldier_uuid]
                 if hasattr(soldier, 'mount_uuid') and soldier.mount_uuid:
                     self.change_place_mount(coordinates, destination, soldier)
-                if soldier.size == 'medium' or soldier.size == 'small':
+                if soldier.size == 'medium'\
+                        or soldier.size == 'small'\
+                        or soldier.size == 'tiny':
                     self.dict_battlespace[coordinates].remove(el)
                     self.dict_battlespace[destination].append(soldier_tuple)
                     soldier.set_coordinates(destination)
@@ -2704,7 +2718,8 @@ class battle_simulation(battlescape):
                     uuid = el[-1]
                     soldier = self.metadict_soldiers[uuid]
                     if soldier.defeat and not soldier.__dict__.get('mechanism')\
-                            or soldier.death and soldier.__dict__.get('mechanism'):
+                            or soldier.death and soldier.__dict__.get('mechanism')\
+                            or soldier.defeat and soldier.__dict__.get('mechanism_tiny'):
                         content.remove(el)
                         #soldier.place = None
                         #if 'fall_place' in content and soldier.ally_side in content:

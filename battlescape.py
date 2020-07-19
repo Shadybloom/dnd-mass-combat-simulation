@@ -255,7 +255,7 @@ class battlescape():
     namedtuple_spawn = namedtuple('spawn',['place','zone','type'])
     namedtuple_target = namedtuple('target',['side','type','place','distance','cover','uuid'])
     namedtuple_visibility = namedtuple('visibility',['distance','cover','visibility'])
-    namedtuple_place = namedtuple('place',['place','free','rough','unit'])
+    namedtuple_place = namedtuple('place',['place','free','rough','units'])
 
     def create_battlespace(self, battle_map = None):
         """Рисунок поля боя в координатную плоскость.
@@ -665,32 +665,25 @@ class battlescape():
     def check_place(self, soldier, place):
         """Проверка, не занята ли точка на пути бойца."""
         # TODO: Допили проверку пересечённой местности. Или выведи в move_action.
+        unit_tuples = []
         for value in self.dict_battlespace[place]:
             if soldier.__dict__.get('water_walk') and value == 'water':
                 free_place = True
                 rough_place = False
-                soldier_tuple = None
                 break
             elif value == 'stop_terrain':
                 free_place = False
                 rough_place = True
-                soldier_tuple = None
                 break
             elif type(value) == tuple:
-                free_place = False
-                rough_place = True
-                soldier_tuple = value
-                break
-            #elif value == 'rough_terrain' or value == 'cover_terrain':
-            #    free_place = True
-            #    rough_place = True
-            #    soldier_tuple = None
-            #    break
+                unit_tuples.append(value)
             else:
                 free_place = True
                 rough_place = False
-                soldier_tuple = None
-        place_tuple = self.namedtuple_place(place, free_place, rough_place, soldier_tuple)
+        if unit_tuples:
+            free_place = False
+            rough_place = True
+        place_tuple = self.namedtuple_place(place, free_place, rough_place, unit_tuples)
         return place_tuple
 
     #def check_path(self, coordinates):
