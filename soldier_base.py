@@ -580,6 +580,11 @@ class soldier():
             light_load *= 2
             normal_load *= 2
             maximum_load *= 2
+        # Для маленьких существ переносимый вес вдвое меньше:
+        elif self.size == 'tiny':
+            light_load = round(light_load / 2)
+            normal_load = round(normal_load / 2)
+            maximum_load = round(maximum_load / 2)
         # В бою боец носит только оружие и доспехи:
         battle_overload = False
         battle_lightload = False
