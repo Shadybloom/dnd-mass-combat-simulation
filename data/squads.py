@@ -260,20 +260,27 @@ metadict_squads['Company-regular (дактили горы Ушур) (враг)']
 #----
 # Нейтралы. Призванные существа:
 
-metadict_squads['Company-regular (громовые птицы) (призванные)'] = {
+metadict_squads['Squad-regular (оживлённые вещи) (призванные)'] = {
+    # Заклинание 5 круга "Оживление вещей" (Animated_Objects)
+    # Homebrew: Можно анимировать 36 предметов с CR 1 на 10 минут.
+    'Animated swords (CR 1)':36,
+    'Trap (commander)':1,
+    }
+
+metadict_squads['Squad-regular (громовые птицы) (призванные)'] = {
     'Громовая птица (Thunderbird) (CR 1)':10,
     'Громовая птица-вожак (Thunderbird) (CR 1)':2,
     }
 
-metadict_squads['Company-regular (воздушные элементали) (призванные)'] = {
+metadict_squads['Squad-regular (воздушные элементали) (призванные)'] = {
     'Air Elemental (CR 5)':6,
     }
 
-metadict_squads['Company-regular (земляные элементали) (призванные)'] = {
+metadict_squads['Squad-regular (земляные элементали) (призванные)'] = {
     'Earth Elemental (CR 5)':6,
     }
 
-metadict_squads['Company-regular (гигантские осьминоги) (призванные)'] = {
+metadict_squads['Squad-regular (гигантские осьминоги) (призванные)'] = {
     'Giant Octopus (CR 1)':10,
     'Giant Octopus (commander) (CR 1)':2,
     }

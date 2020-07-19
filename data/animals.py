@@ -623,6 +623,8 @@ metadict_animals['Weather (storm-god)'] = {
 metadict_animals['Trap (commander)'] = {
     'level':5,
     'volley_AI':True,
+    'fearless_AI':True,
+    'no_grappler_AI':True,
     #'inactive_AI':True,
     'challenge_rating':'-',
     'char_class':'Commoner',
@@ -1264,6 +1266,9 @@ metadict_animals['Wight (CR 3)'] = {
     'equipment_backpack':{},
     'equipment_supply':{},
     }
+
+#----
+# Призванные существа, элементали:
 
 metadict_animals['Air Elemental (CR 5)'] = {
     'level':12,
@@ -2764,4 +2769,41 @@ metadict_animals['Громовая птица-вожак (Thunderbird) (CR 1)'] 
     'equipment_supply':{},
     'equipment_backpack':{},
     'equipment_weapon':{},
+    }
+
+#----
+# Homebrew: Оживлённые вещи.
+
+metadict_animals['Animated swords (CR 1)'] = {
+    # Заклинание 5 круга "Оживление вещей" (Animated_Objects)
+    'level':9,
+    'killer_AI':True,
+    'seeker_AI':True,
+    'fearless_AI':True,
+    'no_grappler_AI':True,
+    'air_walk':True,
+    'water_walk':True,
+    'mechanism':True,
+    'mechanism_tiny':True,
+    'challenge_rating':'1',
+    'behavior':'elite_warrior',
+    'char_class':'Warrior',
+    'hitpoints_base':20,
+    'abilityes':{
+        'strength':4,
+        'dexterity':18,
+        'constitution':10,
+        'intelligence':3,
+        'wisdom':3,
+        'charisma':1,
+        },
+    'hit_dice':'1d4',
+    'race':'Object-steel-tiny',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Scimitar':1,
+        },
     }
