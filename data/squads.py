@@ -297,6 +297,12 @@ metadict_squads['Squad-hero (бронзовые гоплиты Менона) (н
     'Zombie (CR 1/4)':80 + dice_throw('1d12'),
     }
 
+metadict_squads['Squad-hero (зомби Менона) (нейтрал)'] = {
+    # Зомби под Danse_Macabre с +5 атаки и +9 урона.
+    'Zombie (Danse_Macabre) (CR 1/2)':60,
+    'Trap (commander)':1,
+    }
+
 #----
 # Друзья (битва за Лемнос):
 

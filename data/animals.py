@@ -623,6 +623,7 @@ metadict_animals['Weather (storm-god)'] = {
 metadict_animals['Trap (commander)'] = {
     'level':5,
     'volley_AI':True,
+    'seeker_AI':True,
     'fearless_AI':True,
     'no_grappler_AI':True,
     #'inactive_AI':True,
@@ -1173,10 +1174,10 @@ metadict_animals['Mastiff, big-dog (CR 1/2)'] = {
 metadict_animals['Zombie (CR 1/4)'] = {
     # Зомби.
     'level':3,
+    'fearless_AI':True,
     'challenge_rating':'1/4',
     'char_class':'Commoner',
     'behavior':'warrior',
-    'fearless_AI':True,
     'hitpoints_medial':True,
     #'grappler_AI':True,
     #'predator_AI':True,
@@ -1212,6 +1213,58 @@ metadict_animals['Zombie (CR 1/4)'] = {
     'armor_skill':['light','medium','heavy','shield'],
     'equipment_weapon':{
         #'Ring Mail':1,
+        },
+    'equipment_backpack':{},
+    'equipment_supply':{},
+    }
+
+metadict_animals['Zombie (Danse_Macabre) (CR 1/2)'] = {
+    # TODO: сделай помеху атакам, если броня тяжелее лёгкой.
+    # Зомби с кучей усилений.
+    'level':3,
+    'killer_AI':True,
+    'predator_AI':True,
+    'fearless_AI':True,
+    'bonus_hitpoints':10,
+    'challenge_rating':'1/2',
+    #'squad_disadvantage':True,
+    'char_class':'Commoner',
+    'behavior':'warrior',
+    'hitpoints_medial':True,
+    'class_features':{
+        'Undead_Fortitude':True,
+        },
+    'abilityes':{
+        'strength':13,
+        'dexterity':6,
+        'constitution':16,
+        'intelligence':3,
+        'wisdom':6,
+        'charisma':5,
+        },
+    'hit_dice':'1d8',
+    'attacks':{
+        ('close', 'grasp'): {
+            # +5 атаки/урона от Danse_Macabre
+            # +4 урона от школы некромантии
+            'attack_mod':3 + 5,
+            'damage_mod':1 + 5 + 4,
+            'weapon': False,
+            'weapon_type':['simple'],
+            'damage_type':'bludgeoning',
+            'damage_dice':'1d6',
+            'attack_range':5,
+            'attack_type':'close',
+            'weapon_skills_use': ['simple'],
+            'attack_mod_type':'strength',
+            'weapon_of_choice':'grasp'},
+        },
+    'race':'Human-undead',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_weapon':{
+        #'Ring Mail':1,
+        'Studded Leather':1,
         },
     'equipment_backpack':{},
     'equipment_supply':{},
@@ -2784,7 +2837,7 @@ metadict_animals['Animated swords (CR 1)'] = {
     'air_walk':True,
     'water_walk':True,
     'mechanism':True,
-    'mechanism_tiny':True,
+    'mechanism_construct':True,
     'challenge_rating':'1',
     'behavior':'elite_warrior',
     'char_class':'Warrior',
