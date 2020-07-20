@@ -2719,7 +2719,7 @@ class battle_simulation(battlescape):
                     soldier = self.metadict_soldiers[uuid]
                     if soldier.defeat and not soldier.__dict__.get('mechanism')\
                             or soldier.death and soldier.__dict__.get('mechanism')\
-                            or soldier.defeat and soldier.__dict__.get('mechanism_tiny'):
+                            or soldier.defeat and soldier.__dict__.get('mechanism_construct'):
                         content.remove(el)
                         #soldier.place = None
                         #if 'fall_place' in content and soldier.ally_side in content:
