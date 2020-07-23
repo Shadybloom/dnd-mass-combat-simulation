@@ -692,14 +692,13 @@ class battle_simulation(battlescape):
 
     def commanders_to_list(self, squad):
         """Командиры возвращают свои координаты и уровень опасности рядом."""
-        #commanders_list = [soldier for soldier in squad.metadict_soldiers.values()\
-        #        if soldier.behavior == 'commander']
         commanders_list = []
         for uuid, soldier in squad.metadict_soldiers.items():
-            if hasattr(soldier, 'place')\
+            if hasattr(soldier, 'place') and soldier.place\
                     and soldier.hitpoints > 0\
                     and soldier.behavior == 'commander'\
-                    and soldier.escape != True:
+                    and soldier.escape != True\
+                    and soldier.defeat != True:
                 commander_tuple = self.namedtuple_commander(soldier.place,soldier.danger,soldier.uuid)
                 commanders_list.append(commander_tuple)
         return commanders_list
