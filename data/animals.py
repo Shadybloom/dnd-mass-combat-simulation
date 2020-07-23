@@ -2860,3 +2860,53 @@ metadict_animals['Animated swords (CR 1)'] = {
         'Scimitar':1,
         },
     }
+
+metadict_animals['Mordenkainen Sword (CR 10)'] = {
+    # Заклинание 7 круга "Меч Морденкайнена" (Mordenkainen_Sword)
+    'level':13,
+    'hunter_AI':True,
+    #'predator_AI':True,
+    'fearless_AI':True,
+    'no_grappler_AI':True,
+    'air_walk':True,
+    'water_walk':True,
+    'mechanism':True,
+    'mechanism_construct':True,
+    'challenge_rating':'10',
+    'behavior':'commander',
+    'char_class':'Warrior',
+    'class_features':{
+        #'Extra_Attack':True,
+        'Empyrean_Immunity':True,
+        },
+    'hitpoints_base':1200,
+    'abilityes':{
+        'strength':10,
+        'dexterity':20,
+        'constitution':10,
+        'intelligence':3,
+        'wisdom':3,
+        'charisma':1,
+        },
+    'hit_dice':'1d4',
+    'attacks':{
+        ('close', 'Mordenkainen Sword'): {
+            'attack_mod':12,
+            'damage_mod':0,
+            'weapon': True,
+            'weapon_type':['martial', 'close', 'magic'],
+            'damage_type':'force',
+            'damage_dice':'7d10',
+            'attack_range':5,
+            'attack_type':'close',
+            'weapon_skills_use': ['martial'],
+            'attack_mod_type':'dexterity',
+            'weapon_of_choice':'Mordenkainen Sword'},
+        },
+    'race':'Object-force-tiny',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{},
+    }

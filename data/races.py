@@ -264,4 +264,15 @@ dict_races = {
             'weight_base_lb':4,
             'weight_mod_dice':'1d2',
             },
+        'Object-force-tiny':{
+            # Меч Морденкайнена.
+            'hero':False,
+            'size':'tiny',
+            'base_speed':60,
+            'armor_class_natural':14,
+            'height_base_inches':12,
+            'height_mod_dice':'1d2',
+            'weight_base_lb':4,
+            'weight_mod_dice':'1d2',
+            },
         }

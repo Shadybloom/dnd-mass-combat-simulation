@@ -267,6 +267,10 @@ metadict_squads['Squad-regular (оживлённые вещи) (призванн
     'Trap (commander)':1,
     }
 
+metadict_squads['Squad-regular (меч Морденкайнена) (призванные)'] = {
+    'Mordenkainen Sword (CR 10)':1,
+    }
+
 metadict_squads['Squad-regular (громовые птицы) (призванные)'] = {
     'Громовая птица (Thunderbird) (CR 1)':10,
     'Громовая птица-вожак (Thunderbird) (CR 1)':2,
