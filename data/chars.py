@@ -8042,7 +8042,10 @@ metadict_chars['Ranger 2 lvl (Gogan) (следопыт Сакатра)'] = {
     }
 
 metadict_chars['Ranger 7 lvl (Gogan) (Сакатр Ка-Ален)'] = {
+    # TODO: brave_AI отражает выбор способности следопыта Стальная воля.
+    # Потом сделай по-нормальному Hunter_Steel_Will.
     'level':7,
+    'brave_AI':True,
     #'killer_AI':True,
     'char_class':'Ranger',
     'hit_dice':'1d10',
@@ -8057,7 +8060,7 @@ metadict_chars['Ranger 7 lvl (Gogan) (Сакатр Ка-Ален)'] = {
         'charisma':17,
         },
     'class_features':{
-        # TODO: добавь "Оборонительную тактику" следопыта, какую выберет Сакатр.
+        # TODO: Сделай Hunter_Steel_Will -- преимущество на спасброски против испуга
         'Feat_Sharpshooter':True,
         'Favored_Enemy':['humans', 'sea_monsters'],
         'Natural_Explorer':['sea', 'coast'],
@@ -8075,6 +8078,7 @@ metadict_chars['Ranger 7 lvl (Gogan) (Сакатр Ка-Ален)'] = {
         'Primeval_Awareness':True,
         'Ranger_Archetype_Hunter':True,
         'Hunter_Horde_Breaker':True,
+        'Hunter_Steel_Will':True,
         'Extra_Attack':True,
         },
     'race':'Human-hero',
