@@ -146,6 +146,7 @@ class soldier_in_battle(soldier):
         self.defeat = False
         self.escape = False
         self.prone = False
+        self.stunned = False
         self.grappled = False
         self.restained = False
         self.concentration = False
@@ -381,16 +382,17 @@ class soldier_in_battle(soldier):
         else:
             self.fall = False
         # Даём боевые действия и пул движения:
-        self.battle_action = True
-        self.bonus_action = True
-        self.reaction = True
-        self.move_action = True
-        self.move_pool = self.base_speed
-        if  self.equipment_weapon.get('Infusion of Longstrider'):
-            self.move_pool +10
-        if self.help_action:
-            self.help_action = False
-            self.battle_action = False
+        if not self.stunned and not self.sleep:
+            self.battle_action = True
+            self.bonus_action = True
+            self.reaction = True
+            self.move_action = True
+            self.move_pool = self.base_speed
+            if  self.equipment_weapon.get('Infusion of Longstrider'):
+                self.move_pool +10
+            if self.help_action:
+                self.help_action = False
+                self.battle_action = False
         # Отключаем манёвры пршлого хода:
         self.dash_action = False # это ускорение до x2 скорости за счёт battle_action.
         self.dodge_action = False # это disadvantage для врагов за счёт battle_action.
@@ -417,6 +419,12 @@ class soldier_in_battle(soldier):
                 self.set_grapple_break()
             elif self.restained:
                 self.set_restained_break()
+        if self.stunned:
+            if self.stunned_timer > 0:
+                self.stunned_timer -= 1
+            elif self.stunned_timer == 0:
+                self.stunned = False
+                self.stunned_difficult = None
         # Упавший встаёт на ноги (если он не схвачен):
         if self.prone == True and not self.grappled:
             self.move_pool = self.move_pool / 2
@@ -724,6 +732,7 @@ class soldier_in_battle(soldier):
                 attack_choice = ('close','unarmed')
                 attacks_chain_bonus.append(attack_choice)
                 attacks_chain_bonus.append(attack_choice)
+                # TODO: исправить
                 # После первого применения добавляется ко всем рукопашным атакам:
                 if self.class_features.get('Open_Hand_Technique'):
                     self.attacks[attack_choice]['Open_Hand_Technique'] = True
@@ -733,6 +742,23 @@ class soldier_in_battle(soldier):
                 attack_choice = ('close','unarmed')
                 attacks_chain_bonus.append(attack_choice)
         return attacks_chain_bonus
+
+    def set_stunnign_strike(self, enemy_soldier, attack_dict):
+        """Монах использует оглушающую атаку.
+
+        - Если противник не оглушён.
+        - Если есть на это свободные Ки.
+        - Если противник достаточно опасен.
+        
+        Возвращает сложность спасброска.
+        """
+        if self.class_features.get('Stunning_Strike')\
+                and enemy_soldier.behavior == 'commander'\
+                and not enemy_soldier.stunned:
+            if hasattr(self, 'ki_points') and self.ki_points > 0:
+                self.ki_points -= 1
+                stunned_difficult = 8 + self.proficiency_bonus + self.mods['wisdom']
+                return stunned_difficult
 
     def set_initiative(self):
         """Бросок инициативы делается в начале боя.
@@ -1062,6 +1088,7 @@ class soldier_in_battle(soldier):
         https://www.dandwiki.com/wiki/5e_SRD:Conditions#Prone
         https://www.dandwiki.com/wiki/5e_SRD:Movement_and_Position#Being_Prone
         """
+        # TODO: исправь опечатку savethrow_adavantage --> savethrow_advantage
         prone_difficul = dices.dice_throw_advantage('1d20', advantage, disadvantage)\
                 + enemy_soldier.mods['dexterity'] + enemy_soldier.proficiency_bonus
         if self.saves['strength'] >= self.saves['dexterity']:
@@ -1090,6 +1117,29 @@ class soldier_in_battle(soldier):
         if restained_savethrow <= restained_difficult:
             self.restained = True
             self.restained_difficult = restained_difficult
+            return True
+        else:
+            return False
+
+    def set_stunned(self, stunned_difficult, stunned_timer = 1, advantage = False, disadvantage = False):
+        """Бойца пытаются оглушить.
+        
+        - Ошеломлённое существо недееспособно (не может совершать действия и реакции)
+        - Проваливает все спасброски силы и ловкости
+        - Броски атаки по существу с преимуществом
+
+        Спасбросок телосложения:
+        # https://www.dandwiki.com/wiki/5e_SRD:Conditions#Stunned
+        # https://www.dandwiki.com/wiki/5e_SRD:Conditions#Incapacitated
+        """
+        # TODO: сделай провал спасбросков силы и ловкости.
+        savethrow_adavantage = self.check_savethrow_advantage('constitution')
+        stunned_savethrow = dices.dice_throw_advantage('1d20', savethrow_adavantage)\
+                + self.saves['constitution']
+        if stunned_savethrow <= stunned_difficult:
+            self.stunned = True
+            self.stunned_difficult = stunned_difficult
+            self.stunned_timer = stunned_timer
             return True
         else:
             return False
@@ -1889,19 +1939,24 @@ class soldier_in_battle(soldier):
         # Если атака прошла, переходим к расчёту ранений:
         attack_dict.update(result)
         if attack_dict['hit'] == True:
-            attack_dict = self.take_damage(attack_choice, attack_dict, metadict_soldiers)
-            # TODO: способность не используется.
+            enemy_soldier = metadict_soldiers[attack_dict['sender_uuid']]
+            if enemy_soldier.class_features.get('Stunning_Strike'):
+                # enemy_soldier -- атакующий монах; 'self' -- получающий удар боец.
+                stunned_difficult = enemy_soldier.set_stunnign_strike(self, attack_dict)
+                if stunned_difficult:
+                    self.set_stunned(stunned_difficult)
+            # TODO: способность не используется из-за предпочтения захватов.
             # ------------------------------------------------------------
             # Монахи сначала пытаются сбить с ног. Сбивание, захват, удары.
             # Выбивание реакции тем не менее полезно, если враг щитовик.
             # ------------------------------------------------------------
             # Атака монаха может сбить с ног:
-            if 'Open_Hand_Technique' in attack_dict and self.prone == False:
-                enemy_soldier = metadict_soldiers[attack_dict['sender_uuid']]
+            elif 'Open_Hand_Technique' in attack_dict and self.prone == False:
                 attack_dict['fall_prone'] = self.set_fall_prone(enemy_soldier)
             # Или лишить реакции:
             elif 'Open_Hand_Technique' in attack_dict and self.prone == True:
                 self.reaction = False
+            attack_dict = self.take_damage(attack_choice, attack_dict, metadict_soldiers)
         return attack_dict
 
     def take_damage(self, attack_choice, attack_dict, metadict_soldiers):

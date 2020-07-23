@@ -1705,15 +1705,16 @@ class battle_simulation(battlescape):
                     attacks_chain_bonus += attack_choice
                     soldier.bonus_action = False
                     soldier.war_priest -= 1
+            # Монахи усиливают атаку за счёт Ки:
+            if soldier.class_features.get('Martial_Arts'):
+                if attack_choice[0] == 'close':
+                    attacks_chain_bonus = soldier.set_martial_arts()
             # Варвары добавляют бонусы ярости:
             if soldier.char_class == 'Barbarian':
                 if attack_choice[0] == 'close':
                     soldier.set_rage()
                 if attack_choice[0] == 'close' and danger_offence:
                     attacks_chain_bonus = soldier.set_frenzy(attack_choice)
-            elif soldier.char_class == 'Monk':
-                if attack_choice[0] == 'close':
-                    attacks_chain_bonus = soldier.set_martial_arts()
             # Роги умело выбивают командиров:
             # TODO: для этого теперь есть команда "select_strongest".
             #elif soldier.char_class == 'Rogue':
@@ -2380,6 +2381,9 @@ class battle_simulation(battlescape):
         # Homebrew, солдаты без умения плавать уязвимы:
         if not enemy_soldier.water_walk\
                 and 'water' in self.dict_battlespace[enemy_soldier.place]:
+            advantage = True
+        # Ошеломлённый уязвим:
+        if enemy_soldier.stunned:
             advantage = True
         # Опутанный крайне уязвим:
         if enemy_soldier.restained == True:
