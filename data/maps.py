@@ -143,8 +143,11 @@ peace_map = (
         '.....!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!.....',
         )
 
-capture_map = (
-        # Захват пленных
+enslave_map = (
+        # Захват пленных:
+        # fearless seek select_strongest enslave grapple -volley auto
+        # Если сдаются:
+        # -attack -spellcast -volley -engage auto
         '.....!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!.....',
         '.....!..................................................!.....',
         '.....!MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM!.....',
