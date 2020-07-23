@@ -925,6 +925,8 @@ class battle_simulation(battlescape):
                 commands_list = []
                 commands_list.append('inactive')
             # Бесстрашные создания бесстрашны, зато трусоватые спасают своих:
+            if squad.commander.__dict__.get('brave_AI'):
+                commands_list.append('brave')
             if squad.commander.__dict__.get('fearless_AI'):
                 commands_list.append('fearless')
             else:
@@ -954,8 +956,6 @@ class battle_simulation(battlescape):
                 commands_list.append('change')
             # Лучники и метатели дротиков должны чуть что отступать:
             if squad.behavior == 'archer':
-                commands_list.append('spellcast')
-                #commands_list.append('fireball')
                 if commander.class_features.get('Feat_Sharpshooter'):
                     commands_list.append('volley')
                 if 'engage' in commands_list:
@@ -1117,18 +1117,20 @@ class battle_simulation(battlescape):
                     or 'ranged' in squad.enemy_recon['attacks']:
                 self.sneak_action(soldier, squad, enemy)
         # Атака следует за 'engage', поэтому осматриваемся снова:
-        if 'attack' in soldier.commands and enemy:
+        if 'attack' in soldier.commands:
             self.recon_action(soldier, squad)
-            if soldier.danger <= 0 or 'fearless' in soldier.commands:
-                self.attack_action(soldier, squad, enemy)
-                if 'engage' in soldier.commands\
-                        and not 'dodge' in soldier.commands\
-                        and not 'disengage' in soldier.commands:
-                    self.engage_action(soldier, squad, enemy.place)
-            # Удвоенный ход бойца:
-            if soldier.action_surge and len(soldier.near_enemies) >= 2:
-                if soldier.set_action_surge():
-                    self.round_run_soldier(soldier, squad)
+            enemy = self.find_enemy(soldier, squad)
+            if enemy:
+                if soldier.danger <= 0 or 'fearless' in soldier.commands:
+                    self.attack_action(soldier, squad, enemy)
+                    if 'engage' in soldier.commands\
+                            and not 'dodge' in soldier.commands\
+                            and not 'disengage' in soldier.commands:
+                        self.engage_action(soldier, squad, enemy.place)
+                # Удвоенный ход бойца:
+                if soldier.action_surge and len(soldier.near_enemies) >= 2:
+                    if soldier.set_action_surge():
+                        self.round_run_soldier(soldier, squad)
         # Не видя врага, лучники стреляют навесом:
         if 'volley' in soldier.commands and not enemy:
             self.volley_action(soldier, squad)
@@ -1646,7 +1648,10 @@ class battle_simulation(battlescape):
                 target = random.choice(self.point_to_field(target, round(distance / 5)))
             elif hasattr(soldier, 'place_in_order') and soldier.place_in_order:
                 target_point = [c1 + c2 for c1, c2 in zip(target, soldier.place_in_order)]
-                target = random.choice(self.point_to_field(target_point, round(distance / 10)))
+                if target_point and len(target_point) > 0 and distance:
+                    target = random.choice(self.point_to_field(target_point, round(distance / 10)))
+                else:
+                    target = random.choice(self.point_to_field(target, round(distance / 10)))
             else:
                 target = random.choice(self.point_to_field(target, round(distance / 10)))
             target = tuple(target)
@@ -1747,6 +1752,7 @@ class battle_simulation(battlescape):
                     if len(soldier.near_allies) > 2\
                             and len(soldier.near_enemies) == 1\
                             and not enemy_soldier.size == 'large'\
+                            and not enemy_soldier.__dict__.get('air_walk')\
                             or 'grapple' in soldier.commands\
                             or enemy_soldier.sleep:
                         wrestling_action = self.wrestling_action(soldier, squad,
@@ -1853,14 +1859,14 @@ class battle_simulation(battlescape):
                         soldier.victories += 1
                     enemy_soldier.defeats += 1
                     enemy_soldier.prone = True
-                    if attack_result['crit']:
+                    if attack_result['crit'] and not 'unarmed' in soldier.commands:
                         enemy_soldier.disabled = True
                     # Врага можно повязать за счёт боевого действия следующего раунда, если таков приказ: 
                     if 'enslave' in soldier.commands:
                         wrestling_action = self.wrestling_action(soldier, squad,
                                 enemy_soldier, advantage, disadvantage)
-                        enemy_soldier.captured = True
                         soldier.help_action = False
+                        enemy_soldier.captured = True
                     # Колдун с Dark_One\'s_Blessing получает бонусные хиты:
                     if soldier.class_features.get('Dark_One\'s_Blessing'):
                         bonus_hitpoints_bless = soldier.mods['charisma'] + soldier.level
@@ -2249,6 +2255,8 @@ class battle_simulation(battlescape):
                     soldier.destructive_wrath = False
             # Зональное заклинание поражает цели:
             for enemy in targets:
+                if spell_dict.get('safe'):
+                    safe = spell_dict['safe']
                 if safe and enemy.side in soldier.ally_side:
                     continue
                 # Вызов страа от паладинского Dreadful_Aspect
@@ -2486,6 +2494,9 @@ class battle_simulation(battlescape):
         """
         if soldier.near_enemies:
             return soldier.select_enemy(soldier.near_enemies)
+        # Если приказано брать пленных, то дальнее оружие не используем.
+        elif 'enslave' in soldier.commands and not soldier.near_enemies:
+            return None
         if 'reach' in [attack[0] for attack in soldier.attacks]:
             near_enemies = self.find_enemies_near(soldier, distance = 2)
             if near_enemies:
@@ -2685,6 +2696,11 @@ class battle_simulation(battlescape):
                 and not soldier.__dict__.get('mechanism'):
             if soldier.equipment_weapon.get('Infusion of Healing'):
                 soldier.stable = soldier.use_potion_of_healing(use_battle_action = False)
+                if soldier.stable\
+                        and 'fall_place' in self.dict_battlespace[soldier.place]\
+                        and soldier.ally_side in self.dict_battlespace[soldier.place]:
+                    self.dict_battlespace[soldier.place].remove('fall_place')
+                    self.dict_battlespace[soldier.place].remove(soldier.ally_side)
             else:
                 for healer in self.metadict_soldiers.values():
                     if healer.ally_side == soldier.ally_side and hasattr(healer, 'spells')\
