@@ -1432,8 +1432,8 @@ class battle_simulation(battlescape):
         if 'danger' in soldier.commands\
                 and list(set(path) & set(squad.enemy_recon.get('danger_places',[]))):
             return False
-        #if 'free_path' in soldier.commands or soldier.__dict__.get('free_path'):
-        #    free_path = True
+        if 'free_path' in soldier.commands or soldier.__dict__.get('air_walk'):
+            free_path = True
         if path:
             while path and soldier.move_pool > 0:
                 # Если ближайшая точка пути свободна, переходим на неё:
