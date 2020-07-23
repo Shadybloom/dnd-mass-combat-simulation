@@ -956,7 +956,7 @@ class battle_simulation(battlescape):
             if squad.commander.__dict__.get('changer_AI'):
                 commands_list.append('change')
             # Лучники и метатели дротиков должны чуть что отступать:
-            if squad.behavior == 'archer':
+            if squad.behavior == 'archer' or squad.commander.__dict__.get('archer_AI'):
                 if commander.class_features.get('Feat_Sharpshooter'):
                     commands_list.append('volley')
                 if 'engage' in commands_list:

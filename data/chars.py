@@ -7521,12 +7521,13 @@ metadict_chars['Fighter 5 lvl (Mordodrukow) (Лонгин)'] = {
     # Лучник, мастер боевых искусств
     # Талант: "Идеальное взаимодействие". Преимущество командиру, помеха врагу.
     'level':5,
+    'archer_AI':True,
+    'killer_AI':True,
+    'commando_AI':True,
     'char_class':'Battlemaster-archer',
     'hit_dice':'1d10',
     'behavior':'commander',
     'squad_advantage':True,
-    'killer_AI':True,
-    'commando_AI':True,
     'hitpoints_medial':True,
     'abilityes':{
         'strength':13,
