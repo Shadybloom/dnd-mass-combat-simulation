@@ -322,6 +322,11 @@ class soldier_in_battle(soldier):
                     else:
                         self.spellslots['1_lvl'] = 1
                         self.sorcery_points -= 2
+            # Shadow_Arts позволяет монаху-теневику колдовать за счёт Ки:
+            if self.class_features.get('Shadow_Arts'):
+                if self.ki_points >= 2 and not self.spellslots.get('2_lvl'):
+                    self.spellslots['2_lvl'] = 1
+                    self.ki_points -= 2
         # Используем заклинания перед боем:
         # TODO: перенеси это в отдельную функцию, чтобы сочетать с командами вроде "spellcast" и "channel"
         # Очевидно, функция должна исполняться, когда командиром уже выбраны команды отряду.

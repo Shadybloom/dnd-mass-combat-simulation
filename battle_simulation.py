@@ -1146,16 +1146,20 @@ class battle_simulation(battlescape):
             self.dodge_action(soldier)
 
     def sneak_action(self, soldier, squad, enemy):
-        """Боец прячется с помощью "Туманного облака".
+        """Боец прячется с помощью "Туманного облака" или "Темноты"
         
         - осьминожки прячутся в "Чернильном облаке"
         """
         # Чернильное облако осьминожек:
-        if 'spellcast' in soldier.commands\
-                and soldier.spells_generator.find_spell('Fog_Cloud')\
+        if 'spellcast' in soldier.commands:
+            if soldier.spells_generator.find_spell('Fog_Cloud')\
                 and not 'obscure_terrain' in self.dict_battlespace[soldier.place]:
-            spell_choice = soldier.spells_generator.find_spell('Fog_Cloud')
-            self.spellcast_action(soldier, squad, enemy, spell_choice)
+                spell_choice = soldier.spells_generator.find_spell('Fog_Cloud')
+                self.spellcast_action(soldier, squad, enemy, spell_choice)
+            elif soldier.spells_generator.find_spell('Darkness')\
+                and not 'obscure_terrain' in self.dict_battlespace[soldier.place]:
+                spell_choice = soldier.spells_generator.find_spell('Darkness')
+                self.spellcast_action(soldier, squad, enemy, spell_choice)
         if soldier.__dict__.get('ink_cloud') and soldier.near_enemies:
             zone_radius = round(soldier.ink_cloud_radius / self.tile_size)
             zone_list = self.point_to_field(soldier.place, zone_radius)
