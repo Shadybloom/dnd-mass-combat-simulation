@@ -954,6 +954,7 @@ class soldier_in_battle(soldier):
         # TODO: есть мнение, что лечение эссенцией слишком сильное.
         # Варвар с x3 лечилками восстанавливает аж 90 хитов.
         # Когда паладин с его Lay_on_Hands получает всего 25 хитов.
+        # TODO: У солдата с плюсовыми хитпоинтами должен исчезать статус defeat
         if self.battle_action or use_battle_action == False:
             if self.equipment_weapon.get('Infusion of Healing', 0) > 0:
                 self.equipment_weapon['Infusion of Healing'] -= 1
@@ -1366,6 +1367,9 @@ class soldier_in_battle(soldier):
         if distance <= 1 and 'close' in [attack[0] for attack in self.attacks]:
             close_attack_list = [attack for attack in self.attacks if attack[0] == 'close'
                     and attack[1] == self.attacks[attack]['weapon_of_choice']]
+            if 'unarmed' in self.commands:
+                close_attack_list = [attack for attack in self.attacks if attack[0] == 'close'
+                        and attack[1] == 'unarmed']
             if close_attack_list:
                 close_attack = random.choice(close_attack_list)
                 return close_attack

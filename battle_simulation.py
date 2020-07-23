@@ -903,6 +903,8 @@ class battle_simulation(battlescape):
             # Захват пленных:
             if squad.commander.__dict__.get('enslave_AI'):
                 commands_list.append('enslave')
+                if squad.commander.__dict__.get('unarmed_AI'):
+                    commands_list.append('unarmed')
             # Скрытные командиры прячутся за "Fog_Cloud":
             # Осторожный командир позволяет раненым отступать:
             if squad.commander.__dict__.get('carefull_AI'):
