@@ -1060,6 +1060,10 @@ class soldier():
                 # Сравниваем кость атаки Martial_Arts и оружия, выбираем наибольший диапазон:
                 if int(damage_dice.split('d')[1]) < int(martial_arts_dice.split('d')[1]):
                     damage_dice =  martial_arts_dice
+        # Рукопашные атаки монаха 6+ lvl считаются магическими. Преодолевают сопротивление урону.
+        if class_features.get('Ki_Empowered_Strikes') and dict_attack['attack_type'] == 'close'\
+                and not dict_attack.get('weapon') and not 'magic' in dict_attack['weapon_type']:
+            dict_attack['weapon_type'].append('magic')
         # Специализации:
         # Улучшенные критические попадания бойца-чемпиона:
         if class_features.get('Champion_Improved_Critical'):
