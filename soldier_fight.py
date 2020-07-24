@@ -776,9 +776,9 @@ class soldier_in_battle(soldier):
         initiative = dices.dice_throw('1d20') + self.mods['dexterity']
         if self.class_features.get('Feat_Alert'):
             initiative += 5
-        # Homebrew: талант "Идеальное взаимодействие". Всегда первый ход.
+        # Homebrew: талант "Идеальное взаимодействие".
         if self.__dict__.get('squad_advantage'):
-            initiative += 100
+            initiative += 10
         self.initiative = initiative
 
     def set_coordinates(self, place):
@@ -1653,7 +1653,7 @@ class soldier_in_battle(soldier):
                 superiority_use = True
                 fear = enemy_soldier.set_fear(self, 8 + max(self.mods.values()))
                 if fear:
-                    print('{side_1}, {c1} {s} FEAR >> {side_2} {c2} {e}'.format(
+                    print('[+++] {side_1}, {c1} {s} FEAR >> {side_2} {c2} {e}'.format(
                         side_1 = self.ally_side,
                         c1 = self.place,
                         s = self.behavior,
@@ -1950,8 +1950,18 @@ class soldier_in_battle(soldier):
             if enemy_soldier.class_features.get('Stunning_Strike'):
                 # enemy_soldier -- атакующий монах; 'self' -- получающий удар боец.
                 stunned_difficult = enemy_soldier.set_stunnign_strike(self, attack_dict)
+                stunned = False
                 if stunned_difficult:
-                    self.set_stunned(stunned_difficult)
+                    stunned = self.set_stunned(stunned_difficult)
+                    if stunned:
+                        print('[+++] {side_1}, {c1} {s} STUNNED >> {side_2} {c2} {e}'.format(
+                            side_1 = enemy_soldier.ally_side,
+                            c1 = enemy_soldier.place,
+                            s = enemy_soldier.behavior,
+                            side_2 = self.ally_side,
+                            c2 = self.place,
+                            e = self.behavior,
+                            ))
             # TODO: способность не используется из-за предпочтения захватов.
             # ------------------------------------------------------------
             # Монахи сначала пытаются сбить с ног. Сбивание, захват, удары.
