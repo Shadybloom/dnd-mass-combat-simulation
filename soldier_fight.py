@@ -1927,25 +1927,25 @@ class soldier_in_battle(soldier):
             if attack_dict['attack_crit'] == True:
                 result['hit'] = True
                 result['crit'] = True
-                enemy_soldier = metadict_soldiers[attack_dict['sender_uuid']]
             elif attack_dict['attack'] > armor_class:
                 result['hit'] = True
             elif attack_dict['attack'] <= armor_class_no_impact:
                 result['miss'] = True
             elif attack_dict['attack'] <= armor_class_shield_impact:
-                # Homebrew. Пилумы застревают в щитах, мешая их использовать:
                 result['shield_impact'] = True
-                if attack_dict.get('shield_breaker'):
-                    self.set_shield_break()
             elif attack_dict['attack'] <= armor_class_armor_impact:
                 result['armor_impact'] = True
             elif attack_dict['attack'] <= 0 or attack_dict['attack_loss']:
                 result['clumsy_miss'] = True
         elif attack_dict.get('direct_hit'):
             result['hit'] = True
+        # Пилумы застревают в щитах:
+        if result['shield_impact'] and armor_dict.get('shield_use'):
+            if attack_dict.get('shield_breaker'):
+                self.set_shield_break()
         # Если атака прошла, переходим к расчёту ранений:
         attack_dict.update(result)
-        if attack_dict['hit'] == True:
+        if attack_dict['hit']:
             enemy_soldier = metadict_soldiers[attack_dict['sender_uuid']]
             if enemy_soldier.class_features.get('Stunning_Strike'):
                 # enemy_soldier -- атакующий монах; 'self' -- получающий удар боец.
