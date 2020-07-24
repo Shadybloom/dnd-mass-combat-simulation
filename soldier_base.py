@@ -721,8 +721,9 @@ class soldier():
         3) Уклонение. Пока что только уклонение.
         """
         dexterity_mod = self.mods['dexterity']
-        # TODO: Исправь. Это не 3.5, природная броня не плюсуется к доспехам.
-        if self.dict_races[self.race].get('armor_class_natural'):
+        if self.__dict__.get('armor_class_natural'):
+            armor_class_base = self.__dict__.get('armor_class_natural')
+        elif self.dict_races[self.race].get('armor_class_natural'):
             armor_class_base = self.dict_races[self.race].get('armor_class_natural')
         else:
             armor_class_base = self.armor_class_base
