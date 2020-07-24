@@ -2966,6 +2966,7 @@ metadict_chars['Monk 2 lvl (city windsong-gatekeeper)'] = {
     }
 
 metadict_chars['Monk 3 lvl (city windsong-lorekeeper)'] = {
+    # Путь открытой ладони
     'level':3,
     'char_class':'Monk',
     'hit_dice':'1d8',
@@ -3038,10 +3039,10 @@ metadict_chars['Monk 5 lvl (city windsong-warmonger)'] = {
     'behavior':'commander',
     'grappler_AI':True,
     'class_features':{
-        # TODO: Сделай Stunning_Strike. Пусть монах 5 lvl использует его, атакуя командиров.
+        # TODO:
         # Тактика такова:
-        # - Атаковать с Flurry_of_Blows и Stunning_Strike (который отменяет спасброски)
-        # - Второй атакйо схватить и тащить.
+        # - Атаковать с Flurry_of_Blows и Stunning_Strike (который обнуляет спасброски)
+        # - Второй атакой схватить (автоматический успех) и тащить в строй своих.
         'Feat_Defensive_Duelist':True,
         'Unarmored_Defense':True,
         'Martial_Arts':True,
@@ -8990,6 +8991,7 @@ metadict_chars['Warrior 5 lvl (нейтрал) (бронзовый гоплит-
 # Нейтралы (герои) (Карагос):
 
 metadict_chars['Barbarian 9 lvl (нейтрал) (Карагос «Мудрый»)'] = {
+    # Barbarian 1 lvl (thracian slayer-dogface) sum:108 STR:19 DEX:18 CON:19 INT:18 WIS:16 CHA:18
     'level':9,
     'char_class':'Barbarian',
     'hit_dice':'1d12',
@@ -9044,7 +9046,7 @@ metadict_chars['Barbarian 9 lvl (нейтрал) (Карагос «Мудрый�
 #----
 # Злодеи (герои) (Радамант):
 
-metadict_chars['Barbarian 2 lvl (варвар Радаманта)'] = {
+metadict_chars['Barbarian 2 lvl (враг) (варвар Радаманта)'] = {
     'level':2,
     'char_class':'Barbarian',
     'hit_dice':'1d12',
@@ -9076,7 +9078,7 @@ metadict_chars['Barbarian 2 lvl (варвар Радаманта)'] = {
         },
     }
 
-metadict_chars['Barbarian 5 lvl (Радамант «Бдительный»)'] = {
+metadict_chars['Barbarian 5 lvl (враг) (Радамант «Бдительный»)'] = {
     'level':5,
     'char_class':'Barbarian',
     'hit_dice':'1d12',
@@ -9118,5 +9120,116 @@ metadict_chars['Barbarian 5 lvl (Радамант «Бдительный»)'] = 
     'mount_type':'Warhorse',
     'equipment_mount':{
         'Scale Mail':1,
+        },
+    }
+
+#----
+# Союзники (герои) (Кумар):
+
+metadict_chars['Monk 3 lvl (друг) (монах Кумара)'] = {
+    # Путь тени
+    'level':3,
+    'grappler_AI':True,
+    'carefull_AI':True,
+    'char_class':'Monk',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Feat_Defensive_Duelist':True,
+        'Unarmored_Defense':True,
+        'Martial_Arts':True,
+        'Flurry_of_Blows':True,
+        'Patient_Defense':True,
+        'Step_of_the_Wind':True,
+        'Unarmored_Movement':True,
+        'Deflect_Missiles':True,
+        'Shadow_Arts':True,
+        'Spells':[
+            ('2_lvl', 'Pass_Without_Trace'),
+            ('2_lvl', 'Darkvision'),
+            #('2_lvl', 'Darkness'),
+            ('2_lvl', 'Silence'),
+            ],
+        },
+    'race':'Human-hero',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':[],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Rune of Absorbtion':1,
+        'Rune of Shielding':1,
+        'Shortsword +1':1,
+        #'Bolas':6,
+        },
+    }
+
+metadict_chars['Monk 9 lvl (друг) (Кумар «Чугуннорукий»)'] = {
+    # Путь тени
+    # Monk 1 lvl (city windsong-apprentice) sum:104 STR:17 DEX:19 CON:17 INT:16 WIS:18 CHA:17
+    'level':9,
+    'grappler_AI':True,
+    'carefull_AI':True,
+    'char_class':'Monk',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'hitpoints_medial':True,
+    'abilityes':{
+        'strength':17,
+        'dexterity':19,
+        'constitution':17,
+        'intelligence':16,
+        'wisdom':18,
+        'charisma':17,
+        },
+    'class_features':{
+        # TODO:
+        # 2. Shadow_Step -- телепорт на 60 футов от тени к тени бонусным действием.
+        # 4. Evasion -- увёртливость, при успехе спаса. ловкости нулевые повреждения. 50% при провале.
+        # ------
+        # 5. Stillness_of_Mind -- действием снимает очарование или испуг.
+        # 6. Unarmored_Movement_improvement -- бег по вертикальным стенам и воде
+        'Feat_Defensive_Duelist':True,
+        'Unarmored_Defense':True,
+        'Martial_Arts':True,
+        'Flurry_of_Blows':True,
+        'Patient_Defense':True,
+        'Step_of_the_Wind':True,
+        'Unarmored_Movement':True,
+        'Deflect_Missiles':True,
+        'Shadow_Arts':True,
+        'Spells':[
+            ('2_lvl', 'Pass_Without_Trace'),
+            ('2_lvl', 'Darkvision'),
+            #('2_lvl', 'Darkness'),
+            ('2_lvl', 'Silence'),
+            ],
+        'Slow_Fall':True,
+        'Extra_Attack':True,
+        'Stunning_Strike':True,
+        'Ability_Score_Improvement':{
+            'wisdom':+2,
+            'charisma':+1,
+            'dexterity':+1,
+            },
+        'Ki_Empowered_Strikes':True,
+        'Shadow_Step':True,
+        'Evasion':True,
+        'Stillness_of_Mind':True,
+        'Unarmored_Movement_improvement':True,
+        },
+    'race':'Human-hero',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':[],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        # TODO: Посох ударов и руны 3-4 круга.
+        'Infusion of Healing':1,
+        'Rune of Absorbtion':1,
+        'Rune of Shielding':1,
+        'Shortsword +1':1,
+        #'Bolas':6,
         },
     }
