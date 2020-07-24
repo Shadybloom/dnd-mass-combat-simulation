@@ -2008,6 +2008,14 @@ class soldier_in_battle(soldier):
                 if attack_dict.get('savethrow_all'):
                     attack_dict['hit'] = False
                     damage = 0
+                elif self.class_features.get('Evasion'):
+                    print('NYA')
+                    attack_dict['hit'] = False
+                    damage = 0
+            # Увёртливые воры и монахи всё равно уклоняются:
+            elif damage_savethrow < damage_difficul\
+                    and self.class_features.get('Evasion'):
+                damage = round(damage / 2)
             if not damage == 0 and attack_dict.get('effect'):
                 if attack_dict['effect'] == 'mockery':
                     self.mockery = True
