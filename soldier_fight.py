@@ -2086,10 +2086,10 @@ class soldier_in_battle(soldier):
                 damage_deflect = dices.dice_throw('1d10') + self.mods['dexterity'] + self.level
                 damage -= damage_deflect
                 self.reaction = False
-                print('{0} {1} {2} {3} crit {4} damage {5} reaction deflect -{6}'.format(
+                print('[+++] {0} {1} {2} reaction Deflect {3}/{4} << {5} atc {6} dmg {7}'.format(
                     self.ally_side, self.place, self.behavior,
-                    attack_choice, attack_dict['attack_crit'],
-                    attack_dict['damage'], damage_deflect))
+                    damage, attack_dict['damage'],
+                    attack_choice, attack_dict['attack'], attack_dict['damage']))
         # Прирование мастера боевых искусств:
         if attack_choice[0] == 'close' or attack_choice[0] == 'reach':
             if self.class_features.get('Parry') and self.superiority_dices and self.reaction == True:
