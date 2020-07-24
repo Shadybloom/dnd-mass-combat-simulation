@@ -195,6 +195,10 @@ metadict_squads['крепостная стена'] = {
     'Wall (stone)':5,
     }
 
+metadict_squads['крепостная стена (Arcane_Lock)'] = {
+    'Wall (stone) (Arcane_Lock)':5,
+    }
+
 #----
 # Осадная техника:
 

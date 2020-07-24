@@ -72,6 +72,40 @@ metadict_animals['Palisade (wood)'] = {
     'equipment_supply':{},
     }
 
+metadict_animals['Wall (stone) (Arcane_Lock)'] = {
+    # Крепостная стена, каменная стена
+    # Укреплена заклинанием Arcane_Lock
+    'level':20,
+    'armor_class_natural':20,
+    'mechanism':True,
+    'ignore_damage':33,
+    'savethrow_autofall':True,
+    'inactive_AI':True,
+    'challenge_rating':'-',
+    'char_class':'Commoner',
+    'behavior':'commander',
+    'hitpoints_medial':True,
+    'class_features':{
+        'Earth_Elemental_Resistance':True,
+        'Earth_Elemental_Vulnerability':True,
+        },
+    'abilityes':{
+        'strength':10,
+        'dexterity':10,
+        'constitution':10, 
+        'intelligence':10,
+        'wisdom':10,
+        'charisma':10,
+        },
+    'hit_dice':'1d10',
+    'race':'Object-stone-big',
+    'weapon_skill':[],
+    'armor_skill':[],
+    'equipment_weapon':{},
+    'equipment_backpack':{},
+    'equipment_supply':{},
+    }
+
 metadict_animals['Wall (stone)'] = {
     # Крепостная стена, каменная стена
     'level':20,
@@ -419,7 +453,7 @@ metadict_animals['Ship trage (board)'] = {
 metadict_animals['Ship trage (command)'] = {
     'level':5,
     'mechanism':True,
-    'ignore_damage':15,
+    'ignore_damage':18,
     'inactive_AI':True,
     'challenge_rating':'1',
     'char_class':'Commoner',
