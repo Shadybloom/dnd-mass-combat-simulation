@@ -1760,6 +1760,7 @@ class battle_simulation(battlescape):
                             and not enemy_soldier.size == 'large'\
                             and not enemy_soldier.__dict__.get('air_walk')\
                             or 'grapple' in soldier.commands\
+                            or enemy_soldier.stunned\
                             or enemy_soldier.sleep:
                         wrestling_action = self.wrestling_action(soldier, squad,
                                 enemy_soldier, advantage, disadvantage)
