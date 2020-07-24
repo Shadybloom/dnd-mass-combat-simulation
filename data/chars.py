@@ -9035,7 +9035,7 @@ metadict_chars['Barbarian 9 lvl (нейтрал) (Карагос «Мудрый�
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
         'Infusion of Healing':3,
-        'Sword of the Past':1,
+        'Sword of the Past +2':1,
         },
     #'mount_combat':False,
     #'mount_type':'Warhorse',
@@ -9124,6 +9124,121 @@ metadict_chars['Barbarian 5 lvl (враг) (Радамант «Бдительн�
     }
 
 #----
+# Злодеи (армии) (демоны Ашеры):
+
+metadict_chars['Warrior 1 lvl (враг) (демон-рядовой)'] = {
+    'level':1,
+    'char_class':'Warrior',
+    'behavior':'warrior',
+    'class_features':{
+        #'Regeneration':1,
+        },
+    'hit_dice':'1d8',
+    'race':'Primevial-medium',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':militia_pack,
+    'equipment_weapon':{
+        'Heavy Shield':1,
+        'Mace':1,
+        'Long Spear':1,
+        'Javelin':6,
+        },
+    }
+
+metadict_chars['Warrior 2 lvl (враг) (демон-ветеран)'] = {
+    'level':2,
+    'char_class':'Warrior',
+    'behavior':'elite_warrior',
+    'class_features':{
+        #'Regeneration':1,
+        },
+    'hit_dice':'1d8',
+    'race':'Primevial-medium',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':militia_pack,
+    'equipment_weapon':{
+        'Scale Mail':1,
+        'Shield':1,
+        'Battleaxe':1,
+        'Long Spear':1,
+        'Javelin':6,
+        },
+    }
+
+metadict_chars['Warrior 3 lvl (враг) (демон-сержант)'] = {
+    'level':3,
+    'brave_AI':True,
+    'killer_AI':True,
+    'char_class':'Warrior-officer',
+    'behavior':'commander',
+    'class_features':{
+        'Regeneration':1,
+        },
+    'hit_dice':'1d10',
+    'race':'Primevial-large',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':militia_pack,
+    'equipment_weapon':{
+        'Breastplate':1,
+        'Shield':1,
+        'Battleaxe':1,
+        'Javelin':6,
+        },
+    }
+
+metadict_chars['Warrior 4 lvl (враг) (демон-лейтенант)'] = {
+    'level':4,
+    'brave_AI':True,
+    'killer_AI':True,
+    'char_class':'Warrior-officer',
+    'behavior':'commander',
+    'class_features':{
+        'Regeneration':1,
+        },
+    'hit_dice':'1d10',
+    'race':'Primevial-large',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':militia_pack,
+    'equipment_weapon':{
+        'Breastplate':1,
+        'Shield':1,
+        'Battleaxe':1,
+        'Javelin':6,
+        },
+    }
+
+metadict_chars['Warrior 5 lvl (враг) (демон-капитан)'] = {
+    'level':5,
+    'brave_AI':True,
+    'killer_AI':True,
+    'char_class':'Warrior-officer',
+    'behavior':'commander',
+    'class_features':{
+        'Regeneration':1,
+        },
+    'hit_dice':'1d10',
+    'race':'Primevial-large',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':militia_pack,
+    'equipment_weapon':{
+        'Half Plate':1,
+        'Shield':1,
+        'Battleaxe +1':1,
+        'Javelin':6,
+        },
+    }
+
+#----
 # Союзники (герои) (Кумар):
 
 metadict_chars['Monk 3 lvl (друг) (монах Кумара)'] = {
@@ -9158,7 +9273,7 @@ metadict_chars['Monk 3 lvl (друг) (монах Кумара)'] = {
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
         'Infusion of Healing':1,
-        'Rune of Shielding':1,
+        'Rune of Absorbtion':1,
         'Rune of Armor':1,
         'Shortsword +1':1,
         },
@@ -9223,10 +9338,78 @@ metadict_chars['Monk 9 lvl (друг) (Кумар «Чугуннорукий»)'
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        # TODO: Посох ударов и руны 3-4 круга.
+        # TODO:
+        # 1. Посох ударов.
+        # 2. Наручи защиты.
+        # 3. Руны 3-4 круга.
         'Infusion of Healing':1,
         'Infusion of Heroism':1,
         'Rune of Shielding':1,
+        'Staff of Striking +3':1,
         'Shortsword +1':1,
+        },
+    }
+
+#----
+# Союзники (армия) (Кумар):
+
+metadict_chars['Warrior 5 lvl (друг) (сотник Илиона)'] = {
+    # Сидит на месте, обороняется. На врага не ведёт.
+    'level':5,
+    'rearm_AI':True,
+    'defender_AI':True,
+    'carefull_AI':True,
+    'char_class':'Warrior-officer',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Defence':True,
+        'Feat_Inspiring_Leader':True,
+        'Extra_Attack':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Rune of Absorbtion':1,
+        'Rune of Shielding':1,
+        'Half Plate':1,
+        'Heavy Shield':1,
+        'Shortsword':1,
+        'Pilum':3,
+        },
+    #'mount_combat':False,
+    #'mount_type':'Riding Horse',
+    #'equipment_mount':{
+    #    },
+    }
+
+metadict_chars['Warrior 3 lvl (друг) (сержант пращников Илиона)'] = {
+    'level':3,
+    'rearm_AI':True,
+    'volley_AI':True,
+    'defender_AI':True,
+    'carefull_AI':True,
+    'char_class':'Warrior-bowman',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        #'Fighting_Style_Archery':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Breastplate':1,
+        'Shield':1,
+        'Shortsword':1,
+        'Sling real':1,
+        'Sling Bullet':10,
         },
     }

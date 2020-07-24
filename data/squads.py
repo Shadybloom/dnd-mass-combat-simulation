@@ -438,6 +438,62 @@ metadict_squads['Squad-hero (варвары Радаманта) (враг)'] = {
     }
 
 #----
+# Армия Ашеры:
+
+metadict_squads['Company-regular (демоны Ашеры) (враг)'] = {
+    'Warrior 1 lvl (враг) (демон-рядовой)':180 + dice_throw('1d12'),
+    'Warrior 2 lvl (враг) (демон-ветеран)':10,
+    'Warrior 3 lvl (враг) (демон-сержант)':3,
+    'Warrior 5 lvl (враг) (демон-капитан)':1,
+    'Warrior 4 lvl (враг) (демон-лейтенант)':1,
+    }
+
+metadict_squads['Company-regular (карлы Ашеры) (враг)'] = {
+    'Commoner 1 lvl (враг) (карл)':180 + dice_throw('3d12'),
+    'Commoner 1 lvl (враг) (карл-ветеран)':4,
+    'Warrior 3 lvl (враг) (демон-сержант)':1,
+    }
+
+#----
+# Герои (правители):
+
+metadict_squads['Squad-hero (варвары Карагоса) (нейтрал)'] = {
+    # Он потерял всю свою свиту.
+    'Barbarian 9 lvl (нейтрал) (Карагос «Мудрый»)':1,
+    }
+
+metadict_squads['Band-hero (лично Карагос) (нейтрал)'] = {
+    'Barbarian 9 lvl (нейтрал) (Карагос «Мудрый»)':1,
+    }
+
+#----
+# Армия Кумара, армия Илиона:
+
+metadict_squads['Squad-hero (монахи Кумара) (друг)'] = {
+    # Свита из 13 монахов-теневиков. "Верные ученики".
+    'Monk 9 lvl (друг) (Кумар «Чугуннорукий»)':1,
+    'Monk 3 lvl (друг) (монах Кумара)':13,
+    }
+
+metadict_squads['Band-hero (лично Кумар) (друг)'] = {
+    'Monk 9 lvl (друг) (Кумар «Чугуннорукий»)':1,
+    }
+
+metadict_squads['Company-militia (пращники Илиона) (друг)'] = {
+    'Commoner 1 lvl (militia slinger)':80 + dice_throw('3d12'),
+    'Commoner 2 lvl (militia slinger-corporal)':5,
+    'Warrior 3 lvl (militia slinger-sergeant)':1,
+    }
+
+metadict_squads['Company-regular (легионеры Илиона) (друг)'] = {
+    'Warrior 1 lvl (legionary infantry)':80 + dice_throw('1d12'),
+    'Warrior 2 lvl (legionary infantry-corporal)':10,
+    'Warrior 3 lvl (legionary infantry-sergeant)':3,
+    'Warrior 5 lvl (друг) (сотник Илиона)':1,
+    'Warrior 4 lvl (legionary infantry-lieutenant)':1,
+    }
+
+#----
 # Геройские отряды (армия Сакатра):
 
 metadict_squads['Squad-hero (следопыты Сакатра) (Gogan)'] = {
@@ -1153,20 +1209,6 @@ metadict_squads['Band-hero (paladins)'] = {
     #'Paladin 3 lvl (city sentry-imeyer)':6,
     #'Paladin 2 lvl (city sentry-weresefet)':6,
     'Paladin 1 lvl (city sentry-sefet)':6,
-    }
-
-#----
-# Герои (правители):
-
-metadict_squads['Squad-hero (варвары Карагоса) (нейтрал)'] = {
-    # Он потерял всю свою свиту.
-    'Barbarian 9 lvl (нейтрал) (Карагос «Мудрый»)':1,
-    }
-
-metadict_squads['Squad-hero (монахи Кумара) (нейтрал)'] = {
-    # Свита из 13 монахов-теневиков. "Верные ученики".
-    'Monk 9 lvl (друг) (Кумар «Чугуннорукий»)':1,
-    'Monk 3 lvl (друг) (монах Кумара)':13,
     }
 
 #----
