@@ -2873,3 +2873,48 @@ battle_map_long_cavalry = (
         '......................................................................................!aaaaaaaaaa',
         '......................................................................................!aaaaaaaaaa',
         )
+
+battle_map_long_ilion = (
+        # Илионские кварталы 300x150 футов (60x30)
+        # 400 кварталов всего. 250 кварталов внешнего города.
+        # 3000 футов, 20 квараталов с севера на юг (от берега реки до частокола) атака с востока.
+        # 6000 футов, 20 кварталов с востока на запад.
+        # В городе 10 тыс. ополчения, 2200 проф. войск, 7 героев со свитами.
+        # На квартал можно выставить до 200 ополченцев и по 100 солдат (только на восточной стороне)
+        '-----------------------------------------------------------|-------##----------------------------',
+        '#||!||#||!||#||!||#||!||#||!||#||!||#||!||#||!||#...#||!||||!..!;;;##!7aaaaaaaaaaaaaaaaaaaaaaaaaa',
+        '#^^^^^#^^^^^#^^^^^#^^^^^#^^^^^#^^^^^#AAAAA#AAAAA#...#AAAAAA!!..!;;;##!aaaaaaaaaaaaaaaaaaaaaaaaaaa',
+        '#^^^^^#^^^^^#^^^^^#^^^^^#^^^^^#^^^^^#AAAAA#AAAAA#.1.#AAAAAA!!..!;;;##!aaaaaaaaaaacccccaaaaaaaaaaa',
+        '#^^^^^#^^^^^#^^^^^#^^^^^#^^^^^#^^^^^#AAAAA#AAAAA#...#AAACAA!!..!;;;##!aaaaaaaaaaacccccaaaaaaaaaaa',
+        '#^^^^^#^^^^^#^^^^^#^^^^^#^^^^^#^^^^^.AAAAA.AAAAA.....AAAAAA!!..!;;;##!aaaaaaaaaaaaaaaaaaaaaaaaaaa',
+        '#^^^^^#^^^^^#^^^^^#^^^^^#^^^^^#^^^^^#AAAAA#AAAAA#...#AAAAAA!!..!;;;##!aaaaaaaaaaaaaaaaaaaaaaaaaaa',
+        '#||!||#||!||#||!||#||!||#||!||#||!||#||!||#||!||#...#||!||||!..!;;;##!!!!!!!!!!!!!!!!!!!!!!!!!!!!',
+        '....................................................!..WCWWE!..!;;;;;!5wwwwwwwww!6wwwwwwwww!9aaaa',
+        '....................................................!..WCWWE!..!;;;;;!ewwwwwwwww!ewwwwwwwww!aaaaa',
+        '....................................................!..WCWWE!..!;;;;;!ewwwwwwwww!ewwwwwwwww!aaaaa',
+        '....................................................!..WCWWE!..!;;;;;!ewwwwwwwww!ewwwwwwwww!aaaaa',
+        '#||!||#||!||#||!||#||!||#||!||#||!||#||!||#||!||#!!!#||.||||!..!;;;;;!ewwwwwwwww!ewwwwwwwww!aaaaa',
+        '#^^^^^#^^^^^#^^^^^#^^^^^#^^^^^#AAAAA#AAAAA#AAAAA#...#WWWCWW!!..!;;;;;!ewwwwwwwww!ewwwwwwwww!aaaaa',
+        '#^^^^^#^^^^^#^^^^^#^^^^^#^^^^^#AAAAA#AAAAA#AAAAA#...#WWWCWE!!..!;;;;;!ewwwwwwwwc!ewwwwwwwwc!aaaaa',
+        '#^^^^^#^^^^^#^^^^^#^^^^^#^^^^^#AAAAA#AAAAA#AAAAA#...#WWWCWW!!..!;;;;;!ewwwwwwwwc!ewwwwwwwwc!aacaa',
+        '#^^^^^#^^^^^#^^^^^#^^^^^#^^^^^.AAAAA.AAAAA.AAAAA....#WWWCWE!!..!;;;;;!ewwwwwwwwc!ewwwwwwwwc!aacaa',
+        '#^^^^^#^^^^^#^^^^^#^^^^^#^^^^^#AAAAA#AAAAA#AAAAA#...#WWWCWW!!..!;;;;;!ewwwwwwwwc!ewwwwwwwwc!aacaa',
+        '#||!||#||!||#||!||#||!||#||!||#||!||#||!||#||!||#!!!#||.||||!..!;;;;;!ewwwwwwwwc!ewwwwwwwwc!aacaa',
+        '|....t..........t.........t............T.......t..tt!0.wCWWW!..!;;;;;!ewwwwwwwwc!ewwwwwwwwc!aacaa',
+        '|.t.....T....T.........t.......t..T........T........!..wCWWE!..!;;;;;!ewwwwwwwwc!ewwwwwwwwc!aaaaa',
+        '|...................t..........................T....!..wCWWW!..!;;;;;!ewwwwwwwww!ewwwwwwwww!aaaaa',
+        '|ttttttttttttttttttttttttttttttttttttttttttttttttttt!..wCWWE!..!;;;;;!ewwwwwwwww!ewwwwwwwww!aaaaa',
+        '....................................................!..wCWWW!..!;;;;;!ewwwwwwwww!ewwwwwwwww!aaaaa',
+        '|ttttttttttttttttttttttttttttttttttttttttttttttttttt!..wCWWE!..!;;;;;!ewwwwwwwww!ewwwwwwwww!aaaaa',
+        '|....t..........t.........t............T.......t..tt!..wCWWW!..!;;;;;!ewwwwwwwww!ewwwwwwwww!aaaaa',
+        '|.t.....T....T.........t.......t..T........T........!..wCWWE!..!;;;;;!ewwwwwwwww!ewwwwwwwww!aaaaa',
+        '|...................t..........................T....!..wCWWW!..!;;;;;!ewwwwwwwww!ewwwwwwwww!aaaaa',
+        '#||!||#||!||#||!||#||!||#||!||#||!||#||!||#||.||#!!!#||!||||!..!;;;##!!!!!!!!!!!!!!!!!!!!!!!!!!!!',
+        '#^^^^^#^^^^^#^^^^^#^^^^^#^^^^^#^^^^^#AAAAA#AAAAA#...#AAAAAA!!..!;;;##!8aaaaaaaaaaaaaaaaaaa.......',
+        '#^^^^^#^^^^^#^^^^^#^^^^^#^^^^^#^^^^^#AAAAA#AAAAA#...#AAAAAA!!..!;;;##!aaaaaaaaaaaaaaaaaaaa.......',
+        '#^^^^^#^^^^^#^^^^^#^^^^^#^^^^^#^^^^^#AAAAA#AAAAA#..2#AAACAA!!..!;;;##!aaaaaaaccccaaaaaaaaa.......',
+        '#^^^^^#^^^^^#^^^^^#^^^^^#^^^^^#^^^^^.AAAAA.AAAAA#...#AAAAAA!!..!;;;##!aaaaaaaccccaaaaaaaaa.......',
+        '#^^^^^#^^^^^#^^^^^#^^^^^#^^^^^#^^^^^#AAAAA#AAAAA.....AAAAAA!!..!;;;##!aaaaaaaaaaaaaaaaaaaa.......',
+        '#||!||#||!||#||!||#||!||#||!||#||!||#||!||#||!||#!!!#||!||||!..!;;;##!aaaaaaaaaaaaaaaaaaaa.......',
+        '-----------------------------------------------------------|-------##----------------------------',
+        )
