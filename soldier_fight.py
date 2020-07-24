@@ -416,22 +416,23 @@ class soldier_in_battle(soldier):
                     s = self.behavior,
                     fear = self.fear
                     ))
-        # Схваченный не может двигаться (но пытается вырваться):
-        if self.grappled or self.restained:
-            self.move_action = False
-            self.move_pool = 0
-            if self.grappled:
-                self.set_grapple_break()
-            elif self.restained:
-                self.set_restained_break()
+        # Ошеломлённый пытается очухаться:
         if self.stunned:
             if self.stunned_timer > 0:
                 self.stunned_timer -= 1
             elif self.stunned_timer == 0:
                 self.stunned = False
                 self.stunned_difficult = None
+        # Схваченный не может двигаться (но пытается вырваться):
+        elif self.grappled or self.restained:
+            self.move_action = False
+            self.move_pool = 0
+            if self.grappled:
+                self.set_grapple_break()
+            elif self.restained:
+                self.set_restained_break()
         # Упавший встаёт на ноги (если он не схвачен):
-        if self.prone == True and not self.grappled:
+        elif self.prone == True and not self.grappled:
             self.move_pool = self.move_pool / 2
             self.prone = False
         # Даём всадникам скорость их коней (но только если они в одной точке):
@@ -1104,7 +1105,8 @@ class soldier_in_battle(soldier):
             savethrow_adavantage = self.check_savethrow_advantage('dexterity')
             prone_savethrow = dices.dice_throw_advantage('1d20', savethrow_adavantage)\
                     + self.saves['dexterity']
-        if prone_savethrow <= prone_difficul:
+        if prone_savethrow <= prone_difficul\
+                or self.stunned or self.sleep:
             self.prone = True
             return True
         else:
@@ -1119,7 +1121,8 @@ class soldier_in_battle(soldier):
         savethrow_adavantage = self.check_savethrow_advantage('strength')
         restained_savethrow = dices.dice_throw_advantage('1d20', savethrow_adavantage)\
                 + self.saves['strength']
-        if restained_savethrow <= restained_difficult:
+        if restained_savethrow <= restained_difficult\
+                or self.stunned or self.sleep:
             self.restained = True
             self.restained_difficult = restained_difficult
             return True
@@ -1165,10 +1168,8 @@ class soldier_in_battle(soldier):
             savethrow_adavantage = self.check_savethrow_advantage('dexterity')
             grapple_savethrow = dices.dice_throw_advantage('1d20', savethrow_adavantage)\
                     + self.saves['dexterity']
-        # TODO: здесь должно быть общее состояние "без сознания":
-        if self.sleep:
-            grapple_savethrow = 0
-        if grapple_savethrow <= grapple_difficul:
+        if grapple_savethrow <= grapple_difficul\
+                or self.stunned or self.sleep:
             self.grappled = True
             self.enemy_grappler = enemy_soldier
             return True
@@ -1236,9 +1237,8 @@ class soldier_in_battle(soldier):
             savethrow_adavantage = self.check_savethrow_advantage('dexterity')
             disarm_savethrow = dices.dice_throw_advantage('1d20', savethrow_adavantage)\
                     + self.saves['dexterity']
-        if self.sleep:
-            disarm_savethrow = 0
-        if disarm_savethrow <= disarm_difficul:
+        if disarm_savethrow <= disarm_difficul\
+                or self.stunned or self.sleep:
             return self.unset_shield(disarm = True)
         else:
             return False
@@ -1259,9 +1259,8 @@ class soldier_in_battle(soldier):
             savethrow_adavantage = self.check_savethrow_advantage('dexterity')
             disarm_savethrow = dices.dice_throw_advantage('1d20', savethrow_adavantage)\
                     + self.saves['dexterity']
-        if self.sleep:
-            disarm_savethrow = 0
-        if disarm_savethrow <= disarm_difficul:
+        if disarm_savethrow <= disarm_difficul\
+                or self.stunned or self.sleep:
             # TODO: Тут, получается, разом отбирают всё оружие.
             # ------------------------------------------------------------
             # Но на деле, лишившись копья боец схватил бы меч, а потом кинжал.
@@ -1973,10 +1972,6 @@ class soldier_in_battle(soldier):
         """
         enemy_soldier = metadict_soldiers[attack_dict['sender_uuid']]
         damage = attack_dict['damage']
-        # Спящий просыпается, если ранен:
-        if self.sleep:
-            self.sleep_timer = 0
-            self.sleep = False
         # Урон предметам от осадных монстров удваивается:
         if attack_dict.get('weapon_type') and 'siege' in attack_dict['weapon_type']\
                 and self.__dict__.get('mechanism'):
@@ -2007,7 +2002,8 @@ class soldier_in_battle(soldier):
             if attack_dict.get('ignore_cover'):
                 damage_savethrow = dices.dice_throw_advantage('1d20', advantage, disadvantage)\
                         + self.saves[savethrow_ability]
-            if damage_savethrow >= damage_difficul:
+            if damage_savethrow >= damage_difficul\
+                    and not self.stunned and not self.sleep:
                 damage = round(damage / 2)
                 if attack_dict.get('savethrow_all'):
                     attack_dict['hit'] = False
@@ -2110,6 +2106,10 @@ class soldier_in_battle(soldier):
             damage = 0
         self.set_hitpoints(damage = damage)
         attack_dict['damage'] = damage
+        # Спящий просыпается, если ранен:
+        if damage and self.sleep:
+            self.sleep_timer = 0
+            self.sleep = False
         # Стойкость нежити (зомби не так-то просто убить):
         if self.class_features.get('Undead_Fortitude') and self.hitpoints <= 0\
                 and not attack_dict.get('attack_crit')\
