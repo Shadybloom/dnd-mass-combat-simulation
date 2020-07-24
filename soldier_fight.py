@@ -1774,7 +1774,7 @@ class soldier_in_battle(soldier):
                 self.armor['shield_use'] = None
             #print(self.ally_side, self.place, self.behavior, self.armor)
 
-    def spell_attack(self, attack_dict, enemy, advantage = False, disadvantage = False):
+    def spell_attack(self, attack_dict, enemy, metadict_soldiers, advantage = False, disadvantage = False):
         """Атака заклинанием.
         
         Вроде магической стрелы, которая всегда попадает,
@@ -1795,6 +1795,9 @@ class soldier_in_battle(soldier):
                 'sender_uuid':self.uuid,
                 }
         attack_result_dict.update(attack_dict)
+        # У заклинаний тоже заканчиваются заряды:
+        if attack_dict.get('ammo'):
+            attack_dict['ammo'] -= 1
         return attack_result_dict
 
     def take_attack(self, attack_choice, attack_dict, metadict_soldiers):
@@ -2009,7 +2012,6 @@ class soldier_in_battle(soldier):
                     attack_dict['hit'] = False
                     damage = 0
                 elif self.class_features.get('Evasion'):
-                    print('NYA')
                     attack_dict['hit'] = False
                     damage = 0
             # Увёртливые воры и монахи всё равно уклоняются:

@@ -909,11 +909,22 @@ class battle_simulation(battlescape):
             if squad.commander.__dict__.get('carefull_AI'):
                 commands_list.append('very_carefull')
                 commands_list.append('sneak')
+            # Оборонительная тактика:
+            if squad.commander.__dict__.get('defender_AI'):
+                commands_list = ['carefull','dodge']
+                commands_list.append('very_carefull')
+                commands_list.append('attack')
+                commands_list.append('spellcast')
+                commands_list.append('runes')
+                commands_list.append('volley')
             # Добавляем град стрел без лишних расчётов:
             if squad.commander.__dict__.get('volley_AI'):
                 commands_list.append('volley')
                 if squad.commander.__dict__.get('volley_AI_random'):
                     commands_list.append('volley_random')
+            # Пополняем боекомплект из большого запаса:
+            if squad.commander.__dict__.get('rearm_AI'):
+                self.set_squad_rearm(squad)
             # Разрешаем заклинания 3 lvl и "божественный канал":
             if squad.commander.__dict__.get('fireball_AI'):
                 commands_list.append('fireball')
@@ -1254,7 +1265,8 @@ class battle_simulation(battlescape):
                     target_tuple = self.namedtuple_target(
                             soldier_tuple[0],soldier_tuple[1],target,distance,cover,uuid)
                     spell_choice = 'aura', 'Spirit_Guardians'
-                    attack_dict = enemy_soldier.spell_attack(spell_dict, target_tuple)
+                    attack_dict = enemy_soldier.spell_attack(spell_dict, target_tuple,
+                            squad.metadict_soldiers)
                     attack_result = soldier.take_attack(
                             spell_choice, attack_dict, self.metadict_soldiers)
                     if attack_result['fatal_hit']:
@@ -1774,11 +1786,14 @@ class battle_simulation(battlescape):
                 attack_result = enemy_soldier.take_attack(
                         attack_choice, attack_dict, self.metadict_soldiers)
                 # Атака заклинанием в оружии:
-                # TODO: пока что только зональные заклинания
                 if attack_result.get('spell_dict'):
                     spell_dict = attack_result['spell_dict']
-                    if spell_dict.get('zone'):
-                        self.fireball_action(soldier, squad, spell_dict, enemy.place)
+                    if spell_dict.get('ammo', 0) > 0 and enemy_soldier.behavior == 'commander'\
+                            or spell_dict.get('ammo') == None:
+                        if spell_dict.get('zone'):
+                            self.fireball_action(soldier, squad, spell_dict, enemy.place)
+                        elif attack_result['hit']:
+                            self.fireball_action(soldier, squad, spell_dict, enemy.place)
                 # Монашьи боласы могут сбить с ног:
                 if attack_result['hit'] and 'prone' in attack_result['weapon_type']\
                         and not enemy_soldier.prone:
@@ -1825,6 +1840,7 @@ class battle_simulation(battlescape):
                             spell_choice = soldier.damage_absorbed['subspell']
                             spell_dict['spell_choice'] = spell_choice
                             attack_dict = soldier.spell_attack(spell_dict, enemy,
+                                    squad.metadict_soldiers,
                                     advantage = advantage, disadvantage = disadvantage)
                             attack_result = enemy_soldier.take_attack(
                                     spell_choice, attack_dict, self.metadict_soldiers)
@@ -1846,6 +1862,7 @@ class battle_simulation(battlescape):
                         spell_choice = 'aura', 'Crusaders_Mantle'
                         spell_dict['spell_choice'] = spell_choice
                         attack_dict = soldier.spell_attack(spell_dict, enemy,
+                                squad.metadict_soldiers,
                                 advantage = advantage, disadvantage = disadvantage)
                         attack_result = enemy_soldier.take_attack(
                                 spell_choice, attack_dict, self.metadict_soldiers)
@@ -2065,6 +2082,7 @@ class battle_simulation(battlescape):
                 # Magic_Missile всегда попадает.
                 elif spell_dict.get('direct_hit'):
                     attack_dict = soldier.spell_attack(spell_dict, enemy,
+                            squad.metadict_soldiers,
                             advantage = advantage, disadvantage = disadvantage)
                     attack_result = enemy_soldier.take_attack(
                             spell_choice, attack_dict, self.metadict_soldiers)
@@ -2295,6 +2313,7 @@ class battle_simulation(battlescape):
                 enemy_soldier = self.metadict_soldiers[enemy.uuid]
                 advantage, disadvantage = self.test_enemy_defence(soldier, enemy_soldier, spell_choice)
                 attack_dict = soldier.spell_attack(spell_dict, enemy,
+                        squad.metadict_soldiers,
                         advantage = advantage, disadvantage = disadvantage)
                 attack_result = enemy_soldier.take_attack(
                         spell_choice, attack_dict, self.metadict_soldiers)
