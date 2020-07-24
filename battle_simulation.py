@@ -1907,6 +1907,8 @@ class battle_simulation(battlescape):
         1) Пытаемся сбить врага с ног.
         2) Сбитого с ног врага хватаем, чтобы не встал.
         3) Схваченного врага пытаемся разоружить.
+
+        advantage/disadvantage указаны на броски атаки, они не используются в звахатах/сбивании.
         """
         # TODO: бонусные атаки нельзя заменить захватами:
         # ------------------------------------------------------------
@@ -1914,11 +1916,14 @@ class battle_simulation(battlescape):
         # You cannot replace bonus action attacks with grapples.
         # (e.g. from the Monk or a Barbarian's Frenzy)
         # ------------------------------------------------------------
-        # кроме того обычные advantage и disadvantage не должны работать.
-        # ------------------------------------------------------------
+        # Умелый монах предпочитает "Ошеломляющие удары":
+        if not enemy_soldier.stunned and soldier.class_features.get('Stunning_Strike')\
+                and not disadvantage\
+                and soldier.ki_points > 0:
+            return None
         # Сбитого с ног врага пытаемся схватить:
         if not enemy_soldier.grappled:
-            grappled = enemy_soldier.set_grappled(soldier, advantage, disadvantage)
+            grappled = enemy_soldier.set_grappled(soldier)
             # Боец становится на место схваченного врага, а борцуха-монах выдирает его из строя:
             if grappled and not enemy_soldier.behavior == 'mount':
                 if 'grapple' in soldier.commands:
@@ -1930,16 +1935,16 @@ class battle_simulation(battlescape):
             return grappled
         # Пытаемся сбить врага с ног:
         elif not enemy_soldier.prone:
-            prone = enemy_soldier.set_fall_prone(soldier, advantage, disadvantage)
+            prone = enemy_soldier.set_fall_prone(soldier)
             return prone
         # У схваченного врага пытаемся вырвать щит:
         elif enemy_soldier.armor['shield_use'] and not enemy_soldier.class_features.get('Weapon_Bond'):
-            disarmed = enemy_soldier.set_disarm_shield(soldier, advantage, disadvantage)
+            disarmed = enemy_soldier.set_disarm_shield(soldier)
             return disarmed
         # TODO: проверка по числу атак -- плохая идея. У нас будут минотавры с рогами.
         # И наконец, отбираем у схваченного врага оружие и тащим его к нашим:
         elif len(enemy_soldier.attacks) > 1 and not enemy_soldier.class_features.get('Weapon_Bond'):
-            disarmed = enemy_soldier.set_disarm_weapon(soldier, advantage, disadvantage)
+            disarmed = enemy_soldier.set_disarm_weapon(soldier)
             if disarmed and len(soldier.near_allies) >= 1:
                 destination = self.find_spawn(soldier.place, soldier.ally_side)
                 self.move_action(soldier, squad, destination, allow_replace = True)
