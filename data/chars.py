@@ -9158,10 +9158,9 @@ metadict_chars['Monk 3 lvl (друг) (монах Кумара)'] = {
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
         'Infusion of Healing':1,
-        'Rune of Absorbtion':1,
         'Rune of Shielding':1,
+        'Rune of Armor':1,
         'Shortsword +1':1,
-        #'Bolas':6,
         },
     }
 
@@ -9227,9 +9226,8 @@ metadict_chars['Monk 9 lvl (друг) (Кумар «Чугуннорукий»)'
     'equipment_weapon':{
         # TODO: Посох ударов и руны 3-4 круга.
         'Infusion of Healing':1,
-        'Rune of Absorbtion':1,
+        'Infusion of Heroism':1,
         'Rune of Shielding':1,
         'Shortsword +1':1,
-        #'Bolas':6,
         },
     }
