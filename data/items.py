@@ -1203,15 +1203,47 @@ metadict_items['Rune of Armor'] = {
 #    'cost (grams_of_gold)':300*60,
 #    }
 
-metadict_items['Sword of the Past'] = {
+metadict_items['Sword of the Past +2'] = {
     # Клинок былого
     'weapon':True,
     'weapon_type':['martial','close','two_handed','heavy','magic','+2','sword_burst'],
     'damage_type':'slashing',
     'damage_dice':'2d6',
     'weight (lb)':6,
-    'cost (gp)':300*60,
-    'cost (grams_of_gold)':300*60,
+    'cost (gp)':5000*60,
+    'cost (grams_of_gold)':5000*60,
+    }
+
+metadict_items['Staff of Striking +3'] = {
+    # Посох ударов
+    'weapon':True,
+    'versatile':True,
+    'weapon_type':['simple','close','versatile','magic','+3'],
+    'damage_type':'bludgeoning',
+    'damage_dice':'1d6',
+    'damage_dice_versatile':'1d8',
+    'weight (lb)':4,
+    'spell_dict':{
+            # TODO:
+            # Добавь "боеприпасы" посоха.
+            # у посоха 10 зарядов на 1d6 урона. Можно использовать 3 заряда/удар.
+            'safe':True,
+            'direct_hit':True,
+            'attacks_number':1,
+            'attack_range':5,
+            'radius':0,
+            'damage_type':'force',
+            'damage_dice':'3d6',
+            'components':[],
+            'casting_time':'free_action',
+            'damage_mod':0,
+            'spell_level':2,
+            'spell_save_DC':15,
+            'spell_choice':('strike','Staff of Striking'),
+            'ammo':3,
+            },
+    'cost (gp)':4000*60,
+    'cost (grams_of_gold)':4000*60,
     }
 
 metadict_items['Empyrean_Maul'] = {
