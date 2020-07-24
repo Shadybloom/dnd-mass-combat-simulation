@@ -8993,6 +8993,8 @@ metadict_chars['Warrior 5 lvl (нейтрал) (бронзовый гоплит-
 metadict_chars['Barbarian 9 lvl (нейтрал) (Карагос «Мудрый»)'] = {
     # Barbarian 1 lvl (thracian slayer-dogface) sum:108 STR:19 DEX:18 CON:19 INT:18 WIS:16 CHA:18
     'level':9,
+    'fearless_AI':True,
+    'squad_advantage':True,
     'char_class':'Barbarian',
     'hit_dice':'1d12',
     'behavior':'commander',
