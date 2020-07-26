@@ -72,6 +72,103 @@ metadict_animals['Palisade (wood)'] = {
     'equipment_supply':{},
     }
 
+metadict_animals['Palisade (wood) (120 hp)'] = {
+    # Частокол, палисад
+    'level':1,
+    'hitpoints_base':120,
+    'armor_class_natural':15,
+    'ignore_damage':15,
+    'mechanism':True,
+    'savethrow_autofall':True,
+    'inactive_AI':True,
+    'challenge_rating':'-',
+    'char_class':'Commoner',
+    'behavior':'commander',
+    'class_features':{
+        'Wood_Object_Resistance':True,
+        },
+    'abilityes':{
+        'strength':10,
+        'dexterity':10,
+        'constitution':10, 
+        'intelligence':10,
+        'wisdom':10,
+        'charisma':10,
+        },
+    'hit_dice':'1d10',
+    'race':'Object-wood-big',
+    'weapon_skill':[],
+    'armor_skill':[],
+    'equipment_weapon':{},
+    'equipment_backpack':{},
+    'equipment_supply':{},
+    }
+
+metadict_animals['Palisade (wood) (600 hp)'] = {
+    # Частокол, палисад
+    'level':1,
+    'hitpoints_base':600,
+    'armor_class_natural':15,
+    'ignore_damage':15,
+    'mechanism':True,
+    'savethrow_autofall':True,
+    'inactive_AI':True,
+    'challenge_rating':'-',
+    'char_class':'Commoner',
+    'behavior':'commander',
+    'class_features':{
+        'Wood_Object_Resistance':True,
+        },
+    'abilityes':{
+        'strength':10,
+        'dexterity':10,
+        'constitution':10, 
+        'intelligence':10,
+        'wisdom':10,
+        'charisma':10,
+        },
+    'hit_dice':'1d10',
+    'race':'Object-wood-big',
+    'weapon_skill':[],
+    'armor_skill':[],
+    'equipment_weapon':{},
+    'equipment_backpack':{},
+    'equipment_supply':{},
+    }
+
+metadict_animals['Wall (stone) (1200 hp)'] = {
+    # 10 футов стены. Каждый фут 120 hp
+    'level':5,
+    'hitpoints_base':1200,
+    'armor_class_natural':17,
+    'ignore_damage':20,
+    'mechanism':True,
+    'savethrow_autofall':True,
+    'inactive_AI':True,
+    'challenge_rating':'-',
+    'char_class':'Commoner',
+    'behavior':'commander',
+    'class_features':{
+        'Earth_Elemental_Resistance':True,
+        'Earth_Elemental_Vulnerability':True,
+        },
+    'abilityes':{
+        'strength':10,
+        'dexterity':10,
+        'constitution':10, 
+        'intelligence':10,
+        'wisdom':10,
+        'charisma':10,
+        },
+    'hit_dice':'1d10',
+    'race':'Object-stone-big',
+    'weapon_skill':[],
+    'armor_skill':[],
+    'equipment_weapon':{},
+    'equipment_backpack':{},
+    'equipment_supply':{},
+    }
+
 metadict_animals['Wall (stone) (Arcane_Lock)'] = {
     # Крепостная стена, каменная стена
     # Укреплена заклинанием Arcane_Lock

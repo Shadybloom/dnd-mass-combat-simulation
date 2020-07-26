@@ -188,6 +188,16 @@ metadict_squads['частокол'] = {
     'Palisade (wood)':5,
     }
 
+metadict_squads['частокол (120 hp)'] = {
+    # 1 фут толщины. Один ряд стволов.
+    'Palisade (wood) (120 hp)':5,
+    }
+
+metadict_squads['частокол (600 hp)'] = {
+    # 5 футов толщины. 5 рядов стволов.
+    'Palisade (wood) (600 hp)':5,
+    }
+
 metadict_squads['крепостная стена'] = {
     # 50-футовый участок, пять 10x10 футовых участков.
         # Земляные элементали ломают за 5 минут.
@@ -197,6 +207,10 @@ metadict_squads['крепостная стена'] = {
 
 metadict_squads['крепостная стена (Arcane_Lock)'] = {
     'Wall (stone) (Arcane_Lock)':5,
+    }
+
+metadict_squads['крепостная стена (1200 hp)'] = {
+    'Wall (stone) (1200 hp)':5,
     }
 
 #----
