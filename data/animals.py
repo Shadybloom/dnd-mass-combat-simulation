@@ -41,37 +41,6 @@ metadict_animals['Onager'] = {
 #----
 # Объекты.
 
-metadict_animals['Palisade (wood)'] = {
-    # Частокол, палисад
-    'level':10,
-    'mechanism':True,
-    'ignore_damage':15,
-    'savethrow_autofall':True,
-    'inactive_AI':True,
-    'challenge_rating':'-',
-    'char_class':'Commoner',
-    'behavior':'commander',
-    'hitpoints_medial':True,
-    'class_features':{
-        'Wood_Object_Resistance':True,
-        },
-    'abilityes':{
-        'strength':10,
-        'dexterity':10,
-        'constitution':10, 
-        'intelligence':10,
-        'wisdom':10,
-        'charisma':10,
-        },
-    'hit_dice':'1d10',
-    'race':'Object-wood-big',
-    'weapon_skill':[],
-    'armor_skill':[],
-    'equipment_weapon':{},
-    'equipment_backpack':{},
-    'equipment_supply':{},
-    }
-
 metadict_animals['Palisade (wood) (120 hp)'] = {
     # Частокол, палисад
     'level':1,
@@ -169,51 +138,19 @@ metadict_animals['Wall (stone) (1200 hp)'] = {
     'equipment_supply':{},
     }
 
-metadict_animals['Wall (stone) (Arcane_Lock)'] = {
-    # Крепостная стена, каменная стена
-    # Укреплена заклинанием Arcane_Lock
-    'level':20,
+metadict_animals['Wall (stone) (1200 hp + Arcane_Lock)'] = {
+    # 10 футов стены. Каждый фут 120 hp.
+    # Arcane_Lock даёт 17 AC --> 20 AC
+    'level':5,
+    'hitpoints_base':1200,
     'armor_class_natural':20,
+    'ignore_damage':20,
     'mechanism':True,
-    'ignore_damage':33,
     'savethrow_autofall':True,
     'inactive_AI':True,
     'challenge_rating':'-',
     'char_class':'Commoner',
     'behavior':'commander',
-    'hitpoints_medial':True,
-    'class_features':{
-        'Earth_Elemental_Resistance':True,
-        'Earth_Elemental_Vulnerability':True,
-        },
-    'abilityes':{
-        'strength':10,
-        'dexterity':10,
-        'constitution':10, 
-        'intelligence':10,
-        'wisdom':10,
-        'charisma':10,
-        },
-    'hit_dice':'1d10',
-    'race':'Object-stone-big',
-    'weapon_skill':[],
-    'armor_skill':[],
-    'equipment_weapon':{},
-    'equipment_backpack':{},
-    'equipment_supply':{},
-    }
-
-metadict_animals['Wall (stone)'] = {
-    # Крепостная стена, каменная стена
-    'level':20,
-    'mechanism':True,
-    'ignore_damage':30,
-    'savethrow_autofall':True,
-    'inactive_AI':True,
-    'challenge_rating':'-',
-    'char_class':'Commoner',
-    'behavior':'commander',
-    'hitpoints_medial':True,
     'class_features':{
         'Earth_Elemental_Resistance':True,
         'Earth_Elemental_Vulnerability':True,
@@ -237,15 +174,17 @@ metadict_animals['Wall (stone)'] = {
 
 metadict_animals['Bridge-support (stone)'] = {
     # Каменная опора моста
-    'level':10,
-    'mechanism':True,
+    # 5 футов камня опоры. Каждый фут 120 hp.
+    'level':5,
+    'hitpoints_base':600,
+    'armor_class_natural':17,
     'ignore_damage':20,
+    'mechanism':True,
     'savethrow_autofall':True,
     'inactive_AI':True,
     'challenge_rating':'-',
     'char_class':'Commoner',
     'behavior':'commander',
-    'hitpoints_medial':True,
     'class_features':{
         'Earth_Elemental_Resistance':True,
         'Earth_Elemental_Vulnerability':True,
@@ -269,15 +208,17 @@ metadict_animals['Bridge-support (stone)'] = {
 
 metadict_animals['Bridge (stone)'] = {
     # Пролёт моста
+    # 1 фут камня.
     'level':5,
-    'mechanism':True,
+    'hitpoints_base':120,
+    'armor_class_natural':17,
     'ignore_damage':20,
+    'mechanism':True,
     'savethrow_autofall':True,
     'inactive_AI':True,
     'challenge_rating':'-',
     'char_class':'Commoner',
     'behavior':'warrior',
-    'hitpoints_medial':True,
     'class_features':{
         'Earth_Elemental_Resistance':True,
         'Earth_Elemental_Vulnerability':True,
