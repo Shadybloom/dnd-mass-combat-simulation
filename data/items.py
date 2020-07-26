@@ -1224,9 +1224,6 @@ metadict_items['Staff of Striking +3'] = {
     'damage_dice_versatile':'1d8',
     'weight (lb)':4,
     'spell_dict':{
-            # TODO:
-            # Добавь "боеприпасы" посоха.
-            # у посоха 10 зарядов на 1d6 урона. Можно использовать 3 заряда/удар.
             'safe':True,
             'direct_hit':True,
             'attacks_number':1,
@@ -1350,9 +1347,10 @@ metadict_items['Long Spear +1'] = {
 # Ranged Weapons +1
 
 metadict_items['Shortbow +1'] = {
+    # Стрелы не имеют тега "magic". Они не волшебные.
     'weapon':True,
     'ammo_type':'Arrow',
-    'weapon_type':['simple','ranged','volley','two_handed','magic', '+1'],
+    'weapon_type':['simple','ranged','volley','two_handed','+1'],
     'damage_type':'piercing',
     'damage_dice':'1d6',
     'shoot_range':80,
@@ -1363,9 +1361,10 @@ metadict_items['Shortbow +1'] = {
     }
 
 metadict_items['Longbow +1'] = {
+    # Стрелы не имеют тега "magic". Они не волшебные.
     'weapon':True,
     'ammo_type':'Arrow',
-    'weapon_type':['martial','ranged','volley','two_handed','magic', '+1'],
+    'weapon_type':['martial','ranged','volley','two_handed','+1'],
     'damage_type':'piercing',
     #'damage_dice':'1d8',
     'damage_dice':'1d6',
