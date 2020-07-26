@@ -303,16 +303,19 @@ metadict_animals['Bridge (stone)'] = {
 # Корабли.
 
 metadict_animals['Ship trireme (deck)'] = {
-    # Палуба триеры. Порог урона -- 10
-    'level':5,
-    'mechanism':True,
+    # Палуба триеры. Дюймовые доски.
+        # Прочность по толщине:
+        # (25/330)*120 = 9 hp
+    'level':1,
+    'hitpoints_base':9,
+    'armor_class_natural':15,
     'ignore_damage':10,
-    'savethrow_autofall':True,
     'inactive_AI':True,
+    'mechanism':True,
+    'savethrow_autofall':True,
     'challenge_rating':'-',
     'char_class':'Commoner',
     'behavior':'warrior',
-    'hitpoints_medial':True,
     'class_features':{
         'Wood_Object_Resistance':True,
         },
@@ -334,16 +337,19 @@ metadict_animals['Ship trireme (deck)'] = {
     }
 
 metadict_animals['Ship trireme (board)'] = {
-    # Борт триеры.
-    'level':5,
-    'mechanism':True,
-    'ignore_damage':20,
-    'savethrow_autofall':True,
+    # Борт триеры. 4 слоя 1.5-дюймовых планок.
+        # Прочность по толщине:
+        # (150/330)*120 = 54 hp
+    'level':2,
+    'hitpoints_base':54,
+    'armor_class_natural':15,
+    'ignore_damage':15,
     'inactive_AI':True,
+    'mechanism':True,
+    'savethrow_autofall':True,
     'challenge_rating':'-',
     'char_class':'Commoner',
     'behavior':'elite_warrior',
-    'hitpoints_medial':True,
     'class_features':{
         'Wood_Object_Resistance':True,
         },
@@ -366,14 +372,16 @@ metadict_animals['Ship trireme (board)'] = {
 
 metadict_animals['Ship trireme (command)'] = {
     # Нос и корма триеры.
-    'level':10,
-    'mechanism':True,
-    'ignore_damage':20,
+    'level':3,
+    'hitpoints_base':54,
+    'armor_class_natural':15,
+    'ignore_damage':15,
     'inactive_AI':True,
-    'challenge_rating':'1',
+    'mechanism':True,
+    'savethrow_autofall':True,
+    'challenge_rating':'0',
     'char_class':'Commoner',
     'behavior':'commander',
-    'hitpoints_medial':True,
     'class_features':{
         'Wood_Object_Resistance':True,
         },
@@ -395,16 +403,19 @@ metadict_animals['Ship trireme (command)'] = {
     }
 
 metadict_animals['Ship pentere (deck)'] = {
-    # Палуба пентеры.
-    'level':5,
-    'mechanism':True,
-    'ignore_damage':15,
-    'savethrow_autofall':True,
+    # Палуба пентеры. 2-дюймовые доски.
+        # Прочность по толщине:
+        # (50/330)*120 = 18 hp
+    'level':1,
+    'hitpoints_base':18,
+    'armor_class_natural':15,
+    'ignore_damage':10,
     'inactive_AI':True,
+    'mechanism':True,
+    'savethrow_autofall':True,
     'challenge_rating':'-',
     'char_class':'Commoner',
     'behavior':'warrior',
-    'hitpoints_medial':True,
     'class_features':{
         'Wood_Object_Resistance':True,
         },
@@ -426,16 +437,19 @@ metadict_animals['Ship pentere (deck)'] = {
     }
 
 metadict_animals['Ship pentere (board)'] = {
-    # Борт пентеры. Больше хитов.
-    'level':10,
-    'mechanism':True,
-    'ignore_damage':20,
-    'savethrow_autofall':True,
+    # Борт пентеры. 6 слоёв 1.5-дюймовых планок
+        # Прочность по толщине:
+        # (225/330)*120 = 81 hp
+    'level':2,
+    'hitpoints_base':81,
+    'armor_class_natural':15,
+    'ignore_damage':15,
     'inactive_AI':True,
+    'mechanism':True,
+    'savethrow_autofall':True,
     'challenge_rating':'-',
     'char_class':'Commoner',
     'behavior':'elite_warrior',
-    'hitpoints_medial':True,
     'class_features':{
         'Wood_Object_Resistance':True,
         },
@@ -457,15 +471,17 @@ metadict_animals['Ship pentere (board)'] = {
     }
 
 metadict_animals['Ship pentere (command)'] = {
-    # Нос и корма пентеры.
-    'level':10,
-    'mechanism':True,
-    'ignore_damage':20,
+    # Нос и корма пернтеры.
+    'level':3,
+    'hitpoints_base':81,
+    'armor_class_natural':15,
+    'ignore_damage':15,
     'inactive_AI':True,
-    'challenge_rating':'1',
+    'mechanism':True,
+    'savethrow_autofall':True,
+    'challenge_rating':'0',
     'char_class':'Commoner',
     'behavior':'commander',
-    'hitpoints_medial':True,
     'class_features':{
         'Wood_Object_Resistance':True,
         },
@@ -487,16 +503,19 @@ metadict_animals['Ship pentere (command)'] = {
     }
 
 metadict_animals['Ship trage (deck)'] = {
-    # Палуба торгового корабля.
-    'level':5,
-    'mechanism':True,
+    # Палуба торгового судна. Дюймовые доски.
+        # Прочность по толщине:
+        # (25/330)*120 = 9 hp
+    'level':1,
+    'hitpoints_base':9,
+    'armor_class_natural':15,
     'ignore_damage':10,
-    'savethrow_autofall':True,
     'inactive_AI':True,
+    'mechanism':True,
+    'savethrow_autofall':True,
     'challenge_rating':'-',
     'char_class':'Commoner',
     'behavior':'warrior',
-    'hitpoints_medial':True,
     'class_features':{
         'Wood_Object_Resistance':True,
         },
@@ -518,15 +537,19 @@ metadict_animals['Ship trage (deck)'] = {
     }
 
 metadict_animals['Ship trage (board)'] = {
-    'level':5,
-    'mechanism':True,
-    'ignore_damage':18,
-    'savethrow_autofall':True,
+    # Борт торгового судна. 3 слоя 1.5-дюймовых планок.
+        # Прочность по толщине:
+        # (112/330)*120 = 41 hp
+    'level':2,
+    'hitpoints_base':41,
+    'armor_class_natural':15,
+    'ignore_damage':15,
     'inactive_AI':True,
+    'mechanism':True,
+    'savethrow_autofall':True,
     'challenge_rating':'-',
     'char_class':'Commoner',
     'behavior':'elite_warrior',
-    'hitpoints_medial':True,
     'class_features':{
         'Wood_Object_Resistance':True,
         },
@@ -548,14 +571,16 @@ metadict_animals['Ship trage (board)'] = {
     }
 
 metadict_animals['Ship trage (command)'] = {
-    'level':5,
-    'mechanism':True,
-    'ignore_damage':18,
+    'level':3,
+    'hitpoints_base':41,
+    'armor_class_natural':15,
+    'ignore_damage':15,
     'inactive_AI':True,
-    'challenge_rating':'1',
+    'mechanism':True,
+    'savethrow_autofall':True,
+    'challenge_rating':'0',
     'char_class':'Commoner',
     'behavior':'commander',
-    'hitpoints_medial':True,
     'class_features':{
         'Wood_Object_Resistance':True,
         },
