@@ -443,6 +443,17 @@ metadict_squads['Squad-hero (варвары Радаманта) (враг)'] = {
     }
 
 #----
+# Армия Чары:
+
+metadict_squads['Company-regular (мирмидоны Чары) (враг)'] = {
+    'Warrior 1 lvl (враг) (мирмидон)':180 + dice_throw('1d12'),
+    'Warrior 2 lvl (враг) (мирмидон-ветеран)':10,
+    'Warrior 3 lvl (враг) (мирмидон-сержант)':3,
+    'Warrior 5 lvl (враг) (мирмидон-капитан)':1,
+    'Warrior 4 lvl (враг) (мирмидон-лейтенант)':1,
+    }
+
+#----
 # Армия Ашеры:
 
 metadict_squads['Company-regular (демоны Ашеры) (враг)'] = {

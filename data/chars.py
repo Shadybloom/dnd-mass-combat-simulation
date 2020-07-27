@@ -8237,7 +8237,7 @@ metadict_chars['Warrior 5 lvl (Gogan) (кимерийский пират-кап�
     }
 
 #----
-# Злодеи (герои) (кара'Ям):
+# Враги (герои) (кара'Ям):
 
 metadict_chars['Warlock 1 lvl (враг) (колдун Кара\'Яма)'] = {
     'level':1,
@@ -8345,7 +8345,7 @@ metadict_chars['Warlock 5 lvl (враг) (Кара\'Ям)'] = {
     }
 
 #----
-# Злодеи (герои) (Кема'Эш):
+# Враги (герои) (Кема'Эш):
 
 metadict_chars['Warlock 1 lvl (враг) (колдун Кема\'Эша)'] = {
     'level':1,
@@ -8451,7 +8451,7 @@ metadict_chars['Warlock 5 lvl (враг) (Кема\'Эш)'] = {
     }
 
 #----
-# Злодеи (герои) (Энзиф):
+# Враги (герои) (Энзиф):
 
 metadict_chars['Ranger 1 lvl (враг) (следопыт Энзифа)'] = {
     'level':1,
@@ -8538,7 +8538,7 @@ metadict_chars['Ranger 5 lvl (враг) (Энзиф «Ходи-гора»)'] = {
     }
 
 #----
-# Злодеи (герои) (Магор):
+# Враги (герои) (Магор):
 
 metadict_chars['Paladin 1 lvl (враг) (паладин Магора)'] = {
     'level':1,
@@ -8640,7 +8640,7 @@ metadict_chars['Paladin 5 lvl (враг) (Магор «Детоед»)'] = {
     }
 
 #----
-# Злодеи (герои) (Хана'Вам):
+# Враги (герои) (Хана'Вам):
 
 metadict_chars['Fighter 1 lvl (враг) (снайпер Хана\'Вама)'] = {
     # Снайперы, корректируют "Град стрел" ополчения.
@@ -8721,7 +8721,7 @@ metadict_chars['Fighter 5 lvl (враг) (Хана\'Вам)'] = {
     }
 
 #----
-# Злодеи (герои) (Тик-Бо):
+# Враги (герои) (Тик-Бо):
 
 metadict_chars['Druid 1 lvl (враг) (друид Тик-Бо)'] = {
     # На них "Водное дыхание" или "Хождение по воде"
@@ -8832,7 +8832,7 @@ metadict_chars['Druid 5 lvl (враг) (Тик-Бо «Робкий»)'] = {
     }
 
 #----
-# Злодеи (армии) (демоны Кема'Эша):
+# Враги (армии) (демоны Кема'Эша):
 
 metadict_chars['Commoner 1 lvl (враг) (карл)'] = {
     # Карлы с дубинками. Ничего особенного, только шкуры у них крепкие.
@@ -9046,7 +9046,7 @@ metadict_chars['Barbarian 9 lvl (нейтрал) (Карагос «Мудрый�
     }
 
 #----
-# Злодеи (герои) (Радамант):
+# Враги (герои) (Радамант):
 
 metadict_chars['Barbarian 2 lvl (враг) (варвар Радаманта)'] = {
     'level':2,
@@ -9126,7 +9126,146 @@ metadict_chars['Barbarian 5 lvl (враг) (Радамант «Бдительн�
     }
 
 #----
-# Злодеи (армии) (демоны Ашеры):
+# Враги (армии) (мирмидоны Чары):
+
+metadict_chars['Warrior 1 lvl (враг) (мирмидон)'] = {
+    # Армия Номисто. "Универсальные солдаты", x2 стоимость снаряжения.
+    'level':1,
+    'char_class':'Warrior',
+    'behavior':'warrior',
+    'hit_dice':'1d8',
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Chain Shirt':1,
+        'Heavy Shield':1,
+        'Shortsword':1,
+        'Long Spear':1,
+        'Shortbow':1,
+        'Arrow':30,
+        'Poison Arrow':10,
+        },
+    }
+
+metadict_chars['Warrior 2 lvl (враг) (мирмидон-ветеран)'] = {
+    'level':2,
+    'char_class':'Warrior',
+    'behavior':'elite_warrior',
+    'hit_dice':'1d8',
+    'class_features':{
+        'Fighting_Style_Defence':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Breastplate':1,
+        'Heavy Shield':1,
+        'Shortsword':1,
+        'Long Spear':1,
+        'Shortbow':1,
+        'Arrow':30,
+        'Poison Arrow':10,
+        },
+    }
+
+metadict_chars['Warrior 3 lvl (враг) (мирмидон-сержант)'] = {
+    'level':3,
+    'char_class':'Warrior',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Defence':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Rune of Shielding':1,
+        'Breastplate':1,
+        'Heavy Shield':1,
+        'Shortsword':1,
+        'Long Spear':1,
+        'Shortbow':1,
+        'Arrow':30,
+        'Poison Arrow':10,
+        },
+    }
+
+metadict_chars['Warrior 4 lvl (враг) (мирмидон-лейтенант)'] = {
+    'level':4,
+    'char_class':'Warrior-officer',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Defence':True,
+        'Feat_Inspiring_Leader':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Heroism':1,
+        'Rune of Absorbtion':1,
+        'Rune of Shielding':1,
+        'Half Plate':1,
+        'Heavy Shield':1,
+        'Shortsword':1,
+        'Long Spear':1,
+        'Shortbow':1,
+        'Poison Arrow':40,
+        },
+    'mount_combat':False,
+    'mount_type':'Riding Horse',
+    'equipment_mount':{
+        },
+    }
+
+metadict_chars['Warrior 5 lvl (враг) (мирмидон-капитан)'] = {
+    'level':5,
+    'char_class':'Warrior-officer',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Defence':True,
+        'Feat_Inspiring_Leader':True,
+        'Extra_Attack':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Heroism':1,
+        'Rune of Absorbtion':1,
+        'Rune of Shielding':1,
+        'Half Plate':1,
+        'Heavy Shield':1,
+        'Shortsword':1,
+        'Long Spear':1,
+        'Shortbow':1,
+        'Poison Arrow':40,
+        },
+    'mount_combat':False,
+    'mount_type':'Riding Horse',
+    'equipment_mount':{
+        },
+    }
+
+#----
+# Враги (армии) (демоны Ашеры):
 
 metadict_chars['Warrior 1 lvl (враг) (демон-рядовой)'] = {
     'level':1,
@@ -9166,6 +9305,7 @@ metadict_chars['Warrior 2 lvl (враг) (демон-ветеран)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':militia_pack,
     'equipment_weapon':{
+        'Infusion of Longstrider':1,
         'Shield':1,
         'Battleaxe':1,
         'Long Spear':1,
@@ -9190,9 +9330,9 @@ metadict_chars['Warrior 3 lvl (враг) (демон-сержант)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':militia_pack,
     'equipment_weapon':{
-        'Shield':1,
+        'Infusion of Heroism':1,
         'Battleaxe':1,
-        'Long Spear':1,
+        'Shield':1,
         },
     }
 
@@ -9214,9 +9354,10 @@ metadict_chars['Warrior 4 lvl (враг) (демон-лейтенант)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':militia_pack,
     'equipment_weapon':{
-        'Shield':1,
+        'Infusion of Heroism':1,
+        'Rune of Shielding':1,
         'Battleaxe':1,
-        'Long Spear':1,
+        'Shield':1,
         },
     }
 
@@ -9238,9 +9379,12 @@ metadict_chars['Warrior 5 lvl (враг) (демон-капитан)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':militia_pack,
     'equipment_weapon':{
+        'Infusion of Heroism':1,
+        'Rune of Absorbtion':1,
+        'Rune of Shielding':1,
+        'Half Plate':1,
+        'Battleaxe':1,
         'Shield':1,
-        'Battleaxe +1':1,
-        'Long Spear':1,
         },
     }
 
