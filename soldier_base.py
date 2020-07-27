@@ -1281,6 +1281,7 @@ class soldier():
             if attack_dict.get('cost_ammo (grams_of_gold)')\
                     and attack_dict['cost_ammo (grams_of_gold)'] <= test_ammo_cost_max:
                 test_ammo_cost_min = attack_dict['cost_ammo (grams_of_gold)']
+        # Выбираем лучшее оружие (обычно самое дорогое):
         for attack_name, attack_dict in self.attacks.items():
             if attack_type in attack_name:
                 if attack_dict.get('cost (grams_of_gold)',0) > test_weapon_cost:
@@ -1289,6 +1290,9 @@ class soldier():
                 if len(attack_dict['weapon_skills_use']) >= test_weapon_skills:
                     test_weapon_skills = len(attack_dict['weapon_skills_use'])
                     weapon_of_choice_skills = attack_name[1]
+                if attack_type == 'ranged'\
+                        and attack_dict.get('cost_ammo (grams_of_gold)',0) >= test_ammo_cost_min:
+                    weapon_of_choice = attack_name[1]
                 if attack_type == 'volley'\
                         and attack_dict.get('cost_ammo (grams_of_gold)',0) <= test_ammo_cost_min:
                     weapon_of_choice = attack_name[1]
