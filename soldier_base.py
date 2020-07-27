@@ -1239,23 +1239,27 @@ class soldier():
         return attack_mod_dict
 
     def attack_modify_magic(self, dict_attack):
-        """Добавляем модификаторы магического оружия."""
-        # TODO: Проблема. Сначала берётся наименьший модификатор.
-        # Если там '+1' от боеприпаса и '+2' от лука, то будет только модификатор боеприпаса.
-        # Очевидно, сначала надо брасть +3, потом +2. Сделаем следующим комитом.
+        """Добавляем модификаторы магического оружия.
+        
+        - Если несколько модификаторов (стрела +1 и лук +2), то берётся наибольший.
+        """
         attack_mod = dict_attack['attack_mod']
         damage_mod = dict_attack['damage_mod']
-        if '+1' in dict_attack['weapon_type']:
-            attack_mod += 1
-            damage_mod += 1
-        elif '+2' in dict_attack['weapon_type']:
-            attack_mod += 2
-            damage_mod += 2
+        if '+5' in dict_attack['weapon_type']:
+            attack_mod += 5
+            damage_mod += 5
+        elif '+4' in dict_attack['weapon_type']:
+            attack_mod += 4
+            damage_mod += 4
         elif '+3' in dict_attack['weapon_type']:
             attack_mod += 3
             damage_mod += 3
-        if 'sword_burst' in dict_attack['weapon_type']:
-            self.class_features['Spells'] = [('subspell', 'Sword_Burst')]
+        elif '+2' in dict_attack['weapon_type']:
+            attack_mod += 2
+            damage_mod += 2
+        elif '+1' in dict_attack['weapon_type']:
+            attack_mod += 1
+            damage_mod += 1
         attack_mod_dict = {
                 'attack_mod':attack_mod,
                 'damage_mod':damage_mod,
