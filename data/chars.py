@@ -9134,6 +9134,8 @@ metadict_chars['Warrior 1 lvl (враг) (демон-рядовой)'] = {
     'behavior':'warrior',
     'class_features':{
         #'Regeneration':1,
+        #'Demon_Resistance':True,
+        'Demon_Vulnerability':True,
         },
     'hit_dice':'1d8',
     'race':'Primevial-medium',
@@ -9143,9 +9145,8 @@ metadict_chars['Warrior 1 lvl (враг) (демон-рядовой)'] = {
     'equipment_backpack':militia_pack,
     'equipment_weapon':{
         'Heavy Shield':1,
-        'Mace':1,
+        'Shortsword':1,
         'Long Spear':1,
-        'Javelin':6,
         },
     }
 
@@ -9154,7 +9155,9 @@ metadict_chars['Warrior 2 lvl (враг) (демон-ветеран)'] = {
     'char_class':'Warrior',
     'behavior':'elite_warrior',
     'class_features':{
-        #'Regeneration':1,
+        'Regeneration':1,
+        'Demon_Resistance':True,
+        'Demon_Vulnerability':True,
         },
     'hit_dice':'1d8',
     'race':'Primevial-medium',
@@ -9163,11 +9166,9 @@ metadict_chars['Warrior 2 lvl (враг) (демон-ветеран)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':militia_pack,
     'equipment_weapon':{
-        'Scale Mail':1,
         'Shield':1,
         'Battleaxe':1,
         'Long Spear':1,
-        'Javelin':6,
         },
     }
 
@@ -9178,7 +9179,9 @@ metadict_chars['Warrior 3 lvl (враг) (демон-сержант)'] = {
     'char_class':'Warrior-officer',
     'behavior':'commander',
     'class_features':{
-        'Regeneration':1,
+        'Regeneration':2,
+        'Demon_Resistance':True,
+        'Demon_Vulnerability':True,
         },
     'hit_dice':'1d10',
     'race':'Primevial-large',
@@ -9187,10 +9190,9 @@ metadict_chars['Warrior 3 lvl (враг) (демон-сержант)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':militia_pack,
     'equipment_weapon':{
-        'Breastplate':1,
         'Shield':1,
         'Battleaxe':1,
-        'Javelin':6,
+        'Long Spear':1,
         },
     }
 
@@ -9201,7 +9203,9 @@ metadict_chars['Warrior 4 lvl (враг) (демон-лейтенант)'] = {
     'char_class':'Warrior-officer',
     'behavior':'commander',
     'class_features':{
-        'Regeneration':1,
+        'Regeneration':3,
+        'Demon_Resistance':True,
+        'Demon_Vulnerability':True,
         },
     'hit_dice':'1d10',
     'race':'Primevial-large',
@@ -9210,10 +9214,9 @@ metadict_chars['Warrior 4 lvl (враг) (демон-лейтенант)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':militia_pack,
     'equipment_weapon':{
-        'Breastplate':1,
         'Shield':1,
         'Battleaxe':1,
-        'Javelin':6,
+        'Long Spear':1,
         },
     }
 
@@ -9224,7 +9227,9 @@ metadict_chars['Warrior 5 lvl (враг) (демон-капитан)'] = {
     'char_class':'Warrior-officer',
     'behavior':'commander',
     'class_features':{
-        'Regeneration':1,
+        'Regeneration':4,
+        'Demon_Resistance':True,
+        'Demon_Vulnerability':True,
         },
     'hit_dice':'1d10',
     'race':'Primevial-large',
@@ -9233,10 +9238,9 @@ metadict_chars['Warrior 5 lvl (враг) (демон-капитан)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':militia_pack,
     'equipment_weapon':{
-        'Half Plate':1,
         'Shield':1,
         'Battleaxe +1':1,
-        'Javelin':6,
+        'Long Spear':1,
         },
     }
 
