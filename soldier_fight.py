@@ -146,6 +146,7 @@ class soldier_in_battle(soldier):
         self.defeat = False
         self.escape = False
         self.prone = False
+        self.poisoned = False
         self.stunned = False
         self.grappled = False
         self.restained = False
@@ -423,6 +424,16 @@ class soldier_in_battle(soldier):
                     s = self.behavior,
                     fear = self.fear
                     ))
+        # Отравленный отходит от яда (делая спасброски):
+        if self.poisoned:
+            if self.get_savethrow(self.poison_difficult, 'constitution'):
+                self.poisoned = False
+                self.poison_difficult = None
+            elif self.poison_timer > 0:
+                self.poison_timer -= 1
+            elif self.poison_timer == 0:
+                self.poisoned = False
+                self.poison_difficult = None
         # Ошеломлённый пытается очухаться:
         if self.stunned:
             if self.stunned_timer > 0:
@@ -903,11 +914,29 @@ class soldier_in_battle(soldier):
                     self.danger = 1
                     self.escape = True
 
+    def get_savethrow(self, difficul, ability, advantage = None, disadvantage = None):
+        """Делаем спасбросок.
+        
+        - Учитываем преимущества к броскам характеристик.
+        - И помехи к броскам характеристик.
+        """
+        # TODO: Нужно сделать check_savethrow_autofail -- для оглушённого, например.
+        if not advantage == None:
+            advantage = self.check_savethrow_advantage(ability)
+        if not disadvantage == None:
+            disadvantage = self.check_savethrow_disadvantage(ability)
+        savethrow_result = dices.dice_throw_advantage('1d20', advantage, disadvantage) + self.saves[ability]
+        if difficul <= savethrow_result:
+            return True
+        else:
+            return False
+
     def morality_check_escape(self, danger, advantage = False, disadvantage = False):
         """Если опасность высока, боец боится и может сбежать.
         
         Это проверка 10 + уровень_опасности против спасброска харизмы.
         """
+        # TODO: добавь проверку преимущества к спасброску харизмы.
         danger_difficul = 10 + danger
         danger_saving_throw = dices.dice_throw_advantage('1d20', advantage, disadvantage)\
                 + self.saves['charisma']
@@ -1136,6 +1165,25 @@ class soldier_in_battle(soldier):
         else:
             return False
 
+    def set_poisoned(self, poison_difficult, poison_timer = 10, advantage = False, disadvantage = False):
+        """Бойца пытаются отравить
+        
+        - Помеха на броски атаки
+        - Помеха на проверки характеристик
+
+        Спасбросок телосложения.
+        """
+        savethrow_adavantage = self.check_savethrow_advantage('constitution')
+        poison_savethrow = dices.dice_throw_advantage('1d20', savethrow_adavantage)\
+                + self.saves['constitution']
+        if poison_savethrow <= poison_difficult:
+            self.poisoned = True
+            self.poison_difficult = poison_difficult
+            self.poison_timer = poison_timer
+            return True
+        else:
+            return False
+
     def set_stunned(self, stunned_difficult, stunned_timer = 1, advantage = False, disadvantage = False):
         """Бойца пытаются оглушить.
         
@@ -1360,12 +1408,23 @@ class soldier_in_battle(soldier):
                 reaper_throw, self.death_save_success, self.death_save_loss,
                 self.stable, self.death))
 
-    def check_savethrow_advantage(self, savethrow_type):
+    def check_savethrow_advantage(self, ability):
         """Способности могут дать преимущество на спасбросок."""
         # Варвары в ярости получают преимущество на спасброски силы:
-        if savethrow_type == 'strength':
+        if ability == 'strength':
             if self.class_features.get('Rage') and self.rage:
                 return True
+        else:
+            return False
+
+    def check_savethrow_disadvantage(self, ability):
+        """Способности могут дать преимущество на спасбросок."""
+        # TODO: уточни, включают ли "проверки характеристик" спасброски.
+        # Отравление даёт помеху на проверки характеристик.
+        if self.poisoned:
+            return True
+        else:
+            return False
 
 # ----
 

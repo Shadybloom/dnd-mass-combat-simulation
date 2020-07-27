@@ -2274,16 +2274,16 @@ class battle_simulation(battlescape):
                     soldier.destructive_wrath = False
             # Зональное заклинание поражает цели:
             for enemy in targets:
+                enemy_soldier = self.metadict_soldiers[enemy.uuid]
                 if spell_dict.get('safe'):
                     safe = spell_dict['safe']
                 if safe and enemy.side in soldier.ally_side:
                     continue
                 # Вызов страа от паладинского Dreadful_Aspect
                 if spell_dict.get('effect') == 'fear':
-                    enemy_soldier = self.metadict_soldiers[enemy.uuid]
                     fear = enemy_soldier.set_fear(soldier, spell_dict['spell_save_DC'])
                     if fear:
-                        print('{side_1}, {c1} {s} FEAR >> {side_2} {c2} {e}'.format(
+                        print('[+++] {side_1}, {c1} {s} FEAR >> {side_2} {c2} {e}'.format(
                             side_1 = soldier.ally_side,
                             c1 = soldier.place,
                             s = soldier.behavior,
@@ -2291,7 +2291,37 @@ class battle_simulation(battlescape):
                             c2 = enemy_soldier.place,
                             e = enemy_soldier.behavior,
                             ))
-                    continue
+                    if not spell_dict.get('damage_dice'):
+                        continue
+                if spell_dict.get('effect') == 'stun':
+                    stunned = enemy_soldier.set_stunned(
+                            spell_dict['spell_save_DC'], spell_dict['effect_timer'])
+                    if stunned:
+                        print('[+++] {side_1}, {c1} {s} STUNNED >> {side_2} {c2} {e}'.format(
+                            side_1 = soldier.ally_side,
+                            c1 = soldier.place,
+                            s = soldier.behavior,
+                            side_2 = enemy_soldier.ally_side,
+                            c2 = enemy_soldier.place,
+                            e = enemy_soldier.behavior,
+                            ))
+                    if not spell_dict.get('damage_dice'):
+                        continue
+                if spell_dict.get('effect') == 'poison':
+                    # Отравление, это помеха на 20-30 атак в столкновении отрядов.
+                    poisoned = enemy_soldier.set_poisoned(
+                            spell_dict['spell_save_DC'], spell_dict['effect_timer'])
+                    if poisoned:
+                        print('[+++] {side_1}, {c1} {s} POISONED >> {side_2} {c2} {e}'.format(
+                            side_1 = soldier.ally_side,
+                            c1 = soldier.place,
+                            s = soldier.behavior,
+                            side_2 = enemy_soldier.ally_side,
+                            c2 = enemy_soldier.place,
+                            e = enemy_soldier.behavior,
+                            ))
+                    if not spell_dict.get('damage_dice'):
+                        continue
                 # Перемещение в центр зоны заклинания (whirlwind воздушного элементаля)
                 if spell_dict.get('effect') == 'move':
                     self.change_place(soldier.place, zone_center, soldier.uuid)
@@ -2299,7 +2329,6 @@ class battle_simulation(battlescape):
                 if spell_dict.get('effect') == 'ice_knife' and enemy.place == zone_center:
                     self.spellcast_action(soldier, squad, enemy,
                             spell_choice = spell_dict['subspell'], subspell = True, use_spell = False)
-                enemy_soldier = self.metadict_soldiers[enemy.uuid]
                 advantage, disadvantage = self.test_enemy_defence(soldier, enemy_soldier, spell_choice)
                 attack_dict = soldier.spell_attack(spell_dict, enemy,
                         squad.metadict_soldiers,
@@ -2427,7 +2456,10 @@ class battle_simulation(battlescape):
                         and hasattr(self.metadict_soldiers[enemy_soldier.mount_uuid], 'place')\
                         and not self.metadict_soldiers[enemy_soldier.mount_uuid].place == enemy_soldier.place:
                     advantage = True
-        # Опутанный крайне уязвим:
+        # Отравленный получает помеху на атаки:
+        if soldier.poisoned == True:
+            disadvantage = True
+        # Опутанный получает помеху на атаки:
         if soldier.restained == True:
             disadvantage = True
         # Наш боец может быть сбит с ног (и ему не удалось подняться в начале раунда):
