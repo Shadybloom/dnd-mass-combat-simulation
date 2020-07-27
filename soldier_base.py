@@ -972,21 +972,42 @@ class soldier():
                     dict_attack['attack_type'] = 'ranged'
                     dict_attack['attack_range'] = dict_attack['shoot_range']
                     dict_attack['attack_range_max'] = dict_attack['shoot_range_max']
-                    # Подсчёт количества боеприпасов (стрел, камней):
-                    ammo_type = dict_attack['ammo_type']
-                    dict_attack['ammo'] = self.equipment_weapon[ammo_type]
-                    dict_attack.update(self.select_attack_mod(dict_attack))
-                    metadict_attacks['ranged',item] = {}
-                    metadict_attacks['ranged',item].update(dict_attack)
+                    # Тип боеприпаса может быть один, или список:
+                    ammo_type = dict_attack.get('ammo_type')
+                    if isinstance(ammo_type, str):
+                        ammo = ammo_type
+                        if self.equipment_weapon.get(ammo):
+                            # Указываем в атаке количество доступных стрел:
+                            # Затем модифицируем словарь атаки боеприпасом.
+                            dict_attack['ammo'] = self.equipment_weapon[ammo]
+                            dict_attack.update(self.modify_attack_ammo(dict_attack, ammo))
+                            dict_attack.update(self.select_attack_mod(dict_attack))
+                            name = item, ammo
+                            name = ' '.join(name)
+                            metadict_attacks['ranged',name] = {}
+                            metadict_attacks['ranged',name].update(dict_attack)
+                    # Если боеприпасов несколько, то для каждого своя атака:
+                    elif isinstance(ammo_type, list):
+                        for ammo in ammo_type:
+                            if self.equipment_weapon.get(ammo):
+                                dict_attack['ammo'] = self.equipment_weapon[ammo]
+                                dict_attack.update(self.modify_attack_ammo(dict_attack, ammo))
+                                dict_attack.update(self.select_attack_mod(dict_attack))
+                                name = item, ammo
+                                name = ' '.join(name)
+                                metadict_attacks['ranged',name] = {}
+                                metadict_attacks['ranged',name].update(dict_attack)
+                    # Если боеприпас в оружии не указан, считается бесконечным:
+                    else:
+                        dict_attack.update(self.select_attack_mod(dict_attack))
+                        name = item, 'endless_ammo'
+                        name = ' '.join(name)
+                        metadict_attacks['ranged',name] = {}
+                        metadict_attacks['ranged',name].update(dict_attack)
                 # Неприцельная стрельба, град стрел/дротиков без модификаторов к атаке:
                 if 'volley' in metadict_items[item].get('weapon_type'):
                     dict_attack = {}
                     dict_attack.update(metadict_items[item])
-                    ammo_type = dict_attack.get('ammo_type')
-                    if not ammo_type:
-                        dict_attack['ammo'] = self.equipment_weapon[item]
-                    else:
-                        dict_attack['ammo'] = self.equipment_weapon[ammo_type]
                     dict_attack['attack_type'] = 'volley'
                     if dict_attack.get('shoot_range'):
                         dict_attack['attack_range'] = dict_attack['shoot_range']
@@ -994,16 +1015,107 @@ class soldier():
                     elif dict_attack.get('throw_range'):
                         dict_attack['attack_range'] = dict_attack['throw_range']
                         dict_attack['attack_range_max'] = dict_attack['throw_range_max']
-                    # Это неприцельный огонь, положительные модификаторы отменяются:
-                    dict_attack.update(self.select_attack_mod(dict_attack))
-                    dict_attack['weapon_skills_use'] = []
-                    if dict_attack['damage_mod'] > 0:
-                        dict_attack['damage_mod'] = 0
-                    if dict_attack['attack_mod'] > 0:
-                        dict_attack['attack_mod'] = 0
-                    metadict_attacks['volley',item] = {}
-                    metadict_attacks['volley',item].update(dict_attack)
+                    # Тип боеприпаса может быть один, или список:
+                    ammo_type = dict_attack.get('ammo_type')
+                    if isinstance(ammo_type, str):
+                        ammo = ammo_type
+                        if self.equipment_weapon.get(ammo):
+                            # Указываем в атаке количество доступных стрел:
+                            # Затем модифицируем словарь атаки боеприпасом.
+                            dict_attack['ammo'] = self.equipment_weapon[ammo]
+                            dict_attack.update(self.modify_attack_ammo(dict_attack, ammo))
+                            dict_attack.update(self.select_attack_mod(dict_attack))
+                            # Это неприцельный огонь, положительные модификаторы отменяются:
+                            dict_attack['weapon_skills_use'] = []
+                            if dict_attack['damage_mod'] > 0:
+                                dict_attack['damage_mod'] = 0
+                            if dict_attack['attack_mod'] > 0:
+                                dict_attack['attack_mod'] = 0
+                            name = item, ammo
+                            name = ' '.join(name)
+                            metadict_attacks['volley',name] = {}
+                            metadict_attacks['volley',name].update(dict_attack)
+                    # Если боеприпасов несколько, то для каждого своя атака:
+                    elif isinstance(ammo_type, list):
+                        for ammo in ammo_type:
+                            if self.equipment_weapon.get(ammo):
+                                dict_attack['ammo'] = self.equipment_weapon[ammo]
+                                dict_attack.update(self.modify_attack_ammo(dict_attack, ammo))
+                                dict_attack.update(self.select_attack_mod(dict_attack))
+                                # Это неприцельный огонь, положительные модификаторы отменяются:
+                                dict_attack['weapon_skills_use'] = []
+                                if dict_attack['damage_mod'] > 0:
+                                    dict_attack['damage_mod'] = 0
+                                if dict_attack['attack_mod'] > 0:
+                                    dict_attack['attack_mod'] = 0
+                                name = item, ammo
+                                name = ' '.join(name)
+                                metadict_attacks['volley',name] = {}
+                                metadict_attacks['volley',name].update(dict_attack)
+                    # Если боеприпас в оружии не указан, считается бесконечным:
+                    else:
+                        dict_attack.update(self.select_attack_mod(dict_attack))
+                        # Это неприцельный огонь, положительные модификаторы отменяются:
+                        dict_attack['weapon_skills_use'] = []
+                        if dict_attack['damage_mod'] > 0:
+                            dict_attack['damage_mod'] = 0
+                        if dict_attack['attack_mod'] > 0:
+                            dict_attack['attack_mod'] = 0
+                        name = item, 'endless_ammo'
+                        name = ' '.join(name)
+                        metadict_attacks['volley',name] = {}
+                        metadict_attacks['volley',name].update(dict_attack)
         return metadict_attacks
+
+    def modify_attack_ammo(self, dict_attack, ammo):
+        """Каждый боеприпас влияет на оружие.
+        
+        Свойства боеприпаса и оружия объединяются в атаке:
+        - Кость урона боеприпаса.
+        - Магические свойства боеприпаса.
+        - Стоимость единичного боеприпаса.
+        """
+        metadict_items = self.metadict_items
+        dict_ammo = copy.deepcopy(metadict_items[ammo])
+        # Боеприпас указываем точно:
+        dict_attack['ammo_type'] = ammo
+        # Кость урона и тип урона боеприпаса:
+        if dict_ammo.get('damage_dice'):
+            dict_attack['damage_dice'] = dict_ammo['damage_dice']
+        if dict_ammo.get('damage_type'):
+            dict_attack['damage_type'] = dict_ammo['damage_type']
+        # Дополняеются свойства оружия (магический боеприпас)
+        if dict_ammo.get('weapon_type'):
+            dict_attack['weapon_type'].extend(dict_ammo['weapon_type'])
+            dict_attack['weapon_type'] = list(set(dict_attack['weapon_type']))
+        # Дальность выстрела не может быть больше указанной в свойствах боеприпаса:
+        if dict_ammo.get('shoot_range')\
+                and dict_attack.get('shoot_range')\
+                and dict_attack['shoot_range'] > dict_ammo['shoot_range']:
+            dict_attack['shoot_range'] = dict_ammo['shoot_range']
+            dict_attack['attack_range'] = dict_attack['shoot_range']
+        if dict_ammo.get('shoot_range_max')\
+                and dict_attack.get('shoot_range_max')\
+                and dict_attack['shoot_range_max'] > dict_ammo['shoot_range_max']:
+            dict_attack['shoot_range_max'] = dict_ammo['shoot_range_max']
+            dict_attack['attack_range_max'] = dict_attack['shoot_range_max']
+        # К стоимости оружия прибавляется стоимость единичного боеприпаса:
+        if dict_ammo.get('cost (grams_of_gold)'):
+            dict_attack['cost_ammo (grams_of_gold)'] = dict_ammo['cost (grams_of_gold)']
+        #if dict_ammo.get('cost (ephesi)')\
+        #        and dict_attack.get('cost (ephesi)'):
+        #    dict_attack['cost (ephesi)'] += dict_ammo['cost (ephesi)']
+        #if dict_ammo.get('cost (follis)')\
+        #        and dict_attack.get('cost (follis)'):
+        #    dict_attack['cost (follis)'] += dict_ammo['cost (follis)']
+        #if dict_ammo.get('cost (gp)')\
+        #        and dict_attack.get('cost (gp)'):
+        #    dict_attack['cost (gp)'] += dict_ammo['cost (gp)']
+        # Наконец, оружию передаются прочие свойства боеприпаса (вроде встроенного заклинания):
+        for key in dict_ammo:
+            if key not in dict_attack:
+                dict_attack[key] = dict_ammo[key]
+        return(dict_attack)
 
     def modify_attacks(self):
         """Перебираем атаки и добавляем к ним модификаторы способностей.
@@ -1128,6 +1240,9 @@ class soldier():
 
     def attack_modify_magic(self, dict_attack):
         """Добавляем модификаторы магического оружия."""
+        # TODO: Проблема. Сначала берётся наименьший модификатор.
+        # Если там '+1' от боеприпаса и '+2' от лука, то будет только модификатор боеприпаса.
+        # Очевидно, сначала надо брасть +3, потом +2. Сделаем следующим комитом.
         attack_mod = dict_attack['attack_mod']
         damage_mod = dict_attack['damage_mod']
         if '+1' in dict_attack['weapon_type']:
@@ -1159,14 +1274,26 @@ class soldier():
         test_weapon_skills = 0
         weapon_of_choice = None
         weapon_of_choice_skills = None
+        test_ammo_cost_max = 0
+        test_ammo_cost_min = 0
+        # Стоимость единичного боеприпаса:
+        for attack_name, attack_dict in self.attacks.items():
+            if attack_dict.get('cost_ammo (grams_of_gold)',0) > test_ammo_cost_max:
+                test_ammo_cost_max = attack_dict['cost_ammo (grams_of_gold)']
+            if attack_dict.get('cost_ammo (grams_of_gold)')\
+                    and attack_dict['cost_ammo (grams_of_gold)'] <= test_ammo_cost_max:
+                test_ammo_cost_min = attack_dict['cost_ammo (grams_of_gold)']
         for attack_name, attack_dict in self.attacks.items():
             if attack_type in attack_name:
-                if attack_dict.get('cost (gp)',0) > test_weapon_cost:
-                    test_weapon_cost = attack_dict['cost (gp)']
+                if attack_dict.get('cost (grams_of_gold)',0) > test_weapon_cost:
+                    test_weapon_cost = attack_dict['cost (grams_of_gold)']
                     weapon_of_choice = attack_name[1]
                 if len(attack_dict['weapon_skills_use']) >= test_weapon_skills:
                     test_weapon_skills = len(attack_dict['weapon_skills_use'])
                     weapon_of_choice_skills = attack_name[1]
+                if attack_type == 'volley'\
+                        and attack_dict.get('cost_ammo (grams_of_gold)',0) <= test_ammo_cost_min:
+                    weapon_of_choice = attack_name[1]
         # Если не находим оружие по стоимости, выбираем по навыкам:
         if not weapon_of_choice:
             weapon_of_choice = weapon_of_choice_skills
