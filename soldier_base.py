@@ -982,8 +982,7 @@ class soldier():
                             dict_attack['ammo'] = self.equipment_weapon[ammo]
                             dict_attack.update(self.modify_attack_ammo(dict_attack, ammo))
                             dict_attack.update(self.select_attack_mod(dict_attack))
-                            name = item, ammo
-                            name = ' + '.join(name)
+                            name = '{0} ({1})'.format(item, ammo)
                             metadict_attacks['ranged',name] = {}
                             metadict_attacks['ranged',name].update(dict_attack)
                     # Если боеприпасов несколько, то для каждого своя атака:
@@ -993,15 +992,13 @@ class soldier():
                                 dict_attack['ammo'] = self.equipment_weapon[ammo]
                                 dict_attack.update(self.modify_attack_ammo(dict_attack, ammo))
                                 dict_attack.update(self.select_attack_mod(dict_attack))
-                                name = item, ammo
-                                name = ' + '.join(name)
+                                name = '{0} ({1})'.format(item, ammo)
                                 metadict_attacks['ranged',name] = {}
                                 metadict_attacks['ranged',name].update(dict_attack)
                     # Если боеприпас в оружии не указан, считается бесконечным:
                     else:
                         dict_attack.update(self.select_attack_mod(dict_attack))
-                        name = item, 'endless_ammo'
-                        name = ' + '.join(name)
+                        name = '{0} ({1})'.format(item, 'endless_ammo')
                         metadict_attacks['ranged',name] = {}
                         metadict_attacks['ranged',name].update(dict_attack)
                 # Неприцельная стрельба, град стрел/дротиков без модификаторов к атаке:
@@ -1031,8 +1028,7 @@ class soldier():
                                 dict_attack['damage_mod'] = 0
                             if dict_attack['attack_mod'] > 0:
                                 dict_attack['attack_mod'] = 0
-                            name = item, ammo
-                            name = ' + '.join(name)
+                            name = '{0} ({1})'.format(item, ammo)
                             metadict_attacks['volley',name] = {}
                             metadict_attacks['volley',name].update(dict_attack)
                     # Если боеприпасов несколько, то для каждого своя атака:
@@ -1048,8 +1044,7 @@ class soldier():
                                     dict_attack['damage_mod'] = 0
                                 if dict_attack['attack_mod'] > 0:
                                     dict_attack['attack_mod'] = 0
-                                name = item, ammo
-                                name = ' + '.join(name)
+                                name = '{0} ({1})'.format(item, ammo)
                                 metadict_attacks['volley',name] = {}
                                 metadict_attacks['volley',name].update(dict_attack)
                     # Если боеприпас в оружии не указан, считается бесконечным:
@@ -1061,8 +1056,7 @@ class soldier():
                             dict_attack['damage_mod'] = 0
                         if dict_attack['attack_mod'] > 0:
                             dict_attack['attack_mod'] = 0
-                        name = item, 'endless_ammo'
-                        name = ' + '.join(name)
+                        name = '{0} ({1})'.format(item, 'endless_ammo')
                         metadict_attacks['volley',name] = {}
                         metadict_attacks['volley',name].update(dict_attack)
         return metadict_attacks

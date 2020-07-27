@@ -1788,7 +1788,7 @@ class soldier_in_battle(soldier):
         Или бьющего по местности огненного шара.
         """
         damage_throw = dices.dice_throw_advantage(attack_dict['damage_dice'])
-        damage_throw_mod = damage_throw + attack_dict['damage_mod']
+        damage_throw_mod = damage_throw + attack_dict.get('damage_mod',0)
         attack_result_dict = {
                 'damage':damage_throw_mod,
                 'damage_throw':damage_throw,
