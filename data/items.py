@@ -20,6 +20,41 @@
 # 100 килограмм овса
 
 #-------------------------------------------------------------------------
+# Варианты боеприпасов:
+
+longbow_arrows = [
+        # ammo_type
+        'Arrow',
+        'Arrow +1',
+        'Silver Arrow',
+        'Hunting Arrow',
+        'Slashing Arrow',
+        'Poison Arrow',
+        'Fire Arrow',
+        'Acid Arrow',
+        ]
+
+crossbow_bolts = [
+        'Crossbow Bolt',
+        'Crossbow Bolt +1',
+        'Silver Bolt',
+        'Hunting Bolt',
+        'Slashing Bolt',
+        'Poison Bolt',
+        'Fire Bolt',
+        'Acid Bolt',
+        ]
+
+sling_bullets = [
+        'Sling Bullet',
+        'Sling Bullet +1',
+        'Lead Bullet',
+        'Fire Bullet',
+        'Acid Bullet',
+        'Holy Bullet',
+        ]
+
+#-------------------------------------------------------------------------
 # Наборы снаряжения:
 
 soldier_supply = {
@@ -190,7 +225,7 @@ metadict_items['Crossbow, Light'] = {
     # Гастрафет, аркубаллиста
     'weapon':True,
     'loading':True,
-    'ammo_type':'Crossbow Bolt',
+    'ammo_type':crossbow_bolts,
     'weapon_type':['simple','ranged','volley','two_handed'],
     'damage_type':'piercing',
     'damage_dice':'1d6',
@@ -205,7 +240,7 @@ metadict_items['Crossbow, Heavy'] = {
     # Скорпион. Считается простым оружием. Станковый, потому очень тяжёлый.
     'weapon':True,
     'loading':True,
-    'ammo_type':'Crossbow Bolt',
+    'ammo_type':crossbow_bolts,
     'weapon_type':['simple','ranged','volley','two_handed','heavy'],
     'damage_type':'piercing',
     'damage_dice':'1d8',
@@ -231,7 +266,7 @@ metadict_items['Dart'] = {
 metadict_items['Shortbow'] = {
     # Композитный, весьма качественный для своего времени.
     'weapon':True,
-    'ammo_type':'Arrow',
+    'ammo_type':longbow_arrows,
     'weapon_type':['simple','ranged','volley','two_handed'],
     'damage_type':'piercing',
     'damage_dice':'1d6',
@@ -246,7 +281,7 @@ metadict_items['Sling'] = {
     # Дальность бросков из пращи -- 600 футов (но это неприцельно)
     # Лучше всего свинцовые шарики (плотные, меньше трутся о воздух)
     'weapon':True,
-    'ammo_type':'Sling Bullet',
+    'ammo_type':sling_bullets,
     'weapon_type':['simple','ranged','volley'],
     'damage_type':'bludgeoning',
     'damage_dice':'1d4',
@@ -452,7 +487,7 @@ metadict_items['Longbow'] = {
     # Стрела лонгбоу на 10 метрах (натяжение 150 фунтов, длина натяжения 30 дюймов) -- 150 Дж 
     # Урон 1d6, потому что иначе лучники просто уничтожают.
     'weapon':True,
-    'ammo_type':'Arrow',
+    'ammo_type':longbow_arrows,
     'weapon_type':['martial','ranged','volley','two_handed'],
     'damage_type':'piercing',
     #'damage_dice':'1d8',
@@ -466,34 +501,6 @@ metadict_items['Longbow'] = {
 
 #----
 # Martial Ranged Weapons
-
-metadict_items['Arrow'] = {
-    # Нормальная стрела длинного/композитного лука весит 70 грамм.
-    # Следовательно, 20 стрел -- 3 фунта, а не 1 фунт, как в правилах D&D.
-    # Изготовление стрел -- 0.5-2 человеко-часа (включая железный наконечник, работу кузнеца)
-    # Другие данные -- 1000 стрел за два месяца (17 стрел/сутки)
-    'ammo':True,
-    'weight (lb)':3/20,
-    'cost (gp)':1/20,
-    'cost (grams_of_gold)':4 / 60,
-    }
-
-metadict_items['Crossbow Bolt'] = {
-    'ammo':True,
-    'weight (lb)':3/20,
-    'cost (gp)':1/20,
-    'cost (grams_of_gold)':4 / 60,
-    }
-
-metadict_items['Sling Bullet'] = {
-    # Глиняные шарики, одинаковые по форме и размеру.
-    # Масса хорошего снаряда для пращи -- 300-400 грамм.
-    # Лучше бы свинцовые/железные шарики, но они дорогие (чугун 140 грамм/фоллис).
-    'ammo':True,
-    'weight (lb)':0.9,
-    'cost (sp)':1/20,
-    'cost (grams_of_gold)':2 / 60,
-    }
 
 #-------------------------------------------------------------------------
 # Simple Melee Weapons (homebrew)
@@ -567,7 +574,7 @@ metadict_items['Sling real'] = {
     # Дальность бросков из пращи -- 600 футов (но это неприцельно)
     # Лучше всего свинцовые шарики (плотные, меньше трутся о воздух)
     'weapon':True,
-    'ammo_type':'Sling Bullet',
+    'ammo_type':sling_bullets,
     'weapon_type':['simple','ranged','volley'],
     'damage_type':'bludgeoning',
     'damage_dice':'1d4',
@@ -581,7 +588,7 @@ metadict_items['Sling real'] = {
 metadict_items['Hunting Bow'] = {
     # Оружие ополченцев, лёгкие стрелы с кремневыми наконечниками.
     'weapon':True,
-    'ammo_type':'Hunting Arrow',
+    'ammo_type':longbow_arrows,
     'weapon_type':['simple','ranged','volley','two_handed'],
     'damage_type':'piercing',
     'damage_dice':'1d4',
@@ -590,14 +597,6 @@ metadict_items['Hunting Bow'] = {
     'weight (lb)':2,
     'cost (gp)':25,
     'cost (grams_of_gold)':5,
-    }
-
-metadict_items['Hunting Arrow'] = {
-    # Охотничья стрела с оперением, наконечник из заострённого камня.
-    'ammo':True,
-    'weight (lb)':2/20,
-    'cost (gp)':1/20,
-    'cost (grams_of_gold)':1 / 60,
     }
 
 #-------------------------------------------------------------------------
@@ -1349,7 +1348,7 @@ metadict_items['Long Spear +1'] = {
 metadict_items['Shortbow +1'] = {
     # Стрелы не имеют тега "magic". Они не волшебные.
     'weapon':True,
-    'ammo_type':'Arrow',
+    'ammo_type':longbow_arrows,
     'weapon_type':['simple','ranged','volley','two_handed','+1'],
     'damage_type':'piercing',
     'damage_dice':'1d6',
@@ -1363,7 +1362,7 @@ metadict_items['Shortbow +1'] = {
 metadict_items['Longbow +1'] = {
     # Стрелы не имеют тега "magic". Они не волшебные.
     'weapon':True,
-    'ammo_type':'Arrow',
+    'ammo_type':longbow_arrows,
     'weapon_type':['martial','ranged','volley','two_handed','+1'],
     'damage_type':'piercing',
     #'damage_dice':'1d8',
@@ -1570,4 +1569,171 @@ metadict_items['Alchemist\'s Fire (100 lb)'] = {
     'weight (lb)':150,
     'cost (gp)':60,
     'cost (grams_of_gold)':60,
+    }
+
+#-------------------------------------------------------------------------
+# Боеприпасы (снаряды пращ)
+
+metadict_items['Sling Bullet'] = {
+    # Глиняные шарики, одинаковые по форме и размеру.
+    # Масса хорошего снаряда для пращи -- 300-400 грамм.
+    'ammo':True,
+    'damage_dice':'1d4',
+    'damage_type':'bludgeoning',
+    'weight (lb)':0.9,
+    'cost (sp)':1 / 20,
+    'cost (grams_of_gold)':1 / 60,
+    }
+
+metadict_items['Lead Bullet'] = {
+    # Свинцовые шарики -- 400 грамм.
+    # Свинцовые/железные шарики, но они дорогие (чугун 4 / 60 gp).
+    'ammo':True,
+    'damage_dice':'1d6',
+    'damage_type':'bludgeoning',
+    'weight (lb)':0.9,
+    'cost (grams_of_gold)':4 / 60,
+    }
+
+metadict_items['Sling Bullet +1'] = {
+    'ammo':True,
+    'damage_dice':'1d6',
+    'damage_type':'bludgeoning',
+    'weapon_type':['magic','+1'],
+    'weight (lb)':0.9,
+    'cost (grams_of_gold)':4 / 60,
+    }
+
+#-------------------------------------------------------------------------
+# Боеприпасы (стрелы)
+
+metadict_items['Arrow'] = {
+    # Нормальная стрела длинного/композитного лука весит 70 грамм.
+    # Следовательно, 20 стрел -- 3 фунта, а не 1 фунт, как в правилах D&D.
+    # Изготовление стрел -- 0.5-2 человеко-часа (включая железный наконечник, работу кузнеца)
+    # Другие данные -- 1000 стрел за два месяца (17 стрел/сутки)
+    'ammo':True,
+    'damage_dice':'1d6',
+    'damage_type':'piercing',
+    'weight (lb)':3/20,
+    'cost (gp)':1/20,
+    'cost (grams_of_gold)':4 / 60,
+    }
+
+metadict_items['Arrow +1'] = {
+    'ammo':True,
+    'damage_dice':'1d6',
+    'damage_type':'piercing',
+    'weapon_type':['magic','+1'],
+    'weight (lb)':3/20,
+    'cost (gp)':1/20,
+    'cost (grams_of_gold)':4 / 60,
+    }
+
+metadict_items['Slashing Arrow'] = {
+    # Дороже и тяжелее из-за широкого наконечника.
+    'ammo':True,
+    'damage_dice':'1d6',
+    'damage_type':'slashing',
+    'weight (lb)':4/20,
+    'cost (gp)':1/20,
+    'cost (grams_of_gold)':6 / 60,
+    }
+
+metadict_items['Hunting Arrow'] = {
+    # Охотничья стрела с оперением, наконечник из заострённого камня.
+    'ammo':True,
+    'damage_dice':'1d4',
+    'damage_type':'piercing',
+    'weight (lb)':2/20,
+    'cost (gp)':1/20,
+    'cost (grams_of_gold)':1 / 60,
+    }
+
+metadict_items['Fire Arrow'] = {
+    # Алхимический огонь
+    # Сложно сделать прицельный выстрел.
+    'ammo':True,
+    'shoot_range':60,
+    'shoot_range_max':600,
+    'damage_dice':'1d4',
+    'damage_type':'piercing',
+    'spell_dict':{
+            'safe':True,
+            'direct_hit':True,
+            'savethrow':True,
+            'savethrow_all':True,
+            'savethrow_ability':'dexterity',
+            'damage_type':'fire',
+            'damage_dice':'1d4',
+            'spell_save_DC':10,
+            'spell_choice':('Fire Arrow','Alchemist\'s Fire'),
+            },
+    'weight (lb)':4/20,
+    'cost (gp)':1/20,
+    'cost (grams_of_gold)':8 / 60,
+    }
+
+metadict_items['Poison Arrow'] = {
+    'ammo':True,
+    'damage_dice':'1d6',
+    'damage_type':'piercing',
+    'spell_dict':{
+            'safe':True,
+            'effect':'poison',
+            'effect_timer':10,
+            'direct_hit':True,
+            'savethrow':True,
+            'savethrow_all':True,
+            'savethrow_ability':'constitution',
+            'damage_type':'poison',
+            'damage_dice':'1d4',
+            'spell_save_DC':10,
+            'spell_choice':('Poison Arrow','Яд морского Йобы'),
+            },
+    'weight (lb)':4/20,
+    'cost (gp)':1/20,
+    'cost (grams_of_gold)':8 / 60,
+    }
+
+#-------------------------------------------------------------------------
+# Боеприпасы (болты)
+
+metadict_items['Crossbow Bolt'] = {
+    'ammo':True,
+    'damage_dice':'1d6',
+    'damage_type':'piercing',
+    'weight (lb)':3/20,
+    'cost (gp)':1/20,
+    'cost (grams_of_gold)':4 / 60,
+    }
+
+metadict_items['Crossbow Bolt +1'] = {
+    'ammo':True,
+    'damage_dice':'1d6',
+    'damage_type':'piercing',
+    'weapon_type':['magic','+1'],
+    'weight (lb)':3/20,
+    'cost (gp)':1/20,
+    'cost (grams_of_gold)':4 / 60,
+    }
+
+metadict_items['Slashing Bolt'] = {
+    # Дороже и тяжелее из-за широкого наконечника.
+    'ammo':True,
+    'damage_dice':'1d6',
+    'damage_type':'slashing',
+    'weight (lb)':4/20,
+    'cost (gp)':1/20,
+    'cost (grams_of_gold)':6 / 60,
+    }
+
+metadict_items['Hunting Bolt'] = {
+    # Охотничья стрела с оперением, наконечник из заострённого камня.
+    'ammo':True,
+    'damage_dice':'1d4',
+    'damage_type':'piercing',
+    'weight (lb)':2/20,
+    'cost (gp)':1/20,
+    'cost (grams_of_gold)':1 / 60,
     }
