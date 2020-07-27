@@ -278,6 +278,11 @@ class soldier_in_battle(soldier):
             if self.proficiency.get('channel_divinity') and not hasattr(self, 'channel_divinity'):
                 self.channel_divinity = self.proficiency['channel_divinity']
             # Сопротивляемость монстров:
+            if self.class_features.get('Demon_Resistance'):
+                self.resistance.append('slashing')
+                self.resistance.append('piercing')
+                self.resistance.append('bludgeoning')
+                self.resistance.append('fire')
             if self.class_features.get('Wight_Resistance'):
                 self.resistance.append('slashing')
                 self.resistance.append('piercing')
@@ -300,6 +305,8 @@ class soldier_in_battle(soldier):
             # Уязвимости монстров:
             if self.class_features.get('Earth_Elemental_Vulnerability'):
                 self.vultenability.append('thunder')
+            if self.class_features.get('Demon_Vulnerability'):
+                self.vultenability.append('radiant')
             # Иммунитет монстров:
             if self.class_features.get('Empyrean_Immunity'):
                 self.immunity.append('slashing')
