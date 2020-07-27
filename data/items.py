@@ -1124,6 +1124,14 @@ metadict_items['Infusion of Healing'] = {
     'cost (grams_of_gold)':60,
     }
 
+metadict_items['Infusion of Longstrider'] = {
+    'potion':True,
+    'effect':'longstrider',
+    'weight (lb)':0,
+    'cost (gp)':60,
+    'cost (grams_of_gold)':60,
+    }
+
 metadict_items['Infusion of Heroism'] = {
     # Бесстрашие и +1 бонусных_хитов/уровень каждый раунд. Действует минуту.  
     'potion':True,
@@ -1158,14 +1166,6 @@ metadict_items['Rune of Absorbtion'] = {
     'weight (lb)':1/2,
     'cost (gp)':240,
     'cost (grams_of_gold)':60 * 4,
-    }
-
-metadict_items['Infusion of Longstrider'] = {
-    'potion':True,
-    'effect':'longstrider',
-    'weight (lb)':1/2,
-    'cost (gp)':60,
-    'cost (grams_of_gold)':60,
     }
 
 metadict_items['Rune of Shielding'] = {
@@ -1627,7 +1627,7 @@ metadict_items['Arrow +1'] = {
     'weapon_type':['magic','+1'],
     'weight (lb)':3/20,
     'cost (gp)':1/20,
-    'cost (grams_of_gold)':4 / 60,
+    'cost (grams_of_gold)':60 * 2,
     }
 
 metadict_items['Slashing Arrow'] = {
@@ -1693,7 +1693,7 @@ metadict_items['Poison Arrow'] = {
             },
     'weight (lb)':4/20,
     'cost (gp)':1/20,
-    'cost (grams_of_gold)':8 / 60,
+    'cost (grams_of_gold)':40 / 60,
     }
 
 #-------------------------------------------------------------------------
