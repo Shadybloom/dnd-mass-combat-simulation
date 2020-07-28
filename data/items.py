@@ -536,6 +536,34 @@ metadict_items['Pilum'] = {
     'cost (grams_of_gold)':30 / 60,
     }
 
+metadict_items['Fire Spear'] = {
+    # Огненное копьё, заряд чёрного пороха и металлическая картечь.
+    'weapon':True,
+    'weapon_type':['simple','throw'],
+    'damage_type':'piercing',
+    'damage_dice':'1d6',
+    'throw_range':20,
+    'throw_range_max':60,
+    'spell_dict':{
+            'zone':True,
+            'safe':False,
+            'radius':0,
+            #'effect':'stun',
+            #'effect_timer':1,
+            'direct_hit':True,
+            'savethrow':True,
+            'savethrow_all':True,
+            'savethrow_ability':'dexterity',
+            'damage_type':'piercing',
+            'damage_dice':'2d6',
+            'spell_save_DC':10,
+            'spell_choice':('Fire Spear','Explosion'),
+            },
+    'weight (lb)':4,
+    'cost (gp)':10,
+    'cost (grams_of_gold)':10,
+    }
+
 metadict_items['Plumbata'] = {
     # Тяжёлый дротик, плюмбата (маттиобарбули, "марсова колючка")
         # Оружие поздней Римской империи, 3-4 века нашей эры.

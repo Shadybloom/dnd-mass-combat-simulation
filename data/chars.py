@@ -9268,6 +9268,9 @@ metadict_chars['Warrior 5 lvl (враг) (мирмидон-капитан)'] = {
 # Враги (армии) (демоны Ашеры):
 
 metadict_chars['Warrior 1 lvl (враг) (демон-рядовой)'] = {
+    # У них природный доспех с 12 AC. Крепкая шкура. В лёгкой броне демоны не нуждаются.
+    # У рядовых демонов нет регенерации и сопротивляемости урону. Это было бы уже слишком.
+    # Хотя, можно им дать "regeneration_minor", чтобы лечились на 1 hp за счёт действия. Как добряника.
     'level':1,
     'char_class':'Warrior',
     'behavior':'warrior',
@@ -9290,6 +9293,9 @@ metadict_chars['Warrior 1 lvl (враг) (демон-рядовой)'] = {
     }
 
 metadict_chars['Warrior 2 lvl (враг) (демон-ветеран)'] = {
+    # Демоны-ветераны регенерируют на 1 hp/раунд. Но только лёгкие раны, пока больше 0 hp.
+    # У демонов-ветеранов сопротивляемость к огню и обычному оружию.
+    # Уязвимость к излучению и серебру.
     'level':2,
     'char_class':'Warrior',
     'behavior':'elite_warrior',
@@ -9313,6 +9319,9 @@ metadict_chars['Warrior 2 lvl (враг) (демон-ветеран)'] = {
     }
 
 metadict_chars['Warrior 3 lvl (враг) (демон-сержант)'] = {
+    # Есть мнение, что героизм им больше вредит, чем помогает.
+    # Тактически, им выгоднее отступить, чтобы восстановить хиты. Регенерация же.
+    # А они прут вперёд, несмотря на раны, потому что "бесстрашны" из-за 'Infusion of Heroism'
     'level':3,
     'brave_AI':True,
     'killer_AI':True,
@@ -9503,7 +9512,99 @@ metadict_chars['Monk 9 lvl (друг) (Кумар «Чугуннорукий»)'
 #----
 # Союзники (армия) (Кумар):
 
-metadict_chars['Warrior 5 lvl (друг) (сотник Илиона)'] = {
+metadict_chars['Warrior 1 lvl (друг) (легионер Илиона)'] = {
+    'level':1,
+    'char_class':'Warrior',
+    'hit_dice':'1d8',
+    'behavior':'warrior',
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Studded Leather':1,
+        'Heavy Shield':1,
+        'Shortsword':1,
+        'Fire Spear':4,
+        },
+    }
+
+metadict_chars['Warrior 2 lvl (друг) (ветеран Илиона)'] = {
+    'level':2,
+    'char_class':'Warrior',
+    'hit_dice':'1d8',
+    'behavior':'elite_warrior',
+    'class_features':{
+        'Fighting_Style_Defence':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Scale Mail':1,
+        'Heavy Shield':1,
+        'Shortsword':1,
+        'Fire Spear':2,
+        },
+    }
+
+metadict_chars['Warrior 3 lvl (друг) (сержант Илиона)'] = {
+    'level':3,
+    'char_class':'Warrior',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Defence':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Breastplate':1,
+        'Heavy Shield':1,
+        'Shortsword':1,
+        'Fire Spear':2,
+        },
+    }
+
+metadict_chars['Warrior 4 lvl (друг) (лейтенант Илиона)'] = {
+    'level':4,
+    'rearm_AI':True,
+    'defender_AI':True,
+    'carefull_AI':True,
+    'char_class':'Warrior-officer',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Defence':True,
+        'Feat_Inspiring_Leader':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Rune of Shielding':1,
+        'Breastplate':1,
+        'Heavy Shield':1,
+        'Shortsword':1,
+        'Fire Spear':2,
+        },
+    #'mount_combat':False,
+    #'mount_type':'Riding Horse',
+    #'equipment_mount':{
+    #    },
+    }
+
+metadict_chars['Warrior 5 lvl (друг) (капитан Илиона)'] = {
     # Сидит на месте, обороняется. На врага не ведёт.
     'level':5,
     'rearm_AI':True,
@@ -9529,7 +9630,7 @@ metadict_chars['Warrior 5 lvl (друг) (сотник Илиона)'] = {
         'Half Plate':1,
         'Heavy Shield':1,
         'Shortsword':1,
-        'Pilum':3,
+        'Fire Spear':2,
         },
     #'mount_combat':False,
     #'mount_type':'Riding Horse',

@@ -502,11 +502,11 @@ metadict_squads['Company-militia (пращники Илиона) (друг)'] = 
     }
 
 metadict_squads['Company-regular (легионеры Илиона) (друг)'] = {
-    'Warrior 1 lvl (legionary infantry)':80 + dice_throw('1d12'),
-    'Warrior 2 lvl (legionary infantry-corporal)':10,
-    'Warrior 3 lvl (legionary infantry-sergeant)':3,
-    'Warrior 5 lvl (друг) (сотник Илиона)':1,
-    'Warrior 4 lvl (legionary infantry-lieutenant)':1,
+    'Warrior 1 lvl (друг) (легионер Илиона)':80 + dice_throw('1d12'),
+    'Warrior 2 lvl (друг) (ветеран Илиона)':10,
+    'Warrior 3 lvl (друг) (сержант Илиона)':3,
+    'Warrior 5 lvl (друг) (капитан Илиона)':1,
+    'Warrior 4 lvl (друг) (лейтенант Илиона)':1,
     }
 
 #----
