@@ -9269,13 +9269,12 @@ metadict_chars['Warrior 5 lvl (враг) (мирмидон-капитан)'] = {
 
 metadict_chars['Warrior 1 lvl (враг) (демон-рядовой)'] = {
     # У них природный доспех с 12 AC. Крепкая шкура. В лёгкой броне демоны не нуждаются.
-    # У рядовых демонов нет регенерации и сопротивляемости урону. Это было бы уже слишком.
-    # Хотя, можно им дать "regeneration_minor", чтобы лечились на 1 hp за счёт действия. Как добряника.
+    # Regeneration_Minor восстанавливает отряду 100+ хитов за 3 минуты боя. Требует действия.
     'level':1,
     'char_class':'Warrior',
     'behavior':'warrior',
     'class_features':{
-        #'Regeneration':1,
+        'Regeneration_Minor':1,
         #'Demon_Resistance':True,
         'Demon_Vulnerability':True,
         },

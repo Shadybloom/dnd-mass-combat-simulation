@@ -1040,6 +1040,13 @@ class soldier_in_battle(soldier):
                 print('{0} {1} {2} heal (potion): {3}'.format(
                     self.ally_side, self.place, self.behavior, potion_heal))
                 return True
+            elif self.class_features.get('Regeneration_Minor'):
+                potion_heal = self.class_features['Regeneration_Minor']
+                self.set_hitpoints(heal = potion_heal)
+                self.battle_action = False
+                #print('{0} {1} {2} heal (potion): {3}'.format(
+                #    self.ally_side, self.place, self.behavior, potion_heal))
+                return True
             else:
                 return False
 

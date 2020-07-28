@@ -1032,9 +1032,9 @@ class battle_simulation(battlescape):
                 soldier.set_lay_of_hands()
             elif soldier.equipment_weapon.get('Infusion of Heroism'):
                 soldier.use_potion_of_heroism()
-            elif soldier.equipment_weapon.get('Infusion of Healing'):
-                soldier.use_potion_of_healing()
-            elif soldier.equipment_weapon.get('Goodberry'):
+            elif soldier.equipment_weapon.get('Infusion of Healing')\
+                    or soldier.class_features.get('Regeneration_Minor')\
+                    or soldier.equipment_weapon.get('Goodberry'):
                 soldier.use_potion_of_healing()
             self.dodge_action(soldier)
         # Солдат отступает к точке спавна, если опасность слишком велика:
