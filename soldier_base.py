@@ -1115,6 +1115,21 @@ class soldier():
                                 name = '{0} ({1})'.format(item, ammo)
                                 metadict_attacks['volley',name] = {}
                                 metadict_attacks['volley',name].update(dict_attack)
+                    # Если оружие метательное, то боеприпас, это оно само:
+                    # TODO: здесь криво сделано. Лучше бы подправить, или вовсе убрать.
+                    # Яды не подключаются.
+                    elif not ammo_type and 'throw' in dict_attack['weapon_type']:
+                        dict_attack['ammo_type'] = item
+                        dict_attack['ammo'] = self.equipment_weapon[item]
+                        dict_attack.update(self.modify_attack_ammo(dict_attack, ammo))
+                        dict_attack.update(self.select_attack_mod(dict_attack))
+                        dict_attack['weapon_skills_use'] = []
+                        if dict_attack['damage_mod'] > 0:
+                            dict_attack['damage_mod'] = 0
+                        if dict_attack['attack_mod'] > 0:
+                            dict_attack['attack_mod'] = 0
+                        metadict_attacks['volley',item] = {}
+                        metadict_attacks['volley',item].update(dict_attack)
                     # Если боеприпас в оружии не указан, считается бесконечным:
                     else:
                         dict_attack.update(self.select_attack_mod(dict_attack))
