@@ -9020,7 +9020,7 @@ metadict_chars['Barbarian 9 lvl (нейтрал) (Карагос «Мудрый�
             'constitution':+1,
             },
         },
-    'race':'Human-hero',
+    'race':'Human-hero-big',
     'weapon_skill':['simple','martial'],
     'armor_skill':['light','medium','shield'],
     'equipment_supply':soldier_supply,
@@ -9492,13 +9492,13 @@ metadict_chars['Monk 9 lvl (друг) (Кумар «Чугуннорукий»)'
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
         # TODO:
-        # 1. Посох ударов.
-        # 2. Наручи защиты.
-        # 3. Руны 3-4 круга.
+            # 2. Наручи защиты.
+            # 3. Руны 3-4 круга.
+        # Посох ударов продан за 4000 эфесов на оборону Илиона
         'Infusion of Healing':1,
         'Infusion of Heroism':1,
         'Rune of Shielding':1,
-        'Staff of Striking +3':1,
+        #'Staff of Striking +3':1,
         'Shortsword +1':1,
         },
     }
