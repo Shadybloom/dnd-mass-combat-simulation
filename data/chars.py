@@ -9579,7 +9579,7 @@ metadict_chars['Warrior 3 lvl (друг) (сержант Илиона)'] = {
 
 metadict_chars['Warrior 4 lvl (друг) (лейтенант Илиона)'] = {
     'level':4,
-    'rearm_AI':True,
+    #'rearm_AI':True,
     'defender_AI':True,
     'carefull_AI':True,
     'char_class':'Warrior-officer',
@@ -9611,7 +9611,7 @@ metadict_chars['Warrior 4 lvl (друг) (лейтенант Илиона)'] = {
 metadict_chars['Warrior 5 lvl (друг) (капитан Илиона)'] = {
     # Сидит на месте, обороняется. На врага не ведёт.
     'level':5,
-    'rearm_AI':True,
+    #'rearm_AI':True,
     'defender_AI':True,
     'carefull_AI':True,
     'char_class':'Warrior-officer',
