@@ -1757,25 +1757,34 @@ class soldier_in_battle(soldier):
         # Хотя, ополченцы могут тоже пополнять боекомплект легионеров.
         attacks_list = list(self.attacks.keys())
         if attack_dict.get('ammo'):
-            attack_dict['ammo'] -= 1
-            if attack_dict.get('ammo_type'):
+            if attack_dict.get('ammo_type') and isinstance(attack_dict.get('ammo_type'), str):
                 ammo_type = attack_dict.get('ammo_type')
             else:
                 ammo_type = attack_dict.get('weapon_of_choice')
-            #print(ammo_type)
-            if attack_dict['ammo'] == 0:
-                for soldier in metadict_soldiers.values():
-                    if ammo_type in soldier.equipment_weapon\
-                            and not soldier.defeat\
-                            and soldier.uuid != self.uuid\
-                            and soldier.ally_side == self.ally_side\
-                            and soldier.equipment_weapon[ammo_type] > 0:
-                        # Союзник передаёт боеприпасы бойцу:
-                        attack_dict['ammo'] += soldier.equipment_weapon[ammo_type]
-                        soldier.unset_weapon(attack_dict.get('weapon_of_choice'), ammo_type)
-                        break
-                else:
-                    self.unset_weapon(attack_dict.get('weapon_of_choice'), ammo_type)
+            for attack_choice, attack_dict in self.attacks.items():
+                if ammo_type == attack_dict.get('ammo_type')\
+                        or ammo_type == attack_dict.get('weapon_of_choice'):
+                    attack_dict['ammo'] -= 1
+                    if attack_dict['ammo'] == 0:
+                        for soldier in metadict_soldiers.values():
+                            if ammo_type in soldier.equipment_weapon\
+                                    and not soldier.defeat\
+                                    and not soldier.near_enemies\
+                                    and not soldier.help_action\
+                                    and soldier.uuid != self.uuid\
+                                    and soldier.ally_side == self.ally_side\
+                                    and soldier.equipment_weapon[ammo_type] > 0:
+                                # Союзник передаёт боеприпасы бойцу:
+                                soldier.help_action = True
+                                for attack_choice, attack_dict in self.attacks.items():
+                                    if ammo_type == attack_dict.get('ammo_type')\
+                                            or ammo_type == attack_dict.get('weapon_of_choice'):
+                                        attack_dict['ammo'] += soldier.equipment_weapon[ammo_type]
+                                soldier.unset_weapon(attack_dict.get('weapon_of_choice'), ammo_type)
+                                print('NYA', soldier.attacks)
+                                break
+                        else:
+                            self.unset_weapon(attack_dict.get('weapon_of_choice'), ammo_type)
         return attack_result_dict
 
     def unset_weapon(self, weapon_type, ammo_type = None):
@@ -1783,14 +1792,17 @@ class soldier_in_battle(soldier):
         
         Скорость бойца при этом пересчитывается.
         """
-        attacks_list = list(self.attacks.keys())
-        for attack in attacks_list:
-            if attack[-1] == weapon_type:
+        unset_list = []
+        for attack_choice, attack_dict in self.attacks.items():
+            if attack_choice[-1] == weapon_type or attack_dict.get('ammo_type') == ammo_type:
+                unset_list.append(attack_choice)
+        if unset_list and len(unset_list) > 0:
+            for attack in unset_list:
                 self.attacks.pop(attack)
-        if ammo_type and ammo_type in self.equipment_weapon:
-            self.equipment_weapon[ammo_type] = 0
-            self.overload = self.calculate_overload()
-            self.base_speed = self.overload['base_speed']
+            if ammo_type and ammo_type in self.equipment_weapon:
+                self.equipment_weapon[ammo_type] = 0
+                self.overload = self.calculate_overload()
+                self.base_speed = self.overload['base_speed']
 
     def set_shield(self):
         """Щит в боевое положение.
