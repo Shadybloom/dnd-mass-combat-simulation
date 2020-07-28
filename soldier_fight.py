@@ -1781,7 +1781,6 @@ class soldier_in_battle(soldier):
                                             or ammo_type == attack_dict.get('weapon_of_choice'):
                                         attack_dict['ammo'] += soldier.equipment_weapon[ammo_type]
                                 soldier.unset_weapon(attack_dict.get('weapon_of_choice'), ammo_type)
-                                print('NYA', soldier.attacks)
                                 break
                         else:
                             self.unset_weapon(attack_dict.get('weapon_of_choice'), ammo_type)
@@ -2027,6 +2026,9 @@ class soldier_in_battle(soldier):
         # Пилумы застревают в щитах:
         if result['shield_impact'] and armor_dict.get('shield_use'):
             if attack_dict.get('shield_breaker'):
+                self.set_shield_break()
+            if attack_dict.get('shield_breaker_absolute'):
+                self.set_shield_break()
                 self.set_shield_break()
         # Если атака прошла, переходим к расчёту ранений:
         attack_dict.update(result)
