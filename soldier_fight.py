@@ -82,6 +82,7 @@ class soldier_in_battle(soldier):
         self.attacks = self.takeoff_weapon()
         self.attacks.update(self.get_weapon())
         self.attacks.update(self.modify_attacks())
+        self.attacks.update(self.modify_attacks_weapon_of_choice())
         pass
 
     def set_short_rest_heal(self):
@@ -490,6 +491,7 @@ class soldier_in_battle(soldier):
                 self.attacks = self.takeoff_weapon()
                 self.attacks.update(self.get_weapon())
                 self.attacks.update(self.modify_attacks())
+                self.attacks.update(self.modify_attacks_weapon_of_choice())
         # Регенерация троллей и демонов:
         if self.class_features.get('Regeneration')\
                 and self.hitpoints < self.hitpoints_max:
@@ -601,6 +603,7 @@ class soldier_in_battle(soldier):
                 self.attacks = self.takeoff_weapon()
                 self.attacks.update(self.get_weapon())
                 self.attacks.update(self.modify_attacks())
+                self.attacks.update(self.modify_attacks_weapon_of_choice())
                 # Хиты изменённой формы, это бонусные хиты:
                 self.bonus_hitpoints = self.calculate_hitpoints()
                 self.behavior = self.wild_shape_old_form['behavior']
@@ -1330,6 +1333,7 @@ class soldier_in_battle(soldier):
             # ------------------------------------------------------------
             self.attacks = self.takeoff_weapon()
             self.attacks.update(self.modify_attacks())
+            self.attacks.update(self.modify_attacks_weapon_of_choice())
             return True
         else:
             return False
@@ -1802,6 +1806,8 @@ class soldier_in_battle(soldier):
                 self.equipment_weapon[ammo_type] = 0
                 self.overload = self.calculate_overload()
                 self.base_speed = self.overload['base_speed']
+            # Выбираем лучшее оружие из оставшегося:
+            self.attacks.update(self.modify_attacks_weapon_of_choice())
 
     def set_shield(self):
         """Щит в боевое положение.

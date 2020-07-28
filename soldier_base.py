@@ -262,6 +262,7 @@ class soldier():
         self.attacks = self.takeoff_weapon()
         self.attacks.update(self.get_weapon())
         self.attacks.update(self.modify_attacks())
+        self.attacks.update(self.modify_attacks_weapon_of_choice())
         self.spells_generator = spells.gen_spells(self)
         self.spellslots = self.spells_generator.spellslots
         self.spells = self.spells_generator.spells
@@ -316,6 +317,7 @@ class soldier():
             self.attacks = self.takeoff_weapon()
             self.attacks.update(self.get_weapon())
             self.attacks.update(self.modify_attacks())
+            self.attacks.update(self.modify_attacks_weapon_of_choice())
         self.spells_generator = spells.gen_spells(self)
         self.spellslots = self.spells_generator.spellslots
         self.spells = self.spells_generator.spells
@@ -377,6 +379,7 @@ class soldier():
         self.attacks = self.takeoff_weapon()
         self.attacks.update(self.get_weapon())
         self.attacks.update(self.modify_attacks())
+        self.attacks.update(self.modify_attacks_weapon_of_choice())
         # TODO: пилим заклинания.
         # Класс должен создавать словарь spells и обрабатывать его.
         self.spells_generator = spells.gen_spells(self)
@@ -1195,18 +1198,22 @@ class soldier():
         return(dict_attack)
 
     def modify_attacks(self):
-        """Перебираем атаки и добавляем к ним модификаторы способностей.
-        
-        Также выбираем предпочитаемое оружие для данного типа атак.
-        """
+        """Перебираем атаки и добавляем к ним модификаторы способностей."""
         class_features = self.class_features
         metadict_attacks = self.attacks
         for attack_name, dict_attack in metadict_attacks.items():
             dict_attack.update(self.attack_modify_features(dict_attack))
             dict_attack.update(self.attack_modify_magic(dict_attack))
             metadict_attacks[attack_name] = dict_attack
-            # Укзаываем оптимальное оружие только для атак оружием.
-            # Выбор природных атак рандомный, либо указан в самих атаках.
+        return metadict_attacks
+
+    def modify_attacks_weapon_of_choice(self):
+        """Отмечаем лучшее оружие."""
+        class_features = self.class_features
+        metadict_attacks = self.attacks
+        # Укзаываем оптимальное оружие только для атак оружием.
+        # Выбор природных атак рандомный, либо указан в самих атаках.
+        for attack_name, dict_attack in metadict_attacks.items():
             if dict_attack.get('weapon') == True:
                 metadict_attacks[attack_name]['weapon_of_choice']\
                         = self.find_weapon_of_choice(attack_name[0])
