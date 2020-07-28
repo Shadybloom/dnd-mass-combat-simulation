@@ -501,9 +501,9 @@ metadict_squads['Band-hero (лично Кумар) (друг)'] = {
     }
 
 metadict_squads['Company-militia (пращники Илиона) (друг)'] = {
-    'Commoner 1 lvl (militia slinger)':80 + dice_throw('3d12'),
-    'Commoner 2 lvl (militia slinger-corporal)':5,
-    'Warrior 3 lvl (militia slinger-sergeant)':1,
+    'Commoner 1 lvl (друг) (пращник Илиона)':80 + dice_throw('3d12'),
+    'Commoner 2 lvl (друг) (ветеран пращников Илиона)':5,
+    'Warrior 3 lvl (друг) (сержант пращников Илиона)':1,
     }
 
 metadict_squads['Company-regular (легионеры Илиона) (друг)'] = {

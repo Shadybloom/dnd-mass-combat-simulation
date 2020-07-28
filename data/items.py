@@ -1652,6 +1652,26 @@ metadict_items['Lead Bullet'] = {
     'cost (grams_of_gold)':4 / 60,
     }
 
+metadict_items['Holy Bullet'] = {
+    # Керамический снаряд с водой.
+    'ammo':True,
+    'damage_dice':'1d4',
+    'damage_type':'bludgeoning',
+    'spell_dict':{
+            'effect':'holy_water',
+            'direct_hit':True,
+            'savethrow':True,
+            'savethrow_all':True,
+            'savethrow_ability':'charisma',
+            'damage_dice':'1d6',
+            'damage_type':'radiant',
+            'spell_save_DC':10,
+            'spell_choice':('Holy Bullet','Святая вода'),
+            },
+    'weight (lb)':0.9,
+    'cost (grams_of_gold)':40 / 60,
+    }
+
 metadict_items['Sling Bullet +1'] = {
     'ammo':True,
     'damage_dice':'1d6',

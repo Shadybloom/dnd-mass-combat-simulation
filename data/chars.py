@@ -9531,6 +9531,7 @@ metadict_chars['Warrior 1 lvl (друг) (легионер Илиона)'] = {
         'Heavy Shield':1,
         'Shortsword':1,
         'Fire Spear':4,
+        'Holy Blade':10,
         },
     }
 
@@ -9552,6 +9553,7 @@ metadict_chars['Warrior 2 lvl (друг) (ветеран Илиона)'] = {
         'Heavy Shield':1,
         'Shortsword':1,
         'Fire Spear':2,
+        'Holy Blade':10,
         },
     }
 
@@ -9574,6 +9576,7 @@ metadict_chars['Warrior 3 lvl (друг) (сержант Илиона)'] = {
         'Heavy Shield':1,
         'Shortsword':1,
         'Fire Spear':2,
+        'Holy Blade':10,
         },
     }
 
@@ -9601,6 +9604,7 @@ metadict_chars['Warrior 4 lvl (друг) (лейтенант Илиона)'] = {
         'Heavy Shield':1,
         'Shortsword':1,
         'Fire Spear':2,
+        'Holy Blade':10,
         },
     #'mount_combat':False,
     #'mount_type':'Riding Horse',
@@ -9635,11 +9639,54 @@ metadict_chars['Warrior 5 lvl (друг) (капитан Илиона)'] = {
         'Heavy Shield':1,
         'Shortsword':1,
         'Fire Spear':2,
+        'Holy Blade':10,
         },
     #'mount_combat':False,
     #'mount_type':'Riding Horse',
     #'equipment_mount':{
     #    },
+    }
+
+metadict_chars['Commoner 1 lvl (друг) (пращник Илиона)'] = {
+    'level':1,
+    'char_class':'Commoner',
+    'behavior':'archer',
+    'hit_dice':'1d8',
+    'race':'Human-common',
+    'weapon_skill':['simple'],
+    'armor_skill':['light','medium','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':militia_pack,
+    'equipment_weapon':{
+        'Leather Armor':1,
+        'Shield':1,
+        'Dagger':1,
+        'Sling real':1,
+        'Holy Bullet':10,
+        #'Lead Bullet':10,
+        #'Sling Bullet':10,
+        },
+    }
+
+metadict_chars['Commoner 2 lvl (друг) (ветеран пращников Илиона)'] = {
+    'level':2,
+    'char_class':'Commoner',
+    'behavior':'archer',
+    'hit_dice':'1d8',
+    'race':'Human-common',
+    'weapon_skill':['simple'],
+    'armor_skill':['light','medium','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Studded Leather':1,
+        'Shield':1,
+        'Dagger':1,
+        'Sling real':1,
+        'Holy Bullet':10,
+        #'Lead Bullet':10,
+        #'Sling Bullet':10,
+        },
     }
 
 metadict_chars['Warrior 3 lvl (друг) (сержант пращников Илиона)'] = {
@@ -9665,6 +9712,8 @@ metadict_chars['Warrior 3 lvl (друг) (сержант пращников Ил
         'Shield':1,
         'Shortsword':1,
         'Sling real':1,
-        'Sling Bullet':10,
+        'Holy Bullet':10,
+        #'Lead Bullet':10,
+        #'Sling Bullet':10,
         },
     }
