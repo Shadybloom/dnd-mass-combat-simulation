@@ -24,6 +24,11 @@ metadict_squads['test 12 animals'] = {
     #'Empyrean (CR 23)':1,
     }
 
+metadict_squads['test squad'] = {
+    'Warrior 1 lvl (враг) (мирмидон)':10,
+    'Warrior 5 lvl (враг) (мирмидон-капитан)':1,
+    }
+
 metadict_squads['характеристики правителей'] = {
     # Влом делать отдельно, так рольнём:
         # 1 герой 5+ lvl на 16 героев 1 lvl

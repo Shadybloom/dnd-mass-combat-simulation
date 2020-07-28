@@ -9147,6 +9147,7 @@ metadict_chars['Warrior 1 lvl (враг) (мирмидон)'] = {
         'Shortbow':1,
         'Arrow':30,
         'Poison Arrow':10,
+        'Poison Blade':10,
         },
     }
 
@@ -9172,6 +9173,7 @@ metadict_chars['Warrior 2 lvl (враг) (мирмидон-ветеран)'] = {
         'Shortbow':1,
         'Arrow':30,
         'Poison Arrow':10,
+        'Poison Blade':10,
         },
     }
 
@@ -9198,6 +9200,7 @@ metadict_chars['Warrior 3 lvl (враг) (мирмидон-сержант)'] = {
         'Shortbow':1,
         'Arrow':30,
         'Poison Arrow':10,
+        'Poison Blade':10,
         },
     }
 
@@ -9225,6 +9228,7 @@ metadict_chars['Warrior 4 lvl (враг) (мирмидон-лейтенант)']
         'Long Spear':1,
         'Shortbow':1,
         'Poison Arrow':40,
+        'Poison Blade':10,
         },
     'mount_combat':False,
     'mount_type':'Riding Horse',
@@ -9257,6 +9261,7 @@ metadict_chars['Warrior 5 lvl (враг) (мирмидон-капитан)'] = {
         'Long Spear':1,
         'Shortbow':1,
         'Poison Arrow':40,
+        'Poison Blade':10,
         },
     'mount_combat':False,
     'mount_type':'Riding Horse',

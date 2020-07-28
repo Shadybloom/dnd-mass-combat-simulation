@@ -22,6 +22,12 @@
 #-------------------------------------------------------------------------
 # Варианты боеприпасов:
 
+blade_poisons = [
+        # Покрытия для ближнего оружия:
+        'Holy Water',
+        'Poison Blade',
+        ]
+
 longbow_arrows = [
         # ammo_type
         'Arrow',
@@ -470,6 +476,7 @@ metadict_items['Shortsword'] = {
         # https://ru.wikipedia.org/wiki/Гладиус
         # https://www.larp.com/legioxx/gladius.html
     'weapon':True,
+    'blade_covering':blade_poisons,
     'weapon_type':['martial','close','finesse','light'],
     'damage_type':'piercing',
     'damage_dice':'1d6',
@@ -525,6 +532,7 @@ metadict_items['Pilum'] = {
     # Половина длины -- железный наконечник. Хрен обрубишь.
     # Метается на 10-30 метров. Застревают в щитах.
     'weapon':True,
+    'blade_covering':blade_poisons,
     'shield_breaker':True,
     'weapon_type':['simple','throw'],
     'damage_type':'piercing',
@@ -1764,4 +1772,28 @@ metadict_items['Hunting Bolt'] = {
     'weight (lb)':2/20,
     'cost (gp)':1/20,
     'cost (grams_of_gold)':1 / 60,
+    }
+
+#-------------------------------------------------------------------------
+# Боеприпасы (оружейные яды)
+
+metadict_items['Poison Blade'] = {
+    # Охотничья стрела с оперением, наконечник из заострённого камня.
+    'ammo':True,
+    'spell_dict':{
+            'safe':True,
+            'effect':'poison',
+            'effect_timer':10,
+            'direct_hit':True,
+            'savethrow':True,
+            'savethrow_all':True,
+            'savethrow_ability':'constitution',
+            'damage_type':'poison',
+            'damage_dice':'1d4',
+            'spell_save_DC':10,
+            'spell_choice':('Poison Blade','Яд морского Йобы'),
+            },
+    'weight (lb)':1/20,
+    'cost (gp)':1/20,
+    'cost (grams_of_gold)':40 / 60,
     }
