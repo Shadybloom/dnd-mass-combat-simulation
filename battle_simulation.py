@@ -2279,11 +2279,17 @@ class battle_simulation(battlescape):
             # Зональное заклинание поражает цели:
             for enemy in targets:
                 enemy_soldier = self.metadict_soldiers[enemy.uuid]
+                # Не вредит своим
                 if spell_dict.get('safe'):
                     safe = spell_dict['safe']
                 if safe and enemy.side in soldier.ally_side:
                     continue
-                # Вызов страа от паладинского Dreadful_Aspect
+                # Вредит только нечисти:
+                if spell_dict.get('effect') == 'holy_water'\
+                        and not races.dict_races[enemy_soldier.race].get('unholy')\
+                        and not enemy_soldier.__dict__.get('unholy'):
+                    continue
+                # Вызов страха от паладинского Dreadful_Aspect
                 if spell_dict.get('effect') == 'fear':
                     fear = enemy_soldier.set_fear(soldier, spell_dict['spell_save_DC'])
                     if fear:

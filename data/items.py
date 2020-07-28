@@ -24,7 +24,7 @@
 
 blade_poisons = [
         # Покрытия для ближнего оружия:
-        'Holy Water',
+        'Holy Blade',
         'Poison Blade',
         ]
 
@@ -1799,7 +1799,6 @@ metadict_items['Hunting Bolt'] = {
 # Боеприпасы (оружейные яды)
 
 metadict_items['Poison Blade'] = {
-    # Охотничья стрела с оперением, наконечник из заострённого камня.
     'ammo':True,
     'spell_dict':{
             'safe':True,
@@ -1809,10 +1808,29 @@ metadict_items['Poison Blade'] = {
             'savethrow':True,
             'savethrow_all':True,
             'savethrow_ability':'constitution',
-            'damage_type':'poison',
             'damage_dice':'1d4',
+            'damage_type':'poison',
             'spell_save_DC':10,
             'spell_choice':('Poison Blade','Яд морского Йобы'),
+            },
+    'weight (lb)':1/20,
+    'cost (gp)':1/20,
+    'cost (grams_of_gold)':40 / 60,
+    }
+
+metadict_items['Holy Blade'] = {
+    'ammo':True,
+    'spell_dict':{
+            'safe':True,
+            'effect':'holy_water',
+            'direct_hit':True,
+            'savethrow':True,
+            'savethrow_all':True,
+            'savethrow_ability':'charisma',
+            'damage_dice':'1d6',
+            'damage_type':'radiant',
+            'spell_save_DC':10,
+            'spell_choice':('Holy Blade','Святая вода'),
             },
     'weight (lb)':1/20,
     'cost (gp)':1/20,

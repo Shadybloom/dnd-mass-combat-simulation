@@ -36,6 +36,7 @@ dict_races = {
             },
         'Human-undead':{
             'hero':False,
+            'unholy':True,
             'size':'medium',
             'base_speed':30,
             'height_base_inches':4 * 12 + 8,
@@ -127,6 +128,7 @@ dict_races = {
         'Primevial-large':{
             # Эмпиреи, Empyrean
             'hero':True,
+            'unholy':True,
             'size':'large',
             'base_speed':40,
             'armor_class_natural':13,
@@ -137,6 +139,7 @@ dict_races = {
             },
         'Primevial-medium':{
             'hero':False,
+            'unholy':True,
             'size':'medium',
             'base_speed':30,
             'armor_class_natural':12,
