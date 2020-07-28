@@ -9028,7 +9028,8 @@ metadict_chars['Barbarian 9 lvl (нейтрал) (Карагос «Мудрый�
     'equipment_weapon':{
         'Infusion of Healing':3,
         #'Sword of the Past +2':1,
-        'Sword of Life-Stealing':1,
+        #'Sword of Life-Stealing':1,
+        'Sword of Sharpness':1,
         },
     #'mount_combat':False,
     #'mount_type':'Warhorse',

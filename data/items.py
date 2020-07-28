@@ -1304,8 +1304,8 @@ metadict_items['Sword of the Past +2'] = {
 metadict_items['Sword of Life-Stealing'] = {
     # При крите наносит 10 урона некторической энергией и даёт 10 бонусных хитов.
     'weapon':True,
-    'ammo_type':blade_poisons,
-    'weapon_type':['martial','close','versatile'],
+    #'ammo_type':blade_poisons,
+    'weapon_type':['martial','close','versatile','magic'],
     'damage_type':'slashing',
     'damage_dice':'1d8',
     'damage_dice_versatile':'1d10',
@@ -1319,6 +1319,32 @@ metadict_items['Sword of Life-Stealing'] = {
             'damage_dice':'0d0',
             'damage_mod':10,
             'spell_choice':('Sword of Life-Stealing','Steal Life'),
+            },
+    'weight (lb)':3,
+    'cost (gp)':30*60,
+    'cost (grams_of_gold)':30*60,
+    }
+
+metadict_items['Sword of Sharpness'] = {
+    # Наносит предметам максимальный урон.
+    # При крите наносит 14 дополнительного урона и при повторном d20 отрубает конечность.
+    # Светится на 10+10 футов, активация действием.
+    'weapon':True,
+    #'ammo_type':blade_poisons,
+    'weapon_type':['martial','close','versatile','magic','sharpness'],
+    'damage_type':'slashing',
+    'damage_dice':'1d8',
+    'damage_dice_versatile':'1d10',
+    'spell_dict':{
+            'safe':True,
+            'effect':'sharpness',
+            'crit_only':True,
+            'direct_hit':True,
+            'attacks_number':1,
+            'damage_type':'slashing',
+            'damage_dice':'0d0',
+            'damage_mod':14,
+            'spell_choice':('Sword of Sharpness','Sharpness'),
             },
     'weight (lb)':3,
     'cost (gp)':30*60,

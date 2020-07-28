@@ -46,7 +46,7 @@ def dice_range (n1, n2, throws=1):
         d_sum += d
     return d_sum
 
-def dice_throw (dice_string='1d20'):
+def dice_throw (dice_string='1d20', max_throw = False):
     """Бросает любую кость в формате D&D.
     
     Например, dice_string(throw='3d6')
@@ -58,6 +58,10 @@ def dice_throw (dice_string='1d20'):
     throws = int(throws_dice_list[0])
     dice = int(throws_dice_list[1])
     output = dice_range(1, dice, throws)
+    if max_throw:
+        output = throws * dice
+    else:
+        output = dice_range(1, dice, throws)
     return output
 
 def throw_d2(throws=1):
@@ -106,13 +110,13 @@ def throw_d100(throws=1):
     d = dice_range(1, 100, throws)
     return d
 
-def dice_throw_advantage (dice_string = '1d20', advantage=False, disadvantage=False):
+def dice_throw_advantage (dice_string = '1d20', advantage = False, disadvantage = False, max_throw = False):
     """Бросаем кость с учётом преимуществ/помех.
     
     Учитываются помехи/преимущества из правил D&D 5
     """
-    throw_first = dice_throw(dice_string)
-    throw_second = dice_throw(dice_string)
+    throw_first = dice_throw(dice_string, max_throw)
+    throw_second = dice_throw(dice_string, max_throw)
     if advantage == True and disadvantage == True:
         # Если есть и помеха, и преимущество, делается обычный бросок:
         # https://www.dandwiki.com/wiki/5e_SRD:Advantage_and_Disadvantage

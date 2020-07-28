@@ -1670,7 +1670,14 @@ class soldier_in_battle(soldier):
             damage_throw_advantage = True
         else:
             damage_throw_advantage = False
-        damage_throw = dices.dice_throw_advantage(attack_dict['damage_dice'], damage_throw_advantage)
+        if attack_dict.get('weapon_type')\
+                and 'sharpness' in attack_dict.get('weapon_type')\
+                and enemy_soldier.__dict__.get('mechanism'):
+            sharpness = True
+        else:
+            sharpness = False
+        damage_throw = dices.dice_throw_advantage(attack_dict['damage_dice'],
+                advantage = damage_throw_advantage, disadvantage = False, max_throw = sharpness)
         # Если атака критическая, бросаем кость урона дважды:
         # Если атака неудачная, то независимо от модификаторов результат нулевой:
         # Атаки по бессознательным вблизи всегда дают критическое попадание.
@@ -1678,7 +1685,7 @@ class soldier_in_battle(soldier):
             damage_throw = 0
             for throw in range(0, self.crit_multiplier):
                 damage_throw += dices.dice_throw_advantage(attack_dict['damage_dice'],
-                        damage_throw_advantage)
+                        advantage = damage_throw_advantage, disadvantage = False, max_throw = sharpness)
             attack_crit = True
             attack_loss = False
         elif attack_throw <= loss_range:
@@ -1693,12 +1700,14 @@ class soldier_in_battle(soldier):
         # TODO: добавь Assassinate, атаку с преимуществом в первый ход боя.
         if self.class_features.get('Sneak_Attack') and not disadvantage:
             if advantage or len(enemy_soldier.near_enemies) > 1:
-                sneak_attack_throw = dices.dice_throw_advantage(self.proficiency['sneak_attack_dice'])
+                sneak_attack_throw = dices.dice_throw_advantage(self.proficiency['sneak_attack_dice'],
+                        advantage = False, disadvantage = False, max_throw = sharpness)
                 damage_throw += sneak_attack_throw
                 if attack_throw >= crit_range\
                         or attack_dict['attack_range'] <= 5 and enemy_soldier.sleep:
                     # Критический удар удваивает урон от скрытной атаки:
-                    sneak_attack_throw = dices.dice_throw_advantage(self.proficiency['sneak_attack_dice'])
+                    sneak_attack_throw = dices.dice_throw_advantage(self.proficiency['sneak_attack_dice'],
+                            advantage = False, disadvantage = False, max_throw = sharpness)
                     damage_throw += sneak_attack_throw
         # Наконец, выводим общий урон:
         damage_throw_mod = damage_throw + attack_dict['damage_mod']
