@@ -246,6 +246,8 @@ class soldier_in_battle(soldier):
                 self.attacks_number = 2
             if self.class_features.get('Champion_Improved_Critical'):
                 self.crit_range = 19
+            if self.class_features.get('Brutal_Critical') and not self.crit_multiplier > 2:
+                self.crit_multiplier += self.proficiency['brutal_critical']
             # Восстанавливаются после короткого отдыха (short_rest):
             if self.class_features.get('Second_Wind') and not hasattr(self, 'second_wind'):
                 self.second_wind = True
@@ -787,14 +789,16 @@ class soldier_in_battle(soldier):
                 stunned_difficult = 8 + self.proficiency_bonus + self.mods['wisdom']
                 return stunned_difficult
 
-    def set_initiative(self):
+    def set_initiative(self, advantage = False, disadvantage = False):
         """Бросок инициативы делается в начале боя.
         
         Бросаем d20 + модификатор ловкости.
         По этому броску выбираем, в каком порядке ходят бойцы.
         https://www.dandwiki.com/wiki/5e_SRD:Initiative
         """
-        initiative = dices.dice_throw('1d20') + self.mods['dexterity']
+        if self.class_features.get('Feral_Instinct'):
+            advantage = True
+        initiative = dices.dice_throw_advantage('1d20', advantage, disadvantage) + self.mods['dexterity']
         if self.class_features.get('Feat_Alert'):
             initiative += 5
         # Homebrew: талант "Идеальное взаимодействие".

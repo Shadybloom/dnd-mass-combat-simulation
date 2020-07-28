@@ -7837,6 +7837,7 @@ metadict_chars['Fighter 5 lvl (Katorjnik) (Гай Юлий)'] = {
         'Splint Armor':1,
         'Shield':1,
         'Longsword +1':1,
+        #'Sword of Life-Stealing':1,
         'Lance':1,
         'Pilum':6,
         },
@@ -8983,6 +8984,7 @@ metadict_chars['Warrior 5 lvl (нейтрал) (бронзовый гоплит-
 metadict_chars['Barbarian 9 lvl (нейтрал) (Карагос «Мудрый»)'] = {
     # Barbarian 1 lvl (thracian slayer-dogface) sum:108 STR:19 DEX:18 CON:19 INT:18 WIS:16 CHA:18
     'level':9,
+    'hunter_AI':True,
     'fearless_AI':True,
     'squad_advantage':True,
     'char_class':'Barbarian',
@@ -8999,9 +9001,6 @@ metadict_chars['Barbarian 9 lvl (нейтрал) (Карагос «Мудрый�
         },
     'class_features':{
         # TODO:
-        # 1. сделай Fast_Movement (+10 футов скорости)
-        # 2. сделай Brutal_Critical (плюс кость урона при крите)
-        # 3. сделай Feral_Instinct (защищает от неожиданных атак)
         # 4. сделай Mindless_Rage (защищает от очарования и страха)
         'Feat_Great_Weapon_Master':True,
         'Unarmored_Defense':True,
@@ -9014,6 +9013,7 @@ metadict_chars['Barbarian 9 lvl (нейтрал) (Карагос «Мудрый�
         'Feral_Instinct':True,
         'Mindless_Rage':True,
         'Extra_Attack':True,
+        'Brutal_Critical':True,
         'Ability_Score_Improvement':{
             'dexterity':+2,
             'strength':+1,
@@ -9027,7 +9027,8 @@ metadict_chars['Barbarian 9 lvl (нейтрал) (Карагос «Мудрый�
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
         'Infusion of Healing':3,
-        'Sword of the Past +2':1,
+        #'Sword of the Past +2':1,
+        'Sword of Life-Stealing':1,
         },
     #'mount_combat':False,
     #'mount_type':'Warhorse',
