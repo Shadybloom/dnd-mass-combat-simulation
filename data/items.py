@@ -476,7 +476,7 @@ metadict_items['Shortsword'] = {
         # https://ru.wikipedia.org/wiki/Гладиус
         # https://www.larp.com/legioxx/gladius.html
     'weapon':True,
-    'blade_covering':blade_poisons,
+    'ammo_type':blade_poisons,
     'weapon_type':['martial','close','finesse','light'],
     'damage_type':'piercing',
     'damage_dice':'1d6',
@@ -532,7 +532,7 @@ metadict_items['Pilum'] = {
     # Половина длины -- железный наконечник. Хрен обрубишь.
     # Метается на 10-30 метров. Застревают в щитах.
     'weapon':True,
-    'blade_covering':blade_poisons,
+    'ammo_type':blade_poisons,
     'shield_breaker':True,
     'weapon_type':['simple','throw'],
     'damage_type':'piercing',

@@ -949,7 +949,7 @@ class soldier():
                     metadict_attacks['close',item].update(dict_attack)
                     # Ниже опциональные атаки с ядами/составами на клинке:
                     # TODO: вычитай 10 порций яда из экипировки, чтобы не дублировать.
-                    ammo_type = dict_attack.get('blade_covering')
+                    ammo_type = dict_attack.get('ammo_type')
                     if isinstance(ammo_type, str):
                         ammo = ammo_type
                         if self.equipment_weapon.get(ammo):
@@ -978,7 +978,7 @@ class soldier():
                     metadict_attacks['reach',item] = {}
                     metadict_attacks['reach',item].update(dict_attack)
                     # Ниже опциональные атаки с ядами/составами на клинке:
-                    ammo_type = dict_attack.get('blade_covering')
+                    ammo_type = dict_attack.get('ammo_type')
                     if isinstance(ammo_type, str):
                         ammo = ammo_type
                         if self.equipment_weapon.get(ammo):
@@ -1010,11 +1010,13 @@ class soldier():
                     metadict_attacks['throw',item] = {}
                     metadict_attacks['throw',item].update(dict_attack)
                     # Ниже опциональные атаки с ядами/составами на клинке:
-                    ammo_type = dict_attack.get('blade_covering')
+                    ammo_type = dict_attack.get('ammo_type')
                     if isinstance(ammo_type, str):
                         ammo = ammo_type
                         if self.equipment_weapon.get(ammo):
-                            dict_attack['ammo'] = self.equipment_weapon[ammo]
+                            # Боеприпас метательного оружия, это само оружие:
+                            dict_attack['ammo_type'] = item
+                            dict_attack['ammo'] = self.equipment_weapon[item]
                             dict_attack.update(self.modify_attack_ammo(dict_attack, ammo))
                             dict_attack.update(self.select_attack_mod(dict_attack))
                             name = '{0} ({1})'.format(item, ammo)
@@ -1024,7 +1026,8 @@ class soldier():
                     elif isinstance(ammo_type, list):
                         for ammo in ammo_type:
                             if self.equipment_weapon.get(ammo):
-                                dict_attack['ammo'] = self.equipment_weapon[ammo]
+                                dict_attack['ammo_type'] = item
+                                dict_attack['ammo'] = self.equipment_weapon[item]
                                 dict_attack.update(self.modify_attack_ammo(dict_attack, ammo))
                                 dict_attack.update(self.select_attack_mod(dict_attack))
                                 name = '{0} ({1})'.format(item, ammo)
@@ -1344,7 +1347,7 @@ class soldier():
             if attack_dict.get('cost_ammo (grams_of_gold)',0) > test_ammo_cost_max:
                 test_ammo_cost_max = attack_dict['cost_ammo (grams_of_gold)']
             if attack_dict.get('cost_ammo (grams_of_gold)')\
-                    and attack_dict['cost_ammo (grams_of_gold)'] <= test_ammo_cost_max:
+                    and attack_dict['cost_ammo (grams_of_gold)'] < test_ammo_cost_max:
                 test_ammo_cost_min = attack_dict['cost_ammo (grams_of_gold)']
         # Выбираем лучшее оружие (обычно самое дорогое):
         for attack_name, attack_dict in self.attacks.items():
@@ -1352,19 +1355,19 @@ class soldier():
                 if attack_dict.get('cost (grams_of_gold)',0) > test_weapon_cost:
                     test_weapon_cost = attack_dict['cost (grams_of_gold)']
                     weapon_of_choice = attack_name[1]
-                if attack_dict.get('ammo')\
+                if not attack_type == 'volley' and attack_dict.get('ammo')\
                         and attack_dict.get('cost (grams_of_gold)',0) >= test_weapon_cost:
                     test_weapon_cost = attack_dict['cost (grams_of_gold)']
                     weapon_of_choice = attack_name[1]
-                if len(attack_dict['weapon_skills_use']) >= test_weapon_skills:
-                    test_weapon_skills = len(attack_dict['weapon_skills_use'])
-                    weapon_of_choice_skills = attack_name[1]
                 if attack_type == 'ranged'\
                         and attack_dict.get('cost_ammo (grams_of_gold)',0) >= test_ammo_cost_min:
                     weapon_of_choice = attack_name[1]
                 if attack_type == 'volley'\
                         and attack_dict.get('cost_ammo (grams_of_gold)',0) <= test_ammo_cost_min:
                     weapon_of_choice = attack_name[1]
+                if len(attack_dict['weapon_skills_use']) >= test_weapon_skills:
+                    test_weapon_skills = len(attack_dict['weapon_skills_use'])
+                    weapon_of_choice_skills = attack_name[1]
         # Если не находим оружие по стоимости, выбираем по навыкам:
         if not weapon_of_choice:
             weapon_of_choice = weapon_of_choice_skills
