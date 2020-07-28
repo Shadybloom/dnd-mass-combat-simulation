@@ -943,9 +943,32 @@ class soldier():
                     dict_attack.update(metadict_items[item])
                     dict_attack['attack_range'] = 5
                     dict_attack['attack_type'] = 'close'
+                    # Базовая атака создаётся в любом случае:
                     dict_attack.update(self.select_attack_mod(dict_attack))
                     metadict_attacks['close',item] = {}
                     metadict_attacks['close',item].update(dict_attack)
+                    # Ниже опциональные атаки с ядами/составами на клинке:
+                    # TODO: вычитай 10 порций яда из экипировки, чтобы не дублировать.
+                    ammo_type = dict_attack.get('blade_covering')
+                    if isinstance(ammo_type, str):
+                        ammo = ammo_type
+                        if self.equipment_weapon.get(ammo):
+                            dict_attack['ammo'] = self.equipment_weapon[ammo]
+                            dict_attack.update(self.modify_attack_ammo(dict_attack, ammo))
+                            dict_attack.update(self.select_attack_mod(dict_attack))
+                            name = '{0} ({1})'.format(item, ammo)
+                            metadict_attacks['close',name] = {}
+                            metadict_attacks['close',name].update(dict_attack)
+                    # Если ядов несколько, то для каждого своя атака:
+                    elif isinstance(ammo_type, list):
+                        for ammo in ammo_type:
+                            if self.equipment_weapon.get(ammo):
+                                dict_attack['ammo'] = self.equipment_weapon[ammo]
+                                dict_attack.update(self.modify_attack_ammo(dict_attack, ammo))
+                                dict_attack.update(self.select_attack_mod(dict_attack))
+                                name = '{0} ({1})'.format(item, ammo)
+                                metadict_attacks['close',name] = {}
+                                metadict_attacks['close',name].update(dict_attack)
                 if 'reach' in metadict_items[item].get('weapon_type'):
                     dict_attack = {}
                     dict_attack.update(metadict_items[item])
@@ -954,6 +977,27 @@ class soldier():
                     dict_attack.update(self.select_attack_mod(dict_attack))
                     metadict_attacks['reach',item] = {}
                     metadict_attacks['reach',item].update(dict_attack)
+                    # Ниже опциональные атаки с ядами/составами на клинке:
+                    ammo_type = dict_attack.get('blade_covering')
+                    if isinstance(ammo_type, str):
+                        ammo = ammo_type
+                        if self.equipment_weapon.get(ammo):
+                            dict_attack['ammo'] = self.equipment_weapon[ammo]
+                            dict_attack.update(self.modify_attack_ammo(dict_attack, ammo))
+                            dict_attack.update(self.select_attack_mod(dict_attack))
+                            name = '{0} ({1})'.format(item, ammo)
+                            metadict_attacks['reach',name] = {}
+                            metadict_attacks['reach',name].update(dict_attack)
+                    # Если ядов несколько, то для каждого своя атака:
+                    elif isinstance(ammo_type, list):
+                        for ammo in ammo_type:
+                            if self.equipment_weapon.get(ammo):
+                                dict_attack['ammo'] = self.equipment_weapon[ammo]
+                                dict_attack.update(self.modify_attack_ammo(dict_attack, ammo))
+                                dict_attack.update(self.select_attack_mod(dict_attack))
+                                name = '{0} ({1})'.format(item, ammo)
+                                metadict_attacks['reach',name] = {}
+                                metadict_attacks['reach',name].update(dict_attack)
                 if 'throw' in metadict_items[item].get('weapon_type'):
                     dict_attack = {}
                     dict_attack.update(metadict_items[item])
@@ -965,6 +1009,27 @@ class soldier():
                     dict_attack.update(self.select_attack_mod(dict_attack))
                     metadict_attacks['throw',item] = {}
                     metadict_attacks['throw',item].update(dict_attack)
+                    # Ниже опциональные атаки с ядами/составами на клинке:
+                    ammo_type = dict_attack.get('blade_covering')
+                    if isinstance(ammo_type, str):
+                        ammo = ammo_type
+                        if self.equipment_weapon.get(ammo):
+                            dict_attack['ammo'] = self.equipment_weapon[ammo]
+                            dict_attack.update(self.modify_attack_ammo(dict_attack, ammo))
+                            dict_attack.update(self.select_attack_mod(dict_attack))
+                            name = '{0} ({1})'.format(item, ammo)
+                            metadict_attacks['throw',name] = {}
+                            metadict_attacks['throw',name].update(dict_attack)
+                    # Если ядов несколько, то для каждого своя атака:
+                    elif isinstance(ammo_type, list):
+                        for ammo in ammo_type:
+                            if self.equipment_weapon.get(ammo):
+                                dict_attack['ammo'] = self.equipment_weapon[ammo]
+                                dict_attack.update(self.modify_attack_ammo(dict_attack, ammo))
+                                dict_attack.update(self.select_attack_mod(dict_attack))
+                                name = '{0} ({1})'.format(item, ammo)
+                                metadict_attacks['throw',name] = {}
+                                metadict_attacks['throw',name].update(dict_attack)
                 # Прицельная стрельба со всеми модификаторами к атаке:
                 if 'ranged' in metadict_items[item].get('weapon_type'):
                     dict_attack = {}
@@ -1285,6 +1350,10 @@ class soldier():
         for attack_name, attack_dict in self.attacks.items():
             if attack_type in attack_name:
                 if attack_dict.get('cost (grams_of_gold)',0) > test_weapon_cost:
+                    test_weapon_cost = attack_dict['cost (grams_of_gold)']
+                    weapon_of_choice = attack_name[1]
+                if attack_dict.get('ammo')\
+                        and attack_dict.get('cost (grams_of_gold)',0) >= test_weapon_cost:
                     test_weapon_cost = attack_dict['cost (grams_of_gold)']
                     weapon_of_choice = attack_name[1]
                 if len(attack_dict['weapon_skills_use']) >= test_weapon_skills:
