@@ -1144,7 +1144,7 @@ class battle_simulation(battlescape):
                     if soldier.set_action_surge():
                         self.round_run_soldier(soldier, squad)
         # Не видя врага, лучники стреляют навесом:
-        if 'volley' in soldier.commands and not enemy:
+        if 'volley' in soldier.commands:
             self.volley_action(soldier, squad)
         # Лучники отступают, если враг близко:
         if 'disengage' in soldier.commands\
@@ -1665,10 +1665,14 @@ class battle_simulation(battlescape):
                 target = random.choice(self.point_to_field(target, round(distance / 5)))
             elif hasattr(soldier, 'place_in_order') and soldier.place_in_order:
                 target_point = [c1 + c2 for c1, c2 in zip(target, soldier.place_in_order)]
-                if target_point and len(target_point) > 0 and distance:
-                    target = random.choice(self.point_to_field(target_point, round(distance / 10)))
+                if target_point:
+                    target_field = self.point_to_field(target_point, round(distance / 10))
+                    if target_field:
+                        target = random.choice(target_field)
                 else:
-                    target = random.choice(self.point_to_field(target, round(distance / 10)))
+                    target_field = self.point_to_field(target, round(distance / 10))
+                    if target_field:
+                        target = random.choice(target_field)
             else:
                 target = random.choice(self.point_to_field(target, round(distance / 10)))
             target = tuple(target)
@@ -2223,15 +2227,15 @@ class battle_simulation(battlescape):
             zone_radius = round(spell_dict.get('radius', 0) / self.tile_size)
             recon_dict = self.recon(zone_center, zone_radius)
             # TODO: зона не всегда круглая, добавь формы в словари заклинаний:
-            if zone_radius > 1:
-                targets = [target for target in recon_dict.values()\
-                        if inside_circle(target.place, zone_center, zone_radius)]
-            elif spell_dict.get('zone_shape') == '2x2':
+            if spell_dict.get('zone_shape') == '2x2':
                 zone_points_list = self.point_to_field_2x2(zone_center)
                 targets = [target for target in recon_dict.values()\
                         if target.place in zone_points_list]
             elif spell_dict.get('zone_shape') == 'square':
                 targets = [target for target in recon_dict.values()]
+            elif zone_radius > 1:
+                targets = [target for target in recon_dict.values()\
+                        if inside_circle(target.place, zone_center, zone_radius)]
             else:
                 targets = [target for target in recon_dict.values()]
             if targets:
@@ -2329,12 +2333,24 @@ class battle_simulation(battlescape):
                 if spell_dict.get('effect') == 'ice_knife' and enemy.place == zone_center:
                     self.spellcast_action(soldier, squad, enemy,
                             spell_choice = spell_dict['subspell'], subspell = True, use_spell = False)
+                # Атака заклинанием:
                 advantage, disadvantage = self.test_enemy_defence(soldier, enemy_soldier, spell_choice)
-                attack_dict = soldier.spell_attack(spell_dict, enemy,
-                        squad.metadict_soldiers,
-                        advantage = advantage, disadvantage = disadvantage)
-                attack_result = enemy_soldier.take_attack(
-                        spell_choice, attack_dict, self.metadict_soldiers)
+                if spell_dict.get('direct_hit'):
+                    attack_dict = soldier.spell_attack(spell_dict, enemy,
+                            squad.metadict_soldiers,
+                            advantage = advantage, disadvantage = disadvantage)
+                    attack_result = enemy_soldier.take_attack(
+                            spell_choice, attack_dict, self.metadict_soldiers)
+                # Заклинания с показателем атаки мало отличаются от стрел и мечей:
+                elif spell_dict.get('attack_mod') or spell_dict.get('attack_mod') == 0:
+                    attack_dict = soldier.attack(spell_dict, spell_choice,
+                            enemy, self.metadict_soldiers,
+                            advantage = advantage, disadvantage = disadvantage)
+                    attack_result = enemy_soldier.take_attack(
+                            spell_choice, attack_dict, self.metadict_soldiers)
+                else:
+                    print('NYA. Недопиленое заклинание', spell_choice, spell_dict)
+                    continue
                 # Добавляем опыт отряду:
                 if attack_result['fatal_hit']:
                     self.set_squad_experience(squad, enemy_soldier)
