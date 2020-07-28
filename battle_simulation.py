@@ -1794,9 +1794,11 @@ class battle_simulation(battlescape):
                     spell_dict = attack_result['spell_dict']
                     if spell_dict.get('ammo', 0) > 0 and enemy_soldier.behavior == 'commander'\
                             or spell_dict.get('ammo') == None:
-                        if spell_dict.get('zone'):
+                        if spell_dict.get('zone') and not spell_dict['crit_only']:
                             self.fireball_action(soldier, squad, spell_dict, enemy.place)
-                        elif attack_result['hit']:
+                        elif attack_result['hit'] and not spell_dict['crit_only']:
+                            self.fireball_action(soldier, squad, spell_dict, enemy.place)
+                        elif attack_result['crit'] and spell_dict['crit_only']:
                             self.fireball_action(soldier, squad, spell_dict, enemy.place)
                 # Монашьи боласы могут сбить с ног:
                 if attack_result['hit'] and 'prone' in attack_result['weapon_type']\
@@ -2357,6 +2359,10 @@ class battle_simulation(battlescape):
                 else:
                     print('NYA. Недопиленое заклинание', spell_choice, spell_dict)
                     continue
+                if spell_dict.get('effect') == 'steal_life':
+                    bonus_hitpoints_bless = attack_result['damage']
+                    if bonus_hitpoints_bless > soldier.bonus_hitpoints:
+                        soldier.set_hitpoints(bonus_hitpoints = bonus_hitpoints_bless)
                 # Добавляем опыт отряду:
                 if attack_result['fatal_hit']:
                     self.set_squad_experience(squad, enemy_soldier)

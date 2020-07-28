@@ -1275,20 +1275,8 @@ metadict_items['Rune of Armor'] = {
 #----
 # Magic Weapon (homebrew)
 
-#metadict_items['Sword of the Past'] = {
-#    'weapon':True,
-#    'weapon_type':['martial','close','versatile','+2','sword_burst'],
-#    'damage_type':'slashing',
-#    'damage_dice':'1d8',
-#    'damage_dice_versatile':'1d10',
-#    'weight (lb)':3,
-#    'cost (gp)':300*60,
-#    'cost (grams_of_gold)':300*60,
-#    }
-
 metadict_items['Sword of the Past +2'] = {
     # Клинок былого
-    # TODO: Добавь встроенный кантрип Sword_Burst
     'weapon':True,
     'weapon_type':['martial','close','two_handed','heavy','magic','+2','sword_burst'],
     'damage_type':'slashing',
@@ -1313,6 +1301,30 @@ metadict_items['Sword of the Past +2'] = {
     'cost (grams_of_gold)':5000*60,
     }
 
+metadict_items['Sword of Life-Stealing'] = {
+    # При крите наносит 10 урона некторической энергией и даёт 10 бонусных хитов.
+    'weapon':True,
+    'ammo_type':blade_poisons,
+    'weapon_type':['martial','close','versatile'],
+    'damage_type':'slashing',
+    'damage_dice':'1d8',
+    'damage_dice_versatile':'1d10',
+    'spell_dict':{
+            'safe':True,
+            'effect':'steal_life',
+            'crit_only':True,
+            'direct_hit':True,
+            'attacks_number':1,
+            'damage_type':'necrotic',
+            'damage_dice':'0d0',
+            'damage_mod':10,
+            'spell_choice':('Sword of Life-Stealing','Steal Life'),
+            },
+    'weight (lb)':3,
+    'cost (gp)':30*60,
+    'cost (grams_of_gold)':30*60,
+    }
+
 metadict_items['Staff of Striking +3'] = {
     # Посох ударов
     'weapon':True,
@@ -1321,7 +1333,6 @@ metadict_items['Staff of Striking +3'] = {
     'damage_type':'bludgeoning',
     'damage_dice':'1d6',
     'damage_dice_versatile':'1d8',
-    'weight (lb)':4,
     'spell_dict':{
             'safe':True,
             'direct_hit':True,
@@ -1338,6 +1349,7 @@ metadict_items['Staff of Striking +3'] = {
             'spell_choice':('strike','Staff of Striking'),
             'ammo':3,
             },
+    'weight (lb)':4,
     'cost (gp)':4000*60,
     'cost (grams_of_gold)':4000*60,
     }
@@ -1621,10 +1633,10 @@ metadict_items['Boulders'] = {
 metadict_items['Boulder (50 lb)'] = {
     # Каменное ядро. Талант веса (26 кг)
     'ammo':True,
-    'direct_hit':True,
-    'savethrow':True,
-    'savethrow_all':True,
-    'savethrow_ability':'dexterity',
+    #'direct_hit':True,
+    #'savethrow':True,
+    #'savethrow_all':True,
+    #'savethrow_ability':'dexterity',
     'weapon_type':['siege'],
     'damage_type':'bludgeoning',
     'damage_dice':'3d10',
