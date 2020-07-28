@@ -28,6 +28,13 @@ blade_poisons = [
         'Poison Blade',
         ]
 
+catapult_shells = [
+        # Боеприпасы катапульт, онагров, требуше:
+        'Boulder (50 lb)',
+        'Alchemist\'s Fire (25 lb)',
+        'Alchemist\'s Fire (100 lb)',
+        ]
+
 longbow_arrows = [
         # ammo_type
         'Arrow',
@@ -150,6 +157,7 @@ metadict_items['Dagger'] = {
     # Пугио, скрамасакс, паразониум (по-гречески, "на поясе")
     # https://ru.wikipedia.org/wiki/Пугио
     'weapon':True,
+    'ammo_type':blade_poisons,
     'weapon_type':['simple','close','finesse','light'],
     'damage_type':'piercing',
     'damage_dice':'1d4',
@@ -164,6 +172,7 @@ metadict_items['Handaxe'] = {
     # Скепарнос (скапто -- рыть/рубить)
     # Вес лезвия -- 600 грамм.
     'weapon':True,
+    'ammo_type':blade_poisons,
     'weapon_type':['simple','close','light'],
     'damage_type':'slashing',
     'damage_dice':'1d6',
@@ -176,6 +185,7 @@ metadict_items['Handaxe'] = {
 
 metadict_items['Javelin'] = {
     'weapon':True,
+    'ammo_type':blade_poisons,
     'weapon_type':['simple','close','throw'],
     'damage_type':'piercing',
     'damage_dice':'1d6',
@@ -213,6 +223,7 @@ metadict_items['Quarterstaff'] = {
 metadict_items['Spear'] = {
     # Прочное копьё с бронзовым наконечником.
     'weapon':True,
+    'ammo_type':blade_poisons,
     'weapon_type':['simple','close','versatile'],
     'damage_type':'piercing',
     'damage_dice':'1d6',
@@ -259,6 +270,7 @@ metadict_items['Crossbow, Heavy'] = {
 
 metadict_items['Dart'] = {
     'weapon':True,
+    'ammo_type':blade_poisons,
     'weapon_type':['simple','finesse','throw'],
     'damage_type':'piercing',
     'damage_dice':'1d6',
@@ -304,6 +316,7 @@ metadict_items['Sling'] = {
 metadict_items['Battleaxe'] = {
     # Секира. Вес лезвия -- 450 грамм
     'weapon':True,
+    'ammo_type':blade_poisons,
     'weapon_type':['martial','close','versatile'],
     'damage_type':'slashing',
     'damage_dice':'1d8',
@@ -330,6 +343,7 @@ metadict_items['Glaive'] = {
     # https://ru.wikipedia.org/wiki/Ромфея
     # https://lurkmore.so/images/d/d1/Rhomphaia.jpg
     'weapon':True,
+    'ammo_type':blade_poisons,
     #'shield_breaker':True,
     'weapon_type':['martial','close','reach','two_handed','heavy'],
     'damage_type':'slashing',
@@ -342,6 +356,7 @@ metadict_items['Glaive'] = {
 metadict_items['Greataxe'] = {
     # Бердыш, секира
     'weapon':True,
+    'ammo_type':blade_poisons,
     #'shield_breaker':True,
     'weapon_type':['martial','close','two_handed','heavy'],
     'damage_type':'slashing',
@@ -353,6 +368,7 @@ metadict_items['Greataxe'] = {
 
 metadict_items['Greatsword'] = {
     'weapon':True,
+    'ammo_type':blade_poisons,
     #'shield_breaker':True,
     'weapon_type':['martial','close','two_handed','heavy'],
     'damage_type':'slashing',
@@ -364,6 +380,7 @@ metadict_items['Greatsword'] = {
 
 metadict_items['Halberd'] = {
     'weapon':True,
+    'ammo_type':blade_poisons,
     #'shield_breaker':True,
     'weapon_type':['martial','close','reach','two_handed','heavy'],
     'damage_type':'slashing',
@@ -384,6 +401,7 @@ metadict_items['Lance'] = {
         # Полная энергия: (500 * 4.4 ** 2) / 2 = 4 840 джоулей (как пуля АКМ)
     # Сила удара рыцарского лэнса (16 км/час) -- 300-600 Дж (600 Дж пробивает 2-мм кирасу)
     'weapon':True,
+    'ammo_type':blade_poisons,
     'only_mounted':True,
     'disadvantage_close':True,
     'weapon_type':['martial','close','reach'],
@@ -403,6 +421,7 @@ metadict_items['Longsword'] = {
         # https://upload.wikimedia.org/wikipedia/commons/0/01/Spadalongobarda.jpg
     # Sword and Lance: About two pounds (32 gp)
     'weapon':True,
+    'ammo_type':blade_poisons,
     'weapon_type':['martial','close','versatile'],
     'damage_type':'slashing',
     'damage_dice':'1d8',
@@ -425,6 +444,7 @@ metadict_items['Maul'] = {
 
 metadict_items['Morningstar'] = {
     'weapon':True,
+    'ammo_type':blade_poisons,
     'weapon_type':['martial','close'],
     'damage_type':'piercing',
     'damage_dice':'1d8',
@@ -436,6 +456,7 @@ metadict_items['Morningstar'] = {
 metadict_items['Pike'] = {
     # Сарисса, ~6 метров.
     'weapon':True,
+    'ammo_type':blade_poisons,
     'weapon_type':['martial','close','reach','two_handed','heavy'],
     'damage_type':'piercing',
     'damage_dice':'1d10',
@@ -447,6 +468,7 @@ metadict_items['Pike'] = {
 metadict_items['Rapier'] = {
     # "Рапиры бронзового века"
     'weapon':True,
+    'ammo_type':blade_poisons,
     'weapon_type':['martial','close','finesse'],
     'damage_type':'piercing',
     'damage_dice':'1d8',
@@ -460,6 +482,7 @@ metadict_items['Scimitar'] = {
     # Копис -- клинок с обратным изгибом, утяжелённое к концу лезвие в ~65 см.
     # https://en.wikipedia.org/wiki/Sica
     'weapon':True,
+    'ammo_type':blade_poisons,
     'weapon_type':['martial','close','finesse','light'],
     'damage_type':'slashing',
     'damage_dice':'1d6',
@@ -516,6 +539,7 @@ metadict_items['Pick-axe'] = {
     # Кирко-мотыга для земляных работ.
     # https://en.wikipedia.org/wiki/Dolabra
     'weapon':True,
+    'ammo_type':blade_poisons,
     'weapon_type':['simple','close','light'],
     'damage_type':'piercing',
     'damage_dice':'1d6',
@@ -600,6 +624,7 @@ metadict_items['Plumbata'] = {
         # https://ru.wikipedia.org/wiki/Плюмбата
     # Метается на 30-60 метров (100-200 футов).
     'weapon':True,
+    'ammo_type':blade_poisons,
     'weapon_type':['simple','finesse','throw'],
     'damage_type':'piercing',
     'damage_dice':'1d6',
@@ -666,6 +691,7 @@ metadict_items['Long Spear'] = {
         # Древко 2.5 см диаметр, ясень -- 650 кг/кубометр:
         # Древко: 3.14159265*0.0125^2*3*650=0.96 килограмма.
     'weapon':True,
+    'ammo_type':blade_poisons,
     'weapon_type':['martial','close','reach','versatile','heavy'],
     'damage_type':'piercing',
     'damage_dice':'1d6',
@@ -683,6 +709,7 @@ metadict_items['Chakram'] = {
     # https://www.dandwiki.com/wiki/Chakram_(5e_Equipment)
     # https://www.dandwiki.com/wiki/Chakri_(5e_Equipment)
     'weapon':True,
+    'ammo_type':blade_poisons,
     'weapon_type':['martial','finesse','light','throw'],
     'damage_type':'slashing',
     'damage_dice':'1d6',
@@ -1261,6 +1288,7 @@ metadict_items['Rune of Armor'] = {
 
 metadict_items['Sword of the Past +2'] = {
     # Клинок былого
+    # TODO: Добавь встроенный кантрип Sword_Burst
     'weapon':True,
     'weapon_type':['martial','close','two_handed','heavy','magic','+2','sword_burst'],
     'damage_type':'slashing',
@@ -1316,6 +1344,7 @@ metadict_items['Empyrean_Maul'] = {
 
 metadict_items['Shortsword +1'] = {
     'weapon':True,
+    'ammo_type':blade_poisons,
     'weapon_type':['martial','close','finesse','light','magic','+1'],
     'damage_type':'piercing',
     'damage_dice':'1d6',
@@ -1326,6 +1355,7 @@ metadict_items['Shortsword +1'] = {
 
 metadict_items['Scimitar +1'] = {
     'weapon':True,
+    'ammo_type':blade_poisons,
     'weapon_type':['martial','close','finesse','light','magic','+1'],
     'damage_type':'slashing',
     'damage_dice':'1d6',
@@ -1336,6 +1366,7 @@ metadict_items['Scimitar +1'] = {
 
 metadict_items['Longsword +1'] = {
     'weapon':True,
+    'ammo_type':blade_poisons,
     'weapon_type':['martial','close','versatile','magic','+1'],
     'damage_type':'slashing',
     'damage_dice':'1d8',
@@ -1347,6 +1378,7 @@ metadict_items['Longsword +1'] = {
 
 metadict_items['Battleaxe +1'] = {
     'weapon':True,
+    'ammo_type':blade_poisons,
     'weapon_type':['martial','close','versatile','magic','+1'],
     'damage_type':'slashing',
     'damage_dice':'1d8',
@@ -1358,6 +1390,7 @@ metadict_items['Battleaxe +1'] = {
 
 metadict_items['Flait +1'] = {
     'weapon':True,
+    'ammo_type':blade_poisons,
     'weapon_type':['martial','close','magic','+1'],
     'damage_type':'bludgeoning',
     'damage_dice':'1d8',
@@ -1369,6 +1402,7 @@ metadict_items['Flait +1'] = {
 metadict_items['Greatsword +1'] = {
     'weapon':True,
     #'shield_breaker':True,
+    'ammo_type':blade_poisons,
     'weapon_type':['martial','close','two_handed','heavy','magic','+1'],
     'damage_type':'slashing',
     'damage_dice':'2d6',
@@ -1380,6 +1414,7 @@ metadict_items['Greatsword +1'] = {
 metadict_items['Glaive +1'] = {
     'weapon':True,
     #'shield_breaker':True,
+    'ammo_type':blade_poisons,
     'weapon_type':['martial','close','reach','two_handed','heavy','magic','+1'],
     'damage_type':'slashing',
     'damage_dice':'1d10',
@@ -1390,6 +1425,7 @@ metadict_items['Glaive +1'] = {
 
 metadict_items['Long Spear +1'] = {
     'weapon':True,
+    'ammo_type':blade_poisons,
     'weapon_type':['martial','close','reach','versatile','heavy','magic','+1'],
     'damage_type':'piercing',
     'damage_dice':'1d6',
@@ -1434,59 +1470,16 @@ metadict_items['Longbow +1'] = {
 #----
 # Artillery, осадное вооружение
 
-metadict_items['Catapult (fire)'] = {
-    # Онагр.
+metadict_items['Catapult'] = {
+    # Онагр, Onager
     'weapon':True,
-    'direct_hit':True,
-    'savethrow':True,
-    #'savethrow_all':True,
-    'savethrow_ability':'dexterity',
-    'ammo_type':'Alchemist\'s Fire (25 lb)',
-    'weapon_type':['martial','ranged','volley','artillery','burning_shell'],
-    'spell_dict':{
-            'zone':True,
-            'zone_shape':'2x2',
-            #'zone_shape':'square',
-            'direct_hit':True,
-            'savethrow':True,
-            'savethrow_ability':'dexterity',
-            'attacks_number':1,
-            'attack_range':600,
-            'radius':5,
-            'damage_type':'fire',
-            'damage_dice':'2d6',
-            'components':[],
-            'casting_time':'action',
-            'damage_mod':0,
-            'spell_level':1,
-            'spell_save_DC':15,
-            'spell_choice':('shell','Alchemist\'s Fire'),
-            #'spell_of_choice':'Burning_Hands',
-            },
-    'damage_type':'fire',
-    'damage_dice':'6d6',
+    'ammo_type':catapult_shells,
+    'weapon_type':['martial','ranged','volley'],
     'shoot_range':150,
     'shoot_range_max':600,
     'weight (lb)':4000,
-    'cost (gp)':16 * 60,
-    'cost (grams_of_gold)':16 * 60,
-    }
-
-metadict_items['Catapult (siege)'] = {
-    'weapon':True,
-    'direct_hit':True,
-    'savethrow':True,
-    'savethrow_all':True,
-    'savethrow_ability':'dexterity',
-    'ammo_type':'Boulder (50 lb)',
-    'weapon_type':['martial','ranged','volley','artillery'],
-    'damage_type':'bludgeoning',
-    'damage_dice':'5d10',
-    'shoot_range':150,
-    'shoot_range_max':600,
-    'weight (lb)':4000,
-    'cost (gp)':16 * 60,
-    'cost (grams_of_gold)':16 * 60,
+    'cost (gp)':12 * 60,
+    'cost (grams_of_gold)':12 * 60,
     }
 
 metadict_items['Trap (Boulders)'] = {
@@ -1600,13 +1593,6 @@ metadict_items['Glyph'] = {
     'cost (grams_of_gold)':240,
     }
 
-metadict_items['Boulder (50 lb)'] = {
-    'ammo':True,
-    'weight (lb)':50,
-    'cost (gp)':0.01,
-    'cost (grams_of_gold)':0.01,
-    }
-
 metadict_items['Boulders'] = {
     'ammo':True,
     'weight (lb)':2000,
@@ -1614,19 +1600,57 @@ metadict_items['Boulders'] = {
     'cost (grams_of_gold)':0.01,
     }
 
+#-------------------------------------------------------------------------
+# Боеприпасы (снаряды катапульт)
+
+metadict_items['Boulder (50 lb)'] = {
+    # Каменное ядро. Талант веса (26 кг)
+    'ammo':True,
+    'direct_hit':True,
+    'savethrow':True,
+    'savethrow_all':True,
+    'savethrow_ability':'dexterity',
+    'weapon_type':['siege'],
+    'damage_type':'bludgeoning',
+    'damage_dice':'3d10',
+    'weight (lb)':50,
+    'cost (gp)':10/60,
+    'cost (grams_of_gold)':10/60,
+    }
+
 metadict_items['Alchemist\'s Fire (25 lb)'] = {
     'ammo':True,
+    'direct_hit':True,
+    'savethrow':True,
+    'savethrow_ability':'dexterity',
+    'damage_dice':'2d10',
+    'damage_type':'fire',
+    'spell_dict':{
+            'zone':True,
+            'zone_shape':'2x2',
+            'direct_hit':True,
+            'savethrow':True,
+            'savethrow_ability':'dexterity',
+            'attacks_number':1,
+            'attack_range':600,
+            'damage_type':'fire',
+            'damage_dice':'2d6',
+            'spell_save_DC':15,
+            'spell_choice':('Explosion','Alchemist\'s Fire'),
+            },
     'weight (lb)':50,
     'cost (gp)':15,
     'cost (grams_of_gold)':15,
     }
 
 metadict_items['Alchemist\'s Fire (100 lb)'] = {
+    # Для тяжёлого требушета
     'ammo':True,
-    'weight (lb)':150,
+    'weight (lb)':200,
     'cost (gp)':60,
     'cost (grams_of_gold)':60,
     }
+
 
 #-------------------------------------------------------------------------
 # Боеприпасы (снаряды пращ)

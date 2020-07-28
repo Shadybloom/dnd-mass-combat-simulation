@@ -74,12 +74,12 @@ metadict_squads['характеристики правителей'] = {
     }
 
 metadict_squads['10 onagers (siege)'] = {
-    'Warrior 3 lvl (siege engineer-apprentice) (onager-siege)':10,
+    'Warrior 2 lvl (siege engineer-apprentice) (onager-siege)':10,
     'Warrior 4 lvl (siege engineer-master)':1,
     }
 
 metadict_squads['10 onagers (fire)'] = {
-    'Warrior 3 lvl (siege engineer-apprentice) (onager-fire)':10,
+    'Warrior 2 lvl (siege engineer-apprentice) (onager-fire)':10,
     'Warrior 4 lvl (siege engineer-master)':1,
     }
 
@@ -607,12 +607,12 @@ metadict_squads['Band-hero (друиды Патрокла) (Vened)'] = {
     }
 
 metadict_squads['Company-regular (онагры Патрокла) (fire) (Vened)'] = {
-    'Warrior 3 lvl (siege engineer-apprentice) (onager-fire)':8,
+    'Warrior 2 lvl (siege engineer-apprentice) (onager-fire)':8,
     'Warrior 4 lvl (siege engineer-master)':1,
     }
 
 metadict_squads['Company-regular (онагры Патрокла) (siege) (Vened)'] = {
-    'Warrior 3 lvl (siege engineer-apprentice) (onager-siege)':8,
+    'Warrior 2 lvl (siege engineer-apprentice) (onager-siege)':8,
     'Warrior 4 lvl (siege engineer-master)':1,
     }
 

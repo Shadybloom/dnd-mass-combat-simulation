@@ -2305,36 +2305,8 @@ metadict_chars['Warrior 5 lvl (mercenary heavy-infantry-captain)'] = {
 #----
 # Вспомогательные войска, инженеры.
 
-metadict_chars['Warrior 3 lvl (siege engineer-apprentice) (onager-fire)'] = {
-    'level':3,
-    'char_class':'Warrior-bowman',
-    'hit_dice':'1d8',
-    'behavior':'archer',
-    'class_features':{
-        #'Fighting_Style_Archery':True,
-        },
-    'race':'Human-common',
-    'weapon_skill':['simple','martial'],
-    'armor_skill':['light','medium','heavy','shield'],
-    'equipment_supply':soldier_supply,
-    'equipment_backpack':soldiers_pack,
-    'equipment_weapon':{
-        'Infusion of Healing':1,
-        'Breastplate':1,
-        'Shield':1,
-        'Shortsword':1,
-        'Catapult (fire)':1,
-        'Alchemist\'s Fire (25 lb)':10,
-        },
-    'mount_combat':True,
-    'mount_type':'Onager',
-    'equipment_mount':{
-        #'Alchemist\'s Fire (25 lb)':10,
-        },
-    }
-
-metadict_chars['Warrior 3 lvl (siege engineer-apprentice) (onager-siege)'] = {
-    'level':3,
+metadict_chars['Warrior 2 lvl (siege engineer-apprentice) (onager-siege)'] = {
+    'level':2,
     'char_class':'Warrior-bowman',
     'hit_dice':'1d8',
     'behavior':'archer',
@@ -2347,23 +2319,48 @@ metadict_chars['Warrior 3 lvl (siege engineer-apprentice) (onager-siege)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
         'Breastplate':1,
         'Shield':1,
         'Shortsword':1,
-        'Catapult (siege)':1,
-        'Boulder (50 lb)':60,
+        'Catapult':1,
+        'Boulder (50 lb)':100,
         },
     'mount_combat':True,
     'mount_type':'Onager',
     'equipment_mount':{
-        #'Alchemist\'s Fire (25 lb)':10,
+        },
+    }
+
+metadict_chars['Warrior 2 lvl (siege engineer-apprentice) (onager-fire)'] = {
+    'level':2,
+    'char_class':'Warrior-bowman',
+    'hit_dice':'1d8',
+    'behavior':'archer',
+    'class_features':{
+        'Fighting_Style_Archery':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Breastplate':1,
+        'Shield':1,
+        'Shortsword':1,
+        'Catapult':1,
+        'Alchemist\'s Fire (25 lb)':10,
+        },
+    'mount_combat':True,
+    'mount_type':'Onager',
+    'equipment_mount':{
         },
     }
 
 metadict_chars['Warrior 4 lvl (siege engineer-master)'] = {
     # Командует онаграми, сам не стреляет.
     'level':4,
+    'volley_AI':True,
     'char_class':'Warrior-bowman',
     'hit_dice':'1d8',
     'behavior':'commander',
@@ -2382,14 +2379,7 @@ metadict_chars['Warrior 4 lvl (siege engineer-master)'] = {
         'Breastplate':1,
         'Shield':1,
         'Shortsword':1,
-        #'Catapult (fire)':1,
-        #'Alchemist\'s Fire (25 lb)':10,
         },
-    #'mount_combat':True,
-    #'mount_type':'Onager',
-    #'equipment_mount':{
-    #    #'Alchemist\'s Fire (25 lb)':10,
-    #    },
     }
 
 #----
