@@ -1144,7 +1144,7 @@ class battle_simulation(battlescape):
                     if soldier.set_action_surge():
                         self.round_run_soldier(soldier, squad)
         # Не видя врага, лучники стреляют навесом:
-        if 'volley' in soldier.commands:
+        if 'volley' in soldier.commands and not enemy:
             self.volley_action(soldier, squad)
         # Лучники отступают, если враг близко:
         if 'disengage' in soldier.commands\
