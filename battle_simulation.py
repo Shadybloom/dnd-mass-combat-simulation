@@ -1794,11 +1794,11 @@ class battle_simulation(battlescape):
                     spell_dict = attack_result['spell_dict']
                     if spell_dict.get('ammo', 0) > 0 and enemy_soldier.behavior == 'commander'\
                             or spell_dict.get('ammo') == None:
-                        if spell_dict.get('zone') and not spell_dict['crit_only']:
+                        if spell_dict.get('zone') and not spell_dict.get('crit_only'):
                             self.fireball_action(soldier, squad, spell_dict, enemy.place)
-                        elif attack_result['hit'] and not spell_dict['crit_only']:
+                        elif attack_result['hit'] and not spell_dict.get('crit_only'):
                             self.fireball_action(soldier, squad, spell_dict, enemy.place)
-                        elif attack_result['crit'] and spell_dict['crit_only']:
+                        elif attack_result['crit'] and spell_dict.get('crit_only'):
                             self.fireball_action(soldier, squad, spell_dict, enemy.place)
                 # Монашьи боласы могут сбить с ног:
                 if attack_result['hit'] and 'prone' in attack_result['weapon_type']\
