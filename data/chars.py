@@ -8986,6 +8986,7 @@ metadict_chars['Barbarian 9 lvl (нейтрал) (Карагос «Мудрый�
     'level':9,
     'hunter_AI':True,
     'fearless_AI':True,
+    'no_grappler_AI':True,
     'squad_advantage':True,
     'char_class':'Barbarian',
     'hit_dice':'1d12',
@@ -9027,9 +9028,9 @@ metadict_chars['Barbarian 9 lvl (нейтрал) (Карагос «Мудрый�
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
         'Infusion of Healing':3,
-        #'Sword of the Past +2':1,
         #'Sword of Life-Stealing':1,
-        'Sword of Sharpness':1,
+        #'Sword of Sharpness':1,
+        'Sword of the Past +2':1,
         },
     #'mount_combat':False,
     #'mount_type':'Warhorse',
@@ -9499,6 +9500,7 @@ metadict_chars['Monk 9 lvl (друг) (Кумар «Чугуннорукий»)'
         # Посох ударов продан за 4000 эфесов на оборону Илиона
         'Infusion of Healing':1,
         'Infusion of Heroism':1,
+        'Bracers of Defence':1,
         'Rune of Shielding':1,
         #'Staff of Striking +3':1,
         'Shortsword +1':1,

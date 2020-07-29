@@ -1272,6 +1272,15 @@ metadict_items['Rune of Armor'] = {
     'cost (grams_of_gold)':60 * 4,
     }
 
+metadict_items['Bracers of Defence'] = {
+    'effect':'defence',
+    'armor_type':'shield',
+    'armor_class_shield':2,
+    'weight (lb)':2,
+    'cost (gp)':60 * 100,
+    'cost (grams_of_gold)':60 * 100,
+    }
+
 #----
 # Magic Weapon (homebrew)
 
@@ -1292,8 +1301,8 @@ metadict_items['Sword of the Past +2'] = {
             'savethrow_ability':'dexterity',
             'radius':5,
             'damage_type':'force',
-            'damage_dice':'2d6',
-            'spell_save_DC':15,
+            'damage_dice':'1d6',
+            'spell_save_DC':12,
             'spell_choice':('subspell','Sword_Burst'),
             },
     'weight (lb)':6,

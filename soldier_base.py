@@ -843,6 +843,11 @@ class soldier():
                     if item_shield_ac > armor_class_shield:
                         armor_class_shield = item_shield_ac
                         shield_use = item
+        # Наручи защиты, даются +2 AC тем, кто не носит доспехи и щиты:
+        if 'Bracers of Defence' in self.equipment_weapon:
+            if not armor_use and not shield_use\
+                    or armor_use == 'Unarmored_Defense' and not shield_use:
+                armor_class_armor += 2
         # Вывод диапазона параметров: удар по броне, по щиту, уклонение:
         dict_armor_class = {
                 'armor_class':armor_class_armor + armor_class_shield,
