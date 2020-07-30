@@ -9637,6 +9637,114 @@ metadict_chars['Monk 9 lvl (друг) (Кумар «Чугуннорукий»)'
     }
 
 #----
+# Союзники (герои) (Тинв):
+
+metadict_chars['Wizard 3 lvl (друг) (кошка Тинв)'] = {
+    'level':3,
+    'char_class':'Wizard',
+    'hit_dice':'1d6',
+    'behavior':'archer',
+    'class_features':{
+        'Arcane_Recovery':True,
+        'Spellcasting':True,
+        'Spells':[
+            ('cantrip', 'Friends'),
+            ('cantrip', 'Mold_Earth'),
+            ('cantrip', 'Message'),
+            ('ritual', 'Detect_Magic'),
+            ('1_lvl', 'Fog_Cloud'),
+            ('1_lvl', 'Charm_Person'),
+            ('1_lvl', 'Sleep'),
+            ('2_lvl', 'Blur'),
+            ('2_lvl', 'Suggestion'),
+            ('2_lvl', 'Hold_Person'),
+            ('2_lvl', 'Invisibility'),
+            ],
+        'School_of_Enchantment':True,
+        'Hypnotic_Gaze':True,
+        },
+    'race':'Cat-hero',
+    'weapon_skill':['simple'],
+    'armor_skill':[],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Rune of Shielding':1,
+        'Rune of Armor':1,
+        },
+    #'mount_combat':True,
+    #'mount_type':'Light Warhorse',
+    #'equipment_mount':{
+    #    },
+    }
+
+metadict_chars['Wizard 9 lvl (друг) (Тинв)'] = {
+    # Тинв, коттаямская кошка, волшебница школы Очарования.
+    # Wizard 2 lvl (city cat-weaver) sum:101 STR:14 DEX:19 CON:17 INT:19 WIS:16 CHA:16
+    # Feat_Observant +5 к пассивной внимательности. Читает по губам.
+    'level':9,
+    'fireball_AI':True,
+    'char_class':'Wizard',
+    'hit_dice':'1d6',
+    'behavior':'commander',
+    'hitpoints_medial':True,
+    'abilityes':{
+        'strength':14,
+        'dexterity':21,
+        'constitution':18,
+        'intelligence':20,
+        'wisdom':18,
+        'charisma':16,
+        },
+    'class_features':{
+        # TODO: сделай Instinctive_Charm -- перенаправление атаки врага на другого, за счёт реакции.
+        # TODO: Сделай Feat_Resilient. Даёт бонус мастрества к спасброску.
+        'Feat_Resilient':'constitution',
+        'Feat_Observant':True,
+        'Arcane_Recovery':True,
+        'Spellcasting':True,
+        'Spells':[
+            ('cantrip', 'Friends'),
+            ('cantrip', 'Minor_Illusion'),
+            ('cantrip', 'Mold_Earth'),
+            ('cantrip', 'Message'),
+            ('ritual', 'Detect_Magic'),
+            ('1_lvl', 'Fog_Cloud'),
+            ('1_lvl', 'Charm_Person'),
+            ('1_lvl', 'Sleep'),
+            ('2_lvl', 'Blur'),
+            ('2_lvl', 'Suggestion'),
+            ('2_lvl', 'Hold_Person'),
+            ('2_lvl', 'Invisibility'),
+            ('3_lvl', 'Counterspell'),
+            ('3_lvl', 'Nondetection'),
+            ('3_lvl', 'Fear'),
+            ('4_lvl', 'Fear'),
+            ('4_lvl', 'Arcane_Eye'),
+            ('5_lvl', 'Teleportation_Circle'),
+            ('5_lvl', 'Geas'),
+            ],
+        'School_of_Enchantment':True,
+        'Hypnotic_Gaze':True,
+        'Instinctive_Charm':True,
+        },
+    'race':'Cat-hero',
+    'weapon_skill':['simple'],
+    'armor_skill':[],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        # TODO: добавить руны 3-4 круга.
+        # Добавить кошачьи волшебные вещи.
+        'Infusion of Healing':1,
+        'Rune of Absorbtion':1,
+        'Rune of Shielding':1,
+        'Rune of Armor':1,
+        },
+    }
+
+#----
 # Союзники (армия) (Кумар):
 
 metadict_chars['Warrior 1 lvl (друг) (легионер Илиона)'] = {
