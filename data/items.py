@@ -26,6 +26,7 @@ blade_poisons = [
         # Покрытия для ближнего оружия:
         'Holy Blade',
         'Poison Blade',
+        'Sleep Blade',
         ]
 
 catapult_shells = [
@@ -1922,6 +1923,23 @@ metadict_items['Poison Blade'] = {
     'weight (lb)':1/20,
     'cost (gp)':1/20,
     'cost (grams_of_gold)':40 / 60,
+    }
+
+metadict_items['Sleep Blade'] = {
+    'ammo':True,
+    'spell_dict':{
+            'safe':True,
+            'effect':'sleep',
+            'effect_timer':10,
+            'direct_hit':True,
+            'savethrow':True,
+            'savethrow_ability':'constitution',
+            'spell_save_DC':10,
+            'spell_choice':('Sleep Blade','Яд лесного Йобы'),
+            },
+    'weight (lb)':1/20,
+    'cost (gp)':1/20,
+    'cost (grams_of_gold)':1.2,
     }
 
 metadict_items['Holy Blade'] = {

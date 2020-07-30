@@ -2319,6 +2319,24 @@ class battle_simulation(battlescape):
                             ))
                     if not spell_dict.get('damage_dice'):
                         continue
+                elif spell_dict.get('effect') == 'sleep':
+                    sleep = enemy_soldier.set_sleep(
+                            spell_dict['spell_save_DC'], spell_dict['effect_timer'])
+                    if sleep:
+                        self.clear_battlemap()
+                        fall_place = enemy_soldier.place
+                        self.dict_battlespace[fall_place].append('fall_place')
+                        self.dict_battlespace[fall_place].append(enemy_soldier.ally_side)
+                        print('[+++] {side_1}, {c1} {s} SLEEP >> {side_2} {c2} {e}'.format(
+                            side_1 = soldier.ally_side,
+                            c1 = soldier.place,
+                            s = soldier.behavior,
+                            side_2 = enemy_soldier.ally_side,
+                            c2 = enemy_soldier.place,
+                            e = enemy_soldier.behavior,
+                            ))
+                    if not spell_dict.get('damage_dice'):
+                        continue
                 if spell_dict.get('effect') == 'poison':
                     # Отравление, это помеха на 20-30 атак в столкновении отрядов.
                     poisoned = enemy_soldier.set_poisoned(

@@ -1073,21 +1073,6 @@ class soldier_in_battle(soldier):
             else:
                 return False
 
-    def set_sleep(self):
-        """Бойца усыпляют заклинанием."""
-        # Нужно помнить, что эльфы не спят, и потому ко сну неуязвимы.
-        # Мертвяки и конструкты тоже неуязвимы.
-        self.sleep = True
-        self.prone = True
-        self.battle_action = None
-        self.bonus_action = None
-        self.reaction = None
-        self.move_action = None
-        self.move_pool = 0
-        self.sleep_timer = 10
-        # Спящий считается вышедшим из боя:
-        #self.fall = True
-
     def first_aid(self, injured_ally, stabilizing_difficul = 10, advantage = False, disadvantage = False):
         """Боец пытается оказать первую помощь раненому.
         
@@ -1217,6 +1202,30 @@ class soldier_in_battle(soldier):
             self.stunned = True
             self.stunned_difficult = stunned_difficult
             self.stunned_timer = stunned_timer
+            return True
+        else:
+            return False
+
+    def set_sleep(self, sleep_difficult = 100, effect_timer = 10):
+        """Бойца усыпляют заклинанием. В этом случае спасбросок невозможен.
+        
+        Либо пытаются усыпить, если это яд. Тогда нужно указать сложность спасброска.
+        """
+        # TODO: Мертвяки и конструкты неуязвимы к усыплению. Эльфы тоже.
+        savethrow_adavantage = self.check_savethrow_advantage('constitution')
+        sleep_savethrow = dices.dice_throw_advantage('1d20', savethrow_adavantage)\
+                + self.saves['constitution']
+        if sleep_savethrow <= sleep_difficult:
+            self.sleep = True
+            self.prone = True
+            self.battle_action = None
+            self.bonus_action = None
+            self.reaction = None
+            self.move_action = None
+            self.move_pool = 0
+            self.sleep_timer = effect_timer
+            # Спящий считается вышедшим из боя:
+            #self.fall = True
             return True
         else:
             return False
