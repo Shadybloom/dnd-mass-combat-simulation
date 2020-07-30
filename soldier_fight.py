@@ -947,7 +947,7 @@ class soldier_in_battle(soldier):
         danger_difficul = 10 + danger
         danger_saving_throw = dices.dice_throw_advantage('1d20', advantage, disadvantage)\
                 + self.saves['charisma']
-        if danger_difficul > danger_saving_throw:
+        if danger_saving_throw < danger_difficul:
             return True
         else:
             return False
@@ -1140,7 +1140,7 @@ class soldier_in_battle(soldier):
             savethrow_adavantage = self.check_savethrow_advantage('dexterity')
             prone_savethrow = dices.dice_throw_advantage('1d20', savethrow_adavantage)\
                     + self.saves['dexterity']
-        if prone_savethrow <= prone_difficul\
+        if prone_savethrow < prone_difficul\
                 or self.stunned or self.sleep:
             self.prone = True
             return True
@@ -1156,7 +1156,7 @@ class soldier_in_battle(soldier):
         savethrow_adavantage = self.check_savethrow_advantage('strength')
         restained_savethrow = dices.dice_throw_advantage('1d20', savethrow_adavantage)\
                 + self.saves['strength']
-        if restained_savethrow <= restained_difficult\
+        if restained_savethrow < restained_difficult\
                 or self.stunned or self.sleep:
             self.restained = True
             self.restained_difficult = restained_difficult
@@ -1175,7 +1175,7 @@ class soldier_in_battle(soldier):
         savethrow_adavantage = self.check_savethrow_advantage('constitution')
         poison_savethrow = dices.dice_throw_advantage('1d20', savethrow_adavantage)\
                 + self.saves['constitution']
-        if poison_savethrow <= poison_difficult:
+        if poison_savethrow < poison_difficult:
             self.poisoned = True
             self.poison_difficult = poison_difficult
             self.poison_timer = poison_timer
@@ -1198,7 +1198,7 @@ class soldier_in_battle(soldier):
         savethrow_adavantage = self.check_savethrow_advantage('constitution')
         stunned_savethrow = dices.dice_throw_advantage('1d20', savethrow_adavantage)\
                 + self.saves['constitution']
-        if stunned_savethrow <= stunned_difficult:
+        if stunned_savethrow < stunned_difficult:
             self.stunned = True
             self.stunned_difficult = stunned_difficult
             self.stunned_timer = stunned_timer
@@ -1215,7 +1215,7 @@ class soldier_in_battle(soldier):
         savethrow_adavantage = self.check_savethrow_advantage('constitution')
         sleep_savethrow = dices.dice_throw_advantage('1d20', savethrow_adavantage)\
                 + self.saves['constitution']
-        if sleep_savethrow <= sleep_difficult:
+        if sleep_savethrow < sleep_difficult:
             self.sleep = True
             self.prone = True
             self.battle_action = None
@@ -1246,7 +1246,7 @@ class soldier_in_battle(soldier):
             savethrow_adavantage = self.check_savethrow_advantage('dexterity')
             grapple_savethrow = dices.dice_throw_advantage('1d20', savethrow_adavantage)\
                     + self.saves['dexterity']
-        if grapple_savethrow <= grapple_difficul\
+        if grapple_savethrow < grapple_difficul\
                 or self.stunned or self.sleep:
             self.grappled = True
             self.enemy_grappler = enemy_soldier
@@ -1315,7 +1315,7 @@ class soldier_in_battle(soldier):
             savethrow_adavantage = self.check_savethrow_advantage('dexterity')
             disarm_savethrow = dices.dice_throw_advantage('1d20', savethrow_adavantage)\
                     + self.saves['dexterity']
-        if disarm_savethrow <= disarm_difficul\
+        if disarm_savethrow < disarm_difficul\
                 or self.stunned or self.sleep:
             return self.unset_shield(disarm = True)
         else:
@@ -1337,7 +1337,7 @@ class soldier_in_battle(soldier):
             savethrow_adavantage = self.check_savethrow_advantage('dexterity')
             disarm_savethrow = dices.dice_throw_advantage('1d20', savethrow_adavantage)\
                     + self.saves['dexterity']
-        if disarm_savethrow <= disarm_difficul\
+        if disarm_savethrow < disarm_difficul\
                 or self.stunned or self.sleep:
             # TODO: Тут, получается, разом отбирают всё оружие.
             # ------------------------------------------------------------
@@ -1355,7 +1355,7 @@ class soldier_in_battle(soldier):
         """Бойца пытаются испугать заклинанием cause_fear или чем-то подобным."""
         # 45 срабатываний за бой от 30+ варлоков, впечатляющее заклинание.
         fear_savethrow = dices.dice_throw_advantage('1d20') + self.saves['wisdom']
-        if fear_savethrow <= fear_difficult:
+        if fear_savethrow < fear_difficult:
             self.fear = True
             self.enemy_fear = enemy_soldier
             self.fear_difficult = fear_difficult
@@ -2042,13 +2042,13 @@ class soldier_in_battle(soldier):
             if attack_dict['attack_crit'] == True:
                 result['hit'] = True
                 result['crit'] = True
-            elif attack_dict['attack'] > armor_class:
+            elif attack_dict['attack'] >= armor_class:
                 result['hit'] = True
-            elif attack_dict['attack'] <= armor_class_no_impact:
+            elif attack_dict['attack'] < armor_class_no_impact:
                 result['miss'] = True
-            elif attack_dict['attack'] <= armor_class_shield_impact:
+            elif attack_dict['attack'] < armor_class_shield_impact:
                 result['shield_impact'] = True
-            elif attack_dict['attack'] <= armor_class_armor_impact:
+            elif attack_dict['attack'] < armor_class_armor_impact:
                 result['armor_impact'] = True
             elif attack_dict['attack'] <= 0 or attack_dict['attack_loss']:
                 result['clumsy_miss'] = True
@@ -2254,7 +2254,7 @@ class soldier_in_battle(soldier):
                 and attack_dict['damage_type'] != 'radiant':
             destruction_difficul = 5 + damage
             destruction_saving_throw = dices.dice_throw_advantage('1d20') + self.saves['constitution']
-            if destruction_saving_throw > destruction_difficul:
+            if destruction_saving_throw >= destruction_difficul:
                 self.hitpoints = 1
         # Показываем, если командиру достаётся:
         if self.level >= 5:
