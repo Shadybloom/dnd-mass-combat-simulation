@@ -719,9 +719,9 @@ metadict_chars['Warrior 2 lvl (achean hoplite-corporal)'] = {
     'behavior':'elite_warrior',
     'hit_dice':'1d8',
     'class_features':{
-        # Ветераны не обладают боевым стилем. Этому их обучают герои-бойцы.
+        # Изначально ветераны не обладают боевым стилем. Этому их обучают герои-бойцы.
         #'Fighting_Style_Protection':True,
-        #'Fighting_Style_Dueling':True,
+        'Fighting_Style_Dueling':True,
         },
     'race':'Human-common',
     'weapon_skill':['simple','martial'],
@@ -746,7 +746,7 @@ metadict_chars['Warrior 3 lvl (achean hoplite-sergeant)'] = {
     'behavior':'commander',
     'class_features':{
         #'Fighting_Style_Protection':True,
-        #'Fighting_Style_Dueling':True,
+        'Fighting_Style_Dueling':True,
         },
     'race':'Human-common',
     'weapon_skill':['simple','martial'],
@@ -770,7 +770,7 @@ metadict_chars['Warrior 4 lvl (achean hoplite-lieutenant)'] = {
     'hit_dice':'1d8',
     'behavior':'commander',
     'class_features':{
-        #'Fighting_Style_Defence':True,
+        'Fighting_Style_Dueling':True,
         'Feat_Inspiring_Leader':True,
         },
     'race':'Human-common',
@@ -801,7 +801,7 @@ metadict_chars['Warrior 5 lvl (achean hoplite-captain)'] = {
     'hit_dice':'1d8',
     'behavior':'commander',
     'class_features':{
-        #'Fighting_Style_Defence':True,
+        'Fighting_Style_Dueling':True,
         'Feat_Inspiring_Leader':True,
         'Extra_Attack':True,
         },
@@ -855,7 +855,7 @@ metadict_chars['Warrior 2 lvl (city pikeman-corporal)'] = {
     'behavior':'elite_warrior',
     'hit_dice':'1d8',
     'class_features':{
-        #'Fighting_Style_Defence':True,
+        'Fighting_Style_Defence':True,
         },
     'race':'Human-common',
     'weapon_skill':['simple','martial'],
@@ -876,7 +876,7 @@ metadict_chars['Warrior 3 lvl (city pikeman-sergeant)'] = {
     'hit_dice':'1d8',
     'behavior':'commander',
     'class_features':{
-        #'Fighting_Style_Defence':True,
+        'Fighting_Style_Defence':True,
         },
     'race':'Human-common',
     'weapon_skill':['simple','martial'],
@@ -898,7 +898,7 @@ metadict_chars['Warrior 4 lvl (city pikeman-lieutenant)'] = {
     'hit_dice':'1d8',
     'behavior':'commander',
     'class_features':{
-        #'Fighting_Style_Defence':True,
+        'Fighting_Style_Defence':True,
         'Feat_Inspiring_Leader':True,
         },
     'race':'Human-common',
@@ -926,7 +926,7 @@ metadict_chars['Warrior 5 lvl (city pikeman-captain)'] = {
     'hit_dice':'1d8',
     'behavior':'commander',
     'class_features':{
-        #'Fighting_Style_Defence':True,
+        'Fighting_Style_Defence':True,
         'Feat_Inspiring_Leader':True,
         'Extra_Attack':True,
         },
@@ -978,7 +978,7 @@ metadict_chars['Warrior 2 lvl (sqythian bowman-corporal)'] = {
     'hit_dice':'1d8',
     'behavior':'archer',
     'class_features':{
-        #'Fighting_Style_Archery':True,
+        'Fighting_Style_Archery':True,
         },
     'race':'Human-common',
     'weapon_skill':['simple','martial'],
@@ -999,7 +999,7 @@ metadict_chars['Warrior 3 lvl (sqythian bowman-sergeant)'] = {
     'hit_dice':'1d8',
     'behavior':'commander',
     'class_features':{
-        #'Fighting_Style_Archery':True,
+        'Fighting_Style_Archery':True,
         },
     'race':'Human-common',
     'weapon_skill':['simple','martial'],
@@ -1023,7 +1023,7 @@ metadict_chars['Warrior 4 lvl (sqythian bowman-lieutenant)'] = {
     'hit_dice':'1d8',
     'behavior':'commander',
     'class_features':{
-        #'Fighting_Style_Archery':True,
+        'Fighting_Style_Archery':True,
         'Feat_Sharpshooter':True,
         },
     'race':'Human-common',
@@ -1053,7 +1053,7 @@ metadict_chars['Warrior 5 lvl (sqythian bowman-captain)'] = {
     'hit_dice':'1d8',
     'behavior':'commander',
     'class_features':{
-        #'Fighting_Style_Archery':True,
+        'Fighting_Style_Archery':True,
         'Feat_Sharpshooter':True,
         'Extra_Attack':True,
         },
@@ -1110,7 +1110,7 @@ metadict_chars['Warrior 2 lvl (persian bowman-corporal)'] = {
     'hit_dice':'1d8',
     'behavior':'archer',
     'class_features':{
-        #'Fighting_Style_Archery':True,
+        'Fighting_Style_Archery':True,
         },
     'race':'Human-common',
     'weapon_skill':['simple','martial'],
@@ -1132,7 +1132,7 @@ metadict_chars['Warrior 3 lvl (persian bowman-sergeant)'] = {
     'hit_dice':'1d8',
     'behavior':'commander',
     'class_features':{
-        #'Fighting_Style_Archery':True,
+        'Fighting_Style_Archery':True,
         },
     'race':'Human-common',
     'weapon_skill':['simple','martial'],
@@ -1157,7 +1157,7 @@ metadict_chars['Warrior 4 lvl (persian bowman-lieutenant)'] = {
     'hit_dice':'1d8',
     'behavior':'commander',
     'class_features':{
-        #'Fighting_Style_Archery':True,
+        'Fighting_Style_Archery':True,
         'Feat_Sharpshooter':True,
         },
     'race':'Human-common',
@@ -1188,7 +1188,7 @@ metadict_chars['Warrior 5 lvl (persian bowman-captain)'] = {
     'hit_dice':'1d8',
     'behavior':'commander',
     'class_features':{
-        #'Fighting_Style_Archery':True,
+        'Fighting_Style_Archery':True,
         'Feat_Sharpshooter':True,
         'Extra_Attack':True,
         },
@@ -1372,7 +1372,7 @@ metadict_chars['Warrior 2 lvl (cilician infantry-corporal)'] = {
     'hit_dice':'1d8',
     'behavior':'elite_warrior',
     'class_features':{
-        #'Fighting_Style_Two_Weapon_Fighting':True,
+        'Fighting_Style_Two_Weapon_Fighting':True,
         },
     'race':'Human-common',
     'weapon_skill':['simple','martial'],
@@ -1395,7 +1395,7 @@ metadict_chars['Warrior 3 lvl (cilician infantry-sergeant)'] = {
     'hit_dice':'1d8',
     'behavior':'commander',
     'class_features':{
-        #'Fighting_Style_Two_Weapon_Fighting':True,
+        'Fighting_Style_Two_Weapon_Fighting':True,
         },
     'race':'Human-common',
     'weapon_skill':['simple','martial'],
@@ -1419,7 +1419,7 @@ metadict_chars['Warrior 4 lvl (cilician infantry-lieutenant)'] = {
     'hit_dice':'1d8',
     'behavior':'commander',
     'class_features':{
-        #'Fighting_Style_Two_Weapon_Fighting':True,
+        'Fighting_Style_Two_Weapon_Fighting':True,
         'Feat_Inspiring_Leader':True,
         },
     'race':'Human-common',
@@ -1449,7 +1449,7 @@ metadict_chars['Warrior 5 lvl (cilician infantry-captain)'] = {
     'hit_dice':'1d8',
     'behavior':'commander',
     'class_features':{
-        #'Fighting_Style_Two_Weapon_Fighting':True,
+        'Fighting_Style_Two_Weapon_Fighting':True,
         'Feat_Inspiring_Leader':True,
         'Extra_Attack':True,
         },
@@ -1637,7 +1637,7 @@ metadict_chars['Warrior 2 lvl (thracian infantry-corporal)'] = {
     'hit_dice':'1d8',
     'behavior':'elite_warrior',
     'class_features':{
-        #'Fighting_Style_Great_Weapon_Fighting':True,
+        'Fighting_Style_Great_Weapon_Fighting':True,
         },
     'race':'Human-common',
     'weapon_skill':['simple','martial'],
@@ -1660,7 +1660,7 @@ metadict_chars['Warrior 3 lvl (thracian infantry-sergeant)'] = {
     'hit_dice':'1d8',
     'behavior':'commander',
     'class_features':{
-        #'Fighting_Style_Great_Weapon_Fighting':True,
+        'Fighting_Style_Great_Weapon_Fighting':True,
         },
     'race':'Human-common',
     'weapon_skill':['simple','martial'],
@@ -1683,7 +1683,7 @@ metadict_chars['Warrior 4 lvl (thracian infantry-lieutenant)'] = {
     'hit_dice':'1d8',
     'behavior':'commander',
     'class_features':{
-        #'Fighting_Style_Defence':True,
+        'Fighting_Style_Great_Weapon_Fighting':True,
         'Feat_Inspiring_Leader':True,
         },
     'race':'Human-common',
@@ -1711,7 +1711,7 @@ metadict_chars['Warrior 5 lvl (thracian infantry-captain)'] = {
     'hit_dice':'1d8',
     'behavior':'commander',
     'class_features':{
-        #'Fighting_Style_Defence':True,
+        'Fighting_Style_Great_Weapon_Fighting':True,
         'Feat_Inspiring_Leader':True,
         'Extra_Attack':True,
         },
@@ -1766,8 +1766,7 @@ metadict_chars['Warrior 2 lvl (celtian infantry-corporal)'] = {
     'hit_dice':'1d8',
     'behavior':'elite_warrior',
     'class_features':{
-        #'Reckless_Attack':True,
-        #'Fighting_Style_Dueling':True,
+        'Fighting_Style_Dueling':True,
         },
     'race':'Human-common',
     'weapon_skill':['simple','martial'],
@@ -1789,8 +1788,7 @@ metadict_chars['Warrior 3 lvl (celtian infantry-sergeant)'] = {
     'hit_dice':'1d8',
     'behavior':'commander',
     'class_features':{
-        #'Reckless_Attack':True,
-        #'Fighting_Style_Dueling':True,
+        'Fighting_Style_Dueling':True,
         },
     'race':'Human-common',
     'weapon_skill':['simple','martial'],
@@ -1812,8 +1810,7 @@ metadict_chars['Warrior 4 lvl (celtian infantry-lieutenant)'] = {
     'hit_dice':'1d8',
     'behavior':'commander',
     'class_features':{
-        #'Reckless_Attack':True,
-        #'Fighting_Style_Dueling':True,
+        'Fighting_Style_Dueling':True,
         'Feat_Inspiring_Leader':True,
         },
     'race':'Human-common',
@@ -1840,8 +1837,7 @@ metadict_chars['Warrior 5 lvl (celtian infantry-captain)'] = {
     'hit_dice':'1d8',
     'behavior':'commander',
     'class_features':{
-        #'Reckless_Attack':True,
-        #'Fighting_Style_Dueling':True,
+        'Fighting_Style_Dueling':True,
         'Feat_Inspiring_Leader':True,
         'Extra_Attack':True,
         },
@@ -1892,7 +1888,7 @@ metadict_chars['Warrior 2 lvl (shekelesh infantry-corporal)'] = {
     'hit_dice':'1d8',
     'behavior':'elite_warrior',
     'class_features':{
-        #'Fighting_Style_Defence':True,
+        'Fighting_Style_Defence':True,
         },
     'race':'Human-common',
     'weapon_skill':['simple','martial'],
@@ -1914,7 +1910,7 @@ metadict_chars['Warrior 3 lvl (shekelesh infantry-sergeant)'] = {
     'hit_dice':'1d8',
     'behavior':'commander',
     'class_features':{
-        #'Fighting_Style_Defence':True,
+        'Fighting_Style_Defence':True,
         },
     'race':'Human-common',
     'weapon_skill':['simple','martial'],
@@ -1937,7 +1933,7 @@ metadict_chars['Warrior 4 lvl (shekelesh infantry-lieutenant)'] = {
     'hit_dice':'1d8',
     'behavior':'commander',
     'class_features':{
-        #'Fighting_Style_Defence':True,
+        'Fighting_Style_Defence':True,
         'Feat_Inspiring_Leader':True,
         },
     'race':'Human-common',
@@ -1966,7 +1962,7 @@ metadict_chars['Warrior 5 lvl (shekelesh infantry-captain)'] = {
     'hit_dice':'1d8',
     'behavior':'commander',
     'class_features':{
-        #'Fighting_Style_Defence':True,
+        'Fighting_Style_Defence':True,
         'Feat_Inspiring_Leader':True,
         'Extra_Attack':True,
         },
@@ -2021,7 +2017,7 @@ metadict_chars['Warrior 2 lvl (legionary infantry-siege-corporal)'] = {
     'hit_dice':'1d8',
     'behavior':'elite_warrior',
     'class_features':{
-        #'Fighting_Style_Protection':True,
+        'Fighting_Style_Great_Weapon_Fighting':True,
         },
     'race':'Human-common',
     'weapon_skill':['simple','martial'],
@@ -2043,7 +2039,7 @@ metadict_chars['Warrior 3 lvl (legionary infantry-siege-sergeant)'] = {
     'hit_dice':'1d8',
     'behavior':'commander',
     'class_features':{
-        #'Fighting_Style_Protection':True,
+        'Fighting_Style_Great_Weapon_Fighting':True,
         },
     'race':'Human-common',
     'weapon_skill':['simple','martial'],
@@ -2085,7 +2081,7 @@ metadict_chars['Warrior 2 lvl (legionary infantry-corporal)'] = {
     'hit_dice':'1d8',
     'behavior':'elite_warrior',
     'class_features':{
-        #'Fighting_Style_Protection':True,
+        'Fighting_Style_Protection':True,
         },
     'race':'Human-common',
     'weapon_skill':['simple','martial'],
@@ -2107,7 +2103,7 @@ metadict_chars['Warrior 3 lvl (legionary infantry-sergeant)'] = {
     'hit_dice':'1d8',
     'behavior':'commander',
     'class_features':{
-        #'Fighting_Style_Protection':True,
+        'Fighting_Style_Protection':True,
         },
     'race':'Human-common',
     'weapon_skill':['simple','martial'],
@@ -2130,7 +2126,7 @@ metadict_chars['Warrior 4 lvl (legionary infantry-lieutenant)'] = {
     'hit_dice':'1d8',
     'behavior':'commander',
     'class_features':{
-        #'Fighting_Style_Defence':True,
+        'Fighting_Style_Protection':True,
         'Feat_Inspiring_Leader':True,
         },
     'race':'Human-common',
@@ -2159,7 +2155,7 @@ metadict_chars['Warrior 5 lvl (legionary infantry-captain)'] = {
     'hit_dice':'1d8',
     'behavior':'commander',
     'class_features':{
-        #'Fighting_Style_Defence':True,
+        'Fighting_Style_Protection':True,
         'Feat_Inspiring_Leader':True,
         'Extra_Attack':True,
         },
@@ -2210,7 +2206,7 @@ metadict_chars['Warrior 2 lvl (mercenary heavy-infantry-corporal)'] = {
     'hit_dice':'1d8',
     'behavior':'elite_warrior',
     'class_features':{
-        #'Fighting_Style_Great_Weapon_Fighting':True,
+        'Fighting_Style_Great_Weapon_Fighting':True,
         },
     'race':'Human-common',
     'weapon_skill':['simple','martial'],
@@ -2231,7 +2227,7 @@ metadict_chars['Warrior 3 lvl (mercenary heavy-infantry-sergeant)'] = {
     'hit_dice':'1d8',
     'behavior':'commander',
     'class_features':{
-        #'Fighting_Style_Great_Weapon_Fighting':True,
+        'Fighting_Style_Great_Weapon_Fighting':True,
         },
     'race':'Human-common',
     'weapon_skill':['simple','martial'],
@@ -2252,7 +2248,7 @@ metadict_chars['Warrior 4 lvl (mercenary heavy-infantry-lieutenant)'] = {
     'hit_dice':'1d8',
     'behavior':'commander',
     'class_features':{
-        #'Fighting_Style_Defence':True,
+        'Fighting_Style_Great_Weapon_Fighting':True,
         'Feat_Inspiring_Leader':True,
         },
     'race':'Human-common',
@@ -2279,7 +2275,7 @@ metadict_chars['Warrior 5 lvl (mercenary heavy-infantry-captain)'] = {
     'hit_dice':'1d8',
     'behavior':'commander',
     'class_features':{
-        #'Fighting_Style_Defence':True,
+        'Fighting_Style_Great_Weapon_Fighting':True,
         'Feat_Inspiring_Leader':True,
         'Extra_Attack':True,
         },
@@ -6731,7 +6727,7 @@ metadict_chars['Warrior 2 lvl (Vaarsuvius) (стрелок-ветеран)'] = {
     'hit_dice':'1d8',
     'behavior':'archer',
     'class_features':{
-        #'Fighting_Style_Archery':True,
+        'Fighting_Style_Archery':True,
         },
     'race':'Human-common',
     'weapon_skill':['simple','martial'],
