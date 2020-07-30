@@ -1351,6 +1351,7 @@ metadict_items['Sword of Sharpness'] = {
             'crit_only':True,
             'direct_hit':True,
             'attacks_number':1,
+            'weapon_type':['magic','sharpness'],
             'damage_type':'slashing',
             'damage_dice':'0d0',
             'damage_mod':14,
