@@ -303,7 +303,7 @@ class soldier_in_battle(soldier):
                 self.resistance.append('piercing')
                 self.resistance.append('bludgeoning')
             if self.class_features.get('Wood_Object_Resistance'):
-                self.resistance.append('slashing')
+                #self.resistance.append('slashing')
                 self.resistance.append('piercing')
                 self.resistance.append('bludgeoning')
             # Уязвимости монстров:
@@ -1722,7 +1722,9 @@ class soldier_in_battle(soldier):
             if 'Feat_Great_Weapon_Master' in attack_dict['weapon_skills_use']:
                 if enemy_soldier.armor['armor_class'] <= attack_dict['attack_mod'] + 10\
                         and enemy_soldier.hitpoints > damage_throw_mod\
-                        and advantage and not disadvantage:
+                        and advantage and not disadvantage\
+                        or enemy_soldier.__dict__.get('mechanism')\
+                        and enemy_soldier.__dict__.get('ignore_damage'):
                     damage_throw_mod += 10
                     attack_throw_mod -=5
             # Снайпер тоже способен усилить урон за счёт точности:
@@ -1779,6 +1781,7 @@ class soldier_in_battle(soldier):
             else:
                 ammo_type = attack_dict.get('weapon_of_choice')
             for attack_choice, attack_dict in self.attacks.items():
+                # TODO: сломался whirlwind воздушных элементалей. Чини.
                 if ammo_type == attack_dict.get('ammo_type')\
                         or ammo_type == attack_dict.get('weapon_of_choice'):
                     attack_dict['ammo'] -= 1

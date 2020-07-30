@@ -108,12 +108,12 @@ metadict_animals['Palisade (wood) (600 hp)'] = {
 metadict_animals['Wall (stone) (1200 hp)'] = {
     # 10 футов стены. Каждый фут 120 hp
     'level':5,
-    'hitpoints_base':1200,
-    'armor_class_natural':17,
-    'ignore_damage':20,
     'mechanism':True,
     'savethrow_autofall':True,
     'inactive_AI':True,
+    'hitpoints_base':1200,
+    'armor_class_natural':17,
+    'ignore_damage':20,
     'challenge_rating':'-',
     'char_class':'Commoner',
     'behavior':'commander',
@@ -142,12 +142,12 @@ metadict_animals['Wall (stone) (1200 hp + Arcane_Lock)'] = {
     # 10 футов стены. Каждый фут 120 hp.
     # Arcane_Lock даёт 17 AC --> 20 AC
     'level':5,
-    'hitpoints_base':1200,
-    'armor_class_natural':20,
-    'ignore_damage':20,
     'mechanism':True,
     'savethrow_autofall':True,
     'inactive_AI':True,
+    'hitpoints_base':1200,
+    'armor_class_natural':20,
+    'ignore_damage':20,
     'challenge_rating':'-',
     'char_class':'Commoner',
     'behavior':'commander',

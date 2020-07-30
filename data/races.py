@@ -44,6 +44,22 @@ dict_races = {
             'weight_base_lb':110,
             'weight_mod_dice':'2d4',
             },
+        'Human-hero-undead':{
+            'hero':True,
+            'unholy':True,
+            'size':'medium',
+            'base_speed':30,
+            'height_base_inches':4 * 12 + 8,
+            'height_mod_dice':'2d10',
+            'weight_base_lb':110,
+            'weight_mod_dice':'2d4',
+            'strength':+1,
+            'dexterity':+1,
+            'constitution':+1,
+            'intelligence':+1,
+            'wisdom':+1,
+            'charisma':+1,
+            },
         'Human-dummy':{
             # Чучело, без скорости передвижения.
             'armor_class_natural':15,
