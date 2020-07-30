@@ -9259,6 +9259,139 @@ metadict_chars['Warrior 5 lvl (враг) (мирмидон-капитан)'] = {
     }
 
 #----
+# Враги (армии) (легионеры Акхена):
+
+metadict_chars['Warrior 1 lvl (враг) (легионер Акхена)'] = {
+    # "Универсальные солдаты", удвоенная стоимость снаряжения.
+    # Пользуются усыпляющим ядом. Очень хороши против варваров и больших зверей.
+    'level':1,
+    'char_class':'Warrior',
+    'hit_dice':'1d8',
+    'behavior':'warrior',
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Studded Leather':1,
+        'Heavy Shield':1,
+        'Shortsword':1,
+        'Javelin':8,
+        'Sleep Blade':10,
+        },
+    }
+
+metadict_chars['Warrior 2 lvl (враг) (ветеран Акхена)'] = {
+    'level':2,
+    'char_class':'Warrior',
+    'hit_dice':'1d8',
+    'behavior':'elite_warrior',
+    'class_features':{
+        'Fighting_Style_Protection':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Breastplate':1,
+        'Heavy Shield':1,
+        'Shortsword':1,
+        'Javelin':5,
+        'Sleep Blade':10,
+        },
+    }
+
+metadict_chars['Warrior 3 lvl (враг) (сержант Акхена)'] = {
+    'level':3,
+    'char_class':'Warrior',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Protection':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Infusion of Heroism':1,
+        'Breastplate':1,
+        'Heavy Shield':1,
+        'Shortsword':1,
+        'Javelin':5,
+        'Sleep Blade':10,
+        },
+    }
+
+metadict_chars['Warrior 4 lvl (враг) (лейтенант Акхена)'] = {
+    'level':4,
+    'char_class':'Warrior-officer',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Protection':True,
+        'Feat_Inspiring_Leader':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Infusion of Heroism':1,
+        'Rune of Shielding':1,
+        'Half Plate':1,
+        'Heavy Shield':1,
+        'Shortsword':1,
+        'Javelin':5,
+        'Sleep Blade':10,
+        },
+    'mount_combat':False,
+    'mount_type':'Riding Horse',
+    'equipment_mount':{
+        },
+    }
+
+metadict_chars['Warrior 5 lvl (враг) (капитан Акхена)'] = {
+    'level':5,
+    'char_class':'Warrior-officer',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Protection':True,
+        'Feat_Inspiring_Leader':True,
+        'Extra_Attack':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Infusion of Heroism':1,
+        'Rune of Shielding':1,
+        'Half Plate':1,
+        'Heavy Shield':1,
+        'Shortsword':1,
+        'Javelin':5,
+        'Sleep Blade':10,
+        },
+    'mount_combat':False,
+    'mount_type':'Riding Horse',
+    'equipment_mount':{
+        },
+    }
+
+#----
 # Враги (армии) (демоны Ашеры):
 
 metadict_chars['Warrior 1 lvl (враг) (демон-рядовой)'] = {
