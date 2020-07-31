@@ -1790,9 +1790,9 @@ class soldier_in_battle(soldier):
             else:
                 ammo_type = attack_dict.get('weapon_of_choice')
             for attack_choice, attack_dict in self.attacks.items():
-                # TODO: сломался whirlwind воздушных элементалей. Чини.
                 if ammo_type == attack_dict.get('ammo_type')\
-                        or ammo_type == attack_dict.get('weapon_of_choice'):
+                        or ammo_type == attack_dict.get('weapon_of_choice')\
+                        and attack_dict.get('ammo'):
                     attack_dict['ammo'] -= 1
                     if attack_dict['ammo'] == 0:
                         for soldier in metadict_soldiers.values():
@@ -1813,6 +1813,7 @@ class soldier_in_battle(soldier):
                                 break
                         else:
                             self.unset_weapon(attack_dict.get('weapon_of_choice'), ammo_type)
+                            break
         return attack_result_dict
 
     def unset_weapon(self, weapon_type, ammo_type = None):
