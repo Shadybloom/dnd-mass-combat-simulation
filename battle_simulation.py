@@ -2695,6 +2695,11 @@ class battle_simulation(battlescape):
                         and enemy_soldier.challenge_rating in self.challenge_rating_experience_dict:
                     experience_new = self.challenge_rating_experience_dict[enemy_soldier.challenge_rating]
                     squad.experience += round(experience_new)
+                # Если уровень > 5, то уровень и есть показатель опасности:
+                elif enemy_soldier.level > 5:
+                    experience_new = self.challenge_rating_experience_dict[str(enemy_soldier.level)]
+                    squad.experience += round(experience_new)
+                # Для простых солдат считается сложнее:
                 else:
                     # Опыт за уровень врага:
                     # 1 lvl: 25*2^(1-1) = 25 exp; 5 lvl: 25*2^(5-1) = 400 exp
