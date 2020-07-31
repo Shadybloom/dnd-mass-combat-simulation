@@ -1312,6 +1312,7 @@ metadict_items['Sword of the Past +2'] = {
     }
 
 metadict_items['Sword of Life-Stealing'] = {
+    # TODO: сделай это модификациями мечей. Не забудь увеличение стоимости.
     # При крите наносит 10 урона некторической энергией и даёт 10 бонусных хитов.
     'weapon':True,
     #'ammo_type':blade_poisons,

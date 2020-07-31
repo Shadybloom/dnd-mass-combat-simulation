@@ -1475,6 +1475,7 @@ metadict_animals['Air Elemental (CR 5)'] = {
             'weapon_type':['simple','close'],
             'spell_dict':{
                     'zone':True,
+                    'safe':True,
                     'effect':'move',
                     'zone_shape':'2x2',
                     #'zone_shape':'square',
