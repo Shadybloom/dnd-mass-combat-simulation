@@ -498,80 +498,81 @@ class battle_simulation(battlescape):
 
     def set_squad_battle_stat(self, attack_result, squad, attack_choice = None):
         """Подсчёт попадания, промахов и урона под каждый вид оружия."""
-        if not hasattr(squad, 'battle_stat'):
-            squad.battle_stat = {}
-        if not attack_choice:
-            attack_choice = attack_result['attack_choice']
-        attack_key_hit = tuple(list(attack_choice) + ['hit'])
-        attack_key_fatal = tuple(list(attack_choice) + ['fatal'])
-        attack_key_miss = tuple(list(attack_choice) + ['miss'])
-        attack_key_damage = tuple(list(attack_choice) + ['damage'])
-        attack_key_damage_temp_hp = tuple(list(attack_choice) + ['damage_temp_hp'])
-        attack_key_shield_impact = tuple(list(attack_choice) + ['shield_impact'])
-        attack_key_hit_friendly = tuple(list(attack_choice) + ['damage_friend'])
-        if attack_result.get('hit')\
-                and not attack_result.get('victim_side') == squad.ally_side:
-            if not attack_key_damage in squad.battle_stat and attack_result['damage'] > 0:
-                squad.battle_stat[attack_key_damage] = attack_result['damage']
-            elif attack_key_damage in squad.battle_stat and attack_result['damage'] > 0:
-                squad.battle_stat[attack_key_damage] += attack_result['damage']
-            if not attack_key_damage_temp_hp in squad.battle_stat\
-                    and attack_result.get('bonus_hitpoints_damage',0) > 0:
-                squad.battle_stat[attack_key_damage_temp_hp] = attack_result.get(
-                        'bonus_hitpoints_damage',0)
-            elif attack_key_damage_temp_hp in squad.battle_stat\
-                    and attack_result.get('bonus_hitpoints_damage',0) > 0:
-                squad.battle_stat[attack_key_damage_temp_hp] += attack_result.get(
-                        'bonus_hitpoints_damage',0)
-            if not attack_key_hit in squad.battle_stat:
-                squad.battle_stat[attack_key_hit] = 1
+        if attack_result:
+            if not hasattr(squad, 'battle_stat'):
+                squad.battle_stat = {}
+            if not attack_choice:
+                attack_choice = attack_result['attack_choice']
+            attack_key_hit = tuple(list(attack_choice) + ['hit'])
+            attack_key_fatal = tuple(list(attack_choice) + ['fatal'])
+            attack_key_miss = tuple(list(attack_choice) + ['miss'])
+            attack_key_damage = tuple(list(attack_choice) + ['damage'])
+            attack_key_damage_temp_hp = tuple(list(attack_choice) + ['damage_temp_hp'])
+            attack_key_shield_impact = tuple(list(attack_choice) + ['shield_impact'])
+            attack_key_hit_friendly = tuple(list(attack_choice) + ['damage_friend'])
+            if attack_result.get('hit')\
+                    and not attack_result.get('victim_side') == squad.ally_side:
+                if not attack_key_damage in squad.battle_stat and attack_result['damage'] > 0:
+                    squad.battle_stat[attack_key_damage] = attack_result['damage']
+                elif attack_key_damage in squad.battle_stat and attack_result['damage'] > 0:
+                    squad.battle_stat[attack_key_damage] += attack_result['damage']
+                if not attack_key_damage_temp_hp in squad.battle_stat\
+                        and attack_result.get('bonus_hitpoints_damage',0) > 0:
+                    squad.battle_stat[attack_key_damage_temp_hp] = attack_result.get(
+                            'bonus_hitpoints_damage',0)
+                elif attack_key_damage_temp_hp in squad.battle_stat\
+                        and attack_result.get('bonus_hitpoints_damage',0) > 0:
+                    squad.battle_stat[attack_key_damage_temp_hp] += attack_result.get(
+                            'bonus_hitpoints_damage',0)
+                if not attack_key_hit in squad.battle_stat:
+                    squad.battle_stat[attack_key_hit] = 1
+                else:
+                    squad.battle_stat[attack_key_hit] += 1
+            # Учитывем дружественный огонь:
+            elif attack_result.get('hit')\
+                    and attack_result.get('victim_side') == squad.ally_side:
+                if not attack_key_hit_friendly in squad.battle_stat and attack_result['damage'] > 0:
+                    squad.battle_stat[attack_key_hit_friendly] = attack_result['damage']
+                elif attack_key_damage in squad.battle_stat and attack_result['damage'] > 0:
+                    squad.battle_stat[attack_key_hit_friendly] += attack_result['damage']
+                if not attack_key_hit in squad.battle_stat:
+                    squad.battle_stat[attack_key_hit] = 1
+                else:
+                    squad.battle_stat[attack_key_hit] += 1
             else:
-                squad.battle_stat[attack_key_hit] += 1
-        # Учитывем дружественный огонь:
-        elif attack_result.get('hit')\
-                and attack_result.get('victim_side') == squad.ally_side:
-            if not attack_key_hit_friendly in squad.battle_stat and attack_result['damage'] > 0:
-                squad.battle_stat[attack_key_hit_friendly] = attack_result['damage']
-            elif attack_key_damage in squad.battle_stat and attack_result['damage'] > 0:
-                squad.battle_stat[attack_key_hit_friendly] += attack_result['damage']
-            if not attack_key_hit in squad.battle_stat:
-                squad.battle_stat[attack_key_hit] = 1
-            else:
-                squad.battle_stat[attack_key_hit] += 1
-        else:
-            if not attack_key_miss in squad.battle_stat:
-                squad.battle_stat[attack_key_miss] = 1
-            else:
-                squad.battle_stat[attack_key_miss] += 1
-        # Пилумы ломают щиты (-1 AC с каждым попаданием):
-        if attack_result.get('shield_impact') and attack_result.get('shield_breaker'):
-            if not attack_key_shield_impact in squad.battle_stat:
-                squad.battle_stat[attack_key_shield_impact] = 1
-            else:
-                squad.battle_stat[attack_key_shield_impact] += 1
-        if attack_result.get('fatal_hit'):
-            if not attack_key_fatal in squad.battle_stat:
-                squad.battle_stat[attack_key_fatal] = 1
-            else:
-                squad.battle_stat[attack_key_fatal] += 1
-        #print(squad.battle_stat)
-        # Красивый вывод данных:
-        if attack_result.get('fatal_hit'):
-            attack_choice = attack_result['attack_choice']
-            soldier = self.metadict_soldiers[attack_result['sender_uuid']]
-            enemy_soldier = self.metadict_soldiers[attack_result['victim_uuid']]
-            print('{side}, {c1} {s} {w} >> {c2} {e}, hit {h}, fall {f}'.format(
-                side = enemy_soldier.enemy_side,
-                s = soldier.behavior,
-                e = enemy_soldier.behavior,
-                c1 = soldier.place,
-                c2 = enemy_soldier.place,
-                w = attack_choice,
-                h = attack_result['hit'],
-                f = attack_result['fatal_hit'],
-                ))
-            if namespace.visual:
-                time.sleep(0.2)
+                if not attack_key_miss in squad.battle_stat:
+                    squad.battle_stat[attack_key_miss] = 1
+                else:
+                    squad.battle_stat[attack_key_miss] += 1
+            # Пилумы ломают щиты (-1 AC с каждым попаданием):
+            if attack_result.get('shield_impact') and attack_result.get('shield_breaker'):
+                if not attack_key_shield_impact in squad.battle_stat:
+                    squad.battle_stat[attack_key_shield_impact] = 1
+                else:
+                    squad.battle_stat[attack_key_shield_impact] += 1
+            if attack_result.get('fatal_hit'):
+                if not attack_key_fatal in squad.battle_stat:
+                    squad.battle_stat[attack_key_fatal] = 1
+                else:
+                    squad.battle_stat[attack_key_fatal] += 1
+            #print(squad.battle_stat)
+            # Красивый вывод данных:
+            if attack_result.get('fatal_hit'):
+                attack_choice = attack_result['attack_choice']
+                soldier = self.metadict_soldiers[attack_result['sender_uuid']]
+                enemy_soldier = self.metadict_soldiers[attack_result['victim_uuid']]
+                print('{side}, {c1} {s} {w} >> {c2} {e}, hit {h}, fall {f}'.format(
+                    side = enemy_soldier.enemy_side,
+                    s = soldier.behavior,
+                    e = enemy_soldier.behavior,
+                    c1 = soldier.place,
+                    c2 = enemy_soldier.place,
+                    w = attack_choice,
+                    h = attack_result['hit'],
+                    f = attack_result['fatal_hit'],
+                    ))
+                if namespace.visual:
+                    time.sleep(0.2)
 
     def start (self, max_rounds = 10, commands = False):
         """Начинаем бой."""

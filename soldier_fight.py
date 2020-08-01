@@ -1923,6 +1923,10 @@ class soldier_in_battle(soldier):
                 ammo_type = attack_dict.get('ammo_type')
             else:
                 ammo_type = attack_dict.get('weapon_of_choice')
+            if ammo_type in self.equipment_weapon:
+                self.equipment_weapon[ammo_type] -= 1
+                self.overload = self.calculate_overload()
+                self.base_speed = self.overload['base_speed']
             for attack_choice, attack_dict in self.attacks.items():
                 if ammo_type == attack_dict.get('ammo_type')\
                         or ammo_type == attack_dict.get('weapon_of_choice')\
