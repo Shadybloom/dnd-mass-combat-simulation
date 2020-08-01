@@ -707,6 +707,7 @@ metadict_chars['Warrior 1 lvl (achean hoplite)'] = {
         'Heavy Shield':1,
         'Shortsword':1,
         'Long Spear':1,
+        'Javelin':5,
         },
     }
 
@@ -733,6 +734,7 @@ metadict_chars['Warrior 2 lvl (achean hoplite-corporal)'] = {
         'Heavy Shield':1,
         'Shortsword':1,
         'Long Spear':1,
+        'Javelin':5,
         },
     }
 
@@ -759,6 +761,7 @@ metadict_chars['Warrior 3 lvl (achean hoplite-sergeant)'] = {
         'Heavy Shield':1,
         'Shortsword':1,
         'Long Spear':1,
+        'Javelin':5,
         },
     }
 
@@ -785,6 +788,7 @@ metadict_chars['Warrior 4 lvl (achean hoplite-lieutenant)'] = {
         'Heavy Shield':1,
         'Shortsword':1,
         'Long Spear':1,
+        'Javelin':5,
         },
     #'mount_combat':False,
     #'mount_type':'Riding Horse',
@@ -818,6 +822,7 @@ metadict_chars['Warrior 5 lvl (achean hoplite-captain)'] = {
         'Heavy Shield':1,
         'Shortsword':1,
         'Long Spear':1,
+        'Javelin':5,
         },
     'mount_combat':False,
     'mount_type':'Riding Horse',
