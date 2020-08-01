@@ -2792,10 +2792,22 @@ class battle_simulation(battlescape):
         """Вывод статистики после боя. Убитые, раненые по отрядам."""
         for key, squad in self.squads.items():
             casualty = squad.casualty
+            # Опыт отряда, это сумма опыта солдат:
             if not squad.__dict__.get('experience'):
                 squad.experience = sum([soldier.experience for soldier in squad.metadict_soldiers.values()])
             else:
                 squad.experience += sum([soldier.experience for soldier in squad.metadict_soldiers.values()])
+            # Израсходованное солдатами снаряжение:
+            if not squad.__dict__.get('drop_items'):
+                squad.drop_items = {}
+            for soldier in squad.metadict_soldiers.values():
+                for item, number in soldier.drop_items.items():
+                    if not item in squad.drop_items:
+                        squad.drop_items[item] = number
+                    elif item in squad.drop_items:
+                        squad.drop_items[item] += number
+            #squad.drop_items = OrderedDict(sorted(squad.drop_items.items(),key=lambda x: x))
+            # Сумма хитпоинтов отряда:
             squad_hitpoints_max = sum([soldier.hitpoints_max for soldier\
                 in squad.metadict_soldiers.values()])
             squad_hitpoints_new = sum([soldier.hitpoints for soldier\
@@ -2857,6 +2869,7 @@ class battle_simulation(battlescape):
                 battle_stat = OrderedDict(sorted(battle_stat.items(),key=lambda x: x))
                 for attack, stat in battle_stat.items():
                     print(attack, stat)
+            print(squad.drop_items)
 
     def save_soldiers_to_database(self):
         """Сохраняем солдат в базу данных."""

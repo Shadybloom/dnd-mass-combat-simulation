@@ -218,6 +218,9 @@ class soldier_in_battle(soldier):
         self.second_wind = False
         self.lay_on_hands = 0
         self.shield = False
+        # Словарь израсходованного снаряжения:
+        if not hasattr(self, 'drop_items'):
+            self.drop_items = {}
         # Щит в боевое положение:
         if not hasattr(self, 'shield_ready'):
             if self.armor['shield_use']:
@@ -1048,7 +1051,7 @@ class soldier_in_battle(soldier):
         # TODO: У солдата с плюсовыми хитпоинтами должен исчезать статус defeat
         if self.battle_action or use_battle_action == False:
             if self.equipment_weapon.get('Infusion of Healing', 0) > 0:
-                self.equipment_weapon['Infusion of Healing'] -= 1
+                self.drop_item('Infusion of Healing')
                 potion_heal = round(sum([dices.dice_throw(self.hit_dice) for x in range(self.level)]))
                 self.set_hitpoints(heal = potion_heal)
                 self.battle_action = False
@@ -1056,7 +1059,7 @@ class soldier_in_battle(soldier):
                     self.ally_side, self.place, self.behavior, potion_heal))
                 return True
             elif self.equipment_weapon.get('Goodberry', 0) > 0:
-                self.equipment_weapon['Goodberry'] -= 1
+                self.drop_item('Goodberry')
                 potion_heal = 1
                 self.set_hitpoints(heal = potion_heal)
                 self.battle_action = False
@@ -1080,7 +1083,7 @@ class soldier_in_battle(soldier):
         """
         if self.battle_action or use_battle_action == False:
             if self.equipment_weapon.get('Infusion of Heroism', 0) > 0:
-                self.equipment_weapon['Infusion of Heroism'] -= 1
+                self.drop_item('Infusion of Heroism')
                 self.heroism_timer = 10
                 self.heroism = True
                 if self.bonus_hitpoints < self.level:
@@ -1099,7 +1102,7 @@ class soldier_in_battle(soldier):
         # potion_heal бери из словаря Goodberry.
         self.help_action = True
         if injured_ally.equipment_weapon.get('Goodberry', 0) > 0:
-            injured_ally.equipment_weapon['Goodberry'] -= 1
+            injured_ally.drop_item('Goodberry')
             potion_heal = 1
             injured_ally.set_hitpoints(heal = potion_heal)
             stabilizing_difficul = 0
@@ -1924,9 +1927,7 @@ class soldier_in_battle(soldier):
             else:
                 ammo_type = attack_dict.get('weapon_of_choice')
             if ammo_type in self.equipment_weapon:
-                self.equipment_weapon[ammo_type] -= 1
-                self.overload = self.calculate_overload()
-                self.base_speed = self.overload['base_speed']
+                self.drop_item(ammo_type)
             for attack_choice, attack_dict in self.attacks.items():
                 if ammo_type == attack_dict.get('ammo_type')\
                         or ammo_type == attack_dict.get('weapon_of_choice')\
@@ -1974,9 +1975,9 @@ class soldier_in_battle(soldier):
             for attack in unset_list:
                 self.attacks.pop(attack)
             if ammo_type and ammo_type in self.equipment_weapon:
-                self.equipment_weapon[ammo_type] = 0
-                self.overload = self.calculate_overload()
-                self.base_speed = self.overload['base_speed']
+                self.drop_item(ammo_type, drop_all = True)
+            if disarm:
+                self.drop_item(weapon_type, drop_all = True)
             # Выбираем лучшее оружие из оставшегося:
             self.attacks.update(self.modify_attacks_weapon_of_choice())
 
@@ -2008,6 +2009,7 @@ class soldier_in_battle(soldier):
             self.armor['armor_class_shield_impact'] -= self.armor['armor_class_shield']
             self.shield_ready = False
             if disarm:
+                self.drop_item(self.armor['shield_use'])
                 self.armor['shield_use'] = None
                 self.armor['armor_class_shield'] = 0
             return True
@@ -2029,11 +2031,29 @@ class soldier_in_battle(soldier):
                 self.armor_class_shield = 0
                 self.armor['armor_class_shield'] = 0
                 shield_type = self.armor['shield_use']
-                self.equipment_weapon[shield_type] = 0
-                self.overload = self.calculate_overload()
-                self.base_speed = self.overload['base_speed']
                 self.armor['shield_use'] = None
+                self.drop_item(shield_type)
             #print(self.ally_side, self.place, self.behavior, self.armor)
+
+    def drop_item(self, item, number = 1, drop_all = False):
+        """Теряем предмет. Запоминаем потерю.
+        
+        - Пересчитывается скорость и нагрузка.
+        """
+        if item in self.equipment_weapon:
+            if drop_all:
+                number = self.equipment_weapon[item]
+            self.equipment_weapon[item] -= number
+            self.overload = self.calculate_overload()
+            self.base_speed = self.overload['base_speed']
+            # Запоминаем израсходованный предмет:
+            if not item in self.drop_items:
+                self.drop_items[item] = 1
+            elif item in self.drop_items:
+                self.drop_items[item] += 1
+            return True
+        else:
+            return False
 
     def spell_attack(self, attack_dict, enemy, metadict_soldiers, advantage = False, disadvantage = False):
         """Атака заклинанием.
@@ -2137,7 +2157,7 @@ class soldier_in_battle(soldier):
                 and not self.shield:
             if attack_dict.get('attack') and attack_dict['attack'] > armor_class\
                     or attack_choice[-1] == 'Magic_Missile':
-                self.equipment_weapon['Rune of Shielding'] -= 1
+                self.drop_item('Rune of Shielding')
                 self.reaction = False
                 self.shield = True
         elif hasattr(self, 'spells') and self.reaction == True and not self.shield:
@@ -2317,7 +2337,7 @@ class soldier_in_battle(soldier):
                 absorb_list = self.metadict_items['Rune of Absorbtion']['absorb_damage_type']
                 if attack_dict['damage_type'] in absorb_list:
                     self.reaction = False
-                    self.equipment_weapon['Rune of Absorbtion'] -= 1
+                    self.drop_item('Rune of Absorbtion')
                     spell_dict = dict(self.metadict_items['Rune of Absorbtion'])
                     spell_dict['damage_type'] = attack_dict['damage_type']
                     self.resistance.append(attack_dict['damage_type'])
