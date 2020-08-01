@@ -153,6 +153,7 @@ class soldier_in_battle(soldier):
         self.restained = False
         self.concentration = False
         self.help_action = False
+        self.killer_mark = False
         # Долговременные параметры:
         self.paralyzed = False
         self.petrified = False
@@ -1375,19 +1376,16 @@ class soldier_in_battle(soldier):
         if self.wild_shape:
             self.return_old_form()
         # Схваченного легко убить, или взять в плен:
-        if self.grappled and self.enemy_grappler:
-            if 'kill' in self.enemy_grappler.commands:
-                self.death_save_loss = 3
-                self.death = True
-                return True
-            else:
-                self.death_save_success = 3
-                self.stable = True
-                self.captured = True
-                return False
+        if self.grappled and self.enemy_grappler\
+                and not 'kill' in self.enemy_grappler.commands:
+            self.death_save_success = 3
+            self.stable = True
+            self.captured = True
+            return False
         # Мгновенная смерть, если атака увела хиты в минусовой максимум:
         if self.hitpoints <= -(self.hitpoints_max):
             self.death_save_loss = 3
+            self.killer_mark = False
             self.death = True
             return True
         # Тяжелейшие ранения, если атака лишь чуть не убила бойца:
@@ -1420,7 +1418,10 @@ class soldier_in_battle(soldier):
                 self.stable = True
             elif self.death_save_loss >= 3:
                 self.death = True
+        if self.stable:
+            self.killer_mark = False
         if self.death:
+            self.killer_mark = False
             print('{0} {1} {2} {3} hp {4}/{5} throw {6} result {7}:{8} stable {9} dead {10}'.format(
                 self.ally_side, self.place, self.behavior, self.name,
                 self.hitpoints, self.hitpoints_max,

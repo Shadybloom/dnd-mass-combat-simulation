@@ -1267,6 +1267,8 @@ class battle_simulation(battlescape):
                     attack_result = soldier.take_attack(
                             spell_choice, attack_dict, self.metadict_soldiers)
                     if attack_result['fatal_hit']:
+                        if 'kill' in enemy_soldier.commands:
+                            soldier.killer_mark = True
                         self.clear_battlemap()
                         fall_place = soldier.place
                         self.dict_battlespace[fall_place].append('fall_place')
@@ -1892,6 +1894,8 @@ class battle_simulation(battlescape):
                             soldier.set_hitpoints(bonus_hitpoints = bonus_hitpoints_bless)
                 # Убираем противника из списка целей и с карты:
                 if attack_result['fatal_hit']:
+                    if 'kill' in soldier.commands:
+                        enemy_soldier.killer_mark = True
                     self.clear_battlemap()
                     fall_place = enemy_soldier.place
                     self.dict_battlespace[fall_place].append('fall_place')
@@ -2132,6 +2136,8 @@ class battle_simulation(battlescape):
                             soldier.set_hitpoints(bonus_hitpoints = bonus_hitpoints_bless)
                 # Убираем противника из списка целей и с карты:
                 if attack_result['fatal_hit']:
+                    if 'kill' in soldier.commands:
+                        enemy_soldier.killer_mark = True
                     self.clear_battlemap()
                     fall_place = enemy_soldier.place
                     self.dict_battlespace[fall_place].append('fall_place')
@@ -2397,6 +2403,8 @@ class battle_simulation(battlescape):
                             soldier.set_hitpoints(bonus_hitpoints = bonus_hitpoints_bless)
                 # Убираем противника из списка целей и с карты:
                 if attack_result['fatal_hit']:
+                    if 'kill' in soldier.commands:
+                        enemy_soldier.killer_mark = True
                     self.clear_battlemap()
                     fall_place = enemy_soldier.place
                     self.dict_battlespace[fall_place].append('fall_place')
@@ -2764,6 +2772,8 @@ class battle_simulation(battlescape):
                             self.dict_battlespace[soldier.place].remove('fall_place')
                             self.dict_battlespace[soldier.place].remove(soldier.ally_side)
                         self.change_place(soldier.place, ally_soldier.place, soldier.uuid)
+                    if soldier.killer_mark:
+                        soldier.killer_mark = False
                     if soldier.sleep:
                         soldier.sleep_timer = 0
                         soldier.sleep = False
@@ -2836,7 +2846,10 @@ class battle_simulation(battlescape):
                 if type(el) == tuple:
                     uuid = el[-1]
                     soldier = self.metadict_soldiers[uuid]
-                    if soldier.defeat and not soldier.__dict__.get('mechanism')\
+                    if soldier.defeat\
+                            and not soldier.__dict__.get('mechanism')\
+                            and not soldier.__dict__.get('killer_mark')\
+                            or soldier.death\
                             or soldier.death and soldier.__dict__.get('mechanism')\
                             or soldier.defeat and soldier.__dict__.get('mechanism_construct'):
                         content.remove(el)
