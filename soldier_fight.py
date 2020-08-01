@@ -158,7 +158,7 @@ class soldier_in_battle(soldier):
         self.petrified = False
         # Эффекты заклинаний:
         self.fear = False
-        self.enemy_fear = None
+        self.fear_source = None
         self.mockery = False
         self.sleep = False
         self.damage_absorbed = None
@@ -422,7 +422,7 @@ class soldier_in_battle(soldier):
             self.set_shield()
         # Испуганный бросает спасброски против страха:
         if self.fear:
-            self.fear = self.set_fear(self.enemy_fear, self.fear_difficult)
+            self.fear = self.set_fear(self.fear_source, self.fear_difficult)
             if self.fear:
                 print('{side_1} {c1} {s} FEAR {fear}'.format(
                     side_1 = self.ally_side,
@@ -1333,29 +1333,33 @@ class soldier_in_battle(soldier):
         Это проверка 10 + уровень_опасности против спасброска харизмы.
         """
         # TODO: добавь проверку преимущества к спасброску харизмы.
-        # TODO: переписывай дальше под "универсальную проверку".
-        danger_difficul = 10 + danger
-        danger_saving_throw = dices.dice_throw_advantage('1d20', advantage, disadvantage)\
-                + self.saves['charisma']
-        if danger_saving_throw < danger_difficul:
-            return True
-        else:
+        difficult = 10 + danger
+        ability = 'charisma'
+        if self.get_savethrow(difficult, ability, advantage, disadvantage):
             return False
+        else:
+            return True
 
-    def set_fear(self, enemy_soldier, fear_difficult):
-        """Бойца пытаются испугать заклинанием cause_fear или чем-то подобным."""
-        # 45 срабатываний за бой от 30+ варлоков, впечатляющее заклинание.
-        fear_savethrow = dices.dice_throw_advantage('1d20') + self.saves['wisdom']
-        if fear_savethrow < fear_difficult:
-            self.fear = True
-            self.enemy_fear = enemy_soldier
-            self.fear_difficult = fear_difficult
-            return True
-        else:
-            self.fear = False
-            self.enemy_fear = None
+    def set_fear(self, enemy_soldier, difficult, advantage = False, disadvantage = False):
+        """Бойца пытаются испугать.
+        
+        - Заклинание "Fear" или "Cause_Fear"
+        - Menacing_Attack мастера боевых искусств.
+
+        Спасбросок мудрости.
+        https://www.dandwiki.com/wiki/5e_SRD:Conditions#Frightened
+        """
+        ability = 'wisdom'
+        if self.get_savethrow(difficult, ability, advantage, disadvantage):
             self.fear_difficult = None
+            self.fear_source = None
+            self.fear = False
             return False
+        else:
+            self.fear_difficult = difficult
+            self.fear_source = enemy_soldier
+            self.fear = True
+            return True
 
     def set_death(self):
         """Тяжелораненые играет в рулетку с мрачным жнецом.
@@ -1471,6 +1475,10 @@ class soldier_in_battle(soldier):
         # Варвары в ярости получают преимущество на спасброски силы:
         if ability == 'strength':
             if self.class_features.get('Rage') and self.rage:
+                return True
+        # Homebrew: преимущества к морали от храбрости командира:
+        elif ability == 'charisma':
+            if 'brave' in self.commands:
                 return True
         else:
             return False
@@ -1801,7 +1809,8 @@ class soldier_in_battle(soldier):
                 damage_throw_mod += dices.dice_throw_advantage(self.superiority_dice)
                 self.superiority_dices -= 1
                 superiority_use = True
-                fear = enemy_soldier.set_fear(self, 8 + max(self.mods.values()))
+                fear_difficult = 8 + max(self.mods.values()) + self.proficiency_bonus
+                fear = enemy_soldier.set_fear(self, fear_difficult)
                 if fear:
                     print('[+++] {side_1}, {c1} {s} FEAR >> {side_2} {c2} {e}'.format(
                         side_1 = self.ally_side,
