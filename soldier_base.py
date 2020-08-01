@@ -256,6 +256,7 @@ class soldier():
         self.mods = self.calculate_mods()
         self.saves = self.calculate_saves()
         self.hitpoints_max = self.calculate_hitpoints()
+        self.hitpoints_max_backup = self.hitpoints_max
         self.hitpoints = self.hitpoints_max
         self.armor = self.takeoff_armor()
         self.armor.update(self.get_armor())
@@ -948,6 +949,7 @@ class soldier():
                     # Только помни, что это shallow copy
                     # ------------------------------------------------------------
                     dict_attack = {}
+                    dict_attack['weapon_use'] = item
                     dict_attack.update(metadict_items[item])
                     dict_attack['attack_range'] = 5
                     dict_attack['attack_type'] = 'close'
@@ -979,6 +981,7 @@ class soldier():
                                 metadict_attacks['close',name].update(dict_attack)
                 if 'reach' in metadict_items[item].get('weapon_type'):
                     dict_attack = {}
+                    dict_attack['weapon_use'] = item
                     dict_attack.update(metadict_items[item])
                     dict_attack['attack_range'] = 10
                     dict_attack['attack_type'] = 'reach'
@@ -1008,6 +1011,7 @@ class soldier():
                                 metadict_attacks['reach',name].update(dict_attack)
                 if 'throw' in metadict_items[item].get('weapon_type'):
                     dict_attack = {}
+                    dict_attack['weapon_use'] = item
                     dict_attack.update(metadict_items[item])
                     dict_attack['attack_type'] = 'throw'
                     dict_attack['attack_range'] = dict_attack['throw_range']
@@ -1044,6 +1048,7 @@ class soldier():
                 # Прицельная стрельба со всеми модификаторами к атаке:
                 if 'ranged' in metadict_items[item].get('weapon_type'):
                     dict_attack = {}
+                    dict_attack['weapon_use'] = item
                     dict_attack.update(metadict_items[item])
                     dict_attack['attack_type'] = 'ranged'
                     dict_attack['attack_range'] = dict_attack['shoot_range']
@@ -1080,6 +1085,7 @@ class soldier():
                 # Неприцельная стрельба, град стрел/дротиков без модификаторов к атаке:
                 if 'volley' in metadict_items[item].get('weapon_type'):
                     dict_attack = {}
+                    dict_attack['weapon_use'] = item
                     dict_attack.update(metadict_items[item])
                     dict_attack['attack_type'] = 'volley'
                     if dict_attack.get('shoot_range'):

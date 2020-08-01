@@ -1954,9 +1954,9 @@ class battle_simulation(battlescape):
         elif enemy_soldier.armor['shield_use'] and not enemy_soldier.class_features.get('Weapon_Bond'):
             disarmed = enemy_soldier.set_disarm_shield(soldier)
             return disarmed
-        # TODO: проверка по числу атак -- плохая идея. У нас будут минотавры с рогами.
         # И наконец, отбираем у схваченного врага оружие и тащим его к нашим:
-        elif len(enemy_soldier.attacks) > 1 and not enemy_soldier.class_features.get('Weapon_Bond'):
+        elif len(enemy_soldier.get_weapon_list()) >= 1\
+                and not enemy_soldier.class_features.get('Weapon_Bond'):
             disarmed = enemy_soldier.set_disarm_weapon(soldier)
             if disarmed and len(soldier.near_allies) >= 1:
                 destination = self.find_spawn(soldier.place, soldier.ally_side)

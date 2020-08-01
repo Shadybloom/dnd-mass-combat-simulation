@@ -153,6 +153,9 @@ class soldier_in_battle(soldier):
         self.restained = False
         self.concentration = False
         self.help_action = False
+        # Долговременные параметры:
+        self.paralyzed = False
+        self.petrified = False
         # Эффекты заклинаний:
         self.fear = False
         self.enemy_fear = None
@@ -921,20 +924,6 @@ class soldier_in_battle(soldier):
                     self.danger = 1
                     self.escape = True
 
-    def morality_check_escape(self, danger, advantage = False, disadvantage = False):
-        """Если опасность высока, боец боится и может сбежать.
-        
-        Это проверка 10 + уровень_опасности против спасброска харизмы.
-        """
-        # TODO: добавь проверку преимущества к спасброску харизмы.
-        danger_difficul = 10 + danger
-        danger_saving_throw = dices.dice_throw_advantage('1d20', advantage, disadvantage)\
-                + self.saves['charisma']
-        if danger_saving_throw < danger_difficul:
-            return True
-        else:
-            return False
-
     def set_protection(self, soldier):
         """Боец прикрывает союзника по его просьбе.
         
@@ -1105,68 +1094,71 @@ class soldier_in_battle(soldier):
         else:
             return False
 
-    def set_fall_prone(self, enemy_soldier, advantage = False, disadvantage = False):
+# ----
+# Спасброски
+
+    def set_fall_prone(self, enemy_soldier, advantage = False, disadvantage = False, difficult = False):
         """Бойца пытаются сбить с ног.
         
-        Проверка ловкости(+акробатика), или силы(+атлетика):
+        Проверка Ловкости (акробатика), или Силы (атлетика):
         https://www.dandwiki.com/wiki/5e_SRD:Conditions#Prone
         https://www.dandwiki.com/wiki/5e_SRD:Movement_and_Position#Being_Prone
         """
-        # TODO: исправь опечатку savethrow_adavantage --> savethrow_advantage
-        prone_difficul = dices.dice_throw_advantage('1d20', advantage, disadvantage)\
-                + enemy_soldier.mods['dexterity'] + enemy_soldier.proficiency_bonus
+        # TODO: должно быть владение навыком атлетика.
+        # Сделай таблицы навыков в classes.
+        if not difficult:
+            if enemy_soldier.mods['strength'] >= enemy_soldier.mods['dexterity']:
+                difficult = dices.dice_throw_advantage('1d20', advantage, disadvantage)\
+                        + enemy_soldier.mods['strength'] + enemy_soldier.proficiency_bonus
+            else:
+                difficult = dices.dice_throw_advantage('1d20', advantage, disadvantage)\
+                        + enemy_soldier.mods['dexterity'] + enemy_soldier.proficiency_bonus
         if self.saves['strength'] >= self.saves['dexterity']:
-            savethrow_adavantage = self.check_savethrow_advantage('strength')
-            prone_savethrow = dices.dice_throw_advantage('1d20', savethrow_adavantage)\
-                    + self.saves['strength']
+            ability = 'strength'
         else:
-            savethrow_adavantage = self.check_savethrow_advantage('dexterity')
-            prone_savethrow = dices.dice_throw_advantage('1d20', savethrow_adavantage)\
-                    + self.saves['dexterity']
-        if prone_savethrow < prone_difficul\
-                or self.stunned or self.sleep:
+            ability = 'dexterity'
+        if self.get_savethrow(difficult, ability, advantage, disadvantage):
+            return False
+        else:
             self.prone = True
             return True
-        else:
-            return False
 
-    def set_restained(self, restained_difficult, advantage = False, disadvantage = False):
+    def set_restained(self, difficult, advantage = False, disadvantage = False):
         """Бойца пытаются опутать.
         
-        Проверка ловкости(+акробатика), или силы(+атлетика):
+        Проверка ловкости (Акробатика), или силы (Атлетика):
         https://www.dandwiki.com/wiki/5e_SRD:Conditions#Grappled
         """
-        savethrow_adavantage = self.check_savethrow_advantage('strength')
-        restained_savethrow = dices.dice_throw_advantage('1d20', savethrow_adavantage)\
-                + self.saves['strength']
-        if restained_savethrow < restained_difficult\
-                or self.stunned or self.sleep:
-            self.restained = True
-            self.restained_difficult = restained_difficult
-            return True
+        if self.saves['strength'] >= self.saves['dexterity']:
+            ability = 'strength'
         else:
+            ability = 'dexterity'
+        if self.get_savethrow(difficult, ability, advantage, disadvantage):
             return False
+        else:
+            self.restained_difficult = difficult
+            self.restained = True
+            return True
 
-    def set_poisoned(self, poison_difficult, poison_timer = 10, advantage = False, disadvantage = False):
+    def set_poisoned(self, difficult, timer = 10, advantage = False, disadvantage = False):
         """Бойца пытаются отравить
-        
+
         - Помеха на броски атаки
         - Помеха на проверки характеристик
-
+        
         Спасбросок телосложения.
+        https://www.dandwiki.com/wiki/5e_SRD:Conditions#Poisoned
         """
-        savethrow_adavantage = self.check_savethrow_advantage('constitution')
-        poison_savethrow = dices.dice_throw_advantage('1d20', savethrow_adavantage)\
-                + self.saves['constitution']
-        if poison_savethrow < poison_difficult:
-            self.poisoned = True
-            self.poison_difficult = poison_difficult
-            self.poison_timer = poison_timer
-            return True
-        else:
+        ability = 'constitution'
+        if self.get_savethrow(difficult, ability, advantage, disadvantage):
             return False
+        else:
+            self.poison_difficult = difficult
+            self.poison_timer = timer
+            self.poisoned = True
+            return True
 
-    def set_stunned(self, stunned_difficult, stunned_timer = 1, advantage = False, disadvantage = False):
+    def set_stunned(self, difficult, timer = 1, advantage = False, disadvantage = False):
         """Бойца пытаются оглушить.
         
         - Ошеломлённое существо недееспособно (не может совершать действия и реакции)
@@ -1177,28 +1169,28 @@ class soldier_in_battle(soldier):
         # https://www.dandwiki.com/wiki/5e_SRD:Conditions#Stunned
         # https://www.dandwiki.com/wiki/5e_SRD:Conditions#Incapacitated
         """
-        # TODO: сделай провал спасбросков силы и ловкости.
-        savethrow_adavantage = self.check_savethrow_advantage('constitution')
-        stunned_savethrow = dices.dice_throw_advantage('1d20', savethrow_adavantage)\
-                + self.saves['constitution']
-        if stunned_savethrow < stunned_difficult:
-            self.stunned = True
-            self.stunned_difficult = stunned_difficult
-            self.stunned_timer = stunned_timer
-            return True
-        else:
+        ability = 'constitution'
+        if self.get_savethrow(difficult, ability, advantage, disadvantage):
             return False
+        else:
+            self.stunned_difficult = difficult
+            self.stunned_timer = timer
+            self.stunned = True
+            return True
 
-    def set_sleep(self, sleep_difficult = 100, effect_timer = 10):
-        """Бойца усыпляют заклинанием. В этом случае спасбросок невозможен.
+    def set_sleep(self, difficult = 100, timer = 10, advantage = False, disadvantage = False):
+        """Бойца пытаются усыпить.
         
-        Либо пытаются усыпить, если это яд. Тогда нужно указать сложность спасброска.
+        - Заклинание "Sleep" срабатывает без спасброска.
+        - Яд позволяет сделать спасбросок телосложения.
+
+        https://www.dandwiki.com/wiki/5e_SRD:Conditions#Unconscious
         """
         # TODO: Мертвяки и конструкты неуязвимы к усыплению. Эльфы тоже.
-        savethrow_adavantage = self.check_savethrow_advantage('constitution')
-        sleep_savethrow = dices.dice_throw_advantage('1d20', savethrow_adavantage)\
-                + self.saves['constitution']
-        if sleep_savethrow < sleep_difficult:
+        ability = 'constitution'
+        if self.get_savethrow(difficult, ability, advantage, disadvantage):
+            return False
+        else:
             self.sleep = True
             self.prone = True
             self.battle_action = None
@@ -1206,39 +1198,38 @@ class soldier_in_battle(soldier):
             self.reaction = None
             self.move_action = None
             self.move_pool = 0
-            self.sleep_timer = effect_timer
-            # Спящий считается вышедшим из боя:
-            #self.fall = True
+            self.sleep_timer = timer
             return True
-        else:
-            return False
 
-    def set_grappled(self, enemy_soldier, advantage = False, disadvantage = False):
+    def set_grappled(self, enemy_soldier, advantage = False, disadvantage = False, difficult = False):
         """Бойца пытаются схватить.
         
-        Проверка ловкости(+акробатика), или силы(+атлетика):
+        Проверка Ловкости (акробатика), или Силы (атлетика):
         https://www.dandwiki.com/wiki/5e_SRD:Conditions#Grappled
         """
-        grapple_difficul = dices.dice_throw_advantage('1d20', advantage, disadvantage)\
-                + enemy_soldier.mods['dexterity'] + enemy_soldier.proficiency_bonus
+        if not difficult:
+            if enemy_soldier.mods['strength'] >= enemy_soldier.mods['dexterity']:
+                difficult = dices.dice_throw_advantage('1d20', advantage, disadvantage)\
+                        + enemy_soldier.mods['strength'] + enemy_soldier.proficiency_bonus
+            else:
+                difficult = dices.dice_throw_advantage('1d20', advantage, disadvantage)\
+                        + enemy_soldier.mods['dexterity'] + enemy_soldier.proficiency_bonus
         if self.saves['strength'] >= self.saves['dexterity']:
-            savethrow_adavantage = self.check_savethrow_advantage('strength')
-            grapple_savethrow = dices.dice_throw_advantage('1d20', savethrow_adavantage)\
-                    + self.saves['strength']
+            ability = 'strength'
         else:
-            savethrow_adavantage = self.check_savethrow_advantage('dexterity')
-            grapple_savethrow = dices.dice_throw_advantage('1d20', savethrow_adavantage)\
-                    + self.saves['dexterity']
-        if grapple_savethrow < grapple_difficul\
-                or self.stunned or self.sleep:
-            self.grappled = True
-            self.enemy_grappler = enemy_soldier
-            return True
-        else:
+            ability = 'dexterity'
+        if self.get_savethrow(difficult, ability, advantage, disadvantage):
             return False
+        else:
+            self.enemy_grappler = enemy_soldier
+            self.grappled = True
+            return True
 
     def set_grapple_break(self, advantage = False, disadvantage = False):
-        """Боец пытается вырваться из захвата, тратя на это battle_action."""
+        """Боец пытается вырваться из захвата, тратя на это battle_action.
+        
+        Проверка Силы (атлетика) или Ловкости (акробатика) против Силы (атлетика) удерживающего врага:
+        """
         enemy_soldier = self.enemy_grappler
         # Если схватившего нет рядом, значит захват уже сорвался:
         if not self.near_enemies:
@@ -1250,86 +1241,103 @@ class soldier_in_battle(soldier):
                 self.grappled = False
                 self.enemy_grappler = None
             else:
-                # Проверка силы(+атлетика) против силы(+атлетика) удерживающего врага:
-                grapple_difficul = dices.dice_throw_advantage('1d20', advantage, disadvantage)\
+                difficult = dices.dice_throw_advantage('1d20', advantage, disadvantage)\
                         + enemy_soldier.mods['strength'] + enemy_soldier.proficiency_bonus
-                savethrow_adavantage = self.check_savethrow_advantage('strength')
-                grapple_break_throw = dices.dice_throw_advantage('1d20', savethrow_adavantage)\
-                        + self.saves['strength']
-                if grapple_break_throw >= grapple_difficul:
-                    self.grappled = False
-                    self.restained = False
-                    self.enemy_grappler = None
+                if self.saves['strength'] >= self.saves['dexterity']:
+                    ability = 'strength'
+                else:
+                    ability = 'dexterity'
+                if not self.get_savethrow(difficult, ability, advantage, disadvantage):
                     self.battle_action = False
+                    return False
                 else:
                     self.battle_action = False
+                    self.enemy_grappler = None
+                    self.grappled = False
+                    return True
 
-    def set_restained_break(self, advantage = False, disadvantage = False):
-        """Боец пытается вырваться из захвата, тратя на это battle_action."""
-        restained_difficult = self.restained_difficult
-        # Проверка силы(+атлетика) против силы(+атлетика) удерживающего врага:
-        savethrow_adavantage = self.check_savethrow_advantage('strength')
-        grapple_break_throw = dices.dice_throw_advantage('1d20', savethrow_adavantage)\
-                + self.saves['strength']
-        if self.sleep:
-            grapple_break_throw = 0
-        if grapple_break_throw >= restained_difficult:
-            self.grappled = False
-            self.restained = False
+    def set_restained_break(self, advantage = False, disadvantage = False, difficult = False):
+        """Боец пытается вырваться из захвата, тратя на это battle_action.
+
+        - Чаще всего это сложность заклинания "Опутывание", щупальц осьминога и т.д.
+        
+        Проверка Силы (атлетика) или Ловкости (акробатика) против СЛ.
+        """
+        if not difficult:
+            difficult = self.restained_difficult
+        if self.saves['strength'] >= self.saves['dexterity']:
+            ability = 'strength'
+        else:
+            ability = 'dexterity'
+        if not self.get_savethrow(difficult, ability, advantage, disadvantage):
+            self.battle_action = False
+            return False
+        else:
+            self.battle_action = False
             self.restained_difficult = None
             self.enemy_grappler = None
-            self.battle_action = False
-        else:
-            self.battle_action = False
+            self.restained = False
+            return True
 
-    def set_disarm_shield(self, enemy_soldier, advantage = False, disadvantage = False):
+    def set_disarm_shield(self, enemy_soldier, advantage = False, disadvantage = False, difficult = False):
         """Бойца пытаются лишить щита.
         
-        Проверка ловкости(+акробатика), или силы(+атлетика):
+        Проверка Ловкости (акробатика), или Силы (атлетика):
         Опциональное правило: Dungeon Master Guide p.271
         """
-        disarm_difficul = dices.dice_throw_advantage('1d20', advantage, disadvantage)\
-                + enemy_soldier.mods['dexterity'] + enemy_soldier.proficiency_bonus
+        if not difficult:
+            if enemy_soldier.mods['strength'] >= enemy_soldier.mods['dexterity']:
+                difficult = dices.dice_throw_advantage('1d20', advantage, disadvantage)\
+                        + enemy_soldier.mods['strength'] + enemy_soldier.proficiency_bonus
+            else:
+                difficult = dices.dice_throw_advantage('1d20', advantage, disadvantage)\
+                        + enemy_soldier.mods['dexterity'] + enemy_soldier.proficiency_bonus
         if self.saves['strength'] >= self.saves['dexterity']:
-            savethrow_adavantage = self.check_savethrow_advantage('strength')
-            disarm_savethrow = dices.dice_throw_advantage('1d20', savethrow_adavantage)\
-                    + self.saves['strength']
+            ability = 'strength'
         else:
-            savethrow_adavantage = self.check_savethrow_advantage('dexterity')
-            disarm_savethrow = dices.dice_throw_advantage('1d20', savethrow_adavantage)\
-                    + self.saves['dexterity']
-        if disarm_savethrow < disarm_difficul\
-                or self.stunned or self.sleep:
-            return self.unset_shield(disarm = True)
-        else:
+            ability = 'dexterity'
+        if self.get_savethrow(difficult, ability, advantage, disadvantage):
             return False
+        else:
+            return self.unset_shield(disarm = True)
 
-    def set_disarm_weapon(self, enemy_soldier, advantage = False, disadvantage = False):
+    def set_disarm_weapon(self, enemy_soldier, advantage = False, disadvantage = False, difficult = False):
         """Бойца пытаются лишить оружия.
         
-        Проверка ловкости(+акробатика), или силы(+атлетика):
+        Проверка Ловкости (акробатика), или Силы (атлетика):
         Опциональное правило: Dungeon Master Guide p.271
         """
-        disarm_difficul = dices.dice_throw_advantage('1d20', advantage, disadvantage)\
-                + enemy_soldier.mods['dexterity'] + enemy_soldier.proficiency_bonus
+        # TODO: По правилам обезоруживание, это бросок атаки оружием.
+        if not difficult:
+            if enemy_soldier.mods['strength'] >= enemy_soldier.mods['dexterity']:
+                difficult = dices.dice_throw_advantage('1d20', advantage, disadvantage)\
+                        + enemy_soldier.mods['strength'] + enemy_soldier.proficiency_bonus
+            else:
+                difficult = dices.dice_throw_advantage('1d20', advantage, disadvantage)\
+                        + enemy_soldier.mods['dexterity'] + enemy_soldier.proficiency_bonus
         if self.saves['strength'] >= self.saves['dexterity']:
-            savethrow_adavantage = self.check_savethrow_advantage('strength')
-            disarm_savethrow = dices.dice_throw_advantage('1d20', savethrow_adavantage)\
-                    + self.saves['strength']
+            ability = 'strength'
         else:
-            savethrow_adavantage = self.check_savethrow_advantage('dexterity')
-            disarm_savethrow = dices.dice_throw_advantage('1d20', savethrow_adavantage)\
-                    + self.saves['dexterity']
-        if disarm_savethrow < disarm_difficul\
-                or self.stunned or self.sleep:
-            # TODO: Тут, получается, разом отбирают всё оружие.
-            # ------------------------------------------------------------
-            # Но на деле, лишившись копья боец схватил бы меч, а потом кинжал.
-            # Используй функцию unset_weapon. Сначала лучшее, weapon_of_choice.
-            # ------------------------------------------------------------
-            self.attacks = self.takeoff_weapon()
-            self.attacks.update(self.modify_attacks())
-            self.attacks.update(self.modify_attacks_weapon_of_choice())
+            ability = 'dexterity'
+        if self.get_savethrow(difficult, ability, advantage, disadvantage):
+            return False
+        else:
+            weapon_list = self.get_weapon_list()
+            weapon = random.choice(weapon_list)
+            self.unset_weapon(weapon, disarm = True)
+            return True
+
+    def morality_check_escape(self, danger, advantage = False, disadvantage = False):
+        """Если опасность высока, боец боится и может сбежать.
+        
+        Это проверка 10 + уровень_опасности против спасброска харизмы.
+        """
+        # TODO: добавь проверку преимущества к спасброску харизмы.
+        # TODO: переписывай дальше под "универсальную проверку".
+        danger_difficul = 10 + danger
+        danger_saving_throw = dices.dice_throw_advantage('1d20', advantage, disadvantage)\
+                + self.saves['charisma']
+        if danger_saving_throw < danger_difficul:
             return True
         else:
             return False
@@ -1415,13 +1423,15 @@ class soldier_in_battle(soldier):
                 reaper_throw, self.death_save_success, self.death_save_loss,
                 self.stable, self.death))
 
-    def get_savethrow(self, difficul, ability, advantage = None, disadvantage = None):
+# ----
+# Универсальная проверка спасброска.
+
+    def get_savethrow(self, difficult, ability, advantage = None, disadvantage = None):
         """Делаем спасбросок.
         
         - Учитываем преимущества к броскам характеристик.
         - И помехи к броскам характеристик.
         """
-        # TODO: Нужно сделать check_savethrow_autofail -- для оглушённого, например.
         if not advantage == None:
             advantage = self.check_savethrow_advantage(ability)
         if not disadvantage == None:
@@ -1429,7 +1439,7 @@ class soldier_in_battle(soldier):
         savethrow_result = dices.dice_throw_advantage('1d20', advantage, disadvantage) + self.saves[ability]
         if self.check_savethrow_autofail(ability):
             return False
-        elif difficul <= savethrow_result:
+        elif difficult <= savethrow_result:
             return True
         else:
             return False
@@ -1456,7 +1466,6 @@ class soldier_in_battle(soldier):
         else:
             return False
 
-
     def check_savethrow_advantage(self, ability):
         """Способности могут дать преимущество на спасбросок."""
         # Варвары в ярости получают преимущество на спасброски силы:
@@ -1476,6 +1485,21 @@ class soldier_in_battle(soldier):
             return False
 
 # ----
+# Вывод данных
+
+    def get_weapon_list(self):
+        """Список оружия из атак бойца.
+        
+        """
+        weapon_list = []
+        for attack_choice, attack_dict in self.attacks.items():
+            if attack_dict.get('weapon_use'):
+                weapon_list.append(attack_dict['weapon_use'])
+        weapon_list = list(set(weapon_list))
+        return weapon_list
+
+# ----
+# Движения и атака:
 
     def move(self, distance = 5, rough = False):
         """Боец двигается. Обычно на 5 футов (один тайл карты).
@@ -1841,16 +1865,24 @@ class soldier_in_battle(soldier):
                             break
         return attack_result_dict
 
-    def unset_weapon(self, weapon_type, ammo_type = None):
+    def unset_weapon(self, weapon_type, ammo_type = None, disarm = False):
         """Убираем оружие, для которого закончились боеприпасы.
         
         Скорость бойца при этом пересчитывается.
         """
         unset_list = []
         for attack_choice, attack_dict in self.attacks.items():
-            if attack_choice[-1] == weapon_type or attack_dict.get('ammo_type') == ammo_type:
-                unset_list.append(attack_choice)
+            if not disarm:
+                if attack_choice[-1] == weapon_type\
+                        or attack_dict.get('ammo_type') == ammo_type:
+                    unset_list.append(attack_choice)
+            elif disarm:
+                if attack_dict.get('weapon') == True\
+                        and attack_dict.get('weapon_use')\
+                        and attack_dict['weapon_use'] == weapon_type:
+                    unset_list.append(attack_choice)
         if unset_list and len(unset_list) > 0:
+            unset_list = list(set(unset_list))
             for attack in unset_list:
                 self.attacks.pop(attack)
             if ammo_type and ammo_type in self.equipment_weapon:
