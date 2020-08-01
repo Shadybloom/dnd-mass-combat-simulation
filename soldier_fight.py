@@ -921,23 +921,6 @@ class soldier_in_battle(soldier):
                     self.danger = 1
                     self.escape = True
 
-    def get_savethrow(self, difficul, ability, advantage = None, disadvantage = None):
-        """Делаем спасбросок.
-        
-        - Учитываем преимущества к броскам характеристик.
-        - И помехи к броскам характеристик.
-        """
-        # TODO: Нужно сделать check_savethrow_autofail -- для оглушённого, например.
-        if not advantage == None:
-            advantage = self.check_savethrow_advantage(ability)
-        if not disadvantage == None:
-            disadvantage = self.check_savethrow_disadvantage(ability)
-        savethrow_result = dices.dice_throw_advantage('1d20', advantage, disadvantage) + self.saves[ability]
-        if difficul <= savethrow_result:
-            return True
-        else:
-            return False
-
     def morality_check_escape(self, danger, advantage = False, disadvantage = False):
         """Если опасность высока, боец боится и может сбежать.
         
@@ -1431,6 +1414,48 @@ class soldier_in_battle(soldier):
                 self.hitpoints, self.hitpoints_max,
                 reaper_throw, self.death_save_success, self.death_save_loss,
                 self.stable, self.death))
+
+    def get_savethrow(self, difficul, ability, advantage = None, disadvantage = None):
+        """Делаем спасбросок.
+        
+        - Учитываем преимущества к броскам характеристик.
+        - И помехи к броскам характеристик.
+        """
+        # TODO: Нужно сделать check_savethrow_autofail -- для оглушённого, например.
+        if not advantage == None:
+            advantage = self.check_savethrow_advantage(ability)
+        if not disadvantage == None:
+            disadvantage = self.check_savethrow_disadvantage(ability)
+        savethrow_result = dices.dice_throw_advantage('1d20', advantage, disadvantage) + self.saves[ability]
+        if self.check_savethrow_autofail(ability):
+            return False
+        elif difficul <= savethrow_result:
+            return True
+        else:
+            return False
+
+    def check_savethrow_autofail(self, ability):
+        """Проверка автопровала спасброска.
+        
+        - Ошеломлённый проваливает спасброски силы и ловкости.
+        - Бессознательный проваливает спасброски силы и ловкости.
+        - Парализованный проваливает спасброски силы и ловкости.
+        - Окаменевший проваливает спасброски силы и ловкости.
+        """
+        if ability == 'strength' or ability == 'dexterity':
+            if self.sleep:
+                return True
+            elif self.stunned:
+                return True
+            elif self.paralyzed:
+                return True
+            elif self.petrified:
+                return True
+            else:
+                return False
+        else:
+            return False
+
 
     def check_savethrow_advantage(self, ability):
         """Способности могут дать преимущество на спасбросок."""
