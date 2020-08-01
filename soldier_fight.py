@@ -38,6 +38,44 @@ class soldier_in_battle(soldier):
             'archer':1,
             'mount':1,
             }
+    # Опыт от показателя опасности:
+    challenge_rating_experience_dict = {
+            '-':0,
+            '0':10,
+            '1/8':25,
+            '1/4':50,
+            '1/2':100,
+            '1':200,
+            '2':450,
+            '3':700,
+            '4':1100,
+            '5':1800,
+            '6':2300,
+            '7':2900,
+            '8':3900,
+            '9':5000,
+            '10':5900,
+            '11':7200,
+            '12':8400,
+            '13':10000,
+            '14':11500,
+            '15':13000,
+            '16':15000,
+            '17':18000,
+            '18':20000,
+            '19':22000,
+            '20':25000,
+            '21':33000,
+            '22':41000,
+            '23':50000,
+            '24':62000,
+            '25':75000,
+            '26':90000,
+            '27':105000,
+            '28':120000,
+            '29':135000,
+            '30':155000,
+            }
 
     def set_hitpoints(self, damage = None, heal = None, bonus_hitpoints = None):
         """Контроль хитпоинтов в начале и в ходе боя.
@@ -226,11 +264,14 @@ class soldier_in_battle(soldier):
             self.disabled = False
         if not hasattr(self, 'captured'):
             self.captured = False
+        # Опыт и трофеи бойца:
+        if not hasattr(self, 'experience'):
+            self.experience = 0
         # Статистика побед и поражений бойца:
         if not hasattr(self, 'victories'):
             self.victories = 0
-        if not hasattr(self, 'victories_list'):
-            self.victories_list = [ ]
+        if not hasattr(self, 'victories_dict'):
+            self.victories_dict = {}
         if not hasattr(self, 'defeats'):
             self.defeats = 0
         # В составе отряда могут быть "мёртвые души":
@@ -1509,6 +1550,32 @@ class soldier_in_battle(soldier):
         weapon_list = list(set(weapon_list))
         return weapon_list
 
+    def get_experience(self):
+        """Опыт за победу над этим бойцом.
+        
+        1) Опыт от паказателя опасности, challenge_rating, CR
+        2) Опыт за уровень > 5 lvl
+        3) Опыт за уровень <= 5 lvl
+        """
+        # Опыт от показателя опасности:
+        if self.__dict__.get('challenge_rating')\
+                and self.challenge_rating in self.challenge_rating_experience_dict:
+            experience = self.challenge_rating_experience_dict[self.challenge_rating]
+        # Если уровень > 5, то уровень и есть показатель опасности:
+        elif self.level > 5:
+            experience = self.challenge_rating_experience_dict[str(self.level)]
+        # Для простых солдат считается сложнее:
+        else:
+            # Опыт за уровень врага:
+            # 1 lvl: 25*2^(1-1) = 25 exp; 5 lvl: 25*2^(5-1) = 400 exp
+            experience = 25 * 2 ** (self.level - 1)
+            if self.hero:
+                experience *= 2
+            elif self.char_class == 'Commoner':
+                experience /= 2.5
+        experience = round(experience)
+        return experience
+
 # ----
 # Движения и атака:
 
@@ -2345,3 +2412,33 @@ class soldier_in_battle(soldier):
         if self.hitpoints <= 0 and damage > 0 and not self.defeat:
             attack_dict['fatal_hit'] = True
         return attack_dict
+
+# ----
+# Опыт за победу
+
+    def set_victory_and_enemy_defeat(self, enemy_soldier):
+        """Боец получает опыт за победу.
+        
+        - Колдун с Dark_One\'s_Blessing получает бонусные хиты:
+        """
+        # Учитывается только первая победа, а не добивание:
+        if not enemy_soldier.defeat and not enemy_soldier.fall:
+            self.victories += 1
+            enemy_soldier.defeats += 1
+            self.experience += enemy_soldier.get_experience()
+            # Список побед:
+            key = enemy_soldier.rank
+            if not key in self.victories_dict:
+                self.victories_dict[key] = 1
+            elif key in self.victories_dict:
+                self.victories_dict[key] += 1
+        enemy_soldier.defeat = True
+        enemy_soldier.prone = True
+        enemy_soldier.fall = True
+        # Колдун с Dark_One\'s_Blessing получает бонусные хиты:
+        if self.class_features.get('Dark_One\'s_Blessing'):
+            bonus_hitpoints_bless = self.mods['charisma'] + self.level
+            if bonus_hitpoints_bless > self.bonus_hitpoints:
+                self.set_hitpoints(bonus_hitpoints = bonus_hitpoints_bless)
+                #print('{0} {1} temp_hp {2}'.format(
+                #    self.ally_side, self.rank, bonus_hitpoints_bless))

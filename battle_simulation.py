@@ -99,44 +99,6 @@ class battle_simulation(battlescape):
     database = database.database()
     ally_zones = ['zone_0','zone_1','zone_2','zone_3','zone_4']
     enemy_zones = ['zone_5','zone_6','zone_7','zone_8','zone_9']
-    # Опыт от показателя опасности:
-    challenge_rating_experience_dict = {
-            '-':0,
-            '0':10,
-            '1/8':25,
-            '1/4':50,
-            '1/2':100,
-            '1':200,
-            '2':450,
-            '3':700,
-            '4':1100,
-            '5':1800,
-            '6':2300,
-            '7':2900,
-            '8':3900,
-            '9':5000,
-            '10':5900,
-            '11':7200,
-            '12':8400,
-            '13':10000,
-            '14':11500,
-            '15':13000,
-            '16':15000,
-            '17':18000,
-            '18':20000,
-            '19':22000,
-            '20':25000,
-            '21':33000,
-            '22':41000,
-            '23':50000,
-            '24':62000,
-            '25':75000,
-            '26':90000,
-            '27':105000,
-            '28':120000,
-            '29':135000,
-            '30':155000,
-            }
 
     def prepare_battlefield(self, battle_map, zones_squads_dict):
         """Подготовка поля боя.
@@ -1276,7 +1238,7 @@ class battle_simulation(battlescape):
                     for squad in self.squads.values():
                         if enemy_soldier.uuid in squad.metadict_soldiers:
                             if attack_result['fatal_hit']:
-                                self.set_squad_experience(squad, soldier)
+                                enemy_soldier.set_victory_and_enemy_defeat(soldier)
                             self.set_squad_battle_stat(attack_result, squad)
 
     def follow_action(self, soldier, squad, commander, accuracy = 1):
@@ -1868,32 +1830,18 @@ class battle_simulation(battlescape):
                             and soldier.bonus_action:
                         attacks_chain.append(attack_choice)
                         soldier.bonus_action = False
-                # Добавляем опыт отряду:
+                # Победа приносит бойцу опыт:
                 if attack_result['fatal_hit']:
-                    # TODO: три одинаковых блока в коде. Перенеси в отдельную функцию:
-                    self.set_squad_experience(squad, enemy_soldier)
-                    # Учитываются только честные победы:
-                    if not enemy_soldier.escape:
-                        soldier.victories_list.append(enemy_soldier.rank)
-                        soldier.victories += 1
-                        print(soldier.victories_list)
-                    enemy_soldier.defeats += 1
-                    enemy_soldier.prone = True
+                    soldier.set_victory_and_enemy_defeat(enemy_soldier)
+                    # Критический удар калечит цель:
                     if attack_result['crit'] and not 'unarmed' in soldier.commands:
                         enemy_soldier.disabled = True
-                    # Врага можно повязать за счёт боевого действия следующего раунда, если таков приказ: 
+                    # Врага можно повязать за счёт боевого действия следующего раунда:
                     if 'enslave' in soldier.commands:
                         wrestling_action = self.wrestling_action(soldier, squad,
                                 enemy_soldier, advantage, disadvantage)
                         soldier.help_action = False
                         enemy_soldier.captured = True
-                    # Колдун с Dark_One\'s_Blessing получает бонусные хиты:
-                    if soldier.class_features.get('Dark_One\'s_Blessing'):
-                        bonus_hitpoints_bless = soldier.mods['charisma'] + soldier.level
-                        if bonus_hitpoints_bless > soldier.bonus_hitpoints:
-                            #print('{0} {1} temp_hp {2}'.format(
-                            #    soldier.ally_side, soldier.rank, bonus_hitpoints_bless))
-                            soldier.set_hitpoints(bonus_hitpoints = bonus_hitpoints_bless)
                 # Убираем противника из списка целей и с карты:
                 if attack_result['fatal_hit']:
                     if 'kill' in soldier.commands:
@@ -2119,24 +2067,12 @@ class battle_simulation(battlescape):
                 else:
                     print('NYA. Недопиленое заклинание', spell_choice, spell_dict)
                     continue
-                # Добавляем опыт отряду:
+                # Победа приносит бойцу опыт:
                 if attack_result['fatal_hit']:
-                    self.set_squad_experience(squad, enemy_soldier)
-                    # Учитываются только честные победы:
-                    if not enemy_soldier.escape:
-                        soldier.victories_list.append(enemy_soldier.rank)
-                        soldier.victories += 1
-                    enemy_soldier.defeats += 1
-                    enemy_soldier.prone = True
+                    soldier.set_victory_and_enemy_defeat(enemy_soldier)
+                    # Критический удар калечит цель:
                     if attack_result['crit']:
                         enemy_soldier.disabled = True
-                    # Колдун с Dark_One\'s_Blessing получает бонусные хиты:
-                    if soldier.class_features.get('Dark_One\'s_Blessing'):
-                        bonus_hitpoints_bless = soldier.mods['charisma'] + soldier.level
-                        if bonus_hitpoints_bless > soldier.bonus_hitpoints:
-                            #print('{0} {1} temp_hp {2}'.format(
-                            #    soldier.ally_side, soldier.rank, bonus_hitpoints_bless))
-                            soldier.set_hitpoints(bonus_hitpoints = bonus_hitpoints_bless)
                 # Убираем противника из списка целей и с карты:
                 if attack_result['fatal_hit']:
                     if 'kill' in soldier.commands:
@@ -2387,24 +2323,12 @@ class battle_simulation(battlescape):
                     bonus_hitpoints_bless = attack_result['damage']
                     if bonus_hitpoints_bless > soldier.bonus_hitpoints:
                         soldier.set_hitpoints(bonus_hitpoints = bonus_hitpoints_bless)
-                # Добавляем опыт отряду:
+                # Победа приносит бойцу опыт:
                 if attack_result['fatal_hit']:
-                    self.set_squad_experience(squad, enemy_soldier)
-                    # Учитываются только честные победы:
-                    if not enemy_soldier.escape:
-                        soldier.victories_list.append(enemy_soldier.rank)
-                        soldier.victories += 1
-                    enemy_soldier.defeats += 1
-                    enemy_soldier.prone = True
+                    soldier.set_victory_and_enemy_defeat(enemy_soldier)
+                    # Критический удар калечит цель:
                     if attack_result['crit']:
                         enemy_soldier.disabled = True
-                    # Колдун с Dark_One\'s_Blessing получает бонусные хиты:
-                    if soldier.class_features.get('Dark_One\'s_Blessing'):
-                        bonus_hitpoints_bless = soldier.mods['charisma'] + soldier.level
-                        if bonus_hitpoints_bless > soldier.bonus_hitpoints:
-                            #print('{0} {1} temp_hp {2}'.format(
-                            #    soldier.ally_side, soldier.rank, bonus_hitpoints_bless))
-                            soldier.set_hitpoints(bonus_hitpoints = bonus_hitpoints_bless)
                 # Убираем противника из списка целей и с карты:
                 if attack_result['fatal_hit']:
                     if 'kill' in soldier.commands:
@@ -2687,38 +2611,6 @@ class battle_simulation(battlescape):
         else:
             return soldier_coordinates
 
-    def set_squad_experience(self, squad, enemy_soldier):
-        """Отряд получает опыт за победу над врагом.
-        
-        Уровень опасности обычных легионеров/гоплитов -- 1/8,
-        Поскольку у них в среднем +3 к атаке, 15-17 AC и 8 hp.
-        """
-        if not hasattr(squad, 'experience'):
-            squad.experience = 0
-        if enemy_soldier.hitpoints <= 0 and not enemy_soldier.defeat:
-            enemy_soldier.defeat = True
-            if not enemy_soldier.fall:
-                enemy_soldier.fall = True
-                # Опыт от показателя опасности:
-                if hasattr(enemy_soldier, 'challenge_rating')\
-                        and enemy_soldier.challenge_rating in self.challenge_rating_experience_dict:
-                    experience_new = self.challenge_rating_experience_dict[enemy_soldier.challenge_rating]
-                    squad.experience += round(experience_new)
-                # Если уровень > 5, то уровень и есть показатель опасности:
-                elif enemy_soldier.level > 5:
-                    experience_new = self.challenge_rating_experience_dict[str(enemy_soldier.level)]
-                    squad.experience += round(experience_new)
-                # Для простых солдат считается сложнее:
-                else:
-                    # Опыт за уровень врага:
-                    # 1 lvl: 25*2^(1-1) = 25 exp; 5 lvl: 25*2^(5-1) = 400 exp
-                    experience_new = 25 * 2 ** (enemy_soldier.level - 1)
-                    if hasattr(enemy_soldier, 'hero') and enemy_soldier.hero:
-                        experience_new *= 2
-                    elif enemy_soldier.char_class == 'Commoner':
-                        experience_new /= 2.5
-                    squad.experience += round(experience_new)
-
     def fall_to_death(self, squad):
         """Тяжелораненые делают спасброски от смерти в начале каждого хода.
         
@@ -2899,8 +2791,10 @@ class battle_simulation(battlescape):
         """Вывод статистики после боя. Убитые, раненые по отрядам."""
         for key, squad in self.squads.items():
             casualty = squad.casualty
-            if not hasattr(squad, 'experience'):
-                squad.experience = 0
+            if not squad.__dict__.get('experience'):
+                squad.experience = sum([soldier.experience for soldier in squad.metadict_soldiers.values()])
+            else:
+                squad.experience += sum([soldier.experience for soldier in squad.metadict_soldiers.values()])
             squad_hitpoints_max = sum([soldier.hitpoints_max for soldier\
                 in squad.metadict_soldiers.values()])
             squad_hitpoints_new = sum([soldier.hitpoints for soldier\
