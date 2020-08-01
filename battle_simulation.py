@@ -1874,7 +1874,9 @@ class battle_simulation(battlescape):
                     self.set_squad_experience(squad, enemy_soldier)
                     # Учитываются только честные победы:
                     if not enemy_soldier.escape:
+                        soldier.victories_list.append(enemy_soldier.rank)
                         soldier.victories += 1
+                        print(soldier.victories_list)
                     enemy_soldier.defeats += 1
                     enemy_soldier.prone = True
                     if attack_result['crit'] and not 'unarmed' in soldier.commands:
@@ -2122,6 +2124,7 @@ class battle_simulation(battlescape):
                     self.set_squad_experience(squad, enemy_soldier)
                     # Учитываются только честные победы:
                     if not enemy_soldier.escape:
+                        soldier.victories_list.append(enemy_soldier.rank)
                         soldier.victories += 1
                     enemy_soldier.defeats += 1
                     enemy_soldier.prone = True
@@ -2389,6 +2392,7 @@ class battle_simulation(battlescape):
                     self.set_squad_experience(squad, enemy_soldier)
                     # Учитываются только честные победы:
                     if not enemy_soldier.escape:
+                        soldier.victories_list.append(enemy_soldier.rank)
                         soldier.victories += 1
                     enemy_soldier.defeats += 1
                     enemy_soldier.prone = True

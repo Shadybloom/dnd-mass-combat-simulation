@@ -229,6 +229,8 @@ class soldier_in_battle(soldier):
         # Статистика побед и поражений бойца:
         if not hasattr(self, 'victories'):
             self.victories = 0
+        if not hasattr(self, 'victories_list'):
+            self.victories_list = [ ]
         if not hasattr(self, 'defeats'):
             self.defeats = 0
         # В составе отряда могут быть "мёртвые души":
