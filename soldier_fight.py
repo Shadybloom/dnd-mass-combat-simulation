@@ -2489,7 +2489,12 @@ class soldier_in_battle(soldier):
         enemy_soldier.prone = True
         enemy_soldier.fall = True
         # Оружие и щит выпадают из рук:
+<<<<<<< HEAD
         if enemy_soldier.shield_ready:
             enemy_soldier.unset_shield(disarm = True)
         if enemy_soldier.weapon_ready:
             enemy_soldier.unset_weapon(enemy_soldier.weapon_ready, disarm = True)
+=======
+        enemy_soldier.unset_shield(disarm = True)
+        enemy_soldier.unset_weapon(enemy_soldier.weapon_ready, disarm = True)
+>>>>>>> 1c0955e7ac2fc633c2458375345f3953addb6d21
