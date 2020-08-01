@@ -221,6 +221,9 @@ class soldier_in_battle(soldier):
         # Словарь израсходованного снаряжения:
         if not hasattr(self, 'drop_items'):
             self.drop_items = {}
+        # Оружие в руках:
+        if not hasattr(self, 'weapon_ready'):
+            self.weapon_ready = None
         # Щит в боевое положение:
         if not hasattr(self, 'shield_ready'):
             if self.armor['shield_use']:
@@ -1369,9 +1372,13 @@ class soldier_in_battle(soldier):
         if self.get_savethrow(difficult, ability, advantage, disadvantage):
             return False
         else:
-            weapon_list = self.get_weapon_list()
-            weapon = random.choice(weapon_list)
-            self.unset_weapon(weapon, disarm = True)
+            if self.weapon_ready:
+                weapon = self.weapon_ready
+                self.unset_weapon(weapon, disarm = True)
+            else:
+                weapon_list = self.get_weapon_list()
+                weapon = random.choice(weapon_list)
+                self.unset_weapon(weapon, disarm = True)
             return True
 
     def morality_check_escape(self, danger, advantage = False, disadvantage = False):
@@ -1748,6 +1755,9 @@ class soldier_in_battle(soldier):
         # Используется боеприпас (стрела, дротик, яд для меча), если указан:
         if attack_dict.get('ammo'):
             self.use_ammo(attack_dict, metadict_soldiers)
+        # Оружие в руки:
+        if attack_dict.get('weapon') and attack_dict.get('weapon_use'):
+            self.weapon_ready = attack_dict.get('weapon_use')
         # Нельзя использовать два приёма баттлмастера за одну атаку:
         superiority_use = False
         # Боец с двуручным оружием не может использовать щит:
@@ -2467,9 +2477,6 @@ class soldier_in_battle(soldier):
                 self.victories_dict[key] = 1
             elif key in self.victories_dict:
                 self.victories_dict[key] += 1
-        enemy_soldier.defeat = True
-        enemy_soldier.prone = True
-        enemy_soldier.fall = True
         # Колдун с Dark_One\'s_Blessing получает бонусные хиты:
         if self.class_features.get('Dark_One\'s_Blessing'):
             bonus_hitpoints_bless = self.mods['charisma'] + self.level
@@ -2477,3 +2484,12 @@ class soldier_in_battle(soldier):
                 self.set_hitpoints(bonus_hitpoints = bonus_hitpoints_bless)
                 #print('{0} {1} temp_hp {2}'.format(
                 #    self.ally_side, self.rank, bonus_hitpoints_bless))
+        # Противник падает:
+        enemy_soldier.defeat = True
+        enemy_soldier.prone = True
+        enemy_soldier.fall = True
+        # Оружие и щит выпадают из рук:
+        if enemy_soldier.shield_ready:
+            enemy_soldier.unset_shield(disarm = True)
+        if enemy_soldier.weapon_ready:
+            enemy_soldier.unset_weapon(enemy_soldier.weapon_ready, disarm = True)
