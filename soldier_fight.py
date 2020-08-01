@@ -1742,6 +1742,9 @@ class soldier_in_battle(soldier):
         """
         target_cover = enemy.cover
         enemy_soldier = metadict_soldiers[enemy.uuid]
+        # Используется боеприпас (стрела, дротик, яд для меча), если указан:
+        if attack_dict.get('ammo'):
+            self.use_ammo(attack_dict, metadict_soldiers)
         # Нельзя использовать два приёма баттлмастера за одну атаку:
         superiority_use = False
         # Боец с двуручным оружием не может использовать щит:
@@ -1907,11 +1910,14 @@ class soldier_in_battle(soldier):
                 'sender_uuid':self.uuid,
                 }
         attack_result_dict.update(attack_dict)
-        # TODO: в отдельную функцию:
-        # Убираем оружие из списка атак, если закончились боеприпасы:
-        # Или пополняем боекомплект за счёт союзного бойца (а надо бойца из отряда).
-        # Хотя, ополченцы могут тоже пополнять боекомплект легионеров.
-        attacks_list = list(self.attacks.keys())
+        return attack_result_dict
+
+    def use_ammo(self, attack_dict, metadict_soldiers):
+        """Расходуем боеприпас.
+
+        - Если боеприпас есть в отряде, союзный солдат передаёт его.
+        - Если боеприпас закончился, ассциированные с ним атаки убираются.
+        """
         if attack_dict.get('ammo'):
             if attack_dict.get('ammo_type') and isinstance(attack_dict.get('ammo_type'), str):
                 ammo_type = attack_dict.get('ammo_type')
@@ -1942,7 +1948,6 @@ class soldier_in_battle(soldier):
                         else:
                             self.unset_weapon(attack_dict.get('weapon_of_choice'), ammo_type)
                             break
-        return attack_result_dict
 
     def unset_weapon(self, weapon_type, ammo_type = None, disarm = False):
         """Убираем оружие, для которого закончились боеприпасы.
@@ -2032,6 +2037,9 @@ class soldier_in_battle(soldier):
         Вроде магической стрелы, которая всегда попадает,
         Или бьющего по местности огненного шара.
         """
+        # У заклинаний тоже заканчиваются заряды:
+        if attack_dict.get('ammo'):
+            self.use_ammo(attack_dict, metadict_soldiers)
         damage_throw = dices.dice_throw_advantage(attack_dict['damage_dice'])
         damage_throw_mod = damage_throw + attack_dict.get('damage_mod',0)
         attack_result_dict = {
@@ -2047,9 +2055,6 @@ class soldier_in_battle(soldier):
                 'sender_uuid':self.uuid,
                 }
         attack_result_dict.update(attack_dict)
-        # У заклинаний тоже заканчиваются заряды:
-        if attack_dict.get('ammo'):
-            attack_dict['ammo'] -= 1
         return attack_result_dict
 
     def take_attack(self, attack_choice, attack_dict, metadict_soldiers):
@@ -2283,7 +2288,8 @@ class soldier_in_battle(soldier):
             elif damage_savethrow < damage_difficul\
                     and self.class_features.get('Evasion'):
                 damage = round(damage / 2)
-            if not damage == 0 and attack_dict.get('effect'):
+            # Бардовская насмешка действует только если нанесён урон:
+            if damage > 0 and attack_dict.get('effect'):
                 if attack_dict['effect'] == 'mockery':
                     self.mockery = True
         # Крупные объекты (стены, корабли) имеют порог урона:
@@ -2421,6 +2427,11 @@ class soldier_in_battle(soldier):
         
         - Колдун с Dark_One\'s_Blessing получает бонусные хиты:
         """
+        # TODO: добавь трофеи бойца.
+        # ------------------------------------------------------------
+        # Вражеское снаряжение, если враг схвачен или убит.
+        # Или если враг не имеет рядом союзников, способных его вытащить.
+        # ------------------------------------------------------------
         # Учитывается только первая победа, а не добивание:
         if not enemy_soldier.defeat and not enemy_soldier.fall:
             self.victories += 1

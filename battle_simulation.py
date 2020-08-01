@@ -1651,7 +1651,7 @@ class battle_simulation(battlescape):
                         break
                 else:
                     # Стрелы расходуются, если летят совсем не туда:
-                    soldier.attacks[attack_choice]['ammo'] -= 1
+                    soldier.use_ammo(soldier.attacks[attack_choice], squad.metadict_soldiers)
                     self.set_squad_battle_stat(soldier.attacks.get(attack_choice), squad, attack_choice)
                     # Артиллерия и заклинания в стрелах:
                     # TODO: так-то лучше включить. Иначе с промахами зональные заклинания не срабатывают.
