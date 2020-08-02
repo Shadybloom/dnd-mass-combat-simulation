@@ -26,7 +26,8 @@ def create_parser():
     parser = argparse.ArgumentParser()
     parser.add_argument('squads',
                         nargs='*',
-                        help='Например: zone_1 legionary zone_5 hoplites'
+                        help='Например: zone_1 legionary zone_5 hoplites zone_11 Squad\
+                                (номера зон спавна пишутся на карте: 01 = zone_0, zone_1, zone_01)'
                         )
     parser.add_argument('-r', '--rounds',
                         action='store', dest='rounds', type=int, default=10,
@@ -34,15 +35,16 @@ def create_parser():
                         )
     parser.add_argument('-m', '--map',
                         action='store', dest='map', type=str,
-                        help='Например: battle_map_city'
+                        help='Например: battle_map'
                         )
     parser.add_argument('-c', '--commands',
                         action='store_true', dest='commands', default=False,
-                        help='Позволяет команды отрядам: dodge, fearless, retreat, т.д. (-command -- отмена, auto -- автопилот)'
+                        help='Позволяет команды отрядам: dodge, fearless, retreat, move, т.д.\
+                                (-command -- отмена, auto -- автопилот)'
                         )
     parser.add_argument('-w', '--weather',
                         action='store', dest='weather', type=str,
-                        help='Добавляет эффекты погоды, доступно: night, wind'
+                        help='Доступно: night, wind, water'
                         )
     parser.add_argument('-v', '--visual',
                         action='store_true', dest='visual', default=False,
@@ -99,6 +101,18 @@ class battle_simulation(battlescape):
     database = database.database()
     ally_zones = ['zone_0','zone_1','zone_2','zone_3','zone_4']
     enemy_zones = ['zone_5','zone_6','zone_7','zone_8','zone_9']
+    # Зоны 00-49 -- BLUEFOR, зоны 50-99 -- OPFOR:
+    for number in range(0, 10):
+        zone_name = 'zone_0{n}'.format(n = number)
+        if not zone_name in ally_zones:
+            ally_zones.append(zone_name)
+    for number in range(10, 50):
+        zone_name = 'zone_{n}'.format(n = number)
+        if not zone_name in enemy_zones:
+            ally_zones.append(zone_name)
+    for number in range(50, 100):
+        zone_name = 'zone_{n}'.format(n = number)
+        enemy_zones.append(zone_name)
 
     def prepare_battlefield(self, battle_map, zones_squads_dict):
         """Подготовка поля боя.
@@ -2950,7 +2964,7 @@ class interface(battlescape):
     def select_squads(self, selected_map, zones_squads_list = None):
         """Выбор отрядов и зон расположения."""
         self.create_battlespace(selected_map)
-        spawn_zones_dict = self.find_spawn_zones()
+        spawn_zones_dict = self.spawn_zones_dict
         spawn_zones_list = list(spawn_zones_dict.keys())
         squads_list = list(sorted(squads.metadict_squads.keys()))
         # Пополняем список отрядами из базы данных:

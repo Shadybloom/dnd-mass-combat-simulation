@@ -271,7 +271,8 @@ class battlescape():
         self.dict_battlespace = self.map_to_dict(self.battle_map)
         self.matrix = self.map_to_matrix(self.battle_map, self.dict_battlespace)
         # Размечаем зоны и пункты спавна отдельных солдат:
-        self.set_spawn_zones()
+        self.spawn_zones_dict = self.find_spawn_zones()
+        self.set_spawn_zones(self.spawn_zones_dict)
         self.spawn_list = self.find_spawn_points()
         #for place,descript in self.dict_battlespace.items():
         #    print(place,descript)
@@ -305,12 +306,11 @@ class battlescape():
         #    print(key,value)
         return dict_battlespace
 
-    def set_spawn_zones(self):
+    def set_spawn_zones(self, spawn_zones_dict):
         """Размечает зоны на поле боя.
         
         Все незанятые stop_terrain точки в зоне получают метку с номером зоны.
         """
-        spawn_zones_dict = self.find_spawn_zones()
         for zone_name, field in spawn_zones_dict.items():
             for point in field:
                 self.dict_battlespace[point].append(zone_name)
@@ -370,24 +370,37 @@ class battlescape():
         for descript in self.battlespace_objects.values():
             if 'spawn_zone' in descript:
                 zone_name_list.append(descript[0])
+        for number in range(10):
+            zone_name = 'zone_0{n}'.format(n = number)
+            zone_name_list.append(zone_name)
+        for number in range(100):
+            zone_name = 'zone_{n}'.format(n = number)
+            zone_name_list.append(zone_name)
+        zone_name_list = list(sorted(set(zone_name_list)))
         return zone_name_list
 
     def find_spawn_zones(self):
         """Находит на карте пространства зон спавна.
         
+        - Можно указать двузначные зоны (01, 11, 56, т.д.)
         - Обрабатывается только первый указатель зоны. Один указатель -- одна зона.
         - Сначала находим указатель зоны, а затем делаем обход в ширину до границ зоны.
         """
-        # TODO: Хочется двухзначные номера зон.
-        # ------------------------------------------------------------
-        # Но тогда нужно искать удвоенные указатели, вроде 10 = zone_10:
-        # Проще сказать, чем сделать.
-        # ------------------------------------------------------------
         spawn_zones_dict = {}
         zone_name_list = self.spawn_zone_names_to_list()
         for zone_name in zone_name_list:
             for place, descript in self.dict_battlespace.items():
                 if zone_name in descript:
+                    next_place = (place[0] + 1, place[-1])
+                    # Двузначные зоны спавна (01, 56, т.д.)
+                    if not next_place[0] > self.battle_map_length:
+                        for zone_name_next in zone_name_list:
+                            if zone_name_next in self.dict_battlespace[next_place]\
+                                    and not zone_name_next == zone_name:
+                                zone_name_combine = zone_name + zone_name_next[-1]
+                                zone_field = self.find_points_in_zone(place)
+                                spawn_zones_dict[zone_name_combine] = zone_field
+                                break
                     # Если номер зоны найден, то поиск прерывается:
                     zone_field = self.find_points_in_zone(place)
                     spawn_zones_dict[zone_name] = zone_field
