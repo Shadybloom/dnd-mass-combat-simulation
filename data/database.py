@@ -35,18 +35,22 @@ class database():
         
         Не забывай, commit отдельно.
         """
+        experience = 0
         victories = 0
         defeats = 0
         death = 0
         disabled = 0
         captured = 0
+        side = None
+        ally_side = None
+        enemy_side = None
         # TODO: сброс параметров лучше сделать методом в классе soldier_fight.
         # Можно этот метод прямо здесь и вызвать.
         # Сбрасываем параметры:
         soldier.escape = False
         soldier.grappled = False
-        soldier.ally_side = None
-        soldier.enemy_side = None
+        #soldier.ally_side = None
+        #soldier.enemy_side = None
         soldier.initiative = None
         soldier.place = None
         soldier.place_in_order = None
@@ -82,6 +86,10 @@ class database():
         #    print(key, el)
         soldier_dict_pickle = pickle.dumps(soldier.__dict__)
         # TODO: избавься от этих hasattr:
+        if hasattr(soldier, 'ally_side'):
+            side = soldier.ally_side
+        if hasattr(soldier, 'experience'):
+            experience = soldier.experience
         if hasattr(soldier, 'victories'):
             victories = soldier.victories
         if hasattr(soldier, 'defeats'):
@@ -103,10 +111,12 @@ class database():
         soldier_name = ' '.join(soldier.name)
         soldier_name_translate = ' '.join(soldier.name_translate)
         squad_name = ' '.join(soldier.squad_name)
-        self.cursor.execute("INSERT OR REPLACE INTO soldiers VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", [\
+        self.cursor.execute("INSERT OR REPLACE INTO soldiers VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", [\
             str(soldier.uuid),\
+            side,\
             squad_name,\
             soldier.rank,\
+            experience,\
             victories,\
             defeats,\
             death,\
@@ -139,13 +149,20 @@ class database():
         soldier_raw = self.cursor.execute(sql_query).fetchall()[0]
         soldier_dict = pickle.loads(soldier_raw[-1])
         # Синхронизируем таблицу и словарь бойца (если правили БД):
-        soldier_death = int(soldier_raw[5])
-        soldier_disabled = int(soldier_raw[6])
-        soldier_captured = int(soldier_raw[7])
-        soldier_hitpoints = int(soldier_raw[10])
-        soldier_hitpoints_max = int(soldier_raw[11])
-        soldier_hitpoints_heal = int(soldier_raw[12])
-        squad_name = [str(soldier_raw[1])]
+        soldier_experience = int(soldier_raw[4])
+        soldier_death = int(soldier_raw[7])
+        soldier_disabled = int(soldier_raw[8])
+        soldier_captured = int(soldier_raw[9])
+        soldier_hitpoints = int(soldier_raw[12])
+        soldier_hitpoints_max = int(soldier_raw[13])
+        soldier_hitpoints_heal = int(soldier_raw[14])
+        squad_name = [str(soldier_raw[2])]
+        # TODO: это лучше не править. Сторона задаётся в бою.
+        #side = str(soldier_raw[1])
+        #soldier_dict['ally_side'] = side
+        #soldier_dict['enemy_side'] = None
+        if soldier_experience:
+            soldier_dict['experience'] = soldier_experience
         if soldier_death:
             soldier_dict['death'] = True
         else:
@@ -178,8 +195,10 @@ class database():
         if not self.cursor.execute(sql_query).fetchall():
             self.cursor.execute("""CREATE TABLE IF NOT EXISTS soldiers (
                 id TEXT NOT NULL PRIMARY KEY UNIQUE,
+                side TEXT DEFAULT NULL,
                 squad_name TEXT DEFAULT NULL,
                 rank TEXT DEFAULT NULL,
+                experience INTEGER DEFAULT 0,
                 victories INTEGER DEFAULT 0,
                 defeats INTEGER DEFAULT 0,
                 death INTEGER DEFAULT 0,
@@ -200,8 +219,10 @@ class database():
                 )""")
             self.cursor.execute("""CREATE INDEX IF NOT EXISTS index_soldiers ON soldiers (
                 id,
+                side,
                 squad_name,
                 rank,
+                experience,
                 victories,
                 defeats,
                 death,
