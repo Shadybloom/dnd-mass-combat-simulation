@@ -2798,15 +2798,24 @@ class battle_simulation(battlescape):
             else:
                 squad.experience += sum([soldier.experience for soldier in squad.metadict_soldiers.values()])
             # Израсходованное солдатами снаряжение:
-            if not squad.__dict__.get('drop_items'):
-                squad.drop_items = {}
+            if not squad.__dict__.get('drop_items_dict'):
+                squad.drop_items_dict = {}
             for soldier in squad.metadict_soldiers.values():
-                for item, number in soldier.drop_items.items():
-                    if not item in squad.drop_items:
-                        squad.drop_items[item] = number
-                    elif item in squad.drop_items:
-                        squad.drop_items[item] += number
-            #squad.drop_items = OrderedDict(sorted(squad.drop_items.items(),key=lambda x: x))
+                for item, number in soldier.drop_items_dict.items():
+                    if not item in squad.drop_items_dict:
+                        squad.drop_items_dict[item] = number
+                    elif item in squad.drop_items_dict:
+                        squad.drop_items_dict[item] += number
+            #squad.drop_items_dict = OrderedDict(sorted(squad.drop_items_dict.items(),key=lambda x: x))
+            # Трофеи:
+            if not squad.__dict__.get('trophy_items_dict'):
+                squad.trophy_items_dict = {}
+            for soldier in squad.metadict_soldiers.values():
+                for item, number in soldier.trophy_items_dict.items():
+                    if not item in squad.trophy_items_dict:
+                        squad.trophy_items_dict[item] = number
+                    elif item in squad.trophy_items_dict:
+                        squad.trophy_items_dict[item] += number
             # Сумма хитпоинтов отряда:
             squad_hitpoints_max = sum([soldier.hitpoints_max for soldier\
                 in squad.metadict_soldiers.values()])
@@ -2869,7 +2878,11 @@ class battle_simulation(battlescape):
                 battle_stat = OrderedDict(sorted(battle_stat.items(),key=lambda x: x))
                 for attack, stat in battle_stat.items():
                     print(attack, stat)
-            print(squad.drop_items)
+            # Потерянное снаряжение и трофеи:
+            if squad.trophy_items_dict and casualty['lucky_one_percent'] > casualty['escape_percent']:
+                print('trophy:', squad.trophy_items_dict)
+            if squad.drop_items_dict:
+                print('loss:', squad.drop_items_dict)
 
     def save_soldiers_to_database(self):
         """Сохраняем солдат в базу данных."""

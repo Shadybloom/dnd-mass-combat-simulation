@@ -218,9 +218,12 @@ class soldier_in_battle(soldier):
         self.second_wind = False
         self.lay_on_hands = 0
         self.shield = False
+        # Словарь трофеев:
+        if not hasattr(self, 'trophy_items_dict'):
+            self.trophy_items_dict = {}
         # Словарь израсходованного снаряжения:
-        if not hasattr(self, 'drop_items'):
-            self.drop_items = {}
+        if not hasattr(self, 'drop_items_dict'):
+            self.drop_items_dict = {}
         # Оружие в руках:
         if not hasattr(self, 'weapon_ready'):
             self.weapon_ready = None
@@ -1349,7 +1352,12 @@ class soldier_in_battle(soldier):
         if self.get_savethrow(difficult, ability, advantage, disadvantage):
             return False
         else:
-            return self.unset_shield(disarm = True)
+            enemy_soldier.get_trophy(
+                    self.armor['shield_use'],
+                    self.equipment_weapon[self.armor['shield_use']],
+                    )
+            self.unset_shield(disarm = True)
+            return True
 
     def set_disarm_weapon(self, enemy_soldier, advantage = False, disadvantage = False, difficult = False):
         """Бойца пытаются лишить оружия.
@@ -1374,10 +1382,12 @@ class soldier_in_battle(soldier):
         else:
             if self.weapon_ready:
                 weapon = self.weapon_ready
+                enemy_soldier.get_trophy(weapon, self.equipment_weapon[weapon])
                 self.unset_weapon(weapon, disarm = True)
             else:
                 weapon_list = self.get_weapon_list()
                 weapon = random.choice(weapon_list)
+                enemy_soldier.get_trophy(weapon, self.equipment_weapon[weapon])
                 self.unset_weapon(weapon, disarm = True)
             return True
 
@@ -1386,7 +1396,6 @@ class soldier_in_battle(soldier):
         
         Это проверка 10 + уровень_опасности против спасброска харизмы.
         """
-        # TODO: добавь проверку преимущества к спасброску харизмы.
         difficult = 10 + danger
         ability = 'charisma'
         if self.get_savethrow(difficult, ability, advantage, disadvantage):
@@ -1701,8 +1710,6 @@ class soldier_in_battle(soldier):
 
     def select_spell(self, squad, enemy, tile_size = 5):
         """Боец выбирает заклинание, начиная с высших уровней."""
-        # TODO: проблема дистанции. Некоторые кантрипы удобны в ближнем бою.
-        # Сделай метки на заклинаниях ближнего боя и в конце перебирай их.
         distance = enemy.distance
         enemy_cover = enemy.cover
         spellslots_list = reversed(list(self.spellslots.keys()))
@@ -2050,20 +2057,45 @@ class soldier_in_battle(soldier):
         
         - Пересчитывается скорость и нагрузка.
         """
-        if item in self.equipment_weapon:
+        if item in self.equipment_weapon\
+                and self.equipment_weapon[item] > 0:
             if drop_all:
                 number = self.equipment_weapon[item]
             self.equipment_weapon[item] -= number
             self.overload = self.calculate_overload()
             self.base_speed = self.overload['base_speed']
             # Запоминаем израсходованный предмет:
-            if not item in self.drop_items:
-                self.drop_items[item] = 1
-            elif item in self.drop_items:
-                self.drop_items[item] += 1
+            if not item in self.drop_items_dict:
+                self.drop_items_dict[item] = 1
+            elif item in self.drop_items_dict:
+                self.drop_items_dict[item] += 1
             return True
         else:
             return False
+
+    def get_trophy(self, item, number = 1):
+        """Словарь трофеев пополняется предметом.
+        
+        - Боекомплект пополняется за счёт поверженого врага.
+        """
+        if item in self.equipment_weapon\
+                and self.equipment_weapon[item]\
+                < self.metadict_chars[self.rank]['equipment_weapon'].get(item, 0):
+            # Пополняется боекомплект:
+            self.equipment_weapon[item] += number
+            self.overload = self.calculate_overload()
+            self.base_speed = self.overload['base_speed']
+            # Обновляются атаки:
+            self.attacks = self.takeoff_weapon()
+            self.attacks.update(self.get_weapon())
+            self.attacks.update(self.modify_attacks())
+            self.attacks.update(self.modify_attacks_weapon_of_choice())
+        else:
+            # Забираем предмет как трофей:
+            if not item in self.trophy_items_dict:
+                self.trophy_items_dict[item] = number
+            elif item in self.trophy_items_dict:
+                self.trophy_items_dict[item] += number
 
     def spell_attack(self, attack_dict, enemy, metadict_soldiers, advantage = False, disadvantage = False):
         """Атака заклинанием.
@@ -2488,6 +2520,12 @@ class soldier_in_battle(soldier):
         enemy_soldier.defeat = True
         enemy_soldier.prone = True
         enemy_soldier.fall = True
+        # У схваченного трофеят всё снаряжение:
+        if enemy_soldier.grappled or not enemy_soldier.near_allies and enemy_soldier.near_enemies:
+            for item, number in enemy_soldier.equipment_weapon.items():
+                if number > 0:
+                    self.get_trophy(item, number)
+                    enemy_soldier.drop_item(item, number)
         # Оружие и щит выпадают из рук:
         if enemy_soldier.shield_ready:
             enemy_soldier.unset_shield(disarm = True)
