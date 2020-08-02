@@ -838,12 +838,14 @@ class battle_simulation(battlescape):
                 commands_list.append('carefull')
                 commands_list.append('attack')
                 commands_list.append('spellcast')
+                commands_list.append('potions')
                 commands_list.append('runes')
             elif squad.enemy_recon['distance'] <= save_distance:
                 commands_list = ['lead','follow','engage']
                 commands_list.append('carefull')
                 commands_list.append('attack')
                 commands_list.append('spellcast')
+                commands_list.append('potions')
                 commands_list.append('runes')
             # Оцениваем опасность зональных заклинаний. Например Spirit_Guardians:
             if squad.enemy_recon['danger_places']:
@@ -1007,7 +1009,8 @@ class battle_simulation(battlescape):
                 soldier.set_second_wind()
             elif soldier.lay_on_hands:
                 soldier.set_lay_of_hands()
-            elif soldier.equipment_weapon.get('Infusion of Heroism'):
+            elif soldier.equipment_weapon.get('Infusion of Heroism')\
+                    or soldier.equipment_weapon.get('Potion of Bravery'):
                 soldier.use_potion_of_heroism()
             elif soldier.equipment_weapon.get('Infusion of Healing')\
                     or soldier.class_features.get('Regeneration_Minor')\

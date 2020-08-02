@@ -1197,6 +1197,20 @@ metadict_items['Goodberry'] = {
     'cost (grams_of_gold)':0.06,
     }
 
+metadict_items['Potion of Bravery'] = {
+    # Даёт 1d6 бонусных хитов.
+    # Крепкая выпивка, пьянит.
+    'potion':True,
+    'effect':'poison',
+    'spell_save_DC':15,
+    'effect_timer':100,
+    'healing_dice':'1d6',
+    'healing_mod':0,
+    'weight (lb)':1,
+    'cost (gp)':0.06,
+    'cost (grams_of_gold)':0.06,
+    }
+
 metadict_items['Infusion of Healing'] = {
     # Эссенции "перезаряжаются" друидами и жрецами.
     # Лечение равно костям хитов бойца. Для варвара 5 lvl это 5d12, в среднем 30 hp.

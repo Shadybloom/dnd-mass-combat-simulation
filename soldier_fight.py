@@ -540,6 +540,13 @@ class soldier_in_battle(soldier):
                 or self.__dict__.get('heroism'):
             self.fearless = True
             self.commands.append('fearless')
+        # Используем предметы перед боем:
+        # TODO: получается, что будут использоваться каждый раунд, если их несколько.
+        if hasattr(squad, 'commands') and 'potions' in squad.commands:
+            if not self.bonus_hitpoints:
+                if self.equipment_weapon.get('Infusion of Heroism')\
+                        or self.equipment_weapon.get('Potion of Bravery'):
+                    self.use_potion_of_heroism()
         # Особенности монстров:
         # Перезярядка воздушных элементалей:
         # TODO: пока что это просто восстановление списка атак. Топорно.
@@ -1094,6 +1101,20 @@ class soldier_in_battle(soldier):
                 self.heroism = True
                 if self.bonus_hitpoints < self.level:
                     self.bonus_hitpoints = self.level
+                return True
+            elif self.equipment_weapon.get('Potion of Bravery', 0) > 0:
+                self.drop_item('Potion of Bravery')
+                spell_dict = self.metadict_items['Potion of Bravery']
+                bonus_hitpoints = dices.dice_throw(spell_dict['healing_dice'])
+                poisoned = self.set_poisoned(spell_dict['spell_save_DC'], spell_dict['effect_timer'])
+                if poisoned:
+                    print('[+++] {side_1}, {c1} {s} POISONED << Potion of Bravery'.format(
+                        side_1 = self.ally_side,
+                        c1 = self.place,
+                        s = self.behavior,
+                        ))
+                if self.bonus_hitpoints < bonus_hitpoints:
+                    self.bonus_hitpoints = bonus_hitpoints
                 return True
             else:
                 return False
