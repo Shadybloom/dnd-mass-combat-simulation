@@ -1417,6 +1417,143 @@ metadict_animals['Wight (CR 3)'] = {
     'equipment_supply':{},
     }
 
+metadict_animals['Ghast (CR 2)'] = {
+    # Вурдалак
+    'level':8,
+    'killer_AI':True,
+    'predator_AI':True,
+    'challenge_rating':'2',
+    'char_class':'Warrior',
+    'behavior':'commander',
+    #'fearless_AI':True,
+    'hitpoints_medial':True,
+    'class_features':{
+        # TODO: вонь отравляет всех в пределах 5 футов. СЛ 10.
+        'Ghast_Stench':True,
+        'Turn_Defiance':True,
+        'Darkvision':60,
+        },
+    'abilityes':{
+        'strength':16,
+        'dexterity':17,
+        'constitution':10,
+        'intelligence':11,
+        'wisdom':10,
+        'charisma':8,
+        },
+    'hit_dice':'1d8',
+    'attacks':{
+        ('close', 'bite'): {
+            'attack_mod':3,
+            'damage_mod':3,
+            'weapon': False,
+            'weapon_type':['simple'],
+            'damage_type':'piercing',
+            'damage_dice':'2d8',
+            'attack_range':5,
+            'attack_type':'close',
+            'weapon_skills_use': ['simple'],
+            'attack_mod_type':'dexterity',
+            'weapon_of_choice':'claws'},
+        ('close', 'claws'): {
+            'attack_mod':5,
+            'damage_mod':3,
+            'weapon': False,
+            'weapon_type':['simple'],
+            'damage_type':'slashing',
+            'spell_dict':{
+                    'safe':True,
+                    'effect':'paralyze',
+                    'effect_timer':10,
+                    'direct_hit':True,
+                    'savethrow':True,
+                    'savethrow_ability':'constitution',
+                    'spell_save_DC':10,
+                    'spell_choice':('claws','paralyze'),
+                    },
+            'damage_dice':'2d6',
+            'attack_range':5,
+            'attack_type':'close',
+            'weapon_skills_use': ['simple'],
+            'attack_mod_type':'dexterity',
+            'weapon_of_choice':'claws'},
+        },
+    'race':'Human-undead',
+    'weapon_skill':['simple'],
+    'armor_skill':['light','medium'],
+    'equipment_weapon':{
+        },
+    'equipment_backpack':{},
+    'equipment_supply':{},
+    }
+
+metadict_animals['Ghoul (CR 1)'] = {
+    # Упырь
+    'level':5,
+    'killer_AI':True,
+    'predator_AI':True,
+    'challenge_rating':'1',
+    'char_class':'Warrior',
+    'behavior':'warrior',
+    #'fearless_AI':True,
+    'hitpoints_medial':True,
+    'class_features':{
+        'Darkvision':60,
+        },
+    'abilityes':{
+        'strength':13,
+        'dexterity':15,
+        'constitution':10,
+        'intelligence':7,
+        'wisdom':10,
+        'charisma':6,
+        },
+    'hit_dice':'1d8',
+    'attacks':{
+        ('close', 'bite'): {
+            'attack_mod':2,
+            'damage_mod':2,
+            'weapon': False,
+            'weapon_type':['simple'],
+            'damage_type':'piercing',
+            'damage_dice':'2d6',
+            'attack_range':5,
+            'attack_type':'close',
+            'weapon_skills_use': ['simple'],
+            'attack_mod_type':'dexterity',
+            'weapon_of_choice':'claws'},
+        ('close', 'claws'): {
+            'attack_mod':4,
+            'damage_mod':2,
+            'weapon': False,
+            'weapon_type':['simple'],
+            'damage_type':'slashing',
+            'spell_dict':{
+                    'safe':True,
+                    'effect':'paralyze',
+                    'effect_timer':10,
+                    'direct_hit':True,
+                    'savethrow':True,
+                    'savethrow_ability':'constitution',
+                    'spell_save_DC':10,
+                    'spell_choice':('claws','paralyze'),
+                    },
+            'damage_dice':'2d4',
+            'attack_range':5,
+            'attack_type':'close',
+            'weapon_skills_use': ['simple'],
+            'attack_mod_type':'dexterity',
+            'weapon_of_choice':'claws'},
+        },
+    'race':'Human-undead',
+    'weapon_skill':['simple'],
+    'armor_skill':['light','medium'],
+    'equipment_weapon':{
+        },
+    'equipment_backpack':{},
+    'equipment_supply':{},
+    }
+
 #----
 # Призванные существа, элементали:
 
