@@ -1420,12 +1420,13 @@ metadict_animals['Wight (CR 3)'] = {
 metadict_animals['Ghast (CR 2)'] = {
     # Вурдалак
     'level':8,
+    #'fearless_AI':True,
+    'Brave_AI':True,
     'killer_AI':True,
     'predator_AI':True,
     'challenge_rating':'2',
     'char_class':'Warrior',
     'behavior':'commander',
-    #'fearless_AI':True,
     'hitpoints_medial':True,
     'class_features':{
         # TODO: вонь отравляет всех в пределах 5 футов. СЛ 10.
@@ -1495,7 +1496,6 @@ metadict_animals['Ghoul (CR 1)'] = {
     'challenge_rating':'1',
     'char_class':'Warrior',
     'behavior':'warrior',
-    #'fearless_AI':True,
     'hitpoints_medial':True,
     'class_features':{
         'Darkvision':60,
