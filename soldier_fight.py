@@ -187,13 +187,13 @@ class soldier_in_battle(soldier):
         self.prone = False
         self.poisoned = False
         self.stunned = False
+        self.paralyzed = False
         self.grappled = False
         self.restained = False
         self.concentration = False
         self.help_action = False
         self.killer_mark = False
         # Долговременные параметры:
-        self.paralyzed = False
         self.petrified = False
         # Эффекты заклинаний:
         self.fear = False
@@ -454,7 +454,7 @@ class soldier_in_battle(soldier):
         else:
             self.fall = False
         # Даём боевые действия и пул движения:
-        if not self.stunned and not self.sleep:
+        if not self.stunned and not self.paralyzed and not self.sleep:
             self.battle_action = True
             self.bonus_action = True
             self.reaction = True
@@ -500,6 +500,17 @@ class soldier_in_battle(soldier):
             elif self.stunned_timer == 0:
                 self.stunned = False
                 self.stunned_difficult = None
+        # Парализованный сопротивляется:
+        if self.paralyzed:
+            if self.get_savethrow(self.paralyzed_difficult, 'constitution'):
+                self.paralyzed = False
+                self.paralyzed_timer = None
+                self.paralyzed_difficult = None
+            elif self.paralyzed_timer > 0:
+                self.paralyzed_timer -= 1
+            elif self.paralyzed_timer == 0:
+                self.paralyzed = False
+                self.paralyzed_difficult = None
         # Схваченный не может двигаться (но пытается вырваться):
         elif self.grappled or self.restained:
             self.move_action = False
@@ -1252,6 +1263,27 @@ class soldier_in_battle(soldier):
             self.stunned = True
             return True
 
+    def set_paralyzed(self, difficult, timer = 10, advantage = False, disadvantage = False):
+        """Бойца пытаются парализовать.
+        
+        - Ошеломлённое существо недееспособно (не может совершать действия и реакции)
+        - Проваливает все спасброски силы и ловкости
+        - Броски атаки по существу с преимуществом
+        - Все попадания критические с 5 футов.
+
+        Спасбросок телосложения:
+        # https://www.dandwiki.com/wiki/5e_SRD:Conditions#Paralyzed
+        # https://www.dandwiki.com/wiki/5e_SRD:Conditions#Incapacitated
+        """
+        ability = 'constitution'
+        if self.get_savethrow(difficult, ability, advantage, disadvantage):
+            return False
+        else:
+            self.paralyzed_difficult = difficult
+            self.paralyzed_timer = timer
+            self.paralyzed = True
+            return True
+
     def set_sleep(self, difficult = 100, timer = 10, advantage = False, disadvantage = False):
         """Бойца пытаются усыпить.
         
@@ -1861,7 +1893,9 @@ class soldier_in_battle(soldier):
         # Если атака критическая, бросаем кость урона дважды:
         # Если атака неудачная, то независимо от модификаторов результат нулевой:
         # Атаки по бессознательным вблизи всегда дают критическое попадание.
-        if attack_throw >= crit_range or attack_dict['attack_range'] <= 5 and enemy_soldier.sleep:
+        if attack_throw >= crit_range\
+                or attack_dict['attack_range'] <= 5 and enemy_soldier.sleep\
+                or attack_dict['attack_range'] <= 5 and enemy_soldier.paralyzed:
             damage_throw = 0
             for throw in range(0, self.crit_multiplier):
                 damage_throw += dices.dice_throw_advantage(attack_dict['damage_dice'],

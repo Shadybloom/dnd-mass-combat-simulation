@@ -1755,6 +1755,7 @@ class battle_simulation(battlescape):
                             and not enemy_soldier.size == 'large'\
                             and not enemy_soldier.__dict__.get('air_walk')\
                             or 'grapple' in soldier.commands\
+                            or enemy_soldier.paralyzed\
                             or enemy_soldier.stunned\
                             or enemy_soldier.sleep:
                         wrestling_action = self.wrestling_action(soldier, squad,
@@ -2279,6 +2280,20 @@ class battle_simulation(battlescape):
                             ))
                     if not spell_dict.get('damage_dice'):
                         continue
+                if spell_dict.get('effect') == 'paralyze':
+                    paralyzed = enemy_soldier.set_paralyzed(
+                            spell_dict['spell_save_DC'], spell_dict['effect_timer'])
+                    if paralyzed:
+                        print('[+++] {side_1}, {c1} {s} PARALYZED >> {side_2} {c2} {e}'.format(
+                            side_1 = soldier.ally_side,
+                            c1 = soldier.place,
+                            s = soldier.behavior,
+                            side_2 = enemy_soldier.ally_side,
+                            c2 = enemy_soldier.place,
+                            e = enemy_soldier.behavior,
+                            ))
+                    if not spell_dict.get('damage_dice'):
+                        continue
                 elif spell_dict.get('effect') == 'sleep':
                     sleep = enemy_soldier.set_sleep(
                             spell_dict['spell_save_DC'], spell_dict['effect_timer'])
@@ -2429,7 +2444,10 @@ class battle_simulation(battlescape):
         # Ошеломлённый уязвим:
         if enemy_soldier.stunned:
             advantage = True
-        # Опутанный крайне уязвим:
+        # Парализованный уязвим:
+        if enemy_soldier.paralyzed:
+            advantage = True
+        # Опутанный уязвим:
         if enemy_soldier.restained == True:
             advantage = True
         # Упавшего легче поразить, но только вблизи:
