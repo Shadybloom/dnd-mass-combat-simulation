@@ -1618,6 +1618,7 @@ metadict_chars['Warrior 5 lvl (cavalry archer-captain)'] = {
 # Фракийцы.
 
 metadict_chars['Warrior 1 lvl (thracian infantry)'] = {
+    # Штурмовики
     # Щиты используют против лучников, но не в ближнем бою.
     'level':1,
     'char_class':'Warrior',
@@ -8978,6 +8979,133 @@ metadict_chars['Warrior 5 lvl (нейтрал) (бронзовый гоплит-
     #'mount_type':'Riding Horse',
     #'equipment_mount':{
     #    },
+    }
+
+#----
+# Нейтралы (армия) (ветераны Карагос):
+
+metadict_chars['Warrior 1 lvl (нейтрал) (пират Карагоса)'] = {
+    # Щиты используют против лучников, но не в ближнем бою.
+    'level':1,
+    'char_class':'Warrior',
+    'hit_dice':'1d8',
+    'behavior':'warrior',
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Hide Armor':1,
+        'Shield':1,
+        'Longsword':1,
+        'Shortbow':1,
+        'Arrow':40,
+        },
+    }
+
+metadict_chars['Warrior 2 lvl (нейтрал) (ветеран Карагоса)'] = {
+    # Штурмовики-ветераны
+    'level':2,
+    'char_class':'Warrior',
+    'hit_dice':'1d8',
+    'behavior':'elite_warrior',
+    'class_features':{
+        'Fighting_Style_Great_Weapon_Fighting':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Hide Armor':1,
+        'Shield':1,
+        'Shortsword':1,
+        'Glaive':1,
+        'Javelin':6,
+        },
+    }
+
+metadict_chars['Warrior 3 lvl (нейтрал) (сержант Карагоса)'] = {
+    'level':3,
+    'char_class':'Warrior',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Great_Weapon_Fighting':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Breastplate':1,
+        'Heavy Shield':1,
+        'Shortsword':1,
+        'Glaive':1,
+        'Javelin':6,
+        },
+    }
+
+metadict_chars['Warrior 4 lvl (нейтрал) (лейтенант Карагоса)'] = {
+    'level':4,
+    'char_class':'Warrior-officer',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Great_Weapon_Fighting':True,
+        'Feat_Inspiring_Leader':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':3,
+        'Half Plate':1,
+        'Heavy Shield':1,
+        'Shortsword':1,
+        'Glaive':1,
+        },
+    'mount_combat':False,
+    'mount_type':'Riding Horse',
+    'equipment_mount':{
+        },
+    }
+
+metadict_chars['Warrior 5 lvl (нейтрал) (капитан Карагоса)'] = {
+    'level':5,
+    'char_class':'Warrior-officer',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Great_Weapon_Fighting':True,
+        'Feat_Inspiring_Leader':True,
+        'Extra_Attack':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Rune of Absorbtion':1,
+        'Rune of Shielding':1,
+        'Half Plate':1,
+        'Heavy Shield':1,
+        'Shortsword':1,
+        'Glaive':1,
+        },
+    'mount_combat':False,
+    'mount_type':'Riding Horse',
+    'equipment_mount':{
+        },
     }
 
 #----
