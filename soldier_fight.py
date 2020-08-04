@@ -218,6 +218,9 @@ class soldier_in_battle(soldier):
         self.second_wind = False
         self.lay_on_hands = 0
         self.shield = False
+        # Словарь ранений (disabled)
+        if not hasattr(self, 'trophy_items_dict'):
+            self.traumas_dict = {}
         # Словарь трофеев:
         if not hasattr(self, 'trophy_items_dict'):
             self.trophy_items_dict = {}
@@ -269,6 +272,8 @@ class soldier_in_battle(soldier):
         # Павшие, покалеченые, захваченые в плен:
         if not hasattr(self, 'fall'):
             self.fall = False
+        if not hasattr(self, 'death'):
+            self.death = False
         if not hasattr(self, 'disabled'):
             self.disabled = False
         if not hasattr(self, 'captured'):
@@ -1505,7 +1510,7 @@ class soldier_in_battle(soldier):
             return True
         # Тяжелейшие ранения, если атака лишь чуть не убила бойца:
         elif self.hitpoints <= -(self.hitpoints_max / 2):
-            self.disabled = True
+            self.set_disabled()
         # Механизмы не бросают спасброски:
         if self.__dict__.get('mechanism') and not self.death:
             #self.death_save_success = 3
@@ -1542,6 +1547,46 @@ class soldier_in_battle(soldier):
                 self.hitpoints, self.hitpoints_max,
                 reaper_throw, self.death_save_success, self.death_save_loss,
                 self.stable, self.death))
+
+    def set_disabled(self, advantage = False, disadvantage = False):
+        """Тяжёлые раны калечат бойца.
+        
+        "Длительные травмы" из "Руководства мастера".
+        """
+        # Герои и офицеры реже получают серьёзные травмы.
+        if self.hero or self.level >= 3:
+            advantage = True
+        trauma_throw = dices.dice_throw_advantage('1d20', advantage, disadvantage)
+        dict_traumas = {
+                1:'Потеря глаза',
+                2:'Потеря руки или ладони',
+                3:'Потеря ноги или ступни',
+                4:'Хромота',
+                5:'Внутренняя травма',
+                6:'Внутренняя травма',
+                7:'Внутренняя травма',
+                8:'Сломанные рёбра',
+                9:'Сломанные рёбра',
+                10:'Сломанные рёбра',
+                11:'Ужасный шрам',
+                12:'Ужасный шрам',
+                13:'Ужасный шрам',
+                14:'Гноящаяся рана',
+                15:'Гноящаяся рана',
+                16:'Гноящаяся рана',
+                17:'Незначительный шрам',
+                18:'Незначительный шрам',
+                19:'Незначительный шрам',
+                20:'Незначительный шрам',
+                }
+        # Только травмы 1-10 лишают бойца боеспособности.
+        if trauma_throw <= 10:
+            self.disabled = True
+        trauma = dict_traumas[trauma_throw]
+        if not trauma in self.traumas_dict:
+            self.traumas_dict[trauma] = 1
+        elif trauma in self.traumas_dict:
+            self.traumas_dict[trauma] += 1
 
 # ----
 # Универсальная проверка спасброска.

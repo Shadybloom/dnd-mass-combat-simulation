@@ -8,6 +8,7 @@ import timeit
 import time
 import traceback
 import collections
+from collections import Counter
 # Парсер аргументов командной строки:
 import argparse
 
@@ -731,11 +732,11 @@ class battle_simulation(battlescape):
         for soldier in squad.metadict_soldiers.values():
             if soldier.hitpoints <= 0:
                 dict_casualty['fall'] += 1
-                if hasattr(soldier, 'death') and soldier.death == True:
+                if soldier.death:
                     dict_casualty['dead'] += 1
-                elif hasattr(soldier, 'disabled') and soldier.disabled == True:
+                elif soldier.disabled:
                     dict_casualty['disabled'] += 1
-                elif hasattr(soldier, 'captured') and soldier.captured == True:
+                elif soldier.captured:
                     dict_casualty['captured'] += 1
             elif soldier.escape:
                 dict_casualty['escape'] += 1
@@ -1854,7 +1855,7 @@ class battle_simulation(battlescape):
                     soldier.set_victory_and_enemy_defeat(enemy_soldier)
                     # Критический удар калечит цель:
                     if attack_result['crit'] and not 'unarmed' in soldier.commands:
-                        enemy_soldier.disabled = True
+                        enemy_soldier.set_disabled()
                     # Врага можно повязать за счёт боевого действия следующего раунда:
                     if 'enslave' in soldier.commands:
                         wrestling_action = self.wrestling_action(soldier, squad,
@@ -2091,7 +2092,7 @@ class battle_simulation(battlescape):
                     soldier.set_victory_and_enemy_defeat(enemy_soldier)
                     # Критический удар калечит цель:
                     if attack_result['crit']:
-                        enemy_soldier.disabled = True
+                        enemy_soldier.set_disabled()
                 # Убираем противника из списка целей и с карты:
                 if attack_result['fatal_hit']:
                     if 'kill' in soldier.commands:
@@ -2361,7 +2362,7 @@ class battle_simulation(battlescape):
                     soldier.set_victory_and_enemy_defeat(enemy_soldier)
                     # Критический удар калечит цель:
                     if attack_result['crit']:
-                        enemy_soldier.disabled = True
+                        enemy_soldier.set_disabled()
                 # Убираем противника из списка целей и с карты:
                 if attack_result['fatal_hit']:
                     if 'kill' in soldier.commands:
@@ -2841,6 +2842,11 @@ class battle_simulation(battlescape):
                         squad.drop_items_dict[item] = number
                     elif item in squad.drop_items_dict:
                         squad.drop_items_dict[item] += number
+            if not squad.__dict__.get('traumas_dict'):
+                squad.traumas_dict = {}
+            for soldier in squad.metadict_soldiers.values():
+                if not soldier.death:
+                    squad.traumas_dict = dict(Counter(squad.traumas_dict) + Counter(soldier.traumas_dict))
             #squad.drop_items_dict = OrderedDict(sorted(squad.drop_items_dict.items(),key=lambda x: x))
             # Трофеи:
             if not squad.__dict__.get('trophy_items_dict'):
@@ -2876,17 +2882,17 @@ class battle_simulation(battlescape):
             dict_capture = {}
             dict_fall = {}
             for soldier in squad.metadict_soldiers.values():
-                if hasattr(soldier, 'death') and soldier.death == True:
+                if soldier.death:
                     if not soldier.rank in dict_dead:
                         dict_dead[soldier.rank] = 1
                     elif soldier.rank in dict_dead:
                         dict_dead[soldier.rank] += 1
-                elif hasattr(soldier, 'disabled') and soldier.disabled == True:
+                elif soldier.disabled:
                     if not soldier.rank in dict_disabled:
                         dict_disabled[soldier.rank] = 1
                     elif soldier.rank in dict_disabled:
                         dict_disabled[soldier.rank] += 1
-                elif hasattr(soldier, 'captured') and soldier.captured == True:
+                elif soldier.captured:
                     if not soldier.rank in dict_capture:
                         dict_capture[soldier.rank] = 1
                     elif soldier.rank in dict_capture:
@@ -2918,6 +2924,8 @@ class battle_simulation(battlescape):
                 print('trophy:', squad.trophy_items_dict)
             if squad.drop_items_dict:
                 print('loss:', squad.drop_items_dict)
+            if squad.traumas_dict:
+                print('traumas:', squad.traumas_dict)
 
     def save_soldiers_to_database(self):
         """Сохраняем солдат в базу данных."""
