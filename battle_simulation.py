@@ -2838,25 +2838,21 @@ class battle_simulation(battlescape):
                 squad.drop_items_dict = {}
             for soldier in squad.metadict_soldiers.values():
                 for item, number in soldier.drop_items_dict.items():
-                    if not item in squad.drop_items_dict:
-                        squad.drop_items_dict[item] = number
-                    elif item in squad.drop_items_dict:
-                        squad.drop_items_dict[item] += number
-            if not squad.__dict__.get('traumas_dict'):
-                squad.traumas_dict = {}
-            for soldier in squad.metadict_soldiers.values():
-                if not soldier.death:
-                    squad.traumas_dict = dict(Counter(squad.traumas_dict) + Counter(soldier.traumas_dict))
-            #squad.drop_items_dict = OrderedDict(sorted(squad.drop_items_dict.items(),key=lambda x: x))
+                    squad.drop_items_dict = dict(Counter(squad.drop_items_dict)\
+                            + Counter(soldier.drop_items_dict))
             # Трофеи:
             if not squad.__dict__.get('trophy_items_dict'):
                 squad.trophy_items_dict = {}
             for soldier in squad.metadict_soldiers.values():
                 for item, number in soldier.trophy_items_dict.items():
-                    if not item in squad.trophy_items_dict:
-                        squad.trophy_items_dict[item] = number
-                    elif item in squad.trophy_items_dict:
-                        squad.trophy_items_dict[item] += number
+                    squad.trophy_items_dict = dict(Counter(squad.trophy_items_dict)\
+                            + Counter(soldier.trophy_items_dict))
+            # Травмы солдат:
+            if not squad.__dict__.get('traumas_dict'):
+                squad.traumas_dict = {}
+            for soldier in squad.metadict_soldiers.values():
+                if not soldier.death:
+                    squad.traumas_dict = dict(Counter(squad.traumas_dict) + Counter(soldier.traumas_dict))
             # Сумма хитпоинтов отряда:
             squad_hitpoints_max = sum([soldier.hitpoints_max for soldier\
                 in squad.metadict_soldiers.values()])
