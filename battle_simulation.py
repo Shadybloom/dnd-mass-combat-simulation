@@ -237,6 +237,7 @@ class battle_simulation(battlescape):
                                         and soldier.mount_uuid in squad.metadict_soldiers:
                                     mount = squad.metadict_soldiers[soldier.mount_uuid]
                                     mount_tuple = (squad.ally_side, mount.behavior, mount.uuid)
+                                    # TODO: размер ездового животного может быть и 'huge'
                                     # Лошади крупные создания, занимают 2x2 тайла:
                                     mount_place_field = self.point_to_field_2x2(spawn_point.place)
                                     for point in mount_place_field:
@@ -261,6 +262,13 @@ class battle_simulation(battlescape):
                                 # Большие существа занимают 2x2 тайла:
                                 elif soldier.size == 'large':
                                     soldier_place_field = self.point_to_field_2x2(spawn_point.place)
+                                    for point in soldier_place_field:
+                                        if point in self.dict_battlespace:
+                                            self.dict_battlespace[point].append(soldier_tuple)
+                                            self.dict_battlespace[point].append(squad.ally_side)
+                                            self.dict_battlespace[point].append('mount_height')
+                                elif soldier.size == 'huge':
+                                    soldier_place_field = self.point_to_field(spawn_point.place)
                                     for point in soldier_place_field:
                                         if point in self.dict_battlespace:
                                             self.dict_battlespace[point].append(soldier_tuple)
@@ -1186,6 +1194,17 @@ class battle_simulation(battlescape):
                     recon_near.update(self.recon(point, distance))
                     near_zone.extend(self.find_points_in_zone(point, distance))
             near_zone = list(set(near_zone))
+        elif soldier.size == 'huge':
+            soldier_tuple = (squad.ally_side, soldier.behavior, soldier.uuid)
+            soldier_place_field = self.point_to_field(soldier.place)
+            recon_near = {}
+            near_zone = []
+            for point in soldier_place_field:
+                if point in self.dict_battlespace and\
+                        soldier_tuple in self.dict_battlespace[point]:
+                    recon_near.update(self.recon(point, distance))
+                    near_zone.extend(self.find_points_in_zone(point, distance))
+            near_zone = list(set(near_zone))
         else:
             near_zone = self.find_points_in_zone(soldier.place, distance)
             recon_near = self.recon(soldier.place, distance)
@@ -1525,6 +1544,19 @@ class battle_simulation(battlescape):
                             self.dict_battlespace[point].append(soldier_tuple)
                             self.dict_battlespace[point].append('mount_height')
                     soldier.set_coordinates(destination)
+                elif soldier.size == 'huge':
+                    soldier_place_field = self.point_to_field(coordinates, 4)
+                    for point in soldier_place_field:
+                        if point in self.dict_battlespace\
+                                and soldier_tuple in self.dict_battlespace[point]:
+                            self.dict_battlespace[point].remove(el)
+                    #self.dict_battlespace[destination].append(soldier_tuple)
+                    destination_field = self.point_to_field(destination)
+                    for point in destination_field:
+                        if point in self.dict_battlespace and point != coordinates:
+                            self.dict_battlespace[point].append(soldier_tuple)
+                            self.dict_battlespace[point].append('mount_height')
+                    soldier.set_coordinates(destination)
                 # Добавляем эффекты движения:
                 # ------------------------------------------------------------
                 # Сделай универсальную функцию.
@@ -1753,6 +1785,7 @@ class battle_simulation(battlescape):
                 if attack_choice[0] == 'close' and not 'no_grapple' in soldier.commands:
                     if len(soldier.near_allies) > 2\
                             and len(soldier.near_enemies) == 1\
+                            and not enemy_soldier.size == 'huge'\
                             and not enemy_soldier.size == 'large'\
                             and not enemy_soldier.__dict__.get('air_walk')\
                             or 'grapple' in soldier.commands\

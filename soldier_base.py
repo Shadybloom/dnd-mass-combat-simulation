@@ -579,8 +579,13 @@ class soldier():
         light_load = self.abilityes['strength'] * 2.5
         normal_load = self.abilityes['strength'] * 5
         maximum_load = self.abilityes['strength'] * 10
+        # Великаны переносят вчетверо больше средних существ:
+        if self.size == 'huge':
+            light_load *= 4
+            normal_load *= 4
+            maximum_load *= 4
         # Для крупных существ переносимый вес удваивается:
-        if self.size == 'large':
+        elif self.size == 'large':
             light_load *= 2
             normal_load *= 2
             maximum_load *= 2
@@ -1238,10 +1243,15 @@ class soldier():
         Функция модифицирует одну атаку. Группы с помощью modify_attacks.
         """
         class_features = self.class_features
+        # Исправляем, если не указано:
+        if not dict_attack.get('weapon_type'):
+            dict_attack['weapon_type'] = []
+        if not dict_attack.get('weapon_skills_use'):
+            dict_attack['weapon_skills_use'] = []
         # Дополняем/изменяем модификаторы в зависимости от способностей:
-        attack_mod = dict_attack['attack_mod']
+        attack_mod = dict_attack.get('attack_mod', 0)
         attack_mod_type = dict_attack['attack_mod_type']
-        damage_mod = dict_attack['damage_mod']
+        damage_mod = dict_attack.get('damage_mod', 0)
         damage_dice = dict_attack['damage_dice']
         weapon_type_list = dict_attack['weapon_type']
         weapon_skills_use = dict_attack['weapon_skills_use']
@@ -1251,6 +1261,12 @@ class soldier():
                 and not 'large_size_x2_damage_dice' in weapon_skills_use:
             weapon_skills_use.append('large_size_x2_damage_dice')
             dice = int(damage_dice[0]) * 2
+            damage_dice = str(dice) + damage_dice[1:]
+        elif self.size == 'huge'\
+                and dict_attack.get('weapon')\
+                and not 'huge_size_x3_damage_dice' in weapon_skills_use:
+            weapon_skills_use.append('huge_size_x3_damage_dice')
+            dice = int(damage_dice[0]) * 3
             damage_dice = str(dice) + damage_dice[1:]
         # Оружие с тегом versatile можно использовать как двуручное, если нет щита:
         if not self.armor['shield_use'] and 'damage_dice_versatile' in dict_attack:
