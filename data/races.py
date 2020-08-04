@@ -34,6 +34,16 @@ dict_races = {
             'weight_base_lb':210,
             'weight_mod_dice':'2d4',
             },
+        'Humanoid-huge':{
+            # TODO: холмовые великаны. Какой там у них рост?
+            'hero':False,
+            'size':'huge',
+            'base_speed':40,
+            'height_base_inches':6 * 12 + 8,
+            'height_mod_dice':'2d10',
+            'weight_base_lb':210,
+            'weight_mod_dice':'2d4',
+            },
         'Human-undead':{
             'hero':False,
             'unholy':True,

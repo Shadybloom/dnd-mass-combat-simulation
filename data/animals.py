@@ -1713,6 +1713,380 @@ metadict_animals['Earth Elemental (CR 5)'] = {
     }
 
 #----
+# Гиганты. Великаны из Monsters_Manual:
+
+metadict_animals['Hill Giant (CR 5)'] = {
+    # Холмовой великан
+    'level':10,
+    'seeker_AI':True,
+    'fearless_AI':True,
+    'no_grappler_AI':True,
+    'armor_class_natural':14,
+    'challenge_rating':'5',
+    'hitpoints_medial':True,
+    'char_class':'Warrior',
+    'behavior':'commander',
+    'class_features':{
+        'Extra_Attack':True,
+        },
+    'abilityes':{
+        'strength':21,
+        'dexterity':8,
+        'constitution':19,
+        'intelligence':5,
+        'wisdom':9,
+        'charisma':6,
+        },
+    'hit_dice':'1d12',
+    # TODO: делай атаки через свойства оружия.
+    # - у него 10-футовая досягаемость атак. 'reach' атака дубиной.
+    # - лучше бы сделать метательный булыжник для великанов.
+    'attacks':{
+        ('reach', 'Greatclub'): {
+            'attack_mod':8,
+            'damage_mod':5,
+            'weapon': False,
+            'weapon_type':['simple','reach','siege'],
+            'damage_type':'bludgeoning',
+            'damage_dice':'3d8',
+            'attack_range':10,
+            'attack_type':'reach',
+            'weapon_skills_use': ['simple'],
+            'attack_mod_type':'strength',
+            'weapon_of_choice':'Greatclub'
+            },
+        ('throw', 'Boulder (50 lb)'): {
+            'attack_mod':8,
+            'damage_mod':5,
+            'weapon': False,
+            'weapon_type':['simple','throw','siege'],
+            'damage_type':'bludgeoning',
+            'damage_dice':'3d10',
+            'attack_range':60,
+            'attack_range_max':240,
+            'attack_type':'throw',
+            'weapon_skills_use': ['simple'],
+            'attack_mod_type':'strength',
+            'ammo':6,
+            'ammo_type':'Boulder (50 lb)',
+            'weapon_of_choice':'Boulder (50 lb)'
+            },
+        },
+    'race':'Humanoid-huge',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':{},
+    'equipment_backpack':{},
+    'equipment_weapon':{
+        'Greatclub':1,
+        'Boulder (50 lb)':6,
+        },
+    }
+
+metadict_animals['Stone Giant (CR 7)'] = {
+    # Каменный великан
+    'level':11,
+    'seeker_AI':True,
+    'fearless_AI':True,
+    'no_grappler_AI':True,
+    'armor_class_natural':15,
+    'challenge_rating':'7',
+    'hitpoints_medial':True,
+    'char_class':'Warrior',
+    'behavior':'commander',
+    'class_features':{
+        'Extra_Attack':True,
+        'Stone_Camouflage':True,
+        'Darkvision':60,
+        },
+    'abilityes':{
+        'strength':23,
+        'dexterity':15,
+        'constitution':20,
+        'intelligence':10,
+        'wisdom':12,
+        'charisma':9,
+        },
+    'hit_dice':'1d12',
+    'attacks':{
+        ('reach', 'Greatclub'): {
+            'attack_mod':9,
+            'damage_mod':6,
+            'weapon': False,
+            'weapon_type':['simple','reach','siege'],
+            'damage_type':'bludgeoning',
+            'damage_dice':'3d8',
+            'attack_range':10,
+            'attack_type':'reach',
+            'weapon_skills_use': ['simple'],
+            'attack_mod_type':'strength',
+            'weapon_of_choice':'Greatclub'
+            },
+        ('throw', 'Boulder (50 lb)'): {
+            # TODO: сбивает с ног, СЛ 17
+            # Сделано через 'prone', но там состязание вместо СЛ.
+            'attack_mod':9,
+            'damage_mod':6,
+            'weapon': False,
+            'weapon_type':['simple','throw','siege','prone'],
+            'damage_type':'bludgeoning',
+            'damage_dice':'3d10',
+            'attack_range':60,
+            'attack_range_max':240,
+            'attack_type':'throw',
+            'weapon_skills_use': ['simple'],
+            'attack_mod_type':'strength',
+            'ammo':6,
+            'ammo_type':'Boulder (50 lb)',
+            'weapon_of_choice':'Boulder (50 lb)'
+            },
+        },
+    'race':'Humanoid-huge',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':{},
+    'equipment_backpack':{},
+    'equipment_weapon':{
+        'Greatclub':1,
+        'Boulder (50 lb)':6,
+        },
+    }
+
+metadict_animals['Frost Giant (CR 8)'] = {
+    # Ледяной великан, морозный гигант.
+    'level':12,
+    'seeker_AI':True,
+    'fearless_AI':True,
+    'no_grappler_AI':True,
+    'armor_class_natural':16,
+    'challenge_rating':'8',
+    'hitpoints_medial':True,
+    'char_class':'Warrior',
+    'behavior':'commander',
+    'class_features':{
+        # TODO: сделай Immuniy
+        'Extra_Attack':True,
+        'Immuniy':['cold'],
+        },
+    'abilityes':{
+        'strength':23,
+        'dexterity':9,
+        'constitution':21,
+        'intelligence':9,
+        'wisdom':10,
+        'charisma':12,
+        },
+    'hit_dice':'1d12',
+    'attacks':{
+        ('reach', 'Greataxe'): {
+            'attack_mod':9,
+            'damage_mod':6,
+            'weapon': False,
+            'weapon_type':['martial','reach','siege'],
+            'damage_type':'slashing',
+            'damage_dice':'3d12',
+            'attack_range':10,
+            'attack_type':'reach',
+            'weapon_skills_use': ['martial'],
+            'attack_mod_type':'strength',
+            'weapon_of_choice':'Greataxe'
+            },
+        ('throw', 'Boulder (50 lb)'): {
+            'attack_mod':9,
+            'damage_mod':6,
+            'weapon': False,
+            'weapon_type':['simple','throw','siege'],
+            'damage_type':'bludgeoning',
+            'damage_dice':'4d10',
+            'attack_range':60,
+            'attack_range_max':240,
+            'attack_type':'throw',
+            'weapon_skills_use': ['simple'],
+            'attack_mod_type':'strength',
+            'ammo':6,
+            'ammo_type':'Boulder (50 lb)',
+            'weapon_of_choice':'Boulder (50 lb)'
+            },
+        },
+    'race':'Humanoid-huge',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':{},
+    'equipment_backpack':{},
+    'equipment_weapon':{
+        'Greataxe':1,
+        'Boulder (50 lb)':6,
+        },
+    }
+
+metadict_animals['Fire Giant (CR 9)'] = {
+    # Огненный великан.
+    'level':13,
+    'seeker_AI':True,
+    'fearless_AI':True,
+    'no_grappler_AI':True,
+    #'armor_class_natural':16,
+    'challenge_rating':'9',
+    'hitpoints_medial':True,
+    'char_class':'Warrior',
+    'behavior':'commander',
+    'class_features':{
+        # TODO: сделай Immuniy
+        'Extra_Attack':True,
+        'Immuniy':['fire'],
+        },
+    'abilityes':{
+        'strength':25,
+        'dexterity':9,
+        'constitution':23,
+        'intelligence':10,
+        'wisdom':14,
+        'charisma':13,
+        },
+    'hit_dice':'1d12',
+    'attacks':{
+        ('reach', 'Greatsword'): {
+            'attack_mod':11,
+            'damage_mod':7,
+            'weapon': False,
+            'weapon_type':['martial','reach','siege'],
+            'damage_type':'slashing',
+            'damage_dice':'6d6',
+            'attack_range':10,
+            'attack_type':'reach',
+            'weapon_skills_use': ['martial'],
+            'attack_mod_type':'strength',
+            'weapon_of_choice':'Greatsword'
+            },
+        ('throw', 'Boulder (50 lb)'): {
+            'attack_mod':11,
+            'damage_mod':7,
+            'weapon': False,
+            'weapon_type':['simple','throw','siege'],
+            'damage_type':'bludgeoning',
+            'damage_dice':'4d10',
+            'attack_range':60,
+            'attack_range_max':240,
+            'attack_type':'throw',
+            'weapon_skills_use': ['simple'],
+            'attack_mod_type':'strength',
+            'ammo':6,
+            'ammo_type':'Boulder (50 lb)',
+            'weapon_of_choice':'Boulder (50 lb)'
+            },
+        },
+    'race':'Humanoid-huge',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':{},
+    'equipment_backpack':{},
+    'equipment_weapon':{
+        'Greatsword':1,
+        'Plate Armor':1,
+        'Boulder (50 lb)':6,
+        },
+    }
+
+metadict_animals['Storm Giant (CR 13)'] = {
+    # Штормовой великан.
+    'level':20,
+    'archer_AI':True,
+    'fearless_AI':True,
+    'no_grappler_AI':True,
+    #'armor_class_natural':16,
+    'challenge_rating':'13',
+    'hitpoints_medial':True,
+    'char_class':'Warrior',
+    'behavior':'commander',
+    'class_features':{
+        # TODO: сделай Immuniy
+        'Extra_Attack':True,
+        'Immuniy':['lightning','thunder'],
+        'Recharge':True,
+        'Recharge_dice':'1d6',
+        'Recharge_numbers':[5,6],
+        },
+    'abilityes':{
+        'strength':29,
+        'dexterity':14,
+        'constitution':20,
+        'intelligence':16,
+        'wisdom':18,
+        'charisma':18,
+        },
+    'hit_dice':'1d12',
+    'attacks':{
+        ('reach', 'Greatsword'): {
+            'attack_mod':14,
+            'damage_mod':9,
+            'weapon': False,
+            'weapon_type':['martial','reach','siege'],
+            'damage_type':'slashing',
+            'damage_dice':'6d6',
+            'attack_range':10,
+            'attack_type':'reach',
+            'weapon_skills_use': ['martial'],
+            'attack_mod_type':'strength',
+            'weapon_of_choice':'Greatsword'
+            },
+        ('throw', 'Boulder (50 lb)'): {
+            'attack_mod':14,
+            'damage_mod':9,
+            'weapon': False,
+            'weapon_type':['simple','throw','siege'],
+            'damage_type':'bludgeoning',
+            'damage_dice':'4d12',
+            'attack_range':60,
+            'attack_range_max':240,
+            'attack_type':'throw',
+            'weapon_skills_use': ['simple'],
+            'attack_mod_type':'strength',
+            'ammo':6,
+            'ammo_type':'Boulder (50 lb)',
+            'weapon_of_choice':'Lightning'
+            },
+        ('throw', 'Lightning'): {
+            'weapon': False,
+            'direct_hit':True,
+            'weapon_type':['simple','throw'],
+            'spell_dict':{
+                    'zone':True,
+                    'radius':15,
+                    'direct_hit':True,
+                    'savethrow':True,
+                    'savethrow_ability':'dexterity',
+                    'attacks_number':1,
+                    'attack_range':500,
+                    'damage_type':'lightning',
+                    'damage_dice':'12d8',
+                    'casting_time':'action',
+                    'spell_level':3,
+                    'spell_save_DC':17,
+                    'spell_choice':('storm','Lightning'),
+                    },
+            'damage_type':'lightning',
+            'damage_dice':'0d0',
+            'ammo':1,
+            'attack_range':500,
+            'attack_range_max':500,
+            'weapon_skills_use': ['simple'],
+            'attack_mod_type':'strength',
+            'weapon_of_choice':'Lightning'
+            },
+        },
+    'race':'Humanoid-huge',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':{},
+    'equipment_backpack':{},
+    'equipment_weapon':{
+        'Greatsword':1,
+        'Scale Mail':1,
+        'Boulder (50 lb)':6,
+        },
+    }
+
+#----
 # Гоблиноиды из Monsters_Manual:
 
 metadict_animals['Goblin (CR 1/4)'] = {

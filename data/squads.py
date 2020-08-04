@@ -867,6 +867,35 @@ metadict_squads['Company-dummy (orks)'] = {
     'Ork war chief (CR 4)':1,
     }
 
+metadict_squads['Squad-dummy (hill giants)'] = {
+    # Холмовые великаны
+    'Hill Giant (CR 5)':6,
+    }
+
+metadict_squads['Squad-dummy (stone giants)'] = {
+    # Каменные великаны
+    'Stone Giant (CR 7)':6,
+    }
+
+metadict_squads['Squad-dummy (frost giants)'] = {
+    # Ледяные великаны
+    'Frost Giant (CR 8)':6,
+    }
+
+metadict_squads['Squad-dummy (fire giants)'] = {
+    # Огненные великаны
+    'Fire Giant (CR 9)':6,
+    }
+
+metadict_squads['Squad-dummy (storm giants)'] = {
+    # Штормовые великаны
+    'Storm Giant (CR 13)':6,
+    }
+
+metadict_squads['Band-dummy (storm giant)'] = {
+    'Storm Giant (CR 13)':1,
+    }
+
 #----
 # Отряды:
 

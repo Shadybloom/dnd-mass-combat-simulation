@@ -165,6 +165,16 @@ metadict_items['Club'] = {
     'cost (grams_of_gold)':1 / 60,
     }
 
+metadict_items['Greatclub'] = {
+    'weapon':True,
+    'weapon_type':['simple','close','two_handed'],
+    'damage_type':'bludgeoning',
+    'damage_dice':'1d8',
+    'weight (lb)':10,
+    'cost (sp)':1,
+    'cost (grams_of_gold)':1 / 60,
+    }
+
 metadict_items['Dagger'] = {
     # Пугио, скрамасакс, паразониум (по-гречески, "на поясе")
     # https://ru.wikipedia.org/wiki/Пугио
