@@ -2308,6 +2308,115 @@ metadict_chars['Warrior 5 lvl (mercenary heavy-infantry-captain)'] = {
 #----
 # Вспомогательные войска, инженеры.
 
+metadict_chars['Warrior 2 lvl (siege engineer-apprentice) (trebuchet-light)'] = {
+    'level':2,
+    'char_class':'Warrior-bowman',
+    'hit_dice':'1d8',
+    'behavior':'archer',
+    'class_features':{
+        'Fighting_Style_Archery':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Chain Shirt':1,
+        'Shield':1,
+        'Shortsword':1,
+        'Trebuchet, Light':1,
+        'Sling Bullets (x25)':100,
+        #'Boulder (25 lb)':100,
+        #'Boulder (10 lb)':100,
+        },
+    'mount_combat':True,
+    'mount_type':'Onager',
+    'equipment_mount':{
+        },
+    }
+
+metadict_chars['Warrior 2 lvl (siege engineer-apprentice) (trebuchet-heavy)'] = {
+    'level':2,
+    'char_class':'Warrior-bowman',
+    'hit_dice':'1d8',
+    'behavior':'archer',
+    'class_features':{
+        'Fighting_Style_Archery':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Chain Shirt':1,
+        'Shield':1,
+        'Shortsword':1,
+        'Trebuchet, Heavy':1,
+        'Boulder (200 lb)':100,
+        },
+    'mount_combat':True,
+    'mount_type':'Onager',
+    'equipment_mount':{
+        },
+    }
+
+metadict_chars['Warrior 2 lvl (siege engineer-apprentice) (ballista-siege)'] = {
+    'level':2,
+    'char_class':'Warrior-bowman',
+    'hit_dice':'1d8',
+    'behavior':'archer',
+    'class_features':{
+        'Fighting_Style_Archery':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Chain Shirt':1,
+        'Shield':1,
+        'Shortsword':1,
+        'Ballista, Heavy':1,
+        'Boulder (50 lb)':100,
+        },
+    'mount_combat':True,
+    'mount_type':'Onager',
+    'equipment_mount':{
+        },
+    }
+
+metadict_chars['Warrior 2 lvl (siege engineer-apprentice) (ballista-medium)'] = {
+    'level':2,
+    'char_class':'Warrior-bowman',
+    'hit_dice':'1d8',
+    'behavior':'archer',
+    'class_features':{
+        'Fighting_Style_Archery':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Chain Shirt':1,
+        'Shield':1,
+        'Shortsword':1,
+        'Ballista, Medium':1,
+        #'Ballista Bolt (1 lb)':100,
+        #'Ballista Bolt (5 lb)':100,
+        #'Ballista Bolt (25 lb)':100,
+        'Alchemist\'s Fire (10/25 lb)':100,
+        },
+    'mount_combat':True,
+    'mount_type':'Onager',
+    'equipment_mount':{
+        },
+    }
+
 metadict_chars['Warrior 2 lvl (siege engineer-apprentice) (onager-siege)'] = {
     'level':2,
     'char_class':'Warrior-bowman',
@@ -2322,10 +2431,10 @@ metadict_chars['Warrior 2 lvl (siege engineer-apprentice) (onager-siege)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Breastplate':1,
+        'Chain Shirt':1,
         'Shield':1,
         'Shortsword':1,
-        'Catapult':1,
+        'Onager':1,
         'Boulder (50 lb)':100,
         },
     'mount_combat':True,
@@ -2348,11 +2457,11 @@ metadict_chars['Warrior 2 lvl (siege engineer-apprentice) (onager-fire)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Breastplate':1,
+        'Chain Shirt':1,
         'Shield':1,
         'Shortsword':1,
-        'Catapult':1,
-        'Alchemist\'s Fire (25 lb)':10,
+        'Onager':1,
+        'Alchemist\'s Fire (25/50 lb)':10,
         },
     'mount_combat':True,
     'mount_type':'Onager',
@@ -10013,6 +10122,7 @@ metadict_chars['Warrior 5 lvl (друг) (капитан Илиона)'] = {
     }
 
 metadict_chars['Commoner 1 lvl (друг) (пращник Илиона)'] = {
+    # Пращники Илиона
     'level':1,
     'char_class':'Commoner',
     'behavior':'archer',
@@ -10027,8 +10137,8 @@ metadict_chars['Commoner 1 lvl (друг) (пращник Илиона)'] = {
         'Shield':1,
         'Dagger':1,
         'Sling real':1,
-        'Holy Bullet':10,
-        #'Lead Bullet':10,
+        #'Holy Bullet':10,
+        'Lead Bullet':10,
         #'Sling Bullet':10,
         },
     }
@@ -10048,8 +10158,8 @@ metadict_chars['Commoner 2 lvl (друг) (ветеран пращников И�
         'Shield':1,
         'Dagger':1,
         'Sling real':1,
-        'Holy Bullet':10,
-        #'Lead Bullet':10,
+        #'Holy Bullet':10,
+        'Lead Bullet':10,
         #'Sling Bullet':10,
         },
     }
@@ -10077,8 +10187,8 @@ metadict_chars['Warrior 3 lvl (друг) (сержант пращников Ил
         'Shield':1,
         'Shortsword':1,
         'Sling real':1,
-        'Holy Bullet':10,
-        #'Lead Bullet':10,
+        #'Holy Bullet':10,
+        'Lead Bullet':10,
         #'Sling Bullet':10,
         },
     }

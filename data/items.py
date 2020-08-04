@@ -31,9 +31,20 @@ blade_poisons = [
 
 catapult_shells = [
         # Боеприпасы катапульт, онагров, требуше:
+        'Ballista Bolt (0.2 lb)',
+        'Ballista Bolt (1 lb)',
+        'Ballista Bolt (5 lb)',
+        'Ballista Bolt (25 lb)',
+        'Sling Bullets (x10)',
+        'Sling Bullets (x25)',
+        'Boulder (10 lb)',
+        'Boulder (25 lb)',
         'Boulder (50 lb)',
-        'Alchemist\'s Fire (25 lb)',
-        'Alchemist\'s Fire (100 lb)',
+        'Boulder (100 lb)',
+        'Boulder (200 lb)',
+        'Alchemist\'s Fire (10/25 lb)',
+        'Alchemist\'s Fire (25/50 lb)',
+        'Alchemist\'s Fire (100/200 lb)',
         ]
 
 longbow_arrows = [
@@ -1549,141 +1560,112 @@ metadict_items['Longbow +1'] = {
 #----
 # Artillery, осадное вооружение
 
-metadict_items['Catapult'] = {
-    # Онагр, Onager
+metadict_items['Trebuchet, Heavy'] = {
+    'weapon':True,
+    'ammo_type':catapult_shells,
+    'weapon_type':['martial','volley'],
+    'shoot_range':150,
+    'shoot_range_max':1200,
+    'weight (lb)':12000,
+    'cost (gp)':8 * 60,
+    'cost (grams_of_gold)':8 * 60,
+    }
+
+metadict_items['Trebuchet, Light'] = {
+    # Лёгкий требушет, мангонон
+    'weapon':True,
+    'ammo_type':catapult_shells,
+    'weapon_type':['martial','volley'],
+    'shoot_range':150,
+    'shoot_range_max':600,
+    'weight (lb)':1200,
+    'cost (gp)':1 * 2,
+    'cost (grams_of_gold)':1 * 2,
+    }
+
+metadict_items['Onager'] = {
+    # Онагр, монанкон (греческий)
+    # Стреляет только навесом.
+    'weapon':True,
+    'ammo_type':catapult_shells,
+    'weapon_type':['martial','volley'],
+    'shoot_range':150,
+    'shoot_range_max':600,
+    'weight (lb)':4000,
+    'cost (gp)':16 * 60,
+    'cost (grams_of_gold)':16 * 60,
+    }
+
+metadict_items['Ballista, Heavy'] = {
+    # Тяжёлая баллиста
+    'weapon':True,
+    'ammo_type':catapult_shells,
+    'weapon_type':['martial','ranged','volley'],
+    'shoot_range':300,
+    'shoot_range_max':1200,
+    'weight (lb)':12000,
+    'cost (gp)':40 * 60,
+    'cost (grams_of_gold)':40 * 60,
+    }
+
+metadict_items['Ballista, Medium'] = {
+    # Средняя баллиста
+    'weapon':True,
+    'ammo_type':catapult_shells,
+    'weapon_type':['martial','ranged','volley'],
+    'shoot_range':300,
+    'shoot_range_max':1200,
+    'weight (lb)':1200,
+    'cost (gp)':8 * 60,
+    'cost (grams_of_gold)':8 * 60,
+    }
+
+metadict_items['Ballista, Light'] = {
+    # Лёгкая баллиста, Карробаллиста
     'weapon':True,
     'ammo_type':catapult_shells,
     'weapon_type':['martial','ranged','volley'],
     'shoot_range':150,
     'shoot_range_max':600,
-    'weight (lb)':4000,
-    'cost (gp)':12 * 60,
-    'cost (grams_of_gold)':12 * 60,
-    }
-
-metadict_items['Trap (Boulders)'] = {
-    'weapon':True,
-    'direct_hit':True,
-    'ammo_type':'Boulders',
-    'weapon_type':['martial','volley','artillery','burning_shell'],
-    'spell_dict':{
-            'zone':True,
-            #'zone_shape':'2x2',
-            #'zone_shape':'square',
-            'direct_hit':True,
-            'savethrow':True,
-            'savethrow_ability':'dexterity',
-            'attacks_number':1,
-            'attack_range':600,
-            'radius':15,
-            'damage_type':'bludgeoning',
-            'damage_dice':'3d6',
-            'components':[],
-            'casting_time':'action',
-            'damage_mod':0,
-            'spell_level':1,
-            'spell_save_DC':15,
-            'spell_choice':('explosion','Boulders'),
-            #'spell_of_choice':'Burning_Hands',
-            },
-    'damage_type':'bludgeoning',
-    'damage_dice':'0d0',
-    'shoot_range':150,
-    'shoot_range_max':600,
-    'weight (lb)':4000,
-    'cost (gp)':60,
-    'cost (grams_of_gold)':60,
-    }
-
-metadict_items['Trap (fire)'] = {
-    'weapon':True,
-    'direct_hit':True,
-    'savethrow':True,
-    #'savethrow_all':True,
-    'ammo_type':'Alchemist\'s Fire (100 lb)',
-    'weapon_type':['martial','volley','artillery','burning_shell'],
-    'spell_dict':{
-            'zone':True,
-            #'zone_shape':'2x2',
-            #'zone_shape':'square',
-            'direct_hit':True,
-            'savethrow':True,
-            'savethrow_ability':'dexterity',
-            'attacks_number':1,
-            'attack_range':600,
-            'radius':15,
-            'damage_type':'fire',
-            'damage_dice':'3d6',
-            'components':[],
-            'casting_time':'action',
-            'damage_mod':0,
-            'spell_level':1,
-            'spell_save_DC':15,
-            'spell_choice':('explosion','Alchemist\'s Fire'),
-            #'spell_of_choice':'Burning_Hands',
-            },
-    'damage_type':'fire',
-    'damage_dice':'6d6',
-    'shoot_range':150,
-    'shoot_range_max':600,
-    'weight (lb)':4000,
-    'cost (gp)':60,
-    'cost (grams_of_gold)':60,
-    }
-
-metadict_items['Glyph (lightning)'] = {
-    'weapon':True,
-    'direct_hit':True,
-    'ammo_type':'Glyph',
-    'weapon_type':['martial','volley','artillery','burning_shell'],
-    'spell_dict':{
-            'zone':True,
-            #'zone_shape':'2x2',
-            #'zone_shape':'square',
-            'direct_hit':True,
-            'savethrow':True,
-            'savethrow_ability':'dexterity',
-            'attacks_number':1,
-            'attack_range':600,
-            'radius':25,
-            'damage_type':'lightning',
-            'damage_dice':'5d8',
-            'components':[],
-            'casting_time':'action',
-            'damage_mod':0,
-            'spell_level':3,
-            'spell_save_DC':15,
-            'spell_choice':('glyph_of_warding','Lightning'),
-            #'spell_of_choice':'Burning_Hands',
-            },
-    'damage_type':'bludgeoning',
-    'damage_dice':'0d0',
-    'shoot_range':150,
-    'shoot_range_max':600,
-    'weight (lb)':4000,
-    'cost (gp)':60,
-    'cost (grams_of_gold)':60,
-    }
-
-metadict_items['Glyph'] = {
-    'ammo':True,
-    'weight (lb)':1,
-    'cost (gp)':240,
-    'cost (grams_of_gold)':240,
-    }
-
-metadict_items['Boulders'] = {
-    'ammo':True,
-    'weight (lb)':2000,
-    'cost (gp)':0.01,
-    'cost (grams_of_gold)':0.01,
+    'weight (lb)':400,
+    'cost (gp)':4 * 60,
+    'cost (grams_of_gold)':4 * 60,
     }
 
 #-------------------------------------------------------------------------
-# Боеприпасы (снаряды катапульт)
+# Боеприпасы (снаряды катапульт), catapult_shells
+
+metadict_items['Boulder (200 lb)'] = {
+    'ammo':True,
+    'direct_hit':True,
+    'savethrow':True,
+    'savethrow_all':True,
+    'savethrow_ability':'dexterity',
+    'weapon_type':['siege'],
+    'damage_type':'bludgeoning',
+    'damage_dice':'8d10',
+    'weight (lb)':200,
+    'cost (gp)':10/60,
+    'cost (grams_of_gold)':10/60,
+    }
+
+metadict_items['Boulder (100 lb)'] = {
+    'ammo':True,
+    'direct_hit':True,
+    'savethrow':True,
+    'savethrow_all':True,
+    'savethrow_ability':'dexterity',
+    'weapon_type':['siege'],
+    'damage_type':'bludgeoning',
+    'damage_dice':'5d10',
+    'weight (lb)':100,
+    'cost (gp)':10/60,
+    'cost (grams_of_gold)':10/60,
+    }
 
 metadict_items['Boulder (50 lb)'] = {
     # Каменное ядро. Талант веса (26 кг)
+    # Обработка камня до круглой формы -- 6-8 часов.
     'ammo':True,
     #'direct_hit':True,
     #'savethrow':True,
@@ -1697,12 +1679,141 @@ metadict_items['Boulder (50 lb)'] = {
     'cost (grams_of_gold)':10/60,
     }
 
-metadict_items['Alchemist\'s Fire (25 lb)'] = {
+metadict_items['Boulder (25 lb)'] = {
+    'ammo':True,
+    #'direct_hit':True,
+    #'savethrow':True,
+    #'savethrow_all':True,
+    #'savethrow_ability':'dexterity',
+    'damage_type':'bludgeoning',
+    'damage_dice':'2d10',
+    'weight (lb)':25,
+    'cost (gp)':10/60,
+    'cost (grams_of_gold)':10/60,
+    }
+
+metadict_items['Boulder (10 lb)'] = {
+    'ammo':True,
+    #'direct_hit':True,
+    #'savethrow':True,
+    #'savethrow_all':True,
+    #'savethrow_ability':'dexterity',
+    'damage_type':'bludgeoning',
+    'damage_dice':'1d10',
+    'weight (lb)':25,
+    'cost (gp)':10/60,
+    'cost (grams_of_gold)':10/60,
+    }
+
+metadict_items['Sling Bullets (x10)'] = {
+    'ammo':True,
+    'direct_hit':True,
+    'spell_dict':{
+            'zone':True,
+            'radius':10,
+            'attack_mod':0,
+            'attack_range':5,
+            'damage_mod':0,
+            'damage_type':'bludgeoning',
+            'damage_dice':'1d4',
+            'spell_choice':('volley','Sling Bullet'),
+            },
+    'damage_type':'bludgeoning',
+    'damage_dice':'0d0',
+    'weight (lb)':25,
+    'cost (gp)':10/60,
+    'cost (grams_of_gold)':10/60,
+    }
+
+metadict_items['Sling Bullets (x25)'] = {
+    'ammo':True,
+    'direct_hit':True,
+    'spell_dict':{
+            'zone':True,
+            'radius':15,
+            'attack_mod':0,
+            'attack_range':5,
+            'damage_mod':0,
+            'damage_type':'bludgeoning',
+            'damage_dice':'1d4',
+            'spell_choice':('volley','Sling Bullet'),
+            },
+    'damage_type':'bludgeoning',
+    'damage_dice':'0d0',
+    'weight (lb)':25,
+    'cost (gp)':10/60,
+    'cost (grams_of_gold)':10/60,
+    }
+
+metadict_items['Ballista Bolt (25 lb)'] = {
+    'ammo':True,
+    'damage_type':'piercing',
+    'damage_dice':'3d10',
+    'weight (lb)':25,
+    'cost (gp)':60 / 60,
+    'cost (grams_of_gold)':60 / 60,
+    }
+
+metadict_items['Ballista Bolt (5 lb)'] = {
+    'ammo':True,
+    'damage_type':'piercing',
+    'damage_dice':'3d6',
+    'weight (lb)':5,
+    'cost (gp)':30 / 60,
+    'cost (grams_of_gold)':30 / 60,
+    }
+
+metadict_items['Ballista Bolt (1 lb)'] = {
+    'ammo':True,
+    'damage_type':'piercing',
+    'damage_dice':'2d6',
+    'weight (lb)':1,
+    'cost (gp)':10 / 60,
+    'cost (grams_of_gold)':10 / 60,
+    }
+
+metadict_items['Ballista Bolt (0.2 lb)'] = {
+    # Снаряд полибола: 0.2 lb (90 м/с, 600 футов)
+    'ammo':True,
+    'damage_dice':'1d6',
+    'damage_type':'piercing',
+    'weight (lb)':4/20,
+    'cost (gp)':1/20,
+    'cost (grams_of_gold)':4 / 60,
+    }
+
+metadict_items['Alchemist\'s Fire (100/200 lb)'] = {
+    # Для тяжёлого требушета
     'ammo':True,
     'direct_hit':True,
     'savethrow':True,
     'savethrow_ability':'dexterity',
-    'damage_dice':'2d10',
+    'damage_dice':'8d6',
+    'damage_type':'fire',
+    'spell_dict':{
+            'zone':True,
+            'radius':20,
+            'direct_hit':True,
+            'savethrow':True,
+            'savethrow_ability':'dexterity',
+            'attacks_number':1,
+            'attack_range':600,
+            'damage_type':'fire',
+            'damage_dice':'2d6',
+            'spell_save_DC':15,
+            'spell_choice':('Explosion','Alchemist\'s Fire'),
+            },
+    'weight (lb)':200,
+    'cost (gp)':60,
+    'cost (grams_of_gold)':60,
+    }
+
+metadict_items['Alchemist\'s Fire (25/50 lb)'] = {
+    'ammo':True,
+    'direct_hit':True,
+    'savethrow':True,
+    'savethrow_ability':'dexterity',
+    'damage_dice':'4d6',
     'damage_type':'fire',
     'spell_dict':{
             'zone':True,
@@ -1722,17 +1833,33 @@ metadict_items['Alchemist\'s Fire (25 lb)'] = {
     'cost (grams_of_gold)':15,
     }
 
-metadict_items['Alchemist\'s Fire (100 lb)'] = {
-    # Для тяжёлого требушета
+metadict_items['Alchemist\'s Fire (10/25 lb)'] = {
     'ammo':True,
-    'weight (lb)':200,
-    'cost (gp)':60,
-    'cost (grams_of_gold)':60,
+    'direct_hit':True,
+    'savethrow':True,
+    'savethrow_ability':'dexterity',
+    'damage_dice':'2d6',
+    'damage_type':'fire',
+    'spell_dict':{
+            'zone':True,
+            'zone_shape':'2x2',
+            'direct_hit':True,
+            'savethrow':True,
+            'savethrow_ability':'dexterity',
+            'attacks_number':1,
+            'attack_range':600,
+            'damage_type':'fire',
+            'damage_dice':'2d6',
+            'spell_save_DC':15,
+            'spell_choice':('Explosion','Alchemist\'s Fire'),
+            },
+    'weight (lb)':50,
+    'cost (gp)':15,
+    'cost (grams_of_gold)':15,
     }
 
-
 #-------------------------------------------------------------------------
-# Боеприпасы (снаряды пращ)
+# Боеприпасы (снаряды пращ), sling_bullets
 
 metadict_items['Sling Bullet'] = {
     # Глиняные шарики, одинаковые по форме и размеру.
@@ -1785,7 +1912,7 @@ metadict_items['Sling Bullet +1'] = {
     }
 
 #-------------------------------------------------------------------------
-# Боеприпасы (стрелы)
+# Боеприпасы (стрелы), longbow_arrows
 
 metadict_items['Arrow'] = {
     # Нормальная стрела длинного/композитного лука весит 70 грамм.

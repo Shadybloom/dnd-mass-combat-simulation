@@ -554,6 +554,26 @@ metadict_squads['Company-regular (легионеры Илиона) (друг)'] 
     'Warrior 4 lvl (друг) (лейтенант Илиона)':1,
     }
 
+metadict_squads['Company-regular (тяжёлые баллисты Чары) (друг)'] = {
+    'Warrior 2 lvl (siege engineer-apprentice) (ballista-siege)':10,
+    'Warrior 4 lvl (siege engineer-master)':1,
+    }
+
+metadict_squads['Company-regular (средние баллисты Илиона) (друг)'] = {
+    'Warrior 2 lvl (siege engineer-apprentice) (ballista-medium)':10,
+    'Warrior 4 lvl (siege engineer-master)':1,
+    }
+
+metadict_squads['Company-regular (тяжёлые требушеты Илиона) (друг)'] = {
+    'Warrior 2 lvl (siege engineer-apprentice) (trebuchet-heavy)':10,
+    'Warrior 4 lvl (siege engineer-master)':1,
+    }
+
+metadict_squads['Company-regular (лёгкие требушеты Илиона) (друг)'] = {
+    'Warrior 2 lvl (siege engineer-apprentice) (trebuchet-light)':10,
+    'Warrior 4 lvl (siege engineer-master)':1,
+    }
+
 #----
 # Геройские отряды (армия Сакатра):
 
@@ -647,12 +667,12 @@ metadict_squads['Band-hero (друиды Патрокла) (Vened)'] = {
     }
 
 metadict_squads['Company-regular (онагры Патрокла) (fire) (Vened)'] = {
-    'Warrior 2 lvl (siege engineer-apprentice) (onager-fire)':8,
+    'Warrior 2 lvl (siege engineer-apprentice) (onager-fire)':10,
     'Warrior 4 lvl (siege engineer-master)':1,
     }
 
 metadict_squads['Company-regular (онагры Патрокла) (siege) (Vened)'] = {
-    'Warrior 2 lvl (siege engineer-apprentice) (onager-siege)':8,
+    'Warrior 2 lvl (siege engineer-apprentice) (onager-siege)':10,
     'Warrior 4 lvl (siege engineer-master)':1,
     }
 
