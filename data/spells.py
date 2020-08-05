@@ -873,20 +873,14 @@ class gen_spells():
         Duration: Instantaneous
         https://www.dnd-spells.com/spell/burning-hands
         """
-        # TODO: Допили Burning_Hands. Это 15-футовый конус, то есть до 9 целей.
-        # А у тебя сейчас квадрат 3x3 на дистанции 10 футов от мага.
-        # Чтобы рисовать конусы используй shadowcasting.
-        # TODO: во имя баланса зона уменьшена до 2x2 клетов.
         spell_dict = {
                 'zone':True,
-                'zone_shape':'2x2',
-                #'zone_shape':'square',
+                'zone_shape':'cone',
                 'direct_hit':True,
                 'savethrow':True,
                 'savethrow_ability':'dexterity',
                 'attacks_number':1,
                 'attack_range':15,
-                'radius':5,
                 'damage_type':'fire',
                 'damage_dice':'3d6',
                 'components':['verbal','somatic'],
@@ -1328,9 +1322,10 @@ class gen_spells():
         Duration: Concentration, up to 1 minute 
         https://www.dnd-spells.com/spell/fear
         """
-        # TODO: это атака конусом, а у нас просто выбор 30 целей.
+        # TODO: заставляет цель бросать оружие. А у меня бегущие не бросают.
         spell_dict = {
-                'attacks_number':30,
+                'zone':True,
+                'zone_shape':'cone',
                 'attack_range':30,
                 'effect':'fear',
                 'direct_hit':True,
@@ -1341,7 +1336,7 @@ class gen_spells():
                 'casting_time':'action',
                 'spell_level':spell_level,
                 'spell_save_DC':8 + self.find_spell_attack_mod(),
-                'spell_of_choice':'Fear',
+                'spell_of_choice':'Magic_Missile',
                 }
         return spell_dict
 
@@ -1429,6 +1424,7 @@ class gen_spells():
         Duration: Instantaneous
         https://www.dnd-spells.com/spell/lightning-bolt
         """
+        # TODO: добавь эффект no_cover. А то следующие цели получают +2, +5 к спасброскам ловкости.
         spell_dict = {
                 'zone':True,
                 'zone_shape':'ray',
@@ -1564,3 +1560,39 @@ class gen_spells():
             spell_dict['damage_dice'] = str(dice) + spell_dict['damage_dice'][1:]
         return spell_dict
 
+#----
+# 5 lvl
+
+    def Cone_of_Cold(self, spell_level):
+        """Конус холода.
+
+        Level: 5
+        Casting time: 1 Action
+        Range: Self (60-foot cone)
+        Components: V, S, M (a small crystal or glass cone)
+        Duration: Instantaneous
+        https://www.dnd-spells.com/spell/cone-of-cold
+        """
+        # TODO: effect "icing" -- превращает погибших в ледяные статуи.
+        spell_dict = {
+                'zone':True,
+                'zone_shape':'cone',
+                'direct_hit':True,
+                'savethrow':True,
+                'savethrow_ability':'constitution',
+                'attacks_number':1,
+                'attack_range':60,
+                'damage_type':'cold',
+                'damage_dice':'8d8',
+                'components':['verbal','somatic','material'],
+                'casting_time':'action',
+                'damage_mod':0,
+                'spell_level':spell_level,
+                'spell_save_DC':8 + self.find_spell_attack_mod(),
+                'spell_of_choice':'Magic_Missile',
+                }
+        if int(spell_level[0]) > 5:
+            dice = int(spell_dict['damage_dice'][0])
+            dice += int(spell_level[0]) - 1
+            spell_dict['damage_dice'] = str(dice) + spell_dict['damage_dice'][1:]
+        return spell_dict
