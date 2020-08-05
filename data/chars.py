@@ -9645,8 +9645,7 @@ metadict_chars['Warrior 1 lvl (враг) (демон-рядовой)'] = {
     'behavior':'warrior',
     'class_features':{
         'Regeneration_Minor':1,
-        #'Demon_Resistance':True,
-        'Demon_Vulnerability':True,
+        'vultenability':['radiant'],
         },
     'hit_dice':'1d8',
     'race':'Primevial-medium',
@@ -9670,8 +9669,8 @@ metadict_chars['Warrior 2 lvl (враг) (демон-ветеран)'] = {
     'behavior':'elite_warrior',
     'class_features':{
         'Regeneration':1,
-        'Demon_Resistance':True,
-        'Demon_Vulnerability':True,
+        'resistance':['slashing','piercing','bludgeoning'],
+        'vultenability':['radiant'],
         },
     'hit_dice':'1d8',
     'race':'Primevial-medium',
@@ -9698,8 +9697,8 @@ metadict_chars['Warrior 3 lvl (враг) (демон-сержант)'] = {
     'behavior':'commander',
     'class_features':{
         'Regeneration':2,
-        'Demon_Resistance':True,
-        'Demon_Vulnerability':True,
+        'resistance':['slashing','piercing','bludgeoning'],
+        'vultenability':['radiant'],
         },
     'hit_dice':'1d10',
     'race':'Primevial-large',
@@ -9722,8 +9721,8 @@ metadict_chars['Warrior 4 lvl (враг) (демон-лейтенант)'] = {
     'behavior':'commander',
     'class_features':{
         'Regeneration':3,
-        'Demon_Resistance':True,
-        'Demon_Vulnerability':True,
+        'resistance':['slashing','piercing','bludgeoning'],
+        'vultenability':['radiant'],
         },
     'hit_dice':'1d10',
     'race':'Primevial-large',
@@ -9747,8 +9746,8 @@ metadict_chars['Warrior 5 lvl (враг) (демон-капитан)'] = {
     'behavior':'commander',
     'class_features':{
         'Regeneration':4,
-        'Demon_Resistance':True,
-        'Demon_Vulnerability':True,
+        'resistance':['slashing','piercing','bludgeoning'],
+        'vultenability':['radiant'],
         },
     'hit_dice':'1d10',
     'race':'Primevial-large',

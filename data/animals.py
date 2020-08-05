@@ -54,7 +54,7 @@ metadict_animals['Palisade (wood) (120 hp)'] = {
     'char_class':'Commoner',
     'behavior':'commander',
     'class_features':{
-        'Wood_Object_Resistance':True,
+        'resistance':['piercing','bludgeoning'],
         },
     'abilityes':{
         'strength':10,
@@ -86,7 +86,7 @@ metadict_animals['Palisade (wood) (600 hp)'] = {
     'char_class':'Commoner',
     'behavior':'commander',
     'class_features':{
-        'Wood_Object_Resistance':True,
+        'resistance':['piercing','bludgeoning'],
         },
     'abilityes':{
         'strength':10,
@@ -118,8 +118,8 @@ metadict_animals['Wall (stone) (1200 hp)'] = {
     'char_class':'Commoner',
     'behavior':'commander',
     'class_features':{
-        'Earth_Elemental_Resistance':True,
-        'Earth_Elemental_Vulnerability':True,
+        'resistance':['slashing','piercing','bludgeoning'],
+        'vultenability':['thunder'],
         },
     'abilityes':{
         'strength':10,
@@ -152,8 +152,8 @@ metadict_animals['Wall (stone) (1200 hp + Arcane_Lock)'] = {
     'char_class':'Commoner',
     'behavior':'commander',
     'class_features':{
-        'Earth_Elemental_Resistance':True,
-        'Earth_Elemental_Vulnerability':True,
+        'resistance':['slashing','piercing','bludgeoning'],
+        'vultenability':['thunder'],
         },
     'abilityes':{
         'strength':10,
@@ -186,8 +186,8 @@ metadict_animals['Bridge-support (stone)'] = {
     'char_class':'Commoner',
     'behavior':'commander',
     'class_features':{
-        'Earth_Elemental_Resistance':True,
-        'Earth_Elemental_Vulnerability':True,
+        'resistance':['slashing','piercing','bludgeoning'],
+        'vultenability':['thunder'],
         },
     'abilityes':{
         'strength':10,
@@ -220,8 +220,8 @@ metadict_animals['Bridge (stone)'] = {
     'char_class':'Commoner',
     'behavior':'warrior',
     'class_features':{
-        'Earth_Elemental_Resistance':True,
-        'Earth_Elemental_Vulnerability':True,
+        'resistance':['slashing','piercing','bludgeoning'],
+        'vultenability':['thunder'],
         },
     'abilityes':{
         'strength':10,
@@ -258,7 +258,7 @@ metadict_animals['Ship trireme (deck)'] = {
     'char_class':'Commoner',
     'behavior':'warrior',
     'class_features':{
-        'Wood_Object_Resistance':True,
+        'resistance':['piercing','bludgeoning'],
         },
     'abilityes':{
         'strength':10,
@@ -292,7 +292,7 @@ metadict_animals['Ship trireme (board)'] = {
     'char_class':'Commoner',
     'behavior':'elite_warrior',
     'class_features':{
-        'Wood_Object_Resistance':True,
+        'resistance':['piercing','bludgeoning'],
         },
     'abilityes':{
         'strength':10,
@@ -320,11 +320,11 @@ metadict_animals['Ship trireme (command)'] = {
     'inactive_AI':True,
     'mechanism':True,
     'savethrow_autofall':True,
-    'challenge_rating':'0',
+    'challenge_rating':'-',
     'char_class':'Commoner',
     'behavior':'commander',
     'class_features':{
-        'Wood_Object_Resistance':True,
+        'resistance':['piercing','bludgeoning'],
         },
     'abilityes':{
         'strength':10,
@@ -358,7 +358,7 @@ metadict_animals['Ship pentere (deck)'] = {
     'char_class':'Commoner',
     'behavior':'warrior',
     'class_features':{
-        'Wood_Object_Resistance':True,
+        'resistance':['piercing','bludgeoning'],
         },
     'abilityes':{
         'strength':10,
@@ -392,7 +392,7 @@ metadict_animals['Ship pentere (board)'] = {
     'char_class':'Commoner',
     'behavior':'elite_warrior',
     'class_features':{
-        'Wood_Object_Resistance':True,
+        'resistance':['piercing','bludgeoning'],
         },
     'abilityes':{
         'strength':10,
@@ -420,11 +420,11 @@ metadict_animals['Ship pentere (command)'] = {
     'inactive_AI':True,
     'mechanism':True,
     'savethrow_autofall':True,
-    'challenge_rating':'0',
+    'challenge_rating':'-',
     'char_class':'Commoner',
     'behavior':'commander',
     'class_features':{
-        'Wood_Object_Resistance':True,
+        'resistance':['piercing','bludgeoning'],
         },
     'abilityes':{
         'strength':10,
@@ -458,7 +458,7 @@ metadict_animals['Ship trage (deck)'] = {
     'char_class':'Commoner',
     'behavior':'warrior',
     'class_features':{
-        'Wood_Object_Resistance':True,
+        'resistance':['piercing','bludgeoning'],
         },
     'abilityes':{
         'strength':10,
@@ -492,7 +492,7 @@ metadict_animals['Ship trage (board)'] = {
     'char_class':'Commoner',
     'behavior':'elite_warrior',
     'class_features':{
-        'Wood_Object_Resistance':True,
+        'resistance':['piercing','bludgeoning'],
         },
     'abilityes':{
         'strength':10,
@@ -519,11 +519,11 @@ metadict_animals['Ship trage (command)'] = {
     'inactive_AI':True,
     'mechanism':True,
     'savethrow_autofall':True,
-    'challenge_rating':'0',
+    'challenge_rating':'-',
     'char_class':'Commoner',
     'behavior':'commander',
     'class_features':{
-        'Wood_Object_Resistance':True,
+        'resistance':['piercing','bludgeoning'],
         },
     'abilityes':{
         'strength':10,
@@ -678,12 +678,12 @@ metadict_animals['Weather (storm-god)'] = {
     'fearless_AI':True,
     'char_class':'Empyrean',
     'class_features':{
+        'immunity':['slashing','piercing','bludgeoning'],
         'Extra_Attack':True,
         'Unarmored_Defense':True,
         'Legendary_Resistance':True,
         'Spell_Resistance':True,
         'Trembling_Strike':True,
-        'Empyrean_Immunity':True,
         'Bolster':True,
         'Spells':[
             ('cantrip', 'Empyrean_Bolt'),
@@ -1379,7 +1379,7 @@ metadict_animals['Wight (CR 3)'] = {
     'sunlight_sensitive':True,
     'class_features':{
         'Extra_Attack':True,
-        'Wight_Resistance':True,
+        'resistance':['slashing','piercing','bludgeoning','necrotic_energy'],
         },
     'abilityes':{
         'strength':15,
@@ -1573,7 +1573,7 @@ metadict_animals['Air Elemental (CR 5)'] = {
     'hitpoints_medial':True,
     'class_features':{
         'Extra_Attack':True,
-        'Air_Elemental_Resistance':True,
+        'resistance':['slashing','piercing','bludgeoning','thunder','lightning'],
         'Air_Form':True,
         'Recharge':True,
         'Recharge_dice':'1d6',
@@ -1663,9 +1663,9 @@ metadict_animals['Earth Elemental (CR 5)'] = {
     'behavior':'commander',
     'hitpoints_medial':True,
     'class_features':{
+        'resistance':['slashing','piercing','bludgeoning'],
+        'vultenability':['thunder'],
         'Extra_Attack':True,
-        'Earth_Elemental_Resistance':True,
-        'Earth_Elemental_Vulnerability':True,
         'Earth_Glide':True,
         'Siege_Monster':True,
         },
@@ -1864,9 +1864,8 @@ metadict_animals['Frost Giant (CR 8)'] = {
     'char_class':'Warrior',
     'behavior':'commander',
     'class_features':{
-        # TODO: сделай Immuniy
+        'immunity':['cold'],
         'Extra_Attack':True,
-        'Immuniy':['cold'],
         },
     'abilityes':{
         'strength':23,
@@ -1931,9 +1930,8 @@ metadict_animals['Fire Giant (CR 9)'] = {
     'char_class':'Warrior',
     'behavior':'commander',
     'class_features':{
-        # TODO: сделай Immuniy
+        'immunity':['fire'],
         'Extra_Attack':True,
-        'Immuniy':['fire'],
         },
     'abilityes':{
         'strength':25,
@@ -1999,9 +1997,8 @@ metadict_animals['Storm Giant (CR 13)'] = {
     'char_class':'Warrior',
     'behavior':'commander',
     'class_features':{
-        # TODO: сделай Immuniy
+        'immunity':['lightning','thunder'],
         'Extra_Attack':True,
-        'Immuniy':['lightning','thunder'],
         'Recharge':True,
         'Recharge_dice':'1d6',
         'Recharge_numbers':[5,6],
@@ -2793,36 +2790,36 @@ metadict_animals['Empyrean (CR 23)'] = {
     # Эмпирей
     # https://dnd-5e.herokuapp.com/monsters/empyrean
     'level':19,
+    'air_walk':True,
+    'fearless_AI':True,
+    'armor_class_natural':17,
     'challenge_rating':'23',
     'hitpoints_medial':True,
-    'fearless_AI':True,
     'char_class':'Empyrean',
     'class_features':{
-        # Вторая атака легендартным действием.
-        # Преимущество на спасброски против магии.
-        # Unarmored_Defense даёт ему 21 AC, когда должно быть 22.
+        # TODO:
+        # - Сделай Spell_Resistance
+        # - Вторая атака легендартным действием.
+        # - Преимущество на спасброски против магии.
+        # - Его атаки ошеломляют на ход. СЛ 15, телосложение.
+        'immunity':['slashing','piercing','bludgeoning'],
         'Extra_Attack':True,
-        'Unarmored_Defense':True,
         'Legendary_Resistance':True,
         'Spell_Resistance':True,
         'Trembling_Strike':True,
-        'Empyrean_Immunity':True,
         'Bolster':True,
         'Spells':[
-            # TODO: добавь fire storm
+            # TODO: Сделай Fire_Storm
             ('cantrip', 'Empyrean_Bolt'),
-            #('2_lvl', 'Scorching_Ray'),
-            ('1_lvl', 'Shield'),
-            #('2_lvl', 'Shatter'),
-            #('2_lvl', 'Melfs_Acid_Arrow'),
-            #('2_lvl', 'Cause_Fear'),
-            #('3_lvl', 'Fear'),
-            #('3_lvl', 'Call_Lightning'),
-            #('3_lvl', 'Fireball'),
-            #('4_lvl', 'Fireball'),
-            #('5_lvl', 'Fireball'),
-            ('4_lvl', 'Counterspell'),
-            ('5_lvl', 'Counterspell'),
+            ('unlimit', 'Pass_Without_Trace'),
+            ('unlimit', 'Greater_Restoration'),
+            ('unlimit', 'Water_Breathing'),
+            ('unlimit', 'Water_Walk'),
+            ('1/day', 'Earthquake'),
+            ('1/day', 'Commune'),
+            ('1/day', 'Fire_Storm'),
+            ('1/day', 'Dispel_Evil_and_Good'),
+            ('1/day', 'Plane_Shift'),
             ]
         },
     'abilityes':{
@@ -2835,7 +2832,7 @@ metadict_animals['Empyrean (CR 23)'] = {
         },
     'hit_dice':'1d12',
     'behavior':'commander',
-    'race':'Primevial-large',
+    'race':'Primevial-huge',
     'weapon_skill':['simple','martial'],
     'armor_skill':['light','medium','heavy','shield'],
     'equipment_supply':{},
@@ -3535,8 +3532,8 @@ metadict_animals['Mordenkainen Sword (CR 10)'] = {
     'behavior':'commander',
     'char_class':'Warrior',
     'class_features':{
+        'immunity':['slashing','piercing','bludgeoning'],
         #'Extra_Attack':True,
-        'Empyrean_Immunity':True,
         },
     'hitpoints_base':1200,
     'abilityes':{

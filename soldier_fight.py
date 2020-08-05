@@ -342,47 +342,18 @@ class soldier_in_battle(soldier):
                 self.war_priest = self.mods['wisdom']
             if self.proficiency.get('channel_divinity') and not hasattr(self, 'channel_divinity'):
                 self.channel_divinity = self.proficiency['channel_divinity']
-            # Сопротивляемость монстров:
-            if self.class_features.get('Demon_Resistance'):
-                self.resistance.append('slashing')
-                self.resistance.append('piercing')
-                self.resistance.append('bludgeoning')
-                self.resistance.append('fire')
-            if self.class_features.get('Wight_Resistance'):
-                self.resistance.append('slashing')
-                self.resistance.append('piercing')
-                self.resistance.append('bludgeoning')
-                self.resistance.append('necrotic_energy')
-            if self.class_features.get('Air_Elemental_Resistance'):
-                self.resistance.append('slashing')
-                self.resistance.append('piercing')
-                self.resistance.append('bludgeoning')
-                self.resistance.append('thunder')
-                self.resistance.append('lightning')
-            if self.class_features.get('Earth_Elemental_Resistance'):
-                self.resistance.append('slashing')
-                self.resistance.append('piercing')
-                self.resistance.append('bludgeoning')
-            if self.class_features.get('Wood_Object_Resistance'):
-                #self.resistance.append('slashing')
-                self.resistance.append('piercing')
-                self.resistance.append('bludgeoning')
-            # Уязвимости монстров:
-            if self.class_features.get('Earth_Elemental_Vulnerability'):
-                self.vultenability.append('thunder')
-            if self.class_features.get('Demon_Vulnerability'):
-                self.vultenability.append('radiant')
-            # Иммунитет монстров:
-            if self.class_features.get('Empyrean_Immunity'):
-                self.immunity.append('slashing')
-                self.immunity.append('piercing')
-                self.immunity.append('bludgeoning')
-                self.resistance.append('slashing')
-                self.resistance.append('piercing')
-                self.resistance.append('bludgeoning')
             if self.class_features.get('Ink_Cloud') and not hasattr(self, 'ink_cloud'):
                 self.ink_cloud = True
                 self.ink_cloud_radius = 20
+            # Иммунитет:
+            if self.class_features.get('immunity'):
+                self.immunity.extend(self.class_features.get('immunity',[]))
+            # Сопротивляемость:
+            if self.class_features.get('resistance'):
+                self.resistance.extend(self.class_features.get('resistance',[]))
+            # Уязвимости:
+            if self.class_features.get('vultenability'):
+                self.vultenability.extend(self.class_features.get('vultenability',[]))
         # Используем доступные приёмы:
         if self.class_features:
             # Font_of_Magic даёт 2 sorcery_points на 2 lvl чародея, можно вложить в лишний слот 1 lvl.

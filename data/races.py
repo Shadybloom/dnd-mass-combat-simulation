@@ -151,8 +151,19 @@ dict_races = {
             'intelligence':+1,
             'wisdom':+1,
             },
-        'Primevial-large':{
+        'Primevial-huge':{
             # Эмпиреи, Empyrean
+            # TODO: настрой вес и рост.
+            'hero':True,
+            'size':'huge',
+            'base_speed':50,
+            'armor_class_natural':17,
+            'height_base_inches':6 * 12 + 8,
+            'height_mod_dice':'2d10',
+            'weight_base_lb':210,
+            'weight_mod_dice':'2d4',
+            },
+        'Primevial-large':{
             'hero':True,
             'unholy':True,
             'size':'large',
