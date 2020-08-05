@@ -92,6 +92,10 @@ metadict_squads['test enemy (CR 1)'] = {
     'Warrior 3 lvl (враг) (демон Кема\'Эша)':1,
     }
 
+metadict_squads['test enemy (mage)'] = {
+    'Mage (CR 6)':1,
+    }
+
 metadict_squads['test party (1 lvl)'] = {
     # Тестовая партия для оценки CR:
     # Воин, клирик, вор и маг:

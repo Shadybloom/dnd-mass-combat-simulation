@@ -2610,7 +2610,7 @@ metadict_animals['Warrior 1 lvl (standard) (Battleaxe + Shield)'] = {
     }
 
 #----
-# Персонажи мастера из Monsters_Manual:
+# NPC, неписи, персонажи мастера из Monsters_Manual:
 
 metadict_animals['Sentinel (CR 1/8)'] = {
     # Страж
@@ -2733,6 +2733,56 @@ metadict_animals['Veteran (CR 3)'] = {
         'Shortsword':1,
         'Crossbow, Heavy':1,
         'Crossbow Bolt':60,
+        },
+    }
+
+metadict_animals['Mage (CR 6)'] = {
+    # Маг
+    'level':9,
+    'archer_AI':True,
+    'fireball_AI':True,
+    'challenge_rating':'6',
+    'hitpoints_medial':True,
+    'char_class':'Wizard',
+    'class_features':{
+        'Spellcasting':True,
+        'Spells':[
+            ('cantrip', 'Mage_Hand'),
+            ('cantrip', 'Fire_Bolt'),
+            ('cantrip', 'Light'),
+            ('cantrip', 'Prestidigitation'),
+            ('ritual', 'Detect_Magic'),
+            ('1_lvl', 'Magic_Missile'),
+            ('1_lvl', 'Mage_Armor'),
+            ('1_lvl', 'Shield'),
+            ('2_lvl', 'Suggestion'),
+            ('2_lvl', 'Misty_Step'),
+            ('3_lvl', 'Counterspell'),
+            ('3_lvl', 'Lightning_Bolt'),
+            #('3_lvl', 'Fireball'),
+            ('3_lvl', 'Fly'),
+            ('4_lvl', 'Greater_Invisibility'),
+            ('4_lvl', 'Ice_Storm'),
+            ('5_lvl', 'Cone_of_Cold'),
+            ],
+        },
+    'abilityes':{
+        'strength':9,
+        'dexterity':14,
+        'constitution':11,
+        'intelligence':17,
+        'wisdom':12,
+        'charisma':11,
+        },
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Dagger':1,
         },
     }
 
