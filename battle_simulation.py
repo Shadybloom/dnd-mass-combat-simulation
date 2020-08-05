@@ -2228,6 +2228,13 @@ class battle_simulation(battlescape):
                 zone_points_list = self.point_to_field_2x2(zone_center)
                 targets = [target for target in recon_dict.values()\
                         if target.place in zone_points_list]
+            elif spell_dict.get('zone_shape') == 'ray':
+                ray_distance = round(spell_dict['attack_range'] / self.tile_size)
+                ray_path_list = self.point_to_field_ray(soldier.place, zone_center, ray_distance,
+                        except_firs_poiint = True)
+                recon_dict = self.recon(ray_path_list)
+                targets = [target for target in recon_dict.values()\
+                        if target.place in ray_path_list]
             elif spell_dict.get('zone_shape') == 'square':
                 targets = [target for target in recon_dict.values()]
             elif zone_radius > 1:

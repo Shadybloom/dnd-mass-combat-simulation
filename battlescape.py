@@ -32,6 +32,32 @@ def distance_measure(firs_point, second_point):
     distance = math.sqrt( ((p1[0]-p2[0])**2)+((p1[1]-p2[1])**2) )
     return distance
 
+def prolong_ray(source_point, target_point, ray_distance):
+    """Возвращает конечную точку отрезка по двум известным точкам.
+
+    - Используется для заклинаний вроде Lightning_Bolt, которые бьют дальше цели.
+    
+    Как это работает:
+    1. Координаты цели относительно кастера: x2 - x1; y2 - y1
+    2. Пропорциональное смещение: (x,y) * (дальность_луча/дистанция_до_цели)
+    3. Наложение на плоскость: x + x1; y + y1
+    """
+    x1,y1 = source_point
+    x2,y2 = target_point
+    # Координаты вектора (цели относительно кастера)
+    x = x2 - x1
+    y = y2 - y1
+    # Вытягиваем вектор, пропорционально смещая его конечную точку.
+    target_distance = distance_measure(source_point, target_point)
+    proportional_correction = ray_distance / target_distance
+    x_new = x * proportional_correction
+    y_new = y * proportional_correction
+    # Наносим конечную точку вектора на плоскость:
+    x_end = x_new + x1
+    y_end = y_new + y1
+    end_point = (round(x_end), round(y_end))
+    return end_point
+
 def inside_circle(point, circle_center, circle_radius):
     '''
     Here is a Python function that checks if a point (x, y)
@@ -724,13 +750,22 @@ class battlescape():
         В выводе сортированный по дистанции словарь друзей и врагов.
         """
         dict_battlespace = self.dict_battlespace
-        x,y = zone_center[0], zone_center[1]
-        # Задаём диапазон координат:
-        coord_list = []
-        for x1 in range(x - distance, x + distance + 1):
-            for y1 in range(y - distance, y + distance + 1):
-                if x1 >= 0 and y1 >= 0 and x1 <= self.battle_map_length and y1 <= self.battle_map_height:
-                    coord_list.append((x1,y1))
+        # Зона может быть задана списком координат:
+        if len(zone_center) > 2:
+            coord_list = zone_center
+            zone_center = coord_list[0]
+            distance = round(distance_measure(zone_center, coord_list[-1]))
+        # Или координатами центра зоны:
+        elif type(zone_center) == tuple and len(zone_center) == 2:
+            x,y = zone_center[0], zone_center[1]
+            # Задаём диапазон координат:
+            coord_list = []
+            for x1 in range(x - distance, x + distance + 1):
+                for y1 in range(y - distance, y + distance + 1):
+                    if x1 >= 0 and y1 >= 0\
+                            and x1 <= self.battle_map_length\
+                            and y1 <= self.battle_map_height:
+                        coord_list.append((x1,y1))
         # Проверяя диапазон, находим врагов и своих:
         dict_recon = {}
         for place in coord_list:
@@ -810,6 +845,18 @@ class battlescape():
                         and y1 < self.battle_map_height:
                     coord_list.append((x1,y1))
         return coord_list
+
+    def point_to_field_ray(self, source_point, target_point, ray_distance, except_firs_poiint = False):
+        """Продолжаем луч до конечной точки.
+        
+        - Все точки на пути луча возвращаются как зона заклинания.
+        """
+        end_point = prolong_ray(source_point, target_point, ray_distance)
+        ray_field = sight_line_to_list(source_point, end_point)
+        # Удаляем первую точку, на которой стоит кастер.
+        if except_firs_poiint:
+            first_point = ray_field.pop(0)
+        return ray_field
 
     def find_points_in_zone(self, first_point, distance = 100):
         """Поиск всех точек внутри ограниченной зоны.

@@ -1419,6 +1419,41 @@ class gen_spells():
             spell_dict['attack_range'] *= 2
         return spell_dict
 
+    def Lightning_Bolt(self, spell_level):
+        """Бесполезная игрушка.
+
+        Level: 3
+        Casting time: 1 Action
+        Range: Self (100-foot line)
+        Components: V, S, M (a bit of fur and a rod of amber, crystal, or glass)
+        Duration: Instantaneous
+        https://www.dnd-spells.com/spell/lightning-bolt
+        """
+        spell_dict = {
+                'zone':True,
+                'zone_shape':'ray',
+                'direct_hit':True,
+                'savethrow':True,
+                'savethrow_ability':'dexterity',
+                'attacks_number':1,
+                'attack_range':100,
+                'damage_type':'lightning',
+                'damage_dice':'8d6',
+                'components':['verbal','somatic','material'],
+                'casting_time':'action',
+                'damage_mod':0,
+                'spell_level':spell_level,
+                'spell_save_DC':8 + self.find_spell_attack_mod(),
+                'spell_of_choice':'Magic_Missile',
+                }
+        if int(spell_level[0]) > 3:
+            dice = int(spell_dict['damage_dice'][0])
+            dice += int(spell_level[0]) - 1
+            spell_dict['damage_dice'] = str(dice) + spell_dict['damage_dice'][1:]
+        if self.mage.class_features.get('Metamagic_Distant_Spell'):
+            spell_dict['attack_range'] *= 2
+        return spell_dict
+
     def Counterspell(self, spell_level):
         """Защита от огнешаров
 
