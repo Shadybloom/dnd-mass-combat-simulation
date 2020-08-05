@@ -702,8 +702,8 @@ class soldier():
             if self.hero:
                 level_1_hitpoints = int(hit_dice.split('d')[1])
             else:
-                level_1_hitpoints = (int(hit_dice.split('d')[1]) / 2 + 1)
-            hitpoints_levels = sum([(int(hit_dice.split('d')[1]) / 2 + 1) for x in range(level - 1)])
+                level_1_hitpoints = (int(hit_dice.split('d')[1]) / 2 + 0.5)
+            hitpoints_levels = sum([(int(hit_dice.split('d')[1]) / 2 + 0.5) for x in range(level - 1)])
             hitpoints_max = level_1_hitpoints + hitpoints_levels + bonus_hitpoints_constitution
         # Заданные хитпоинты, плюс бонус телосложения.
         elif hasattr(self, 'hitpoints_base') and self.hitpoints_base:
