@@ -1322,7 +1322,6 @@ class gen_spells():
         Duration: Concentration, up to 1 minute 
         https://www.dnd-spells.com/spell/fear
         """
-        # TODO: заставляет цель бросать оружие. А у меня бегущие не бросают.
         spell_dict = {
                 'zone':True,
                 'zone_shape':'cone',

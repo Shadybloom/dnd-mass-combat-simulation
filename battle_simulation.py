@@ -1037,8 +1037,9 @@ class battle_simulation(battlescape):
             if soldier.behavior == 'commander' or 'retreat' in soldier.commands:
                 self.move_action(soldier, squad, destination, allow_replace = True)
         # Солдат бежит, если испуган, или таков приказ:
-        elif soldier.escape or 'retreat' in soldier.commands:
-            soldier.escape = True
+        elif soldier.escape or soldier.fear or 'retreat' in soldier.commands:
+            if 'retreat' in soldier.commands:
+                soldier.escape = True
             self.dash_action(soldier)
             # Бегство к выходу из карты, или к зоне спавна отряда:
             if len(squad.exit_points) > 0:
@@ -2310,10 +2311,13 @@ class battle_simulation(battlescape):
                         and not races.dict_races[enemy_soldier.race].get('unholy')\
                         and not enemy_soldier.__dict__.get('unholy'):
                     continue
-                # Вызов страха от паладинского Dreadful_Aspect
+                # Вызов страха от паладинского Dreadful_Aspect и заклинания "Fear"
                 if spell_dict.get('effect') == 'fear':
                     fear = enemy_soldier.set_fear(soldier, spell_dict['spell_save_DC'])
                     if fear:
+                        # Враг бросает оружие и бежит:
+                        enemy_soldier.unset_shield(disarm = True)
+                        enemy_soldier.unset_weapon(enemy_soldier.weapon_ready, disarm = True)
                         print('[+++] {side_1}, {c1} {s} FEAR >> {side_2} {c2} {e}'.format(
                             side_1 = soldier.ally_side,
                             c1 = soldier.place,
