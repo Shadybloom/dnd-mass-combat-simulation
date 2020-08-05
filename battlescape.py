@@ -11,7 +11,7 @@ from pathfinding.core.grid import Grid
 from pathfinding.finder.a_star import AStarFinder
 
 import timeit
-import numpy
+#import numpy
 from skimage import draw
 
 import dices
@@ -57,6 +57,65 @@ def prolong_ray(source_point, target_point, ray_distance):
     y_end = y_new + y1
     end_point = (round(x_end), round(y_end))
     return end_point
+
+def find_cone_coordinates(source_point, target_point, ray_distance):
+    """Находит координаты конечных точек конуса по исходной точке и дистанции.
+
+    - Конус на плоскости, это равносторонний треугольник.
+    """
+    # Вектор противонаправлен, от цели к источнику:
+    x1,y1 = target_point
+    x2,y2 = source_point
+    # Координаты вектора:
+    x = x2 - x1
+    y = y2 - y1
+    # Поворачиваем вектор на 90°
+    x,y = y,-x
+    # Находим длину стороны треугольника и корректируем длину вектора:
+    triangle_side = f_triangle(ray_distance, 90, 60)
+    vector_lenght = triangle_side / 2
+    proportional_correction = vector_lenght / ray_distance
+    x_new = x * proportional_correction
+    y_new = y * proportional_correction
+    # Наносим конечную точку вектора на плоскость:
+    x_end = x_new + x1
+    y_end = y_new + y1
+    end_point = (round(x_end), round(y_end))
+    # Находим вторую точку:
+    end_point_2 = prolong_ray(end_point, target_point, triangle_side)
+    return source_point, end_point, end_point_2
+
+def f_triangle (side_b, angle_a, angle_b):
+    """Сторона треугольника по двум углам и другой стороне.
+
+    Теорема синусов:
+    # http://www-formula.ru/lengthpartiestriangle
+    a = (b * sin(α))/sin(β)
+    Где:
+    b - известная сторона
+    α - угол противолежащий от стороны a и прилежащий к стороне b.
+    β - угол противолежащий от стороны b и прилежащий к стороне a.
+    """
+    # math.sin ждёт угла в радианах, поэтому преобразуем градусы с помощью math.radians
+    side_a = abs(side_b * math.sin(math.radians(angle_a))) / math.sin(math.radians(angle_b))
+    return side_a
+
+def inside_triangle (triangle_coord_1, triangle_coord_2, triangle_coord_3, point_coord):
+    """Проверяем, в треугольнике ли точка.
+    
+    - Треугольник по трём координатам, find_cone_coordinates
+    """
+    x1,y1 = triangle_coord_1
+    x2,y2 = triangle_coord_2
+    x3,y3 = triangle_coord_3
+    xp,yp = point_coord
+    c1 = (x2-x1)*(yp-y1)-(y2-y1)*(xp-x1)
+    c2 = (x3-x2)*(yp-y2)-(y3-y2)*(xp-x2)
+    c3 = (x1-x3)*(yp-y3)-(y1-y3)*(xp-x3)
+    if (c1<0 and c2<0 and c3<0) or (c1>0 and c2>0 and c3>0):
+        return True
+    else:
+        return False
 
 def inside_circle(point, circle_center, circle_radius):
     '''
@@ -741,7 +800,7 @@ class battlescape():
     #    else:
     #        return True
 
-    def recon(self, zone_center, distance = 1, soldier_coordinates = None):
+    def recon(self, zone_center, distance = 1, soldier_coordinates = None, view_all = False):
         """Осмотр квадрата на поле боя. Вывод словаря союзников и врагов.
         
         Как это работает:
@@ -782,7 +841,7 @@ class battlescape():
                         else:
                             # Взгляд из центра зоны (если боец в центре):
                             vision_tuple = self.calculate_enemy_cover(zone_center, place)
-                        if vision_tuple[-1] == True:
+                        if vision_tuple[-1] == True or view_all:
                             distance = vision_tuple[0]
                             cover = vision_tuple[1]
                             uuid = value[-1]
@@ -857,6 +916,50 @@ class battlescape():
         if except_firs_poiint:
             first_point = ray_field.pop(0)
         return ray_field
+
+    def point_to_field_cone(self, source_point, target_point, ray_distance, except_firs_poiint = False):
+        """Атака конусом.
+        
+        1. Чертим вектор до конца дальности.
+        2. Разворачиваем два перпендикулярных вектора из конечной точки, получая координаты их концов.
+        3. Получаем координаты концов треугольника.
+        4. Строим прямоугольник и находим точки треугольника в нём.
+        """
+        target_point = prolong_ray(source_point, target_point, ray_distance)
+        cone_coordinates = find_cone_coordinates(source_point, target_point, ray_distance)
+        #print(source_point, target_point, cone_coordinates)
+        # Строим прямоугольник, включающий в себя искомый треугольник:
+        square_coords = []
+        coord_list_x = [cone_coordinates[0][0], cone_coordinates[1][0], cone_coordinates[2][0]]
+        coord_list_y = [cone_coordinates[0][1], cone_coordinates[1][1], cone_coordinates[2][1]]
+        x_min = min(coord_list_x)
+        x_max = max(coord_list_x)
+        y_min = min(coord_list_y)
+        y_max = max(coord_list_y)
+        for y in range(y_min, y_max):
+            for x in range(x_min, x_max):
+                point = x,y
+                square_coords.append(point)
+        # Очерчиваем границы треугольника:
+        triangle_borders = []
+        a = sight_line_to_list(cone_coordinates[0], cone_coordinates[1])
+        b = sight_line_to_list(cone_coordinates[0], cone_coordinates[2])
+        c = sight_line_to_list(cone_coordinates[1], cone_coordinates[2])
+        triangle_borders.extend(a)
+        triangle_borders.extend(b)
+        triangle_borders.extend(c)
+        # Находим координаты всех точек треугольника:
+        triangle_coords = []
+        for point in square_coords:
+            if inside_triangle(cone_coordinates[0], cone_coordinates[1], cone_coordinates[2], point):
+                triangle_coords.append(point)
+            elif point in triangle_borders:
+                triangle_coords.append(point)
+        # Удаляем точку, на которой стоит кастер:
+        if except_firs_poiint and source_point in triangle_coords:
+            source_point = triangle_coords.remove(source_point)
+        #print(len(triangle_coords))
+        return triangle_coords
 
     def find_points_in_zone(self, first_point, distance = 100):
         """Поиск всех точек внутри ограниченной зоны.

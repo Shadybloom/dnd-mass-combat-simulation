@@ -2204,6 +2204,7 @@ class battle_simulation(battlescape):
                 # Сделай! Так будет гораздо удобнее.
                 # ------------------------------------------------------------
                 # Moonbeam можно перенацеливать, минута действия:
+                # TODO: лучше бы это сделать в виде дополнительных атак.
                 if spell_choice[-1] == 'Moonbeam':
                     if soldier.__dict__.get('moonbeam_timer', 0) > 0:
                         spell_dict = soldier.moonbeam
@@ -2222,26 +2223,42 @@ class battle_simulation(battlescape):
                 else:
                     spell_dict = soldier.spells_generator.use_spell(spell_choice)
             zone_radius = round(spell_dict.get('radius', 0) / self.tile_size)
-            recon_dict = self.recon(zone_center, zone_radius)
-            # TODO: зона не всегда круглая, добавь формы в словари заклинаний:
             if spell_dict.get('zone_shape') == '2x2':
                 zone_points_list = self.point_to_field_2x2(zone_center)
-                targets = [target for target in recon_dict.values()\
-                        if target.place in zone_points_list]
+                recon_dict = self.recon(zone_points_list,
+                        soldier_coordinates = soldier.place, view_all = True)
+                targets = recon_dict.values()
             elif spell_dict.get('zone_shape') == 'ray':
                 ray_distance = round(spell_dict['attack_range'] / self.tile_size)
-                ray_path_list = self.point_to_field_ray(soldier.place, zone_center, ray_distance,
+                ray_path_list = self.point_to_field_ray(
+                        soldier.place, zone_center, ray_distance,
                         except_firs_poiint = True)
-                recon_dict = self.recon(ray_path_list)
-                targets = [target for target in recon_dict.values()\
-                        if target.place in ray_path_list]
+                recon_dict = self.recon(ray_path_list,
+                        soldier_coordinates = soldier.place, view_all = True)
+                targets = recon_dict.values()
+            elif spell_dict.get('zone_shape') == 'cone':
+                cone_distance = round(spell_dict['attack_range'] / self.tile_size)
+                cone_path_list = self.point_to_field_cone(
+                        soldier.place, zone_center, cone_distance,
+                        except_firs_poiint = True)
+                recon_dict = self.recon(cone_path_list,
+                        soldier_coordinates = soldier.place, view_all = True)
+                targets = recon_dict.values()
+                #print(soldier.place, soldier.rank, spell_choice, zone_center)
+                #print('NYA', len(cone_path_list), len(targets))
             elif spell_dict.get('zone_shape') == 'square':
-                targets = [target for target in recon_dict.values()]
+                recon_dict = self.recon(zone_center, zone_radius,
+                        soldier_coordinates = soldier.place, view_all = True)
+                targets = recon_dict.values()
             elif zone_radius > 1:
+                recon_dict = self.recon(zone_center, zone_radius,
+                        soldier_coordinates = soldier.place, view_all = True)
                 targets = [target for target in recon_dict.values()\
                         if inside_circle(target.place, zone_center, zone_radius)]
             else:
-                targets = [target for target in recon_dict.values()]
+                recon_dict = self.recon(zone_center, zone_radius,
+                        soldier_coordinates = soldier.place, view_all = True)
+                targets = recon_dict.values()
             if targets:
                 soldier.battle_action = False
                 if spell_dict.get('zone_danger'):
@@ -2434,9 +2451,16 @@ class battle_simulation(battlescape):
             # Сортируем. Сначала заклинания высших уровней:
             spell_choice_list = sorted(spell_choice_list, reverse = True)
             for spell_choice in spell_choice_list:
+                spell_dict = soldier.spells[spell_choice]
+                attack_range = round(spell_dict['attack_range'] / self.tile_size)
                 for zone_center, danger in squad.danger_points.items():
                     distance = round(distance_measure(soldier.place, zone_center))
-                    if distance <= round(soldier.spells[spell_choice]['attack_range'] / self.tile_size):
+                    if not spell_dict.get('zone_shape') == 'cone'\
+                            and distance <= attack_range:
+                        return spell_choice, zone_center
+                    elif spell_dict.get('zone_shape') == 'cone'\
+                            and distance <= attack_range / 2\
+                            and not distance == 0:
                         return spell_choice, zone_center
 
     def check_danger_offence(self, soldier, enemy):
