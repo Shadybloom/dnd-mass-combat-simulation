@@ -414,12 +414,12 @@ class gen_spells():
         """
         spell_dict = {
                 'direct_hit':True,
+                'ignore_cover':True,
                 'savethrow':True,
                 'savethrow_all':True,
                 'savethrow_ability':'dexterity',
                 'attacks_number':1,
                 'attack_range':60,
-                'effect':'ignore_cover',
                 'damage_type':'radiant',
                 'damage_dice':'1d8',
                 'components':['verbal','somatic'],
@@ -1427,6 +1427,7 @@ class gen_spells():
         spell_dict = {
                 'zone':True,
                 'zone_shape':'ray',
+                #'ignore_cover':True,
                 'direct_hit':True,
                 'savethrow':True,
                 'savethrow_ability':'dexterity',

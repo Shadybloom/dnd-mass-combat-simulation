@@ -2225,20 +2225,20 @@ class soldier_in_battle(soldier):
         armor_class = armor_dict['armor_class']
         # Местность даёт прикрытие (особенно от лучников):
         # Кусты дают прикрытие на 1/2 +2 AC, баррикады на 3/4 +5 AC.
-        savethrow_bonus = 0
+        savethrow_bonus_cover = 0
         if cover >= 4 and cover < 7:
             armor_class_no_impact += 2
             armor_class_shield_impact += 2
             armor_class_armor_impact += 2
             armor_class += 2
-            savethrow_bonus += 2
+            savethrow_bonus_cover += 2
         elif cover >= 7:
             armor_class_no_impact += 5
             armor_class_shield_impact += 5
             armor_class_armor_impact += 5
             armor_class += 5
-            savethrow_bonus += 5
-        attack_dict['savethrow_bonus'] = savethrow_bonus
+            savethrow_bonus_cover += 5
+        attack_dict['savethrow_bonus_cover'] = savethrow_bonus_cover
         # Заклинание "Shield_of_Faith" даёт прекрасные +2 к AC.
         if self.shield_of_faith:
             armor_class_no_impact += 2
@@ -2399,7 +2399,10 @@ class soldier_in_battle(soldier):
                     disadvantage = True
             damage_difficul = attack_dict.get('spell_save_DC', attack_dict.get('attack_throw'))
             damage_savethrow = dices.dice_throw_advantage('1d20', advantage, disadvantage)\
-                    + self.saves[savethrow_ability] + attack_dict['savethrow_bonus']
+                    + self.saves[savethrow_ability]
+            # Заклинание Sacred_Flame игнорирует бонус укрытия к спасброскам ловкости:
+            if savethrow_ability == 'dexterity' and not attack_dict.get('ignore_cover'):
+                damage_savethrow += attack_dict['savethrow_bonus_cover']
             # Заклинание Bless усиливает спасброски:
             if self.bless:
                 damage_savethrow += self.bless
@@ -2409,9 +2412,6 @@ class soldier_in_battle(soldier):
                     and not damage_savethrow + self.bardic_inspiration < damage_difficul:
                 damage_savethrow += self.bardic_inspiration
                 self.bardic_inspiration = None
-            if attack_dict.get('ignore_cover'):
-                damage_savethrow = dices.dice_throw_advantage('1d20', advantage, disadvantage)\
-                        + self.saves[savethrow_ability]
             if damage_savethrow >= damage_difficul\
                     and not self.stunned and not self.sleep:
                 damage = round(damage / 2)
