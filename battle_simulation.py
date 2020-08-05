@@ -2897,24 +2897,19 @@ class battle_simulation(battlescape):
         for key, squad in self.squads.items():
             casualty = squad.casualty
             # Опыт отряда, это сумма опыта солдат:
-            if not squad.__dict__.get('experience'):
-                squad.experience = sum([soldier.experience for soldier in squad.metadict_soldiers.values()])
-            else:
-                squad.experience += sum([soldier.experience for soldier in squad.metadict_soldiers.values()])
+            squad.experience = sum([soldier.experience for soldier in squad.metadict_soldiers.values()])
             # Израсходованное солдатами снаряжение:
             if not squad.__dict__.get('drop_items_dict'):
                 squad.drop_items_dict = {}
             for soldier in squad.metadict_soldiers.values():
-                for item, number in soldier.drop_items_dict.items():
-                    squad.drop_items_dict = dict(Counter(squad.drop_items_dict)\
-                            + Counter(soldier.drop_items_dict))
+                squad.drop_items_dict = dict(Counter(squad.drop_items_dict)\
+                        + Counter(soldier.drop_items_dict))
             # Трофеи:
             if not squad.__dict__.get('trophy_items_dict'):
                 squad.trophy_items_dict = {}
             for soldier in squad.metadict_soldiers.values():
-                for item, number in soldier.trophy_items_dict.items():
-                    squad.trophy_items_dict = dict(Counter(squad.trophy_items_dict)\
-                            + Counter(soldier.trophy_items_dict))
+                squad.trophy_items_dict = dict(Counter(squad.trophy_items_dict)\
+                        + Counter(soldier.trophy_items_dict))
             # Травмы солдат:
             if not squad.__dict__.get('traumas_dict'):
                 squad.traumas_dict = {}
