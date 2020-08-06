@@ -1000,6 +1000,7 @@ class battle_simulation(battlescape):
         # Команды отряду считаются личными:
         if squad.commands:
             soldier.commands.extend(squad.commands)
+        # Существа с перезарядкой атак не бросаются в бой, пока не готовы:
         if 'recharge' in soldier.commands and soldier.recharge_dict:
             if 'engage' in soldier.commands:
                 soldier.commands.remove('engage')
@@ -1011,26 +1012,21 @@ class battle_simulation(battlescape):
             for enemy in soldier.near_enemies:
                 if enemy.place not in squad.frontline:
                     squad.frontline.append(enemy.place)
-        # Бойцы лечатся зельями и отступают, если это необходимо:
+        # Солдат лечится способностями/зельями, если это необходимо:
         if soldier.hitpoints <= soldier.hitpoints_max * 0.5\
-                or 'very_carefull' in soldier.commands\
-                and soldier.hitpoints < soldier.hitpoints_max * 0.75:
-            if 'carefull' in soldier.commands or 'very_carefull' in soldier.commands:
-                destination = self.find_spawn(soldier.place, soldier.ally_side)
-                destination = random.choice(self.point_to_field(destination))
-                self.move_action(soldier, squad, destination, allow_replace = True)
-            if soldier.second_wind:
-                soldier.set_second_wind()
-            elif soldier.lay_on_hands:
-                soldier.set_lay_of_hands()
-            elif soldier.equipment_weapon.get('Infusion of Heroism')\
-                    or soldier.equipment_weapon.get('Potion of Bravery'):
-                soldier.use_potion_of_heroism()
-            elif soldier.equipment_weapon.get('Infusion of Healing')\
-                    or soldier.class_features.get('Regeneration_Minor')\
-                    or soldier.equipment_weapon.get('Goodberry'):
-                soldier.use_potion_of_healing()
-            self.dodge_action(soldier)
+                and 'carefull' in soldier.commands\
+                or soldier.hitpoints <= soldier.hitpoints_max * 0.75\
+                and'very_carefull' in soldier.commands:
+            soldier.use_heal()
+        # Солдат отступает, если ранен и таков приказ:
+        if soldier.hitpoints <= soldier.hitpoints_max * 0.5\
+                and 'carefull' in soldier.commands\
+                or soldier.hitpoints <= soldier.hitpoints_max * 0.75\
+                and'very_carefull' in soldier.commands:
+            destination = self.find_spawn(soldier.place, soldier.ally_side)
+            destination = random.choice(self.point_to_field(destination))
+            self.move_action(soldier, squad, destination, allow_replace = True)
+            soldier.use_dodge_action()
         # Солдат отступает к точке спавна, если опасность слишком велика:
         if soldier.danger > self.engage_danger and not soldier.escape:
             destination = self.find_spawn(soldier.place, soldier.ally_side)
@@ -1045,7 +1041,7 @@ class battle_simulation(battlescape):
         elif soldier.escape or soldier.fear or 'retreat' in soldier.commands:
             if 'retreat' in soldier.commands:
                 soldier.escape = True
-            self.dash_action(soldier)
+            soldier.use_dash_action()
             # Бегство к выходу из карты, или к зоне спавна отряда:
             if len(squad.exit_points) > 0:
                 destination = random.choice(squad.exit_points)
@@ -1058,7 +1054,7 @@ class battle_simulation(battlescape):
         # Отряд может ускориться с dash_action, если таков приказ (и врагов нет рядом):
         if 'dash' in soldier.commands:
             if not enemy or enemy.distance >= soldier.move_pool / 2:
-                self.dash_action(soldier)
+                soldier.use_dash_action()
         # Командир отряда может вести бойцов в ручном режиме:
         if 'move' in soldier.commands and not 'auto' in soldier.commands\
                 and soldier.uuid == squad.commander.uuid:
@@ -1086,7 +1082,7 @@ class battle_simulation(battlescape):
         # Оборонительная тактика, если таков приказ (вторые ряды всё же атакуют):
         if 'dodge' in soldier.commands and soldier.near_enemies\
                 or soldier.danger > self.engage_danger:
-            self.dodge_action(soldier)
+            soldier.use_dodge_action()
         # Простые солдаты следуют за командиром, зная своё место в строю:
         if 'follow' in soldier.commands and squad.commander and not soldier.near_enemies:
             if 'crowd' in soldier.commands:
@@ -1144,9 +1140,12 @@ class battle_simulation(battlescape):
                 destination = self.find_spawn(soldier.place, soldier.ally_side)
                 self.move_action(soldier, squad, destination,
                         allow_replace = True, save_path = False)
-        # Если действия таки не использовались -- защищаемся:
+        # Если не видно врагов, боец лечится добряникой:
+        if not enemy and soldier.hitpoints < soldier.hitpoints_max:
+            soldier.use_heal(use_minor_potion = True)
+        # Если действия не использовались -- защищаемся:
         if soldier.battle_action or soldier.bonus_action:
-            self.dodge_action(soldier)
+            soldier.use_dodge_action()
 
     def sneak_action(self, soldier, squad, enemy):
         """Боец прячется с помощью "Туманного облака" или "Темноты"
@@ -1174,8 +1173,7 @@ class battle_simulation(battlescape):
                     self.dict_battlespace[point].append('obscure_terrain')
             soldier.ink_cloud = False
             if soldier.bonus_action:
-                soldier.dash_action = True
-                soldier.bonus_action = False
+                soldier.use_dash_action(bonus_action = True)
 
     def recon_action(self, soldier, squad, distance = 1):
         """Боец осматривает зону вокруг себя.
@@ -1358,32 +1356,6 @@ class battle_simulation(battlescape):
                 self.move_action(soldier, squad, enemy_place, save_path = False)
                 if soldier.hero == True or soldier.behavior == 'commander':
                     self.move_action(soldier, squad, enemy_place, allow_replace = True)
-
-    def dodge_action(self, soldier):
-        """Боец защищается.
-        
-        https://www.dandwiki.com/wiki/5e_SRD:Dodge_Action
-        """
-        # TODO: перенести в класс soldier_fight
-        if soldier.bonus_action and soldier.class_features.get('Cunning_Action'):
-            soldier.set_cunning_action_defence()
-        elif soldier.battle_action:
-            soldier.battle_action = False
-            soldier.dodge_action = True
-        elif soldier.class_features.get('Patient_Defense'):
-            soldier.set_patient_defence()
-
-    def dash_action(self, soldier):
-        """Боец ускоряется.
-        
-        https://www.dandwiki.com/wiki/5e_SRD:Dash_Action
-        """
-        # TODO: перенести в класс soldier_fight
-        if soldier.bonus_action and soldier.class_features.get('Cunning_Action'):
-            soldier.set_cunning_action_dash()
-        elif soldier.battle_action:
-            soldier.battle_action = False
-            soldier.dash_action = True
 
     def pathfinder(self, soldier, squad, destination):
         """Пытаемся найти путь к цели.
@@ -2814,7 +2786,7 @@ class battle_simulation(battlescape):
                 and not soldier.behavior == 'mount'\
                 and not soldier.__dict__.get('mechanism'):
             if soldier.equipment_weapon.get('Infusion of Healing'):
-                soldier.stable = soldier.use_potion_of_healing(use_battle_action = False)
+                soldier.stable = soldier.use_heal_potion(use_battle_action = False)
                 if soldier.stable\
                         and 'fall_place' in self.dict_battlespace[soldier.place]\
                         and soldier.ally_side in self.dict_battlespace[soldier.place]:

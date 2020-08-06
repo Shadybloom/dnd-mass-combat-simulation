@@ -216,8 +216,6 @@ class soldier_in_battle(soldier):
         self.call_lightning_timer = 0
         # Способности бойца, паладина:
         self.action_surge = False
-        self.second_wind = False
-        self.lay_on_hands = 0
         self.shield = False
         # Словарь ранений (disabled)
         if not hasattr(self, 'trophy_items_dict'):
@@ -1013,7 +1011,43 @@ class soldier_in_battle(soldier):
             else:
                 return False
 
-    def set_second_wind(self):
+    def use_dash_action(self, bonus_action = True):
+        """Боец ускоряется.
+        
+        https://www.dandwiki.com/wiki/5e_SRD:Dash_Action
+        """
+        if self.bonus_action and self.class_features.get('Cunning_Action'):
+            self.set_cunning_action_dash()
+        elif self.bonus_action and bonus_action:
+            self.bonus_action = False
+            self.dash_action = True
+        elif self.battle_action:
+            self.battle_action = False
+            self.dash_action = True
+
+    def use_dodge_action(self):
+        """Боец защищается.
+        
+        https://www.dandwiki.com/wiki/5e_SRD:Dodge_Action
+        """
+        if self.battle_action:
+            self.battle_action = False
+            self.dodge_action = True
+        elif self.bonus_action and self.class_features.get('Cunning_Action'):
+            self.set_cunning_action_defence()
+        elif self.bonus_action and self.class_features.get('Patient_Defense'):
+            self.set_patient_defence()
+
+    def use_heal(self, use_minor_potion = False):
+        """Боец лечит себя, если способен."""
+        if self.__dict__.get('second_wind'):
+            self.use_second_wind()
+        elif self.__dict__.get('lay_on_hands'):
+            self.use_lay_on_hands()
+        elif 'potions' in self.commands:
+            self.use_heal_potion(use_minor_potion)
+
+    def use_second_wind(self):
         """Fighter может очухаться после ранения.
         
         https://www.dandwiki.com/wiki/5e_SRD:Fighter#Second_Wind
@@ -1024,12 +1058,13 @@ class soldier_in_battle(soldier):
                 self.set_hitpoints(heal = second_wind_heal)
                 self.bonus_action = False
                 self.second_wind = False
-                #print('{0} {1} second_wind heal {2}'.format(self.ally_side, self.rank, second_wind_heal))
+                print('{0} {1} {2} heal (second_wind): {3}'.format(
+                    self.ally_side, self.place, self.behavior, second_wind_heal))
                 return True
             else:
                 return False
 
-    def set_lay_of_hands(self):
+    def use_lay_on_hands(self):
         """Паладин способен лечить себя и других:
         
         https://www.dandwiki.com/wiki/5e_SRD:Paladin#Lay_on_Hands
@@ -1042,12 +1077,13 @@ class soldier_in_battle(soldier):
                 self.set_hitpoints(heal = lay_on_hands_heal)
                 self.lay_on_hands = self.lay_on_hands - lay_on_hands_heal
                 self.battle_action = False
-                #print('{0} {1} lay_on_hands heal {2}'.format(self.ally_side, self.rank, lay_on_hands_heal))
+                print('{0} {1} {2} heal (lay_on_hands): {3}'.format(
+                    self.ally_side, self.place, self.behavior, lay_on_hands_heal))
                 return True
             else:
                 return False
 
-    def use_potion_of_healing(self, use_battle_action = True):
+    def use_heal_potion(self, use_battle_action = True, use_minor_potion = False):
         """Боец использует зелье лечения.
         
         Лечение равно костям хитов бойца. Для варвара 5 lvl это 5d12, в среднем 30 hp.
@@ -1057,7 +1093,7 @@ class soldier_in_battle(soldier):
         # Когда паладин с его Lay_on_Hands получает всего 25 хитов.
         # TODO: У солдата с плюсовыми хитпоинтами должен исчезать статус defeat
         if self.battle_action or use_battle_action == False:
-            if self.equipment_weapon.get('Infusion of Healing', 0) > 0:
+            if self.equipment_weapon.get('Infusion of Healing', 0) > 0 and not use_minor_potion:
                 self.drop_item('Infusion of Healing')
                 potion_heal = round(sum([dices.dice_throw(self.hit_dice) for x in range(self.level)]))
                 self.set_hitpoints(heal = potion_heal)
