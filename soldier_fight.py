@@ -243,6 +243,8 @@ class soldier_in_battle(soldier):
             self.wild_shape_old_form['initiative'] = self.initiative
             self.wild_shape_old_form['place'] = self.place
             self.wild_shape_old_form['place_in_order'] = self.place_in_order
+        if not hasattr(self, 'recharge'):
+            self.recharge_dict = None
         if not hasattr(self, 'wild_shape'):
             self.wild_shape = False
         if not hasattr(self, 'water_walk'):
@@ -305,6 +307,10 @@ class soldier_in_battle(soldier):
         if self.class_features:
             if self.class_features.get('Extra_Attack'):
                 self.attacks_number = 2
+                if type(self.class_features['Extra_Attack']) == int:
+                    self.attacks_number = 1 + self.class_features['Extra_Attack']
+                elif self.proficiency.get('Extra_Attack'):
+                    self.attacks_number = 1 + self.proficiency['Extra_Attack']
             if self.class_features.get('Champion_Improved_Critical'):
                 self.crit_range = 19
             if self.class_features.get('Brutal_Critical') and not self.crit_multiplier > 2:
@@ -535,15 +541,13 @@ class soldier_in_battle(soldier):
                         or self.equipment_weapon.get('Potion of Bravery'):
                     self.use_potion_of_heroism()
         # Особенности монстров:
-        # Перезярядка воздушных элементалей:
-        # TODO: пока что это просто восстановление списка атак. Топорно.
-        if self.class_features.get('Recharge'):
+        # Перезарядка способности:
+        if self.class_features.get('Recharge') and self.recharge_dict:
             recharge_throw = dices.dice_throw(self.class_features['Recharge_dice'])
             if recharge_throw in self.class_features['Recharge_numbers']:
-                self.attacks = self.takeoff_weapon()
-                self.attacks.update(self.get_weapon())
-                self.attacks.update(self.modify_attacks())
-                self.attacks.update(self.modify_attacks_weapon_of_choice())
+                attack_choice = self.recharge_dict['recharge']
+                self.attacks[attack_choice] = self.recharge_dict
+                self.recharge_dict = None
         # Регенерация троллей и демонов:
         if self.class_features.get('Regeneration')\
                 and self.hitpoints < self.hitpoints_max:
@@ -2061,13 +2065,18 @@ class soldier_in_battle(soldier):
         if unset_list and len(unset_list) > 0:
             unset_list = list(set(unset_list))
             for attack in unset_list:
-                self.attacks.pop(attack)
+                attack_dict = self.attacks.pop(attack)
+                if attack_dict.get('recharge'):
+                    self.recharge_dict = attack_dict
+                    self.recharge_dict['recharge'] = attack
+                    self.recharge_dict['ammo'] = 1
             if ammo_type and ammo_type in self.equipment_weapon:
                 self.drop_item(ammo_type, drop_all = True)
             if disarm:
                 self.drop_item(weapon_type, drop_all = True)
             # Выбираем лучшее оружие из оставшегося:
-            self.attacks.update(self.modify_attacks_weapon_of_choice())
+            if not self.recharge_dict:
+                self.attacks.update(self.modify_attacks_weapon_of_choice())
 
     def set_shield(self):
         """Щит в боевое положение.

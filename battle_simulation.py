@@ -954,6 +954,11 @@ class battle_simulation(battlescape):
             # Друиды превращаются в первом же раунде боя:
             if squad.commander.__dict__.get('changer_AI'):
                 commands_list.append('change')
+            # Плуты сближаются и отступают:
+            if squad.commander.__dict__.get('disengage_AI'):
+                commands_list.append('disengage')
+            if squad.commander.__dict__.get('recharge_AI'):
+                commands_list.append('recharge')
             # Лучники и метатели дротиков должны чуть что отступать:
             if squad.behavior == 'archer' or squad.commander.__dict__.get('archer_AI'):
                 if commander.class_features.get('Feat_Sharpshooter'):
@@ -965,9 +970,6 @@ class battle_simulation(battlescape):
                     commands_list.append('dodge')
                     if 'lead' in commands_list:
                         commands_list.remove('lead')
-            # Бойцы у нас кавалерия:
-            #if commander.char_class == 'Fighter' or commander.char_class == 'Barbarian':
-            #    commands_list.append('fearless')
         if commands:
             # Ручной ввод команд отряду, если симуляция запущена с ключом --commands
             if not hasattr(squad, 'commands_manual') or not 'auto' in squad.commands_manual:
@@ -998,6 +1000,9 @@ class battle_simulation(battlescape):
         # Команды отряду считаются личными:
         if squad.commands:
             soldier.commands.extend(squad.commands)
+        if 'recharge' in soldier.commands and soldier.recharge_dict:
+            if 'engage' in soldier.commands:
+                soldier.commands.remove('engage')
         # Осматриваем зону врагов, находим противника:
         self.recon_action(soldier, squad)
         enemy = self.find_enemy(soldier, squad)
@@ -1134,11 +1139,11 @@ class battle_simulation(battlescape):
         if 'volley' in soldier.commands and not enemy:
             self.volley_action(soldier, squad)
         # Лучники отступают, если враг близко:
-        if 'disengage' in soldier.commands\
-                and enemy and squad.__dict__.get('enemy_recon')\
-                and enemy.distance <= squad.enemy_recon['move'] * 2:
-            destination = self.find_spawn(soldier.place, soldier.ally_side)
-            self.move_action(soldier, squad, destination, allow_replace = True)
+        if 'disengage' in soldier.commands and enemy:
+            if squad.__dict__.get('enemy_recon') and enemy.distance <= squad.enemy_recon['move'] * 2:
+                destination = self.find_spawn(soldier.place, soldier.ally_side)
+                self.move_action(soldier, squad, destination,
+                        allow_replace = True, save_path = False)
         # Если действия таки не использовались -- защищаемся:
         if soldier.battle_action or soldier.bonus_action:
             self.dodge_action(soldier)
