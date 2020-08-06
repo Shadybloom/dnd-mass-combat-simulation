@@ -208,6 +208,17 @@ dict_races = {
             'weight_base_lb':1000,
             'weight_mod_dice':'2d20',
             },
+        'Dragon-big':{
+            # Молодой дракон.
+            'hero':False,
+            'size':'large',
+            'base_speed':80,
+            'armor_class_natural':18,
+            'height_base_inches':56,
+            'height_mod_dice':'2d4',
+            'weight_base_lb':1000,
+            'weight_mod_dice':'2d20',
+            },
         'Bird-medium':{
             # TODO: скорость 150-300 футов.
             # Но пока disengage недопилен, пусть будет так.
