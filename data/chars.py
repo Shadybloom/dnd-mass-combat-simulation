@@ -2407,9 +2407,9 @@ metadict_chars['Warrior 2 lvl (siege engineer-apprentice) (ballista-medium)'] = 
         'Shortsword':1,
         'Ballista, Medium':1,
         #'Ballista Bolt (1 lb)':100,
-        #'Ballista Bolt (5 lb)':100,
+        'Ballista Bolt (5 lb)':100,
         #'Ballista Bolt (25 lb)':100,
-        'Alchemist\'s Fire (10/25 lb)':100,
+        #'Alchemist\'s Fire (10/25 lb)':100,
         },
     'mount_combat':True,
     'mount_type':'Onager',
@@ -9693,6 +9693,7 @@ metadict_chars['Warrior 3 lvl (враг) (демон-сержант)'] = {
     'level':3,
     'brave_AI':True,
     'killer_AI':True,
+    'carefull_AI':True,
     'char_class':'Warrior-officer',
     'behavior':'commander',
     'class_features':{
@@ -9717,6 +9718,7 @@ metadict_chars['Warrior 4 lvl (враг) (демон-лейтенант)'] = {
     'level':4,
     'brave_AI':True,
     'killer_AI':True,
+    'carefull_AI':True,
     'char_class':'Warrior-officer',
     'behavior':'commander',
     'class_features':{
@@ -9742,6 +9744,7 @@ metadict_chars['Warrior 5 lvl (враг) (демон-капитан)'] = {
     'level':5,
     'brave_AI':True,
     'killer_AI':True,
+    'carefull_AI':True,
     'char_class':'Warrior-officer',
     'behavior':'commander',
     'class_features':{

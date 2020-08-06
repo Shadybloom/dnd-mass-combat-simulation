@@ -1026,7 +1026,6 @@ class battle_simulation(battlescape):
             destination = self.find_spawn(soldier.place, soldier.ally_side)
             destination = random.choice(self.point_to_field(destination))
             self.move_action(soldier, squad, destination, allow_replace = True)
-            soldier.use_dodge_action()
         # Солдат отступает к точке спавна, если опасность слишком велика:
         if soldier.danger > self.engage_danger and not soldier.escape:
             destination = self.find_spawn(soldier.place, soldier.ally_side)
@@ -1037,6 +1036,7 @@ class battle_simulation(battlescape):
             # Командир может отступить в глубину строя:
             if soldier.behavior == 'commander' or 'retreat' in soldier.commands:
                 self.move_action(soldier, squad, destination, allow_replace = True)
+            soldier.use_dodge_action()
         # Солдат бежит, если испуган, или таков приказ:
         elif soldier.escape or soldier.fear or 'retreat' in soldier.commands:
             if 'retreat' in soldier.commands:
@@ -2183,6 +2183,7 @@ class battle_simulation(battlescape):
                 # ------------------------------------------------------------
                 # Moonbeam можно перенацеливать, минута действия:
                 # TODO: лучше бы это сделать в виде дополнительных атак.
+                # Да, теперь заклинания выбираются из списка атак.
                 if spell_choice[-1] == 'Moonbeam':
                     if soldier.__dict__.get('moonbeam_timer', 0) > 0:
                         spell_dict = soldier.moonbeam
@@ -2198,6 +2199,8 @@ class battle_simulation(battlescape):
                         spell_dict = soldier.spells_generator.use_spell(spell_choice)
                         soldier.call_lightning = spell_dict
                         soldier.call_lightning_timer = 100
+                elif spell_choice in soldier.attacks:
+                    spell_dict = soldier.attacks[spell_choice]
                 else:
                     spell_dict = soldier.spells_generator.use_spell(spell_choice)
             zone_radius = round(spell_dict.get('radius', 0) / self.tile_size)
@@ -2222,8 +2225,6 @@ class battle_simulation(battlescape):
                 recon_dict = self.recon(cone_path_list,
                         soldier_coordinates = soldier.place, view_all = True)
                 targets = recon_dict.values()
-                #print(soldier.place, soldier.rank, spell_choice, zone_center)
-                #print('NYA', len(cone_path_list), len(targets))
             elif spell_dict.get('zone_shape') == 'square':
                 recon_dict = self.recon(zone_center, zone_radius,
                         soldier_coordinates = soldier.place, view_all = True)
@@ -2422,6 +2423,9 @@ class battle_simulation(battlescape):
     def select_zone_spell(self, soldier, squad):
         """Выбор заклинания, бьющего по территории и точки атаки для него."""
         spell_choice_list = []
+        for attack_choice, attack_dict in soldier.attacks.items():
+            if attack_choice[0] == 'zone' and 'zone' in attack_dict:
+                spell_choice_list.append(attack_choice)
         for spell_slot in soldier.spellslots:
             # Без приказа только заклинания 1 круга:
             if int(spell_slot[0]) < 2 or 'fireball' in soldier.commands:
@@ -2432,7 +2436,11 @@ class battle_simulation(battlescape):
             # Сортируем. Сначала заклинания высших уровней:
             spell_choice_list = sorted(spell_choice_list, reverse = True)
             for spell_choice in spell_choice_list:
-                spell_dict = soldier.spells[spell_choice]
+                # Заклинание может быть в списке атак:
+                if spell_choice in soldier.attacks:
+                    spell_dict = soldier.attacks[spell_choice]
+                else:
+                    spell_dict = soldier.spells[spell_choice]
                 attack_range = round(spell_dict['attack_range'] / self.tile_size)
                 for zone_center, danger in squad.danger_points.items():
                     distance = round(distance_measure(soldier.place, zone_center))

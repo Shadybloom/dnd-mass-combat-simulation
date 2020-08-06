@@ -1011,7 +1011,7 @@ class soldier_in_battle(soldier):
             else:
                 return False
 
-    def use_dash_action(self, bonus_action = True):
+    def use_dash_action(self, bonus_action = False):
         """Боец ускоряется.
         
         https://www.dandwiki.com/wiki/5e_SRD:Dash_Action
@@ -2054,7 +2054,7 @@ class soldier_in_battle(soldier):
             if ammo_type in self.equipment_weapon:
                 self.drop_item(ammo_type)
             for attack_choice, attack_dict in self.attacks.items():
-                if ammo_type == attack_dict.get('ammo_type')\
+                if ammo_type and ammo_type == attack_dict.get('ammo_type')\
                         or ammo_type == attack_dict.get('weapon_of_choice')\
                         and attack_dict.get('ammo'):
                     attack_dict['ammo'] -= 1

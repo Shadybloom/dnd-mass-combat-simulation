@@ -1250,7 +1250,7 @@ class soldier():
             dict_attack['weapon_skills_use'] = []
         # Дополняем/изменяем модификаторы в зависимости от способностей:
         attack_mod = dict_attack.get('attack_mod', 0)
-        attack_mod_type = dict_attack['attack_mod_type']
+        attack_mod_type = dict_attack.get('attack_mod_type',0)
         damage_mod = dict_attack.get('damage_mod', 0)
         damage_dice = dict_attack['damage_dice']
         weapon_type_list = dict_attack['weapon_type']
