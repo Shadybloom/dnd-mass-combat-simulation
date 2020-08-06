@@ -3,6 +3,7 @@
 
 import math
 from soldier_base import *
+from data import traumas
 
 #-------------------------------------------------------------------------
 # Функции:
@@ -278,6 +279,8 @@ class soldier_in_battle(soldier):
             self.death = False
         if not hasattr(self, 'disabled'):
             self.disabled = False
+        if not hasattr(self, 'trauma_damage_type'):
+            self.trauma_damage_type = None
         if not hasattr(self, 'captured'):
             self.captured = False
         # Опыт и трофеи бойца:
@@ -1481,6 +1484,7 @@ class soldier_in_battle(soldier):
         if self.hitpoints <= -(self.hitpoints_max):
             self.death_save_loss = 3
             self.killer_mark = False
+            self.set_disabled(death_trauma = True)
             self.death = True
             return True
         # Тяжелейшие ранения, если атака лишь чуть не убила бойца:
@@ -1523,7 +1527,8 @@ class soldier_in_battle(soldier):
                 reaper_throw, self.death_save_success, self.death_save_loss,
                 self.stable, self.death))
 
-    def set_disabled(self, advantage = False, disadvantage = False):
+    def set_disabled(self, advantage = False, disadvantage = False,
+            trauma_damage_type = None, death_trauma = False):
         """Тяжёлые раны калечат бойца.
         
         "Длительные травмы" из "Руководства мастера".
@@ -1531,29 +1536,21 @@ class soldier_in_battle(soldier):
         # Герои и офицеры реже получают серьёзные травмы.
         if self.hero or self.level >= 3:
             advantage = True
+        if death_trauma:
+            disadvantage = True
+        if self.trauma_damage_type:
+            trauma_damage_type = self.trauma_damage_type
         trauma_throw = dices.dice_throw_advantage('1d20', advantage, disadvantage)
-        dict_traumas = {
-                1:'Потеря глаза',
-                2:'Потеря руки или ладони',
-                3:'Потеря ноги или ступни',
-                4:'Хромота',
-                5:'Внутренняя травма',
-                6:'Внутренняя травма',
-                7:'Внутренняя травма',
-                8:'Сломанные рёбра',
-                9:'Сломанные рёбра',
-                10:'Сломанные рёбра',
-                11:'Ужасный шрам',
-                12:'Ужасный шрам',
-                13:'Ужасный шрам',
-                14:'Гноящаяся рана',
-                15:'Гноящаяся рана',
-                16:'Гноящаяся рана',
-                17:'Незначительный шрам',
-                18:'Незначительный шрам',
-                19:'Незначительный шрам',
-                20:'Незначительный шрам',
-                }
+        if trauma_damage_type in ['slashing','piercing','bludgeoning','thunder']:
+            dict_traumas = dict(traumas.dict_traumas_base)
+        elif trauma_damage_type in ['fire','lightning','radiant','acid']:
+            dict_traumas = dict(traumas.dict_traumas_fire)
+        elif trauma_damage_type in ['cold','necrotic','necrotic_energy']:
+            dict_traumas = dict(traumas.dict_traumas_cold)
+        elif trauma_damage_type in ['poison']:
+            dict_traumas = dict(traumas.dict_traumas_necrotic)
+        else:
+            dict_traumas = dict(traumas.dict_traumas_base)
         # Только травмы 1-10 лишают бойца боеспособности.
         if trauma_throw <= 10:
             self.disabled = True
@@ -2561,6 +2558,8 @@ class soldier_in_battle(soldier):
             #    self.ally_side, self.place, self.rank,
             #    attack_choice, attack_dict['attack_crit'],
             #    attack_dict['damage'], self.hitpoints, self.hitpoints_max))
+        if damage > 0:
+            self.trauma_damage_type = attack_dict['damage_type']
         if self.hitpoints <= 0 and damage > 0 and not self.defeat:
             attack_dict['fatal_hit'] = True
         return attack_dict
