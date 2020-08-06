@@ -925,6 +925,8 @@ class battlescape():
         3. Получаем координаты концов треугольника.
         4. Строим прямоугольник и находим точки треугольника в нём.
         """
+        # TODO: добавь проверку, чтобы source_point и target_point не совпадали.
+        # Иногда это случается, когда маг нацеливает конус на врага в своей точке.
         target_point = prolong_ray(source_point, target_point, ray_distance)
         cone_coordinates = find_cone_coordinates(source_point, target_point, ray_distance)
         #print(source_point, target_point, cone_coordinates)
