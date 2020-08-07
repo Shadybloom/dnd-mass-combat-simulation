@@ -684,6 +684,25 @@ class soldier_in_battle(soldier):
         else:
             return False
 
+    def set_concentration_break(self, difficult = 10,
+            advantage = False, disadvantage = False, autofail = False):
+        """Бойцу пытаются сбить концентрацию.
+
+        - Спасбросок телосложения СЛ 10 или половина от урона.
+        - Недееспособность тоже лишает концентрации.
+
+        Здесь указана сама сложность спасброска, а не урон.
+        """
+        ability = 'constitution'
+        if difficult < 10:
+            difficult = 10
+        if self.get_savethrow(difficult, ability, advantage, disadvantage) and not autofail:
+            return False
+        else:
+            self.concentration = False
+            self.concentration_timer = 0
+            return True
+
     def set_bless(self):
         """Жрец благословляет союзников (перед началом боя)"""
         # TODO: используй soldier.spells_generator.find_spell('Bless')
@@ -2567,6 +2586,8 @@ class soldier_in_battle(soldier):
             #    attack_dict['damage'], self.hitpoints, self.hitpoints_max))
         if damage > 0:
             self.trauma_damage_type = attack_dict['damage_type']
+            if self.concentration:
+                self.set_concentration_break(difficult = round(damage / 2))
         if self.hitpoints <= 0 and damage > 0 and not self.defeat:
             attack_dict['fatal_hit'] = True
         return attack_dict
@@ -2606,6 +2627,9 @@ class soldier_in_battle(soldier):
         enemy_soldier.defeat = True
         enemy_soldier.prone = True
         enemy_soldier.fall = True
+        # Противник теряет концентрацию:
+        if enemy_soldier.concentration:
+            enemy_soldier.set_concentration_break(autofail = True)
         # У схваченного трофеят всё снаряжение:
         if enemy_soldier.grappled or not enemy_soldier.near_allies and enemy_soldier.near_enemies:
             for item, number in enemy_soldier.equipment_weapon.items():
