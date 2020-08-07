@@ -3427,6 +3427,7 @@ metadict_chars['Warlock 2 lvl (otherworld seeker-adept)'] = {
 
 metadict_chars['Warlock 3 lvl (otherworld seeker-emissary)'] = {
     'level':3,
+    'fireball_AI':True,
     'char_class':'Warlock',
     'hit_dice':'1d8',
     'behavior':'commander',
@@ -3479,6 +3480,7 @@ metadict_chars['Warlock 3 lvl (otherworld seeker-emissary)'] = {
 
 metadict_chars['Warlock 4 lvl (otherworld seeker-envoy)'] = {
     'level':4,
+    'fireball_AI':True,
     'char_class':'Warlock',
     'hit_dice':'1d8',
     'behavior':'commander',
@@ -3776,6 +3778,7 @@ metadict_chars['Wizard 2 lvl (otherworld mage-weaver)'] = {
 
 metadict_chars['Wizard 3 lvl (otherworld mage-annalist)'] = {
     'level':3,
+    'fireball_AI':True,
     'char_class':'Wizard',
     'hit_dice':'1d6',
     'behavior':'commander',
@@ -3844,6 +3847,7 @@ metadict_chars['Wizard 3 lvl (otherworld mage-annalist)'] = {
 
 metadict_chars['Wizard 4 lvl (otherworld mage-savant)'] = {
     'level':4,
+    'fireball_AI':True,
     'char_class':'Wizard',
     'hit_dice':'1d6',
     'behavior':'commander',
@@ -4368,6 +4372,7 @@ metadict_chars['Cleric 2 lvl (city maatcarian-celebrant)'] = {
 
 metadict_chars['Cleric 3 lvl (city maatcarian-augur)'] = {
     'level':3,
+    'fireball_AI':True,
     'char_class':'Cleric',
     'hit_dice':'1d8',
     'behavior':'commander',
@@ -4418,6 +4423,7 @@ metadict_chars['Cleric 3 lvl (city maatcarian-augur)'] = {
 
 metadict_chars['Cleric 4 lvl (city maatcarian-arbiter)'] = {
     'level':4,
+    'fireball_AI':True,
     'char_class':'Cleric',
     'hit_dice':'1d8',
     'behavior':'commander',
@@ -4628,6 +4634,7 @@ metadict_chars['Cleric 2 lvl (city luminary-celebrant)'] = {
 
 metadict_chars['Cleric 3 lvl (city luminary-augur)'] = {
     'level':3,
+    'fireball_AI':True,
     'char_class':'Cleric-heavy',
     'hit_dice':'1d8',
     'behavior':'commander',
@@ -4684,6 +4691,7 @@ metadict_chars['Cleric 3 lvl (city luminary-augur)'] = {
 
 metadict_chars['Cleric 4 lvl (city luminary-arbiter)'] = {
     'level':4,
+    'fireball_AI':True,
     'char_class':'Cleric-heavy',
     'hit_dice':'1d8',
     'behavior':'commander',
@@ -5484,6 +5492,7 @@ metadict_chars['Druid 2 lvl (otherworld terian-changer)'] = {
 
 metadict_chars['Druid 3 lvl (otherworld terian-wiseman)'] = {
     'level':3,
+    'fireball_AI':True,
     'char_class':'Druid',
     'hit_dice':'1d8',
     'behavior':'commander',
@@ -5543,6 +5552,7 @@ metadict_chars['Druid 3 lvl (otherworld terian-wiseman)'] = {
 
 metadict_chars['Druid 4 lvl (otherworld terian-wonderman)'] = {
     'level':4,
+    'fireball_AI':True,
     'char_class':'Druid',
     'hit_dice':'1d8',
     'behavior':'commander',
@@ -5561,8 +5571,8 @@ metadict_chars['Druid 4 lvl (otherworld terian-wonderman)'] = {
             ('2_lvl', 'Pass_Without_Trace'),
             ('2_lvl', 'Lesser_Restoration'),
             ('2_lvl', 'Healing_Spirit'),
-            ('2_lvl', 'Moonbeam'),
             ('2_lvl', 'Gust_of_Wind'),
+            ('2_lvl', 'Moonbeam'),
             ],
         'Druidic_Language':True,
         'Wild_Shape':True,
@@ -5744,6 +5754,7 @@ metadict_chars['Sorcerer 2 lvl (otherworld wildfire-burner)'] = {
 
 metadict_chars['Sorcerer 3 lvl (otherworld wildfire-enchanter)'] = {
     'level':3,
+    'fireball_AI':True,
     'char_class':'Sorcerer',
     'hit_dice':'1d6',
     'behavior':'commander',
@@ -5788,6 +5799,7 @@ metadict_chars['Sorcerer 3 lvl (otherworld wildfire-enchanter)'] = {
 
 metadict_chars['Sorcerer 4 lvl (otherworld wildfire-paragon)'] = {
     'level':4,
+    'fireball_AI':True,
     'char_class':'Sorcerer',
     'hit_dice':'1d6',
     'behavior':'commander',
@@ -7319,6 +7331,7 @@ metadict_chars['Cleric 1 lvl (Vened) (жрец домена войны)'] = {
 metadict_chars['Cleric 5 lvl (Vened) (Патрокл «Македонянин»)'] = {
     # TODO: Переход на 6 lvl
     'level':6,
+    'fireball_AI':True,
     'char_class':'Cleric-heavy',
     'hit_dice':'1d8',
     'behavior':'commander',
@@ -7432,6 +7445,7 @@ metadict_chars['Druid 1 lvl (Vened) (друид Патрокла)'] = {
 
 metadict_chars['Druid 5 lvl (Vened) (Брат Патрокла)'] = {
     'level':5,
+    'fireball_AI':True,
     'char_class':'Druid',
     'hit_dice':'1d8',
     'behavior':'commander',
@@ -8383,6 +8397,7 @@ metadict_chars['Warlock 5 lvl (враг) (Кара\'Ям)'] = {
     # Свободно накладывает на себя смену облика: Invocation_Mask_of_Many_Faces
     # Игнорирует сопротивление огню: Feat_Elemental_Adept
     'level':5,
+    'fireball_AI':True,
     'char_class':'Warlock',
     'hit_dice':'1d8',
     'behavior':'commander',
@@ -8493,6 +8508,7 @@ metadict_chars['Warlock 5 lvl (враг) (Кема\'Эш)'] = {
     # Воодушевляет своих: Feat_Inspiring_Leader.
     # Передаёт команды с помощью Dancing_Lights и Message.
     'level':5,
+    'fireball_AI':True,
     'char_class':'Warlock',
     'hit_dice':'1d8',
     'behavior':'commander',
@@ -8872,6 +8888,7 @@ metadict_chars['Druid 1 lvl (враг) (друид Тик-Бо)'] = {
 metadict_chars['Druid 5 lvl (враг) (Тик-Бо «Робкий»)'] = {
     # Пацифист, призыватель зверей.
     'level':5,
+    'fireball_AI':True,
     'water_walk':True,
     'char_class':'Druid',
     'hit_dice':'1d8',
@@ -9886,6 +9903,7 @@ metadict_chars['Monk 9 lvl (друг) (Кумар «Чугуннорукий»)'
 
 metadict_chars['Wizard 3 lvl (друг) (кошка Тинв)'] = {
     'level':3,
+    'fireball_AI':True,
     'char_class':'Wizard',
     'hit_dice':'1d6',
     'behavior':'archer',
