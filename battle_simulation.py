@@ -442,7 +442,10 @@ class battle_simulation(battlescape):
         bless_list = []
         bless_type = 'bless'
         # TODO: сначала список солдат, потом работа магов.
-        # Так мы сохраним цели в словаре концентрации.
+        # -------------------------------------------------
+        # uuid бойцов сохраняются у мага. Если концентрация прерывается, они теряют заклинание.
+        # Повсюду используй функцию set_concentration_break, даже если маг срывает концентрацию сам.
+        # -------------------------------------------------
         for soldier in squad.metadict_soldiers.values():
             if hasattr(soldier, 'spells')\
                     and not soldier.concentration\
@@ -1540,6 +1543,8 @@ class battle_simulation(battlescape):
                     spell_dict = soldier.concentration
                     zone_radius = round(spell_dict['radius'] / self.tile_size)
                     self.change_place_effect(spell_dict['effect'], coordinates, soldier.place, zone_radius)
+                    # TODO: эти эффекты добавляй по списку ['dange_terrain','obscure_terrain']
+                    # Пусть будет список в zone_effect.
                     if spell_dict.get('zone_danger'):
                         self.change_place_effect('danger_terrain', coordinates, soldier.place, zone_radius)
         # Показывает ходы бойца:
@@ -2209,6 +2214,26 @@ class battle_simulation(battlescape):
                 # TODO: учти атаки бонусым действием
                 # Бери casting_time из spell_dict.
                 soldier.battle_action = False
+                if spell_dict.get('effect') == 'dawn':
+                    # TODO: это для Flaming_Sphere и подобных.
+                    # Зона повляется только со 2 раунда, а должна с первого.
+                    # Подправь этот if.
+                    if soldier.concentration and soldier.concentration.get('zone_place'):
+                        spell_dict = soldier.concentration
+                        zone_radius = round(spell_dict['radius'] / self.tile_size)
+                        try:
+                            self.change_place_effect(spell_dict['effect'],
+                                    spell_dict['zone_place'], zone_center, zone_radius)
+                            if spell_dict.get('zone_danger'):
+                                self.change_place_effect('danger_terrain',
+                                        spell_dict['zone_place'], zone_center, zone_radius)
+                        except ValueError:
+                            #traceback.print_exc()
+                            pass
+                    soldier.concentration['zone_place'] = zone_center
+                # Перемещение в центр зоны заклинания (whirlwind воздушного элементаля)
+                if spell_dict.get('effect') == 'move':
+                    self.change_place(soldier.place, zone_center, soldier.uuid)
                 # Зональное заклинание поражает цели:
                 for enemy in targets:
                     enemy_soldier = self.metadict_soldiers[enemy.uuid]
@@ -2300,9 +2325,6 @@ class battle_simulation(battlescape):
                                 ))
                         if not spell_dict.get('damage_dice'):
                             continue
-                    # Перемещение в центр зоны заклинания (whirlwind воздушного элементаля)
-                    if spell_dict.get('effect') == 'move':
-                        self.change_place(soldier.place, zone_center, soldier.uuid)
                     # У заклинания Ice_Knife есть и шрапнель, и основной поражающий элемент:
                     if spell_dict.get('effect') == 'ice_knife' and enemy.place == zone_center:
                         self.spellcast_action(soldier, squad, enemy,

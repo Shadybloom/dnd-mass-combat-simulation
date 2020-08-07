@@ -557,7 +557,6 @@ class gen_spells():
         Duration: Concentration, up to 1 minute
         https://www.dnd-spells.com/spell/create-bonfire
         """
-        # TODO: допиливай, нужна метка местности "bonfire"
         spell_dict = {
                 'effect':'bonfire',
                 'effect_timer':10,
@@ -1377,7 +1376,6 @@ class gen_spells():
                 'concentration':True,
                 'zone':True,
                 'zone_shape':'2x2',
-                'zone_danger':True,
                 'direct_hit':True,
                 'savethrow':True,
                 'savethrow_ability':'dexterity',
@@ -1620,4 +1618,42 @@ class gen_spells():
             dice = int(spell_dict['damage_dice'][0])
             dice += int(spell_level[0]) - 1
             spell_dict['damage_dice'] = str(dice) + spell_dict['damage_dice'][1:]
+        return spell_dict
+
+    def Dawn(self, spell_level):
+        """Рассвет. Термоядерное подобие Moonbeam.
+
+        Level: 5
+        Casting time: 1 Action
+        Range: 60 feet
+        Components: V, S, M (a sunburst pendant worth at least 100 gp)
+        Duration: Concentration, up to 1 minute 
+        https://www.dnd-spells.com/spell/dawn
+        """
+        spell_dict = {
+                'effect':'dawn',
+                'effect_timer':10,
+                'concentration':True,
+                'zone':True,
+                'zone_effect':True,
+                'zone_danger':True,
+                'direct_hit':True,
+                'savethrow':True,
+                'savethrow_ability':'constitution',
+                'attacks_number':1,
+                'attack_range':60,
+                'radius':30,
+                'damage_type':'radiant',
+                'damage_dice':'4d10',
+                'components':['verbal','somatic','material'],
+                'casting_time':'action',
+                'damage_mod':0,
+                'spell_level':spell_level,
+                'spell_save_DC':8 + self.find_spell_attack_mod(),
+                'spell_of_choice':'Magic_Missile',
+                }
+        #if int(spell_level[0]) > 5:
+        #    dice = int(spell_dict['damage_dice'][0])
+        #    dice += int(spell_level[0]) - 1
+        #    spell_dict['damage_dice'] = str(dice) + spell_dict['damage_dice'][1:]
         return spell_dict
