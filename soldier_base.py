@@ -544,6 +544,10 @@ class soldier():
             # Добавляем бонус мастерства к спасброскам, если доступен:
             if ability in dict_class_saves[self.char_class]:
                 ability_save_value += proficiency_bonus
+            # Добавляем бонус мастерства за черту:
+            if self.class_features.get('Feat_Resilient')\
+                    and ability == self.class_features['Feat_Resilient']:
+                ability_save_value += proficiency_bonus
             dict_saves[ability] = ability_save_value
         return dict_saves
 
