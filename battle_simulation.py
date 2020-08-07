@@ -871,6 +871,7 @@ class battle_simulation(battlescape):
                         if enemy.ally_side == commander.enemy_side
                         and enemy.concentration and enemy.concentration.get('zone_danger')]
                 if enemy_mages_list:
+                    #print('NYA', enemy_mages_list[0].rank, danger_places)
                     zonal_spell_victims = [soldier for soldier in squad.metadict_soldiers.values()
                             if hasattr(soldier, 'place') and soldier.place in danger_places]
                     if zonal_spell_victims:
@@ -2216,17 +2217,29 @@ class battle_simulation(battlescape):
                 soldier.battle_action = False
                 if spell_dict.get('effect') == 'dawn':
                     # TODO: это для Flaming_Sphere и подобных.
-                    # Зона повляется только со 2 раунда, а должна с первого.
-                    # Подправь этот if.
+                    # ------------------------------------------------------------
+                    # Проблема, каждая новая атака бьёт по местности.
+                    # А нам нужен только зональный урон в конце хода и смещение луча.
+                    # ------------------------------------------------------------
+                    spell_dict = soldier.concentration
+                    zone_radius = round(spell_dict['radius'] / self.tile_size)
                     if soldier.concentration and soldier.concentration.get('zone_place'):
-                        spell_dict = soldier.concentration
-                        zone_radius = round(spell_dict['radius'] / self.tile_size)
                         try:
                             self.change_place_effect(spell_dict['effect'],
                                     spell_dict['zone_place'], zone_center, zone_radius)
                             if spell_dict.get('zone_danger'):
                                 self.change_place_effect('danger_terrain',
                                         spell_dict['zone_place'], zone_center, zone_radius)
+                        except ValueError:
+                            #traceback.print_exc()
+                            pass
+                    else:
+                        try:
+                            self.change_place_effect(spell_dict['effect'],
+                                    zone_center, zone_center, zone_radius)
+                            if spell_dict.get('zone_danger'):
+                                self.change_place_effect('danger_terrain',
+                                        zone_center, zone_center, zone_radius)
                         except ValueError:
                             #traceback.print_exc()
                             pass
