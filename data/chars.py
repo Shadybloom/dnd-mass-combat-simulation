@@ -7367,7 +7367,7 @@ metadict_chars['Cleric 5 lvl (Vened) (Патрокл «Македонянин»)
             ('2_lvl', 'Gentle_Repose'),
             ('2_lvl', 'Enhance_Ability'),
             ('2_lvl', 'Prayer_of_Healing'),
-            ('3_lvl', 'Spirit_Guardians'),
+            #('3_lvl', 'Spirit_Guardians'),
             ('3_lvl', 'Crusaders_Mantle'),
             ('3_lvl', 'Dispel_Magic'),
             ('3_lvl', 'Revivify'),
@@ -7656,8 +7656,8 @@ metadict_chars['Fighter 5 lvl (Mordodrukow) (Лонгин)'] = {
         },
     'class_features':{
         # TODO: отталкивающая атака вместо Menacing_Attack.
-        #'Feat_Resilient':'dexterity',
-        'Feat_Alert':True,
+        #'Feat_Alert':True,
+        'Feat_Resilient':'dexterity',
         'Feat_Sharpshooter':True,
         'Fighting_Style_Archery':True,
         'Second_Wind':True,
