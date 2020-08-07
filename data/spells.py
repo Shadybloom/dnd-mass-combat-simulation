@@ -48,7 +48,9 @@ class gen_spells():
             spell_level = spell[0]
             if spell_name in self.usable_spells:
                 func = getattr(self, spell_name)
-                self.spells[spell] = func(spell_level)
+                spell_dict = func(spell_level)
+                spell_dict['spell_choice'] = spell
+                self.spells[spell] = spell_dict
         #print(self.spells)
 
     def find_spell_attack_mod(self):
@@ -560,12 +562,14 @@ class gen_spells():
                 'effect':'bonfire',
                 'effect_timer':10,
                 'concentration':True,
+                'zone_effect':True,
+                'zone_danger':True,
+                'radius':5,
                 'direct_hit':True,
                 'savethrow':True,
                 'savethrow_all':True,
                 'savethrow_ability':'dexterity',
                 'attacks_number':1,
-                'radius':5,
                 'attack_range':60,
                 'damage_type':'fire',
                 'damage_dice':'1d8',
@@ -1307,6 +1311,7 @@ class gen_spells():
                 # Радиус 20 из-за круглой зоны. Получается 35 футов.
                 'effect':'darkness',
                 'effect_timer':100,
+                'zone_effect':True,
                 'concentration':True,
                 'direct_hit':True,
                 'attacks_number':1,
@@ -1522,6 +1527,8 @@ class gen_spells():
         spell_dict = {
                 'effect':'crusaders_mantle',
                 'effect_timer':10,
+                'zone_effect':True,
+                'zone_self':True,
                 'direct_hit':True,
                 'attack_range':'self',
                 'radius':30,
@@ -1554,7 +1561,9 @@ class gen_spells():
         spell_dict = {
                 'effect':'spirit_guardians',
                 'effect_timer':100,
+                'zone_effect':True,
                 'zone_danger':True,
+                'zone_self':True,
                 'direct_hit':True,
                 'savethrow':True,
                 'savethrow_ability':'wisdom',

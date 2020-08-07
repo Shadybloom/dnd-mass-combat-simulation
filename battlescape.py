@@ -283,7 +283,7 @@ class battlescape():
             '*':['caltrops','good_terrain'],
             's':['smoke','obscure_terrain','good_terrain'],
             #'d':['darkness','good_terrain',],
-            'f':['fire','stop_terrain','zone_border'],
+            #'f':['fire','stop_terrain','zone_border'],
             # Позиции войск на карте:
             # Это границы зон спавна, каждая принадлежит указанному отряду:
             '-':['horisontal_zone_border','zone_border','good_terrain'],
@@ -1142,7 +1142,7 @@ class battlescape():
                 elif self.enemy_side in self.dict_battlespace[key]:
                     symbol_colored = '\x1b[48;5;9m' + symbol_colored
             if 'volley' in self.dict_battlespace[key]\
-                    or 'fire' in self.dict_battlespace[key]:
+                    or 'bonfire' in self.dict_battlespace[key]:
                 #symbol_colored = '\x1b[48;5;23m' + symbol_colored
                 if type(el) == tuple:
                     if el[0] == self.ally_side:
