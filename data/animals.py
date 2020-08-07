@@ -2836,6 +2836,70 @@ metadict_animals['Mage (CR 6)'] = {
         },
     }
 
+metadict_animals['Archmage (CR 12)'] = {
+    # Архимаг
+    'level':18,
+    'archer_AI':True,
+    'fireball_AI':True,
+    'challenge_rating':'12',
+    'hitpoints_medial':True,
+    'char_class':'Wizard',
+    'class_features':{
+        # TODO: сопротивляемость урону от заклинаний:
+        'resistance':['spells'],
+        'Spell_Resistance':True,
+        'Spellcasting':True,
+        'Spells':[
+            ('cantrip', 'Mage_Hand'),
+            ('cantrip', 'Fire_Bolt'),
+            ('cantrip', 'Light'),
+            ('cantrip', 'Prestidigitation'),
+            ('cantrip', 'Shocking_Grasp'),
+            ('ritual', 'Detect_Magic'),
+            ('1_lvl', 'Magic_Missile'),
+            ('1_lvl', 'Mage_Armor'),
+            #('1_lvl', 'Identify'),
+            ('1_lvl', 'Shield'),
+            ('2_lvl', 'Detect_Thoughts'),
+            ('2_lvl', 'Mirror_Image'),
+            ('2_lvl', 'Misty_Step'),
+            ('3_lvl', 'Counterspell'),
+            ('3_lvl', 'Lightning_Bolt'),
+            #('3_lvl', 'Fireball'),
+            ('3_lvl', 'Fly'),
+            ('4_lvl', 'Banishment'),
+            ('4_lvl', 'Fire_Shield'),
+            ('4_lvl', 'Stoneskin'),
+            #('5_lvl', 'Cone_of_Cold'),
+            ('5_lvl', 'Dawn'),
+            ('5_lvl', 'Scrying'),
+            ('5_lvl', 'Wall_of_Force'),
+            ('6_lvl', 'Globe_of_Invulnerability'),
+            ('7_lvl', 'Teleport'),
+            ('8_lvl', 'Mind_Blank'),
+            ('9_lvl', 'Time_Stop'),
+            ],
+        },
+    'abilityes':{
+        'strength':10,
+        'dexterity':14,
+        'constitution':12,
+        'intelligence':20,
+        'wisdom':15,
+        'charisma':16,
+        },
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Dagger':1,
+        },
+    }
+
 #----
 # Эпические чудовища из Monsters_Manual:
 

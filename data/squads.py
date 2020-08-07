@@ -96,6 +96,10 @@ metadict_squads['test enemy (mage)'] = {
     'Mage (CR 6)':1,
     }
 
+metadict_squads['test enemy (archmage)'] = {
+    'Archmage (CR 12)':1,
+    }
+
 metadict_squads['test enemy (dragon)'] = {
     'Red Dragon, Young (CR 10)':1,
     }
