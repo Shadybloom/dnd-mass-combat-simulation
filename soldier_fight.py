@@ -192,6 +192,7 @@ class soldier_in_battle(soldier):
         self.grappled = False
         self.restained = False
         self.concentration = False
+        self.concentration_timer = 0
         self.help_action = False
         self.killer_mark = False
         # Долговременные параметры:
@@ -210,10 +211,6 @@ class soldier_in_battle(soldier):
         self.bless_timer = 0
         self.thorns = None
         self.thorns_timer = 0
-        self.moonbeam = None
-        self.moonbeam_timer = 0
-        self.call_lightning = None
-        self.call_lightning_timer = 0
         # Способности бойца, паладина:
         self.action_surge = False
         self.shield = False
@@ -390,37 +387,28 @@ class soldier_in_battle(soldier):
                     if self.class_features.get('Arcane_Ward') and not self.bonus_hitpoints:
                         self.bonus_hitpoints = self.level * 2 + self.mods['intelligence']
                         self.arcane_ward = True
-                        #print(self.hitpoints_max, self.bonus_hitpoints)
-                # TODO: Из-за этих break применяется только одно заклинание из доступных.
-                if spell_dict.get('blur') and not self.blur and not self.concentration:
-                    self.spells_generator.use_spell(spell)
-                    self.blur = True
-                    self.blur_timer = 10
-                    self.concentration = True
-                    break
-                # Лучше учитывай концентрацию.
-                if spell_dict.get('effect') == 'spirit_guardians' and not self.spirit_guardians:
-                    spell_dict = self.spells_generator.use_spell(spell)
-                    self.spirit_guardians = True
-                    self.spirit_guardians_dict = spell_dict
-                    self.spirit_guardians_timer = spell_dict['effect_timer']
-                    self.concentration = True
-                    break
-                if spell_dict.get('effect') == 'crusaders_mantle' and not self.crusaders_mantle:
-                    # TODO: сделай уже работающую концентрацию на заклинаниях!
-                    spell_dict = self.spells_generator.use_spell(spell)
-                    self.crusaders_mantle = True
-                    self.crusaders_mantle_dict = spell_dict
-                    self.crusaders_mantle_timer = spell_dict['effect_timer']
-                    self.concentration = True
-                    break
-                # Нет, не на себя, а на командира:
-                #if spell_dict.get('effect') == 'shield_of_faith' and not self.concentration:
-                #    spell_dict = self.spells_generator.use_spell(spell)
-                #    self.shield_of_faith = True
-                #    self.shield_of_faith_timer = spell_dict['effect_timer']
-                #    self.concentration = True
-                #    break
+                if not self.concentration:
+                    if spell_dict.get('effect') == 'blur':
+                        spell_dict = self.spells_generator.use_spell(spell)
+                        self.concentration = spell_dict
+                        self.blur_timer = spell_dict['effect_timer']
+                        self.blur = True
+                        break
+                    # TODO: переделай всё это под универсальную концентрацию.
+                    if spell_dict.get('effect') == 'spirit_guardians':
+                        spell_dict = self.spells_generator.use_spell(spell)
+                        self.concentration = spell_dict
+                        self.spirit_guardians_dict = spell_dict
+                        self.spirit_guardians_timer = spell_dict['effect_timer']
+                        self.spirit_guardians = True
+                        break
+                    if spell_dict.get('effect') == 'crusaders_mantle':
+                        spell_dict = self.spells_generator.use_spell(spell)
+                        self.concentration = spell_dict
+                        self.crusaders_mantle_dict = spell_dict
+                        self.crusaders_mantle_timer = spell_dict['effect_timer']
+                        self.crusaders_mantle = True
+                        break
 
     def set_actions(self, squad):
         """Доступные действия в 6-секундном раунде боя.
@@ -570,8 +558,12 @@ class soldier_in_battle(soldier):
                     self.bonus_hitpoints = self.level
             elif self.heroism_timer == 0:
                 self.heroism = None
-        # TODO: сделай универсальную систему для заклинаний с концентрацией:
-        # Нужен универсальный таймер концентрации.
+        # Универсальный таймер концентрации.
+        if self.concentration:
+            if self.concentration_timer > 0:
+                self.concentration_timer -= 1
+            elif self.concentration_timer == 0:
+                self.concentration = False
         # Заклинание Bless:
         if self.bless:
             if self.bless_timer > 0:
@@ -584,18 +576,6 @@ class soldier_in_battle(soldier):
                 self.thorns_timer -= 1
             elif self.thorns_timer == 0:
                 self.thorns = None
-        # Заклинание Moonbeam:
-        if self.moonbeam:
-            if self.moonbeam_timer > 0:
-                self.moonbeam_timer -= 1
-            elif self.moonbeam_timer == 0:
-                self.moonbeam = None
-        # Заклинание Call_Lightning
-        if self.call_lightning:
-            if self.call_lightning_timer > 0:
-                self.call_lightning_timer -= 1
-            elif self.call_lightning_timer == 0:
-                self.call_lightning = None
         # Заклинание Blur
         if self.blur:
             if self.blur_timer > 0:
@@ -703,14 +683,15 @@ class soldier_in_battle(soldier):
         Скорее в гранату. Hail_of_Thorns срабатывает единожды.
         """
         # TODO: используй soldier.spells_generator.find_spell('Hail_of_Thorns')
+        # TODO: не используется. Придумай что-то универсальное для подобных заклинаний.
         if hasattr(self, 'spells') and self.bonus_action and not self.thorns:
             for spell, spell_dict in self.spells.items():
                 if spell_dict.get('effect') and spell_dict['effect'] == 'thorns':
                     self.bonus_action = False
                     spell_dict = dict(self.spells_generator.use_spell(spell))
                     spell_dict['spell_choice'] = spell
-                    self.thorns = spell_dict
-                    self.thorns_timer = 10
+                    self.concentration_timer = spell_dict['effect_timer']
+                    self.concentration = spell_dict
                     break
 
     def set_bless(self):
@@ -721,8 +702,8 @@ class soldier_in_battle(soldier):
                 if spell_dict.get('effect') and spell_dict['effect'] == 'bless':
                     spell_dict = dict(self.spells_generator.use_spell(spell))
                     spell_dict['spell_choice'] = spell
-                    self.concentration_timer = 10
-                    self.concentration = True
+                    self.concentration_timer = spell_dict['effect_timer']
+                    self.concentration = spell_dict
                     return spell_dict
 
     def set_shield_of_faith(self):
@@ -732,7 +713,7 @@ class soldier_in_battle(soldier):
             spell_dict = dict(self.spells_generator.use_spell(spell))
             spell_dict['spell_choice'] = spell
             self.concentration_timer = spell_dict['effect_timer']
-            self.concentration = True
+            self.concentration = spell_dict
             return spell_dict
 
     def set_frenzy(self, attack_choice):

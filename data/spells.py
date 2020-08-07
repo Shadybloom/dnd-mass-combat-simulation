@@ -208,9 +208,9 @@ class gen_spells():
         Channel_Dreadful_Aspect
         """
         spell_dict = {
-                'zone':True,
                 'effect':'fear',
                 'attacks_number':1,
+                'zone':True,
                 'radius':30,
                 'attack_range':5,
                 'direct_hit':True,
@@ -558,6 +558,7 @@ class gen_spells():
         # TODO: допиливай, нужна метка местности "bonfire"
         spell_dict = {
                 'effect':'bonfire',
+                'effect_timer':10,
                 'concentration':True,
                 'direct_hit':True,
                 'savethrow':True,
@@ -725,6 +726,7 @@ class gen_spells():
         spell_dict = {
                 # TODO: зона поражения 25 футов, потому что у меня функция занижает 20.
                 'effect':'fog',
+                'effect_timer':100,
                 'concentration':True,
                 'attacks_number':1,
                 #'radius':20,
@@ -755,6 +757,7 @@ class gen_spells():
                 'attacks_number':1,
                 'attack_range':60,
                 'effect':'fear',
+                'effect_timer':10,
                 'direct_hit':True,
                 'savethrow':True,
                 'savethrow_all':True,
@@ -781,6 +784,7 @@ class gen_spells():
         """
         spell_dict = {
                 'effect':'sleep',
+                'effect_timer':100,
                 'attacks_number':1,
                 'attack_range':90,
                 'damage_type':'sleep',
@@ -814,18 +818,18 @@ class gen_spells():
         # Пусть лучше будет 10 целей, эффект опутывания и растущие кусты.
         spell_dict = {
                 'effect':'entangle',
+                'effect_timer':10,
                 'concentration':True,
                 #'zone':True,
                 #'zone_shape':'square',
                 #'zone_danger':True,
+                #'radius':10,
                 'direct_hit':True,
                 'savethrow':True,
                 'savethrow_all':True,
                 'savethrow_ability':'strength',
                 'attacks_number':10,
                 'attack_range':90,
-                # Зона квадратная:
-                #'radius':20 / 2,
                 'components':['verbal','somatic'],
                 'casting_time':'action',
                 'spell_level':spell_level,
@@ -908,6 +912,7 @@ class gen_spells():
         """
         spell_dict = {
                 'effect':'shield',
+                'effect_timer':1,
                 'attack_range':'self',
                 'components':['verbal','somatic'],
                 'casting_time':'reaction',
@@ -929,6 +934,7 @@ class gen_spells():
         # 1d6 урона поглощённого типа можно направить атакой оружием в следующем раунде.
         spell_dict = {
                 'effect':'absorb',
+                'effect_timer':1,
                 'direct_hit':True,
                 'subspell':('subspell', 'Absorb_Elements_Strike'),
                 'attack_range':'self',
@@ -1028,9 +1034,12 @@ class gen_spells():
         """
         spell_dict = {
                 'effect':'thorns',
-                #'zone':True,
+                'effect_timer':10,
+                'zone':True,
                 'zone_shape':'square',
                 'concentration':True,
+                'concentration_once':True,
+                'concentration_ready':True,
                 'direct_hit':True,
                 'savethrow':True,
                 'savethrow_ability':'dexterity',
@@ -1202,6 +1211,7 @@ class gen_spells():
         """
         spell_dict = {
                 'effect':'moonbeam',
+                'effect_timer':10,
                 'concentration':True,
                 'zone':True,
                 'zone_shape':'2x2',
@@ -1238,7 +1248,8 @@ class gen_spells():
         https://www.dnd-spells.com/spell/blur
         """
         spell_dict = {
-                'blur':True,
+                'effect':'blur',
+                'effect_timer':10,
                 'attack_range':'self',
                 'components':['verbal'],
                 'casting_time':'action',
@@ -1295,6 +1306,8 @@ class gen_spells():
         spell_dict = {
                 # Радиус 20 из-за круглой зоны. Получается 35 футов.
                 'effect':'darkness',
+                'effect_timer':100,
+                'concentration':True,
                 'direct_hit':True,
                 'attacks_number':1,
                 'attack_range':60,
@@ -1323,10 +1336,12 @@ class gen_spells():
         https://www.dnd-spells.com/spell/fear
         """
         spell_dict = {
+                'concentration':True,
+                'effect':'fear',
+                'effect_timer':10,
                 'zone':True,
                 'zone_shape':'cone',
                 'attack_range':30,
-                'effect':'fear',
                 'direct_hit':True,
                 'savethrow':True,
                 'savethrow_all':True,
@@ -1349,10 +1364,11 @@ class gen_spells():
         Duration: Concentration, up to 10 minutes
         https://www.dnd-spells.com/spell/call-lightning
         """
-        # TODO: зона поражения 2x2 клетки, а не 3x3.
-        # Потому что молния поражает цели в пределах 5 футов от точки.
+        # Зона поражения 2x2 клетки, а не 3x3.
+        # Молния поражает цели в пределах 5 футов от точки.
         spell_dict = {
                 'effect':'call_lightning',
+                'effect_timer':100,
                 'concentration':True,
                 'zone':True,
                 'zone_shape':'2x2',
