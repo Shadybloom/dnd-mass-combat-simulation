@@ -480,8 +480,7 @@ class battlescape():
                     # Двузначные зоны спавна (01, 56, т.д.)
                     if not next_place[0] > self.battle_map_length:
                         for zone_name_next in zone_name_list:
-                            if zone_name_next in self.dict_battlespace[next_place]\
-                                    and not zone_name_next == zone_name:
+                            if zone_name_next in self.dict_battlespace[next_place]:
                                 zone_name_combine = zone_name + zone_name_next[-1]
                                 zone_field = self.find_points_in_zone(place)
                                 spawn_zones_dict[zone_name_combine] = zone_field
@@ -489,7 +488,7 @@ class battlescape():
                     # Если номер зоны найден, то поиск прерывается:
                     zone_field = self.find_points_in_zone(place)
                     spawn_zones_dict[zone_name] = zone_field
-                    break
+                    #break
         return spawn_zones_dict
 
     def find_spawn_points(self):
@@ -1142,7 +1141,8 @@ class battlescape():
                 elif self.enemy_side in self.dict_battlespace[key]:
                     symbol_colored = '\x1b[48;5;9m' + symbol_colored
             if 'volley' in self.dict_battlespace[key]\
-                    or 'bonfire' in self.dict_battlespace[key]:
+                    or 'bonfire' in self.dict_battlespace[key]\
+                    or 'dawn' in self.dict_battlespace[key]:
                 #symbol_colored = '\x1b[48;5;23m' + symbol_colored
                 if type(el) == tuple:
                     if el[0] == self.ally_side:
