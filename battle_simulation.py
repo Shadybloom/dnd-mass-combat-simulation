@@ -677,7 +677,7 @@ class battle_simulation(battlescape):
             zone_list = self.point_to_field(soldier.place, zone_radius)
             if zone_radius > 1:
                 zone_list = [point for point in zone_list\
-                        if inside_circle(point, soldier.place, zone_radius + 0.5)]
+                        if inside_circle(point, soldier.place, zone_radius)]
             soldier_tuple = (squad.ally_side, soldier.behavior, soldier.uuid)
             for point in zone_list:
                 squad.dict_control_zones[point].append(soldier_tuple)
@@ -1726,18 +1726,18 @@ class battle_simulation(battlescape):
                         hit = self.attack_action(
                                 enemy_soldier, enemy_squad,
                                 soldier_tuple, reaction = True)
-                        if hit:
-                            # 15-20 провоцированных атак за минуту боя, 30-50 атак за бой.
-                            print('{side_1}, {c1} {s} PROVOKE >> {side_2} {c2} {e} act {a} dodge {d}'.format(
-                                side_1 = enemy_soldier.ally_side,
-                                c1 = enemy_soldier.place,
-                                s = enemy_soldier.behavior,
-                                side_2 = soldier.ally_side,
-                                c2 = soldier.place,
-                                e = soldier.behavior,
-                                a = soldier.battle_action,
-                                d = soldier.dodge_action,
-                                ))
+                        #if hit:
+                        #    # 15-20 провоцированных атак за минуту боя, 30-50 атак за бой.
+                        #    print('{side_1}, {c1} {s} PROVOKE >> {side_2} {c2} {e} act {a} dodge {d}'.format(
+                        #        side_1 = enemy_soldier.ally_side,
+                        #        c1 = enemy_soldier.place,
+                        #        s = enemy_soldier.behavior,
+                        #        side_2 = soldier.ally_side,
+                        #        c2 = soldier.place,
+                        #        e = soldier.behavior,
+                        #        a = soldier.battle_action,
+                        #        d = soldier.dodge_action,
+                        #        ))
 
     def volley_action(self, soldier, squad):
         """Лучник обстреливает зону градом стрел."""
@@ -2294,13 +2294,9 @@ class battle_simulation(battlescape):
                         soldier_coordinates = soldier.place, view_all = True)
                 targets = recon_dict.values()
             else:
-                # Единственная цель, если нулевой радиус зоны:
                 recon_dict = self.recon(zone_center, zone_radius,
                         soldier_coordinates = soldier.place, view_all = True)
-                if recon_dict:
-                    targets = [random.choice(list(recon_dict.values()))]
-                else:
-                    targets = []
+                targets = recon_dict.values()
             # Концентрация на заклинании:
             if spell_dict.get('concentration'):
                 soldier.set_concentration(spell_dict)
