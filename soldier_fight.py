@@ -169,6 +169,8 @@ class soldier_in_battle(soldier):
         
         До начала боя, если боец со свежими силами.
         """
+        # Отменяем подготовленное действие:
+        self.ready_action = False
         # Даём боевые действия и пул движения:
         self.battle_action = True
         self.bonus_action = True
@@ -407,6 +409,8 @@ class soldier_in_battle(soldier):
         https://www.dandwiki.com/wiki/5e_SRD:Combat_Turn
         Move, Action (Ready Action), Bonus Action, Reaction
         """
+        # Отменяем подготовленное действие:
+        self.ready_action = False
         # Индивидуальные команды обновляются каждый ход:
         self.commands = []
         # Боец может оказаться в бою раненым:
@@ -426,11 +430,14 @@ class soldier_in_battle(soldier):
             if self.help_action:
                 self.help_action = False
                 self.battle_action = False
-        # Отключаем манёвры пршлого хода:
-        self.dash_action = False # это ускорение до x2 скорости за счёт battle_action.
-        self.dodge_action = False # это disadvantage для врагов за счёт battle_action.
-        self.reckless_attack = False # тактика варвара, преимущество и себе, и врагам.
-        self.shield = False # заклинание 'Shield' волшебника даёт +5 AC на один раунд.
+        # Отключаем манёвры пршлого хода, работавшие за счёт battle_action
+        self.disengage_action = False # это защита от провоцированных атак.
+        self.dash_action = False # это ускорение до x2 скорости
+        self.dodge_action = False # это disadvantage на атаки врагов и преимущество ловксоти
+        # Тактика варвара, преимущество и себе, и врагам:
+        self.reckless_attack = False
+        # Заклинание "Shield" волшебника:
+        self.shield = False
         # Щит возвращается в боевое положение (если в прошлом ходу использовалось двуручное оружие):
         if self.armor['shield_use'] and not self.shield_ready:
             self.set_shield()
@@ -756,6 +763,19 @@ class soldier_in_battle(soldier):
             if self.bonus_action == True:
                 self.bonus_action = False
                 self.dodge_action = True
+                return True
+
+    def set_step_of_the_wind_disengage(self):
+        """Уклонение монаха."""
+        if self.class_features.get('Step_of_the_Wind'):
+            #if hasattr(self, 'ki_points') and self.ki_points > 0 and self.bonus_action == True:
+            #    self.ki_points -= 1
+            #    self.bonus_action = False
+            #    self.disengage_action = True
+            if self.bonus_action == True:
+                self.bonus_action = False
+                self.disengage_action = True
+                return True
 
     def set_cunning_action_defence(self):
         """Защитные приёмы вора."""
@@ -763,6 +783,15 @@ class soldier_in_battle(soldier):
             if self.bonus_action == True:
                 self.bonus_action = False
                 self.dodge_action = True
+                return True
+
+    def set_cunning_action_disengage(self):
+        """Уклонение вора."""
+        if self.class_features.get('Cunning_Action'):
+            if self.bonus_action == True:
+                self.bonus_action = False
+                self.disengage_action = True
+                return True
 
     def set_cunning_action_dash(self):
         """Ускорение вора."""
@@ -770,6 +799,7 @@ class soldier_in_battle(soldier):
             if self.bonus_action == True:
                 self.bonus_action = False
                 self.dash_action = True
+                return True
 
     def set_two_weapon_fighting(self, attack_choice):
         """Атака вторым оружием за счёт бонусного действия.
@@ -1015,18 +1045,33 @@ class soldier_in_battle(soldier):
             self.battle_action = False
             self.dash_action = True
 
+    def use_disengage_action(self):
+        """Боец уклоняется от провоцированных атак на движение.
+
+        https://www.dandwiki.com/wiki/5e_SRD:Disengage_Action
+        """
+        if self.bonus_action and self.class_features.get('Cunning_Action'):
+            return self.set_cunning_action_disengage()
+        elif self.bonus_action and self.class_features.get('Step_of_the_Wind'):
+            return self.set_step_of_the_wind_disengage()
+        elif self.battle_action:
+            self.battle_action = False
+            self.dodge_action = True
+            return True
+
     def use_dodge_action(self):
         """Боец защищается.
         
         https://www.dandwiki.com/wiki/5e_SRD:Dodge_Action
         """
-        if self.battle_action:
+        if self.bonus_action and self.class_features.get('Cunning_Action'):
+            return self.set_cunning_action_defence()
+        elif self.bonus_action and self.class_features.get('Patient_Defense'):
+            return self.set_patient_defence()
+        elif self.battle_action:
             self.battle_action = False
             self.dodge_action = True
-        elif self.bonus_action and self.class_features.get('Cunning_Action'):
-            self.set_cunning_action_defence()
-        elif self.bonus_action and self.class_features.get('Patient_Defense'):
-            self.set_patient_defence()
+            return True
 
     def use_heal(self, use_minor_potion = False):
         """Боец лечит себя, если способен."""
@@ -1232,6 +1277,8 @@ class soldier_in_battle(soldier):
         else:
             self.restained_difficult = difficult
             self.restained = True
+            self.move_action = False
+            self.move_pool = 0
             return True
 
     def set_poisoned(self, difficult, timer = 10, advantage = False, disadvantage = False):
@@ -1338,6 +1385,8 @@ class soldier_in_battle(soldier):
         else:
             self.enemy_grappler = enemy_soldier
             self.grappled = True
+            self.move_action = False
+            self.move_pool = 0
             return True
 
     def set_grapple_break(self, advantage = False, disadvantage = False):
@@ -1700,6 +1749,8 @@ class soldier_in_battle(soldier):
         Возможности:
         - Dash_Action -- двухкратное ускорение.
         """
+        # TODO: добавь правило диагонального перемещения.
+        # А заодно и направление движения в стиле север/юг.
         # dash_action -- удвоенная скорость.
         if self.dash_action:
             distance = distance / 2
@@ -1710,6 +1761,7 @@ class soldier_in_battle(soldier):
             self.move_pool -= distance
         if self.move_pool <= 0:
             self.move_action = False
+        return True
 
     def select_enemy(self, near_enemies, select_strongest = False, select_weaker = False):
         """Выбираем слабейшего/сильнейшего врага из списка целей.
@@ -2627,6 +2679,14 @@ class soldier_in_battle(soldier):
         enemy_soldier.defeat = True
         enemy_soldier.prone = True
         enemy_soldier.fall = True
+        # Противник лишается действий и реакции:
+        # TODO: Создай для этого функцию set_incapacitated
+        # Не забудь, что неподвижный теряет dodge_action, если имел.
+        # https://www.dandwiki.com/wiki/5e_SRD:Conditions#Incapacitated
+        enemy_soldier.ready_action = False
+        enemy_soldier.battle_action = False
+        enemy_soldier.bonus_action = False
+        enemy_soldier.reaction = False
         # Противник теряет концентрацию:
         if enemy_soldier.concentration:
             enemy_soldier.set_concentration_break(autofail = True)

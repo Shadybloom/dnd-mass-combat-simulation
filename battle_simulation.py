@@ -634,15 +634,53 @@ class battle_simulation(battlescape):
         # Список команд на текущий ход:
         self.set_squad_command_and_control(squad)
         squad.commands = self.squad_AI(squad, squad.commander, commands)
+        # Зоны контроля сбрасываются перед ходом отряда:
+        squad.dict_control_zones = {}
+        for key in self.dict_battlespace.keys():
+            squad.dict_control_zones[key] = []
         # Боец действует, только если он находится на карте и боеспособен:
         for uuid, soldier in squad.metadict_soldiers.items():
             if soldier.get_coordinates() and soldier.hitpoints > 0\
                     and not soldier.sleep and not soldier.defeat\
                     and not 'inactive' in squad.commands:
                 self.round_run_soldier(soldier, squad)
-            # Зональные эффекты (заклинаний):
+                # Зона контроля для атак реакцией.
+                self.set_control_zone(soldier, squad)
+            # Зональные эффекты бьют в том числе и раненых:
             if soldier.get_coordinates():
                 self.get_zone_effects(soldier, squad)
+
+    def set_control_zone(self, soldier, squad):
+        """Зона контроля бойца. Для атак реакцией в ход врага.
+
+        Зона контроля = досягаемость ближних атак:
+        - Атака реакцией, если враг покидает зону контроля без Disengage_Action.
+        # Зона 3x3 клетки (кинжалы, мечи, копья)
+        # ..................................
+        # ..^^^.............................
+        # ..<C>.............................
+        # ..^^^.............................
+        # ..................................
+        # # Зона 21 клетки (пики, глефы, алебарды)
+        # ..................................
+        # ..^^^.............................
+        # .<^^^>............................
+        # .<<C>>............................
+        # .<^^^>............................
+        # ..^^^.............................
+        # ..................................
+        """
+        reach_ranges = [soldier.attacks[attack].get('attack_range', 0) for attack in soldier.attacks.keys()
+                if attack[0] == 'close' or attack[0] == 'reach']
+        if reach_ranges:
+            zone_radius = round(max(reach_ranges) / self.tile_size)
+            zone_list = self.point_to_field(soldier.place, zone_radius)
+            if zone_radius > 1:
+                zone_list = [point for point in zone_list\
+                        if inside_circle(point, soldier.place, zone_radius + 0.5)]
+            soldier_tuple = (squad.ally_side, soldier.behavior, soldier.uuid)
+            for point in zone_list:
+                squad.dict_control_zones[point].append(soldier_tuple)
 
     def set_squad_command_and_control(self, squad):
         """Работает командование отряда:
@@ -895,13 +933,10 @@ class battle_simulation(battlescape):
         elif squad.commander and not squad.enemies:
             commands_list = ['lead','follow']
         elif not squad.commander:
-            # TODO: вот здесь-то и нужен рассчёт потерь в отряде:
-            # И выбор 'retreat', если всё совсем плохо.
-            #commands_list = ['seek','engage','attack']
             # TODO: disengage использует squad.enemy_recon.
             # А разведка противника не обновляется без командира.
             #commands_list = ['disengage','dodge','attack']
-            commands_list = ['retreat', 'rescue', 'danger', 'disengage']
+            commands_list = ['retreat', 'rescue']
         if squad.commander:
             # Захват пленных:
             if squad.commander.__dict__.get('enslave_AI'):
@@ -1031,12 +1066,6 @@ class battle_simulation(battlescape):
             for enemy in soldier.near_enemies:
                 if enemy.place not in squad.frontline:
                     squad.frontline.append(enemy.place)
-        # Солдат лечится способностями/зельями, если это необходимо:
-        if soldier.hitpoints <= soldier.hitpoints_max * 0.5\
-                and 'carefull' in soldier.commands\
-                or soldier.hitpoints <= soldier.hitpoints_max * 0.75\
-                and'very_carefull' in soldier.commands:
-            soldier.use_heal()
         # Солдат отступает, если ранен и таков приказ:
         if soldier.hitpoints <= soldier.hitpoints_max * 0.5\
                 and 'carefull' in soldier.commands\
@@ -1045,6 +1074,12 @@ class battle_simulation(battlescape):
             destination = self.find_spawn(soldier.place, soldier.ally_side)
             destination = random.choice(self.point_to_field(destination))
             self.move_action(soldier, squad, destination, allow_replace = True)
+        # Солдат лечится способностями/зельями, если это необходимо:
+        if soldier.hitpoints <= soldier.hitpoints_max * 0.5\
+                and 'carefull' in soldier.commands\
+                or soldier.hitpoints <= soldier.hitpoints_max * 0.75\
+                and'very_carefull' in soldier.commands:
+            soldier.use_heal()
         # Солдат отступает к точке спавна, если опасность слишком велика:
         if soldier.danger > self.engage_danger and not soldier.escape:
             destination = self.find_spawn(soldier.place, soldier.ally_side)
@@ -1055,12 +1090,12 @@ class battle_simulation(battlescape):
             # Командир может отступить в глубину строя:
             if soldier.behavior == 'commander' or 'retreat' in soldier.commands:
                 self.move_action(soldier, squad, destination, allow_replace = True)
-            soldier.use_dodge_action()
         # Солдат бежит, если испуган, или таков приказ:
         elif soldier.escape or soldier.fear or 'retreat' in soldier.commands:
             if 'retreat' in soldier.commands:
                 soldier.escape = True
-            soldier.use_dash_action()
+            if not soldier.near_enemies:
+                soldier.use_dash_action()
             # Бегство к выходу из карты, или к зоне спавна отряда:
             if len(squad.exit_points) > 0:
                 destination = random.choice(squad.exit_points)
@@ -1156,7 +1191,6 @@ class battle_simulation(battlescape):
         # Боец отступает, если таков приказ, или он в зоне опасного заклинания:
         if 'disengage' in soldier.commands and squad.__dict__.get('enemy_recon'):
             if enemy and enemy.distance <= squad.enemy_recon['move'] * 2\
-                    or 'danger_terrain' in self.dict_battlespace[soldier.place]\
                     or 'danger' in soldier.commands\
                     and soldier.place in squad.enemy_recon.get('danger_places',[]):
                 if not 'spawn' in self.dict_battlespace[soldier.place]:
@@ -1419,6 +1453,36 @@ class battle_simulation(battlescape):
                 break
         return save_path
 
+    def check_place_danger(self, soldier, next_place):
+        """Солдат проверят точку пути на угрозы.
+        
+        - Выход из вражеской зоны контроля, это провоцированная атака реакцией.
+        """
+        prev_place = soldier.place
+        dangers_dict = {
+                'ready_attacks':[],
+                'provoke_attacks':[],
+                }
+        for squad in self.squads.values():
+            if squad.ally_side == soldier.enemy_side\
+                    and squad.__dict__.get('dict_control_zones'):
+                enemies_near = squad.dict_control_zones[soldier.place]
+                enemies_next = squad.dict_control_zones[next_place]
+                # Подготовленная атака на приближение врага:
+                #ready_attacks_list = [enemy for enemy in enemies_next if enemy not in enemies_near]
+                # Провоцированная атака на выход из зоны контроля:
+                provoke_attacks_list = [enemy for enemy in enemies_near if enemy not in enemies_next]
+                provoke_attacks_list = [enemy for enemy in provoke_attacks_list
+                        if self.metadict_soldiers[enemy[-1]].reaction]
+                if provoke_attacks_list:
+                    dangers_dict['provoke_attacks'].extend(provoke_attacks_list)
+                    #print(soldier.ally_side, soldier.place, next_place, provoke_attacks_list)
+        #print(prev_place, next_place)
+        if dangers_dict['provoke_attacks'] or dangers_dict['ready_attacks']:
+            return dangers_dict
+        else:
+            return False
+
     def move_action(self, soldier, squad, destination,
             free_path = False, allow_replace = False,
             save_path = True, danger_path = False,
@@ -1448,15 +1512,18 @@ class battle_simulation(battlescape):
         # Боец не идёт через опасные зоны:
         if not danger_path:
             if 'danger' in soldier.commands\
-                    and list(set(path) & set(squad.enemy_recon.get('danger_places',[])))\
-                    or [place for place in path if 'danger_terrain' in self.dict_battlespace[place]]:
+                    and list(set(path) & set(squad.enemy_recon.get('danger_places',[]))):
                 return False
         if 'free_path' in soldier.commands or soldier.__dict__.get('air_walk'):
             free_path = True
         if path:
             while path and soldier.move_pool > 0:
                 # Если ближайшая точка пути свободна, переходим на неё:
+                move = False
                 place = self.check_place(soldier, path[0])
+                dangers_dict = self.check_place_danger(soldier, path[0])
+                if dangers_dict and dangers_dict['provoke_attacks']:
+                    self.provoke_attack_chain(soldier, squad, dangers_dict['provoke_attacks'])
                 if place.free or free_path:
                     # TODO: пусть боец запоминает направление движения.
                     # -------------------------------------------------
@@ -1466,7 +1533,7 @@ class battle_simulation(battlescape):
                     # -------------------------------------------------
                     next_place = path.pop(0)
                     prev_place = soldier.place
-                    soldier.move(self.tile_size, place.rough)
+                    move = soldier.move(self.tile_size, place.rough)
                     self.change_place(prev_place, next_place, soldier.uuid)
                 # Если точка занята ездовым животным бойца, то можно двигаться:
                 elif not place.free and place.units\
@@ -1475,7 +1542,7 @@ class battle_simulation(battlescape):
                         and soldier.mount_uuid in place.units[0]:
                     next_place = path.pop(0)
                     prev_place = soldier.place
-                    soldier.move(self.tile_size, place.rough)
+                    move = soldier.move(self.tile_size, place.rough)
                     self.change_place(prev_place, next_place, soldier.uuid)
                 # Если размер существа маленький, то их может быть по 4 на точке:
                 elif not place.free and place.units\
@@ -1483,7 +1550,7 @@ class battle_simulation(battlescape):
                         and len(place.units) < 4:
                     next_place = path.pop(0)
                     prev_place = soldier.place
-                    soldier.move(self.tile_size, place.rough)
+                    move = soldier.move(self.tile_size, place.rough)
                     self.change_place(prev_place, next_place, soldier.uuid)
                 # Если точка занята союзником, можно поменяться с ним местами:
                 elif not place.free and allow_replace and place.units\
@@ -1491,7 +1558,7 @@ class battle_simulation(battlescape):
                     unit_uuid = place.units[0][-1]
                     next_place = path.pop(0)
                     prev_place = soldier.place
-                    soldier.move(self.tile_size, place.rough)
+                    move = soldier.move(self.tile_size, place.rough)
                     self.change_place(prev_place, next_place, soldier.uuid)
                     # Многотайловых лошадей не трогаем, мимо протискиваемся:
                     if not 'mount' in place.units[0]:
@@ -1636,6 +1703,42 @@ class battle_simulation(battlescape):
                 pass
             mount.set_coordinates(destination)
 
+    def provoke_attack_chain(self, soldier, squad, provoke_attacks_list):
+        """Боец провоцирует атаки и получает их.
+        
+        - Если возможо, старается уклоняться с Disengage_Action
+        https://www.dandwiki.com/wiki/5e_SRD:Disengage_Action
+        """
+        if not soldier.disengage_action:
+            disengage = soldier.use_disengage_action()
+            if disengage:
+                return False
+            else:
+                for enemy in provoke_attacks_list:
+                    enemy_soldier = self.metadict_soldiers[enemy[-1]]
+                    enemy_squad = [enemy_squad for enemy_squad in self.squads.values()
+                            if enemy_soldier.uuid in enemy_squad.metadict_soldiers][0]
+                    # Взгляд со стороны врага:
+                    recon_dict = self.recon(soldier.place,
+                            soldier_coordinates = enemy_soldier.place)
+                    if soldier.uuid in recon_dict.keys():
+                        soldier_tuple = recon_dict[soldier.uuid]
+                        hit = self.attack_action(
+                                enemy_soldier, enemy_squad,
+                                soldier_tuple, reaction = True)
+                        if hit:
+                            # 15-20 провоцированных атак за минуту боя, 30-50 атак за бой.
+                            print('{side_1}, {c1} {s} PROVOKE >> {side_2} {c2} {e} act {a} dodge {d}'.format(
+                                side_1 = enemy_soldier.ally_side,
+                                c1 = enemy_soldier.place,
+                                s = enemy_soldier.behavior,
+                                side_2 = soldier.ally_side,
+                                c2 = soldier.place,
+                                e = soldier.behavior,
+                                a = soldier.battle_action,
+                                d = soldier.dodge_action,
+                                ))
+
     def volley_action(self, soldier, squad):
         """Лучник обстреливает зону градом стрел."""
         # Выбираем подходящее оружие:
@@ -1689,10 +1792,10 @@ class battle_simulation(battlescape):
                     #    if spell_dict.get('zone'):
                     #        self.fireball_action(soldier, squad, spell_dict, target, safe = False)
 
-    def attack_action(self, soldier, squad, enemy, attack_choice = None):
+    def attack_action(self, soldier, squad, enemy, attack_choice = None, reaction = False):
         """Боец выбирает противника и атакует."""
         enemy_soldier = self.metadict_soldiers[enemy.uuid]
-        if soldier.battle_action:
+        if soldier.battle_action or reaction and soldier.reaction:
             # Смотрим, возможно ли атаковать:
             if not attack_choice:
                 attack_choice = soldier.select_attack(squad, enemy, self.tile_size)
@@ -1701,38 +1804,44 @@ class battle_simulation(battlescape):
             # Готовим цепь атак:
             attacks_number = soldier.attacks_number
             attacks_chain = [attack_choice] * attacks_number
-            soldier.battle_action = False
             # Оцениваем угрозу контратаки, прежде чем нападать:
             danger_offence = self.check_danger_offence(soldier, enemy)
-            # TODO: бонусы классов в отдельную функцию:
-            attacks_chain_bonus = []
-            # Боец может использовать парное оружие (в том числе метательное), если нет щита:
-            if soldier.class_features.get('Fighting_Style_Two_Weapon_Fighting'):
-                if attack_choice[0] == 'close' or attack_choice[0] == 'throw':
-                    attacks_chain_bonus = soldier.set_two_weapon_fighting(attack_choice)
-            # Жрецы домена войны могут получить атаку за счёт бонусного действия:
-            if soldier.class_features.get('War_Priest') and soldier.war_priest > 0:
-                    attacks_chain_bonus += attack_choice
-                    soldier.bonus_action = False
-                    soldier.war_priest -= 1
-            # Монахи усиливают атаку за счёт Ки:
-            if soldier.class_features.get('Martial_Arts'):
-                if attack_choice[0] == 'close':
-                    attacks_chain_bonus = soldier.set_martial_arts()
-            # Варвары добавляют бонусы ярости:
-            if soldier.char_class == 'Barbarian':
-                if attack_choice[0] == 'close':
-                    soldier.set_rage()
-                if attack_choice[0] == 'close' and danger_offence:
-                    attacks_chain_bonus = soldier.set_frenzy(attack_choice)
-            # Рейнджеры выбирают групповые цели:
-            elif soldier.char_class == 'Ranger':
-                if attack_choice[0] == 'ranged':
-                    if soldier.class_features.get('Hunter_Horde_Breaker')\
-                            and enemy_soldier.near_allies:
-                        attacks_chain_bonus = [attack_choice]
-            attacks_chain.extend(attacks_chain_bonus)
+            if reaction and soldier.reaction:
+                # Атака реакцией может быть только одна:
+                soldier.reaction = False
+                attacks_chain = [attacks_chain[0]]
+            else:
+                soldier.battle_action = False
+                # TODO: бонусы классов в отдельную функцию:
+                attacks_chain_bonus = []
+                # Боец может использовать парное оружие (в том числе метательное), если нет щита:
+                if soldier.class_features.get('Fighting_Style_Two_Weapon_Fighting'):
+                    if attack_choice[0] == 'close' or attack_choice[0] == 'throw':
+                        attacks_chain_bonus = soldier.set_two_weapon_fighting(attack_choice)
+                # Жрецы домена войны могут получить атаку за счёт бонусного действия:
+                if soldier.class_features.get('War_Priest') and soldier.war_priest > 0:
+                        attacks_chain_bonus += attack_choice
+                        soldier.bonus_action = False
+                        soldier.war_priest -= 1
+                # Монахи усиливают атаку за счёт Ки:
+                if soldier.class_features.get('Martial_Arts'):
+                    if attack_choice[0] == 'close':
+                        attacks_chain_bonus = soldier.set_martial_arts()
+                # Варвары добавляют бонусы ярости:
+                if soldier.char_class == 'Barbarian':
+                    if attack_choice[0] == 'close':
+                        soldier.set_rage()
+                    if attack_choice[0] == 'close' and danger_offence:
+                        attacks_chain_bonus = soldier.set_frenzy(attack_choice)
+                # Рейнджеры выбирают групповые цели:
+                elif soldier.char_class == 'Ranger':
+                    if attack_choice[0] == 'ranged':
+                        if soldier.class_features.get('Hunter_Horde_Breaker')\
+                                and enemy_soldier.near_allies:
+                            attacks_chain_bonus = [attack_choice]
+                attacks_chain.extend(attacks_chain_bonus)
             # Начинаем цепь атак:
+            hit = False
             while attacks_chain:
                 # Иногда заканчиваются боеприпасы:
                 if not soldier.attacks.get(attacks_chain[0]):
@@ -1767,6 +1876,7 @@ class battle_simulation(battlescape):
                 # Противник получает атаку:
                 attack_result = enemy_soldier.take_attack(
                         attack_choice, attack_dict, self.metadict_soldiers)
+                # TODO: всё это в отдельную функцию.
                 # Атака заклинанием в оружии:
                 if attack_result.get('spell_dict'):
                     spell_dict = attack_result['spell_dict']
@@ -1878,6 +1988,10 @@ class battle_simulation(battlescape):
                             enemy_soldier = self.metadict_soldiers[enemy.uuid]
                 # Обобщаем статистику атак (расход боеприпасов и прочее):
                 self.set_squad_battle_stat(attack_result, squad)
+                if attack_result['hit']:
+                    hit = True
+            if hit:
+                return True
 
     def wrestling_action(self, soldier, squad, enemy_soldier, advantage = False, disadvantage = False):
         """Рукопашный бой вместо обычных атак.
