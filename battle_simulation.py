@@ -1786,11 +1786,18 @@ class battle_simulation(battlescape):
                     soldier.use_ammo(soldier.attacks[attack_choice], squad.metadict_soldiers)
                     self.set_squad_battle_stat(soldier.attacks.get(attack_choice), squad, attack_choice)
                     # Артиллерия и заклинания в стрелах:
-                    # TODO: так-то лучше включить. Иначе с промахами зональные заклинания не срабатывают.
-                    #if soldier.attacks[attack_choice].get('spell_dict'):
-                    #    spell_dict = soldier.attacks[attack_choice].get('spell_dict')
-                    #    if spell_dict.get('zone'):
-                    #        self.fireball_action(soldier, squad, spell_dict, target, safe = False)
+                    if soldier.attacks[attack_choice].get('spell_dict'):
+                        spell_dict = soldier.attacks[attack_choice].get('spell_dict')
+                        if spell_dict.get('ammo', 0) > 0 and enemy_soldier.behavior == 'commander'\
+                                or spell_dict.get('ammo') == None:
+                            if spell_dict.get('zone') and not spell_dict.get('crit_only'):
+                                self.fireball_action(soldier, squad, spell_dict, target)
+                            elif attack_result['hit'] and not spell_dict.get('crit_only'):
+                                self.fireball_action(soldier, squad, spell_dict, target,
+                                        single_target = enemy)
+                            elif attack_result['crit'] and spell_dict.get('crit_only'):
+                                self.fireball_action(soldier, squad, spell_dict, target,
+                                        single_target = enemy)
 
     def attack_action(self, soldier, squad, enemy, attack_choice = None, reaction = False):
         """Боец выбирает противника и атакует."""
@@ -1885,9 +1892,11 @@ class battle_simulation(battlescape):
                         if spell_dict.get('zone') and not spell_dict.get('crit_only'):
                             self.fireball_action(soldier, squad, spell_dict, enemy.place)
                         elif attack_result['hit'] and not spell_dict.get('crit_only'):
-                            self.fireball_action(soldier, squad, spell_dict, enemy.place)
+                            self.fireball_action(soldier, squad, spell_dict, enemy.place,
+                                    single_target = enemy)
                         elif attack_result['crit'] and spell_dict.get('crit_only'):
-                            self.fireball_action(soldier, squad, spell_dict, enemy.place)
+                            self.fireball_action(soldier, squad, spell_dict, enemy.place,
+                                    single_target = enemy)
                 # Монашьи боласы могут сбить с ног:
                 if attack_result['hit'] and 'prone' in attack_result['weapon_type']\
                         and not enemy_soldier.prone:
