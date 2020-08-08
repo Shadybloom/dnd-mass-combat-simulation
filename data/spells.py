@@ -825,7 +825,6 @@ class gen_spells():
                 'concentration':True,
                 #'zone':True,
                 #'zone_shape':'square',
-                #'zone_danger':True,
                 #'radius':10,
                 'direct_hit':True,
                 'savethrow':True,
@@ -1218,6 +1217,7 @@ class gen_spells():
                 'concentration':True,
                 'zone':True,
                 'zone_shape':'2x2',
+                'zone_effect':True,
                 'zone_danger':True,
                 'direct_hit':True,
                 'savethrow':True,
@@ -1311,6 +1311,7 @@ class gen_spells():
                 'effect':'darkness',
                 'effect_timer':100,
                 'zone_effect':True,
+                'zone_self':True,
                 'concentration':True,
                 'direct_hit':True,
                 'attacks_number':1,
@@ -1557,6 +1558,7 @@ class gen_spells():
         # TODO: Поражает только указанных при касте врагов. Это важно!
         # Но всегда можно забраться повыше и разглядеть всех.
         spell_dict = {
+                'safe':True,
                 'effect':'spirit_guardians',
                 'effect_timer':100,
                 'zone_effect':True,
@@ -1640,6 +1642,7 @@ class gen_spells():
                 'direct_hit':True,
                 'savethrow':True,
                 'savethrow_ability':'constitution',
+                'ammo':1,
                 'attacks_number':1,
                 'attack_range':60,
                 'radius':30,

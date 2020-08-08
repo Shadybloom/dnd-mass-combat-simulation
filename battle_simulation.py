@@ -640,7 +640,8 @@ class battle_simulation(battlescape):
                     and not soldier.sleep and not soldier.defeat\
                     and not 'inactive' in squad.commands:
                 self.round_run_soldier(soldier, squad)
-                # Зональные эффекты (заклинаний):
+            # Зональные эффекты (заклинаний):
+            if soldier.get_coordinates():
                 self.get_zone_effects(soldier, squad)
 
     def set_squad_command_and_control(self, squad):
@@ -866,10 +867,15 @@ class battle_simulation(battlescape):
             # Оцениваем опасность зональных заклинаний. Например Spirit_Guardians:
             if squad.enemy_recon['danger_places']:
                 danger_places = squad.enemy_recon['danger_places']
-                # TODO: сделай это полноценным циклом. Чтобы учитывать и Flaming_Sphere:
                 enemy_mages_list = [enemy for enemy in self.metadict_soldiers.values()
                         if enemy.ally_side == commander.enemy_side
                         and enemy.concentration and enemy.concentration.get('zone_danger')]
+                # Свои маги тоже небезопасны:
+                ally_mages_list = [ally for ally in self.metadict_soldiers.values()
+                        if ally.ally_side == commander.ally_side
+                        and ally.concentration and ally.concentration.get('zone_danger')
+                        and not ally.concentration.get('safe')]
+                enemy_mages_list.extend(ally_mages_list)
                 if enemy_mages_list:
                     #print('NYA', enemy_mages_list[0].rank, danger_places)
                     zonal_spell_victims = [soldier for soldier in squad.metadict_soldiers.values()
@@ -895,7 +901,7 @@ class battle_simulation(battlescape):
             # TODO: disengage использует squad.enemy_recon.
             # А разведка противника не обновляется без командира.
             #commands_list = ['disengage','dodge','attack']
-            commands_list = ['retreat', 'rescue']
+            commands_list = ['retreat', 'rescue', 'danger', 'disengage']
         if squad.commander:
             # Захват пленных:
             if squad.commander.__dict__.get('enslave_AI'):
@@ -1147,12 +1153,22 @@ class battle_simulation(battlescape):
         # Не видя врага, лучники стреляют навесом:
         if 'volley' in soldier.commands and not enemy:
             self.volley_action(soldier, squad)
-        # Лучники отступают, если враг близко:
-        if 'disengage' in soldier.commands and enemy:
-            if squad.__dict__.get('enemy_recon') and enemy.distance <= squad.enemy_recon['move'] * 2:
-                destination = self.find_spawn(soldier.place, soldier.ally_side)
+        # Боец отступает, если таков приказ, или он в зоне опасного заклинания:
+        if 'disengage' in soldier.commands and squad.__dict__.get('enemy_recon'):
+            if enemy and enemy.distance <= squad.enemy_recon['move'] * 2\
+                    or 'danger_terrain' in self.dict_battlespace[soldier.place]\
+                    or 'danger' in soldier.commands\
+                    and soldier.place in squad.enemy_recon.get('danger_places',[]):
+                if not 'spawn' in self.dict_battlespace[soldier.place]:
+                    destination = self.find_spawn(soldier.place, soldier.ally_side)
+                elif 'spawn' in self.dict_battlespace[soldier.place]:
+                    destination = random.choice(squad.exit_points)
+                    soldier.use_dash_action(bonus_action = True)
+                    soldier.escape = True
                 self.move_action(soldier, squad, destination,
-                        allow_replace = True, save_path = False)
+                        allow_replace = True, save_path = False, danger_path = True)
+                if 'exit' in self.dict_battlespace[soldier.place]:
+                    self.clear_battlemap()
         # Если не видно врагов, боец лечится добряникой:
         if not enemy and soldier.hitpoints < soldier.hitpoints_max:
             soldier.use_heal(use_minor_potion = True)
@@ -1268,16 +1284,28 @@ class battle_simulation(battlescape):
                     and enemy_soldier.concentration.get('effect')
                     and enemy_soldier.concentration.get('zone_effect')
                     and enemy_soldier.concentration.get('zone_danger')]
+            # Свои маги тоже небезопасны:
+            ally_mages_list = [ally for ally in self.metadict_soldiers.values()
+                    if ally.ally_side == soldier.ally_side
+                    and ally.concentration
+                    and ally.concentration.get('effect')
+                    and ally.concentration.get('zone_effect')
+                    and ally.concentration.get('zone_danger')
+                    and not ally.concentration.get('safe')]
+            enemy_mages_list.extend(ally_mages_list)
             if enemy_mages_list:
                 for enemy_soldier in enemy_mages_list:
                     for descript in self.dict_battlespace[soldier.place]:
-                        if enemy_soldier.concentration['effect'] == descript:
+                        if enemy_soldier.concentration\
+                                and enemy_soldier.concentration['effect'] == descript:
                             spell_dict = dict(enemy_soldier.concentration)
-                            spell_dict['radius'] = 0
                             enemy_squad = [enemy_squad for enemy_squad in self.squads.values()
                                     if enemy_soldier.uuid in enemy_squad.metadict_soldiers][0]
                             self.fireball_action(enemy_soldier, enemy_squad,
-                                    spell_dict, soldier.place, safe = True)
+                                    spell_dict, soldier.place,
+                                    safe = spell_dict.get('safe', False),
+                                    single_target = soldier
+                                    )
 
     def follow_action(self, soldier, squad, commander, accuracy = 1):
         """Солдат следует за командиром, стараясь держать строй.
@@ -1393,7 +1421,8 @@ class battle_simulation(battlescape):
 
     def move_action(self, soldier, squad, destination,
             free_path = False, allow_replace = False,
-            save_path = True, allow_manoeuvre = True):
+            save_path = True, danger_path = False,
+            allow_manoeuvre = True):
         """Боец следует к цели.
         
         Как работает следование маршруту:
@@ -1417,9 +1446,11 @@ class battle_simulation(battlescape):
             # Безопасный путь, это остановка перед линией фронта:
             path = self.path_to_savepath(path, squad.frontline)
         # Боец не идёт через опасные зоны:
-        if 'danger' in soldier.commands\
-                and list(set(path) & set(squad.enemy_recon.get('danger_places',[]))):
-            return False
+        if not danger_path:
+            if 'danger' in soldier.commands\
+                    and list(set(path) & set(squad.enemy_recon.get('danger_places',[])))\
+                    or [place for place in path if 'danger_terrain' in self.dict_battlespace[place]]:
+                return False
         if 'free_path' in soldier.commands or soldier.__dict__.get('air_walk'):
             free_path = True
         if path:
@@ -2003,25 +2034,10 @@ class battle_simulation(battlescape):
                             advantage = advantage, disadvantage = disadvantage)
                     attack_result = enemy_soldier.take_attack(
                             spell_choice, attack_dict, self.metadict_soldiers)
-                    # Заклинание "Create_Bonfire" оставляет пожары:
+                    # Заклинание "Create_Bonfire" создаёт пожары:
                     if spell_dict.get('effect') == 'bonfire':
-                        if soldier.concentration and soldier.concentration.get('bonfire_place'):
-                            try:
-                                bonfire_place_old = soldier.concentration['bonfire_place']
-                                self.dict_battlespace[bonfire_place_old].remove('bonfire')
-                                self.dict_battlespace[bonfire_place_old].remove('danger_terrain')
-                                #self.dict_battlespace[bonfire_place_old].remove('stop_terrain')
-                            except ValueError:
-                                #traceback.print_exc()
-                                pass
-                        bonfire_place = enemy_soldier.place
-                        if soldier.concentration and soldier.concentration.get('effect') == 'bonfire':
-                            soldier.concentration['bonfire_place'] = bonfire_place
-                        if not 'bonfire' in self.dict_battlespace[bonfire_place]:
-                            self.dict_battlespace[bonfire_place].append('danger_terrain')
-                            self.dict_battlespace[bonfire_place].append('bonfire')
-                        # Обновляем сетку, метка "bonfire" -- опасная зона.
-                        #self.matrix = self.map_to_matrix(self.battle_map, self.dict_battlespace)
+                        spell_dict = soldier.concentration
+                        self.fireball_action(soldier, squad, spell_dict, enemy_soldier.place)
                 # Заклинания с показателем атаки мало отличаются от стрел и мечей:
                 elif spell_dict.get('attack_mod'):
                     attack_dict = soldier.attack(spell_dict, spell_choice,
@@ -2097,7 +2113,8 @@ class battle_simulation(battlescape):
             if getattr(enemy_soldier, debuff) != True:
                 return enemy_soldier
 
-    def fireball_action(self, soldier, squad, spell_dict = None, zone_center = None, safe = False):
+    def fireball_action(self, soldier, squad, spell_dict = None, zone_center = None,
+            safe = False, single_target = False):
         """Маг работает артиллерией."""
         if hasattr(soldier, 'spells') and soldier.battle_action\
                 and self.select_zone_spell(soldier, squad)\
@@ -2113,6 +2130,8 @@ class battle_simulation(battlescape):
                         and soldier.concentration.get('spell_choice')\
                         and spell_choice == soldier.concentration['spell_choice']:
                     spell_dict = soldier.concentration
+                    if soldier.concentration.get('ammo') and soldier.concentration['ammo'] > 0:
+                        soldier.concentration['ammo'] -=1
                     if 'concentration_once' in spell_dict:
                         soldier.concentration = False
                     #print('NYA',soldier.concentration_timer, soldier.rank, soldier.concentration)
@@ -2206,16 +2225,21 @@ class battle_simulation(battlescape):
                     spell_dict['damage_dice'] = '0d0'
                     spell_dict['damage_mod'] = damage_mod
                     soldier.destructive_wrath = False
-            if spell_dict.get('zone_danger'):
-                danger_zone = self.point_to_field(zone_center)
-                for point in danger_zone:
-                    if not 'volley' in self.dict_battlespace[point]:
-                        self.dict_battlespace[point].append('volley')
             if targets:
+                if single_target:
+                    targets = [target for target in targets
+                            if target.uuid == single_target.uuid]
+                # TODO: эти проверки здесь лишние, заклинание уже использовано:
+                #allies = [target for target in targets if target.side == soldier.ally_side]
+                #enemies = [target for target in targets if target.side == soldier.enemy_side]
+                #if len(allies) > len(enemies) and not single_target:
+                #    print('NYA', len(allies), len(enemies))
                 # TODO: учти атаки бонусым действием
                 # Бери casting_time из spell_dict.
                 soldier.battle_action = False
-                if spell_dict.get('effect') == 'dawn':
+                if spell_dict.get('effect') == 'dawn'\
+                        or spell_dict.get('effect') == 'bonfire'\
+                        or spell_dict.get('effect') == 'moonbeam':
                     # TODO: это для Flaming_Sphere и подобных.
                     # ------------------------------------------------------------
                     # Проблема, каждая новая атака бьёт по местности.
@@ -2223,27 +2247,26 @@ class battle_simulation(battlescape):
                     # ------------------------------------------------------------
                     spell_dict = soldier.concentration
                     zone_radius = round(spell_dict['radius'] / self.tile_size)
-                    if soldier.concentration and soldier.concentration.get('zone_place'):
+                    if not spell_dict.get('zone_center'):
+                        spell_dict['zone_center'] = zone_center
+                    if not single_target:
                         try:
                             self.change_place_effect(spell_dict['effect'],
-                                    spell_dict['zone_place'], zone_center, zone_radius)
+                                    spell_dict['zone_center'], zone_center, zone_radius)
                             if spell_dict.get('zone_danger'):
                                 self.change_place_effect('danger_terrain',
-                                        spell_dict['zone_place'], zone_center, zone_radius)
+                                        spell_dict['zone_center'], zone_center, zone_radius)
                         except ValueError:
                             #traceback.print_exc()
                             pass
-                    else:
-                        try:
-                            self.change_place_effect(spell_dict['effect'],
-                                    zone_center, zone_center, zone_radius)
-                            if spell_dict.get('zone_danger'):
-                                self.change_place_effect('danger_terrain',
-                                        zone_center, zone_center, zone_radius)
-                        except ValueError:
-                            #traceback.print_exc()
-                            pass
-                    soldier.concentration['zone_place'] = zone_center
+                    # Первая атака лучом по всем в зоне:
+                    if not single_target and soldier.concentration.get('ammo'):
+                        soldier.concentration['zone_center'] = zone_center
+                        soldier.concentration['ammo'] -=1
+                    # Перенацеливание луча, без мгновенного урона:
+                    elif not single_target and soldier.concentration.get('ammo') == 0:
+                        soldier.concentration['zone_center'] = zone_center
+                        return False
                 # Перемещение в центр зоны заклинания (whirlwind воздушного элементаля)
                 if spell_dict.get('effect') == 'move':
                     self.change_place(soldier.place, zone_center, soldier.uuid)
@@ -2664,7 +2687,8 @@ class battle_simulation(battlescape):
         """
         coord_dict = {}
         for el in self.spawn_list:
-            if side in self.dict_battlespace[el.place] and 'spawn' in self.dict_battlespace[el.place]:
+            if side in self.dict_battlespace[el.place]\
+                    and 'spawn' in self.dict_battlespace[el.place]:
                 distance = round(distance_measure(soldier_coordinates, el.place))
                 coord_dict[el.place] = distance
         coord_dict = OrderedDict(sorted(coord_dict.items(),key=lambda x: x[1]))
@@ -2676,7 +2700,7 @@ class battle_simulation(battlescape):
                 if n == key_number:
                     return key
         else:
-            return soldier_coordinates
+            return False
 
     def fall_to_death(self, squad):
         """Тяжелораненые делают спасброски от смерти в начале каждого хода.
