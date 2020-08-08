@@ -563,7 +563,7 @@ class gen_spells():
                 'concentration':True,
                 'zone_effect':True,
                 'zone_danger':True,
-                'radius':5,
+                'radius':0,
                 'direct_hit':True,
                 'savethrow':True,
                 'savethrow_all':True,
@@ -727,13 +727,11 @@ class gen_spells():
         https://www.dnd-spells.com/spell/fog-cloud
         """
         spell_dict = {
-                # TODO: зона поражения 25 футов, потому что у меня функция занижает 20.
                 'effect':'fog',
                 'effect_timer':100,
                 'concentration':True,
                 'attacks_number':1,
-                #'radius':20,
-                'radius':25,
+                'radius':20,
                 'attack_range':120,
                 'components':['verbal','somatic'],
                 'casting_time':'action',
@@ -1108,7 +1106,6 @@ class gen_spells():
         https://www.dnd-spells.com/spell/thunderwave
         """
         # TODO: сделай отталкивание
-        # TODO: сделай Channel_Destructive_Wrath (максимальный урон заклинания)
         spell_dict = {
                 'effect':'burst',
                 'direct_hit':True,
@@ -1555,8 +1552,6 @@ class gen_spells():
         Duration: Concentration, up to 10 minutes
         https://www.dnd-spells.com/spell/spirit-guardians
         """
-        # TODO: Поражает только указанных при касте врагов. Это важно!
-        # Но всегда можно забраться повыше и разглядеть всех.
         spell_dict = {
                 'safe':True,
                 'effect':'spirit_guardians',

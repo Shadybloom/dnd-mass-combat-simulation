@@ -123,6 +123,8 @@ def inside_circle(point, circle_center, circle_radius):
     is inside the circle centered at (a, b) with radius r.
     http://schoolcoders.com/wiki/Testing_for_point_inside_circle_(Python)
     '''
+    # Чуть прибавляем, чтобы захватить границу круга.
+    circle_radius += 0.5
     x, y = point
     a, b = circle_center
     r = circle_radius
