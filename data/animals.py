@@ -2789,7 +2789,7 @@ metadict_animals['Veteran (CR 3)'] = {
 metadict_animals['Mage (CR 6)'] = {
     # Маг
     'level':9,
-    'archer_AI':True,
+    #'archer_AI':True,
     'fireball_AI':True,
     'challenge_rating':'6',
     'hitpoints_medial':True,
@@ -2813,7 +2813,8 @@ metadict_animals['Mage (CR 6)'] = {
             ('3_lvl', 'Fly'),
             ('4_lvl', 'Greater_Invisibility'),
             ('4_lvl', 'Ice_Storm'),
-            ('5_lvl', 'Cone_of_Cold'),
+            #('5_lvl', 'Cone_of_Cold'),
+            ('5_lvl', 'Dawn'),
             ],
         },
     'abilityes':{
@@ -2839,7 +2840,7 @@ metadict_animals['Mage (CR 6)'] = {
 metadict_animals['Archmage (CR 12)'] = {
     # Архимаг
     'level':18,
-    'archer_AI':True,
+    #'archer_AI':True,
     'fireball_AI':True,
     'challenge_rating':'12',
     'hitpoints_medial':True,
