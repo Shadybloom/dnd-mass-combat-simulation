@@ -2043,14 +2043,14 @@ class battle_simulation(battlescape):
             disarmed = enemy_soldier.set_disarm_shield(soldier)
             return disarmed
         # И наконец, отбираем у схваченного врага оружие и тащим его к нашим:
-        elif len(enemy_soldier.get_weapon_list()) >= 1\
+        elif len(enemy_soldier.get_weapon_list(close = True)) >= 1\
                 and not enemy_soldier.class_features.get('Weapon_Bond'):
             disarmed = enemy_soldier.set_disarm_weapon(soldier)
             if disarmed and len(soldier.near_allies) >= 1:
                 destination = self.find_spawn(soldier.place, soldier.ally_side)
                 self.move_action(soldier, squad, destination, allow_replace = True)
                 self.change_place(enemy_soldier.place, soldier.place, enemy_soldier.uuid)
-            return disarmed
+                return disarmed
 
     def spellcast_action(self, soldier, squad, enemy,
             spell_choice = None, subspell = False, use_spell = True):

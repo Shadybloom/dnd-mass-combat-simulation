@@ -1470,7 +1470,8 @@ class soldier_in_battle(soldier):
             self.unset_shield(disarm = True)
             return True
 
-    def set_disarm_weapon(self, enemy_soldier, advantage = False, disadvantage = False, difficult = False):
+    def set_disarm_weapon(self, enemy_soldier, advantage = False,
+            disadvantage = False, difficult = False, close = False):
         """Бойца пытаются лишить оружия.
         
         Проверка Ловкости (акробатика), или Силы (атлетика):
@@ -1496,11 +1497,12 @@ class soldier_in_battle(soldier):
                 enemy_soldier.get_trophy(weapon, self.equipment_weapon[weapon])
                 self.unset_weapon(weapon, disarm = True)
             else:
-                weapon_list = self.get_weapon_list()
+                weapon_list = self.get_weapon_list(close)
                 weapon = random.choice(weapon_list)
                 enemy_soldier.get_trophy(weapon, self.equipment_weapon[weapon])
                 self.unset_weapon(weapon, disarm = True)
-            return True
+            if not self.get_weapon_list(close):
+                return True
 
     def morality_check_escape(self, danger, advantage = False, disadvantage = False):
         """Если опасность высока, боец боится и может сбежать.
@@ -1703,14 +1705,17 @@ class soldier_in_battle(soldier):
 # ----
 # Вывод данных
 
-    def get_weapon_list(self):
+    def get_weapon_list(self, close = False):
         """Список оружия из атак бойца.
         
         """
         weapon_list = []
         for attack_choice, attack_dict in self.attacks.items():
             if attack_dict.get('weapon_use'):
-                weapon_list.append(attack_dict['weapon_use'])
+                if close and 'close' in attack_dict.get('weapon_type',[]):
+                    weapon_list.append(attack_dict['weapon_use'])
+                elif not close:
+                    weapon_list.append(attack_dict['weapon_use'])
         weapon_list = list(set(weapon_list))
         return weapon_list
 
