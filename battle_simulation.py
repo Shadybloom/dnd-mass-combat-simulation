@@ -656,6 +656,8 @@ class battle_simulation(battlescape):
                     zone_radius = round(spell_dict['radius'] / self.tile_size)
                     self.change_place_effect(spell_dict['effect'],
                             soldier.place, soldier.place, zone_radius)
+                    if spell_dict.get('zone_danger'):
+                        self.change_place_effect('danger_terrain', coordinates, soldier.place, zone_radius)
 
     def set_control_zone(self, soldier, squad):
         """Зона контроля бойца. Для атак реакцией в ход врага.
