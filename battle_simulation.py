@@ -643,8 +643,6 @@ class battle_simulation(battlescape):
             if soldier.get_coordinates() and soldier.hitpoints > 0\
                     and not soldier.sleep and not soldier.defeat\
                     and not 'inactive' in squad.commands:
-                # Меняем координаты, чтобы поставить ауру:
-                #self.change_place(soldier.place, soldier.place, soldier.uuid)
                 # Начинаем раунд солдата
                 self.round_run_soldier(soldier, squad)
                 # Зона контроля для атак реакцией.
@@ -652,6 +650,12 @@ class battle_simulation(battlescape):
             # Зональные эффекты бьют в том числе и раненых:
             if soldier.get_coordinates():
                 self.get_zone_effects(soldier, squad)
+                # Ставим ауру, на случай, если боец применил заклинание, но не ходил:
+                if soldier.concentration and soldier.concentration.get('zone_self'):
+                    spell_dict = soldier.concentration
+                    zone_radius = round(spell_dict['radius'] / self.tile_size)
+                    self.change_place_effect(spell_dict['effect'],
+                            soldier.place, soldier.place, zone_radius)
 
     def set_control_zone(self, soldier, squad):
         """Зона контроля бойца. Для атак реакцией в ход врага.
