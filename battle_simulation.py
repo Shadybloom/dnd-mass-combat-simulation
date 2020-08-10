@@ -643,6 +643,9 @@ class battle_simulation(battlescape):
             if soldier.get_coordinates() and soldier.hitpoints > 0\
                     and not soldier.sleep and not soldier.defeat\
                     and not 'inactive' in squad.commands:
+                # Меняем координаты, чтобы поставить ауру:
+                #self.change_place(soldier.place, soldier.place, soldier.uuid)
+                # Начинаем раунд солдата
                 self.round_run_soldier(soldier, squad)
                 # Зона контроля для атак реакцией.
                 self.set_control_zone(soldier, squad)
@@ -1897,6 +1900,21 @@ class battle_simulation(battlescape):
                         elif attack_result['crit'] and spell_dict.get('crit_only'):
                             self.fireball_action(soldier, squad, spell_dict, enemy.place,
                                     single_target = enemy)
+                # Эффект Crusaders_Mantle (срабатывает только для атак оружием):
+                if attack_result['hit'] and attack_dict.get('weapon') == True\
+                        and 'crusaders_mantle' in self.dict_battlespace[soldier.place]:
+                    # Находим создателя "Мантии крестоносца", если он союзный:
+                    spell_dict = [ally_soldier.concentration\
+                            for ally_soldier in self.metadict_soldiers.values()
+                            if ally_soldier.ally_side == soldier.ally_side
+                            and ally_soldier.concentration
+                            and ally_soldier.concentration.get('effect') == 'crusaders_mantle']
+                    if spell_dict:
+                        spell_dict = spell_dict[0]
+                        #spell_choice = 'aura', 'Crusaders_Mantle'
+                        #spell_dict['spell_choice'] = spell_choice
+                        self.fireball_action(soldier, squad, spell_dict, enemy.place,
+                                single_target = enemy)
                 # Монашьи боласы могут сбить с ног:
                 if attack_result['hit'] and 'prone' in attack_result['weapon_type']\
                         and not enemy_soldier.prone:
@@ -1937,24 +1955,6 @@ class battle_simulation(battlescape):
                             attack_result = enemy_soldier.take_attack(
                                     spell_choice, attack_dict, self.metadict_soldiers)
                             soldier.damage_absorbed = None
-                # Эффект Crusaders_Mantle (срабатывает только для атак оружием):
-                if attack_result['hit'] and attack_dict.get('weapon') == True\
-                        and 'crusaders_mantle' in self.dict_battlespace[soldier.place]:
-                    # Находим создателя "Мантии крестоносца", если он союзный:
-                    spell_dict = [ally_soldier.concentration\
-                            for ally_soldier in self.metadict_soldiers.values()
-                            if ally_soldier.ally_side == soldier.ally_side
-                            and ally_soldier.concentration
-                            and ally_soldier.concentration.get('effect') == 'crusaders_mantle']
-                    if spell_dict:
-                        spell_dict = spell_dict[0]
-                        spell_choice = 'aura', 'Crusaders_Mantle'
-                        spell_dict['spell_choice'] = spell_choice
-                        attack_dict = soldier.spell_attack(spell_dict, enemy,
-                                squad.metadict_soldiers,
-                                advantage = advantage, disadvantage = disadvantage)
-                        attack_result = enemy_soldier.take_attack(
-                                spell_choice, attack_dict, self.metadict_soldiers)
                 # Мастер тяжёлого оружия получает бонусную атаку, если убивает врага:
                 # 20 варварам 2 lvl это добавляет 25% атак. От 10 до 30 атак за минуту боя.
                 if attack_result['crit'] or attack_result['fatal_hit']:
@@ -2144,11 +2144,12 @@ class battle_simulation(battlescape):
                             if not enemy_soldier:
                                 break
                         sleep_pool -= enemy_soldier.hitpoints
-                        enemy_soldier.set_sleep()
-                        self.clear_battlemap()
-                        fall_place = enemy_soldier.place
-                        self.dict_battlespace[fall_place].append('fall_place')
-                        self.dict_battlespace[fall_place].append(enemy_soldier.ally_side)
+                        if sleep_pool > 0:
+                            enemy_soldier.set_sleep()
+                            sleep = enemy_soldier.set_sleep()
+                            #fall_place = enemy_soldier.place
+                            #self.dict_battlespace[fall_place].append('fall_place')
+                            #self.dict_battlespace[fall_place].append(enemy_soldier.ally_side)
                     continue
                 # Magic_Missile всегда попадает.
                 elif spell_dict.get('direct_hit'):
