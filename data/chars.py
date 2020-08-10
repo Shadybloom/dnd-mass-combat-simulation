@@ -4089,7 +4089,6 @@ metadict_chars['Bard 3 lvl (otherworld singer-explorer)'] = {
             ],
         'Jack_of_All_Trades':True,
         'Song_of_Rest':True,
-        'Bard_College':True,
         'College_of_Valor':True,
         'Expertise':True,
         },
@@ -4136,7 +4135,6 @@ metadict_chars['Bard 4 lvl (otherworld singer-pathfinder)'] = {
             ],
         'Jack_of_All_Trades':True,
         'Song_of_Rest':True,
-        'Bard_College':True,
         'College_of_Valor':True,
         'Expertise':True,
         'Ability_Score_Improvement':{
@@ -4202,7 +4200,6 @@ metadict_chars['Bard 5 lvl (otherworld singer-leader)'] = {
             ],
         'Jack_of_All_Trades':True,
         'Song_of_Rest':True,
-        'Bard_College':True,
         'College_of_Valor':True,
         'Expertise':True,
         'Ability_Score_Improvement':{
@@ -10211,4 +10208,130 @@ metadict_chars['Warrior 3 lvl (друг) (сержант пращников Ил
         'Lead Bullet':10,
         #'Sling Bullet':10,
         },
+    }
+
+#----
+# Союзники (герои) (Тетро):
+
+metadict_chars['Bard 2 lvl (друг) (бард Тетры)'] = {
+    # TODO: Jack_of_All_Trades позволяет добавлять 1/2 бонуса мастерства к модификаторам характеристик.
+    'level':2,
+    'char_class':'Bard',
+    'hit_dice':'1d8',
+    'behavior':'elite_warrior',
+    'class_features':{
+        'Feat_Inspiring_Leader':True,
+        'Bardic_Inspiration':True,
+        'Spellcasting':True,
+        'Spells':[
+            # 2 lvl -- 5 заклинаний
+            ('cantrip', 'Message'),
+            ('cantrip', 'Prestidigitation'),
+            ('ritual', 'Unseen_Servant'),
+            ('1_lvl', 'Charm_Person'),
+            ('1_lvl', 'Healing_Word'),
+            ('1_lvl', 'Silent_Image'),
+            ('1_lvl', 'Sleep'),
+            ],
+        'Jack_of_All_Trades':True,
+        'Song_of_Rest':True,
+        },
+    'race':'Human-hero',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Rune of Shielding':1,
+        'Rune of Armor':1,
+        'Rapier':1,
+        'Longbow':1,
+        'Arrow':60,
+        },
+    #'mount_combat':True,
+    #'mount_type':'Light Warhorse',
+    #'equipment_mount':{
+    #    },
+    }
+
+metadict_chars['Bard 6 lvl (друг) (Тетра Курио)'] = {
+    'level':6,
+    'fireball_AI':True,
+    'char_class':'Bard',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'hitpoints_medial':True,
+    'abilityes':{
+        # sum:85 STR:10 DEX:16 CON:15 INT:14 WIS:14 CHA:16
+        'strength':10,
+        'dexterity':16,
+        'constitution':15,
+        'intelligence':14,
+        'wisdom':14,
+        'charisma':16,
+        },
+    'class_features':{
+        'Feat_Inspiring_Leader':True,
+        'Bardic_Inspiration':True,
+        'Spellcasting':True,
+        'Spells':[
+            # 6 lvl -- 9 заклинаний
+            ('cantrip', 'Message'),
+            ('cantrip', 'Prestidigitation'),
+            ('cantrip', 'Dancing_Lights'),
+            ('ritual', 'Unseen_Servant'),
+            ('1_lvl', 'Charm_Person'),
+            ('1_lvl', 'Healing_Word'),
+            ('1_lvl', 'Silent_Image'),
+            ('1_lvl', 'Sleep'),
+            ('2_lvl', 'Shatter'),
+            ('3_lvl', 'Crusaders_Mantle'),
+            ('3_lvl', 'Counterspell'),
+            ('3_lvl', 'Sending'),
+            ],
+        'Jack_of_All_Trades':True,
+        'Song_of_Rest':True,
+        'Expertise':True,
+        'College_of_Lore':True,
+        'Bonus_Proficiencies':True,
+        'Cutting_Words':True,
+        'Font_of_Inspiration':True,
+        'Ability_Score_Improvement':{
+            'charisma':+2,
+            },
+        'Additional_Magical_Secrets':True,
+        'Countercharm':True,
+        },
+    'race':'Human-hero',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','shield'],
+    'skills':[
+        # 8 = 2 предыстория + 3 бард + 3 Bonus_Proficiencies
+        # === Intelligence
+        'Arcana',
+        'Investigation',
+        'Religion',
+        # === Wisdom
+        'Insight',
+        'Perception',
+        # === Charisma
+        'Deception',
+        'Intimidation',
+        'Persuasion',
+        ],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Heroism':1,
+        'Rune of Shielding':1,
+        'Rune of Armor':1,
+        'Rapier +1':1,
+        'Longbow':1,
+        'Arrow':60,
+        },
+    #'mount_combat':True,
+    #'mount_type':'Light Warhorse',
+    #'equipment_mount':{
+    #    },
     }

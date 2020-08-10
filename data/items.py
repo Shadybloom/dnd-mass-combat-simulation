@@ -1453,6 +1453,18 @@ metadict_items['Shortsword +1'] = {
     'cost (grams_of_gold)':30*60,
     }
 
+metadict_items['Rapier +1'] = {
+    # "Рапиры бронзового века"
+    'weapon':True,
+    'ammo_type':blade_poisons,
+    'weapon_type':['martial','close','finesse'],
+    'damage_type':'piercing',
+    'damage_dice':'1d8',
+    'weight (lb)':2,
+    'cost (gp)':25,
+    'cost (grams_of_gold)':30,
+    }
+
 metadict_items['Scimitar +1'] = {
     'weapon':True,
     'ammo_type':blade_poisons,

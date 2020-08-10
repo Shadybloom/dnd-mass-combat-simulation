@@ -73,6 +73,16 @@ metadict_squads['характеристики правителей'] = {
     #'Fighter 1 lvl (legionary sentinel-battler)':2000,
     }
 
+metadict_squads['характеристики героев'] = {
+    # Влом делать отдельно, так рольнём:
+        # 1 герой 5+ lvl на 16 героев 1 lvl
+        # 1 герой 7+ lvl на 62 героев 1 lvl
+        # 1 герой 9+ lvl на 250 героев 1 lvl
+    # Тетра Курио:
+    # Bard 1 lvl (otherworld singer-follower) sum:85 STR:10 DEX:16 CON:15 INT:14 WIS:14 CHA:16
+    'Bard 1 lvl (otherworld singer-follower)':32,
+    }
+
 metadict_squads['10 onagers (siege)'] = {
     'Warrior 2 lvl (siege engineer-apprentice) (onager-siege)':10,
     'Warrior 4 lvl (siege engineer-master)':1,
@@ -587,6 +597,14 @@ metadict_squads['Company-regular (лёгкие требушеты Илиона) 
     }
 
 #----
+# Союзные отряды (армия Крассиуса):
+
+metadict_squads['Squad-hero (барды Тетры) (друг)'] = {
+    'Bard 2 lvl (друг) (бард Тетры)':10,
+    'Bard 6 lvl (друг) (Тетра Курио)':1,
+    }
+
+#----
 # Геройские отряды (армия Сакатра):
 
 metadict_squads['Squad-hero (следопыты Сакатра) (Gogan)'] = {
@@ -647,6 +665,7 @@ metadict_squads['Company-regular (лучники Фарама) (Mordodrukow)'] =
     'Warrior 1 lvl (Mordodrukow) (рядовой)':85,
     'Warrior 2 lvl (Mordodrukow) (ветеран)':10,
     'Warrior 3 lvl (Mordodrukow) (сержант)':3,
+    'Warrior 5 lvl (Mordodrukow) (капитан)':1,
     'Warrior 4 lvl (Mordodrukow) (лейтенант)':1,
     }
 
@@ -747,9 +766,8 @@ metadict_squads['Company-regular (лучники Ианты) (Vaarsuvius)'] = {
     'Warrior 1 lvl (Vaarsuvius) (стрелок)':85,
     'Warrior 2 lvl (Vaarsuvius) (стрелок-ветеран)':10,
     'Warrior 3 lvl (Vaarsuvius) (меткий стрелок)':3,
-    'Druid 5 lvl (Vaarsuvius) (Ианта «Дочь бури»)':1,
-    #'Warrior 4 lvl (Vaarsuvius) (стрелок-лейтенант)':1,
-    #'Warrior 5 lvl (Vaarsuvius) (стрелок-капитан)':1,
+    'Warrior 4 lvl (Vaarsuvius) (стрелок-лейтенант)':1,
+    'Warrior 5 lvl (Vaarsuvius) (стрелок-капитан)':1,
     }
 
 metadict_squads['Company-regular (дочери медведицы Ианты) (Vaarsuvius)'] = {
@@ -772,7 +790,7 @@ metadict_squads['Squad-hero (друиды Ианты) (Vaarsuvius)'] = {
         #     - Мелина (в "Подводной страже", любит Ксантию)
         #     - Роксана (в "Подводной страже", не говорит, нет языка)
         #     - Ксантия (в "Подводной страже", любит Мелину)
-    #'Druid 5 lvl (Vaarsuvius) (Ианта «Дочь бури»)':1,
+    'Druid 5 lvl (Vaarsuvius) (Ианта «Дочь бури»)':1,
     'Druid 2 lvl (Vaarsuvius) (друид Психея)':1,
     'Druid 2 lvl (Vaarsuvius) (друид Артемиды)':7,
     #'Druid 2 lvl (Vaarsuvius) (друид Артемиды)':12,
