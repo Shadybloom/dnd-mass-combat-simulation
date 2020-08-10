@@ -518,7 +518,6 @@ if __name__ == '__main__':
         #print(soldier.rank, soldier.attacks.keys())
         #print(soldier.rank, [attack['attack_mod'] for attack in soldier.attacks.values()])
         #print(soldier.rank, soldier.unit_cost)
-        #print(soldier.behavior, sum(soldier.abilityes.values()), soldier.abilityes)
         #if hasattr(soldier, 'spells'):
         #    print(soldier.spells, soldier.spells_generator.spellslots)
         print('{r} cost: {c} hp: {hp:>2} AC: {ac} load {l}/{l_max}'.format(
