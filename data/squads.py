@@ -655,7 +655,7 @@ metadict_squads['Company-regular (ветераны Гая Юлия) (Katorjnik)'
 
 metadict_squads['Band-hero (преторианцы Гая Юлия) (Katorjnik)'] = {
     'Fighter 5 lvl (Katorjnik) (Гай Юлий)':1,
-    'Fighter 1 lvl (Katorjnik) (преторианец)':6,
+    'Fighter 1 lvl (Katorjnik) (преторианец Гая Юлия)':6,
     }
 
 #----
@@ -671,10 +671,10 @@ metadict_squads['Company-regular (лучники Фарама) (Mordodrukow)'] =
 
 metadict_squads['Band-hero (жрецы Фарама) (Mordodrukow)'] = {
     'Cleric 5 lvl (Mordodrukow) (Фарам «Друг Богов»)':1,
-    'Cleric 2 lvl (Mordodrukow) (жрец Зевса) (боевой)':2,
-    'Cleric 2 lvl (Mordodrukow) (жрец Зевса) (лекарь)':2,
-    #'Fighter 5 lvl (Mordodrukow) (Лонгин)':1,
-    'Fighter 2 lvl (Mordodrukow) (темплар Зевса)':2,
+    'Cleric 2 lvl (Mordodrukow) (жрец Фарама) (боевой)':2,
+    'Cleric 2 lvl (Mordodrukow) (жрец Фарама) (лекарь)':2,
+    'Fighter 5 lvl (Mordodrukow) (Лонгин)':1,
+    'Fighter 2 lvl (Mordodrukow) (темплар Фарама)':2,
     }
 
 metadict_squads['Band-hero (снайпер Лонгин) (Mordodrukow)'] = {
@@ -791,13 +791,9 @@ metadict_squads['Squad-hero (друиды Ианты) (Vaarsuvius)'] = {
         #     - Роксана (в "Подводной страже", не говорит, нет языка)
         #     - Ксантия (в "Подводной страже", любит Мелину)
     'Druid 5 lvl (Vaarsuvius) (Ианта «Дочь бури»)':1,
-    'Druid 2 lvl (Vaarsuvius) (друид Психея)':1,
-    'Druid 2 lvl (Vaarsuvius) (друид Артемиды)':7,
-    #'Druid 2 lvl (Vaarsuvius) (друид Артемиды)':12,
-    }
-
-metadict_squads['Squad-hero (друид Агата) (Vaarsuvius)'] = {
-    'Druid 2 lvl (Vaarsuvius) (друид Агата)':1,
+    'Druid 2 lvl (Vaarsuvius) (друид Ианты) (Психея)':1,
+    'Druid 2 lvl (Vaarsuvius) (друид Ианты) (Агата)':1,
+    'Druid 2 lvl (Vaarsuvius) (друид Ианты)':7,
     }
 
 #----

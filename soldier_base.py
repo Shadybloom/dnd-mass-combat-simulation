@@ -427,6 +427,8 @@ class soldier():
         try:
             # Названия главных параметров в список:
             char_abilityes = self.dict_class_abilityes[self.char_class]
+            if hasattr(self, 'abilityes_choice') and type(self.abilityes_choice) == list:
+                char_abilityes = self.abilityes_choice
         except Exception as error_output:
             # Если класса не существует, то все параметры рандомно:
             print('Исключение get_class_abilityes (класс героя не указан)',error_output)

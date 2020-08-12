@@ -4233,7 +4233,8 @@ metadict_chars['Bard 5 lvl (otherworld singer-leader)'] = {
 
 metadict_chars['Cleric 1 lvl (war cleric)'] = {
     'level':1,
-    'char_class':'Cleric-heavy',
+    'char_class':'Cleric',
+    'abilityes_choice':['wisdom','strength','constitution','dexterity'],
     'hit_dice':'1d8',
     #'seeker_AI':True,
     #'killer_AI':True,
@@ -4280,11 +4281,10 @@ metadict_chars['Cleric 1 lvl (war cleric)'] = {
 # Жрецы -- домен жизни:
 
 metadict_chars['Cleric 1 lvl (city maatcarian-acolyte)'] = {
-    # TODO: жрецы домена бури могут вызывать Fog_Cloud и Call_Lightning.
-    # Домен природы даёт Plant_Growth и Spike_Growth на 3 lvl жреца.
     # Список заклинания, это уровень жреца, плюс модификатор мудрости.
     'level':1,
     'char_class':'Cleric',
+    'abilityes_choice':['wisdom','dexterity','constitution','charisma'],
     'hit_dice':'1d8',
     'behavior':'archer',
     'class_features':{
@@ -4329,6 +4329,7 @@ metadict_chars['Cleric 1 lvl (city maatcarian-acolyte)'] = {
 metadict_chars['Cleric 2 lvl (city maatcarian-celebrant)'] = {
     'level':2,
     'char_class':'Cleric',
+    'abilityes_choice':['wisdom','dexterity','constitution','charisma'],
     'hit_dice':'1d8',
     'behavior':'archer',
     'class_features':{
@@ -4371,6 +4372,7 @@ metadict_chars['Cleric 3 lvl (city maatcarian-augur)'] = {
     'level':3,
     'fireball_AI':True,
     'char_class':'Cleric',
+    'abilityes_choice':['wisdom','dexterity','constitution','charisma'],
     'hit_dice':'1d8',
     'behavior':'commander',
     'class_features':{
@@ -4422,6 +4424,7 @@ metadict_chars['Cleric 4 lvl (city maatcarian-arbiter)'] = {
     'level':4,
     'fireball_AI':True,
     'char_class':'Cleric',
+    'abilityes_choice':['wisdom','dexterity','constitution','charisma'],
     'hit_dice':'1d8',
     'behavior':'commander',
     'class_features':{
@@ -4473,6 +4476,7 @@ metadict_chars['Cleric 5 lvl (city maatcarian-reviver)'] = {
     'level':5,
     'fireball_AI':True,
     'char_class':'Cleric',
+    'abilityes_choice':['wisdom','dexterity','constitution','charisma'],
     'hit_dice':'1d8',
     'behavior':'commander',
     'class_features':{
@@ -4541,7 +4545,8 @@ metadict_chars['Cleric 5 lvl (city maatcarian-reviver)'] = {
 metadict_chars['Cleric 1 lvl (city luminary-acolyte)'] = {
     # Список заклинания, это уровень жреца, плюс модификатор мудрости.
     'level':1,
-    'char_class':'Cleric-heavy',
+    'char_class':'Cleric',
+    'abilityes_choice':['wisdom','strength','constitution','dexterity'],
     'hit_dice':'1d8',
     'behavior':'elite_warrior',
     'class_features':{
@@ -4586,7 +4591,8 @@ metadict_chars['Cleric 1 lvl (city luminary-acolyte)'] = {
 
 metadict_chars['Cleric 2 lvl (city luminary-celebrant)'] = {
     'level':2,
-    'char_class':'Cleric-heavy',
+    'char_class':'Cleric',
+    'abilityes_choice':['wisdom','strength','constitution','dexterity'],
     'hit_dice':'1d8',
     'behavior':'elite_warrior',
     'class_features':{
@@ -4632,7 +4638,8 @@ metadict_chars['Cleric 2 lvl (city luminary-celebrant)'] = {
 metadict_chars['Cleric 3 lvl (city luminary-augur)'] = {
     'level':3,
     'fireball_AI':True,
-    'char_class':'Cleric-heavy',
+    'char_class':'Cleric',
+    'abilityes_choice':['wisdom','strength','constitution','dexterity'],
     'hit_dice':'1d8',
     'behavior':'commander',
     'class_features':{
@@ -4689,7 +4696,8 @@ metadict_chars['Cleric 3 lvl (city luminary-augur)'] = {
 metadict_chars['Cleric 4 lvl (city luminary-arbiter)'] = {
     'level':4,
     'fireball_AI':True,
-    'char_class':'Cleric-heavy',
+    'char_class':'Cleric',
+    'abilityes_choice':['wisdom','strength','constitution','dexterity'],
     'hit_dice':'1d8',
     'behavior':'commander',
     'class_features':{
@@ -4745,7 +4753,8 @@ metadict_chars['Cleric 4 lvl (city luminary-arbiter)'] = {
 metadict_chars['Cleric 5 lvl (city luminary-reviver)'] = {
     'level':5,
     'fireball_AI':True,
-    'char_class':'Cleric-heavy',
+    'char_class':'Cleric',
+    'abilityes_choice':['wisdom','strength','constitution','dexterity'],
     'hit_dice':'1d8',
     'behavior':'commander',
     'class_features':{
@@ -6958,9 +6967,10 @@ metadict_chars['Warrior 5 lvl (Vaarsuvius) (стрелок-капитан)'] = {
 #----
 # Друиды (свита) (Ианта):
 
-metadict_chars['Druid 2 lvl (Vaarsuvius) (друид Артемиды)'] = {
+metadict_chars['Druid 2 lvl (Vaarsuvius) (друид Ианты)'] = {
     'level':2,
     'char_class':'Druid',
+    'abilityes_choice':['wisdom','dexterity','constitution','intelligence','charisma','strength'],
     'hit_dice':'1d8',
     'behavior':'elite_warrior',
     'class_features':{
@@ -7006,9 +7016,10 @@ metadict_chars['Druid 2 lvl (Vaarsuvius) (друид Артемиды)'] = {
     #    },
     }
 
-metadict_chars['Druid 2 lvl (Vaarsuvius) (друид Агата)'] = {
+metadict_chars['Druid 2 lvl (Vaarsuvius) (друид Ианты) (Агата)'] = {
     'level':2,
     'char_class':'Druid',
+    'abilityes_choice':['wisdom','dexterity','constitution','intelligence','charisma','strength'],
     'hit_dice':'1d8',
     'behavior':'commander',
     'fearless_AI':True,
@@ -7057,10 +7068,11 @@ metadict_chars['Druid 2 lvl (Vaarsuvius) (друид Агата)'] = {
     #    },
     }
 
-metadict_chars['Druid 2 lvl (Vaarsuvius) (друид Психея)'] = {
+metadict_chars['Druid 2 lvl (Vaarsuvius) (друид Ианты) (Психея)'] = {
     # Глава "Подводной стражи" Агаты, 45 лет, лицо в шрамах, садист.
     'level':2,
     'char_class':'Druid',
+    'abilityes_choice':['wisdom','dexterity','constitution','intelligence','charisma','strength'],
     'hit_dice':'1d8',
     'behavior':'commander',
     'killer_AI':True,
@@ -7113,6 +7125,7 @@ metadict_chars['Druid 5 lvl (Vaarsuvius) (Ианта «Дочь бури»)'] = 
     # ЗАМЕТКА: накидка хитов.
     'level':5,
     'char_class':'Druid',
+    'abilityes_choice':['wisdom','dexterity','constitution','intelligence','charisma','strength'],
     'hit_dice':'1d8',
     'behavior':'commander',
     #'hitpoints_medial':True,
@@ -7188,7 +7201,8 @@ metadict_chars['Druid 5 lvl (Vaarsuvius) (Ианта «Дочь бури»)'] = 
 metadict_chars['Fighter 1 lvl (ArbitraryNickname) (снайпер)'] = {
     # Снайперы, корректируют "Град стрел" ополчения.
     'level':1,
-    'char_class':'Battlemaster-archer',
+    'char_class':'Battlemaster',
+    'abilityes_choice':['dexterity','constitution','strength','charisma'],
     'hit_dice':'1d10',
     'behavior':'archer',
     'class_features':{
@@ -7220,7 +7234,8 @@ metadict_chars['Fighter 1 lvl (ArbitraryNickname) (снайпер)'] = {
 metadict_chars['Fighter 5 lvl (ArbitraryNickname) (Артаманах Рыбник)'] = {
     # Лучник, мастер боевых искусств
     'level':5,
-    'char_class':'Battlemaster-archer',
+    'char_class':'Battlemaster',
+    'abilityes_choice':['dexterity','constitution','strength','charisma'],
     'hit_dice':'1d10',
     'behavior':'commander',
     'hitpoints_medial':True,
@@ -7277,7 +7292,8 @@ metadict_chars['Cleric 1 lvl (Vened) (жрец домена войны)'] = {
     # TODO: Броня больших созданий должна весить в 2.5 раза больше.
     # Добавим им бесстрашия, а то пугливы из-за большого размера.
     'level':1,
-    'char_class':'Cleric-heavy',
+    'char_class':'Cleric',
+    'abilityes_choice':['wisdom','strength','constitution','dexterity'],
     'hit_dice':'1d8',
     'behavior':'elite_warrior',
     'class_features':{
@@ -7329,7 +7345,8 @@ metadict_chars['Cleric 5 lvl (Vened) (Патрокл «Македонянин»)
     # TODO: Переход на 6 lvl
     'level':6,
     'fireball_AI':True,
-    'char_class':'Cleric-heavy',
+    'char_class':'Cleric',
+    'abilityes_choice':['wisdom','strength','constitution','dexterity'],
     'hit_dice':'1d8',
     'behavior':'commander',
     #'hitpoints_medial':True,
@@ -7401,7 +7418,8 @@ metadict_chars['Cleric 5 lvl (Vened) (Патрокл «Македонянин»)
 
 metadict_chars['Druid 1 lvl (Vened) (друид Патрокла)'] = {
     'level':1,
-    'char_class':'Druid-heavy',
+    'char_class':'Druid',
+    'abilityes_choice':['wisdom','strength','constitution','intelligence'],
     'hit_dice':'1d8',
     'behavior':'elite_warrior',
     'class_features':{
@@ -7444,6 +7462,7 @@ metadict_chars['Druid 5 lvl (Vened) (Брат Патрокла)'] = {
     'level':5,
     'fireball_AI':True,
     'char_class':'Druid',
+    'abilityes_choice':['wisdom','strength','constitution','intelligence'],
     'hit_dice':'1d8',
     'behavior':'commander',
     'hitpoints_medial':True,
@@ -7511,9 +7530,10 @@ metadict_chars['Druid 5 lvl (Vened) (Брат Патрокла)'] = {
 # Жрецы (свита) (Фарам «Друг богов»):
 # Жрецы -- домен бури:
 
-metadict_chars['Cleric 2 lvl (Mordodrukow) (жрец Зевса) (боевой)'] = {
+metadict_chars['Cleric 2 lvl (Mordodrukow) (жрец Фарама) (боевой)'] = {
     'level':2,
-    'char_class':'Cleric-heavy',
+    'char_class':'Cleric',
+    'abilityes_choice':['wisdom','strength','constitution','dexterity'],
     'hit_dice':'1d8',
     'behavior':'elite_warrior',
     'class_features':{
@@ -7557,9 +7577,10 @@ metadict_chars['Cleric 2 lvl (Mordodrukow) (жрец Зевса) (боевой)'
     #    },
     }
 
-metadict_chars['Cleric 2 lvl (Mordodrukow) (жрец Зевса) (лекарь)'] = {
+metadict_chars['Cleric 2 lvl (Mordodrukow) (жрец Фарама) (лекарь)'] = {
     'level':2,
-    'char_class':'Cleric-heavy',
+    'char_class':'Cleric',
+    'abilityes_choice':['wisdom','strength','constitution','dexterity'],
     'hit_dice':'1d8',
     'behavior':'elite_warrior',
     'class_features':{
@@ -7598,7 +7619,7 @@ metadict_chars['Cleric 2 lvl (Mordodrukow) (жрец Зевса) (лекарь)'
     #    },
     }
 
-metadict_chars['Fighter 2 lvl (Mordodrukow) (темплар Зевса)'] = {
+metadict_chars['Fighter 2 lvl (Mordodrukow) (темплар Фарама)'] = {
     'level':2,
     'char_class':'Fighter',
     'hit_dice':'1d10',
@@ -7638,7 +7659,8 @@ metadict_chars['Fighter 5 lvl (Mordodrukow) (Лонгин)'] = {
     'archer_AI':True,
     'killer_AI':True,
     'commando_AI':True,
-    'char_class':'Battlemaster-archer',
+    'char_class':'Battlemaster',
+    'abilityes_choice':['dexterity','constitution','strength','charisma'],
     'hit_dice':'1d10',
     'behavior':'commander',
     'squad_advantage':True,
@@ -7690,7 +7712,8 @@ metadict_chars['Cleric 5 lvl (Mordodrukow) (Фарам «Друг Богов»)'
     # TODO: Переход на 6 lvl
     'level':5,
     'fireball_AI':True,
-    'char_class':'Cleric-heavy',
+    'char_class':'Cleric',
+    'abilityes_choice':['wisdom','strength','constitution','dexterity'],
     'hit_dice':'1d8',
     'behavior':'commander',
     'squad_advantage':True,
@@ -7889,17 +7912,18 @@ metadict_chars['Warrior 5 lvl (Mordodrukow) (капитан)'] = {
 #----
 # Бойцы (свита) (Гай Юлий):
 
-metadict_chars['Fighter 1 lvl (Katorjnik) (преторианец)'] = {
+metadict_chars['Fighter 1 lvl (Katorjnik) (преторианец Гая Юлия)'] = {
     # TODO: Переход на 2 lvl
     # Преторианцы, всадники.
     'level':1,
     'char_class':'Fighter-officer',
+    'abilityes_choice':['strength','charisma','constitution','dexterity'],
     'hit_dice':'1d10',
     'behavior':'elite_warrior',
     'class_features':{
-        # Даю халявный Feat_Mounted_Combatant:
+        # Халявный Feat_Mounted_Combatant:
         'Feat_Inspiring_Leader':True,
-        #'Feat_Mounted_Combatant':True,
+        'Feat_Mounted_Combatant':True,
         'Fighting_Style_Protection':True,
         'Second_Wind':True,
         },
@@ -7939,7 +7963,7 @@ metadict_chars['Fighter 5 lvl (Katorjnik) (Гай Юлий)'] = {
         },
     'class_features':{
         'Feat_Inspiring_Leader':True,
-        #'Feat_Mounted_Combatant':True,
+        'Feat_Mounted_Combatant':True,
         'Fighting_Style_Protection':True,
         'Second_Wind':True,
         'Action_Surge':True,
@@ -8761,7 +8785,8 @@ metadict_chars['Paladin 5 lvl (враг) (Магор «Детоед»)'] = {
 metadict_chars['Fighter 1 lvl (враг) (снайпер Хана\'Вама)'] = {
     # Снайперы, корректируют "Град стрел" ополчения.
     'level':1,
-    'char_class':'Battlemaster-archer',
+    'char_class':'Battlemaster',
+    'abilityes_choice':['dexterity','constitution','strength','charisma'],
     'hit_dice':'1d10',
     'behavior':'archer',
     'class_features':{
@@ -8793,7 +8818,8 @@ metadict_chars['Fighter 1 lvl (враг) (снайпер Хана\'Вама)'] =
 metadict_chars['Fighter 5 lvl (враг) (Хана\'Вам)'] = {
     # Лучник-чемпион
     'level':5,
-    'char_class':'Battlemaster-archer',
+    'char_class':'Battlemaster',
+    'abilityes_choice':['dexterity','constitution','strength','charisma'],
     'hit_dice':'1d10',
     'behavior':'commander',
     'killer_AI':True,
@@ -10219,6 +10245,7 @@ metadict_chars['Bard 2 lvl (друг) (бард Тетры)'] = {
     'char_class':'Bard',
     'hit_dice':'1d8',
     'behavior':'elite_warrior',
+    'abilityes_choice':['charisma','dexterity','constitution'],
     'class_features':{
         'Feat_Inspiring_Leader':True,
         'Bardic_Inspiration':True,
