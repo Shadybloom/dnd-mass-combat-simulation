@@ -12,7 +12,7 @@ from pathfinding.finder.a_star import AStarFinder
 
 import timeit
 #import numpy
-from skimage import draw
+#from skimage import draw
 
 import dices
 from data import maps
