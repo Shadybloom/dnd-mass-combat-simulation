@@ -985,11 +985,16 @@ class battle_simulation(battlescape):
             if squad.commander.__dict__.get('inactive_AI'):
                 commands_list = []
                 commands_list.append('inactive')
+            # Стремительный командир гонит своих вперёд:
+            if squad.commander.__dict__.get('Dash_AI'):
+                commands_list.append('dash')
             # Бесстрашные создания бесстрашны, зато трусоватые спасают своих:
             if squad.commander.__dict__.get('brave_AI'):
                 commands_list.append('brave')
+                commands_list.append('dash')
             if squad.commander.__dict__.get('fearless_AI'):
                 commands_list.append('fearless')
+                commands_list.append('dash')
             else:
                 commands_list.append('rescue')
             # Поиск и атака всех:
@@ -1117,7 +1122,7 @@ class battle_simulation(battlescape):
                 self.clear_battlemap()
         # Отряд может ускориться с dash_action, если таков приказ (и врагов нет рядом):
         if 'dash' in soldier.commands:
-            if not enemy or enemy.distance >= soldier.move_pool / 2:
+            if not enemy or enemy.distance >= round(soldier.move_pool / self.tile_size):
                 soldier.use_dash_action()
         # Командир отряда может вести бойцов в ручном режиме:
         if 'move' in soldier.commands and not 'auto' in soldier.commands\
