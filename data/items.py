@@ -1244,6 +1244,16 @@ metadict_items['Infusion of Healing'] = {
     'cost (grams_of_gold)':60,
     }
 
+metadict_items['Infusion of Regeneration'] = {
+    'potion':True,
+    'effect':'healing',
+    #'healing_dice':'1d4',
+    'healing_mod':1,
+    'weight (lb)':0,
+    'cost (gp)':50 * 4,
+    'cost (grams_of_gold)':60 * 4,
+    }
+
 metadict_items['Infusion of Longstrider'] = {
     'potion':True,
     'effect':'longstrider',

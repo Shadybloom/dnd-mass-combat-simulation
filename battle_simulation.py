@@ -2920,7 +2920,8 @@ class battle_simulation(battlescape):
         if not soldier.grappled\
                 and not soldier.behavior == 'mount'\
                 and not soldier.__dict__.get('mechanism'):
-            if soldier.equipment_weapon.get('Infusion of Healing'):
+            if soldier.equipment_weapon.get('Infusion of Healing')\
+                    or soldier.equipment_weapon.get('Infusion of Regeneration'):
                 soldier.stable = soldier.use_heal_potion(use_battle_action = False)
                 if soldier.stable\
                         and 'fall_place' in self.dict_battlespace[soldier.place]\

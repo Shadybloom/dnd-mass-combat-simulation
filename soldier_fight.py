@@ -526,6 +526,7 @@ class soldier_in_battle(soldier):
                 if self.equipment_weapon.get('Infusion of Heroism')\
                         or self.equipment_weapon.get('Potion of Bravery'):
                     self.use_potion_of_heroism()
+                self.set_hitpoints(heal = 1)
         # Особенности монстров:
         # Перезарядка способности:
         if self.class_features.get('Recharge') and self.recharge_dict:
@@ -1143,6 +1144,14 @@ class soldier_in_battle(soldier):
                 self.battle_action = False
                 print('{0} {1} {2} heal (potion): {3}'.format(
                     self.ally_side, self.place, self.behavior, potion_heal))
+                return True
+            elif self.equipment_weapon.get('Infusion of Regeneration', 0) > 0:
+                spell_dict = self.metadict_items['Infusion of Regeneration']
+                potion_heal = spell_dict['healing_mod']
+                self.set_hitpoints(heal = potion_heal)
+                self.battle_action = False
+                #print('{0} {1} {2} heal (regen): {3}'.format(
+                #    self.ally_side, self.place, self.behavior, potion_heal))
                 return True
             elif self.class_features.get('Regeneration_Minor'):
                 potion_heal = self.class_features['Regeneration_Minor']
