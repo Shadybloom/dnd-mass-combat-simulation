@@ -1811,7 +1811,11 @@ class battle_simulation(battlescape):
 
     def attack_action(self, soldier, squad, enemy, attack_choice = None, reaction = False):
         """Боец выбирает противника и атакует."""
+        # Данные о враге:
         enemy_soldier = self.metadict_soldiers[enemy.uuid]
+        enemy_squad = [enemy_squad for enemy_squad in self.squads.values()
+                if enemy_soldier.uuid in enemy_squad.metadict_soldiers][0]
+        # Для атаки используется действие, бонусное действие, или реакция:
         if soldier.battle_action or reaction and soldier.reaction:
             # Смотрим, возможно ли атаковать:
             if not attack_choice:
@@ -1953,7 +1957,7 @@ class battle_simulation(battlescape):
                 if attack_result['hit'] and attack_dict.get('weapon') == True:
                     if attack_choice[0] == 'close' or attack_choice[0] == 'reach':
                         if soldier.damage_absorbed:
-                            spell_dict = spell_dict[0]
+                            spell_dict = soldier.damage_absorbed
                             spell_choice = soldier.damage_absorbed['subspell']
                             spell_dict['spell_choice'] = spell_choice
                             self.fireball_action(soldier, squad, spell_dict, enemy.place,
@@ -1999,6 +2003,20 @@ class battle_simulation(battlescape):
                         enemy = self.find_enemy(soldier, squad)
                         if enemy:
                             enemy_soldier = self.metadict_soldiers[enemy.uuid]
+                # TODO: в отдельную функцию
+                # Контратаки врага:
+                if attack_result['hit'] and not attack_result['fatal_hit']:
+                    if enemy_soldier.class_features.get('Wrath_of_the_Storm'):
+                        # Взгляд со стороны врага:
+                        recon_dict = self.recon(soldier.place,
+                                soldier_coordinates = enemy_soldier.place)
+                        if soldier.uuid in recon_dict.keys():
+                            soldier_tuple = recon_dict[soldier.uuid]
+                            if not soldier_tuple.distance > 1:
+                                spell_choice = 'channel', 'Wrath_of_the_Storm'
+                                spell_dict = enemy_soldier.spells[spell_choice]
+                                self.fireball_action(enemy_soldier, enemy_squad, spell_dict,
+                                        soldier_tuple.place, single_target = soldier_tuple)
                 # Обобщаем статистику атак (расход боеприпасов и прочее):
                 self.set_squad_battle_stat(attack_result, squad)
                 if attack_result['hit']:

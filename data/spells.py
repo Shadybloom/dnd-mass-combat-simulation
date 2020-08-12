@@ -227,6 +227,27 @@ class gen_spells():
                 }
         return spell_dict
 
+    def Wrath_of_the_Storm(self, spell_level):
+        """Контратака жреца
+
+        """
+        spell_dict = {
+                'direct_hit':True,
+                'savethrow':True,
+                'savethrow_ability':'dexterity',
+                'attacks_number':1,
+                'attack_range':5,
+                'damage_type':'lightning',
+                'damage_dice':'2d8',
+                'components':['verbal'],
+                'casting_time':'action',
+                'damage_mod':0,
+                'spell_level':spell_level,
+                'spell_save_DC':8 + self.find_spell_attack_mod(),
+                'spell_of_choice':'Wrath_of_the_Storm',
+                }
+        return spell_dict
+
 #----
 # Cantrips
 
