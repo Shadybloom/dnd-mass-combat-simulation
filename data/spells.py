@@ -817,7 +817,7 @@ class gen_spells():
                 'casting_time':'bonus_action',
                 'spell_level':spell_level,
                 'spell_save_DC':8 + self.find_spell_attack_mod(),
-                'spell_of_choice':'Hex',
+                'spell_of_choice':'Magic_Missile',
                 }
         return spell_dict
 
