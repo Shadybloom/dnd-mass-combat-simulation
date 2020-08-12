@@ -213,8 +213,6 @@ class soldier_in_battle(soldier):
         # И универсальный таймер концентрации на заклинаниях.
         self.bless = None
         self.bless_timer = 0
-        self.thorns = None
-        self.thorns_timer = 0
         # Способности бойца, паладина:
         self.action_surge = False
         self.shield = False
@@ -576,12 +574,6 @@ class soldier_in_battle(soldier):
                 self.bless_timer -= 1
             elif self.bless_timer == 0:
                 self.bless = None
-        # Заклинание Hail_of_Thorns:
-        if self.thorns:
-            if self.thorns_timer > 0:
-                self.thorns_timer -= 1
-            elif self.thorns_timer == 0:
-                self.thorns = None
         # Заклинание Shield_of_Faith
         if self.shield_of_faith:
             if self.shield_of_faith_timer > 0:
@@ -662,23 +654,6 @@ class soldier_in_battle(soldier):
                 self.rage_damage = self.proficiency['rage_damage']
                 self.rage_timer = 10
                 self.rages -= 1
-
-    def set_thorns(self):
-        """Рейнджер превращает лук в гранатомёт.
-        
-        Скорее в гранату. Hail_of_Thorns срабатывает единожды.
-        """
-        # TODO: используй soldier.spells_generator.find_spell('Hail_of_Thorns')
-        # TODO: не используется. Придумай что-то универсальное для подобных заклинаний.
-        if hasattr(self, 'spells') and self.bonus_action and not self.thorns:
-            for spell, spell_dict in self.spells.items():
-                if spell_dict.get('effect') and spell_dict['effect'] == 'thorns':
-                    self.bonus_action = False
-                    spell_dict = dict(self.spells_generator.use_spell(spell))
-                    spell_dict['spell_choice'] = spell
-                    self.concentration_timer = spell_dict['effect_timer']
-                    self.concentration = spell_dict
-                    break
 
     def set_concentration(self, spell_dict):
         """Концентрация на заклинании"""

@@ -991,10 +991,8 @@ class battle_simulation(battlescape):
             # Бесстрашные создания бесстрашны, зато трусоватые спасают своих:
             if squad.commander.__dict__.get('brave_AI'):
                 commands_list.append('brave')
-                commands_list.append('dash')
             if squad.commander.__dict__.get('fearless_AI'):
                 commands_list.append('fearless')
-                commands_list.append('dash')
             else:
                 commands_list.append('rescue')
             # Поиск и атака всех:
@@ -1955,10 +1953,11 @@ class battle_simulation(battlescape):
                             single_target = enemy)
                 # Атаку рейнджера дополняет шрапнель от Hail_of_Thorns:
                 if attack_result['hit'] and soldier.concentration\
-                        and soldier.concentration.get('effect') == 'thorns'\
-                        and enemy_soldier.near_allies and len(enemy_soldier.near_allies) > 2:
-                    self.fireball_action(soldier, squad, soldier.concentration, enemy.place)
-                    soldier.concentration = False
+                        and soldier.concentration.get('effect') == 'thorns':
+                    if enemy_soldier.near_allies and len(enemy_soldier.near_allies) >= 2\
+                            or enemy_soldier.behavior == 'commander':
+                        self.fireball_action(soldier, squad, soldier.concentration, enemy.place)
+                        soldier.concentration = False
                 # Паладин добивает врага с помощью Divine_Smite:
                 if attack_result['hit'] and not attack_result['fatal_hit']\
                         and hasattr(soldier, 'spells') and soldier.spells\
@@ -2095,6 +2094,9 @@ class battle_simulation(battlescape):
         - Hex колдуна
         - Hail_of_Thorns следопыта
         """
+        # TODO: допиливай прочее.
+        # - смайты паладина
+        # - мельфовы метеоры
         enemy_soldier = self.metadict_soldiers[enemy.uuid]
         if soldier.concentration:
             # Hex перенацеливается за счёт бонусного действия:
@@ -2110,6 +2112,10 @@ class battle_simulation(battlescape):
                 soldier.concentration = soldier.spells_generator.use_spell(spell_choice)
                 soldier.concentration['target_uuid'] = enemy_soldier.uuid
                 enemy_soldier.hex = soldier.uuid
+                soldier.bonus_action = False
+            if 'thorns' in effects_list and soldier.bonus_action:
+                spell_choice = soldier.spells_generator.find_spell('thorns', effect = True)
+                soldier.concentration = soldier.spells_generator.use_spell(spell_choice)
                 soldier.bonus_action = False
 
     def spellcast_action(self, soldier, squad, enemy,
