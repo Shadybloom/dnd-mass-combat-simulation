@@ -237,7 +237,9 @@ class squad_generation():
         squad_overload = {}
         for soldier in self.metadict_soldiers.values():
             for key, value in soldier.overload.items():
-                if not key in squad_overload:
+                if key == 'base_speed':
+                    pass
+                elif not key in squad_overload and not type(value) == bool:
                     squad_overload[key] = value
                 elif key in squad_overload and type(value) != bool:
                     squad_overload[key] += value
@@ -520,7 +522,7 @@ if __name__ == '__main__':
         #print(soldier.rank, soldier.unit_cost)
         #if hasattr(soldier, 'spells'):
         #    print(soldier.spells, soldier.spells_generator.spellslots)
-        print('{r} cost: {c} hp: {hp:>2} AC: {ac} load {l}/{l_max}'.format(
+        print('{r} cost:{c} hp:{hp:>2} AC:{ac} load:{l}/{l_max}'.format(
             r = soldier.rank,
             c = soldier.unit_cost['equipment_cost'],
             hp = soldier.hitpoints_max,
