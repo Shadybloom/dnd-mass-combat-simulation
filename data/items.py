@@ -424,9 +424,9 @@ metadict_items['Lance'] = {
     # Сила удара рыцарского лэнса (16 км/час) -- 300-600 Дж (600 Дж пробивает 2-мм кирасу)
     'weapon':True,
     'ammo_type':blade_poisons,
-    'only_mounted':True,
+    'one_hand_mounted':True,
     'disadvantage_close':True,
-    'weapon_type':['martial','close','reach'],
+    'weapon_type':['martial','close','reach','heavy'],
     'damage_type':'piercing',
     'damage_dice':'1d12',
     'weight (lb)':6,
@@ -1545,6 +1545,19 @@ metadict_items['Long Spear +1'] = {
     'weight (lb)':6,
     'cost (gp)':30*60,
     'cost (grams_of_gold)':30*60,
+    }
+
+metadict_items['Lance +1'] = {
+    'weapon':True,
+    'ammo_type':blade_poisons,
+    'one_hand_mounted':True,
+    'disadvantage_close':True,
+    'weapon_type':['martial','close','reach','heavy','magic','+1'],
+    'damage_type':'piercing',
+    'damage_dice':'1d12',
+    'weight (lb)':6,
+    'cost (gp)':10,
+    'cost (grams_of_gold)':5,
     }
 
 #----
