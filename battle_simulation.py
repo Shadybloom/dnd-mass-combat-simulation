@@ -1944,6 +1944,14 @@ class battle_simulation(battlescape):
                         destination = self.find_spawn(soldier.place, soldier.ally_side, random_range = 1)
                         self.move_action(soldier, squad, destination, allow_replace = True)
                         self.change_place(enemy_soldier.place, soldier.place, enemy_soldier.uuid)
+                # Заклинание Hex:
+                if attack_result['hit'] and soldier.concentration\
+                        and soldier.concentration.get('effect') == 'hex'\
+                        and enemy_soldier.__dict__.get('hex')\
+                        and enemy_soldier.hex == soldier.uuid:
+                    spell_dict = soldier.concentration
+                    self.fireball_action(soldier, squad, spell_dict, enemy.place,
+                            single_target = enemy)
                 # Атаку рейнджера дополняет шрапнель от Hail_of_Thorns:
                 if attack_result['hit'] and soldier.concentration\
                         and soldier.concentration.get('effect') == 'thorns'\
@@ -2099,7 +2107,18 @@ class battle_simulation(battlescape):
                 soldier.set_concentration(spell_dict)
             attacks_number = spell_dict['attacks_number']
             spell_chain = [spell_choice] * attacks_number
-            soldier.battle_action = False
+            if spell_dict.get('casting_time'):
+                casting_time = spell_dict['casting_time']
+                if casting_time == 'action':
+                    soldier.battle_action = False
+                elif casting_time == 'bonus_action':
+                    soldier.bonus_action = False
+                elif casting_time == 'reaction':
+                    soldier.reaction = False
+                else:
+                    soldier.battle_action = False
+            else:
+                soldier.battle_action = False
             while spell_chain:
                 spell_choice = spell_chain.pop(0)
                 advantage, disadvantage = self.test_enemy_defence(soldier, enemy_soldier, spell_choice)
@@ -2177,6 +2196,12 @@ class battle_simulation(battlescape):
                             #fall_place = enemy_soldier.place
                             #self.dict_battlespace[fall_place].append('fall_place')
                             #self.dict_battlespace[fall_place].append(enemy_soldier.ally_side)
+                    continue
+                elif spell_dict.get('effect') == 'hex':
+                    # TODO: Ломает атаки заклинаниями.
+                    # Потому что из концентрации вызывается каждый ход
+                    spell_dict['target_uuid'] = enemy_soldier.uuid
+                    enemy_soldier.hex = soldier.uuid
                     continue
                 # Magic_Missile всегда попадает.
                 elif spell_dict.get('direct_hit'):
@@ -2382,14 +2407,19 @@ class battle_simulation(battlescape):
                 if single_target:
                     targets = [target for target in targets
                             if target.uuid == single_target.uuid]
-                # TODO: эти проверки здесь лишние, заклинание уже использовано:
-                #allies = [target for target in targets if target.side == soldier.ally_side]
-                #enemies = [target for target in targets if target.side == soldier.enemy_side]
-                #if len(allies) > len(enemies) and not single_target:
-                #    print('NYA', len(allies), len(enemies))
-                # TODO: учти атаки бонусым действием
-                # Бери casting_time из spell_dict.
-                soldier.battle_action = False
+                # Время каста заклинания берём из словаря:
+                if spell_dict.get('casting_time'):
+                    casting_time = spell_dict['casting_time']
+                    if casting_time == 'action':
+                        soldier.battle_action = False
+                    elif casting_time == 'bonus_action':
+                        soldier.bonus_action = False
+                    elif casting_time == 'reaction':
+                        soldier.reaction = False
+                    else:
+                        soldier.battle_action = False
+                else:
+                    soldier.battle_action = False
                 if spell_dict.get('effect') == 'dawn'\
                         or spell_dict.get('effect') == 'bonfire'\
                         or spell_dict.get('effect') == 'moonbeam':

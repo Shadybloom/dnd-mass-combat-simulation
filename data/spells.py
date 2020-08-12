@@ -794,6 +794,33 @@ class gen_spells():
             spell_dict['attacks_number'] = int(spell_level[0])
         return spell_dict
 
+    def Hex(self, spell_level):
+        """Сглаз.
+
+        Level: 1
+        Casting time: 1 Bonus Action
+        Range: 90 feet
+        Components: V, S, M (the petrified eye of a newt)
+        Duration: Concentration, up to 1 hour
+        https://www.dnd-spells.com/spell/hex
+        """
+        spell_dict = {
+                'concentration':True,
+                'effect_timer':600,
+                'attacks_number':1,
+                'attack_range':90,
+                'effect':'hex',
+                'direct_hit':True,
+                'damage_type':'necrotic_energy',
+                'damage_dice':'1d6',
+                'components':['verbal','somatic','material'],
+                'casting_time':'bonus_action',
+                'spell_level':spell_level,
+                'spell_save_DC':8 + self.find_spell_attack_mod(),
+                'spell_of_choice':'Hex',
+                }
+        return spell_dict
+
     def Sleep(self, spell_level):
         """Защитный приём бардов и незлых чародеев.
 

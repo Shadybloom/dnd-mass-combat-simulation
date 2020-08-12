@@ -207,6 +207,7 @@ class soldier_in_battle(soldier):
         self.bardic_inspiration = None
         self.guiding_bolt_hit = False
         self.mockery_hit = False
+        self.hex = False
         # Концентрация на заклинаниях:
         # TODO: да сделай ты универсальную систему!
         # И универсальный таймер концентрации на заклинаниях.
