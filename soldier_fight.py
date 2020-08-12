@@ -1660,12 +1660,23 @@ class soldier_in_battle(soldier):
         if not disadvantage == None:
             disadvantage = self.check_savethrow_disadvantage(ability)
         savethrow_result = dices.dice_throw_advantage('1d20', advantage, disadvantage) + self.saves[ability]
+        savethrow_result += self.get_savethrow_bonus(ability)
         if self.check_savethrow_autofail(ability):
             return False
         elif difficult <= savethrow_result:
             return True
         else:
             return False
+
+    def get_savethrow_bonus(self, ability):
+        """Бонус к спасброскам от способностей класса.
+
+        """
+        savethrow_bonus = 0
+        if self.class_features.get('Remarkable_Athlete'):
+            if ability not in self.dict_class_saves[self.char_class]:
+                savethrow_bonus = round(self.proficiency_bonus / 2)
+        return savethrow_bonus
 
     def check_savethrow_autofail(self, ability):
         """Проверка автопровала спасброска.
