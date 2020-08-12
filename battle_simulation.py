@@ -2194,6 +2194,12 @@ class battle_simulation(battlescape):
                 else:
                     print('NYA. Недопиленое заклинание', spell_choice, spell_dict)
                     continue
+                # Guiding_Bolt даёт преимущество на следующую атаку:
+                if attack_result['hit'] and spell_dict.get('effect') == 'guiding_bolt_hit':
+                    enemy_soldier.guiding_bolt_hit = True
+                # Vicious_Mockery портит одиночную атаку врагу:
+                if attack_result['hit'] and spell_dict.get('effect') == 'mockery':
+                    enemy_soldier.mockery_hit = True
                 # Победа приносит бойцу опыт:
                 if attack_result['fatal_hit']:
                     soldier.set_victory_and_enemy_defeat(enemy_soldier)
@@ -2644,7 +2650,7 @@ class battle_simulation(battlescape):
         if enemy_soldier.paralyzed:
             advantage = True
         # Опутанный уязвим:
-        if enemy_soldier.restained == True:
+        if enemy_soldier.restained:
             advantage = True
         # Упавшего легче поразить, но только вблизи:
         if enemy_soldier.prone == True:
@@ -2724,6 +2730,12 @@ class battle_simulation(battlescape):
         advantage = False
         # Homebrew, идеальное взаимодействие свиты:
         if soldier.__dict__.get('squad_advantage'):
+            advantage = True
+            return advantage
+        # Подсвеченный уязвим:
+        if enemy_soldier.guiding_bolt_hit:
+            advantage = True
+            enemy_soldier.guiding_bolt_hit = False
             return advantage
         # Безрассудная атака варвара, преимущество своим, преимущество врагу:
         if attack_choice[0] == 'close' or attack_choice[0] == 'reach'\

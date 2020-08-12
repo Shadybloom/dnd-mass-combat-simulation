@@ -202,10 +202,11 @@ class soldier_in_battle(soldier):
         # Эффекты заклинаний:
         self.fear = False
         self.fear_source = None
-        self.mockery = False
         self.sleep = False
         self.damage_absorbed = None
         self.bardic_inspiration = None
+        self.guiding_bolt_hit = False
+        self.mockery_hit = False
         # Концентрация на заклинаниях:
         # TODO: да сделай ты универсальную систему!
         # И универсальный таймер концентрации на заклинаниях.
@@ -1961,8 +1962,8 @@ class soldier_in_battle(soldier):
             if self.class_features.get('Feat_Sharpshooter'):
                 target_cover = 0
         # Бардовское Vicious_Mockery портит одиночную атаку:
-        if self.mockery:
-            self.mockery = False
+        if self.mockery_hit:
+            self.mockery_hit = False
             disadvantage = True
         # Диапазон критического урона может увеличить Champion_Improved_Critical:
         crit_range = self.crit_range
@@ -2534,10 +2535,6 @@ class soldier_in_battle(soldier):
             elif damage_savethrow < damage_difficul\
                     and self.class_features.get('Evasion'):
                 damage = round(damage / 2)
-            # Бардовская насмешка действует только если нанесён урон:
-            if damage > 0 and attack_dict.get('effect'):
-                if attack_dict['effect'] == 'mockery':
-                    self.mockery = True
         # Крупные объекты (стены, корабли) имеют порог урона:
         if self.__dict__.get('ignore_damage'):
             damage -= self.ignore_damage

@@ -888,6 +888,39 @@ class gen_spells():
             spell_dict['attack_range'] *= 2
         return spell_dict
 
+    def Guiding_Bolt(self, spell_level):
+        """Направленный снаряд.
+
+        Level: 1
+        Casting time: 1 Action
+        Range: 120 feet
+        Components: V, S
+        Duration: 1 round
+        https://www.dnd-spells.com/spell/guiding-bolt
+        """
+        spell_dict = {
+                #'direct_hit':True,
+                'effect':'guiding_bolt_hit',
+                'attacks_number':1,
+                'attack_range':120,
+                'damage_type':'radiant',
+                'damage_dice':'4d6',
+                'components':['verbal','somatic'],
+                'casting_time':'action',
+                'spell_level':spell_level,
+                'damage_mod':0,
+                'attack_mod':self.find_spell_attack_mod(),
+                'spell_save_DC':8 + self.find_spell_attack_mod(),
+                'spell_of_choice':'Guiding_Bolt',
+                }
+        if int(spell_level[0]) > 1:
+            dice = int(spell_dict['damage_dice'][0])
+            dice += int(spell_level[0]) - 1
+            spell_dict['damage_dice'] = str(dice) + spell_dict['damage_dice'][1:]
+        if self.mage.class_features.get('Metamagic_Distant_Spell'):
+            spell_dict['attack_range'] *= 2
+        return spell_dict
+
     def Burning_Hands(self, spell_level):
         """Огнемёт.
 
