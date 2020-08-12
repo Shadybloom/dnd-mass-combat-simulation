@@ -654,8 +654,8 @@ metadict_squads['Company-regular (ветераны Гая Юлия) (Katorjnik)'
 #    }
 
 metadict_squads['Band-hero (преторианцы Гая Юлия) (Katorjnik)'] = {
-    'Fighter 5 lvl (Katorjnik) (Гай Юлий)':1,
-    'Fighter 1 lvl (Katorjnik) (преторианец Гая Юлия)':6,
+    'Fighter 7 lvl (Katorjnik) (Гай Юлий)':1,
+    'Fighter 2 lvl (Katorjnik) (преторианец Гая Юлия)':10,
     }
 
 #----
@@ -670,16 +670,17 @@ metadict_squads['Company-regular (лучники Фарама) (Mordodrukow)'] =
     }
 
 metadict_squads['Band-hero (жрецы Фарама) (Mordodrukow)'] = {
-    'Cleric 5 lvl (Mordodrukow) (Фарам «Друг Богов»)':1,
-    'Cleric 2 lvl (Mordodrukow) (жрец Фарама) (боевой)':2,
-    'Cleric 2 lvl (Mordodrukow) (жрец Фарама) (лекарь)':2,
-    'Fighter 5 lvl (Mordodrukow) (Лонгин)':1,
+    'Cleric 7 lvl (Mordodrukow) (Фарам «Друг Богов»)':1,
+    'Fighter 7 lvl (Mordodrukow) (Лонгин)':1,
+    'Fighter 2 lvl (Mordodrukow) (снайпер Фарама)':2,
     'Fighter 2 lvl (Mordodrukow) (темплар Фарама)':2,
+    'Cleric 2 lvl (Mordodrukow) (жрец Фарама) (лекарь)':2,
+    'Cleric 2 lvl (Mordodrukow) (жрец Фарама) (боевой)':3,
     }
 
 metadict_squads['Band-hero (снайпер Лонгин) (Mordodrukow)'] = {
     # Отдельно от команды Фарама:
-    'Fighter 5 lvl (Mordodrukow) (Лонгин)':1,
+    'Fighter 7 lvl (Mordodrukow) (Лонгин)':1,
     }
 
 #----
@@ -687,8 +688,8 @@ metadict_squads['Band-hero (снайпер Лонгин) (Mordodrukow)'] = {
 
 metadict_squads['Band-hero (жрецы Патрокла) (Vened)'] = {
     'Cleric 5 lvl (Vened) (Патрокл «Македонянин»)':1,
-    'Cleric 1 lvl (Vened) (жрец домена войны)':10,
     #'Druid 5 lvl (Vened) (Брат Патрокла)':1,
+    'Cleric 1 lvl (Vened) (жрец домена войны)':10,
     #'Druid 1 lvl (Vened) (друид Патрокла)':2,
     }
 

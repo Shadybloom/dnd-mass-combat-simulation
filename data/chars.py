@@ -7528,23 +7528,22 @@ metadict_chars['Druid 5 lvl (Vened) (Брат Патрокла)'] = {
 
 #----
 # Жрецы (свита) (Фарам «Друг богов»):
-# Жрецы -- домен бури:
 
 metadict_chars['Cleric 2 lvl (Mordodrukow) (жрец Фарама) (боевой)'] = {
+    # Домен бури.
     'level':2,
     'char_class':'Cleric',
     'abilityes_choice':['wisdom','strength','constitution','dexterity'],
     'hit_dice':'1d8',
     'behavior':'elite_warrior',
     'class_features':{
-        # TODO: 'Wrath_of_the_Storm' "Гнев бури" (это контратака)
         'Feat_Heavy_Armor_Master':True,
         'Ability_Score_Improvement':{
             'strength':+1,
             },
         'Spellcasting':True,
         'Spells':[
-            # TODO: сделай Thunderwave
+            ('channel', 'Wrath_of_the_Storm'),
             ('cantrip', 'Mend'),
             ('cantrip', 'Sacred_Flame'),
             ('cantrip', 'Word_of_Radiance'),
@@ -7565,10 +7564,10 @@ metadict_chars['Cleric 2 lvl (Mordodrukow) (жрец Фарама) (боевой
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
         'Infusion of Longstrider':1,
-        'Splint Armor':1,
-        'Shield':1,
+        'Infusion of Healing':1,
+        'Plate Armor':1,
+        'Heavy Shield':1,
         'Longsword':1,
         },
     #'mount_combat':False,
@@ -7587,6 +7586,7 @@ metadict_chars['Cleric 2 lvl (Mordodrukow) (жрец Фарама) (лекарь
         'Feat_Healer':True,
         'Spellcasting':True,
         'Spells':[
+            ('channel', 'Wrath_of_the_Storm'),
             ('cantrip', 'Mend'),
             ('cantrip', 'Sacred_Flame'),
             ('cantrip', 'Spare_the_Dying'),
@@ -7607,10 +7607,10 @@ metadict_chars['Cleric 2 lvl (Mordodrukow) (жрец Фарама) (лекарь
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
         'Infusion of Longstrider':1,
-        'Half Plate':1,
-        'Shield':1,
+        'Infusion of Healing':1,
+        'Plate Armor':1,
+        'Heavy Shield':1,
         'Longsword':1,
         },
     #'mount_combat':False,
@@ -7639,12 +7639,11 @@ metadict_chars['Fighter 2 lvl (Mordodrukow) (темплар Фарама)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
         'Infusion of Longstrider':1,
-        'Splint Armor':1,
+        'Infusion of Healing':1,
+        'Plate Armor':1,
         'Heavy Shield':1,
         'Longsword':1,
-        #'Pilum':2,
         },
     #'mount_combat':False,
     #'mount_type':'Riding Horse',
@@ -7652,18 +7651,52 @@ metadict_chars['Fighter 2 lvl (Mordodrukow) (темплар Фарама)'] = {
     #    },
     }
 
-metadict_chars['Fighter 5 lvl (Mordodrukow) (Лонгин)'] = {
-    # Лучник, мастер боевых искусств
-    # Талант: "Идеальное взаимодействие". Преимущество командиру, помеха врагу.
-    'level':5,
+metadict_chars['Fighter 2 lvl (Mordodrukow) (снайпер Фарама)'] = {
+    'level':2,
     'archer_AI':True,
-    'killer_AI':True,
-    'commando_AI':True,
     'char_class':'Battlemaster',
-    'abilityes_choice':['dexterity','constitution','strength','charisma'],
+    'abilityes_choice':['dexterity','constitution','strength'],
+    'hit_dice':'1d10',
+    'behavior':'elite_warrior',
+    'class_features':{
+        'Feat_Sharpshooter':True,
+        'Fighting_Style_Archery':True,
+        'Second_Wind':True,
+        'Action_Surge':True,
+        },
+    'race':'Human-hero',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'skills':[
+        'Perception',
+        ],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Longstrider':1,
+        'Infusion of Healing':1,
+        'Half Plate':1,
+        'Shield':1,
+        'Scimitar':1,
+        'Longbow':1,
+        'Arrow':60,
+        },
+    #'mount_combat':True,
+    #'mount_type':'Riding Horse',
+    #'equipment_mount':{
+    #    },
+    }
+
+metadict_chars['Fighter 7 lvl (Mordodrukow) (Лонгин)'] = {
+    # Лучник, мастер боевых искусств
+    'level':7,
+    'killer_AI':True,
+    'archer_AI':True,
+    'commando_AI':True,
+    'squad_advantage':True,
+    'char_class':'Battlemaster',
     'hit_dice':'1d10',
     'behavior':'commander',
-    'squad_advantage':True,
     'hitpoints_medial':True,
     'abilityes':{
         'strength':13,
@@ -7675,7 +7708,6 @@ metadict_chars['Fighter 5 lvl (Mordodrukow) (Лонгин)'] = {
         },
     'class_features':{
         # TODO: отталкивающая атака вместо Menacing_Attack.
-        #'Feat_Alert':True,
         'Feat_Resilient':'dexterity',
         'Feat_Sharpshooter':True,
         'Fighting_Style_Archery':True,
@@ -7688,6 +7720,13 @@ metadict_chars['Fighter 5 lvl (Mordodrukow) (Лонгин)'] = {
         'Menacing_Attack':True,
         'Precision_Attack':True,
         'Extra_Attack':True,
+        'Spellcasting':True,
+        'Spells':[
+            # TODO: Сделай Hex
+            ('cantrip', 'Minor_Illusion'),
+            ('cantrip', 'Blade_Ward'),
+            ('1_lvl', 'Hex'),
+            ],
         },
     'race':'Human-hero',
     'weapon_skill':['simple','martial'],
@@ -7695,29 +7734,30 @@ metadict_chars['Fighter 5 lvl (Mordodrukow) (Лонгин)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        # TODO: эссенция Героизма
-        'Infusion of Healing':1,
+        'Infusion of Heroism':1,
+        'Rune of Absorbtion':1,
         'Rune of Shielding':1,
         'Studded Leather':1,
         'Heavy Shield':1,
         'Longbow +1':1,
         'Scimitar':1,
-        'Dagger':1,
         'Arrow':60,
         },
+    #'mount_combat':False,
+    #'mount_type':'Riding Horse',
+    #'equipment_mount':{
+    #    },
     }
 
-metadict_chars['Cleric 5 lvl (Mordodrukow) (Фарам «Друг Богов»)'] = {
-    # Талант: "Идеальное взаимодействие". Преимущество командиру, помеха врагу.
-    # TODO: Переход на 6 lvl
-    'level':5,
+metadict_chars['Cleric 7 lvl (Mordodrukow) (Фарам «Друг Богов»)'] = {
+    'level':7,
+    'killer_AI':True,
+    'commando_AI':True,
     'fireball_AI':True,
+    'squad_advantage':True,
     'char_class':'Cleric',
-    'abilityes_choice':['wisdom','strength','constitution','dexterity'],
     'hit_dice':'1d8',
     'behavior':'commander',
-    'squad_advantage':True,
-    'commando_AI':True,
     'hitpoints_medial':True,
     'abilityes':{
         'strength':18,
@@ -7728,16 +7768,16 @@ metadict_chars['Cleric 5 lvl (Mordodrukow) (Фарам «Друг Богов»)'
         'charisma':14,
         },
     'class_features':{
-        # TODO: Сделай Feat_Resilient. Даёт бонус мастрества к спасброску.
         'Feat_Resilient':'constitution',
         'Spellcasting':True,
         'Spells':[
+            ('channel', 'Wrath_of_the_Storm'),
             ('cantrip', 'Guidance'),
             ('cantrip', 'Thaumaturgy'),
             ('cantrip', 'Sacred_Flame'),
+            ('cantrip', 'Word_of_Radiance'),
             ('1_lvl', 'Fog_Cloud'),
             ('1_lvl', 'Thunderwave'),
-            ('1_lvl', 'Healing_Word'),
             ('2_lvl', 'Gust_of_Wind'),
             ('2_lvl', 'Shatter'),
             ('2_lvl', 'Aid'),
@@ -7750,6 +7790,11 @@ metadict_chars['Cleric 5 lvl (Mordodrukow) (Фарам «Друг Богов»)'
             ('3_lvl', 'Dispel_Magic'),
             ('3_lvl', 'Sending'),
             ('3_lvl', 'Spirit_Guardians'),
+            ('3_lvl', 'Water_Walk'),
+            ('4_lvl', 'Ice_Storm'),
+            ('4_lvl', 'Control_Water'),
+            ('4_lvl', 'Divination'),
+            ('4_lvl', 'Stone_Shape'),
             ],
         'Tempest_Domain':True,
         'Wrath_of_the_Storm':True,
@@ -7760,16 +7805,27 @@ metadict_chars['Cleric 5 lvl (Mordodrukow) (Фарам «Друг Богов»)'
     'race':'Human-hero',
     'weapon_skill':['simple','martial'],
     'armor_skill':['light','medium','heavy','shield'],
+    'skills':[
+        # === Strength
+        'Athletics',
+        # === Intelligence
+        'Religion',
+        # === Wisdom
+        'Insight',
+        'Medicine',
+        'Perception',
+        # === Charisma
+        'Persuasion',
+        ],
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        # TODO: добавь "Infusion of Heroism"
-        # TODO: дслеай жезл с +1 к броску заклинаний.
+        # TODO: жезл +1, увеличивает сложность спасброска заклинаний.
         #'Infusion of Healing':1,
         'Infusion of Heroism':1,
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
-        'Splint Armor':1,
+        'Plate Armor':1,
         'Heavy Shield':1,
         'Longsword +1':1,
         },
@@ -7838,9 +7894,9 @@ metadict_chars['Warrior 3 lvl (Mordodrukow) (сержант)'] = {
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
         'Infusion of Healing':1,
-        'Studded Leather':1,
+        'Breastplate':1,
         'Scimitar':1,
-        'Heavy Shield':1,
+        'Shield':1,
         'Longbow':1,
         'Arrow':60,
         },
@@ -7864,8 +7920,8 @@ metadict_chars['Warrior 4 lvl (Mordodrukow) (лейтенант)'] = {
         'Infusion of Healing':1,
         'Rune of Shielding':1,
         'Rune of Absorbtion':1,
-        'Studded Leather':1,
-        'Heavy Shield':1,
+        'Half Plate':1,
+        'Shield':1,
         'Scimitar':1,
         'Longbow':1,
         'Arrow':60,
@@ -7896,8 +7952,8 @@ metadict_chars['Warrior 5 lvl (Mordodrukow) (капитан)'] = {
         'Infusion of Healing':1,
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
-        'Studded Leather':1,
-        'Heavy Shield':1,
+        'Half Plate':1,
+        'Shield':1,
         'Scimitar':1,
         'Longbow':1,
         'Arrow':60,
@@ -7913,11 +7969,10 @@ metadict_chars['Warrior 5 lvl (Mordodrukow) (капитан)'] = {
 # Бойцы (свита) (Гай Юлий):
 
 metadict_chars['Fighter 1 lvl (Katorjnik) (преторианец Гая Юлия)'] = {
-    # TODO: Переход на 2 lvl
     # Преторианцы, всадники.
     'level':1,
     'char_class':'Fighter-officer',
-    'abilityes_choice':['strength','charisma','constitution','dexterity'],
+    'abilityes_choice':['strength','charisma','constitution','wisdom'],
     'hit_dice':'1d10',
     'behavior':'elite_warrior',
     'class_features':{
@@ -7946,9 +8001,44 @@ metadict_chars['Fighter 1 lvl (Katorjnik) (преторианец Гая Юли�
         },
     }
 
-metadict_chars['Fighter 5 lvl (Katorjnik) (Гай Юлий)'] = {
-    # TODO: Переход на 6 lvl
-    'level':5,
+metadict_chars['Fighter 2 lvl (Katorjnik) (преторианец Гая Юлия)'] = {
+    # Преторианцы, всадники.
+    'level':1,
+    'char_class':'Fighter-officer',
+    'abilityes_choice':['strength','charisma','constitution','wisdom'],
+    'hit_dice':'1d10',
+    'behavior':'elite_warrior',
+    'class_features':{
+        # Халявный Feat_Mounted_Combatant:
+        'Feat_Inspiring_Leader':True,
+        'Feat_Mounted_Combatant':True,
+        'Fighting_Style_Protection':True,
+        'Second_Wind':True,
+        'Action_Surge':True,
+        },
+    'race':'Human-hero',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Longstrider':1,
+        'Infusion of Healing':1,
+        'Plate Armor':1,
+        'Heavy Shield':1,
+        'Longsword':1,
+        'Lance':1,
+        'Pilum':6,
+        },
+    'mount_combat':True,
+    'mount_type':'Warhorse',
+    'equipment_mount':{
+        'Horse Scale Mail':1,
+        },
+    }
+
+metadict_chars['Fighter 7 lvl (Katorjnik) (Гай Юлий)'] = {
+    'level':7,
     'char_class':'Fighter-officer',
     'hit_dice':'1d10',
     'behavior':'commander',
@@ -7959,7 +8049,7 @@ metadict_chars['Fighter 5 lvl (Katorjnik) (Гай Юлий)'] = {
         'constitution':14,
         'intelligence':14,
         'wisdom':18,
-        'charisma':14,
+        'charisma':16,
         },
     'class_features':{
         'Feat_Inspiring_Leader':True,
@@ -7971,6 +8061,7 @@ metadict_chars['Fighter 5 lvl (Katorjnik) (Гай Юлий)'] = {
         'Champion_Improved_Critical':True,
         'Feat_Heavy_Armor_Master':True,
         'Extra_Attack':True,
+        'Remarkable_Athlete':True,
         },
     'race':'Human-hero',
     'weapon_skill':['simple','martial'],
@@ -7978,13 +8069,14 @@ metadict_chars['Fighter 5 lvl (Katorjnik) (Гай Юлий)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
+        #'Infusion of Regeneration':1,
         'Infusion of Healing':1,
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
-        'Splint Armor':1,
-        'Shield':1,
-        'Longsword +1':1,
-        #'Sword of Life-Stealing':1,
+        'Plate Armor':1,
+        'Heavy Shield':1,
+        'Sword of Life-Stealing':1,
+        #'Longsword +1':1,
         'Lance':1,
         'Pilum':6,
         },
