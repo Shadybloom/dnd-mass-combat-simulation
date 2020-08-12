@@ -1114,6 +1114,51 @@ metadict_animals['Giant Octopus (mount) (CR 1)'] = {
     'equipment_supply':{},
     }
 
+metadict_animals['Giant Elk (CR 2)'] = {
+    # https://roll20.net/compendium/dnd5e/Giant%20Elk
+    # TODO: Это создание огромного размера, "huge". Как слон. А у тебя Warhorse.
+    'level':5,
+    'challenge_rating':'2',
+    'armor_class_natural':11,
+    'char_class':'Commoner',
+    'behavior':'elite_warrior',
+    'hitpoints_medial':True,
+    'class_features':{
+        'Charge':True,
+        },
+    'abilityes':{
+        'strength':19,
+        'dexterity':16,
+        'constitution':14, 
+        'intelligence':7,
+        'wisdom':14,
+        'charisma':10,
+        },
+    'hit_dice':'1d12',
+    'attacks':{
+        ('close', 'hooves'): {
+            'attack_mod':6,
+            'damage_mod':4,
+            'weapon': False,
+            'weapon_type':['simple'],
+            'damage_type':'bludgeoning',
+            'damage_dice':'4d8',
+            'attack_range':5,
+            'attack_type':'close',
+            'weapon_skills_use': ['simple'],
+            'attack_mod_type':'strength',
+            'weapon_of_choice':'hooves'},
+        },
+    'race':'Warhorse',
+    'weapon_skill':[],
+    'armor_skill':[],
+    'equipment_weapon':{
+            'Rune of Armor':1,
+            },
+    'equipment_backpack':{},
+    'equipment_supply':{},
+    }
+
 metadict_animals['Brown Bear (CR 1)'] = {
     # https://roll20.net/compendium/dnd5e/Brown%20Bear
     'level':4,
@@ -1696,6 +1741,7 @@ metadict_animals['Earth Elemental (CR 5)'] = {
 metadict_animals['Red Dragon, Young (CR 10)'] = {
     # Молодой красный дракон
     'level':17,
+    'Dash_AI':True,
     'killer_AI':True,
     'fearless_AI':True,
     'disengage_AI':True,
