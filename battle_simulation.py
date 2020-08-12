@@ -1953,14 +1953,11 @@ class battle_simulation(battlescape):
                 if attack_result['hit'] and attack_dict.get('weapon') == True:
                     if attack_choice[0] == 'close' or attack_choice[0] == 'reach':
                         if soldier.damage_absorbed:
-                            spell_dict = soldier.damage_absorbed
+                            spell_dict = spell_dict[0]
                             spell_choice = soldier.damage_absorbed['subspell']
                             spell_dict['spell_choice'] = spell_choice
-                            attack_dict = soldier.spell_attack(spell_dict, enemy,
-                                    squad.metadict_soldiers,
-                                    advantage = advantage, disadvantage = disadvantage)
-                            attack_result = enemy_soldier.take_attack(
-                                    spell_choice, attack_dict, self.metadict_soldiers)
+                            self.fireball_action(soldier, squad, spell_dict, enemy.place,
+                                    single_target = enemy)
                             soldier.damage_absorbed = None
                 # Мастер тяжёлого оружия получает бонусную атаку, если убивает врага:
                 # 20 варварам 2 lvl это добавляет 25% атак. От 10 до 30 атак за минуту боя.
