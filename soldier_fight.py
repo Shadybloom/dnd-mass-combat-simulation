@@ -181,6 +181,9 @@ class soldier_in_battle(soldier):
             self.help_action = False
         # Индивидуальные команды солдату:
         self.commands = []
+        # Благотворные и вредные эффекты:
+        self.buffs = {}
+        self.debuffs = {}
         # Общие для всех параметры:
         self.immunity = []
         self.resistance = []
@@ -194,7 +197,6 @@ class soldier_in_battle(soldier):
         self.grappled = False
         self.restained = False
         self.concentration = False
-        self.concentration_timer = 0
         self.help_action = False
         self.killer_mark = False
         # Долговременные параметры:
@@ -208,11 +210,6 @@ class soldier_in_battle(soldier):
         self.guiding_bolt_hit = False
         self.mockery_hit = False
         self.hex = False
-        # Концентрация на заклинаниях:
-        # TODO: да сделай ты универсальную систему!
-        # И универсальный таймер концентрации на заклинаниях.
-        self.bless = None
-        self.bless_timer = 0
         # Способности бойца, паладина:
         self.action_surge = False
         self.shield = False
@@ -257,8 +254,6 @@ class soldier_in_battle(soldier):
             self.mage_armor = False
         if not hasattr(self, 'heroism'):
             self.heroism = False
-        if not hasattr(self, 'shield_of_faith'):
-            self.shield_of_faith = False
         if not hasattr(self, 'blur'):
             self.blur = False
         if not hasattr(self, 'sacred_weapon'):
@@ -551,29 +546,18 @@ class soldier_in_battle(soldier):
             elif self.heroism_timer == 0:
                 self.heroism = None
         # Сброс заклинаний:
+        # TODO: это лишнее. Делай через buffs.
         self.blur = False
         # Универсальный таймер концентрации.
         if self.concentration:
-            if self.concentration_timer == 0:
-                self.concentration = False
-            elif self.concentration_timer > 0:
-                self.concentration_timer -= 1
+            if self.concentration['concentration_timer'] == 0:
+                self.set_concentration_break(autofail = True)
+            elif self.concentration['concentration_timer'] > 0:
+                self.concentration['concentration_timer'] -= 1
                 spell_dict = self.concentration
                 if spell_dict.get('effect') == 'blur':
                     self.blur = True
         # TODO: Потихоньку переделывай функции:
-        # Заклинание Bless:
-        if self.bless:
-            if self.bless_timer > 0:
-                self.bless_timer -= 1
-            elif self.bless_timer == 0:
-                self.bless = None
-        # Заклинание Shield_of_Faith
-        if self.shield_of_faith:
-            if self.shield_of_faith_timer > 0:
-                self.shield_of_faith_timer -= 1
-            elif self.shield_of_faith_timer == 0:
-                self.shield_of_faith = False
         # Channel_Sacred_Weapon
         if self.sacred_weapon:
             if self.sacred_weapon_timer > 0:
@@ -649,16 +633,32 @@ class soldier_in_battle(soldier):
                 self.rage_timer = 10
                 self.rages -= 1
 
+    def try_concentration(self, spell_name):
+        """Маг концентрируется на заклинании, если это возможно.
+        
+        Сначала поиск по названиям заклинаний, затем по их эффектам.
+        Возвращает True, если удалось. Заклинание в self.concentration
+        """
+        spell_choice = self.spells_generator.find_spell(spell_name)
+        if not spell_choice:
+            spell_effect = spell_name
+            spell_choice = self.spells_generator.find_spell(spell_effect, effect = True)
+        if spell_choice:
+            return self.set_concentration(self.spells_generator.use_spell(spell_choice))
+        else:
+            return False
+
     def set_concentration(self, spell_dict):
         """Концентрация на заклинании"""
         if spell_dict.get('concentration'):
             self.concentration = spell_dict
             if spell_dict.get('concentration_timer'):
-                self.concentration_timer = spell_dict['concentration_timer']
+                pass
             elif spell_dict.get('effect_timer'):
-                self.concentration_timer = spell_dict['effect_timer']
+                spell_dict['concentration_timer'] = spell_dict['effect_timer']
             else:
-                return False
+                # Даём минуту концентрации, если время не указано:
+                spell_dict['concentration_timer'] = 10
             return True
         else:
             return False
@@ -698,30 +698,19 @@ class soldier_in_battle(soldier):
             return False
         else:
             self.concentration = False
-            self.concentration_timer = 0
             return True
 
-    def set_bless(self):
-        """Жрец благословляет союзников (перед началом боя)"""
-        # TODO: используй soldier.spells_generator.find_spell('Bless')
-        if hasattr(self, 'spells'):
-            for spell, spell_dict in self.spells.items():
-                if spell_dict.get('effect') and spell_dict['effect'] == 'bless':
-                    spell_dict = dict(self.spells_generator.use_spell(spell))
-                    spell_dict['spell_choice'] = spell
-                    self.concentration_timer = spell_dict['effect_timer']
-                    self.concentration = spell_dict
-                    return spell_dict
-
-    def set_shield_of_faith(self):
-        """Жрец защищает другого с помощью Shield_of_Faith"""
-        if hasattr(self, 'spells'):
-            spell = self.spells_generator.find_spell('Shield_of_Faith')
-            spell_dict = dict(self.spells_generator.use_spell(spell))
-            spell_dict['spell_choice'] = spell
-            self.concentration_timer = spell_dict['effect_timer']
-            self.concentration = spell_dict
-            return spell_dict
+    def set_buff(self, spell_dict):
+        """Солдат получает эффект заклинания.
+        
+        """
+        effect = spell_dict['effect']
+        if effect not in self.buffs:
+            self.buffs[effect] = spell_dict
+            return True
+        else:
+            self.buffs[effect] = spell_dict
+            return True
 
     def set_frenzy(self, attack_choice):
         """Берсерк бесится.
@@ -1964,8 +1953,8 @@ class soldier_in_battle(soldier):
                 )
         attack_throw_mod = attack_throw + attack_dict['attack_mod']
         # Заклинание Bless усиливает атаку:
-        if self.bless:
-            attack_throw_mod += self.bless
+        if 'bless' in self.buffs:
+            attack_throw_mod += dices.dice_throw_advantage('1d4')
         # Channel_Sacred_Weapon усиливает атаку (и делает оружие волшебным):
         if self.sacred_weapon:
             attack_throw_mod += self.sacred_weapon
@@ -2339,7 +2328,7 @@ class soldier_in_battle(soldier):
             savethrow_bonus_cover += 5
         attack_dict['savethrow_bonus_cover'] = savethrow_bonus_cover
         # Заклинание "Shield_of_Faith" даёт прекрасные +2 к AC.
-        if self.shield_of_faith:
+        if 'shield_of_faith' in self.buffs:
             armor_class_no_impact += 2
             armor_class_shield_impact += 2
             armor_class_armor_impact += 2
@@ -2503,8 +2492,8 @@ class soldier_in_battle(soldier):
             if savethrow_ability == 'dexterity' and not attack_dict.get('ignore_cover'):
                 damage_savethrow += attack_dict['savethrow_bonus_cover']
             # Заклинание Bless усиливает спасброски:
-            if self.bless:
-                damage_savethrow += self.bless
+            if 'bless' in self.buffs:
+                damage_savethrow += dices.dice_throw_advantage('1d4')
             # Bardic_Inspiration усиливает спасбросок:
             if self.bardic_inspiration\
                     and damage_savethrow < damage_difficul\

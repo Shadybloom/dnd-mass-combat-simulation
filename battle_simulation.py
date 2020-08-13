@@ -138,10 +138,9 @@ class battle_simulation(battlescape):
             self.set_squad_command_and_control(squad)
         # Подготовка к бою (бонусные хиты, заклинания, отдых и лечение):
         for key,squad in self.squads.items():
+            self.set_squad_buffs(squad)
             self.set_squad_bonus_hitpoints(squad)
             self.set_squad_bardic_inspiration(squad)
-            self.set_squad_spell_shield_of_faith(squad)
-            self.set_squad_spell_bless(squad)
             # Пополнение боекомплекта:
             if namespace.rearm:
                 self.set_squad_rearm(squad)
@@ -418,48 +417,27 @@ class battle_simulation(battlescape):
                 soldier.bardic_inspiration = bless_list.pop()
                 #print(soldier.rank, soldier.bardic_inspiration)
 
-    def set_squad_spell_shield_of_faith(self, squad):
-        """Заклинание "Щит веры" (Shield_of_Faith)"""
-        bless_list = []
-        bless_type = 'shield_of_faith'
+    def set_squad_buffs(self, squad):
+        """Кастеры баффают солдат.
+    
+        Эта функция запускается до боя.
+        """
         for soldier in squad.metadict_soldiers.values():
-            if hasattr(soldier, 'spells')\
-                    and not soldier.concentration\
-                    and soldier.spells_generator.find_spell('Shield_of_Faith'):
-                spell_dict = soldier.set_shield_of_faith()
-                for n in range(0, spell_dict['attacks_number']):
-                    bless_list.append(True)
-        soldiers_list_elite = self.select_soldiers_for_bless(
-                len(bless_list), squad.ally_side, bless_type)
-        for soldier in soldiers_list_elite:
-            if bless_list:
-                #print(bless_type, soldier.rank)
-                soldier.shield_of_faith = bless_list.pop()
-                soldier.shield_of_faith_timer = spell_dict['effect_timer']
-
-    def set_squad_spell_bless(self, squad):
-        """Заклинание "Благословение" (Bless)"""
-        bless_list = []
-        bless_type = 'bless'
-        # TODO: сначала список солдат, потом работа магов.
-        # -------------------------------------------------
-        # uuid бойцов сохраняются у мага. Если концентрация прерывается, они теряют заклинание.
-        # Повсюду используй функцию set_concentration_break, даже если маг срывает концентрацию сам.
-        # -------------------------------------------------
-        for soldier in squad.metadict_soldiers.values():
-            if hasattr(soldier, 'spells')\
-                    and not soldier.concentration\
-                    and soldier.spells_generator.find_spell('Bless'):
-                spell_dict = soldier.set_bless()
-                for n in range(0, spell_dict['attacks_number']):
-                    bless_list.append(dices.dice_throw_advantage(spell_dict['damage_dice']))
-        soldiers_list_elite = self.select_soldiers_for_bless(
-                len(bless_list), squad.ally_side, bless_type)
-        for soldier in soldiers_list_elite:
-            if bless_list:
-                #print(bless_type, soldier.rank)
-                soldier.bless = bless_list.pop()
-                soldier.bless_timer = spell_dict['effect_timer']
+            if not soldier.concentration:
+                # TODO: bless_list создавать из soldier.spells.
+                ## -------------------------------------------------
+                # Сначала заклинания высших уровней, затем меньших.
+                # В заклинаниях указывай buff = True.
+                ## -------------------------------------------------
+                bless_list = ['Bless', 'Shield_of_Faith']
+                for bless in bless_list:
+                    if soldier.try_concentration(bless):
+                        spell_dict = soldier.concentration
+                        soldiers_list = self.select_soldiers_for_bless(
+                                spell_dict['attacks_number'], squad.ally_side, spell_dict['effect'])
+                        for ally_soldier in soldiers_list:
+                            ally_soldier.set_buff(spell_dict)
+                            #print(ally_soldier.rank, ally_soldier.buffs.keys())
 
     def select_soldiers_for_bless(self, number, ally_side, bless_type):
         """Выбираем солдат для Bless, Inspiring_Leader, Bardic_Inspiration и т.д.
@@ -478,6 +456,7 @@ class battle_simulation(battlescape):
                         and soldier.hero\
                         and not soldier.behavior == 'mount'\
                         and not soldier.__dict__.get(bless_type)\
+                        and not bless_type in soldier.buffs\
                         and soldier.ally_side == ally_side\
                         and soldier.level == level:
                     soldiers_list.append(soldier)
@@ -488,6 +467,7 @@ class battle_simulation(battlescape):
                         and not soldier.hero\
                         and not soldier.behavior == 'mount'\
                         and not soldier.__dict__.get(bless_type)\
+                        and not bless_type in soldier.buffs\
                         and soldier.ally_side == ally_side\
                         and soldier.level == level:
                     soldiers_list.append(soldier)
@@ -1957,7 +1937,7 @@ class battle_simulation(battlescape):
                     if enemy_soldier.near_allies and len(enemy_soldier.near_allies) >= 2\
                             or enemy_soldier.behavior == 'commander':
                         self.fireball_action(soldier, squad, soldier.concentration, enemy.place)
-                        soldier.concentration = False
+                        soldier.set_concentration_break(autofail = True)
                 # Паладин добивает врага с помощью Divine_Smite:
                 if attack_result['hit'] and not attack_result['fatal_hit']\
                         and hasattr(soldier, 'spells') and soldier.spells\
@@ -2374,7 +2354,7 @@ class battle_simulation(battlescape):
                         and spell_choice == soldier.concentration['spell_choice']:
                     spell_dict = soldier.concentration
                     soldier.use_spell_ammo(spell_dict)
-                    #print('NYA',soldier.concentration_timer, soldier.rank, soldier.concentration)
+                    #print('NYA', soldier.rank, soldier.concentration)
                 # Зональная атака из списка атак. Дыхание дракона, молния штормового великана и т.д.
                 elif spell_choice in soldier.attacks:
                     spell_dict = soldier.attacks[spell_choice]
@@ -2445,7 +2425,7 @@ class battle_simulation(battlescape):
                         enemy_soldier.reaction = False
                         # Прерывание концентрации мага:
                         if soldier.concentration and spell_dict == soldier.concentration:
-                            soldier.concentration = False
+                            soldier.set_concentration_break(autofail = True)
                             print('DISPELL', soldier.ally_side, soldier.place, spell_choice, '<<',
                                     enemy_soldier.ally_side, counterspell_choice)
                         else:
