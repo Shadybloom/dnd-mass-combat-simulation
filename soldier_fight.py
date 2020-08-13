@@ -635,11 +635,27 @@ class soldier_in_battle(soldier):
                 spell_effect = spell_name
                 spell_choice = self.spells_generator.find_spell(spell_effect, effect = True)
         if spell_choice:
-            spell_dict = self.spells_generator.use_spell(spell_choice)
-            spell_dict['spell_choice'] = spell_choice
-            self.use_action_to_spellcast(spell_dict)
-            self.set_concentration(spell_dict)
-            return spell_dict
+            action = self.check_action_to_spellcast(self.spells[spell_choice])
+            if self.__dict__.get(action):
+                spell_dict = self.spells_generator.use_spell(spell_choice)
+                spell_dict['spell_choice'] = spell_choice
+                self.use_action_to_spellcast(spell_dict)
+                self.set_concentration(spell_dict)
+                return spell_dict
+            else:
+                return False
+        else:
+            return False
+
+    def check_action_to_spellcast(self, spell_dict):
+        """Заклинание требует действия. Какого именно?
+
+        """
+        actions_list = ['battle_action', 'bonus_action', 'reaction']
+        if spell_dict.get('casting_time') in actions_list:
+            return spell_dict['casting_time']
+        elif spell_dict.get('casting_time') == 'action':
+            return 'battle_action'
         else:
             return False
 
