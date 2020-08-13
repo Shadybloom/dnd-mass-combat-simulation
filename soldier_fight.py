@@ -387,19 +387,13 @@ class soldier_in_battle(soldier):
                         self.arcane_ward = True
                 if not self.concentration:
                     if spell_dict.get('effect') == 'blur':
-                        spell_dict = self.spells_generator.use_spell(spell)
-                        self.concentration_timer = spell_dict['effect_timer']
-                        self.concentration = spell_dict
+                        self.set_concentration(self.spells_generator.use_spell(spell))
                         break
                     if spell_dict.get('effect') == 'spirit_guardians':
-                        spell_dict = self.spells_generator.use_spell(spell)
-                        self.concentration_timer = spell_dict['effect_timer']
-                        self.concentration = spell_dict
+                        self.set_concentration(self.spells_generator.use_spell(spell))
                         break
                     if spell_dict.get('effect') == 'crusaders_mantle':
-                        spell_dict = self.spells_generator.use_spell(spell)
-                        self.concentration_timer = spell_dict['effect_timer']
-                        self.concentration = spell_dict
+                        self.set_concentration(self.spells_generator.use_spell(spell))
                         break
 
     def set_actions(self, squad):
@@ -667,6 +661,25 @@ class soldier_in_battle(soldier):
                 return False
             return True
         else:
+            return False
+
+    def use_spell_ammo(self, spell_dict):
+        """Расходуется боекомплект заклинания.
+
+        Например:
+        - Melf_Minute_Meteors даёт 6 метеоров
+
+        Концентрация прерывается, если закончился боекомплект.
+        """
+        if spell_dict.get('ammo') > 0:
+            spell_dict['ammo'] -=1
+            return True
+        if spell_dict.get('ammo') <= 0:
+            if self.concentration\
+                    and self.concentration.get('spell_choice')\
+                    and spell_dict.get('spell_choice') == self.concentration['spell_choice']\
+                    and not spell_dict.get('concentration_no_ammo'):
+                self.set_concentration_break(autofail = True)
             return False
 
     def set_concentration_break(self, difficult = 10,

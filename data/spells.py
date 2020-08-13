@@ -3,6 +3,7 @@
 
 import inspect
 import random
+import copy
 
 class gen_spells():
     """Заклинания представлены как функции.
@@ -112,13 +113,14 @@ class gen_spells():
             if spell_slot == spell_slot_use:
                 if self.spellslots[spell_slot] > 1:
                     self.spellslots[spell_slot] -= 1
-                    return self.spells[spell_choice]
+                    spell_dict = copy.deepcopy(self.spells[spell_choice])
+                    return spell_dict
                 else:
                     # Убираем закончившиеся ячейки:
                     # Убираем заклинания этого уровня, если ячейки закончились:
                     self.spellslots.pop(spell_slot)
                     spells_to_remove = [spell for spell in self.spells if spell[0] == spell_slot_use]
-                    spell_dict = self.spells[spell_choice]
+                    spell_dict = copy.deepcopy(self.spells[spell_choice])
                     for spell in spells_to_remove:
                         self.spells.pop(spell)
                     return spell_dict
@@ -127,10 +129,10 @@ class gen_spells():
 # Channel_Divinity
 
     def Radiance_of_the_Dawn(self, spell_level):
-        """Смертоносная вспышка. Жрецы домена света.
+        """Сияние рассвета.
         
         """
-        # TODO: абсолютно убийственная способность. Сотни обожённых, сотни смертей.
+        # Абсолютно убийственная способность. Сотни обожённых, сотни смертей.
         # Можно защититься баррикадами, которые и без того нередко используются в бою.
         # Как вариант, пусть работает только против волшебных созданий: нежити, демонов, духов и фей.
         # Пока что урон ослаблен 2d10 > 1d10. Зато на 5 lvl урон повышается.
@@ -160,7 +162,7 @@ class gen_spells():
         return spell_dict
 
     def Divine_Smite(self, spell_level):
-        """Смертоносная атака паладина
+        """Божественная кара.
         
         """
         # TODO: эта атака усиливается критическим ударом.
@@ -186,7 +188,7 @@ class gen_spells():
         return spell_dict
 
     def Sacred_Weapon(self, spell_level):
-        """Бонус харизмы к атаке оружия.
+        """Священное оружие.
         
         Oath_of_Devotion
         """
@@ -252,7 +254,7 @@ class gen_spells():
 # Cantrips
 
     def Eldritch_Blast(self, spell_level):
-        """Мистический заряд. Главное оружие колдуна.
+        """Мистический заряд.
 
         Level: Cantrip
         Casting time: 1 Action
@@ -288,7 +290,7 @@ class gen_spells():
         return spell_dict
 
     def Fire_Bolt(self, spell_level):
-        """Огненный снаряд. Лучше, чем ничего.
+        """Огненный снаряд.
 
         Level: Cantrip
         Casting time: 1 Action
@@ -319,7 +321,9 @@ class gen_spells():
         return spell_dict
 
     def Acid_Splash(self, spell_level):
-        """Поражает две цели, если не сумеют уклониться.
+        """Брызги кислоты.
+        
+        Поражает две цели, если не сумеют уклониться.
 
         Level: Cantrip
         Casting time: 1 Action
@@ -356,7 +360,7 @@ class gen_spells():
         return spell_dict
 
     def Vicious_Mockery(self, spell_level):
-        """Хитрое заклинание бардов, даёт помеху атаке врага.
+        """Злая насмешка
 
         Level: Cantrip
         Casting time: 1 Action
@@ -366,13 +370,13 @@ class gen_spells():
         https://www.dnd-spells.com/spell/vicious-mockery
         """
         spell_dict = {
+                'effect':'mockery',
                 'direct_hit':True,
                 'savethrow':True,
                 'savethrow_all':True,
                 'savethrow_ability':'wisdom',
                 'attacks_number':1,
                 'attack_range':60,
-                'effect':'mockery',
                 'damage_type':'psychic',
                 'damage_dice':'1d4',
                 'components':['verbal'],
@@ -391,7 +395,7 @@ class gen_spells():
         return spell_dict
 
     def Frostbite(self, spell_level):
-        """Заклинание волшебников, даёт помеху атаке врага.
+        """Обморожение.
 
         Level: Cantrip
         Casting time: 1 Action
@@ -426,7 +430,7 @@ class gen_spells():
         return spell_dict
 
     def Sacred_Flame(self, spell_level):
-        """Боевое заклинание жрецов.
+        """Священное пламя.
 
         Level: Cantrip
         Casting time: 1 Action
@@ -533,7 +537,7 @@ class gen_spells():
         return spell_dict
 
     def Word_of_Radiance(self, spell_level):
-        """Чертовски эффективное заклинание жреца. Избирательная атака.
+        """Слово сияния.
 
         Level: Cantrip
         Casting time: 1 Action
@@ -569,7 +573,7 @@ class gen_spells():
         return spell_dict
 
     def Create_Bonfire(self, spell_level):
-        """Газовая горелка чародея.
+        """Сотворение костра.
 
         Level: Cantrip
         Casting time: 1 Action
@@ -653,7 +657,7 @@ class gen_spells():
 # 1 lvl
 
     def Healing_Word(self, spell_level):
-        """Спасает жизни.
+        """Лечащее слово.
 
         Level: 1
         Casting time: 1 Bonus Action
@@ -687,7 +691,7 @@ class gen_spells():
         return spell_dict
 
     def Bless(self, spell_level):
-        """Отличный бонус к атаке и спасброскам.
+        """Благословление.
 
         Level: 1
         Casting time: 1 Action
@@ -714,7 +718,7 @@ class gen_spells():
         return spell_dict
 
     def Shield_of_Faith(self, spell_level):
-        """Дикие +2 к защите на 10 минут
+        """Щит веры.
 
 
         Level: 1
@@ -738,7 +742,7 @@ class gen_spells():
         return spell_dict
 
     def Fog_Cloud(self, spell_level):
-        """Великое и ужасное.
+        """Туманное облако.
 
         Level: 1
         Casting time: 1 Action
@@ -766,7 +770,7 @@ class gen_spells():
         return spell_dict
 
     def Cause_Fear(self, spell_level):
-        """Защитный приём колдунов.
+        """Вызвать страх.
 
         Level: 1
         Casting time: 1 Action
@@ -822,7 +826,7 @@ class gen_spells():
         return spell_dict
 
     def Sleep(self, spell_level):
-        """Защитный приём бардов и незлых чародеев.
+        """Усыпление.
 
         Level: 1
         Casting time: 1 Action
@@ -854,7 +858,7 @@ class gen_spells():
         return spell_dict
 
     def Entangle(self, spell_level):
-        """Задерживает и опутывает цели в зоне 4x4.
+        """Опутывание.
 
         Level: 1
         Casting time: 1 Action
@@ -887,7 +891,7 @@ class gen_spells():
         return spell_dict
 
     def Magic_Missile(self, spell_level):
-        """Самонаводящееся оружие волшебника.
+        """Волшебная стрела.
 
         Level: 1
         Casting time: 1 Action
@@ -949,7 +953,7 @@ class gen_spells():
         return spell_dict
 
     def Burning_Hands(self, spell_level):
-        """Огнемёт.
+        """Огненные ладони.
 
         Level: 1
         Casting time: 1 Action
@@ -982,7 +986,7 @@ class gen_spells():
         return spell_dict
 
     def Shield(self, spell_level):
-        """Отличная защита на один раунд.
+        """Щит.
 
         Level: 1
         Casting time: Special
@@ -1003,7 +1007,7 @@ class gen_spells():
         return spell_dict
 
     def Absorb_Elements(self, spell_level):
-        """Сопротивляемость одиночному удару огнешара.
+        """Поглощение стихий.
 
         Level: 1
         Casting time: Special
@@ -1035,7 +1039,7 @@ class gen_spells():
         return spell_dict
 
     def Mage_Armor(self, spell_level):
-        """Замена лёгкой брони, притом отменная.
+        """Доспехи мага.
 
         Level: 1
         Casting time: 1 Action
@@ -1058,7 +1062,7 @@ class gen_spells():
         return spell_dict
 
     def Ice_Knife(self, spell_level):
-        """Льдинки отлично работают по плотному строю.
+        """Ледяной кинжал.
 
         Level: 1
         Casting time: 1 Action
@@ -1104,7 +1108,7 @@ class gen_spells():
         return spell_dict
 
     def Hail_of_Thorns(self, spell_level):
-        """Превращает рейнджера в гранатомёт.
+        """Град шипов.
 
         Level: 1
         Casting time: 1 Bonus Action
@@ -1114,12 +1118,12 @@ class gen_spells():
         https://www.dnd-spells.com/spell/hail-of-thorns
         """
         spell_dict = {
+                'ammo':1,
                 'effect':'thorns',
                 'effect_timer':10,
                 'zone':True,
                 'zone_shape':'square',
                 'concentration':True,
-                'concentration_once':True,
                 'concentration_ready':True,
                 'direct_hit':True,
                 'savethrow':True,
@@ -1143,7 +1147,7 @@ class gen_spells():
         return spell_dict
 
     def Arms_of_Hadar(self, spell_level):
-        """Ранит и лишает врага реакции.
+        """Руки хадара.
 
         Level: 1
         Casting time: 1 Action
@@ -1177,7 +1181,7 @@ class gen_spells():
         return spell_dict
 
     def Thunderwave(self, spell_level):
-        """Ранит и отталкивает на 10 футов.
+        """Волна грома.
 
         Level: 1
         Casting time: 1 Action
@@ -1215,7 +1219,7 @@ class gen_spells():
 # 2 lvl
 
     def Scorching_Ray(self, spell_level):
-        """Бесполезное заклинание. Даже самонаведения нет!
+        """Палящий луч.
 
         Level: 2
         Casting time: 1 Action
@@ -1246,7 +1250,7 @@ class gen_spells():
         return spell_dict
 
     def Melfs_Acid_Arrow(self, spell_level):
-        """Так себе. Одиночная цель.
+        """Кислотная стрела Мельфа.
 
         Level: 2
         Casting time: 1 Action
@@ -1257,6 +1261,7 @@ class gen_spells():
         """
         # TODO: 2d4 урона в следующий раунд.
         spell_dict = {
+                'effect':'acid_arrow',
                 'direct_hit':True,
                 'savethrow':True,
                 'savethrow_ability':'dexterity',
@@ -1281,7 +1286,7 @@ class gen_spells():
         return spell_dict
 
     def Moonbeam(self, spell_level):
-        """Орбитальный лазер. Работает только ночью и на открытой местности.
+        """Лунный луч.
 
         Level: 2
         Casting time: 1 Action
@@ -1319,7 +1324,7 @@ class gen_spells():
         return spell_dict
 
     def Blur(self, spell_level):
-        """Размытый образ, помеха атаке врагов.
+        """Размытый образ.
 
         Level: 2
         Casting time: 1 Action
@@ -1340,7 +1345,7 @@ class gen_spells():
         return spell_dict
 
     def Shatter(self, spell_level):
-        """Взрыв. Поражающих элементов нет, но контузит отлично.
+        """Дребезги.
 
         Level: 2
         Casting time: 1 Action
@@ -1375,7 +1380,9 @@ class gen_spells():
         return spell_dict
 
     def Darkness(self, spell_level):
-        """Затемнение местности. Вокруг предмета, или вокруг точки.
+        """Темнота.
+        
+        Вокруг предмета, или вокруг точки.
 
         Level: 2
         Casting time: 1 Action
@@ -1409,7 +1416,7 @@ class gen_spells():
 # 3 lvl
 
     def Fear(self, spell_level):
-        """Защитный приём колдунов.
+        """Ужас.
 
         Level: 3
         Casting time: 1 Action
@@ -1438,7 +1445,7 @@ class gen_spells():
         return spell_dict
 
     def Call_Lightning(self, spell_level):
-        """Призыв грозовой тучи, молнии с небес.
+        """Призыв молнии.
 
         Level: 3
         Casting time: 1 Action
@@ -1477,7 +1484,7 @@ class gen_spells():
         return spell_dict
 
     def Fireball(self, spell_level):
-        """Чудовищное оружие. Один удар, один взвод.
+        """Огненный шар.
 
         Level: 3
         Casting time: 1 Action
@@ -1512,7 +1519,7 @@ class gen_spells():
         return spell_dict
 
     def Lightning_Bolt(self, spell_level):
-        """Бесполезная игрушка.
+        """Удар молнии.
 
         Level: 3
         Casting time: 1 Action
@@ -1548,8 +1555,46 @@ class gen_spells():
             spell_dict['attack_range'] *= 2
         return spell_dict
 
+    def Melf_Minute_Meteors(self, spell_level):
+        """Мельфовы маленькие метеоры.
+
+        Level: 3
+        Casting time: 1 Action
+        Range: Self
+        Components: V, S, M
+        Duration: Concentration, up to 10 minutes
+        https://www.dnd-spells.com/spell/melfs-minute-meteors
+        """
+        spell_dict = {
+                'ammo':6,
+                'effect':'minute_meteors',
+                'effect_timer':100,
+                'zone':True,
+                'zone_shape':'square',
+                'radius':5,
+                'concentration':True,
+                'concentration_ready':True,
+                'direct_hit':True,
+                'savethrow':True,
+                'savethrow_ability':'dexterity',
+                'attacks_number':1,
+                'attack_range':120,
+                'damage_type':'fire',
+                'damage_dice':'2d6',
+                'components':['verbal'],
+                'casting_time':'bonus_action',
+                'damage_mod':0,
+                'spell_level':spell_level,
+                'spell_save_DC':8 + self.find_spell_attack_mod(),
+                'spell_of_choice':'Magic_Missile',
+                }
+        if int(spell_level[0]) > 3:
+            bonus_ammo = 2 * int(spell_level[0]) - 3 * 2
+            spell_dict['ammo'] += bonus_ammo
+        return spell_dict
+
     def Counterspell(self, spell_level):
-        """Защита от огнешаров
+        """Контрзаклинание.
 
         Дальность 300 футов. Нужно видеть врага.
 
@@ -1571,8 +1616,9 @@ class gen_spells():
         return spell_dict
 
     def Dispel_Magic(self, spell_level):
-        """Можно использовать как импровизированный Counterspell
-
+        """Рассеивание магии.
+        
+        Можно использовать как импровизированный Counterspell
         В этом случае используется подготовленное действие.
 
         Level: 3
@@ -1592,7 +1638,7 @@ class gen_spells():
         return spell_dict
 
     def Crusaders_Mantle(self, spell_level):
-        """Дикие +1d4 урона всем союзникам в радиусе 30 футов.
+        """Мантия крестоносца.
 
         Level: 3
         Casting time: 1 Action
@@ -1621,10 +1667,7 @@ class gen_spells():
 
 
     def Spirit_Guardians(self, spell_level):
-        """Замедляют врагов клирика и наносят 3d8 урона.
-
-        - Создавая заклинание нужно указать видимых врагов.
-        - Заклинание действует ТОЛЬКО на них.
+        """Духовные стражи.
 
         Level: 3
         Casting time: 1 Action
@@ -1699,7 +1742,7 @@ class gen_spells():
         return spell_dict
 
     def Dawn(self, spell_level):
-        """Рассвет. Термоядерное подобие Moonbeam.
+        """Рассвет.
 
         Level: 5
         Casting time: 1 Action
@@ -1708,17 +1751,19 @@ class gen_spells():
         Duration: Concentration, up to 1 minute 
         https://www.dnd-spells.com/spell/dawn
         """
+        # Первый удар заклинания неожиданный, дальше только смещение луча.
         spell_dict = {
+                'ammo':1,
                 'effect':'dawn',
                 'effect_timer':10,
                 'concentration':True,
+                'concentration_no_ammo':True,
                 'zone':True,
                 'zone_effect':True,
                 'zone_danger':True,
                 'direct_hit':True,
                 'savethrow':True,
                 'savethrow_ability':'constitution',
-                'ammo':1,
                 'attacks_number':1,
                 'attack_range':60,
                 'radius':30,

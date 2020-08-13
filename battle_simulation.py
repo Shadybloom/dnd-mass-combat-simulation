@@ -2096,7 +2096,6 @@ class battle_simulation(battlescape):
         """
         # TODO: допиливай прочее.
         # - смайты паладина
-        # - мельфовы метеоры
         enemy_soldier = self.metadict_soldiers[enemy.uuid]
         if soldier.concentration:
             # Hex перенацеливается за счёт бонусного действия:
@@ -2104,19 +2103,30 @@ class battle_simulation(battlescape):
                 soldier.concentration['target_uuid'] = enemy_soldier.uuid
                 enemy_soldier.hex = soldier.uuid
                 soldier.bonus_action = False
+            if soldier.concentration.get('effect') == 'minute_meteors' and soldier.bonus_action:
+                self.fireball_action(soldier, squad, soldier.concentration)
+                self.fireball_action(soldier, squad, soldier.concentration)
+                soldier.bonus_action = False
         else:
             effects_list = [spell['effect'] for spell in soldier.spells.values()
                     if spell.get('effect')]
             if 'hex' in effects_list and soldier.bonus_action:
                 spell_choice = soldier.spells_generator.find_spell('hex', effect = True)
-                soldier.concentration = soldier.spells_generator.use_spell(spell_choice)
+                soldier.set_concentration(soldier.spells_generator.use_spell(spell_choice))
                 soldier.concentration['target_uuid'] = enemy_soldier.uuid
                 enemy_soldier.hex = soldier.uuid
                 soldier.bonus_action = False
             if 'thorns' in effects_list and soldier.bonus_action:
                 spell_choice = soldier.spells_generator.find_spell('thorns', effect = True)
-                soldier.concentration = soldier.spells_generator.use_spell(spell_choice)
+                soldier.set_concentration(soldier.spells_generator.use_spell(spell_choice))
                 soldier.bonus_action = False
+            if 'minute_meteors' in effects_list and soldier.battle_action:
+                spell_choice = soldier.spells_generator.find_spell('minute_meteors', effect = True)
+                soldier.set_concentration(soldier.spells_generator.use_spell(spell_choice))
+                if soldier.concentration:
+                    self.fireball_action(soldier, squad, soldier.concentration)
+                    self.fireball_action(soldier, squad, soldier.concentration)
+                    soldier.battle_action = False
 
     def spellcast_action(self, soldier, squad, enemy,
             spell_choice = None, subspell = False, use_spell = True):
@@ -2131,11 +2141,11 @@ class battle_simulation(battlescape):
                     return False
             if use_spell:
                 spell_dict = soldier.spells_generator.use_spell(spell_choice)
+                # Концентрация на заклинании:
+                if spell_dict.get('concentration'):
+                    soldier.set_concentration(spell_dict)
             else:
                 spell_dict = soldier.spells[spell_choice]
-            # Концентрация на заклинании:
-            if spell_dict.get('concentration'):
-                soldier.set_concentration(spell_dict)
             attacks_number = spell_dict['attacks_number']
             spell_chain = [spell_choice] * attacks_number
             if spell_dict.get('casting_time'):
@@ -2338,11 +2348,24 @@ class battle_simulation(battlescape):
         """Маг работает артиллерией."""
         if hasattr(soldier, 'spells') and soldier.battle_action\
                 and self.select_zone_spell(soldier, squad)\
-                or spell_dict and zone_center:
+                or spell_dict and zone_center\
+                or spell_dict:
             if spell_dict and zone_center:
+                # Точка удара заклинания предопределена:
                 spell_choice = spell_dict['spell_choice']
                 auto_zone_target = False
+            elif spell_dict:
+                # Поиск точки удара для выбранного заклинания:
+                spell_choice = spell_dict['spell_choice']
+                auto_zone_target = True
+                if self.select_zone_spell(soldier, squad, spell_choice_once = spell_choice):
+                    spell_choice, zone_center = self.select_zone_spell(soldier, squad,
+                            spell_choice_once = spell_choice)
+                    soldier.use_spell_ammo(spell_dict)
+                else:
+                    return False
             else:
+                # Поиск подходящего заклинания и точки удара для него:
                 auto_zone_target = True
                 spell_choice, zone_center = self.select_zone_spell(soldier, squad)
                 # Зональная атака из словаря концентрации. Call_Lightning, Moonbeam и т.д.
@@ -2350,10 +2373,7 @@ class battle_simulation(battlescape):
                         and soldier.concentration.get('spell_choice')\
                         and spell_choice == soldier.concentration['spell_choice']:
                     spell_dict = soldier.concentration
-                    if soldier.concentration.get('ammo') and soldier.concentration['ammo'] > 0:
-                        soldier.concentration['ammo'] -=1
-                    if 'concentration_once' in spell_dict:
-                        soldier.concentration = False
+                    soldier.use_spell_ammo(spell_dict)
                     #print('NYA',soldier.concentration_timer, soldier.rank, soldier.concentration)
                 # Зональная атака из списка атак. Дыхание дракона, молния штормового великана и т.д.
                 elif spell_choice in soldier.attacks:
@@ -2361,6 +2381,9 @@ class battle_simulation(battlescape):
                 # Использование слота заклинания:
                 else:
                     spell_dict = soldier.spells_generator.use_spell(spell_choice)
+                    # Концентрация на заклинании:
+                    if spell_dict.get('concentration'):
+                        soldier.set_concentration(spell_dict)
                 # Указываем выбор атаки в самом заклинании:
                 spell_dict['spell_choice'] = spell_choice
             # TODO: список целей в отдельную функцию.
@@ -2403,9 +2426,6 @@ class battle_simulation(battlescape):
                 recon_dict = self.recon(zone_center, zone_radius,
                         soldier_coordinates = soldier.place, view_all = True)
                 targets = recon_dict.values()
-            # Концентрация на заклинании:
-            if spell_dict.get('concentration'):
-                soldier.set_concentration(spell_dict)
             # TODO: контрзаклинания в отдельную функцию.
             # Враг может защититься контрзаклинанием, если угроза достаточно велика:
             if spell_choice[0][0].isnumeric() and int(spell_choice[0][0]) >= 3:
@@ -2641,7 +2661,7 @@ class battle_simulation(battlescape):
                             squad.enemy_side, zone_length = 5,
                             soldier_coordinates = squad.commanders_list[0].place)
 
-    def select_zone_spell(self, soldier, squad):
+    def select_zone_spell(self, soldier, squad, spell_choice_once = False):
         """Выбор заклинания, бьющего по территории и точки атаки для него."""
         spell_choice_list = []
         if soldier.concentration and type(soldier.concentration) == dict\
@@ -2657,9 +2677,12 @@ class battle_simulation(battlescape):
                 slot_spells_list = [attack for attack in soldier.spells if attack[0] == spell_slot
                         and soldier.spells[attack].get('zone')]
                 spell_choice_list.extend(slot_spells_list)
-        if spell_choice_list:
-            # Сортируем. Сначала заклинания высших уровней:
-            spell_choice_list = sorted(spell_choice_list, reverse = True)
+        if spell_choice_list or spell_choice_once:
+            if spell_choice_once:
+                spell_choice_list = [spell_choice_once]
+            else:
+                # Сортируем. Сначала заклинания высших уровней:
+                spell_choice_list = sorted(spell_choice_list, reverse = True)
             for spell_choice in spell_choice_list:
                 # Заклинание может быть в списке атак:
                 if spell_choice in soldier.attacks:
@@ -2669,7 +2692,7 @@ class battle_simulation(battlescape):
                 else:
                     spell_dict = soldier.spells[spell_choice]
                 # Подготовленные залкинания вроде Hail_of_Thorns пропускаем:
-                if 'concentration_ready' in spell_dict:
+                if 'concentration_ready' in spell_dict and not spell_choice_once:
                     continue
                 attack_range = round(spell_dict['attack_range'] / self.tile_size)
                 for zone_center, danger in squad.danger_points.items():
