@@ -2085,6 +2085,8 @@ class battle_simulation(battlescape):
                 spell_dict = soldier.try_spellcast(spell_choice)
             else:
                 spell_dict = soldier.spells[spell_choice]
+            if not spell_dict:
+                return False
             attacks_number = spell_dict['attacks_number']
             spell_chain = [spell_choice] * attacks_number
             while spell_chain:
@@ -2339,8 +2341,10 @@ class battle_simulation(battlescape):
                 # Зональная атака из списка атак. Дыхание дракона, молния штормового великана и т.д.
                 elif spell_choice in soldier.attacks:
                     spell_dict = soldier.attacks[spell_choice]
+                # Используется слот заклинания:
                 else:
                     spell_dict = soldier.try_spellcast(spell_choice)
+            # Зона заклинания превращается в список кортежей с целями:
             targets = self.find_targets_in_zone(
                     zone_center = zone_center,
                     zone_shape = spell_dict.get('zone_shape'),
@@ -2397,153 +2401,165 @@ class battle_simulation(battlescape):
                     self.change_place(soldier.place, zone_center, soldier.uuid)
                 # Зональное заклинание поражает цели:
                 for enemy in targets:
-                    enemy_soldier = self.metadict_soldiers[enemy.uuid]
-                    # Не вредит своим
-                    if spell_dict.get('safe'):
-                        safe = spell_dict['safe']
-                    if safe and enemy.side in soldier.ally_side:
-                        continue
-                    # Вредит только нечисти:
-                    if spell_dict.get('effect') == 'holy_water'\
-                            and not races.dict_races[enemy_soldier.race].get('unholy')\
-                            and not enemy_soldier.__dict__.get('unholy'):
-                        continue
-                    # Вызов страха от паладинского Dreadful_Aspect и заклинания "Fear"
-                    if spell_dict.get('effect') == 'fear':
-                        fear = enemy_soldier.set_fear(soldier, spell_dict['spell_save_DC'])
-                        if fear:
-                            # Враг бросает оружие и бежит:
-                            enemy_soldier.unset_shield(disarm = True)
-                            enemy_soldier.unset_weapon(enemy_soldier.weapon_ready, disarm = True)
-                            print('[+++] {side_1}, {c1} {s} FEAR >> {side_2} {c2} {e}'.format(
-                                side_1 = soldier.ally_side,
-                                c1 = soldier.place,
-                                s = soldier.behavior,
-                                side_2 = enemy_soldier.ally_side,
-                                c2 = enemy_soldier.place,
-                                e = enemy_soldier.behavior,
-                                ))
-                        if not spell_dict.get('damage_dice'):
-                            continue
-                    if spell_dict.get('effect') == 'stun':
-                        stunned = enemy_soldier.set_stunned(
-                                spell_dict['spell_save_DC'], spell_dict['effect_timer'])
-                        if stunned:
-                            print('[+++] {side_1}, {c1} {s} STUNNED >> {side_2} {c2} {e}'.format(
-                                side_1 = soldier.ally_side,
-                                c1 = soldier.place,
-                                s = soldier.behavior,
-                                side_2 = enemy_soldier.ally_side,
-                                c2 = enemy_soldier.place,
-                                e = enemy_soldier.behavior,
-                                ))
-                        if not spell_dict.get('damage_dice'):
-                            continue
-                    if spell_dict.get('effect') == 'paralyze':
-                        paralyzed = enemy_soldier.set_paralyzed(
-                                spell_dict['spell_save_DC'], spell_dict['effect_timer'])
-                        if paralyzed:
-                            print('[+++] {side_1}, {c1} {s} PARALYZED >> {side_2} {c2} {e}'.format(
-                                side_1 = soldier.ally_side,
-                                c1 = soldier.place,
-                                s = soldier.behavior,
-                                side_2 = enemy_soldier.ally_side,
-                                c2 = enemy_soldier.place,
-                                e = enemy_soldier.behavior,
-                                ))
-                        if not spell_dict.get('damage_dice'):
-                            continue
-                    elif spell_dict.get('effect') == 'sleep':
-                        sleep = enemy_soldier.set_sleep(
-                                spell_dict['spell_save_DC'], spell_dict['effect_timer'])
-                        if sleep:
-                            self.clear_battlemap()
-                            fall_place = enemy_soldier.place
-                            self.dict_battlespace[fall_place].append('fall_place')
-                            self.dict_battlespace[fall_place].append(enemy_soldier.ally_side)
-                            print('[+++] {side_1}, {c1} {s} SLEEP >> {side_2} {c2} {e}'.format(
-                                side_1 = soldier.ally_side,
-                                c1 = soldier.place,
-                                s = soldier.behavior,
-                                side_2 = enemy_soldier.ally_side,
-                                c2 = enemy_soldier.place,
-                                e = enemy_soldier.behavior,
-                                ))
-                        if not spell_dict.get('damage_dice'):
-                            continue
-                    if spell_dict.get('effect') == 'poison':
-                        # Отравление, это помеха на 20-30 атак в столкновении отрядов.
-                        poisoned = enemy_soldier.set_poisoned(
-                                spell_dict['spell_save_DC'], spell_dict['effect_timer'])
-                        if poisoned:
-                            print('[+++] {side_1}, {c1} {s} POISONED >> {side_2} {c2} {e}'.format(
-                                side_1 = soldier.ally_side,
-                                c1 = soldier.place,
-                                s = soldier.behavior,
-                                side_2 = enemy_soldier.ally_side,
-                                c2 = enemy_soldier.place,
-                                e = enemy_soldier.behavior,
-                                ))
-                        if not spell_dict.get('damage_dice'):
-                            continue
-                    # У заклинания Ice_Knife есть и шрапнель, и основной поражающий элемент:
-                    if spell_dict.get('effect') == 'ice_knife' and enemy.place == zone_center:
-                        self.spellcast_action(soldier, squad, enemy,
-                                spell_choice = spell_dict['subspell'], subspell = True, use_spell = False)
-                    # Атака заклинанием:
-                    advantage, disadvantage = self.test_enemy_defence(soldier, enemy_soldier, spell_choice)
-                    if spell_dict.get('direct_hit'):
-                        attack_dict = soldier.spell_attack(spell_dict, enemy,
-                                squad.metadict_soldiers,
-                                advantage = advantage, disadvantage = disadvantage)
-                        attack_result = enemy_soldier.take_attack(
-                                spell_choice, attack_dict, self.metadict_soldiers)
-                    # Заклинания с показателем атаки мало отличаются от стрел и мечей:
-                    elif spell_dict.get('attack_mod') or spell_dict.get('attack_mod') == 0:
-                        attack_dict = soldier.attack(spell_dict, spell_choice,
-                                enemy, self.metadict_soldiers,
-                                advantage = advantage, disadvantage = disadvantage)
-                        attack_result = enemy_soldier.take_attack(
-                                spell_choice, attack_dict, self.metadict_soldiers)
-                    else:
-                        print('NYA. Недопиленое заклинание', spell_choice, spell_dict)
-                        continue
-                    if spell_dict.get('effect') == 'steal_life':
-                        bonus_hitpoints_bless = attack_result['damage']
-                        if bonus_hitpoints_bless > soldier.bonus_hitpoints:
-                            soldier.set_hitpoints(bonus_hitpoints = bonus_hitpoints_bless)
-                    # Заклинание Hex:
-                    if attack_result['hit'] and soldier.concentration\
-                            and soldier.concentration.get('effect') == 'hex'\
-                            and not spell_dict.get('effect') == 'hex'\
-                            and enemy_soldier.__dict__.get('hex')\
-                            and enemy_soldier.hex == soldier.uuid:
-                        spell_dict = soldier.concentration
-                        self.fireball_action(soldier, squad, spell_dict, enemy.place,
-                                single_target = enemy)
-                    # Победа приносит бойцу опыт:
-                    if attack_result['fatal_hit']:
-                        soldier.set_victory_and_enemy_defeat(enemy_soldier)
-                        # Критический удар калечит цель:
-                        if attack_result['crit']:
-                            enemy_soldier.set_disabled()
-                    # Убираем противника из списка целей и с карты:
-                    if attack_result['fatal_hit']:
-                        if 'kill' in soldier.commands:
-                            enemy_soldier.killer_mark = True
-                        self.clear_battlemap()
-                        fall_place = enemy_soldier.place
-                        self.dict_battlespace[fall_place].append('fall_place')
-                        self.dict_battlespace[fall_place].append(enemy_soldier.ally_side)
-                        if squad.enemies and enemy.uuid in squad.enemies:
-                            squad.enemies.pop(enemy.uuid)
-                    # Обобщаем статистику атак (расход боеприпасов и прочее):
-                    self.set_squad_battle_stat(attack_result, squad)
+                    self.fireball_action_target(soldier, squad, spell_dict, enemy, safe)
+                # TODO: сделай декоратор.
                 # Переоцениваем опасные зоны на текущий ход:
                 if auto_zone_target:
                     squad.danger_points = battle.find_danger_zones(
                             squad.enemy_side, zone_length = 5,
                             soldier_coordinates = squad.commanders_list[0].place)
+
+    def fireball_action_target(self, soldier, squad, spell_dict, enemy, safe = False):
+        """Зональное заклинание ранит отдельную цель.
+        
+        """
+        spell_choice = spell_dict['spell_choice']
+        enemy_soldier = self.metadict_soldiers[enemy.uuid]
+        # Не вредит своим
+        if spell_dict.get('safe'):
+            safe = spell_dict['safe']
+        if safe and enemy.side in soldier.ally_side:
+            return False
+        # Вредит только нечисти:
+        if spell_dict.get('effect') == 'holy_water'\
+                and not races.dict_races[enemy_soldier.race].get('unholy')\
+                and not enemy_soldier.__dict__.get('unholy'):
+            return False
+        # Вызов страха от паладинского Dreadful_Aspect и заклинания "Fear"
+        if spell_dict.get('effect') == 'fear':
+            fear = enemy_soldier.set_fear(soldier, spell_dict['spell_save_DC'])
+            if fear:
+                # Враг бросает оружие и бежит:
+                enemy_soldier.unset_shield(disarm = True)
+                enemy_soldier.unset_weapon(enemy_soldier.weapon_ready, disarm = True)
+                print('[+++] {side_1}, {c1} {s} FEAR >> {side_2} {c2} {e}'.format(
+                    side_1 = soldier.ally_side,
+                    c1 = soldier.place,
+                    s = soldier.behavior,
+                    side_2 = enemy_soldier.ally_side,
+                    c2 = enemy_soldier.place,
+                    e = enemy_soldier.behavior,
+                    ))
+            if not spell_dict.get('damage_dice'):
+                return True
+        if spell_dict.get('effect') == 'stun':
+            stunned = enemy_soldier.set_stunned(
+                    spell_dict['spell_save_DC'], spell_dict['effect_timer'])
+            if stunned:
+                print('[+++] {side_1}, {c1} {s} STUNNED >> {side_2} {c2} {e}'.format(
+                    side_1 = soldier.ally_side,
+                    c1 = soldier.place,
+                    s = soldier.behavior,
+                    side_2 = enemy_soldier.ally_side,
+                    c2 = enemy_soldier.place,
+                    e = enemy_soldier.behavior,
+                    ))
+            if not spell_dict.get('damage_dice'):
+                return True
+        if spell_dict.get('effect') == 'paralyze':
+            paralyzed = enemy_soldier.set_paralyzed(
+                    spell_dict['spell_save_DC'], spell_dict['effect_timer'])
+            if paralyzed:
+                print('[+++] {side_1}, {c1} {s} PARALYZED >> {side_2} {c2} {e}'.format(
+                    side_1 = soldier.ally_side,
+                    c1 = soldier.place,
+                    s = soldier.behavior,
+                    side_2 = enemy_soldier.ally_side,
+                    c2 = enemy_soldier.place,
+                    e = enemy_soldier.behavior,
+                    ))
+            if not spell_dict.get('damage_dice'):
+                return True
+        elif spell_dict.get('effect') == 'sleep':
+            sleep = enemy_soldier.set_sleep(
+                    spell_dict['spell_save_DC'], spell_dict['effect_timer'])
+            if sleep:
+                self.clear_battlemap()
+                fall_place = enemy_soldier.place
+                self.dict_battlespace[fall_place].append('fall_place')
+                self.dict_battlespace[fall_place].append(enemy_soldier.ally_side)
+                print('[+++] {side_1}, {c1} {s} SLEEP >> {side_2} {c2} {e}'.format(
+                    side_1 = soldier.ally_side,
+                    c1 = soldier.place,
+                    s = soldier.behavior,
+                    side_2 = enemy_soldier.ally_side,
+                    c2 = enemy_soldier.place,
+                    e = enemy_soldier.behavior,
+                    ))
+            if not spell_dict.get('damage_dice'):
+                return True
+        if spell_dict.get('effect') == 'poison':
+            # Отравление, это помеха на 20-30 атак в столкновении отрядов.
+            poisoned = enemy_soldier.set_poisoned(
+                    spell_dict['spell_save_DC'], spell_dict['effect_timer'])
+            if poisoned:
+                print('[+++] {side_1}, {c1} {s} POISONED >> {side_2} {c2} {e}'.format(
+                    side_1 = soldier.ally_side,
+                    c1 = soldier.place,
+                    s = soldier.behavior,
+                    side_2 = enemy_soldier.ally_side,
+                    c2 = enemy_soldier.place,
+                    e = enemy_soldier.behavior,
+                    ))
+            if not spell_dict.get('damage_dice'):
+                return True
+        # У заклинания Ice_Knife есть и шрапнель, и основной поражающий элемент:
+        if spell_dict.get('effect') == 'ice_knife' and enemy.place == zone_center:
+            self.spellcast_action(soldier, squad, enemy,
+                    spell_choice = spell_dict['subspell'], subspell = True, use_spell = False)
+        # Атака заклинанием:
+        advantage, disadvantage = self.test_enemy_defence(soldier, enemy_soldier, spell_choice)
+        if spell_dict.get('direct_hit'):
+            attack_dict = soldier.spell_attack(spell_dict, enemy,
+                    squad.metadict_soldiers,
+                    advantage = advantage, disadvantage = disadvantage)
+            attack_result = enemy_soldier.take_attack(
+                    spell_choice, attack_dict, self.metadict_soldiers)
+        # Заклинания с показателем атаки мало отличаются от стрел и мечей:
+        elif spell_dict.get('attack_mod') or spell_dict.get('attack_mod') == 0:
+            attack_dict = soldier.attack(spell_dict, spell_choice,
+                    enemy, self.metadict_soldiers,
+                    advantage = advantage, disadvantage = disadvantage)
+            attack_result = enemy_soldier.take_attack(
+                    spell_choice, attack_dict, self.metadict_soldiers)
+        else:
+            print('NYA. Недопиленое заклинание', spell_choice, spell_dict)
+            return False
+        if spell_dict.get('effect') == 'steal_life':
+            bonus_hitpoints_bless = attack_result['damage']
+            if bonus_hitpoints_bless > soldier.bonus_hitpoints:
+                soldier.set_hitpoints(bonus_hitpoints = bonus_hitpoints_bless)
+        # Заклинание Hex:
+        if attack_result['hit'] and soldier.concentration\
+                and soldier.concentration.get('effect') == 'hex'\
+                and not spell_dict.get('effect') == 'hex'\
+                and enemy_soldier.__dict__.get('hex')\
+                and enemy_soldier.hex == soldier.uuid:
+            spell_dict = soldier.concentration
+            self.fireball_action(soldier, squad, spell_dict, enemy.place,
+                    single_target = enemy)
+        # Победа приносит бойцу опыт:
+        if attack_result['fatal_hit']:
+            soldier.set_victory_and_enemy_defeat(enemy_soldier)
+            # Критический удар калечит цель:
+            if attack_result['crit']:
+                enemy_soldier.set_disabled()
+        # Убираем противника из списка целей и с карты:
+        if attack_result['fatal_hit']:
+            if 'kill' in soldier.commands:
+                enemy_soldier.killer_mark = True
+            self.clear_battlemap()
+            fall_place = enemy_soldier.place
+            self.dict_battlespace[fall_place].append('fall_place')
+            self.dict_battlespace[fall_place].append(enemy_soldier.ally_side)
+            if squad.enemies and enemy.uuid in squad.enemies:
+                squad.enemies.pop(enemy.uuid)
+        # Обобщаем статистику атак (расход боеприпасов и прочее):
+        self.set_squad_battle_stat(attack_result, squad)
+        if attack_result['hit']:
+            return True
+        else:
+            return False
 
     def select_zone_spell(self, soldier, squad, spell_choice_once = False):
         """Выбор заклинания, бьющего по территории и точки атаки для него."""
