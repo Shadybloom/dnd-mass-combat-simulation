@@ -620,7 +620,7 @@ class soldier_in_battle(soldier):
                 self.rage_timer = 10
                 self.rages -= 1
 
-    def try_spellcast(self, spell_name):
+    def try_spellcast(self, spell_name, func_spell = False):
         """Маг кастует заклинание, если это возможно.
         
         Сначала поиск по названиям заклинаний, затем по их эффектам.
@@ -637,7 +637,7 @@ class soldier_in_battle(soldier):
         if spell_choice:
             action = self.check_action_to_spellcast(self.spells[spell_choice])
             if self.__dict__.get(action) or action == False:
-                spell_dict = self.spells_generator.use_spell(spell_choice)
+                spell_dict = self.spells_generator.use_spell(spell_choice, func_spell)
                 spell_dict['spell_choice'] = spell_choice
                 self.use_action_to_spellcast(spell_dict)
                 self.set_concentration(spell_dict)

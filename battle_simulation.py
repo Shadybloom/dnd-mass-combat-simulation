@@ -409,6 +409,11 @@ class battle_simulation(battlescape):
                         for ally_soldier in soldiers_list:
                             ally_soldier.set_buff(spell_dict)
                             #print(ally_soldier.rank, ally_soldier.buffs.keys())
+                spells_list = ['Armor_of_Agathys', 'Mage_Armor']
+                for spell in spells_list:
+                    spell_dict = soldier.try_spellcast(spell, func_spell = True)
+                    #if spell_dict:
+                    #    print(spell_dict)
 
     def select_soldiers_for_bless(self, number, ally_side, bless_type):
         """Выбираем солдат для Bless, Inspiring_Leader, Bardic_Inspiration и т.д.
@@ -1981,6 +1986,20 @@ class battle_simulation(battlescape):
                                 spell_dict = enemy_soldier.spells[spell_choice]
                                 self.fireball_action(enemy_soldier, enemy_squad, spell_dict,
                                         soldier_tuple.place, single_target = soldier_tuple)
+                # Доспех Агатиса
+                if attack_result['hit']:
+                    if 'armor_of_agathys' in enemy_soldier.buffs:
+                        if attack_choice[0] == 'close' or attack_choice[0] == 'reach':
+                            print(enemy_soldier.rank, enemy_soldier.bonus_hitpoints)
+                            recon_dict = self.recon(soldier.place,
+                                    soldier_coordinates = enemy_soldier.place)
+                            if soldier.uuid in recon_dict.keys():
+                                soldier_tuple = recon_dict[soldier.uuid]
+                                spell_dict = enemy_soldier.buffs['armor_of_agathys']
+                                self.fireball_action(enemy_soldier, enemy_squad, spell_dict,
+                                        soldier_tuple.place, single_target = soldier_tuple)
+                            if enemy_soldier.bonus_hitpoints <= 0:
+                                enemy_soldier.buffs.pop('armor_of_agathys', False)
                 # Обобщаем статистику атак (расход боеприпасов и прочее):
                 self.set_squad_battle_stat(attack_result, squad)
                 if attack_result['hit']:
@@ -2085,8 +2104,6 @@ class battle_simulation(battlescape):
                 spell_dict = soldier.try_spellcast(spell_choice)
             else:
                 spell_dict = soldier.spells[spell_choice]
-            if not spell_dict:
-                return False
             attacks_number = spell_dict['attacks_number']
             spell_chain = [spell_choice] * attacks_number
             while spell_chain:

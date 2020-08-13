@@ -102,7 +102,7 @@ class gen_spells():
             spell_choice = random.choice(spell_list)
             return spell_choice
 
-    def use_spell(self, spell_choice):
+    def use_spell(self, spell_choice, func_spell = False):
         """Расходуется ячейка заклинания, очищается словарь self.spells."""
         spell_slot_use = spell_choice[0]
         # Заклинания 0 уровня бесконечные:
@@ -111,24 +111,29 @@ class gen_spells():
         # Используем ячейку заклинания:
         for spell_slot in self.spellslots:
             if spell_slot == spell_slot_use:
-                if self.spellslots[spell_slot] > 1:
+                if self.spellslots[spell_slot] > 0 and func_spell:
+                    self.spellslots[spell_slot] -= 1
+                    spell_level = spell_slot[0]
+                    spell_name = spell_choice[-1]
+                    func = getattr(self, spell_name)
+                    spell_dict = func(spell_level, func_spell = True)
+                    spell_dict['spell_choice'] = spell_choice
+                elif self.spellslots[spell_slot] > 0:
                     self.spellslots[spell_slot] -= 1
                     spell_dict = copy.deepcopy(self.spells[spell_choice])
-                    return spell_dict
-                else:
+                if self.spellslots[spell_slot] <= 0:
                     # Убираем закончившиеся ячейки:
                     # Убираем заклинания этого уровня, если ячейки закончились:
                     self.spellslots.pop(spell_slot)
                     spells_to_remove = [spell for spell in self.spells if spell[0] == spell_slot_use]
-                    spell_dict = copy.deepcopy(self.spells[spell_choice])
                     for spell in spells_to_remove:
                         self.spells.pop(spell)
-                    return spell_dict
+                return spell_dict
 
 #----
 # Channel_Divinity
 
-    def Radiance_of_the_Dawn(self, spell_level):
+    def Radiance_of_the_Dawn(self, spell_level, func_spell = False):
         """Сияние рассвета.
         
         """
@@ -161,7 +166,7 @@ class gen_spells():
             spell_dict['damage_dice'] = '4d10'
         return spell_dict
 
-    def Divine_Smite(self, spell_level):
+    def Divine_Smite(self, spell_level, func_spell = False):
         """Божественная кара.
         
         """
@@ -187,7 +192,7 @@ class gen_spells():
             spell_dict['damage_dice'] = str(dice) + spell_dict['damage_dice'][1:]
         return spell_dict
 
-    def Sacred_Weapon(self, spell_level):
+    def Sacred_Weapon(self, spell_level, func_spell = False):
         """Священное оружие.
         
         Oath_of_Devotion
@@ -206,7 +211,7 @@ class gen_spells():
                 }
         return spell_dict
 
-    def Dreadful_Aspect(self, spell_level):
+    def Dreadful_Aspect(self, spell_level, func_spell = False):
         """Пугающее присутствие антипаладина.
 
         Channel_Dreadful_Aspect
@@ -229,7 +234,7 @@ class gen_spells():
                 }
         return spell_dict
 
-    def Wrath_of_the_Storm(self, spell_level):
+    def Wrath_of_the_Storm(self, spell_level, func_spell = False):
         """Контратака жреца
 
         """
@@ -253,7 +258,7 @@ class gen_spells():
 #----
 # Cantrips
 
-    def Eldritch_Blast(self, spell_level):
+    def Eldritch_Blast(self, spell_level, func_spell = False):
         """Мистический заряд.
 
         Level: Cantrip
@@ -289,7 +294,7 @@ class gen_spells():
             spell_dict['attacks_number'] = 4
         return spell_dict
 
-    def Fire_Bolt(self, spell_level):
+    def Fire_Bolt(self, spell_level, func_spell = False):
         """Огненный снаряд.
 
         Level: Cantrip
@@ -320,7 +325,7 @@ class gen_spells():
             spell_dict['damage_dice'] = '4d10'
         return spell_dict
 
-    def Acid_Splash(self, spell_level):
+    def Acid_Splash(self, spell_level, func_spell = False):
         """Брызги кислоты.
         
         Поражает две цели, если не сумеют уклониться.
@@ -359,7 +364,7 @@ class gen_spells():
             spell_dict['damage_dice'] = '4d6'
         return spell_dict
 
-    def Vicious_Mockery(self, spell_level):
+    def Vicious_Mockery(self, spell_level, func_spell = False):
         """Злая насмешка
 
         Level: Cantrip
@@ -394,7 +399,7 @@ class gen_spells():
             spell_dict['damage_dice'] = '4d4'
         return spell_dict
 
-    def Frostbite(self, spell_level):
+    def Frostbite(self, spell_level, func_spell = False):
         """Обморожение.
 
         Level: Cantrip
@@ -429,7 +434,7 @@ class gen_spells():
             spell_dict['damage_dice'] = '4d6'
         return spell_dict
 
-    def Sacred_Flame(self, spell_level):
+    def Sacred_Flame(self, spell_level, func_spell = False):
         """Священное пламя.
 
         Level: Cantrip
@@ -464,7 +469,7 @@ class gen_spells():
             spell_dict['damage_dice'] = '4d8'
         return spell_dict
 
-    def Sword_Burst(self, spell_level):
+    def Sword_Burst(self, spell_level, func_spell = False):
         """Вихрь клинков мистического рыцаря.
 
         Level: Cantrip
@@ -500,7 +505,7 @@ class gen_spells():
             spell_dict['damage_dice'] = '4d6'
         return spell_dict
 
-    def Thunderclap(self, spell_level):
+    def Thunderclap(self, spell_level, func_spell = False):
         """Громовая атака барда.
 
         Level: Cantrip
@@ -536,7 +541,7 @@ class gen_spells():
             spell_dict['damage_dice'] = '4d6'
         return spell_dict
 
-    def Word_of_Radiance(self, spell_level):
+    def Word_of_Radiance(self, spell_level, func_spell = False):
         """Слово сияния.
 
         Level: Cantrip
@@ -572,7 +577,7 @@ class gen_spells():
             spell_dict['damage_dice'] = '4d6'
         return spell_dict
 
-    def Create_Bonfire(self, spell_level):
+    def Create_Bonfire(self, spell_level, func_spell = False):
         """Сотворение костра.
 
         Level: Cantrip
@@ -615,7 +620,7 @@ class gen_spells():
 #----
 # Subspells
 
-    def Ice_Knife_Piercing(self, spell_level):
+    def Ice_Knife_Piercing(self, spell_level, func_spell = False):
         """Главный поражающий элемент заклинания Ice_Knife."""
         # Субзаклинание от Ice_Knife.
         spell_dict = {
@@ -633,7 +638,7 @@ class gen_spells():
                 }
         return spell_dict
 
-    def Empyrean_Bolt(self, spell_level):
+    def Empyrean_Bolt(self, spell_level, func_spell = False):
         """Дальная атака Эмпирея.
 
         Он может выбрать тип урона.
@@ -656,7 +661,7 @@ class gen_spells():
 #----
 # 1 lvl
 
-    def Healing_Word(self, spell_level):
+    def Healing_Word(self, spell_level, func_spell = False):
         """Лечащее слово.
 
         Level: 1
@@ -690,7 +695,7 @@ class gen_spells():
             spell_dict['damage_mod'] = 2 + int(spell_level[0])
         return spell_dict
 
-    def Bless(self, spell_level):
+    def Bless(self, spell_level, func_spell = False):
         """Благословление.
 
         Level: 1
@@ -717,7 +722,7 @@ class gen_spells():
             spell_dict['attacks_number'] += int(spell_level[0]) - 1
         return spell_dict
 
-    def Shield_of_Faith(self, spell_level):
+    def Shield_of_Faith(self, spell_level, func_spell = False):
         """Щит веры.
 
 
@@ -741,7 +746,7 @@ class gen_spells():
                 }
         return spell_dict
 
-    def Fog_Cloud(self, spell_level):
+    def Fog_Cloud(self, spell_level, func_spell = False):
         """Туманное облако.
 
         Level: 1
@@ -769,7 +774,7 @@ class gen_spells():
             spell_dict['radius'] += 20 * int(spell_level[0])
         return spell_dict
 
-    def Cause_Fear(self, spell_level):
+    def Cause_Fear(self, spell_level, func_spell = False):
         """Вызвать страх.
 
         Level: 1
@@ -799,7 +804,7 @@ class gen_spells():
             spell_dict['attacks_number'] = int(spell_level[0])
         return spell_dict
 
-    def Hex(self, spell_level):
+    def Hex(self, spell_level, func_spell = False):
         """Сглаз.
 
         Level: 1
@@ -826,7 +831,7 @@ class gen_spells():
                 }
         return spell_dict
 
-    def Sleep(self, spell_level):
+    def Sleep(self, spell_level, func_spell = False):
         """Усыпление.
 
         Level: 1
@@ -858,7 +863,7 @@ class gen_spells():
             spell_dict['attack_range'] *= 2
         return spell_dict
 
-    def Entangle(self, spell_level):
+    def Entangle(self, spell_level, func_spell = False):
         """Опутывание.
 
         Level: 1
@@ -891,7 +896,7 @@ class gen_spells():
                 }
         return spell_dict
 
-    def Magic_Missile(self, spell_level):
+    def Magic_Missile(self, spell_level, func_spell = False):
         """Волшебная стрела.
 
         Level: 1
@@ -920,7 +925,7 @@ class gen_spells():
             spell_dict['attack_range'] *= 2
         return spell_dict
 
-    def Guiding_Bolt(self, spell_level):
+    def Guiding_Bolt(self, spell_level, func_spell = False):
         """Направленный снаряд.
 
         Level: 1
@@ -953,7 +958,7 @@ class gen_spells():
             spell_dict['attack_range'] *= 2
         return spell_dict
 
-    def Burning_Hands(self, spell_level):
+    def Burning_Hands(self, spell_level, func_spell = False):
         """Огненные ладони.
 
         Level: 1
@@ -986,7 +991,7 @@ class gen_spells():
             spell_dict['damage_dice'] = str(dice) + spell_dict['damage_dice'][1:]
         return spell_dict
 
-    def Shield(self, spell_level):
+    def Shield(self, spell_level, func_spell = False):
         """Щит.
 
         Level: 1
@@ -1007,7 +1012,7 @@ class gen_spells():
                 }
         return spell_dict
 
-    def Absorb_Elements(self, spell_level):
+    def Absorb_Elements(self, spell_level, func_spell = False):
         """Поглощение стихий.
 
         Level: 1
@@ -1039,7 +1044,7 @@ class gen_spells():
             spell_dict['damage_dice'] = str(dice) + spell_dict['damage_dice'][1:]
         return spell_dict
 
-    def Mage_Armor(self, spell_level):
+    def Mage_Armor(self, spell_level, func_spell = False):
         """Доспехи мага.
 
         Level: 1
@@ -1062,7 +1067,39 @@ class gen_spells():
                 }
         return spell_dict
 
-    def Ice_Knife(self, spell_level):
+    def Armor_of_Agathys(self, spell_level, func_spell = False):
+        """Доспех Агатиса.
+
+
+        Level: 1
+        Casting time: 1 Action
+        Range: Self
+        Components: V, S, M (a cup of water)
+        Duration: 1 hour
+        https://www.dnd-spells.com/spell/armor-of-agathys
+        """
+        spell_dict = {
+                'effect':'armor_of_agathys',
+                'effect_timer':600,
+                'direct_hit':True,
+                'attack_range':10,
+                'damage_type':'cold',
+                'damage_dice':'0d0',
+                'damage_mod':5,
+                'components':['verbal','somatic','material'],
+                'casting_time':'free_action',
+                'spell_level':spell_level,
+                'spell_of_choice':'Magic_Missile',
+                }
+        if int(spell_level[0]) > 1:
+            spell_dict['damage_mod'] *= int(spell_level[0])
+        if func_spell:
+            soldier = self.mage
+            soldier.bonus_hitpoints = spell_dict['damage_mod']
+            soldier.buffs[spell_dict['effect']] = spell_dict
+        return spell_dict
+
+    def Ice_Knife(self, spell_level, func_spell = False):
         """Ледяной кинжал.
 
         Level: 1
@@ -1108,7 +1145,7 @@ class gen_spells():
             spell_dict['attack_range'] *= 2
         return spell_dict
 
-    def Hail_of_Thorns(self, spell_level):
+    def Hail_of_Thorns(self, spell_level, func_spell = False):
         """Град шипов.
 
         Level: 1
@@ -1147,7 +1184,7 @@ class gen_spells():
             spell_dict['damage_dice'] = str(dice) + spell_dict['damage_dice'][1:]
         return spell_dict
 
-    def Arms_of_Hadar(self, spell_level):
+    def Arms_of_Hadar(self, spell_level, func_spell = False):
         """Руки хадара.
 
         Level: 1
@@ -1181,7 +1218,7 @@ class gen_spells():
             spell_dict['damage_dice'] = str(dice) + spell_dict['damage_dice'][1:]
         return spell_dict
 
-    def Thunderwave(self, spell_level):
+    def Thunderwave(self, spell_level, func_spell = False):
         """Волна грома.
 
         Level: 1
@@ -1219,7 +1256,7 @@ class gen_spells():
 #----
 # 2 lvl
 
-    def Scorching_Ray(self, spell_level):
+    def Scorching_Ray(self, spell_level, func_spell = False):
         """Палящий луч.
 
         Level: 2
@@ -1250,7 +1287,7 @@ class gen_spells():
             spell_dict['attack_range'] *= 2
         return spell_dict
 
-    def Melfs_Acid_Arrow(self, spell_level):
+    def Melfs_Acid_Arrow(self, spell_level, func_spell = False):
         """Кислотная стрела Мельфа.
 
         Level: 2
@@ -1286,7 +1323,7 @@ class gen_spells():
             spell_dict['attack_range'] *= 2
         return spell_dict
 
-    def Moonbeam(self, spell_level):
+    def Moonbeam(self, spell_level, func_spell = False):
         """Лунный луч.
 
         Level: 2
@@ -1324,7 +1361,7 @@ class gen_spells():
             spell_dict['damage_dice'] = str(dice) + spell_dict['damage_dice'][1:]
         return spell_dict
 
-    def Blur(self, spell_level):
+    def Blur(self, spell_level, func_spell = False):
         """Размытый образ.
 
         Level: 2
@@ -1346,7 +1383,7 @@ class gen_spells():
                 }
         return spell_dict
 
-    def Shatter(self, spell_level):
+    def Shatter(self, spell_level, func_spell = False):
         """Дребезги.
 
         Level: 2
@@ -1381,7 +1418,7 @@ class gen_spells():
             spell_dict['attack_range'] *= 2
         return spell_dict
 
-    def Darkness(self, spell_level):
+    def Darkness(self, spell_level, func_spell = False):
         """Темнота.
         
         Вокруг предмета, или вокруг точки.
@@ -1417,7 +1454,7 @@ class gen_spells():
 #----
 # 3 lvl
 
-    def Fear(self, spell_level):
+    def Fear(self, spell_level, func_spell = False):
         """Ужас.
 
         Level: 3
@@ -1446,7 +1483,7 @@ class gen_spells():
                 }
         return spell_dict
 
-    def Call_Lightning(self, spell_level):
+    def Call_Lightning(self, spell_level, func_spell = False):
         """Призыв молнии.
 
         Level: 3
@@ -1485,7 +1522,7 @@ class gen_spells():
             spell_dict['damage_dice'] = str(dice) + spell_dict['damage_dice'][1:]
         return spell_dict
 
-    def Fireball(self, spell_level):
+    def Fireball(self, spell_level, func_spell = False):
         """Огненный шар.
 
         Level: 3
@@ -1520,7 +1557,7 @@ class gen_spells():
             spell_dict['attack_range'] *= 2
         return spell_dict
 
-    def Lightning_Bolt(self, spell_level):
+    def Lightning_Bolt(self, spell_level, func_spell = False):
         """Удар молнии.
 
         Level: 3
@@ -1557,7 +1594,7 @@ class gen_spells():
             spell_dict['attack_range'] *= 2
         return spell_dict
 
-    def Melf_Minute_Meteors(self, spell_level):
+    def Melf_Minute_Meteors(self, spell_level, func_spell = False):
         """Мельфовы маленькие метеоры.
 
         Level: 3
@@ -1595,7 +1632,7 @@ class gen_spells():
             spell_dict['ammo'] += bonus_ammo
         return spell_dict
 
-    def Counterspell(self, spell_level):
+    def Counterspell(self, spell_level, func_spell = False):
         """Контрзаклинание.
 
         Дальность 300 футов. Нужно видеть врага.
@@ -1617,7 +1654,7 @@ class gen_spells():
                 }
         return spell_dict
 
-    def Dispel_Magic(self, spell_level):
+    def Dispel_Magic(self, spell_level, func_spell = False):
         """Рассеивание магии.
         
         Можно использовать как импровизированный Counterspell
@@ -1639,7 +1676,7 @@ class gen_spells():
                 }
         return spell_dict
 
-    def Crusaders_Mantle(self, spell_level):
+    def Crusaders_Mantle(self, spell_level, func_spell = False):
         """Мантия крестоносца.
 
         Level: 3
@@ -1670,7 +1707,7 @@ class gen_spells():
         return spell_dict
 
 
-    def Spirit_Guardians(self, spell_level):
+    def Spirit_Guardians(self, spell_level, func_spell = False):
         """Духовные стражи.
 
         Level: 3
@@ -1712,7 +1749,7 @@ class gen_spells():
 #----
 # 5 lvl
 
-    def Cone_of_Cold(self, spell_level):
+    def Cone_of_Cold(self, spell_level, func_spell = False):
         """Конус холода.
 
         Level: 5
@@ -1746,7 +1783,7 @@ class gen_spells():
             spell_dict['damage_dice'] = str(dice) + spell_dict['damage_dice'][1:]
         return spell_dict
 
-    def Dawn(self, spell_level):
+    def Dawn(self, spell_level, func_spell = False):
         """Рассвет.
 
         Level: 5
