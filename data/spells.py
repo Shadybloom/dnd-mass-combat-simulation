@@ -1135,7 +1135,7 @@ class gen_spells():
                 'damage_type':'piercing',
                 'damage_dice':'1d10',
                 'components':['verbal'],
-                'casting_time':'action',
+                'casting_time':'bonus_action',
                 'damage_mod':0,
                 'spell_level':spell_level,
                 'spell_save_DC':8 + self.find_spell_attack_mod(),

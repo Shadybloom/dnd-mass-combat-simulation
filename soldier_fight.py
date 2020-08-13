@@ -636,7 +636,7 @@ class soldier_in_battle(soldier):
                 spell_choice = self.spells_generator.find_spell(spell_effect, effect = True)
         if spell_choice:
             action = self.check_action_to_spellcast(self.spells[spell_choice])
-            if self.__dict__.get(action):
+            if self.__dict__.get(action) or action == False:
                 spell_dict = self.spells_generator.use_spell(spell_choice)
                 spell_dict['spell_choice'] = spell_choice
                 self.use_action_to_spellcast(spell_dict)
