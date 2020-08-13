@@ -2253,7 +2253,8 @@ class battle_simulation(battlescape):
                 soldier.channel_divinity -= 1
                 soldier.battle_action = False
             # Жрец домена бури усиливает заклинание до предела:
-            elif soldier.class_features.get('Channel_Destructive_Wrath'):
+            elif soldier.class_features.get('Channel_Destructive_Wrath')\
+                    and not soldier.destructive_wrath:
                 soldier.destructive_wrath = True
                 self.fireball_action(soldier, squad)
                 soldier.channel_divinity -= 1
@@ -2269,6 +2270,39 @@ class battle_simulation(battlescape):
             enemy_soldier = self.metadict_soldiers[enemy.uuid]
             if getattr(enemy_soldier, debuff) != True:
                 return enemy_soldier
+
+    def counterspell_action(self, spell_dict, soldier):
+        """Контрзаклинание.
+        
+        - Если заклинание 3+ круга.
+        - Если заклинание зональное.
+        - Если враг видит заклинателя.
+        """
+        # TODO: проверка базовой характеристики, СЛ 10 + уровень_заклинания.
+        # Это если рассеивать заклинания выше уровня контрзаклинания.
+        spell_choice = spell_dict['spell_choice']
+        counterspell_enemies = [enemy_soldier\
+                for enemy_soldier in self.metadict_soldiers.values()\
+                if enemy_soldier.ally_side == soldier.enemy_side\
+                and enemy_soldier.spells_generator.find_spell('counterspell', effect = True)]
+        if counterspell_enemies:
+            for enemy_soldier in counterspell_enemies:
+                vision_tuple = self.calculate_enemy_cover(enemy_soldier.place, soldier.place)
+                # Контрзаклинание срабатывает только если враг видит мага:
+                if vision_tuple.visibility:
+                    counterspell_dict = enemy_soldier.try_spellcast('counterspell')
+                    if counterspell_dict:
+                        # Прерывание концентрации мага:
+                        if soldier.concentration and spell_dict == soldier.concentration:
+                            soldier.set_concentration_break(autofail = True)
+                            print('DISPELL', soldier.ally_side, soldier.place, spell_choice, '<<',
+                                    enemy_soldier.ally_side, enemy_soldier.place,
+                                    counterspell_dict['spell_choice'])
+                        else:
+                            print('COUNTERSPELL', soldier.ally_side, soldier.place, spell_choice, '<<',
+                                    enemy_soldier.ally_side, enemy_soldier.place,
+                                    counterspell_dict['spell_choice'])
+                        return True
 
     def fireball_action(self, soldier, squad, spell_dict = None, zone_center = None,
             safe = False, single_target = False):
@@ -2314,53 +2348,28 @@ class battle_simulation(battlescape):
                     distance = round(spell_dict.get('attack_range', 0) / self.tile_size),
                     point_of_view = soldier.place
                     )
-            # TODO: контрзаклинания в отдельную функцию.
-            # Враг может защититься контрзаклинанием, если угроза достаточно велика:
-            if spell_choice[0][0].isnumeric() and int(spell_choice[0][0]) >= 3:
-                counterspell_enemies = [enemy_soldier\
-                        for enemy_soldier in self.metadict_soldiers.values()\
-                        if enemy_soldier.ally_side == soldier.enemy_side\
-                        and enemy_soldier.spells_generator.find_spell('counterspell', effect = True)]
-                if counterspell_enemies:
-                    enemy_soldier = counterspell_enemies[0]
-                    vision_tuple = self.calculate_enemy_cover(enemy_soldier.place, soldier.place)
-                    # Контрзаклинание срабатывает только если враг видит мага:
-                    if vision_tuple.visibility:
-                        counterspell_choice = enemy_soldier.spells_generator.find_spell(
-                                'counterspell', effect = True)
-                        counterspell_dict = enemy_soldier.spells_generator.use_spell(
-                                counterspell_choice)
-                        enemy_soldier.reaction = False
-                        # Прерывание концентрации мага:
-                        if soldier.concentration and spell_dict == soldier.concentration:
-                            soldier.set_concentration_break(autofail = True)
-                            print('DISPELL', soldier.ally_side, soldier.place, spell_choice, '<<',
-                                    enemy_soldier.ally_side, counterspell_choice)
-                        else:
-                            print('COUNTERSPELL', soldier.ally_side, soldier.place, spell_choice, '<<',
-                                    enemy_soldier.ally_side, counterspell_choice)
-                        return False
-            # Жрец домена бури усиливает заклинание до предела:
-            if soldier.destructive_wrath and len(targets) > 3 and spell_dict.get('damage_type'):
-                if spell_dict['damage_type'] == 'thunder' or spell_dict['damage_type'] == 'lightning':
-                    spell_dict['destructive_wrath'] = True
-                    damage_mod = spell_dict['damage_mod']
-                    damage_mod += int(spell_dict['damage_dice'][0]) * int(spell_dict['damage_dice'][-1])
-                    spell_dict['damage_dice'] = '0d0'
-                    spell_dict['damage_mod'] = damage_mod
-                    soldier.destructive_wrath = False
             if targets:
+                # Вражеское контрзаклинание, если наше заклинание 3+ круга:
+                if spell_choice[0][0].isnumeric() and int(spell_choice[0][0]) >= 3:
+                    counterspell = self.counterspell_action(spell_dict, soldier)
+                    if counterspell:
+                        return False
                 if single_target:
                     targets = [target for target in targets
                             if target.uuid == single_target.uuid]
+                # Жрец домена бури усиливает заклинание до предела:
+                if soldier.destructive_wrath and len(targets) > 3 and spell_dict.get('damage_type'):
+                    if spell_dict['damage_type'] == 'thunder' or spell_dict['damage_type'] == 'lightning':
+                        spell_dict['destructive_wrath'] = True
+                        damage_mod = spell_dict['damage_mod']
+                        damage_mod += int(spell_dict['damage_dice'][0]) * int(spell_dict['damage_dice'][-1])
+                        spell_dict['damage_dice'] = '0d0'
+                        spell_dict['damage_mod'] = damage_mod
+                        soldier.destructive_wrath = False
+                # TODO: это для Flaming_Sphere и подобных.
                 if spell_dict.get('effect') == 'dawn'\
                         or spell_dict.get('effect') == 'bonfire'\
                         or spell_dict.get('effect') == 'moonbeam':
-                    # TODO: это для Flaming_Sphere и подобных.
-                    # ------------------------------------------------------------
-                    # Проблема, каждая новая атака бьёт по местности.
-                    # А нам нужен только зональный урон в конце хода и смещение луча.
-                    # ------------------------------------------------------------
                     spell_dict = soldier.concentration
                     zone_radius = round(spell_dict['radius'] / self.tile_size)
                     if not spell_dict.get('zone_center'):
