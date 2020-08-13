@@ -206,7 +206,6 @@ class soldier_in_battle(soldier):
         self.fear_source = None
         self.sleep = False
         self.damage_absorbed = None
-        self.bardic_inspiration = None
         self.guiding_bolt_hit = False
         self.mockery_hit = False
         self.hex = False
@@ -1961,11 +1960,11 @@ class soldier_in_battle(soldier):
             if attack_dict.get('weapon_type') and not 'magic' in attack_dict['weapon_type']:
                 attack_dict['weapon_type'].append('magic')
         # Bardic_Inspiration усиливает атаку:
-        if self.bardic_inspiration\
+        if 'bardic_inspiration' in self.buffs\
                 and enemy_soldier.armor['armor_class'] > attack_throw_mod\
-                and not enemy_soldier.armor['armor_class'] > attack_throw_mod + self.bardic_inspiration:
-            attack_throw_mod += self.bardic_inspiration
-            self.bardic_inspiration = None
+                and not enemy_soldier.armor['armor_class'] > attack_throw_mod\
+                + self.buffs['bardic_inspiration']:
+            attack_throw_mod += self.buffs.pop('bardic_inspiration',0)
         # Precision_Attack мастера боевых искусств:
         if self.class_features.get('Precision_Attack') and not superiority_use:
             superiority_dice_mid = round(int(self.superiority_dice[-1]) / 2)
@@ -2495,11 +2494,10 @@ class soldier_in_battle(soldier):
             if 'bless' in self.buffs:
                 damage_savethrow += dices.dice_throw_advantage('1d4')
             # Bardic_Inspiration усиливает спасбросок:
-            if self.bardic_inspiration\
+            if 'bardic_inspiration' in self.buffs\
                     and damage_savethrow < damage_difficul\
-                    and not damage_savethrow + self.bardic_inspiration < damage_difficul:
-                damage_savethrow += self.bardic_inspiration
-                self.bardic_inspiration = None
+                    and not damage_savethrow + self.buffs['bardic_inspiration'] < damage_difficul:
+                damage_savethrow += self.buffs.pop('bardic_inspiration',0)
             if damage_savethrow >= damage_difficul\
                     and not self.stunned and not self.sleep:
                 damage = round(damage / 2)

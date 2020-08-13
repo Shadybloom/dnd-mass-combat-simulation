@@ -139,8 +139,7 @@ class battle_simulation(battlescape):
         # Подготовка к бою (бонусные хиты, заклинания, отдых и лечение):
         for key,squad in self.squads.items():
             self.set_squad_buffs(squad)
-            self.set_squad_bonus_hitpoints(squad)
-            self.set_squad_bardic_inspiration(squad)
+            self.set_squad_heal(squad)
             # Пополнение боекомплекта:
             if namespace.rearm:
                 self.set_squad_rearm(squad)
@@ -363,40 +362,6 @@ class battle_simulation(battlescape):
                         heal = heal,
                         ))
 
-    def set_squad_bonus_hitpoints(self, squad):
-        """Бонусные хиты от способности командира.
-        
-        Feat_Inspiring_Leader (бонус уровня и харизмы во временные хиты):
-        - 4 офицера = 24 бойца = плюс 6-7 хитов каждому (150-170 хитов на роту)
-        Бонусные хиты раздаются сразу всей союзной армии, сначала элите, потом рядовым.
-        """
-        # TODO: отключение способности через soldier.inspiring_leader некрасиво сделано.
-        # inspiring_leader должен восстанавливаться после короткого отдыха.
-        # А также требует 10 минут выступления.
-        bless_list = []
-        bless_type = 'bonus_hitpoints'
-        for soldier in squad.metadict_soldiers.values():
-            if hasattr(soldier, 'inspiring_leader') and soldier.inspiring_leader:
-                for n in range(0, 6):
-                    bonus_hitpoints = soldier.mods['charisma'] + soldier.level
-                    bless_list.append(bonus_hitpoints)
-                soldier.inspiring_leader = False
-        soldiers_list_elite = self.select_soldiers_for_bless(
-                len(bless_list), squad.ally_side, bless_type)
-        # Наконец, раздаём бонусные хиты:
-        for soldier in soldiers_list_elite:
-            if bless_list:
-                #print(bless_type, soldier.rank)
-                soldier.set_hitpoints(bonus_hitpoints = bless_list.pop())
-                #print('{side} Feat_Inspiring_Leader, {b} {n} bonus_hitpoints: {hitpoints}/{hitpoints_max} ({hitpoints_bonus})'.format(
-                #    side = soldier.ally_side,
-                #    b = soldier.behavior,
-                #    n = soldier.name,
-                #    hitpoints = soldier.hitpoints + soldier.bonus_hitpoints,
-                #    hitpoints_max = soldier.hitpoints_max,
-                #    hitpoints_bonus = soldier.bonus_hitpoints,
-                #    ))
-
     def set_squad_bardic_inspiration(self, squad):
         """Барды дают бонус к атаке или спасброску вдохновлённых бойцов.
         
@@ -423,7 +388,33 @@ class battle_simulation(battlescape):
         Эта функция запускается до боя.
         """
         for soldier in squad.metadict_soldiers.values():
-            if not soldier.concentration:
+            # Воодушевляющий лидер:
+            if soldier.class_features.get('Feat_Inspiring_Leader')\
+                    and soldier.inspiring_leader:
+                ally_number = 6
+                bonus_hitpoints = soldier.mods['charisma'] + soldier.level
+                soldier.inspiring_leader = False
+                # Передаём бонусные хиты:
+                soldiers_list = self.select_soldiers_for_bless(ally_number,
+                        squad.ally_side, 'bonus_hitpoints')
+                for ally_soldier in soldiers_list:
+                    ally_soldier.set_hitpoints(bonus_hitpoints = bonus_hitpoints)
+            # Вдохновение барда:
+            if soldier.class_features.get('Bardic_Inspiration')\
+                    and soldier.inspiring_bard_number:
+                bless_list = []
+                for n in range(0, soldier.inspiring_bard_number):
+                    bless_list.append(dices.dice_throw_advantage(soldier.inspiring_bard_dice))
+                soldier.inspiring_bard_number = 0
+                # Передаём вдохновение барда:
+                soldiers_list = self.select_soldiers_for_bless(ally_number,
+                        squad.ally_side, 'bardic_inspiration')
+                for ally_soldier in soldiers_list:
+                    ally_soldier.set_hitpoints(bonus_hitpoints = bonus_hitpoints)
+                    if bless_list:
+                        ally_soldier.buffs['bardic_inspiration'] = bless_list.pop()
+            # Заклинания и концентрация на них:
+            if not soldier.concentration and soldier.spells:
                 # TODO: bless_list создавать из soldier.spells.
                 ## -------------------------------------------------
                 # Сначала заклинания высших уровней, затем меньших.
