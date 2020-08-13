@@ -367,8 +367,7 @@ class soldier_in_battle(soldier):
                     self.spellslots['2_lvl'] = 1
                     self.ki_points -= 2
         # Используем заклинания перед боем:
-        # TODO: перенеси это в отдельную функцию, чтобы сочетать с командами вроде "spellcast" и "channel"
-        # Очевидно, функция должна исполняться, когда командиром уже выбраны команды отряду.
+        # TODO: перенеси это в set_squad_buffs
         if hasattr(self, 'spells'):
             for spell, spell_dict in self.spells.items():
                 if spell_dict.get('armor') and not self.armor['armor_use']:
@@ -379,16 +378,6 @@ class soldier_in_battle(soldier):
                     if self.class_features.get('Arcane_Ward') and not self.bonus_hitpoints:
                         self.bonus_hitpoints = self.level * 2 + self.mods['intelligence']
                         self.arcane_ward = True
-                if not self.concentration:
-                    if spell_dict.get('effect') == 'blur':
-                        self.set_concentration(self.spells_generator.use_spell(spell))
-                        break
-                    if spell_dict.get('effect') == 'spirit_guardians':
-                        self.set_concentration(self.spells_generator.use_spell(spell))
-                        break
-                    if spell_dict.get('effect') == 'crusaders_mantle':
-                        self.set_concentration(self.spells_generator.use_spell(spell))
-                        break
 
     def set_actions(self, squad):
         """Доступные действия в 6-секундном раунде боя.
@@ -514,7 +503,6 @@ class soldier_in_battle(soldier):
                 if self.equipment_weapon.get('Infusion of Heroism')\
                         or self.equipment_weapon.get('Potion of Bravery'):
                     self.use_potion_of_heroism()
-                self.set_hitpoints(heal = 1)
         # Особенности монстров:
         # Перезарядка способности:
         if self.class_features.get('Recharge') and self.recharge_dict:
@@ -632,20 +620,48 @@ class soldier_in_battle(soldier):
                 self.rage_timer = 10
                 self.rages -= 1
 
-    def try_concentration(self, spell_name):
-        """Маг концентрируется на заклинании, если это возможно.
+    def try_spellcast(self, spell_name):
+        """Маг кастует заклинание, если это возможно.
         
         Сначала поиск по названиям заклинаний, затем по их эффектам.
-        Возвращает True, если удалось. Заклинание в self.concentration
+        Возвращает словарь заклинание. Он же в кидается в self.concentration
         """
-        spell_choice = self.spells_generator.find_spell(spell_name)
+        spell_choice = None
+        if spell_name in self.spells:
+            spell_choice = spell_name
         if not spell_choice:
-            spell_effect = spell_name
-            spell_choice = self.spells_generator.find_spell(spell_effect, effect = True)
+            spell_choice = self.spells_generator.find_spell(spell_name)
+            if not spell_choice:
+                spell_effect = spell_name
+                spell_choice = self.spells_generator.find_spell(spell_effect, effect = True)
         if spell_choice:
-            return self.set_concentration(self.spells_generator.use_spell(spell_choice))
+            spell_dict = self.spells_generator.use_spell(spell_choice)
+            spell_dict['spell_choice'] = spell_choice
+            self.use_action_to_spellcast(spell_dict)
+            self.set_concentration(spell_dict)
+            return spell_dict
         else:
             return False
+
+    def use_action_to_spellcast(self, spell_dict):
+        """Каст заклинания тратит действие.
+        
+        - Действие
+        - Бонусное действие
+        - Реакция
+        """
+        if spell_dict.get('casting_time'):
+            casting_time = spell_dict['casting_time']
+            if casting_time == 'action':
+                self.battle_action = False
+            elif casting_time == 'bonus_action':
+                self.bonus_action = False
+            elif casting_time == 'reaction':
+                self.reaction = False
+            else:
+                self.battle_action = False
+        else:
+            self.battle_action = False
 
     def set_concentration(self, spell_dict):
         """Концентрация на заклинании"""
@@ -696,6 +712,8 @@ class soldier_in_battle(soldier):
         if self.get_savethrow(difficult, ability, advantage, disadvantage) and not autofail:
             return False
         else:
+            # Этот тег используется, чтобы снимать баффы с солдат.
+            self.concentration['concentration_break'] = True
             self.concentration = False
             return True
 

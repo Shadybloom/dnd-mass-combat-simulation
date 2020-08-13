@@ -362,26 +362,6 @@ class battle_simulation(battlescape):
                         heal = heal,
                         ))
 
-    def set_squad_bardic_inspiration(self, squad):
-        """Барды дают бонус к атаке или спасброску вдохновлённых бойцов.
-        
-        Один бард может раздать вдохновение нескольким союзникам.
-        """
-        bless_list = []
-        bless_type = 'bardic_inspiration'
-        for soldier in squad.metadict_soldiers.values():
-            if hasattr(soldier, 'inspiring_bard_number') and soldier.inspiring_bard_number:
-                for n in range(0, soldier.inspiring_bard_number):
-                    bless_list.append(dices.dice_throw_advantage(soldier.inspiring_bard_dice))
-                soldier.inspiring_bard_number = 0
-        soldiers_list_elite = self.select_soldiers_for_bless(
-                len(bless_list), squad.ally_side, bless_type)
-        for soldier in soldiers_list_elite:
-            if bless_list:
-                #print(bless_type, soldier.rank)
-                soldier.bardic_inspiration = bless_list.pop()
-                #print(soldier.rank, soldier.bardic_inspiration)
-
     def set_squad_buffs(self, squad):
         """Кастеры баффают солдат.
     
@@ -422,7 +402,7 @@ class battle_simulation(battlescape):
                 ## -------------------------------------------------
                 bless_list = ['Bless', 'Shield_of_Faith']
                 for bless in bless_list:
-                    if soldier.try_concentration(bless):
+                    if soldier.try_spellcast(bless):
                         spell_dict = soldier.concentration
                         soldiers_list = self.select_soldiers_for_bless(
                                 spell_dict['attacks_number'], squad.ally_side, spell_dict['effect'])
@@ -2068,36 +2048,27 @@ class battle_simulation(battlescape):
         # TODO: допиливай прочее.
         # - смайты паладина
         enemy_soldier = self.metadict_soldiers[enemy.uuid]
-        if soldier.concentration:
+        if not soldier.concentration and soldier.battle_action:
+            spells_list = [
+                    'Hex',
+                    'Hail_of_Thorns',
+                    'Melf_Minute_Meteors',
+                    'Spirit_Guardians',
+                    'Crusaders_Mantle',
+                    'Blur',
+                    ]
+            for spell in spells_list:
+                soldier.try_spellcast(spell)
+        if soldier.concentration and soldier.bonus_action:
             # Hex перенацеливается за счёт бонусного действия:
-            if soldier.concentration.get('effect') == 'hex' and soldier.bonus_action:
+            if soldier.concentration.get('effect') == 'hex':
                 soldier.concentration['target_uuid'] = enemy_soldier.uuid
                 enemy_soldier.hex = soldier.uuid
                 soldier.bonus_action = False
-            if soldier.concentration.get('effect') == 'minute_meteors' and soldier.bonus_action:
+            if soldier.concentration.get('effect') == 'minute_meteors':
                 self.fireball_action(soldier, squad, soldier.concentration)
                 self.fireball_action(soldier, squad, soldier.concentration)
                 soldier.bonus_action = False
-        else:
-            effects_list = [spell['effect'] for spell in soldier.spells.values()
-                    if spell.get('effect')]
-            if 'hex' in effects_list and soldier.bonus_action:
-                spell_choice = soldier.spells_generator.find_spell('hex', effect = True)
-                soldier.set_concentration(soldier.spells_generator.use_spell(spell_choice))
-                soldier.concentration['target_uuid'] = enemy_soldier.uuid
-                enemy_soldier.hex = soldier.uuid
-                soldier.bonus_action = False
-            if 'thorns' in effects_list and soldier.bonus_action:
-                spell_choice = soldier.spells_generator.find_spell('thorns', effect = True)
-                soldier.set_concentration(soldier.spells_generator.use_spell(spell_choice))
-                soldier.bonus_action = False
-            if 'minute_meteors' in effects_list and soldier.battle_action:
-                spell_choice = soldier.spells_generator.find_spell('minute_meteors', effect = True)
-                soldier.set_concentration(soldier.spells_generator.use_spell(spell_choice))
-                if soldier.concentration:
-                    self.fireball_action(soldier, squad, soldier.concentration)
-                    self.fireball_action(soldier, squad, soldier.concentration)
-                    soldier.battle_action = False
 
     def spellcast_action(self, soldier, squad, enemy,
             spell_choice = None, subspell = False, use_spell = True):
@@ -2111,26 +2082,11 @@ class battle_simulation(battlescape):
                 if spell_choice == None:
                     return False
             if use_spell:
-                spell_dict = soldier.spells_generator.use_spell(spell_choice)
-                # Концентрация на заклинании:
-                if spell_dict.get('concentration'):
-                    soldier.set_concentration(spell_dict)
+                spell_dict = soldier.try_spellcast(spell_choice)
             else:
                 spell_dict = soldier.spells[spell_choice]
             attacks_number = spell_dict['attacks_number']
             spell_chain = [spell_choice] * attacks_number
-            if spell_dict.get('casting_time'):
-                casting_time = spell_dict['casting_time']
-                if casting_time == 'action':
-                    soldier.battle_action = False
-                elif casting_time == 'bonus_action':
-                    soldier.bonus_action = False
-                elif casting_time == 'reaction':
-                    soldier.reaction = False
-                else:
-                    soldier.battle_action = False
-            else:
-                soldier.battle_action = False
             while spell_chain:
                 spell_choice = spell_chain.pop(0)
                 advantage, disadvantage = self.test_enemy_defence(soldier, enemy_soldier, spell_choice)
@@ -2349,14 +2305,8 @@ class battle_simulation(battlescape):
                 # Зональная атака из списка атак. Дыхание дракона, молния штормового великана и т.д.
                 elif spell_choice in soldier.attacks:
                     spell_dict = soldier.attacks[spell_choice]
-                # Использование слота заклинания:
                 else:
-                    spell_dict = soldier.spells_generator.use_spell(spell_choice)
-                    # Концентрация на заклинании:
-                    if spell_dict.get('concentration'):
-                        soldier.set_concentration(spell_dict)
-                # Указываем выбор атаки в самом заклинании:
-                spell_dict['spell_choice'] = spell_choice
+                    spell_dict = soldier.try_spellcast(spell_choice)
             # TODO: список целей в отдельную функцию.
             zone_radius = round(spell_dict.get('radius', 0) / self.tile_size)
             if spell_dict.get('zone_shape') == '2x2':
@@ -2436,19 +2386,6 @@ class battle_simulation(battlescape):
                 if single_target:
                     targets = [target for target in targets
                             if target.uuid == single_target.uuid]
-                # Время каста заклинания берём из словаря:
-                if spell_dict.get('casting_time'):
-                    casting_time = spell_dict['casting_time']
-                    if casting_time == 'action':
-                        soldier.battle_action = False
-                    elif casting_time == 'bonus_action':
-                        soldier.bonus_action = False
-                    elif casting_time == 'reaction':
-                        soldier.reaction = False
-                    else:
-                        soldier.battle_action = False
-                else:
-                    soldier.battle_action = False
                 if spell_dict.get('effect') == 'dawn'\
                         or spell_dict.get('effect') == 'bonfire'\
                         or spell_dict.get('effect') == 'moonbeam':
