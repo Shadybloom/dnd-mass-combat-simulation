@@ -814,7 +814,7 @@ class battlescape():
         elif zone_shape == 'ray':
             ray_distance = distance
             ray_path_list = self.point_to_field_ray(
-                    soldier.place, zone_center, ray_distance,
+                    point_of_view, zone_center, ray_distance,
                     except_firs_poiint = True)
             recon_dict = self.recon(ray_path_list,
                     soldier_coordinates = point_of_view, view_all = True)
