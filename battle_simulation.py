@@ -2307,46 +2307,13 @@ class battle_simulation(battlescape):
                     spell_dict = soldier.attacks[spell_choice]
                 else:
                     spell_dict = soldier.try_spellcast(spell_choice)
-            # TODO: список целей в отдельную функцию.
-            zone_radius = round(spell_dict.get('radius', 0) / self.tile_size)
-            if spell_dict.get('zone_shape') == '2x2':
-                zone_points_list = self.point_to_field_2x2(zone_center)
-                recon_dict = self.recon(zone_points_list,
-                        soldier_coordinates = soldier.place, view_all = True)
-                targets = recon_dict.values()
-            elif spell_dict.get('zone_shape') == 'ray':
-                ray_distance = round(spell_dict['attack_range'] / self.tile_size)
-                ray_path_list = self.point_to_field_ray(
-                        soldier.place, zone_center, ray_distance,
-                        except_firs_poiint = True)
-                recon_dict = self.recon(ray_path_list,
-                        soldier_coordinates = soldier.place, view_all = True)
-                targets = recon_dict.values()
-            elif spell_dict.get('zone_shape') == 'cone':
-                cone_distance = round(spell_dict['attack_range'] / self.tile_size)
-                cone_path_list = self.point_to_field_cone(
-                        soldier.place, zone_center, cone_distance,
-                        except_firs_poiint = True)
-                recon_dict = self.recon(cone_path_list,
-                        soldier_coordinates = soldier.place, view_all = True)
-                targets = recon_dict.values()
-            elif spell_dict.get('zone_shape') == 'square':
-                recon_dict = self.recon(zone_center, zone_radius,
-                        soldier_coordinates = soldier.place, view_all = True)
-                targets = recon_dict.values()
-            elif zone_radius > 1:
-                recon_dict = self.recon(zone_center, zone_radius,
-                        soldier_coordinates = soldier.place, view_all = True)
-                targets = [target for target in recon_dict.values()\
-                        if inside_circle(target.place, zone_center, zone_radius)]
-            elif zone_radius == 1:
-                recon_dict = self.recon(zone_center, zone_radius,
-                        soldier_coordinates = soldier.place, view_all = True)
-                targets = recon_dict.values()
-            else:
-                recon_dict = self.recon(zone_center, zone_radius,
-                        soldier_coordinates = soldier.place, view_all = True)
-                targets = recon_dict.values()
+            targets = self.find_targets_in_zone(
+                    zone_center = zone_center,
+                    zone_shape = spell_dict.get('zone_shape'),
+                    zone_radius = round(spell_dict.get('radius', 0) / self.tile_size),
+                    distance = round(spell_dict.get('attack_range', 0) / self.tile_size),
+                    point_of_view = soldier.place
+                    )
             # TODO: контрзаклинания в отдельную функцию.
             # Враг может защититься контрзаклинанием, если угроза достаточно велика:
             if spell_choice[0][0].isnumeric() and int(spell_choice[0][0]) >= 3:

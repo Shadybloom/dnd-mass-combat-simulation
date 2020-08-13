@@ -801,6 +801,54 @@ class battlescape():
     #    else:
     #        return True
 
+    def find_targets_in_zone(self, zone_center, zone_shape, zone_radius, distance, point_of_view):
+        """Возвращает словарь целей, попавшихся в зоне.
+
+        """
+        targets = {}
+        if zone_shape == '2x2':
+            zone_points_list = self.point_to_field_2x2(zone_center)
+            recon_dict = self.recon(zone_points_list,
+                    soldier_coordinates = point_of_view, view_all = True)
+            targets = recon_dict.values()
+        elif zone_shape == 'ray':
+            ray_distance = distance
+            ray_path_list = self.point_to_field_ray(
+                    soldier.place, zone_center, ray_distance,
+                    except_firs_poiint = True)
+            recon_dict = self.recon(ray_path_list,
+                    soldier_coordinates = point_of_view, view_all = True)
+            targets = recon_dict.values()
+        elif zone_shape == 'cone':
+            cone_distance = distance
+            cone_path_list = self.point_to_field_cone(
+                    point_of_view, zone_center, cone_distance,
+                    except_firs_poiint = True)
+            recon_dict = self.recon(cone_path_list,
+                    soldier_coordinates = point_of_view, view_all = True)
+            targets = recon_dict.values()
+        elif zone_shape == 'square':
+            recon_dict = self.recon(zone_center, zone_radius,
+                    soldier_coordinates = point_of_view, view_all = True)
+            targets = recon_dict.values()
+        elif zone_radius > 1:
+            recon_dict = self.recon(zone_center, zone_radius,
+                    soldier_coordinates = point_of_view, view_all = True)
+            targets = [target for target in recon_dict.values()\
+                    if inside_circle(target.place, zone_center, zone_radius)]
+        elif zone_radius == 1:
+            recon_dict = self.recon(zone_center, zone_radius,
+                    soldier_coordinates = point_of_view, view_all = True)
+            targets = recon_dict.values()
+        else:
+            recon_dict = self.recon(zone_center, zone_radius,
+                    soldier_coordinates = point_of_view, view_all = True)
+            targets = recon_dict.values()
+        if targets:
+            return targets
+        else:
+            return None
+
     def recon(self, zone_center, distance = 1, soldier_coordinates = None, view_all = False):
         """Осмотр квадрата на поле боя. Вывод словаря союзников и врагов.
         
