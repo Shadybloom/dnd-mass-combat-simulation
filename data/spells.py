@@ -700,9 +700,9 @@ class gen_spells():
         Duration: Concentration, up to 1 minute
         """
         spell_dict = {
+                'concentration':True,
                 'effect':'bless',
                 'effect_timer':10,
-                'concentration':True,
                 'direct_hit':True,
                 'attacks_number':3,
                 'attack_range':30,
@@ -728,9 +728,9 @@ class gen_spells():
         Duration: Concentration, up to 10 minutes
         """
         spell_dict = {
+                'concentration':True,
                 'effect':'shield_of_faith',
                 'effect_timer':100,
-                'concentration':True,
                 'attacks_number':1,
                 'attack_range':60,
                 'components':['verbal','somatic','material'],
@@ -752,9 +752,9 @@ class gen_spells():
         https://www.dnd-spells.com/spell/fog-cloud
         """
         spell_dict = {
+                'concentration':True,
                 'effect':'fog',
                 'effect_timer':100,
-                'concentration':True,
                 'attacks_number':1,
                 'radius':20,
                 'attack_range':120,
@@ -780,6 +780,7 @@ class gen_spells():
         https://www.dnd-spells.com/spell/cause-fear
         """
         spell_dict = {
+                'concentration':True,
                 'attacks_number':1,
                 'attack_range':60,
                 'effect':'fear',
@@ -870,9 +871,9 @@ class gen_spells():
         # TODO: Чертовски неудобно использовать как зональное заклинание.
         # Пусть лучше будет 10 целей, эффект опутывания и растущие кусты.
         spell_dict = {
+                'concentration':True,
                 'effect':'entangle',
                 'effect_timer':10,
-                'concentration':True,
                 #'zone':True,
                 #'zone_shape':'square',
                 #'radius':10,
@@ -1119,12 +1120,12 @@ class gen_spells():
         """
         spell_dict = {
                 'ammo':1,
+                'concentration':True,
+                'concentration_ready':True,
                 'effect':'thorns',
                 'effect_timer':10,
                 'zone':True,
                 'zone_shape':'square',
-                'concentration':True,
-                'concentration_ready':True,
                 'direct_hit':True,
                 'savethrow':True,
                 'savethrow_ability':'dexterity',
@@ -1295,9 +1296,9 @@ class gen_spells():
         https://www.dnd-spells.com/spell/moonbeam
         """
         spell_dict = {
+                'concentration':True,
                 'effect':'moonbeam',
                 'effect_timer':10,
-                'concentration':True,
                 'zone':True,
                 'zone_shape':'2x2',
                 'zone_effect':True,
@@ -1334,6 +1335,7 @@ class gen_spells():
         https://www.dnd-spells.com/spell/blur
         """
         spell_dict = {
+                'concentration':True,
                 'effect':'blur',
                 'effect_timer':10,
                 'attack_range':'self',
@@ -1393,11 +1395,11 @@ class gen_spells():
         """
         spell_dict = {
                 # Радиус 20 из-за круглой зоны. Получается 35 футов.
+                'concentration':True,
                 'effect':'darkness',
                 'effect_timer':100,
                 'zone_effect':True,
                 'zone_self':True,
-                'concentration':True,
                 'direct_hit':True,
                 'attacks_number':1,
                 'attack_range':60,
@@ -1457,9 +1459,9 @@ class gen_spells():
         # Зона поражения 2x2 клетки, а не 3x3.
         # Молния поражает цели в пределах 5 футов от точки.
         spell_dict = {
+                'concentration':True,
                 'effect':'call_lightning',
                 'effect_timer':100,
-                'concentration':True,
                 'zone':True,
                 'zone_shape':'2x2',
                 'direct_hit':True,
@@ -1567,13 +1569,13 @@ class gen_spells():
         """
         spell_dict = {
                 'ammo':6,
+                'concentration':True,
+                'concentration_ready':True,
                 'effect':'minute_meteors',
                 'effect_timer':100,
                 'zone':True,
                 'zone_shape':'square',
                 'radius':5,
-                'concentration':True,
-                'concentration_ready':True,
                 'direct_hit':True,
                 'savethrow':True,
                 'savethrow_ability':'dexterity',
@@ -1648,6 +1650,8 @@ class gen_spells():
         https://www.dnd-spells.com/spell/crusaders-mantle
         """
         spell_dict = {
+                'safe':True,
+                'concentration':True,
                 'effect':'crusaders_mantle',
                 'effect_timer':10,
                 'zone_effect':True,
@@ -1678,6 +1682,7 @@ class gen_spells():
         """
         spell_dict = {
                 'safe':True,
+                'concentration':True,
                 'effect':'spirit_guardians',
                 'effect_timer':100,
                 'zone_effect':True,
@@ -1754,10 +1759,10 @@ class gen_spells():
         # Первый удар заклинания неожиданный, дальше только смещение луча.
         spell_dict = {
                 'ammo':1,
-                'effect':'dawn',
-                'effect_timer':10,
                 'concentration':True,
                 'concentration_no_ammo':True,
+                'effect':'dawn',
+                'effect_timer':10,
                 'zone':True,
                 'zone_effect':True,
                 'zone_danger':True,
