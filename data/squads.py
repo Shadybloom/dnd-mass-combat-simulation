@@ -609,7 +609,7 @@ metadict_squads['Squad-hero (барды Тетры) (друг)'] = {
 
 metadict_squads['Squad-hero (следопыты Сакатра) (Gogan)'] = {
     'Ranger 7 lvl (Gogan) (Сакатр Ка-Ален)':1,
-    'Ranger 2 lvl (Gogan) (следопыт Сакатра)':6,
+    'Ranger 2 lvl (Gogan) (следопыт Сакатра)':10,
     }
 
 metadict_squads['Company-regular (пираты Сакатра) (Gogan)'] = {
