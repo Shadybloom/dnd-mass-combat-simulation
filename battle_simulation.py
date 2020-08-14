@@ -412,9 +412,9 @@ class battle_simulation(battlescape):
                 spells_list = ['Armor_of_Agathys', 'Mage_Armor']
                 for spell in spells_list:
                     if soldier.bonus_hitpoints <= 0 and spell == 'Armor_of_Agathys':
-                        spell_dict = soldier.try_spellcast(spell, func_spell = True)
+                        spell_dict = soldier.try_spellcast(spell, gen_spell = True)
                     if not soldier.armor['armor_use'] and spell == 'Mage_Armor':
-                        spell_dict = soldier.try_spellcast(spell, func_spell = True)
+                        spell_dict = soldier.try_spellcast(spell, gen_spell = True)
 
     def select_soldiers_for_bless(self, number, ally_side, bless_type):
         """Выбираем солдат для Bless, Inspiring_Leader, Bardic_Inspiration и т.д.
@@ -1921,22 +1921,17 @@ class battle_simulation(battlescape):
                         soldier.set_concentration_break(autofail = True)
                 # Паладин добивает врага с помощью Divine_Smite:
                 if attack_result['hit'] and not attack_result['fatal_hit']\
-                        and hasattr(soldier, 'spells') and soldier.spells\
                         and soldier.spells_generator.find_spell('Divine_Smite')\
                         and 'spellcast' in soldier.commands:
                     spell_choice = soldier.spells_generator.find_spell('Divine_Smite')
                     self.spellcast_action(soldier, squad, enemy,
                             spell_choice, subspell = True, use_spell = True)
                 # Заклинание Absorb_Elements усиливает атаку за счёт поглощённой энергии:
-                if attack_result['hit'] and attack_dict.get('weapon') == True:
+                if attack_result['hit'] and 'absorb_elements' in soldier.buffs:
                     if attack_choice[0] == 'close' or attack_choice[0] == 'reach':
-                        if soldier.damage_absorbed:
-                            spell_dict = soldier.damage_absorbed
-                            spell_choice = soldier.damage_absorbed['subspell']
-                            spell_dict['spell_choice'] = spell_choice
-                            self.fireball_action(soldier, squad, spell_dict, enemy.place,
-                                    single_target = enemy)
-                            soldier.damage_absorbed = None
+                        spell_dict = soldier.buffs.pop('absorb_elements')
+                        self.fireball_action(soldier, squad, spell_dict, enemy.place,
+                                single_target = enemy)
                 # Мастер тяжёлого оружия получает бонусную атаку, если убивает врага:
                 # 20 варварам 2 lvl это добавляет 25% атак. От 10 до 30 атак за минуту боя.
                 if attack_result['crit'] or attack_result['fatal_hit']:
@@ -2425,6 +2420,11 @@ class battle_simulation(battlescape):
                 # Зональное заклинание поражает цели:
                 for enemy in targets:
                     self.fireball_action_target(soldier, squad, spell_dict, enemy, safe)
+                    # Для заклинаний вроде "Ice_Storm"
+                    if spell_dict.get('subspell'):
+                        subspell_dict = soldier.spells[spell_dict.get('subspell')]
+                        subspell_dict['spell_choice'] = spell_dict['subspell']
+                        self.fireball_action_target(soldier, squad, subspell_dict, enemy, safe)
                 # TODO: сделай декоратор.
                 # Переоцениваем опасные зоны на текущий ход:
                 if auto_zone_target:

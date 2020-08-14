@@ -1286,13 +1286,17 @@ metadict_items['Infusion of Claws'] = {
 metadict_items['Rune of Absorbtion'] = {
     # Руны перезаряжаются магами.
     'potion':True,
-    'direct_hit':True,
-    'effect':'absorb',
-    'subspell':('subspell', 'Absorb_Elements_Strike'),
     'absorb_damage_type':['acid','cold','fire','lightning','thunder'],
-    'damage_type':'absorbed',
-    'damage_dice':'1d6',
-    'damage_mod':0,
+    'spell_dict':{
+            'effect':'absorb_elements',
+            'effect_timer':1,
+            'direct_hit':True,
+            'damage_type':'absorbed',
+            'damage_dice':'1d6',
+            'damage_mod':0,
+            'spell_save_DC':12,
+            'spell_choice':('subspell','Absorb_Elements'),
+            },
     'weight (lb)':1/2,
     'cost (gp)':240,
     'cost (grams_of_gold)':60 * 4,

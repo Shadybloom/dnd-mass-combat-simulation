@@ -606,7 +606,7 @@ class soldier_in_battle(soldier):
                 self.rage_timer = 10
                 self.rages -= 1
 
-    def try_spellcast(self, spell_name, func_spell = False):
+    def try_spellcast(self, spell_name, gen_spell = False, use_spell_slot = True):
         """Маг кастует заклинание, если это возможно.
         
         Сначала поиск по названиям заклинаний, затем по их эффектам.
@@ -623,7 +623,7 @@ class soldier_in_battle(soldier):
         if spell_choice:
             action = self.check_action_to_spellcast(self.spells[spell_choice])
             if self.__dict__.get(action) or action == False:
-                spell_dict = self.spells_generator.use_spell(spell_choice, func_spell)
+                spell_dict = self.spells_generator.use_spell(spell_choice, gen_spell, use_spell_slot)
                 spell_dict['spell_choice'] = spell_choice
                 self.use_action_to_spellcast(spell_dict)
                 self.set_concentration(spell_dict)
@@ -2547,29 +2547,26 @@ class soldier_in_battle(soldier):
             damage = round(damage * 0.5)
         # Homebrew, руна с Absorb_Elements:
         if not attack_dict['damage_type'] in self.resistance:
-            if 'runes' in self.commands\
-                    and self.equipment_weapon.get('Rune of Absorbtion')\
-                    and self.reaction == True:
+            # TODO: в отдельную функцию и руну и заклинание.
+            if 'runes' in self.commands and self.reaction\
+                    and self.equipment_weapon.get('Rune of Absorbtion'):
                 absorb_list = self.metadict_items['Rune of Absorbtion']['absorb_damage_type']
                 if attack_dict['damage_type'] in absorb_list:
-                    self.reaction = False
-                    self.drop_item('Rune of Absorbtion')
-                    spell_dict = dict(self.metadict_items['Rune of Absorbtion'])
+                    # Поглощённый урон сохраняется, чтобы послать ответочку:
+                    spell_dict = dict(self.metadict_items['Rune of Absorbtion']['spell_dict'])
                     spell_dict['damage_type'] = attack_dict['damage_type']
-                    self.resistance.append(attack_dict['damage_type'])
-                    self.damage_absorbed = spell_dict
-            # Заклинание Absorb_Elements спасает жизни (особенно рейнджерам):
-            elif hasattr(self, 'spells') and self.reaction == True:
-                for spell, spell_dict in self.spells.items():
-                    if spell_dict.get('effect') and spell_dict['effect'] == 'absorb'\
-                            and attack_dict['damage_type'] in spell_dict['absorb_damage_type']:
-                        self.reaction = False
-                        spell_dict = dict(self.spells_generator.use_spell(spell))
-                        spell_dict['damage_type'] = attack_dict['damage_type']
-                        self.resistance.append(attack_dict['damage_type'])
-                        self.damage_absorbed = spell_dict
-                        #print(self.resistance, damage, self.hitpoints_max)
-                        break
+                    self.buffs[spell_dict['effect']] = spell_dict
+                    # Используем реакцию и руну:
+                    self.resistance.append(spell_dict['damage_type'])
+                    self.drop_item('Rune of Absorbtion')
+                    self.reaction = False
+            # TODO: защищает от любого типа урона. Нужна проверка по списку.
+            elif self.reaction:
+                spell_dict = self.try_spellcast('Absorb_Elements')
+                if spell_dict:
+                    spell_dict['damage_type'] = attack_dict['damage_type']
+                    self.resistance.append(spell_dict['damage_type'])
+                    self.buffs[spell_dict['effect']] = spell_dict
         # Иммунитет к видам урона.
         # Урон от магического оружия преодолевает иммунитет.
         if attack_dict['damage_type'] in self.immunity:
