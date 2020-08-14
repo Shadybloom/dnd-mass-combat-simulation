@@ -2575,13 +2575,11 @@ class soldier_in_battle(soldier):
                 damage = damage
             else:
                 damage = 0
-        # Сопротивляемость к видам урона.
-        # Урон от магического оружия преодолевает сопротивляемость.
-        # TODO: Feat_Elemental_Adept должен быть в словаре атаки.
+        # Сопротивляемость к видам урона и её преодоление:
         elif attack_dict['damage_type'] in self.resistance:
-            if enemy_soldier.class_features.get('Feat_Elemental_Adept') == attack_dict['damage_type']:
+            if 'magic' in attack_dict.get('weapon_type',[]):
                 damage = damage
-            elif attack_dict.get('weapon_type') and 'magic' in attack_dict['weapon_type']:
+            elif attack_dict.get('ignore_resistance') == attack_dict['damage_type']:
                 damage = damage
             else:
                 damage = round(damage * 0.5)

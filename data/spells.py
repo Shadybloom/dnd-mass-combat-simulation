@@ -54,6 +54,27 @@ class gen_spells():
                 self.spells[spell] = spell_dict
         #print(self.spells)
 
+#----
+# Декораторы:
+
+    def modify_spell(func):
+        """Кастер меняет параметры заклинания.
+        
+        """
+        def wrapper(self, spell_level, gen_spell = False):
+            soldier = self.mage
+            spell_dict = func(self, spell_level, gen_spell)
+            # Стихийный адепт преодолевает сопротивляемость определённому урону:
+            if soldier.class_features.get('Feat_Elemental_Adept') and spell_dict.get('damage_type'):
+                ignore_resistance = soldier.class_features['Feat_Elemental_Adept']
+                if spell_dict['damage_type'] == ignore_resistance:
+                    spell_dict['ignore_resistance'] = ignore_resistance
+            return spell_dict
+        return wrapper
+
+#----
+# Методы:
+
     def find_spell_attack_mod(self):
         """Модификатор атаки заклинания зависит от класса.
         
@@ -154,6 +175,7 @@ class gen_spells():
 #----
 # Channel_Divinity
 
+    @modify_spell
     def Radiance_of_the_Dawn(self, spell_level, gen_spell = False):
         """Сияние рассвета.
         
@@ -189,6 +211,7 @@ class gen_spells():
             spell_dict['damage_dice'] = '4d10'
         return spell_dict
 
+    @modify_spell
     def Divine_Smite(self, spell_level, gen_spell = False):
         """Божественная кара.
         
@@ -216,6 +239,7 @@ class gen_spells():
             spell_dict['damage_dice'] = str(dice) + spell_dict['damage_dice'][1:]
         return spell_dict
 
+    @modify_spell
     def Sacred_Weapon(self, spell_level, gen_spell = False):
         """Священное оружие.
         
@@ -236,6 +260,7 @@ class gen_spells():
         spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
+    @modify_spell
     def Dreadful_Aspect(self, spell_level, gen_spell = False):
         """Пугающее присутствие антипаладина.
 
@@ -260,6 +285,7 @@ class gen_spells():
         spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
+    @modify_spell
     def Wrath_of_the_Storm(self, spell_level, gen_spell = False):
         """Контратака жреца
 
@@ -285,6 +311,7 @@ class gen_spells():
 #----
 # Cantrips
 
+    @modify_spell
     def Eldritch_Blast(self, spell_level, gen_spell = False):
         """Мистический заряд.
 
@@ -322,6 +349,7 @@ class gen_spells():
             spell_dict['attacks_number'] = 4
         return spell_dict
 
+    @modify_spell
     def Fire_Bolt(self, spell_level, gen_spell = False):
         """Огненный снаряд.
 
@@ -354,6 +382,7 @@ class gen_spells():
             spell_dict['damage_dice'] = '4d10'
         return spell_dict
 
+    @modify_spell
     def Acid_Splash(self, spell_level, gen_spell = False):
         """Брызги кислоты.
         
@@ -394,6 +423,7 @@ class gen_spells():
             spell_dict['damage_dice'] = '4d6'
         return spell_dict
 
+    @modify_spell
     def Vicious_Mockery(self, spell_level, gen_spell = False):
         """Злая насмешка
 
@@ -430,6 +460,7 @@ class gen_spells():
             spell_dict['damage_dice'] = '4d4'
         return spell_dict
 
+    @modify_spell
     def Frostbite(self, spell_level, gen_spell = False):
         """Обморожение.
 
@@ -466,6 +497,7 @@ class gen_spells():
             spell_dict['damage_dice'] = '4d6'
         return spell_dict
 
+    @modify_spell
     def Sacred_Flame(self, spell_level, gen_spell = False):
         """Священное пламя.
 
@@ -502,6 +534,7 @@ class gen_spells():
             spell_dict['damage_dice'] = '4d8'
         return spell_dict
 
+    @modify_spell
     def Sword_Burst(self, spell_level, gen_spell = False):
         """Вихрь клинков мистического рыцаря.
 
@@ -539,6 +572,7 @@ class gen_spells():
             spell_dict['damage_dice'] = '4d6'
         return spell_dict
 
+    @modify_spell
     def Thunderclap(self, spell_level, gen_spell = False):
         """Громовая атака барда.
 
@@ -576,6 +610,7 @@ class gen_spells():
             spell_dict['damage_dice'] = '4d6'
         return spell_dict
 
+    @modify_spell
     def Word_of_Radiance(self, spell_level, gen_spell = False):
         """Слово сияния.
 
@@ -613,6 +648,7 @@ class gen_spells():
             spell_dict['damage_dice'] = '4d6'
         return spell_dict
 
+    @modify_spell
     def Create_Bonfire(self, spell_level, gen_spell = False):
         """Сотворение костра.
 
@@ -657,6 +693,7 @@ class gen_spells():
 #----
 # Subspells
 
+    @modify_spell
     def Ice_Knife_Piercing(self, spell_level, gen_spell = False):
         """Главный поражающий элемент заклинания Ice_Knife."""
         # Субзаклинание от Ice_Knife.
@@ -676,6 +713,7 @@ class gen_spells():
         spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
+    @modify_spell
     def Ice_Storm_Cold(self, spell_level, gen_spell = False):
         """Град. Повреждения холодом отдельно.
         
@@ -699,6 +737,7 @@ class gen_spells():
         spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
+    @modify_spell
     def Empyrean_Bolt(self, spell_level, gen_spell = False):
         """Дальная атака Эмпирея.
 
@@ -723,6 +762,7 @@ class gen_spells():
 #----
 # 1 lvl
 
+    @modify_spell
     def Healing_Word(self, spell_level, gen_spell = False):
         """Лечащее слово.
 
@@ -758,6 +798,7 @@ class gen_spells():
             spell_dict['damage_mod'] = 2 + int(spell_level[0])
         return spell_dict
 
+    @modify_spell
     def Bless(self, spell_level, gen_spell = False):
         """Благословление.
 
@@ -786,6 +827,7 @@ class gen_spells():
             spell_dict['attacks_number'] += int(spell_level[0]) - 1
         return spell_dict
 
+    @modify_spell
     def Shield_of_Faith(self, spell_level, gen_spell = False):
         """Щит веры.
 
@@ -811,6 +853,7 @@ class gen_spells():
         spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
+    @modify_spell
     def Fog_Cloud(self, spell_level, gen_spell = False):
         """Туманное облако.
 
@@ -840,6 +883,7 @@ class gen_spells():
             spell_dict['radius'] += 20 * int(spell_level[0])
         return spell_dict
 
+    @modify_spell
     def Cause_Fear(self, spell_level, gen_spell = False):
         """Вызвать страх.
 
@@ -871,6 +915,7 @@ class gen_spells():
             spell_dict['attacks_number'] = int(spell_level[0])
         return spell_dict
 
+    @modify_spell
     def Hex(self, spell_level, gen_spell = False):
         """Сглаз.
 
@@ -899,6 +944,7 @@ class gen_spells():
         spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
+    @modify_spell
     def Sleep(self, spell_level, gen_spell = False):
         """Усыпление.
 
@@ -932,6 +978,7 @@ class gen_spells():
             spell_dict['attack_range'] *= 2
         return spell_dict
 
+    @modify_spell
     def Entangle(self, spell_level, gen_spell = False):
         """Опутывание.
 
@@ -966,6 +1013,7 @@ class gen_spells():
         spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
+    @modify_spell
     def Magic_Missile(self, spell_level, gen_spell = False):
         """Волшебная стрела.
 
@@ -996,6 +1044,7 @@ class gen_spells():
             spell_dict['attack_range'] *= 2
         return spell_dict
 
+    @modify_spell
     def Guiding_Bolt(self, spell_level, gen_spell = False):
         """Направленный снаряд.
 
@@ -1030,6 +1079,7 @@ class gen_spells():
             spell_dict['attack_range'] *= 2
         return spell_dict
 
+    @modify_spell
     def Burning_Hands(self, spell_level, gen_spell = False):
         """Огненные ладони.
 
@@ -1064,6 +1114,7 @@ class gen_spells():
             spell_dict['damage_dice'] = str(dice) + spell_dict['damage_dice'][1:]
         return spell_dict
 
+    @modify_spell
     def Shield(self, spell_level, gen_spell = False):
         """Щит.
 
@@ -1086,6 +1137,7 @@ class gen_spells():
         spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
+    @modify_spell
     def Absorb_Elements(self, spell_level, gen_spell = False):
         """Поглощение стихий.
 
@@ -1127,6 +1179,7 @@ class gen_spells():
                 return False
         return spell_dict
 
+    @modify_spell
     def Mage_Armor(self, spell_level, gen_spell = False):
         """Доспехи мага.
 
@@ -1161,6 +1214,7 @@ class gen_spells():
                 soldier.arcane_ward = True
         return spell_dict
 
+    @modify_spell
     def Armor_of_Agathys(self, spell_level, gen_spell = False):
         """Доспех Агатиса.
 
@@ -1194,6 +1248,7 @@ class gen_spells():
             soldier.buffs[spell_dict['effect']] = spell_dict
         return spell_dict
 
+    @modify_spell
     def Ice_Knife(self, spell_level, gen_spell = False):
         """Ледяной кинжал.
 
@@ -1241,6 +1296,7 @@ class gen_spells():
             spell_dict['attack_range'] *= 2
         return spell_dict
 
+    @modify_spell
     def Hail_of_Thorns(self, spell_level, gen_spell = False):
         """Град шипов.
 
@@ -1281,6 +1337,7 @@ class gen_spells():
             spell_dict['damage_dice'] = str(dice) + spell_dict['damage_dice'][1:]
         return spell_dict
 
+    @modify_spell
     def Arms_of_Hadar(self, spell_level, gen_spell = False):
         """Руки хадара.
 
@@ -1316,6 +1373,7 @@ class gen_spells():
             spell_dict['damage_dice'] = str(dice) + spell_dict['damage_dice'][1:]
         return spell_dict
 
+    @modify_spell
     def Thunderwave(self, spell_level, gen_spell = False):
         """Волна грома.
 
@@ -1355,6 +1413,7 @@ class gen_spells():
 #----
 # 2 lvl
 
+    @modify_spell
     def Scorching_Ray(self, spell_level, gen_spell = False):
         """Палящий луч.
 
@@ -1387,6 +1446,7 @@ class gen_spells():
             spell_dict['attack_range'] *= 2
         return spell_dict
 
+    @modify_spell
     def Melfs_Acid_Arrow(self, spell_level, gen_spell = False):
         """Кислотная стрела Мельфа.
 
@@ -1424,6 +1484,7 @@ class gen_spells():
             spell_dict['attack_range'] *= 2
         return spell_dict
 
+    @modify_spell
     def Moonbeam(self, spell_level, gen_spell = False):
         """Лунный луч.
 
@@ -1463,6 +1524,7 @@ class gen_spells():
             spell_dict['damage_dice'] = str(dice) + spell_dict['damage_dice'][1:]
         return spell_dict
 
+    @modify_spell
     def Blur(self, spell_level, gen_spell = False):
         """Размытый образ.
 
@@ -1486,6 +1548,7 @@ class gen_spells():
         spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
+    @modify_spell
     def Shatter(self, spell_level, gen_spell = False):
         """Дребезги.
 
@@ -1522,6 +1585,7 @@ class gen_spells():
             spell_dict['attack_range'] *= 2
         return spell_dict
 
+    @modify_spell
     def Darkness(self, spell_level, gen_spell = False):
         """Темнота.
         
@@ -1559,6 +1623,7 @@ class gen_spells():
 #----
 # 3 lvl
 
+    @modify_spell
     def Fear(self, spell_level, gen_spell = False):
         """Ужас.
 
@@ -1589,6 +1654,7 @@ class gen_spells():
         spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
+    @modify_spell
     def Call_Lightning(self, spell_level, gen_spell = False):
         """Призыв молнии.
 
@@ -1629,6 +1695,7 @@ class gen_spells():
             spell_dict['damage_dice'] = str(dice) + spell_dict['damage_dice'][1:]
         return spell_dict
 
+    @modify_spell
     def Fireball(self, spell_level, gen_spell = False):
         """Огненный шар.
 
@@ -1665,6 +1732,7 @@ class gen_spells():
             spell_dict['attack_range'] *= 2
         return spell_dict
 
+    @modify_spell
     def Lightning_Bolt(self, spell_level, gen_spell = False):
         """Удар молнии.
 
@@ -1703,6 +1771,7 @@ class gen_spells():
             spell_dict['attack_range'] *= 2
         return spell_dict
 
+    @modify_spell
     def Melf_Minute_Meteors(self, spell_level, gen_spell = False):
         """Мельфовы маленькие метеоры.
 
@@ -1742,6 +1811,7 @@ class gen_spells():
             spell_dict['ammo'] += bonus_ammo
         return spell_dict
 
+    @modify_spell
     def Counterspell(self, spell_level, gen_spell = False):
         """Контрзаклинание.
 
@@ -1765,6 +1835,7 @@ class gen_spells():
         spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
+    @modify_spell
     def Dispel_Magic(self, spell_level, gen_spell = False):
         """Рассеивание магии.
         
@@ -1788,6 +1859,7 @@ class gen_spells():
         spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
+    @modify_spell
     def Crusaders_Mantle(self, spell_level, gen_spell = False):
         """Мантия крестоносца.
 
@@ -1820,6 +1892,7 @@ class gen_spells():
         return spell_dict
 
 
+    @modify_spell
     def Spirit_Guardians(self, spell_level, gen_spell = False):
         """Духовные стражи.
 
@@ -1863,6 +1936,7 @@ class gen_spells():
 #----
 # 4 lvl
 
+    @modify_spell
     def Ice_Storm(self, spell_level, gen_spell = False):
         """Град
 
@@ -1910,6 +1984,8 @@ class gen_spells():
 #----
 # 5 lvl
 
+    @modify_spell
+    @modify_spell
     def Cone_of_Cold(self, spell_level, gen_spell = False):
         """Конус холода.
 
@@ -1945,6 +2021,7 @@ class gen_spells():
             spell_dict['damage_dice'] = str(dice) + spell_dict['damage_dice'][1:]
         return spell_dict
 
+    @modify_spell
     def Dawn(self, spell_level, gen_spell = False):
         """Рассвет.
 
