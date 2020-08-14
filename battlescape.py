@@ -805,6 +805,8 @@ class battlescape():
         """Возвращает словарь целей, попавшихся в зоне.
 
         """
+        # TODO: заклинания вроде Ice_Storm атакуют сверху
+        # А у тебя взгляд из центра зоны. Враги получают укрытие друг за другом.
         targets = {}
         if zone_shape == '2x2':
             zone_points_list = self.point_to_field_2x2(zone_center)
