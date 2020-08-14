@@ -623,26 +623,26 @@ class soldier_in_battle(soldier):
             if not spell_choice:
                 spell_effect = spell_name
                 spell_choice = self.spells_generator.find_spell(spell_effect, effect = True)
+                if not spell_choice and not use_spell_slot and gen_spell:
+                    spell_choice = ('subspell', spell_name)
         if spell_choice:
-            action = self.check_action_to_spellcast(self.spells[spell_choice])
+            action = self.check_action_to_spellcast(spell_choice)
             if self.__dict__.get(action) or not action or not use_action:
                 spell_dict = self.spells_generator.use_spell(spell_choice, gen_spell, use_spell_slot)
-                spell_dict['spell_choice'] = spell_choice
-                self.set_concentration(spell_dict)
-                if use_action:
-                    self.use_action_to_spellcast(spell_dict)
-                if use_spell_slot:
-                    self.drop_spell(spell_choice)
-                return spell_dict
-            else:
-                return False
-        else:
-            return False
+                if spell_dict:
+                    spell_dict['spell_choice'] = spell_choice
+                    self.set_concentration(spell_dict)
+                    if use_action:
+                        self.use_action_to_spellcast(spell_dict)
+                    if use_spell_slot:
+                        self.drop_spell(spell_choice)
+                    return spell_dict
 
-    def check_action_to_spellcast(self, spell_dict):
+    def check_action_to_spellcast(self, spell_choice):
         """Заклинание требует действия. Какого именно?
 
         """
+        spell_dict = self.spells_generator.get_spell_dict(spell_choice)
         actions_list = ['battle_action', 'bonus_action', 'reaction']
         if spell_dict.get('casting_time') in actions_list:
             return spell_dict['casting_time']
@@ -2257,6 +2257,21 @@ class soldier_in_battle(soldier):
                 self.drop_spells_dict[spell_choice] += 1
             return True
 
+    def use_item(self, spell, gen_spell = True, use_spell_slot = False, use_action = True):
+        """Используется руна, свиток, предмет.
+
+        Хранящий заклинание под ключом 'spell'.
+        """
+        for item, number in self.equipment_weapon.items():
+            if number > 0:
+                if item == spell:
+                    spell = self.metadict_items[item].get('spell')
+                if spell == self.metadict_items[item].get('spell'):
+                    spell_dict = self.try_spellcast(spell, gen_spell, use_spell_slot, use_action)
+                    if spell_dict:
+                        self.drop_item(item)
+                        return spell_dict
+
     def drop_item(self, item, number = 1, drop_all = False):
         """Теряем предмет. Запоминаем потерю.
         
@@ -2516,48 +2531,6 @@ class soldier_in_battle(soldier):
         """
         enemy_soldier = metadict_soldiers[attack_dict['sender_uuid']]
         damage = attack_dict['damage']
-        # Урон предметам от осадных монстров удваивается:
-        if attack_dict.get('weapon_type') and 'siege' in attack_dict['weapon_type']\
-                and self.__dict__.get('mechanism'):
-            damage *= 2
-        # Удачный спасбросок может уполовинить урон:
-        if attack_dict.get('savethrow') and not self.__dict__.get('savethrow_autofall'):
-            savethrow_ability = attack_dict['savethrow_ability']
-            # Помеха врага -- преимущество нам:
-            advantage = attack_dict['disadvantage']
-            disadvantage = attack_dict['advantage']
-            if savethrow_ability == 'dexterity':
-                if self.dodge_action or self.class_features.get('Danger_Sense'):
-                    advantage = True
-                if self.restained:
-                    disadvantage = True
-            damage_difficul = attack_dict.get('spell_save_DC', attack_dict.get('attack_throw'))
-            damage_savethrow = dices.dice_throw_advantage('1d20', advantage, disadvantage)\
-                    + self.saves[savethrow_ability]
-            # Заклинание Sacred_Flame игнорирует бонус укрытия к спасброскам ловкости:
-            if savethrow_ability == 'dexterity' and not attack_dict.get('ignore_cover'):
-                damage_savethrow += attack_dict['savethrow_bonus_cover']
-            # Заклинание Bless усиливает спасброски:
-            if 'bless' in self.buffs:
-                damage_savethrow += dices.dice_throw_advantage('1d4')
-            # Bardic_Inspiration усиливает спасбросок:
-            if 'bardic_inspiration' in self.buffs\
-                    and damage_savethrow < damage_difficul\
-                    and not damage_savethrow + self.buffs['bardic_inspiration'] < damage_difficul:
-                damage_savethrow += self.buffs.pop('bardic_inspiration',0)
-            if damage_savethrow >= damage_difficul\
-                    and not self.stunned and not self.sleep:
-                damage = round(damage / 2)
-                if attack_dict.get('savethrow_all'):
-                    attack_dict['hit'] = False
-                    damage = 0
-                elif self.class_features.get('Evasion'):
-                    attack_dict['hit'] = False
-                    damage = 0
-            # Увёртливые воры и монахи всё равно уклоняются:
-            elif damage_savethrow < damage_difficul\
-                    and self.class_features.get('Evasion'):
-                damage = round(damage / 2)
         # Крупные объекты (стены, корабли) имеют порог урона:
         if self.__dict__.get('ignore_damage'):
             damage -= self.ignore_damage
@@ -2567,32 +2540,21 @@ class soldier_in_battle(soldier):
                     or attack_dict['damage_type'] == 'piercing'\
                     or attack_dict['damage_type'] == 'slashing':
                 damage -= 3
+        # Спасбросок против урона:
+        if attack_dict.get('savethrow') and not self.__dict__.get('savethrow_autofall'):
+            damage = self.damage_savethrow(attack_dict, damage)
         # Плуты ослабляют атаки за счёт реакции (это срабатывает до сопротивляемости урону):
         # Uncanny_Dodge срабатывает только против ударов с броском атаки:
-        elif self.class_features.get('Uncanny_Dodge') and self.reaction and attack_dict.get('attack'):
+        elif self.class_features.get('Uncanny_Dodge') and self.reaction\
+                and attack_dict.get('attack'):
             damage = round(damage * 0.5)
-        # Homebrew, руна с Absorb_Elements:
+            self.reaction = False
+        # Пытаемся защититься с помощью руны или заклинания "Поглощение стихий":
         if not attack_dict['damage_type'] in self.resistance:
-            # TODO: в отдельную функцию и руну и заклинание.
-            if 'runes' in self.commands and self.reaction\
-                    and self.equipment_weapon.get('Rune of Absorbtion'):
-                absorb_list = self.metadict_items['Rune of Absorbtion']['absorb_damage_type']
-                if attack_dict['damage_type'] in absorb_list:
-                    # Поглощённый урон сохраняется, чтобы послать ответочку:
-                    spell_dict = dict(self.metadict_items['Rune of Absorbtion']['spell_dict'])
-                    spell_dict['damage_type'] = attack_dict['damage_type']
-                    self.buffs[spell_dict['effect']] = spell_dict
-                    # Используем реакцию и руну:
-                    self.resistance.append(spell_dict['damage_type'])
-                    self.drop_item('Rune of Absorbtion')
-                    self.reaction = False
-            # TODO: защищает от любого типа урона. Нужна проверка по списку.
+            if 'runes' in self.commands and self.reaction:
+                self.use_item('Absorb_Elements', gen_spell = attack_dict['damage_type'])
             elif self.reaction:
-                spell_dict = self.try_spellcast('Absorb_Elements')
-                if spell_dict:
-                    spell_dict['damage_type'] = attack_dict['damage_type']
-                    self.resistance.append(spell_dict['damage_type'])
-                    self.buffs[spell_dict['effect']] = spell_dict
+                spell_dict = self.try_spellcast('Absorb_Elements', gen_spell = attack_dict['damage_type'])
         # Иммунитет к видам урона.
         # Урон от магического оружия преодолевает иммунитет.
         if attack_dict['damage_type'] in self.immunity:
@@ -2612,17 +2574,11 @@ class soldier_in_battle(soldier):
         # Уязвимость к видам урона:
         elif attack_dict['damage_type'] in self.vultenability:
             damage = round(damage * 2)
-        # Бонусные хиты от Feat_Inspiring_Leader и подобного:
-        if self.bonus_hitpoints and self.bonus_hitpoints > 0:
-            shield_of_bravery = self.bonus_hitpoints
-            self.bonus_hitpoints -= damage
-            damage = damage - shield_of_bravery
-            if self.bonus_hitpoints < 0:
-                self.bonus_hitpoints = 0
-            if damage < 0:
-                attack_dict['bonus_hitpoints_damage'] = damage + shield_of_bravery
-            else:
-                attack_dict['bonus_hitpoints_damage'] = shield_of_bravery
+        # Урон предметам от осадных монстров удваивается:
+        if attack_dict.get('weapon_type') and 'siege' in attack_dict['weapon_type']\
+                and self.__dict__.get('mechanism'):
+            damage *= 2
+        # TODO: это должно быть в начале функции:
         # Отражение/перехват стрел монахом (15-25 срабатываний за бой с лучниками):
         # https://www.dandwiki.com/wiki/5e_SRD:Monk#Deflect_Missiles
         if attack_choice[0] == 'throw' or attack_choice[0] == 'ranged' or attack_choice[0] == 'volley':
@@ -2645,6 +2601,17 @@ class soldier_in_battle(soldier):
                     self.ally_side, self.place, self.behavior,
                     attack_choice, attack_dict['attack_crit'],
                     attack_dict['damage'], damage_deflect))
+        # Бонусные хиты от Feat_Inspiring_Leader и подобного:
+        if self.bonus_hitpoints and self.bonus_hitpoints > 0:
+            shield_of_bravery = self.bonus_hitpoints
+            self.bonus_hitpoints -= damage
+            damage = damage - shield_of_bravery
+            if self.bonus_hitpoints < 0:
+                self.bonus_hitpoints = 0
+            if damage < 0:
+                attack_dict['bonus_hitpoints_damage'] = damage + shield_of_bravery
+            else:
+                attack_dict['bonus_hitpoints_damage'] = shield_of_bravery
         # Скажем "нет" лечебным атакам:
         if damage < 0:
             damage = 0
@@ -2674,10 +2641,6 @@ class soldier_in_battle(soldier):
                 c = attack_dict['crit'],
                 d = damage,
                 ))
-            #print('{0} {1} {2} injured {3} crit {4} dmg {5} hp {6}/{7}'.format(
-            #    self.ally_side, self.place, self.rank,
-            #    attack_choice, attack_dict['attack_crit'],
-            #    attack_dict['damage'], self.hitpoints, self.hitpoints_max))
         if damage > 0:
             self.trauma_damage_type = attack_dict['damage_type']
             if self.concentration:
@@ -2685,6 +2648,47 @@ class soldier_in_battle(soldier):
         if self.hitpoints <= 0 and damage > 0 and not self.defeat:
             attack_dict['fatal_hit'] = True
         return attack_dict
+
+    def damage_savethrow(self, attack_dict, damage):
+        """Боец делает спасбросок против урона."""
+        savethrow_ability = attack_dict['savethrow_ability']
+        # Помеха врага -- преимущество нам:
+        advantage = attack_dict['disadvantage']
+        disadvantage = attack_dict['advantage']
+        if savethrow_ability == 'dexterity':
+            if self.dodge_action or self.class_features.get('Danger_Sense'):
+                advantage = True
+            if self.restained:
+                disadvantage = True
+        damage_difficul = attack_dict.get('spell_save_DC', attack_dict.get('attack_throw'))
+        damage_savethrow = dices.dice_throw_advantage('1d20', advantage, disadvantage)\
+                + self.saves[savethrow_ability]
+        # Заклинание Sacred_Flame игнорирует бонус укрытия к спасброскам ловкости:
+        if savethrow_ability == 'dexterity' and not attack_dict.get('ignore_cover'):
+            damage_savethrow += attack_dict['savethrow_bonus_cover']
+        # Заклинание Bless усиливает спасброски:
+        if 'bless' in self.buffs:
+            damage_savethrow += dices.dice_throw_advantage('1d4')
+        # Bardic_Inspiration усиливает спасбросок:
+        if 'bardic_inspiration' in self.buffs\
+                and damage_savethrow < damage_difficul\
+                and not damage_savethrow + self.buffs['bardic_inspiration'] < damage_difficul:
+            damage_savethrow += self.buffs.pop('bardic_inspiration',0)
+        if damage_savethrow >= damage_difficul\
+                and not self.stunned and not self.sleep:
+            damage = round(damage / 2)
+            if attack_dict.get('savethrow_all'):
+                attack_dict['hit'] = False
+                damage = 0
+            elif self.class_features.get('Evasion'):
+                attack_dict['hit'] = False
+                damage = 0
+        # Увёртливые воры и монахи всё равно уклоняются:
+        elif damage_savethrow < damage_difficul\
+                and self.class_features.get('Evasion'):
+            damage = round(damage / 2)
+        return damage
+            
 
 # ----
 # Опыт за победу
