@@ -411,9 +411,10 @@ class battle_simulation(battlescape):
                             #print(ally_soldier.rank, ally_soldier.buffs.keys())
                 spells_list = ['Armor_of_Agathys', 'Mage_Armor']
                 for spell in spells_list:
-                    spell_dict = soldier.try_spellcast(spell, func_spell = True)
-                    #if spell_dict:
-                    #    print(spell_dict)
+                    if soldier.bonus_hitpoints <= 0 and spell == 'Armor_of_Agathys':
+                        spell_dict = soldier.try_spellcast(spell, func_spell = True)
+                    if not soldier.armor['armor_use'] and spell == 'Mage_Armor':
+                        spell_dict = soldier.try_spellcast(spell, func_spell = True)
 
     def select_soldiers_for_bless(self, number, ally_side, bless_type):
         """Выбираем солдат для Bless, Inspiring_Leader, Bardic_Inspiration и т.д.
@@ -914,6 +915,7 @@ class battle_simulation(battlescape):
             if squad.commander.__dict__.get('carefull_AI'):
                 commands_list.append('very_carefull')
                 commands_list.append('sneak')
+                commands_list.append('runes')
             # Оборонительная тактика:
             if squad.commander.__dict__.get('defender_AI'):
                 commands_list = ['carefull','dodge']
@@ -1166,9 +1168,12 @@ class battle_simulation(battlescape):
                 if not 'spawn' in self.dict_battlespace[soldier.place]:
                     destination = self.find_spawn(soldier.place, soldier.ally_side)
                 elif 'spawn' in self.dict_battlespace[soldier.place]:
-                    destination = random.choice(squad.exit_points)
-                    soldier.use_dash_action(bonus_action = True)
-                    soldier.escape = True
+                    if len(squad.exit_points) > 0:
+                        destination = random.choice(squad.exit_points)
+                        soldier.use_dash_action(bonus_action = True)
+                        soldier.escape = True
+                    else:
+                        destination = self.find_spawn(soldier.place, soldier.ally_side)
                 self.move_action(soldier, squad, destination,
                         allow_replace = True, save_path = False, danger_path = True)
                 if 'exit' in self.dict_battlespace[soldier.place]:
@@ -2358,6 +2363,7 @@ class battle_simulation(battlescape):
                 # Зональная атака из списка атак. Дыхание дракона, молния штормового великана и т.д.
                 elif spell_choice in soldier.attacks:
                     spell_dict = soldier.attacks[spell_choice]
+                    spell_dict['spell_choice'] = spell_choice
                 # Используется слот заклинания:
                 else:
                     spell_dict = soldier.try_spellcast(spell_choice)

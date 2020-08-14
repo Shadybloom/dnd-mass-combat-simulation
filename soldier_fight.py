@@ -249,8 +249,6 @@ class soldier_in_battle(soldier):
             self.wild_shape_old_form = None
         if not hasattr(self, 'arcane_ward'):
             self.arcane_ward = False
-        if not hasattr(self, 'mage_armor'):
-            self.mage_armor = False
         if not hasattr(self, 'heroism'):
             self.heroism = False
         if not hasattr(self, 'blur'):
@@ -366,18 +364,6 @@ class soldier_in_battle(soldier):
                 if self.ki_points >= 2 and not self.spellslots.get('2_lvl'):
                     self.spellslots['2_lvl'] = 1
                     self.ki_points -= 2
-        # Используем заклинания перед боем:
-        # TODO: перенеси это в set_squad_buffs
-        if hasattr(self, 'spells'):
-            for spell, spell_dict in self.spells.items():
-                if spell_dict.get('armor') and not self.armor['armor_use']:
-                    self.spells_generator.use_spell(spell)
-                    self.equipment_weapon['Mage_Armor'] = 1
-                    self.armor.update(self.get_armor())
-                    self.mage_armor = True
-                    if self.class_features.get('Arcane_Ward') and not self.bonus_hitpoints:
-                        self.bonus_hitpoints = self.level * 2 + self.mods['intelligence']
-                        self.arcane_ward = True
 
     def set_actions(self, squad):
         """Доступные действия в 6-секундном раунде боя.
@@ -1312,7 +1298,8 @@ class soldier_in_battle(soldier):
         https://www.dandwiki.com/wiki/5e_SRD:Conditions#Poisoned
         """
         ability = 'constitution'
-        if self.get_savethrow(difficult, ability, advantage, disadvantage):
+        if self.get_savethrow(difficult, ability, advantage, disadvantage)\
+                or 'poisoned' in self.immunity:
             return False
         else:
             self.poison_difficult = difficult
@@ -2653,7 +2640,7 @@ class soldier_in_battle(soldier):
             if destruction_saving_throw >= destruction_difficul:
                 self.hitpoints = 1
         # Показываем, если командиру достаётся:
-        if self.level >= 5:
+        if self.level >= 5 and damage > 0:
             print('[!!!] {side}, {c1} {s} {w} >>>> {c2} {e}, crit {c} dmg {d}'.format(
                 side = enemy_soldier.ally_side,
                 s = enemy_soldier.behavior,
