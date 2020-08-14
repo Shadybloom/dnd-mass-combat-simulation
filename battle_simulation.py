@@ -2417,13 +2417,15 @@ class battle_simulation(battlescape):
                 # Перемещение в центр зоны заклинания (whirlwind воздушного элементаля)
                 if spell_dict.get('effect') == 'move':
                     self.change_place(soldier.place, zone_center, soldier.uuid)
+                # Субзаклинание для заклинаний вроде "Ice_Storm"
+                subspell_dict = None
+                if spell_dict.get('subspell'):
+                    subspell_dict = soldier.try_spellcast(spell_dict.get('subspell'),
+                            use_spell_slot = False, use_action = False)
                 # Зональное заклинание поражает цели:
                 for enemy in targets:
                     self.fireball_action_target(soldier, squad, spell_dict, enemy, safe)
-                    # Для заклинаний вроде "Ice_Storm"
-                    if spell_dict.get('subspell'):
-                        subspell_dict = soldier.try_spellcast(spell_dict.get('subspell'),
-                                use_spell_slot = False, use_action = False)
+                    if subspell_dict:
                         self.fireball_action_target(soldier, squad, subspell_dict, enemy, safe)
                 # TODO: сделай декоратор.
                 # Переоцениваем опасные зоны на текущий ход:
