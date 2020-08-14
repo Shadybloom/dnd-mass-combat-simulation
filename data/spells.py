@@ -1065,6 +1065,16 @@ class gen_spells():
                 'spell_level':spell_level,
                 'spell_of_choice':'Magic_Missile',
                 }
+        if func_spell:
+            soldier = self.mage
+            soldier.bonus_hitpoints = spell_dict['damage_mod']
+            soldier.buffs[spell_dict['effect']] = spell_dict
+            soldier.equipment_weapon['Mage_Armor'] = 1
+            soldier.armor.update(self.get_armor())
+            #soldier.mage_armor = spell_dict
+            if soldier.class_features.get('Arcane_Ward') and not soldier.bonus_hitpoints:
+                soldier.bonus_hitpoints = soldier.level * 2 + soldier.mods['intelligence']
+                soldier.arcane_ward = True
         return spell_dict
 
     def Armor_of_Agathys(self, spell_level, func_spell = False):
