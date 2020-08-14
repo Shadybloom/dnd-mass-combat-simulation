@@ -102,6 +102,15 @@ class gen_spells():
             spell_choice = random.choice(spell_list)
             return spell_choice
 
+    def get_spell_dict(self, spell_choice, gen_spell = False):
+        """Берём словарь заклинания из функции."""
+        spell_level = '1_lvl'
+        spell_name = spell_choice[-1]
+        func = getattr(self, spell_name)
+        spell_dict = func(spell_level, gen_spell)
+        spell_dict['spell_choice'] = spell_choice
+        return spell_dict
+
     def use_spell(self, spell_choice, gen_spell = False, use_spell_slot = True):
         """Расходуется ячейка заклинания, очищается словарь self.spells."""
         spell_slot_use = spell_choice[0]
@@ -114,8 +123,11 @@ class gen_spells():
             spell_name = spell_choice[-1]
             func = getattr(self, spell_name)
             spell_dict = func(spell_level, gen_spell)
-            spell_dict['spell_choice'] = spell_choice
-            return spell_dict
+            if spell_dict:
+                spell_dict['spell_choice'] = spell_choice
+                return spell_dict
+            else:
+                return False
         # Используем ячейку заклинания:
         for spell_slot in self.spellslots:
             if spell_slot == spell_slot_use:
@@ -124,11 +136,12 @@ class gen_spells():
                     spell_level = spell_slot[0]
                     spell_name = spell_choice[-1]
                     func = getattr(self, spell_name)
-                    spell_dict = func(spell_level, gen_spell = True)
+                    spell_dict = func(spell_level, gen_spell)
                     spell_dict['spell_choice'] = spell_choice
                 elif self.spellslots[spell_slot] > 0:
                     self.spellslots[spell_slot] -= 1
-                    spell_dict = copy.deepcopy(self.spells[spell_choice])
+                    spell_dict = self.spells[spell_choice]
+                    spell_dict['spell_choice'] = spell_choice
                 if self.spellslots[spell_slot] <= 0:
                     # Убираем закончившиеся ячейки:
                     # Убираем заклинания этого уровня, если ячейки закончились:
@@ -166,6 +179,8 @@ class gen_spells():
                 'spell_save_DC':8 + self.find_spell_attack_mod(),
                 'spell_of_choice':'Sacred_Flame',
                 }
+        # Делаем полную копию словаря, чтобы оригинал не изменялся.
+        spell_dict = copy.deepcopy(spell_dict)
         if self.mage.level >= 5:
             spell_dict['damage_dice'] = '2d10'
         if self.mage.level >= 11:
@@ -194,6 +209,7 @@ class gen_spells():
                 'spell_save_DC':8 + self.find_spell_attack_mod(),
                 'spell_of_choice':'Sacred_Flame',
                 }
+        spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 1:
             dice = int(spell_dict['damage_dice'][0])
             dice += int(spell_level[0]) - 1
@@ -217,6 +233,7 @@ class gen_spells():
                 'spell_save_DC':8 + self.find_spell_attack_mod(),
                 'spell_of_choice':'Sacred_Flame',
                 }
+        spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
     def Dreadful_Aspect(self, spell_level, gen_spell = False):
@@ -240,6 +257,7 @@ class gen_spells():
                 'spell_save_DC':8 + self.find_spell_attack_mod(),
                 'spell_of_choice':'Dreadful_Aspect',
                 }
+        spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
     def Wrath_of_the_Storm(self, spell_level, gen_spell = False):
@@ -261,6 +279,7 @@ class gen_spells():
                 'spell_save_DC':8 + self.find_spell_attack_mod(),
                 'spell_of_choice':'Wrath_of_the_Storm',
                 }
+        spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
 #----
@@ -290,6 +309,7 @@ class gen_spells():
                 # TODO: сделай выбор оптимального заклинания:
                 'spell_of_choice':'Eldritch_Blast',
                 }
+        spell_dict = copy.deepcopy(spell_dict)
         if self.mage.class_features.get('Invocation_Agonizing_Blast'):
             spell_dict['damage_mod'] = self.mage.mods['charisma']
         if self.mage.class_features.get('Invocation_Eldritch_Spear'):
@@ -325,6 +345,7 @@ class gen_spells():
                 'spell_save_DC':8 + self.find_spell_attack_mod(),
                 'spell_of_choice':'Fire_Bolt',
                 }
+        spell_dict = copy.deepcopy(spell_dict)
         if self.mage.level >= 5:
             spell_dict['damage_dice'] = '2d10'
         if self.mage.level >= 11:
@@ -364,6 +385,7 @@ class gen_spells():
                 'spell_save_DC':8 + self.find_spell_attack_mod(),
                 'spell_of_choice':'Acid_Splash',
                 }
+        spell_dict = copy.deepcopy(spell_dict)
         if self.mage.level >= 5:
             spell_dict['damage_dice'] = '2d6'
         if self.mage.level >= 11:
@@ -399,6 +421,7 @@ class gen_spells():
                 'spell_save_DC':8 + self.find_spell_attack_mod(),
                 'spell_of_choice':'Vicious_Mockery',
                 }
+        spell_dict = copy.deepcopy(spell_dict)
         if self.mage.level >= 5:
             spell_dict['damage_dice'] = '2d4'
         if self.mage.level >= 11:
@@ -434,6 +457,7 @@ class gen_spells():
                 'spell_save_DC':8 + self.find_spell_attack_mod(),
                 'spell_of_choice':'Frostbite',
                 }
+        spell_dict = copy.deepcopy(spell_dict)
         if self.mage.level >= 5:
             spell_dict['damage_dice'] = '2d6'
         if self.mage.level >= 11:
@@ -469,6 +493,7 @@ class gen_spells():
                 'spell_save_DC':8 + self.find_spell_attack_mod(),
                 'spell_of_choice':'Sacred_Flame',
                 }
+        spell_dict = copy.deepcopy(spell_dict)
         if self.mage.level >= 5:
             spell_dict['damage_dice'] = '2d8'
         if self.mage.level >= 11:
@@ -505,6 +530,7 @@ class gen_spells():
                 'spell_save_DC':8 + self.find_spell_attack_mod(),
                 'spell_of_choice':'Sword_Burst',
                 }
+        spell_dict = copy.deepcopy(spell_dict)
         if self.mage.level >= 5:
             spell_dict['damage_dice'] = '2d6'
         if self.mage.level >= 11:
@@ -541,6 +567,7 @@ class gen_spells():
                 'spell_save_DC':8 + self.find_spell_attack_mod(),
                 'spell_of_choice':'Thunderclap',
                 }
+        spell_dict = copy.deepcopy(spell_dict)
         if self.mage.level >= 5:
             spell_dict['damage_dice'] = '2d6'
         if self.mage.level >= 11:
@@ -577,6 +604,7 @@ class gen_spells():
                 'spell_save_DC':8 + self.find_spell_attack_mod(),
                 'spell_of_choice':'Word_of_Radiance',
                 }
+        spell_dict = copy.deepcopy(spell_dict)
         if self.mage.level >= 5:
             spell_dict['damage_dice'] = '2d6'
         if self.mage.level >= 11:
@@ -617,6 +645,7 @@ class gen_spells():
                 'spell_save_DC':8 + self.find_spell_attack_mod(),
                 'spell_of_choice':'Create_Bonfire',
                 }
+        spell_dict = copy.deepcopy(spell_dict)
         if self.mage.level >= 5:
             spell_dict['damage_dice'] = '2d8'
         if self.mage.level >= 11:
@@ -644,6 +673,7 @@ class gen_spells():
                 'spell_save_DC':8 + self.find_spell_attack_mod(),
                 'spell_of_choice':'Ice_Knife_Piercing',
                 }
+        spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
     def Ice_Storm_Cold(self, spell_level, gen_spell = False):
@@ -666,6 +696,7 @@ class gen_spells():
                 'spell_save_DC':8 + self.find_spell_attack_mod(),
                 'spell_of_choice':'Magic_Missile',
                 }
+        spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
     def Empyrean_Bolt(self, spell_level, gen_spell = False):
@@ -686,6 +717,7 @@ class gen_spells():
                 'spell_save_DC':23,
                 'spell_of_choice':'Empyrean_Bolt',
                 }
+        spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
 #----
@@ -717,6 +749,7 @@ class gen_spells():
                 'spell_save_DC':8 + self.find_spell_attack_mod(),
                 'spell_of_choice':'Bane',
                 }
+        spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 1:
             dice = int(spell_dict['damage_dice'][0])
             dice += int(spell_level[0]) - 1
@@ -748,6 +781,7 @@ class gen_spells():
                 'spell_save_DC':8 + self.find_spell_attack_mod(),
                 'spell_of_choice':'Bane',
                 }
+        spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 1:
             spell_dict['attacks_number'] += int(spell_level[0]) - 1
         return spell_dict
@@ -774,6 +808,7 @@ class gen_spells():
                 'spell_save_DC':8 + self.find_spell_attack_mod(),
                 'spell_of_choice':'Bane',
                 }
+        spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
     def Fog_Cloud(self, spell_level, gen_spell = False):
@@ -799,6 +834,7 @@ class gen_spells():
                 'spell_save_DC':8 + self.find_spell_attack_mod(),
                 'spell_of_choice':'Cause_Fear',
                 }
+        spell_dict = copy.deepcopy(spell_dict)
         # Радиус облака растёт на 20 футов за каждый уровень выше первого:
         if int(spell_level[0]) > 1:
             spell_dict['radius'] += 20 * int(spell_level[0])
@@ -830,6 +866,7 @@ class gen_spells():
                 'spell_save_DC':8 + self.find_spell_attack_mod(),
                 'spell_of_choice':'Cause_Fear',
                 }
+        spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 1:
             spell_dict['attacks_number'] = int(spell_level[0])
         return spell_dict
@@ -859,6 +896,7 @@ class gen_spells():
                 'spell_save_DC':8 + self.find_spell_attack_mod(),
                 'spell_of_choice':'Magic_Missile',
                 }
+        spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
     def Sleep(self, spell_level, gen_spell = False):
@@ -884,6 +922,7 @@ class gen_spells():
                 'spell_save_DC':8 + self.find_spell_attack_mod(),
                 'spell_of_choice':'Sleep',
                 }
+        spell_dict = copy.deepcopy(spell_dict)
         # Плюс одна кость усыпления за каждый уровень выше первого:
         if int(spell_level[0]) > 1:
             dice = int(spell_dict['damage_dice'][0])
@@ -924,6 +963,7 @@ class gen_spells():
                 'spell_save_DC':8 + self.find_spell_attack_mod(),
                 'spell_of_choice':'Entangle',
                 }
+        spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
     def Magic_Missile(self, spell_level, gen_spell = False):
@@ -948,6 +988,7 @@ class gen_spells():
                 'damage_mod':+1,
                 'spell_of_choice':'Magic_Missile',
                 }
+        spell_dict = copy.deepcopy(spell_dict)
         # За каждый уровень сверх первого один дополнительный дротик:
         if int(spell_level[0]) > 1:
             spell_dict['attacks_number'] += int(spell_level[0]) - 1
@@ -980,6 +1021,7 @@ class gen_spells():
                 'spell_save_DC':8 + self.find_spell_attack_mod(),
                 'spell_of_choice':'Guiding_Bolt',
                 }
+        spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 1:
             dice = int(spell_dict['damage_dice'][0])
             dice += int(spell_level[0]) - 1
@@ -1015,6 +1057,7 @@ class gen_spells():
                 'spell_save_DC':8 + self.find_spell_attack_mod(),
                 'spell_of_choice':'Magic_Missile',
                 }
+        spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 1:
             dice = int(spell_dict['damage_dice'][0])
             dice += int(spell_level[0]) - 1
@@ -1040,6 +1083,7 @@ class gen_spells():
                 'spell_level':spell_level,
                 'spell_of_choice':'Magic_Missile',
                 }
+        spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
     def Absorb_Elements(self, spell_level, gen_spell = False):
@@ -1067,10 +1111,20 @@ class gen_spells():
                 'spell_level':spell_level,
                 'spell_of_choice':'Magic_Missile',
                 }
+        spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 1:
             dice = int(spell_dict['damage_dice'][0])
             dice += int(spell_level[0]) - 1
             spell_dict['damage_dice'] = str(dice) + spell_dict['damage_dice'][1:]
+        if gen_spell:
+            soldier = self.mage
+            damage_type = gen_spell
+            if damage_type in spell_dict['absorb_damage_type']:
+                spell_dict['damage_type'] = damage_type
+                soldier.resistance.append(spell_dict['damage_type'])
+                soldier.buffs[spell_dict['effect']] = spell_dict
+            else:
+                return False
         return spell_dict
 
     def Mage_Armor(self, spell_level, gen_spell = False):
@@ -1095,6 +1149,7 @@ class gen_spells():
                 'spell_level':spell_level,
                 'spell_of_choice':'Magic_Missile',
                 }
+        spell_dict = copy.deepcopy(spell_dict)
         if gen_spell:
             soldier = self.mage
             soldier.buffs[spell_dict['effect']] = spell_dict
@@ -1130,6 +1185,7 @@ class gen_spells():
                 'spell_level':spell_level,
                 'spell_of_choice':'Magic_Missile',
                 }
+        spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 1:
             spell_dict['damage_mod'] *= int(spell_level[0])
         if gen_spell:
@@ -1168,6 +1224,7 @@ class gen_spells():
                 'spell_save_DC':8 + self.find_spell_attack_mod(),
                 'spell_of_choice':'Magic_Missile',
                 }
+        spell_dict = copy.deepcopy(spell_dict)
         # Добавляем субзаклинание Ice_Knife_Piercing как основной поражающий элемент:
         if spell_dict.get('subspell'):
             subspell = spell_dict['subspell']
@@ -1217,6 +1274,7 @@ class gen_spells():
                 'spell_save_DC':8 + self.find_spell_attack_mod(),
                 'spell_of_choice':'Magic_Missile',
                 }
+        spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 1:
             dice = int(spell_dict['damage_dice'][0])
             dice += int(spell_level[0]) - 1
@@ -1251,6 +1309,7 @@ class gen_spells():
                 'spell_save_DC':8 + self.find_spell_attack_mod(),
                 'spell_of_choice':'Arms_of_Hadar',
                 }
+        spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 1:
             dice = int(spell_dict['damage_dice'][0])
             dice += int(spell_level[0]) - 1
@@ -1286,6 +1345,7 @@ class gen_spells():
                 'spell_save_DC':8 + self.find_spell_attack_mod(),
                 'spell_of_choice':'Thunderwave',
                 }
+        spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 1:
             dice = int(spell_dict['damage_dice'][0])
             dice += int(spell_level[0]) - 1
@@ -1319,6 +1379,7 @@ class gen_spells():
                 'spell_save_DC':8 + self.find_spell_attack_mod(),
                 'spell_of_choice':'Scorching_Ray',
                 }
+        spell_dict = copy.deepcopy(spell_dict)
         # За каждый уровень сверх первого один дополнительный луч:
         if int(spell_level[0]) > 1:
             spell_dict['attacks_number'] += int(spell_level[0]) - 1
@@ -1354,6 +1415,7 @@ class gen_spells():
                 'spell_save_DC':8 + self.find_spell_attack_mod(),
                 'spell_of_choice':'Melfs_Acid_Arrow',
                 }
+        spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 2:
             dice = int(spell_dict['damage_dice'][0])
             dice += int(spell_level[0]) * 2 - 1
@@ -1394,6 +1456,7 @@ class gen_spells():
                 'spell_save_DC':8 + self.find_spell_attack_mod(),
                 'spell_of_choice':'Magic_Missile',
                 }
+        spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 2:
             dice = int(spell_dict['damage_dice'][0])
             dice += int(spell_level[0]) - 1
@@ -1420,6 +1483,7 @@ class gen_spells():
                 'spell_level':spell_level,
                 'spell_of_choice':'Magic_Missile',
                 }
+        spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
     def Shatter(self, spell_level, gen_spell = False):
@@ -1449,6 +1513,7 @@ class gen_spells():
                 'spell_save_DC':8 + self.find_spell_attack_mod(),
                 'spell_of_choice':'Magic_Missile',
                 }
+        spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 2:
             dice = int(spell_dict['damage_dice'][0])
             dice += int(spell_level[0]) - 1
@@ -1486,6 +1551,7 @@ class gen_spells():
                 'spell_save_DC':8 + self.find_spell_attack_mod(),
                 'spell_of_choice':'Darkness',
                 }
+        spell_dict = copy.deepcopy(spell_dict)
         if self.mage.class_features.get('Metamagic_Distant_Spell'):
             spell_dict['attack_range'] *= 2
         return spell_dict
@@ -1520,6 +1586,7 @@ class gen_spells():
                 'spell_save_DC':8 + self.find_spell_attack_mod(),
                 'spell_of_choice':'Magic_Missile',
                 }
+        spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
     def Call_Lightning(self, spell_level, gen_spell = False):
@@ -1555,6 +1622,7 @@ class gen_spells():
                 'spell_save_DC':8 + self.find_spell_attack_mod(),
                 'spell_of_choice':'Magic_Missile',
                 }
+        spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 3:
             dice = int(spell_dict['damage_dice'][0])
             dice += int(spell_level[0]) - 1
@@ -1588,6 +1656,7 @@ class gen_spells():
                 'spell_save_DC':8 + self.find_spell_attack_mod(),
                 'spell_of_choice':'Magic_Missile',
                 }
+        spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 3:
             dice = int(spell_dict['damage_dice'][0])
             dice += int(spell_level[0]) - 1
@@ -1625,6 +1694,7 @@ class gen_spells():
                 'spell_save_DC':8 + self.find_spell_attack_mod(),
                 'spell_of_choice':'Magic_Missile',
                 }
+        spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 3:
             dice = int(spell_dict['damage_dice'][0])
             dice += int(spell_level[0]) - 1
@@ -1666,6 +1736,7 @@ class gen_spells():
                 'spell_save_DC':8 + self.find_spell_attack_mod(),
                 'spell_of_choice':'Magic_Missile',
                 }
+        spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 3:
             bonus_ammo = 2 * int(spell_level[0]) - 3 * 2
             spell_dict['ammo'] += bonus_ammo
@@ -1691,6 +1762,7 @@ class gen_spells():
                 'spell_level':spell_level,
                 'spell_of_choice':'Magic_Missile',
                 }
+        spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
     def Dispel_Magic(self, spell_level, gen_spell = False):
@@ -1713,6 +1785,7 @@ class gen_spells():
                 'spell_level':spell_level,
                 'spell_of_choice':'Magic_Missile',
                 }
+        spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
     def Crusaders_Mantle(self, spell_level, gen_spell = False):
@@ -1743,6 +1816,7 @@ class gen_spells():
                 'damage_mod':0,
                 'spell_of_choice':'Magic_Missile',
                 }
+        spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
 
@@ -1779,6 +1853,7 @@ class gen_spells():
                 'spell_save_DC':8 + self.find_spell_attack_mod(),
                 'spell_of_choice':'Sacred_Flame',
                 }
+        spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 3:
             dice = int(spell_dict['damage_dice'][0])
             dice += int(spell_level[0]) - 1
@@ -1816,6 +1891,7 @@ class gen_spells():
                 'spell_save_DC':8 + self.find_spell_attack_mod(),
                 'spell_of_choice':'Magic_Missile',
                 }
+        spell_dict = copy.deepcopy(spell_dict)
         if spell_dict.get('subspell'):
             subspell = spell_dict['subspell']
             subspell_name = spell_dict['subspell'][-1]
@@ -1862,6 +1938,7 @@ class gen_spells():
                 'spell_save_DC':8 + self.find_spell_attack_mod(),
                 'spell_of_choice':'Magic_Missile',
                 }
+        spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 5:
             dice = int(spell_dict['damage_dice'][0])
             dice += int(spell_level[0]) - 1
@@ -1903,6 +1980,7 @@ class gen_spells():
                 'spell_save_DC':8 + self.find_spell_attack_mod(),
                 'spell_of_choice':'Magic_Missile',
                 }
+        spell_dict = copy.deepcopy(spell_dict)
         #if int(spell_level[0]) > 5:
         #    dice = int(spell_dict['damage_dice'][0])
         #    dice += int(spell_level[0]) - 1
