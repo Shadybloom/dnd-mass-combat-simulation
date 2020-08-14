@@ -1657,7 +1657,8 @@ class soldier_in_battle(soldier):
 # ----
 # Универсальная проверка спасброска.
 
-    def get_savethrow(self, difficult, ability, advantage = None, disadvantage = None):
+    def get_savethrow(self, difficult, ability,
+            advantage = None, disadvantage = None, bonus = 0):
         """Делаем спасбросок.
         
         - Учитываем преимущества к броскам характеристик.
@@ -1668,7 +1669,7 @@ class soldier_in_battle(soldier):
         if not disadvantage == None:
             disadvantage = self.check_savethrow_disadvantage(ability)
         savethrow_result = dices.dice_throw_advantage('1d20', advantage, disadvantage) + self.saves[ability]
-        savethrow_result += self.get_savethrow_bonus(ability)
+        savethrow_result += self.get_savethrow_bonus(difficult, savethrow_result, ability, bonus)
         if self.check_savethrow_autofail(ability):
             return False
         elif difficult <= savethrow_result:
@@ -1676,15 +1677,22 @@ class soldier_in_battle(soldier):
         else:
             return False
 
-    def get_savethrow_bonus(self, ability):
+    def get_savethrow_bonus(self, difficult, savethrow_result, ability, bonus = 0):
         """Бонус к спасброскам от способностей класса.
 
         """
-        savethrow_bonus = 0
         if self.class_features.get('Remarkable_Athlete'):
             if ability not in self.dict_class_saves[self.char_class]:
-                savethrow_bonus = round(self.proficiency_bonus / 2)
-        return savethrow_bonus
+                bonus += round(self.proficiency_bonus / 2)
+        # Заклинание Bless усиливает спасброски:
+        if 'bless' in self.buffs:
+            bonus += dices.dice_throw_advantage('1d4')
+        # Bardic_Inspiration усиливает спасбросок:
+        if 'bardic_inspiration' in self.buffs\
+                and savethrow_result < difficult\
+                and not savethrow_result + self.buffs['bardic_inspiration'] < difficult:
+            bonus += self.buffs.pop('bardic_inspiration',0)
+        return bonus
 
     def check_savethrow_autofail(self, ability):
         """Проверка автопровала спасброска.
@@ -1714,12 +1722,15 @@ class soldier_in_battle(soldier):
         if ability == 'strength':
             if self.class_features.get('Rage') and self.rage:
                 return True
+        elif ability == 'dexterity':
+            if self.class_features.get('Danger_Sense'):
+                return True
+            if self.dodge_action:
+                return True
         # Homebrew: преимущества к морали от храбрости командира:
         elif ability == 'charisma':
             if 'brave' in self.commands:
                 return True
-        else:
-            return False
 
     def check_savethrow_disadvantage(self, ability):
         """Способности могут дать преимущество на спасбросок."""
@@ -1727,8 +1738,9 @@ class soldier_in_battle(soldier):
         # Отравление даёт помеху на проверки характеристик.
         if self.poisoned:
             return True
-        else:
-            return False
+        elif ability == 'dexterity':
+            if self.restained:
+                return True
 
 # ----
 # Вывод данных
@@ -1966,6 +1978,7 @@ class soldier_in_battle(soldier):
                         and not self.class_features.get('Feat_Sharpshooter'):
                     disadvantage = True
             # Меткие стрелки игнорируют укрытие и помехи по дальности:
+            # TODO: для этого есть тег ignore_cover
             if self.class_features.get('Feat_Sharpshooter'):
                 target_cover = 0
         # Бардовское Vicious_Mockery портит одиночную атаку:
@@ -2564,6 +2577,7 @@ class soldier_in_battle(soldier):
                 damage = 0
         # Сопротивляемость к видам урона.
         # Урон от магического оружия преодолевает сопротивляемость.
+        # TODO: Feat_Elemental_Adept должен быть в словаре атаки.
         elif attack_dict['damage_type'] in self.resistance:
             if enemy_soldier.class_features.get('Feat_Elemental_Adept') == attack_dict['damage_type']:
                 damage = damage
@@ -2601,6 +2615,10 @@ class soldier_in_battle(soldier):
                     self.ally_side, self.place, self.behavior,
                     attack_choice, attack_dict['attack_crit'],
                     attack_dict['damage'], damage_deflect))
+        # Промах, если урон нулевой:
+        if damage <= 0:
+            attack_dict['hit'] = False
+            damage = 0
         # Бонусные хиты от Feat_Inspiring_Leader и подобного:
         if self.bonus_hitpoints and self.bonus_hitpoints > 0:
             shield_of_bravery = self.bonus_hitpoints
@@ -2612,9 +2630,7 @@ class soldier_in_battle(soldier):
                 attack_dict['bonus_hitpoints_damage'] = damage + shield_of_bravery
             else:
                 attack_dict['bonus_hitpoints_damage'] = shield_of_bravery
-        # Скажем "нет" лечебным атакам:
-        if damage < 0:
-            damage = 0
+        # Боец получает урон:
         self.set_hitpoints(damage = damage)
         attack_dict['damage'] = damage
         # Спящий просыпается, если ранен:
@@ -2649,46 +2665,30 @@ class soldier_in_battle(soldier):
             attack_dict['fatal_hit'] = True
         return attack_dict
 
-    def damage_savethrow(self, attack_dict, damage):
-        """Боец делает спасбросок против урона."""
-        savethrow_ability = attack_dict['savethrow_ability']
-        # Помеха врага -- преимущество нам:
-        advantage = attack_dict['disadvantage']
-        disadvantage = attack_dict['advantage']
-        if savethrow_ability == 'dexterity':
-            if self.dodge_action or self.class_features.get('Danger_Sense'):
-                advantage = True
-            if self.restained:
-                disadvantage = True
-        damage_difficul = attack_dict.get('spell_save_DC', attack_dict.get('attack_throw'))
-        damage_savethrow = dices.dice_throw_advantage('1d20', advantage, disadvantage)\
-                + self.saves[savethrow_ability]
-        # Заклинание Sacred_Flame игнорирует бонус укрытия к спасброскам ловкости:
-        if savethrow_ability == 'dexterity' and not attack_dict.get('ignore_cover'):
-            damage_savethrow += attack_dict['savethrow_bonus_cover']
-        # Заклинание Bless усиливает спасброски:
-        if 'bless' in self.buffs:
-            damage_savethrow += dices.dice_throw_advantage('1d4')
-        # Bardic_Inspiration усиливает спасбросок:
-        if 'bardic_inspiration' in self.buffs\
-                and damage_savethrow < damage_difficul\
-                and not damage_savethrow + self.buffs['bardic_inspiration'] < damage_difficul:
-            damage_savethrow += self.buffs.pop('bardic_inspiration',0)
-        if damage_savethrow >= damage_difficul\
-                and not self.stunned and not self.sleep:
+    def damage_savethrow(self, attack_dict, damage, savethrow_bonus = 0):
+        """Спасбросок от урона заклинаний, дыхания дракона, шрапнели и т.п.
+        
+        - Успешный спасбросок = 50% урона
+        - Успешный спасбросок ловкости с Evasion = 0 урона
+        - Неудачный спасбросок ловкости с Evasion = 50% урона
+        """
+        ability = attack_dict['savethrow_ability']
+        difficult = attack_dict.get('spell_save_DC', attack_dict.get('attack_throw'))
+        # Бонус укрытия к спасброскам ловкости:
+        if ability == 'dexterity' and not attack_dict.get('ignore_cover'):
+            savethrow_bonus += attack_dict['savethrow_bonus_cover']
+        # Делаем спасбросок:
+        if self.get_savethrow(difficult, ability, bonus = savethrow_bonus):
             damage = round(damage / 2)
             if attack_dict.get('savethrow_all'):
-                attack_dict['hit'] = False
                 damage = 0
-            elif self.class_features.get('Evasion'):
-                attack_dict['hit'] = False
+            if ability == 'dexterity' and self.class_features.get('Evasion'):
                 damage = 0
         # Увёртливые воры и монахи всё равно уклоняются:
-        elif damage_savethrow < damage_difficul\
-                and self.class_features.get('Evasion'):
-            damage = round(damage / 2)
+        else:
+            if ability == 'dexterity' and self.class_features.get('Evasion'):
+                damage = round(damage / 2)
         return damage
-            
 
 # ----
 # Опыт за победу
