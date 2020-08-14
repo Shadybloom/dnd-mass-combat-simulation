@@ -1235,14 +1235,17 @@ class soldier_in_battle(soldier):
         if casting_action and self.__dict__.get(casting_action)\
                 and vision_tuple.distance <= distance_max:
             self.__dict__[casting_action] = False
-            spell_dict = self.spells_generator.use_spell(spell_choice)
-            heal = dices.dice_throw_advantage(spell_dict['damage_dice']) + spell_dict['damage_mod']
-            injured_ally.set_hitpoints(heal)
-            print('{0} {1} {2} (help_action) >> {3}, {4}, {5} heal (spell): {6}'.format(
-                self.ally_side, self.place, self.behavior,
-                injured_ally.ally_side, injured_ally.place, injured_ally.behavior,
-                heal))
-            return True
+            spell_dict = self.try_spellcast(spell_choice)
+            if spell_dict:
+                heal = dices.dice_throw_advantage(spell_dict['damage_dice']) + spell_dict['damage_mod']
+                injured_ally.set_hitpoints(heal)
+                print('{0} {1} {2} (help_action) >> {3}, {4}, {5} heal (spell): {6}'.format(
+                    self.ally_side, self.place, self.behavior,
+                    injured_ally.ally_side, injured_ally.place, injured_ally.behavior,
+                    heal))
+                return True
+            else:
+                return False
         else:
             return False
 
@@ -2242,13 +2245,17 @@ class soldier_in_battle(soldier):
         spell_slot = spell_choice[0]
         spell_name = spell_choice[-1]
         if spell_slot in self.metadict_class_spells[(self.char_class,self.level)]:
-            if not spell_name in self.drop_spells_dict:
-                self.drop_spells_dict[spell_name] = 1
-            elif spell_name in self.drop_spells_dict:
-                self.drop_spells_dict[spell_name] += 1
+            if not spell_choice in self.drop_spells_dict:
+                self.drop_spells_dict[spell_choice] = 1
+            elif spell_choice in self.drop_spells_dict:
+                self.drop_spells_dict[spell_choice] += 1
             return True
         else:
-            return False
+            if not spell_choice in self.drop_spells_dict:
+                self.drop_spells_dict[spell_choice] = 1
+            elif spell_choice in self.drop_spells_dict:
+                self.drop_spells_dict[spell_choice] += 1
+            return True
 
     def drop_item(self, item, number = 1, drop_all = False):
         """Теряем предмет. Запоминаем потерю.

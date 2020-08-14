@@ -3155,12 +3155,24 @@ class battle_simulation(battlescape):
                     print(attack, stat)
             # Потерянное снаряжение и трофеи:
             if squad.trophy_items_dict and casualty['lucky_one_percent'] > casualty['escape_percent']:
+                squad.trophy_items_dict = dict(OrderedDict(reversed(sorted(
+                    squad.trophy_items_dict.items(),key=lambda x: x[1]
+                    ))))
                 print('trophy:', squad.trophy_items_dict)
             if squad.drop_items_dict:
+                squad.drop_items_dict = dict(OrderedDict(reversed(sorted(
+                    squad.drop_items_dict.items(),key=lambda x: x[1]
+                    ))))
                 print('loss:', squad.drop_items_dict)
             if squad.drop_spells_dict:
+                squad.drop_spells_dict = dict(OrderedDict(reversed(sorted(
+                    squad.drop_spells_dict.items(),key=lambda x: x
+                    ))))
                 print('spells:', squad.drop_spells_dict)
             if squad.traumas_dict:
+                squad.traumas_dict = dict(OrderedDict(reversed(sorted(
+                    squad.traumas_dict.items(),key=lambda x: x[1]
+                    ))))
                 print('traumas:', squad.traumas_dict)
 
     def save_soldiers_to_database(self):
