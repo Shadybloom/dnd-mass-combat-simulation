@@ -1702,7 +1702,9 @@ class soldier_in_battle(soldier):
         - Парализованный проваливает спасброски силы и ловкости.
         - Окаменевший проваливает спасброски силы и ловкости.
         """
-        if ability == 'strength' or ability == 'dexterity':
+        if self.__dict__.get('savethrow_autofail'):
+            return True
+        elif ability == 'strength' or ability == 'dexterity':
             if self.sleep:
                 return True
             elif self.stunned:
@@ -2541,9 +2543,100 @@ class soldier_in_battle(soldier):
         По правилам DnD 5.0:
         - Ранен на 100% хитов -- потеря сознания, борьба за жизнь.
         - Ранен на 200% от макс. числа хитов -- мгновенная смерть.
+
+        Множество модификаторов:
+        - Сначала из урона вычитаем/прибавляем целые числа.
+        - Учитываем спасбросок, который уменьшает урон вдвое/целиком.
+        - Затем делим/умножаем, если есть сопротивляемость/уязвимость.
+        - Учитываем бонусные хиты.
         """
-        enemy_soldier = metadict_soldiers[attack_dict['sender_uuid']]
         damage = attack_dict['damage']
+        # Свойства вооружения врага усиливают урон:
+        damage = self.damage_modify_sender(attack_dict, damage)
+        # Защитные приёмы и свойства ослабляют урон:
+        damage = self.damage_modify_victim(attack_dict, damage)
+        # Спасбросок против урона заклинаний:
+        if attack_dict.get('savethrow'):
+            damage = self.damage_savethrow(attack_dict, damage)
+        # Иммунитет, сопротивляемость, уязвимость:
+        damage = self.damage_resistance(attack_dict, damage)
+        if damage > 0:
+            # Бонусные хиты от Feat_Inspiring_Leader и подобного:
+            if self.bonus_hitpoints and self.bonus_hitpoints > 0:
+                shield_of_bravery = self.bonus_hitpoints
+                self.bonus_hitpoints -= damage
+                damage = damage - shield_of_bravery
+                if self.bonus_hitpoints < 0:
+                    self.bonus_hitpoints = 0
+                if damage < 0:
+                    attack_dict['bonus_hitpoints_damage'] = damage + shield_of_bravery
+                else:
+                    attack_dict['bonus_hitpoints_damage'] = shield_of_bravery
+            # Боец получает урон:
+            self.set_hitpoints(damage = damage)
+            attack_dict['damage'] = damage
+            self.trauma_damage_type = attack_dict['damage_type']
+            if self.hitpoints <= 0 and not self.defeat:
+                attack_dict['fatal_hit'] = True
+            # Спящий просыпается, если ранен:
+            if damage and self.sleep:
+                self.sleep_timer = 0
+                self.sleep = False
+            # Прерывание концентрации
+            if self.concentration:
+                self.set_concentration_break(difficult = round(damage / 2))
+            # Стойкость нежити (зомби не так-то просто убить):
+            if self.class_features.get('Undead_Fortitude') and self.hitpoints <= 0\
+                    and not attack_dict.get('attack_crit')\
+                    and attack_dict['damage_type'] != 'radiant':
+                difficul = 5 + damage
+                ability = 'constitution'
+                if self.get_savethrow(difficult, ability):
+                    self.hitpoints = 1
+            # Показываем, если командиру достаётся:
+            # TODO: перенеси вовне. Сделай декоратором.
+            enemy_soldier = metadict_soldiers[attack_dict['sender_uuid']]
+            if self.level >= 5 and damage > 0:
+                print('[!!!] {side}, {c1} {s} {w} >>>> {c2} {e}, crit {c} dmg {d}'.format(
+                    side = enemy_soldier.ally_side,
+                    s = enemy_soldier.behavior,
+                    e = self.behavior,
+                    c1 = enemy_soldier.place,
+                    c2 = self.place,
+                    w = attack_choice,
+                    c = attack_dict['crit'],
+                    d = damage,
+                    ))
+            return attack_dict
+        # Промах, если урон нулевой:
+        elif damage <= 0:
+            damage = 0
+            attack_dict['hit'] = False
+            attack_dict['damage'] = damage
+            return attack_dict
+
+    def damage_modify_sender(self, attack_dict, damage):
+        """Модификаторы к урону от врага.
+
+        - Осадное вооружение = x2 урона зданиям.
+        """
+        if 'siege' in attack_dict.get('weapon_type',[]):
+            if self.__dict__.get('mechanism'):
+                damage *= 2
+        return damage
+
+    def damage_modify_victim(self, attack_dict, damage):
+        """Защитные приёмы ослабляют урон.
+
+        - Порог урона крупных объектов
+        - Порог урона мастеров тяжёлых доспехов
+        - Уклонение плута
+        - Отражение стрел монахом
+        - Парирование мастера боевых искусств
+
+        Эти модификаторы применяются до сопротивляемости к урону.
+        """
+        attack_choice = attack_dict['attack_choice']
         # Крупные объекты (стены, корабли) имеют порог урона:
         if self.__dict__.get('ignore_damage'):
             damage -= self.ignore_damage
@@ -2553,45 +2646,12 @@ class soldier_in_battle(soldier):
                     or attack_dict['damage_type'] == 'piercing'\
                     or attack_dict['damage_type'] == 'slashing':
                 damage -= 3
-        # Спасбросок против урона:
-        if attack_dict.get('savethrow') and not self.__dict__.get('savethrow_autofall'):
-            damage = self.damage_savethrow(attack_dict, damage)
-        # Плуты ослабляют атаки за счёт реакции (это срабатывает до сопротивляемости урону):
-        # Uncanny_Dodge срабатывает только против ударов с броском атаки:
-        elif self.class_features.get('Uncanny_Dodge') and self.reaction\
+        # Уклонение плута срабатывает только против ударов с броском атаки:
+        if self.class_features.get('Uncanny_Dodge') and self.reaction\
                 and attack_dict.get('attack'):
-            damage = round(damage * 0.5)
+            damage = round(damage / 2)
             self.reaction = False
-        # Пытаемся защититься с помощью руны или заклинания "Поглощение стихий":
-        if not attack_dict['damage_type'] in self.resistance:
-            if 'runes' in self.commands and self.reaction:
-                self.use_item('Absorb_Elements', gen_spell = attack_dict['damage_type'])
-            elif self.reaction:
-                spell_dict = self.try_spellcast('Absorb_Elements', gen_spell = attack_dict['damage_type'])
-        # Иммунитет к видам урона.
-        # Урон от магического оружия преодолевает иммунитет.
-        if attack_dict['damage_type'] in self.immunity:
-            if attack_dict.get('weapon_type') and 'magic' in attack_dict['weapon_type']:
-                damage = damage
-            else:
-                damage = 0
-        # Сопротивляемость к видам урона и её преодоление:
-        elif attack_dict['damage_type'] in self.resistance:
-            if 'magic' in attack_dict.get('weapon_type',[]):
-                damage = damage
-            elif attack_dict.get('ignore_resistance') == attack_dict['damage_type']:
-                damage = damage
-            else:
-                damage = round(damage * 0.5)
-        # Уязвимость к видам урона:
-        elif attack_dict['damage_type'] in self.vultenability:
-            damage = round(damage * 2)
-        # Урон предметам от осадных монстров удваивается:
-        if attack_dict.get('weapon_type') and 'siege' in attack_dict['weapon_type']\
-                and self.__dict__.get('mechanism'):
-            damage *= 2
-        # TODO: это должно быть в начале функции:
-        # Отражение/перехват стрел монахом (15-25 срабатываний за бой с лучниками):
+        # Отражение/перехват стрел монахом:
         # https://www.dandwiki.com/wiki/5e_SRD:Monk#Deflect_Missiles
         if attack_choice[0] == 'throw' or attack_choice[0] == 'ranged' or attack_choice[0] == 'volley':
             if self.class_features.get('Deflect_Missiles') and self.reaction == True:
@@ -2605,63 +2665,15 @@ class soldier_in_battle(soldier):
         # Прирование мастера боевых искусств:
         if attack_choice[0] == 'close' or attack_choice[0] == 'reach':
             if self.class_features.get('Parry') and self.superiority_dices and self.reaction == True:
-                damage_deflect = dices.dice_throw(self.superiority_dice)\
-                        + self.mods['dexterity']
+                damage_deflect = dices.dice_throw(self.superiority_dice) + self.mods['dexterity']
                 damage -= damage_deflect
                 self.reaction = False
-                print('{0} {1} {2} {3} crit {4} damage {5} reaction parry -{6}'.format(
+                self.superiority_dices -= 1
+                print('[+++] {0} {1} {2} reaction Parry {3}/{4} << {5} atc {6} dmg {7}'.format(
                     self.ally_side, self.place, self.behavior,
-                    attack_choice, attack_dict['attack_crit'],
-                    attack_dict['damage'], damage_deflect))
-        # Промах, если урон нулевой:
-        if damage <= 0:
-            attack_dict['hit'] = False
-            damage = 0
-        # Бонусные хиты от Feat_Inspiring_Leader и подобного:
-        if self.bonus_hitpoints and self.bonus_hitpoints > 0:
-            shield_of_bravery = self.bonus_hitpoints
-            self.bonus_hitpoints -= damage
-            damage = damage - shield_of_bravery
-            if self.bonus_hitpoints < 0:
-                self.bonus_hitpoints = 0
-            if damage < 0:
-                attack_dict['bonus_hitpoints_damage'] = damage + shield_of_bravery
-            else:
-                attack_dict['bonus_hitpoints_damage'] = shield_of_bravery
-        # Боец получает урон:
-        self.set_hitpoints(damage = damage)
-        attack_dict['damage'] = damage
-        # Спящий просыпается, если ранен:
-        if damage and self.sleep:
-            self.sleep_timer = 0
-            self.sleep = False
-        # Стойкость нежити (зомби не так-то просто убить):
-        if self.class_features.get('Undead_Fortitude') and self.hitpoints <= 0\
-                and not attack_dict.get('attack_crit')\
-                and attack_dict['damage_type'] != 'radiant':
-            destruction_difficul = 5 + damage
-            destruction_saving_throw = dices.dice_throw_advantage('1d20') + self.saves['constitution']
-            if destruction_saving_throw >= destruction_difficul:
-                self.hitpoints = 1
-        # Показываем, если командиру достаётся:
-        if self.level >= 5 and damage > 0:
-            print('[!!!] {side}, {c1} {s} {w} >>>> {c2} {e}, crit {c} dmg {d}'.format(
-                side = enemy_soldier.ally_side,
-                s = enemy_soldier.behavior,
-                e = self.behavior,
-                c1 = enemy_soldier.place,
-                c2 = self.place,
-                w = attack_choice,
-                c = attack_dict['crit'],
-                d = damage,
-                ))
-        if damage > 0:
-            self.trauma_damage_type = attack_dict['damage_type']
-            if self.concentration:
-                self.set_concentration_break(difficult = round(damage / 2))
-        if self.hitpoints <= 0 and damage > 0 and not self.defeat:
-            attack_dict['fatal_hit'] = True
-        return attack_dict
+                    damage, attack_dict['damage'],
+                    attack_choice, attack_dict['attack'], attack_dict['damage']))
+        return damage
 
     def damage_savethrow(self, attack_dict, damage, savethrow_bonus = 0):
         """Спасбросок от урона заклинаний, дыхания дракона, шрапнели и т.п.
@@ -2686,6 +2698,46 @@ class soldier_in_battle(soldier):
         else:
             if ability == 'dexterity' and self.class_features.get('Evasion'):
                 damage = round(damage / 2)
+        return damage
+
+    def damage_resistance(self, attack_dict, damage):
+        """Иммунитет, сопротивляемость, уязвимость к урону.
+
+        Иммунитет = 0 урона
+        Сопротивляемость = 1/2 урона
+        Уязвимость = x2 урона
+        
+        - Используется заклинание Absorb_Elements, если это возможно.
+        - Магическое оружие преодолевает сопротивляемость/иммунитет к обычному оружию.
+        - Наконец, учитывается уязвимость к урону.
+        """
+        # ------------------------------------------------------------
+        # TODO: проверки реакции здесь уже не нужны.
+        # А вот проверку на процент урона к хитам стоило бы поставить
+        # ------------------------------------------------------------
+        # Пытаемся защититься с помощью руны или заклинания "Поглощение стихий":
+        if not attack_dict['damage_type'] in self.resistance:
+            if 'runes' in self.commands and self.reaction:
+                self.use_item('Absorb_Elements', gen_spell = attack_dict['damage_type'])
+            elif self.reaction:
+                spell_dict = self.try_spellcast('Absorb_Elements', gen_spell = attack_dict['damage_type'])
+        # Урон от магического оружия преодолевает иммунитет:
+        if attack_dict['damage_type'] in self.immunity:
+            if attack_dict.get('weapon_type') and 'magic' in attack_dict['weapon_type']:
+                damage = damage
+            else:
+                damage = 0
+        # Сопротивляемость к видам урона и её преодоление:
+        elif attack_dict['damage_type'] in self.resistance:
+            if 'magic' in attack_dict.get('weapon_type',[]):
+                damage = damage
+            elif attack_dict.get('ignore_resistance') == attack_dict['damage_type']:
+                damage = damage
+            else:
+                damage = round(damage / 2)
+        # Уязвимость к видам урона:
+        elif attack_dict['damage_type'] in self.vultenability:
+            damage = round(damage * 2)
         return damage
 
 # ----
