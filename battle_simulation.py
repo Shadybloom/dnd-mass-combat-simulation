@@ -2422,8 +2422,8 @@ class battle_simulation(battlescape):
                     self.fireball_action_target(soldier, squad, spell_dict, enemy, safe)
                     # Для заклинаний вроде "Ice_Storm"
                     if spell_dict.get('subspell'):
-                        subspell_dict = soldier.spells[spell_dict.get('subspell')]
-                        subspell_dict['spell_choice'] = spell_dict['subspell']
+                        subspell_dict = soldier.try_spellcast(spell_dict.get('subspell'),
+                                use_spell_slot = False, use_action = False)
                         self.fireball_action_target(soldier, squad, subspell_dict, enemy, safe)
                 # TODO: сделай декоратор.
                 # Переоцениваем опасные зоны на текущий ход:
@@ -3073,6 +3073,12 @@ class battle_simulation(battlescape):
             for soldier in squad.metadict_soldiers.values():
                 squad.drop_items_dict = dict(Counter(squad.drop_items_dict)\
                         + Counter(soldier.drop_items_dict))
+            # Использованные заклинания:
+            if not squad.__dict__.get('drop_spells_dict'):
+                squad.drop_spells_dict = {}
+            for soldier in squad.metadict_soldiers.values():
+                squad.drop_spells_dict = dict(Counter(squad.drop_spells_dict)\
+                        + Counter(soldier.drop_spells_dict))
             # Трофеи:
             if not squad.__dict__.get('trophy_items_dict'):
                 squad.trophy_items_dict = {}
@@ -3152,6 +3158,8 @@ class battle_simulation(battlescape):
                 print('trophy:', squad.trophy_items_dict)
             if squad.drop_items_dict:
                 print('loss:', squad.drop_items_dict)
+            if squad.drop_spells_dict:
+                print('spells:', squad.drop_spells_dict)
             if squad.traumas_dict:
                 print('traumas:', squad.traumas_dict)
 

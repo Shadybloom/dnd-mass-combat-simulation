@@ -221,6 +221,9 @@ class soldier_in_battle(soldier):
         # Словарь израсходованного снаряжения:
         if not hasattr(self, 'drop_items_dict'):
             self.drop_items_dict = {}
+        # Словарь использованных заклинаний:
+        if not hasattr(self, 'drop_spells_dict'):
+            self.drop_spells_dict = {}
         # Оружие в руках:
         if not hasattr(self, 'weapon_ready'):
             self.weapon_ready = None
@@ -606,7 +609,7 @@ class soldier_in_battle(soldier):
                 self.rage_timer = 10
                 self.rages -= 1
 
-    def try_spellcast(self, spell_name, gen_spell = False, use_spell_slot = True):
+    def try_spellcast(self, spell_name, gen_spell = False, use_spell_slot = True, use_action = True):
         """Маг кастует заклинание, если это возможно.
         
         Сначала поиск по названиям заклинаний, затем по их эффектам.
@@ -622,11 +625,14 @@ class soldier_in_battle(soldier):
                 spell_choice = self.spells_generator.find_spell(spell_effect, effect = True)
         if spell_choice:
             action = self.check_action_to_spellcast(self.spells[spell_choice])
-            if self.__dict__.get(action) or action == False:
+            if self.__dict__.get(action) or not action or not use_action:
                 spell_dict = self.spells_generator.use_spell(spell_choice, gen_spell, use_spell_slot)
                 spell_dict['spell_choice'] = spell_choice
-                self.use_action_to_spellcast(spell_dict)
                 self.set_concentration(spell_dict)
+                if use_action:
+                    self.use_action_to_spellcast(spell_dict)
+                if use_spell_slot:
+                    self.drop_spell(spell_choice)
                 return spell_dict
             else:
                 return False
@@ -2230,6 +2236,19 @@ class soldier_in_battle(soldier):
                 self.armor['shield_use'] = None
                 self.drop_item(shield_type)
             #print(self.ally_side, self.place, self.behavior, self.armor)
+
+    def drop_spell(self, spell_choice):
+        """Теряем слот заклинания. Запоминаем это."""
+        spell_slot = spell_choice[0]
+        spell_name = spell_choice[-1]
+        if spell_slot in self.metadict_class_spells[(self.char_class,self.level)]:
+            if not spell_name in self.drop_spells_dict:
+                self.drop_spells_dict[spell_name] = 1
+            elif spell_name in self.drop_spells_dict:
+                self.drop_spells_dict[spell_name] += 1
+            return True
+        else:
+            return False
 
     def drop_item(self, item, number = 1, drop_all = False):
         """Теряем предмет. Запоминаем потерю.
