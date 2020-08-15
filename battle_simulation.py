@@ -1281,6 +1281,17 @@ class battle_simulation(battlescape):
                         danger +=1
         return danger
 
+    def get_enemy_tuple(self, soldier, enemy_soldier):
+        """Дистанция до врага, укрытие. Формат namedtuple_target."""
+        enemy = self.namedtuple_target(
+                enemy_soldier.ally_side,
+                enemy_soldier.behavior,
+                enemy_soldier.place,
+                distance = round(distance_measure(soldier.place, enemy_soldier.place)),
+                cover = self.calculate_enemy_cover(soldier.place, enemy_soldier.place).cover,
+                uuid = enemy_soldier.uuid)
+        return enemy
+
     def get_zone_effects(self, soldier, squad):
         """Эффекты зоны ранит солдата.
 
@@ -1839,6 +1850,16 @@ class battle_simulation(battlescape):
                 # Иногда заканчиваются и враги:
                 if not enemy:
                     break
+                # Перенаправление атаки: лошадь --> всадник с Feat_Mounted_Combatant:
+                if enemy_soldier.behavior == 'mount'\
+                        and enemy_soldier.__dict__.get('master_uuid') in self.metadict_soldiers:
+                    master = self.metadict_soldiers[enemy_soldier.master_uuid]
+                    near_allies_uuid = [ally[-1] for ally in enemy_soldier.near_allies]
+                    if master.uuid in near_allies_uuid\
+                            and master.class_features.get('Feat_Mounted_Combatant')\
+                            and master.hitpoints > master.hitpoints_max / 2:
+                        enemy_soldier = master
+                        enemy = self.get_enemy_tuple(soldier, enemy_soldier)
                 # Боец подготавливает атаку:
                 attack_choice = attacks_chain.pop(0)
                 advantage, disadvantage = self.test_enemy_defence(soldier, enemy_soldier, attack_choice)

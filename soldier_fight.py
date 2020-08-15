@@ -2383,20 +2383,6 @@ class soldier_in_battle(soldier):
                 }
         armor_dict = self.modify_armor(attack_choice, attack_dict)
         attack_dict['savethrow_bonus_cover'] = armor_dict['savethrow_bonus_cover']
-        # TODO: в отдельную функцию:
-        # Это нужно сделать декоратором. Срабатывает до функции. Перенаправление атаки.
-        # Лошадка может попросить защиты у хозяина с Feat_Mounted_Combatant:
-        if attack_dict.get('attack'):
-            if self.behavior == 'mount' and self.hitpoints < self.hitpoints_max / 4\
-                    and hasattr(self, 'master_uuid') and self.master_uuid in metadict_soldiers:
-                master = metadict_soldiers[self.master_uuid]
-                near_allies_uuid = [ally[-1] for ally in self.near_allies]
-                if master.uuid in near_allies_uuid\
-                        and master.class_features.get('Feat_Mounted_Combatant')\
-                        and master.hitpoints > master.hitpoints_max / 2:
-                    attack_result = master.take_attack(
-                            attack_choice, attack_dict, metadict_soldiers)
-                    return attack_result
         if attack_dict.get('attack') and not attack_dict.get('direct_hit'):
             if attack_dict['attack_crit'] == True:
                 result['hit'] = True
