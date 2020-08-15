@@ -2376,8 +2376,6 @@ class soldier_in_battle(soldier):
         # Обрабатывай её в отдельной функции.
         # Бросок атаки нам известен, пользуйся.
         # ------------------------------------------------------------
-        armor_dict = self.armor
-        cover = attack_dict['enemy_cover']
         result = {
                 'attack_choice':attack_choice,
                 'clumsy_miss':False,
@@ -2388,93 +2386,10 @@ class soldier_in_battle(soldier):
                 'fatal_hit':False,
                 'crit':False,
                 }
-        armor_class_no_impact = armor_dict['armor_class_no_impact']
-        armor_class_shield_impact = armor_dict['armor_class_shield_impact']
-        armor_class_armor_impact = armor_dict['armor_class_armor_impact']
-        armor_class = armor_dict['armor_class']
-        # Местность даёт прикрытие (особенно от лучников):
-        # Кусты дают прикрытие на 1/2 +2 AC, баррикады на 3/4 +5 AC.
-        savethrow_bonus_cover = 0
-        if cover >= 4 and cover < 7:
-            armor_class_no_impact += 2
-            armor_class_shield_impact += 2
-            armor_class_armor_impact += 2
-            armor_class += 2
-            savethrow_bonus_cover += 2
-        elif cover >= 7:
-            armor_class_no_impact += 5
-            armor_class_shield_impact += 5
-            armor_class_armor_impact += 5
-            armor_class += 5
-            savethrow_bonus_cover += 5
-        attack_dict['savethrow_bonus_cover'] = savethrow_bonus_cover
-        # Заклинание "Shield_of_Faith" даёт прекрасные +2 к AC.
-        if 'shield_of_faith' in self.buffs:
-            armor_class_no_impact += 2
-            armor_class_shield_impact += 2
-            armor_class_armor_impact += 2
-            armor_class += 2
+        armor_dict = self.modify_armor(attack_choice, attack_dict)
+        attack_dict['savethrow_bonus_cover'] = armor_dict['savethrow_bonus_cover']
         # TODO: в отдельную функцию:
-        # Учитываем реакцию Feat_Defensive_Duelist:
-        if attack_choice[0] == 'close' or attack_choice[0] == 'reach':
-            if self.class_features.get('Feat_Defensive_Duelist')\
-                    and self.reaction == True\
-                    and attack_dict['attack'] > armor_class\
-                    and attack_dict['attack'] < armor_class + self.proficiency_bonus:
-                armor_class_shield_impact += self.proficiency_bonus
-                armor_class_armor_impact += self.proficiency_bonus
-                armor_class += self.proficiency_bonus
-                self.reaction = False
-                # Всё работает, вывод можно убрать:
-                if attack_dict['attack'] <= armor_class and not attack_dict['attack_crit']:
-                    print('[+++] {0} {1} {2} reaction Def Duel {3}/{4} << {5}, atc {6} dmg {7}'.format(
-                        self.ally_side, self.place, self.behavior,
-                        armor_class, armor_dict['armor_class'],
-                        attack_choice, attack_dict['attack'], attack_dict['damage']))
-        # TODO: в отдельную функцию:
-        # Реакцией срабатывает волшебный щит.
-        if 'runes' in self.commands\
-                and self.equipment_weapon.get('Rune of Shielding')\
-                and self.reaction == True\
-                and not self.shield:
-            if attack_dict.get('attack') and attack_dict['attack'] > armor_class\
-                    or attack_choice[-1] == 'Magic_Missile':
-                self.drop_item('Rune of Shielding')
-                self.reaction = False
-                self.shield = True
-        elif hasattr(self, 'spells') and self.reaction == True and not self.shield:
-            # TODO: перепиливай щит под нормальное заклинание;
-            if attack_dict.get('attack') and attack_dict['attack'] > armor_class\
-                    or attack_choice[-1] == 'Magic_Missile':
-                for spell, spell_dict in self.spells.items():
-                    if spell_dict.get('effect') and spell_dict['effect'] == 'shield':
-                        spell_dict = self.spells_generator.use_spell(spell)
-                        # Магическая защита восстанавливается или создаётся:
-                        if self.class_features.get('Arcane_Ward'):
-                            if self.arcane_ward and not self.bonus_hitpoints:
-                                self.bonus_hitpoints = int(spell_dict['spell_level'][0]) * 2
-                            elif not self.arcane_ward:
-                                self.bonus_hitpoints = self.level * 2 + self.mods['intelligence']
-                        self.reaction = False
-                        self.shield = True
-                        break
-        # Заклинание 'Shield' даёт впечатляющие +5 к AC на один раунд и защищает от волшебных стрел.
-        if self.shield:
-            armor_class_no_impact += 5
-            armor_class_shield_impact += 5
-            armor_class_armor_impact += 5
-            armor_class += 5
-            if attack_choice[-1] == 'Magic_Missile':
-                attack_dict['direct_hit'] = False
-            # Вывод результата:
-            if attack_dict.get('attack', 0) <= armor_class\
-                    and attack_dict.get('attack',0) > (armor_class - 5)\
-                    and not attack_dict['attack_crit']:
-                print('[+++] {0} {1} {2} reaction Shield {3}/{4} << {5}, atc {6} dmg {7}'.format(
-                    self.ally_side, self.place, self.behavior,
-                    armor_class, armor_dict['armor_class'],
-                    attack_choice, attack_dict['attack'], attack_dict['damage']))
-        # TODO: в отдельную функцию:
+        # Это нужно сделать декоратором. Срабатывает до функции. Перенаправление атаки.
         # Лошадка может попросить защиты у хозяина с Feat_Mounted_Combatant:
         if attack_dict.get('attack'):
             if self.behavior == 'mount' and self.hitpoints < self.hitpoints_max / 4\
@@ -2491,13 +2406,13 @@ class soldier_in_battle(soldier):
             if attack_dict['attack_crit'] == True:
                 result['hit'] = True
                 result['crit'] = True
-            elif attack_dict['attack'] >= armor_class:
+            elif attack_dict['attack'] >= armor_dict['armor_class']:
                 result['hit'] = True
-            elif attack_dict['attack'] < armor_class_no_impact:
+            elif attack_dict['attack'] < armor_dict['armor_class_no_impact']:
                 result['miss'] = True
-            elif attack_dict['attack'] < armor_class_shield_impact:
+            elif attack_dict['attack'] < armor_dict['armor_class_shield_impact']:
                 result['shield_impact'] = True
-            elif attack_dict['attack'] < armor_class_armor_impact:
+            elif attack_dict['attack'] < armor_dict['armor_class_armor_impact']:
                 result['armor_impact'] = True
             elif attack_dict['attack'] <= 0 or attack_dict['attack_loss']:
                 result['clumsy_miss'] = True
@@ -2542,6 +2457,125 @@ class soldier_in_battle(soldier):
                 self.reaction = False
             attack_dict = self.take_damage(attack_choice, attack_dict, metadict_soldiers)
         return attack_dict
+
+    def modify_armor_reaction_shield(func):
+        """Заклинание "Щит" (Shield) временно повышает AC.
+
+        - Используется из руны/свитка.
+        - Либо кастуется из списка заклинаний.
+        - Тратит реакцию, что включено в каст заклинания.
+        """
+        def wrapper(self, attack_choice, attack_dict):
+            armor_dict = func(self, attack_choice, attack_dict)
+            armor_class_before = armor_dict['armor_class']
+            # Реакцией срабатывает волшебный щит.
+            if 'runes' in self.commands\
+                    and self.equipment_weapon.get('Rune of Shielding')\
+                    and self.reaction == True\
+                    and not self.shield:
+                if attack_dict.get('attack') and attack_dict['attack'] > armor_class_before\
+                        or attack_choice[-1] == 'Magic_Missile':
+                    self.drop_item('Rune of Shielding')
+                    self.reaction = False
+                    self.shield = True
+            elif hasattr(self, 'spells') and self.reaction == True and not self.shield:
+                # TODO: перепиливай щит под нормальное заклинание;
+                if attack_dict.get('attack') and attack_dict['attack'] > armor_class_before\
+                        or attack_choice[-1] == 'Magic_Missile':
+                    for spell, spell_dict in self.spells.items():
+                        if spell_dict.get('effect') and spell_dict['effect'] == 'shield':
+                            spell_dict = self.spells_generator.use_spell(spell)
+                            self.reaction = False
+                            self.shield = True
+                            break
+            return armor_dict
+        return wrapper
+
+    def modify_armor_reaction_def_duel(func):
+        """Способность "Оборонительный дуэлянт" Feat_Defensive_Duelist.
+
+        - Добавляет бонус мастерства к AC против единственной атаки.
+        - Тратит реакцию.
+        """
+        def wrapper(self, attack_choice, attack_dict):
+            armor_dict = func(self, attack_choice, attack_dict)
+            armor_class_before = armor_dict['armor_class']
+            # Парирование атаки за счёт реакции:
+            # Учитываем реакцию Feat_Defensive_Duelist:
+            if attack_choice[0] == 'close' or attack_choice[0] == 'reach':
+                if self.class_features.get('Feat_Defensive_Duelist')\
+                        and self.reaction == True\
+                        and attack_dict['attack'] > armor_class_before\
+                        and attack_dict['attack'] < armor_class_before + self.proficiency_bonus:
+                    armor_dict['armor_class_shield_impact'] += self.proficiency_bonus
+                    armor_dict['armor_class_armor_impact'] += self.proficiency_bonus
+                    armor_dict['armor_class'] += self.proficiency_bonus
+                    self.reaction = False
+                    # Всё работает, вывод можно убрать:
+                    if attack_dict['attack'] <= armor_dict['armor_class']\
+                            and not attack_dict['attack_crit']:
+                        print('[+++] {0} {1} {2} reaction Def Duel {3}/{4} << {5}, atc {6} dmg {7}'.format(
+                            self.ally_side, self.place, self.behavior,
+                            armor_dict['armor_class'], armor_class_before,
+                            attack_choice, attack_dict['attack'], attack_dict['damage']))
+            return armor_dict
+        return wrapper
+
+    @modify_armor_reaction_def_duel
+    @modify_armor_reaction_shield
+    def modify_armor(self, attack_choice, attack_dict):
+        """Боец реагирует на атаку.
+        
+        Учитывается прикрытие местности (в долях от площади тела):
+        https://www.dandwiki.com/wiki/5e_SRD:Cover
+        - 1/2 cover -- +2 AC, +2 DEX sav
+        - 3/2 cover -- +5 AC, +5 DEX sav
+        """
+        # Местность даёт прикрытие (особенно от лучников):
+        armor_dict = copy.deepcopy(self.armor)
+        cover = attack_dict['enemy_cover']
+        # 1/2 cover -- +2 AC, +2 DEX sav
+        if cover >= 4 and cover < 7:
+            armor_dict['armor_class_no_impact'] += 2
+            armor_dict['armor_class_shield_impact'] += 2
+            armor_dict['armor_class_armor_impact'] += 2
+            armor_dict['armor_class'] += 2
+            armor_dict['savethrow_bonus_cover'] = 2
+        # 3/2 cover -- +5 AC, +5 DEX sav
+        elif cover >= 7:
+            armor_dict['armor_class_no_impact'] += 5
+            armor_dict['armor_class_shield_impact'] += 5
+            armor_dict['armor_class_armor_impact'] += 5
+            armor_dict['armor_class'] += 5
+            armor_dict['savethrow_bonus_cover'] = 5
+        else:
+            armor_dict['savethrow_bonus_cover'] = 0
+        # Заклинание "Shield_of_Faith" даёт +2 AC:
+        if 'shield_of_faith' in self.buffs:
+            armor_dict['armor_class_no_impact'] += 2
+            armor_dict['armor_class_shield_impact'] += 2
+            armor_dict['armor_class_armor_impact'] += 2
+            armor_dict['armor_class'] += 2
+        # Заклинание 'Shield' даёт +5 AC
+        # И защищает от волшебных стрел:
+        armor_class_before = armor_dict['armor_class']
+        if self.shield:
+            armor_dict['armor_class_no_impact'] += 5
+            armor_dict['armor_class_shield_impact'] += 5
+            armor_dict['armor_class_armor_impact'] += 5
+            armor_dict['armor_class'] += 5
+            if attack_choice[-1] == 'Magic_Missile':
+                attack_dict['direct_hit'] = False
+            # Вывод результата:
+            # TODO: в отдельную функцию.
+            if attack_dict.get('attack', 0) >= armor_class_before\
+                    and attack_dict.get('attack',0) < (armor_dict['armor_class'])\
+                    and not attack_dict['attack_crit']:
+                print('[+++] {0} {1} {2} reaction Shield {3}/{4} << {5}, atc {6} dmg {7}'.format(
+                    self.ally_side, self.place, self.behavior,
+                    armor_dict['armor_class'], armor_class_before,
+                    attack_choice, attack_dict['attack'], attack_dict['damage']))
+        return armor_dict
 
     def take_damage(self, attack_choice, attack_dict, metadict_soldiers):
         """Боец реагирует на повреждения.
@@ -2603,7 +2637,7 @@ class soldier_in_battle(soldier):
             # TODO: перенеси вовне. Сделай декоратором.
             enemy_soldier = metadict_soldiers[attack_dict['sender_uuid']]
             if self.level >= 5 and damage > 0:
-                print('[!!!] {side}, {c1} {s} {w} >>>> {c2} {e}, crit {c} dmg {d}'.format(
+                print('[!!!] {side}, {c1} {s} {w} >>>> {c2} {e}, crit {c} atc {a} dmg {d}'.format(
                     side = enemy_soldier.ally_side,
                     s = enemy_soldier.behavior,
                     e = self.behavior,
@@ -2611,6 +2645,7 @@ class soldier_in_battle(soldier):
                     c2 = self.place,
                     w = attack_choice,
                     c = attack_dict['crit'],
+                    a = attack_dict.get('attack', None),
                     d = damage,
                     ))
             return attack_dict
