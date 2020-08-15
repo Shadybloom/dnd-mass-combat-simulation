@@ -2545,7 +2545,20 @@ class soldier_in_battle(soldier):
                 self.sleep = False
             # Прерывание концентрации
             if self.concentration:
-                self.set_concentration_break(difficult = round(damage / 2))
+                spell = self.concentration['spell_choice']
+                concentration_break = self.set_concentration_break(difficult = round(damage / 2))
+                if concentration_break:
+                    enemy_soldier = metadict_soldiers[attack_dict['sender_uuid']]
+                    print('[!!!] {side_1}, {c1} {s} DISPELL {spell} >> {side_2} {c2} {e}'.format(
+                        side_1 = enemy_soldier.ally_side,
+                        c1 = enemy_soldier.place,
+                        s = enemy_soldier.behavior,
+                        spell = spell[-1],
+                        side_2 = self.ally_side,
+                        c2 = self.place,
+                        e = self.behavior,
+                        ))
+                    exit()
             # Стойкость нежити (зомби не так-то просто убить):
             if self.class_features.get('Undead_Fortitude') and self.hitpoints <= 0\
                     and not attack_dict.get('attack_crit')\
