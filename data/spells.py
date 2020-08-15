@@ -174,7 +174,11 @@ class gen_spells():
         spell_slot_use = spell_choice[0]
         # Заклинания 0 уровня бесконечные:
         if spell_slot_use == 'cantrip':
-            return self.spells[spell_choice]
+            spell_level = spell_slot_use
+            spell_name = spell_choice[-1]
+            func = getattr(self, spell_name)
+            spell_dict = func(spell_level, gen_spell, spell_choice)
+            return spell_dict
         # Вызываем заклинание без ячейки, заклинание любое из доступных:
         if not use_spell_slot:
             spell_level = '1_lvl'
