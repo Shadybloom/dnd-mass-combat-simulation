@@ -854,7 +854,7 @@ class soldier_in_battle(soldier):
                 attacks_chain_bonus.append(attack_choice)
         return attacks_chain_bonus
 
-    def set_stunnign_strike(self, enemy_soldier, attack_dict):
+    def use_stunning_strike(self, enemy_soldier):
         """Монах использует оглушающую атаку.
 
         - Если противник не оглушён.
@@ -864,12 +864,21 @@ class soldier_in_battle(soldier):
         Возвращает сложность спасброска.
         """
         if self.class_features.get('Stunning_Strike')\
-                and enemy_soldier.behavior == 'commander'\
-                and not enemy_soldier.stunned:
-            if hasattr(self, 'ki_points') and self.ki_points > 0:
-                self.ki_points -= 1
-                stunned_difficult = 8 + self.proficiency_bonus + self.mods['wisdom']
-                return stunned_difficult
+                and hasattr(self, 'ki_points')\
+                and self.ki_points > 0:
+            self.ki_points -= 1
+            stunned_difficult = 8 + self.proficiency_bonus + self.mods['wisdom']
+            stunned = enemy_soldier.set_stunned(stunned_difficult)
+            if stunned:
+                print('[+++] {side_1}, {c1} {s} STUNNED >> {side_2} {c2} {e}'.format(
+                    side_1 = self.ally_side,
+                    c1 = self.place,
+                    s = self.behavior,
+                    side_2 = enemy_soldier.ally_side,
+                    c2 = enemy_soldier.place,
+                    e = enemy_soldier.behavior,
+                    ))
+                return True
 
     def set_initiative(self, advantage = False, disadvantage = False):
         """Бросок инициативы делается в начале боя.
@@ -2361,18 +2370,7 @@ class soldier_in_battle(soldier):
         return attack_result_dict
 
     def take_attack(self, attack_choice, attack_dict, metadict_soldiers):
-        """Боец реагирует на атаку.
-        
-        Возможности (все требуют действия-реакции):
-        1) Protection от союзника (установить флажок заранее)
-        2) Defensive_Duelist
-        3) Перехват стрел монахом
-
-        Также учитывается прикрытие местности (в долях от площади тела):
-        https://www.dandwiki.com/wiki/5e_SRD:Cover
-        1/2 cover -- +2 AC, +2 DEX sav
-        3/2 cover -- +5 AC, +5 DEX sav
-        """
+        """Боец реагирует на атаку."""
         result = {
                 'attack_choice':attack_choice,
                 'clumsy_miss':False,
@@ -2424,35 +2422,7 @@ class soldier_in_battle(soldier):
                 self.set_shield_break()
         # Если атака прошла, переходим к расчёту ранений:
         attack_dict.update(result)
-        # TODO: это в attack_action.
         if attack_dict['hit']:
-            enemy_soldier = metadict_soldiers[attack_dict['sender_uuid']]
-            if enemy_soldier.class_features.get('Stunning_Strike'):
-                # enemy_soldier -- атакующий монах; 'self' -- получающий удар боец.
-                stunned_difficult = enemy_soldier.set_stunnign_strike(self, attack_dict)
-                stunned = False
-                if stunned_difficult:
-                    stunned = self.set_stunned(stunned_difficult)
-                    if stunned:
-                        print('[+++] {side_1}, {c1} {s} STUNNED >> {side_2} {c2} {e}'.format(
-                            side_1 = enemy_soldier.ally_side,
-                            c1 = enemy_soldier.place,
-                            s = enemy_soldier.behavior,
-                            side_2 = self.ally_side,
-                            c2 = self.place,
-                            e = self.behavior,
-                            ))
-            # TODO: способность не используется из-за предпочтения захватов.
-            # ------------------------------------------------------------
-            # Монахи сначала пытаются сбить с ног. Сбивание, захват, удары.
-            # Выбивание реакции тем не менее полезно, если враг щитовик.
-            # ------------------------------------------------------------
-            # Атака монаха может сбить с ног:
-            elif 'Open_Hand_Technique' in attack_dict and self.prone == False:
-                attack_dict['fall_prone'] = self.set_fall_prone(enemy_soldier)
-            # Или лишить реакции:
-            elif 'Open_Hand_Technique' in attack_dict and self.prone == True:
-                self.reaction = False
             attack_dict = self.take_damage(attack_choice, attack_dict, metadict_soldiers)
         return attack_dict
 

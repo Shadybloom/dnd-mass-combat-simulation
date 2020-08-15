@@ -1896,9 +1896,21 @@ class battle_simulation(battlescape):
                         self.fireball_action(soldier, squad, spell_dict, enemy.place,
                                 single_target = enemy)
                 # Монашьи боласы могут сбить с ног:
-                if attack_result['hit'] and 'prone' in attack_result['weapon_type']\
-                        and not enemy_soldier.prone:
-                    prone = enemy_soldier.set_fall_prone(soldier, advantage, disadvantage)
+                #if attack_result['hit'] and 'prone' in attack_result['weapon_type']\
+                #        and not enemy_soldier.prone:
+                #    prone = enemy_soldier.set_fall_prone(soldier, advantage, disadvantage)
+                # Ошеломляющий удар монаха, только по командирам врага:
+                if attack_dict['hit'] and soldier.class_features.get('Stunning_Strike')\
+                        and enemy_soldier.behavior == 'commander'\
+                        and not enemy_soldier.stunned:
+                    soldier.use_stunning_strike(enemy_soldier)
+                # Враг сбивается с ног, или лишается реакции:
+                # Атака применяется только с Flurry_of_Blows
+                elif attack_dict['hit'] and 'Open_Hand_Technique' in attack_dict:
+                    if not enemy_soldier.prone:
+                        enemy_soldier.set_fall_prone(soldier)
+                    else:
+                        enemy_soldier.reaction = False
                 # Осьминоги могут оплести щупальцами и затащить в воду:
                 if attack_result['hit'] and 'restained' in attack_result['weapon_type']\
                         and not enemy_soldier.restained:
