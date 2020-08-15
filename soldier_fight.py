@@ -2514,7 +2514,7 @@ class soldier_in_battle(soldier):
                     # Всё работает, вывод можно убрать:
                     if attack_dict['attack'] <= armor_dict['armor_class']\
                             and not attack_dict['attack_crit']:
-                        print('[+++] {0} {1} {2} reaction Def Duel {3}/{4} << {5}, atc {6} dmg {7}'.format(
+                        print('[+++] {0} {1} {2} reaction Def Duel {3}/{4} << {5} atc {6} dmg {7}'.format(
                             self.ally_side, self.place, self.behavior,
                             armor_dict['armor_class'], armor_class_before,
                             attack_choice, attack_dict['attack'], attack_dict['damage']))
@@ -2571,7 +2571,7 @@ class soldier_in_battle(soldier):
             if attack_dict.get('attack', 0) >= armor_class_before\
                     and attack_dict.get('attack',0) < (armor_dict['armor_class'])\
                     and not attack_dict['attack_crit']:
-                print('[+++] {0} {1} {2} reaction Shield {3}/{4} << {5}, atc {6} dmg {7}'.format(
+                print('[+++] {0} {1} {2} reaction Shield {3}/{4} << {5} atc {6} dmg {7}'.format(
                     self.ally_side, self.place, self.behavior,
                     armor_dict['armor_class'], armor_class_before,
                     attack_choice, attack_dict['attack'], attack_dict['damage']))
@@ -2701,7 +2701,7 @@ class soldier_in_battle(soldier):
                 self.reaction = False
                 print('[+++] {0} {1} {2} reaction Deflect {3}/{4} << {5} atc {6} dmg {7}'.format(
                     self.ally_side, self.place, self.behavior,
-                    damage, attack_dict['damage'],
+                    damage_deflect, attack_dict['damage'],
                     attack_choice, attack_dict['attack'], attack_dict['damage']))
         # Прирование мастера боевых искусств:
         if attack_choice[0] == 'close' or attack_choice[0] == 'reach':
@@ -2712,7 +2712,7 @@ class soldier_in_battle(soldier):
                 self.superiority_dices -= 1
                 print('[+++] {0} {1} {2} reaction Parry {3}/{4} << {5} atc {6} dmg {7}'.format(
                     self.ally_side, self.place, self.behavior,
-                    damage, attack_dict['damage'],
+                    damage_deflect, attack_dict['damage'],
                     attack_choice, attack_dict['attack'], attack_dict['damage']))
         return damage
 
