@@ -1863,8 +1863,6 @@ class battle_simulation(battlescape):
                 # Боец подготавливает атаку:
                 attack_choice = attacks_chain.pop(0)
                 advantage, disadvantage = self.test_enemy_defence(soldier, enemy_soldier, attack_choice)
-                if not advantage:
-                    advantage = self.break_enemy_defence(soldier, squad, enemy_soldier, attack_choice)
                 # Вместо атаки можно перейти в рукопашный бой (сбивание с ног, захваты, разоружение):
                 if attack_choice[0] == 'close' and not 'no_grapple' in soldier.commands:
                     if len(soldier.near_allies) > 2\
@@ -1880,6 +1878,9 @@ class battle_simulation(battlescape):
                                 enemy_soldier, advantage, disadvantage)
                         if wrestling_action != None:
                             continue
+                # Используем приёмы вроде help_action союзника по строю:
+                if not advantage:
+                    advantage = self.break_enemy_defence(soldier, squad, enemy_soldier, attack_choice)
                 # Боец реализует атаку:
                 attack_dict = soldier.attack(soldier.attacks[attack_choice], attack_choice,
                         enemy, self.metadict_soldiers,
