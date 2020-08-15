@@ -2290,7 +2290,7 @@ class soldier_in_battle(soldier):
         """
         for item, number in self.equipment_weapon.items():
             if number > 0 and 'runes' in self.commands:
-                if item == spell:
+                if item == spell and spell == self.metadict_items[item].get('spell'):
                     spell = self.metadict_items[item].get('spell')
                 if spell == self.metadict_items[item].get('spell'):
                     spell_dict = self.try_spellcast(spell, gen_spell, use_spell_slot, use_action)
