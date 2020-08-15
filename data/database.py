@@ -59,6 +59,7 @@ class database():
         soldier.danger = 0
         soldier.buffs = {}
         soldier.debuffs = {}
+        soldier.spells_cast_list = []
         soldier.recon_near = []
         soldier.near_zone = []
         soldier.near_allies = []

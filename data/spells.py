@@ -52,6 +52,8 @@ class gen_spells():
                 spell_dict = func(spell_level)
                 spell_dict['spell_choice'] = spell
                 self.spells[spell] = spell_dict
+        # Пополняемый список скастованных заклинаний.
+        self.spells_cast_list = []
         #print(self.spells)
 
 #----
@@ -61,10 +63,14 @@ class gen_spells():
         """Кастер меняет параметры заклинания.
         
         """
-        def wrapper(self, spell_level, gen_spell = False, spell_choice = False):
+        def wrapper(self, spell_level, gen_spell = False, spell_choice = False, use_spell = True):
             soldier = self.mage
             spell_dict = func(self, spell_level, gen_spell)
-            if spell_dict:
+            if spell_dict and use_spell:
+                # Создаём список скастованных в бою заклинаний:
+                if spell_choice:
+                    soldier.spells_cast_list.append(spell_dict)
+                    #print(len(soldier.spells_cast_list))
                 # Стихийный адепт преодолевает сопротивляемость определённому урону:
                 if soldier.class_features.get('Feat_Elemental_Adept')\
                         and spell_dict.get('damage_type'):
@@ -86,6 +92,8 @@ class gen_spells():
                 #        self.bonus_hitpoints = int(spell_dict['spell_level'][0]) * 2
                 #    elif not self.arcane_ward:
                 #        self.bonus_hitpoints = self.level * 2 + self.mods['intelligence']
+                return spell_dict
+            elif spell_dict and not use_spell:
                 return spell_dict
             else:
                 # - Absorb_Elements не срабатывает, если урон не в absorb_damage_type.
@@ -149,7 +157,7 @@ class gen_spells():
         spell_level = '1_lvl'
         spell_name = spell_choice[-1]
         func = getattr(self, spell_name)
-        spell_dict = func(spell_level, gen_spell, spell_choice)
+        spell_dict = func(spell_level, gen_spell, spell_choice, use_spell = False)
         return spell_dict
 
     def use_spell(self, spell_choice, gen_spell = False, use_spell_slot = True):

@@ -181,6 +181,8 @@ class soldier_in_battle(soldier):
             self.help_action = False
         # Индивидуальные команды солдату:
         self.commands = []
+        # Скастованные заклинания (для отслеживания таймера):
+        self.spells_cast_list = []
         # Благотворные и вредные эффекты:
         self.buffs = {}
         self.debuffs = {}
