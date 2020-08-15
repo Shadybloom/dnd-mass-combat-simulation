@@ -211,7 +211,6 @@ class soldier_in_battle(soldier):
         self.damage_absorbed = None
         self.guiding_bolt_hit = False
         self.mockery_hit = False
-        self.hex = False
         # Способности бойца, паладина:
         self.action_surge = False
         # Словарь ранений (disabled)

@@ -1947,8 +1947,8 @@ class battle_simulation(battlescape):
                 # Заклинание Hex:
                 if attack_result['hit'] and soldier.concentration\
                         and soldier.concentration.get('effect') == 'hex'\
-                        and enemy_soldier.__dict__.get('hex')\
-                        and enemy_soldier.hex == soldier.uuid:
+                        and soldier.concentration['effect'] in enemy_soldier.debuffs\
+                        and soldier.concentration['target_uuid'] == enemy_soldier.uuid:
                     spell_dict = soldier.concentration
                     self.fireball_action(soldier, squad, spell_dict, enemy.place,
                             single_target = enemy)
@@ -2122,7 +2122,7 @@ class battle_simulation(battlescape):
             # Hex перенацеливается за счёт бонусного действия:
             if soldier.concentration.get('effect') == 'hex':
                 soldier.concentration['target_uuid'] = enemy_soldier.uuid
-                enemy_soldier.hex = soldier.uuid
+                enemy_soldier.debuffs[soldier.concentration['effect']] = soldier.concentration
                 soldier.bonus_action = False
             if soldier.concentration.get('effect') == 'minute_meteors':
                 self.fireball_action(soldier, squad, soldier.concentration)
@@ -2259,8 +2259,8 @@ class battle_simulation(battlescape):
                 # Заклинание Hex:
                 if attack_result['hit'] and soldier.concentration\
                         and soldier.concentration.get('effect') == 'hex'\
-                        and enemy_soldier.__dict__.get('hex')\
-                        and enemy_soldier.hex == soldier.uuid:
+                        and soldier.concentration['effect'] in enemy_soldier.debuffs\
+                        and soldier.concentration['target_uuid'] == enemy_soldier.uuid:
                     spell_dict = soldier.concentration
                     self.fireball_action(soldier, squad, spell_dict, enemy.place,
                             single_target = enemy)
@@ -2595,14 +2595,15 @@ class battle_simulation(battlescape):
             if bonus_hitpoints_bless > soldier.bonus_hitpoints:
                 soldier.set_hitpoints(bonus_hitpoints = bonus_hitpoints_bless)
         # Заклинание Hex:
-        if attack_result['hit'] and soldier.concentration\
-                and soldier.concentration.get('effect') == 'hex'\
-                and not spell_dict.get('effect') == 'hex'\
-                and enemy_soldier.__dict__.get('hex')\
-                and enemy_soldier.hex == soldier.uuid:
-            spell_dict = soldier.concentration
-            self.fireball_action(soldier, squad, spell_dict, enemy.place,
-                    single_target = enemy)
+        # Только для атак, а не для зональных эффектов.
+        #if attack_result['hit'] and soldier.concentration\
+        #        and not spell_dict.get('effect') == 'hex'\
+        #        and soldier.concentration.get('effect') == 'hex'\
+        #        and soldier.concentration['effect'] in enemy_soldier.debuffs\
+        #        and soldier.concentration['target_uuid'] == enemy_soldier.uuid:
+        #    spell_dict = soldier.concentration
+        #    self.fireball_action(soldier, squad, spell_dict, enemy.place,
+        #            single_target = enemy)
         # Победа приносит бойцу опыт:
         if attack_result['fatal_hit']:
             soldier.set_victory_and_enemy_defeat(enemy_soldier)

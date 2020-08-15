@@ -70,17 +70,19 @@ class gen_spells():
             if spell_dict and use_spell:
                 # Указываем выбор заклинания (круг и тип) в его словаре:
                 spell_dict['spell_choice'] = spell_choice
+                # А также uuid создателя заклинания:
+                spell_dict['caster_uuid'] = soldier.uuid
                 # Даём заклинанию уникальный номер:
                 # ЗАМЕТКА:
                 # ------------------------------------------------------------
                 # Помни, анон, только UUID v4 -- случайные числа,
                 # Версии 1-2 генерируются из MAC-адреса.
                 # ------------------------------------------------------------
-                spell_dict['uuid'] = uuid.uuid4()
+                spell_dict['spell_uuid'] = uuid.uuid4()
                 # Создаём список скастованных в бою заклинаний:
                 if spell_choice:
-                    if not spell_dict['uuid'] in soldier.spells_active:
-                        soldier.spells_active[spell_dict['uuid']] = spell_dict
+                    if not spell_dict['spell_uuid'] in soldier.spells_active:
+                        soldier.spells_active[spell_dict['spell_uuid']] = spell_dict
                     #print(len(soldier.spells_active))
                 # Стихийный адепт преодолевает сопротивляемость определённому урону:
                 if soldier.class_features.get('Feat_Elemental_Adept')\
