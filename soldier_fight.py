@@ -2558,7 +2558,6 @@ class soldier_in_battle(soldier):
                         c2 = self.place,
                         e = self.behavior,
                         ))
-                    exit()
             # Стойкость нежити (зомби не так-то просто убить):
             if self.class_features.get('Undead_Fortitude') and self.hitpoints <= 0\
                     and not attack_dict.get('attack_crit')\
