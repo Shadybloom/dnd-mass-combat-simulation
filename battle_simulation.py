@@ -3062,6 +3062,7 @@ class battle_simulation(battlescape):
                             and not soldier.__dict__.get('mechanism')\
                             and not soldier.__dict__.get('killer_mark')\
                             or soldier.death\
+                            or soldier.hitpoints < -(soldier.hitpoints_max)\
                             or soldier.death and soldier.__dict__.get('mechanism')\
                             or soldier.defeat and soldier.__dict__.get('mechanism_construct'):
                         content.remove(el)
