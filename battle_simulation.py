@@ -136,6 +136,10 @@ class battle_simulation(battlescape):
                 soldier.set_actions(squad)
             # Командование отряда начинает свою работу:
             self.set_squad_command_and_control(squad)
+            squad.commands = self.squad_AI(squad, squad.commander, commands = False)
+            for soldier in squad.metadict_soldiers.values():
+                if squad.commands:
+                    soldier.commands.extend(squad.commands)
         # Подготовка к бою (бонусные хиты, заклинания, отдых и лечение):
         for key,squad in self.squads.items():
             self.set_squad_buffs(squad)
