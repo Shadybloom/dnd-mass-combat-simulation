@@ -2371,6 +2371,11 @@ class soldier_in_battle(soldier):
         1/2 cover -- +2 AC, +2 DEX sav
         3/2 cover -- +5 AC, +5 DEX sav
         """
+        # TODO: используй копию self.armor.
+        # ------------------------------------------------------------
+        # Обрабатывай её в отдельной функции.
+        # Бросок атаки нам известен, пользуйся.
+        # ------------------------------------------------------------
         armor_dict = self.armor
         cover = attack_dict['enemy_cover']
         result = {
@@ -2438,6 +2443,7 @@ class soldier_in_battle(soldier):
                 self.reaction = False
                 self.shield = True
         elif hasattr(self, 'spells') and self.reaction == True and not self.shield:
+            # TODO: перепиливай щит под нормальное заклинание;
             if attack_dict.get('attack') and attack_dict['attack'] > armor_class\
                     or attack_choice[-1] == 'Magic_Missile':
                 for spell, spell_dict in self.spells.items():
@@ -2709,18 +2715,21 @@ class soldier_in_battle(soldier):
         
         - Используется заклинание Absorb_Elements, если это возможно.
         - Магическое оружие преодолевает сопротивляемость/иммунитет к обычному оружию.
-        - Наконец, учитывается уязвимость к урону.
         """
         # ------------------------------------------------------------
         # TODO: проверки реакции здесь уже не нужны.
-        # А вот проверку на процент урона к хитам стоило бы поставить
         # ------------------------------------------------------------
         # Пытаемся защититься с помощью руны или заклинания "Поглощение стихий":
         if not attack_dict['damage_type'] in self.resistance:
-            if 'runes' in self.commands and self.reaction:
-                self.use_item('Absorb_Elements', gen_spell = attack_dict['damage_type'])
-            elif self.reaction:
-                spell_dict = self.try_spellcast('Absorb_Elements', gen_spell = attack_dict['damage_type'])
+            if damage >= round(self.hitpoints * 0.2):
+                if 'runes' in self.commands and self.reaction:
+                    self.use_item(
+                            'Absorb_Elements',
+                            gen_spell = attack_dict['damage_type'])
+                elif self.reaction:
+                    spell_dict = self.try_spellcast(
+                            'Absorb_Elements',
+                            gen_spell = attack_dict['damage_type'])
         # Урон от магического оружия преодолевает иммунитет:
         if attack_dict['damage_type'] in self.immunity:
             if attack_dict.get('weapon_type') and 'magic' in attack_dict['weapon_type']:
