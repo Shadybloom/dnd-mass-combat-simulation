@@ -211,7 +211,6 @@ class soldier_in_battle(soldier):
         self.hex = False
         # Способности бойца, паладина:
         self.action_surge = False
-        self.shield = False
         # Словарь ранений (disabled)
         if not hasattr(self, 'trophy_items_dict'):
             self.traumas_dict = {}
@@ -402,8 +401,6 @@ class soldier_in_battle(soldier):
         self.dodge_action = False # это disadvantage на атаки врагов и преимущество ловксоти
         # Тактика варвара, преимущество и себе, и врагам:
         self.reckless_attack = False
-        # Заклинание "Shield" волшебника:
-        self.shield = False
         # Щит возвращается в боевое положение (если в прошлом ходу использовалось двуручное оружие):
         if self.armor['shield_use'] and not self.shield_ready:
             self.set_shield()
@@ -522,8 +519,13 @@ class soldier_in_battle(soldier):
             elif self.heroism_timer == 0:
                 self.heroism = None
         # Сброс заклинаний:
-        # TODO: это лишнее. Делай через buffs.
+        if 'shield' in self.buffs:
+            self.buffs.pop('shield')
         self.blur = False
+        # TODO: Таймер должен работать вне действий бойца.
+        # ------------------------------------------------------------
+        # Пили общий список заклинаний, проходись по ним перед ходом.
+        # ------------------------------------------------------------
         # Универсальный таймер концентрации.
         if self.concentration:
             if self.concentration['concentration_timer'] == 0:
@@ -2278,7 +2280,7 @@ class soldier_in_battle(soldier):
         Хранящий заклинание под ключом 'spell'.
         """
         for item, number in self.equipment_weapon.items():
-            if number > 0:
+            if number > 0 and 'runes' in self.commands:
                 if item == spell:
                     spell = self.metadict_items[item].get('spell')
                 if spell == self.metadict_items[item].get('spell'):
@@ -2467,27 +2469,35 @@ class soldier_in_battle(soldier):
         """
         def wrapper(self, attack_choice, attack_dict):
             armor_dict = func(self, attack_choice, attack_dict)
-            armor_class_before = armor_dict['armor_class']
             # Реакцией срабатывает волшебный щит.
-            if 'runes' in self.commands\
-                    and self.equipment_weapon.get('Rune of Shielding')\
-                    and self.reaction == True\
-                    and not self.shield:
-                if attack_dict.get('attack') and attack_dict['attack'] > armor_class_before\
+            if not 'shield' in self.buffs:
+                if attack_dict.get('attack')\
+                        and attack_dict['attack'] >= armor_dict['armor_class']\
+                        and attack_dict['attack'] < armor_dict['armor_class'] + 5\
                         or attack_choice[-1] == 'Magic_Missile':
-                    self.drop_item('Rune of Shielding')
-                    self.reaction = False
-                    self.shield = True
-            elif hasattr(self, 'spells') and self.reaction == True and not self.shield:
-                # TODO: перепиливай щит под нормальное заклинание;
-                if attack_dict.get('attack') and attack_dict['attack'] > armor_class_before\
-                        or attack_choice[-1] == 'Magic_Missile':
-                    for spell, spell_dict in self.spells.items():
-                        if spell_dict.get('effect') and spell_dict['effect'] == 'shield':
-                            spell_dict = self.spells_generator.use_spell(spell)
-                            self.reaction = False
-                            self.shield = True
-                            break
+                    if 'runes' in self.commands and self.reaction:
+                        self.use_item('Shield', gen_spell = True)
+                    elif self.reaction:
+                        self.try_spellcast('Shield', gen_spell = True)
+            # Заклинание 'Shield' даёт +5 AC
+            # И защищает от волшебных стрел:
+            armor_class_before = armor_dict['armor_class']
+            if 'shield' in self.buffs:
+                armor_dict['armor_class_no_impact'] += 5
+                armor_dict['armor_class_shield_impact'] += 5
+                armor_dict['armor_class_armor_impact'] += 5
+                armor_dict['armor_class'] += 5
+                if attack_choice[-1] == 'Magic_Missile':
+                    attack_dict['direct_hit'] = False
+                # Вывод результата:
+                # TODO: в отдельную функцию.
+                if attack_dict.get('attack', 0) >= armor_class_before\
+                        and attack_dict.get('attack',0) < (armor_dict['armor_class'])\
+                        and not attack_dict['attack_crit']:
+                    print('[+++] {0} {1} {2} reaction Shield {3}/{4} << {5} atc {6} dmg {7}'.format(
+                        self.ally_side, self.place, self.behavior,
+                        armor_dict['armor_class'], armor_class_before,
+                        attack_choice, attack_dict['attack'], attack_dict['damage']))
             return armor_dict
         return wrapper
 
@@ -2505,14 +2515,14 @@ class soldier_in_battle(soldier):
             if attack_choice[0] == 'close' or attack_choice[0] == 'reach':
                 if self.class_features.get('Feat_Defensive_Duelist')\
                         and self.reaction == True\
-                        and attack_dict['attack'] > armor_class_before\
+                        and attack_dict['attack'] >= armor_class_before\
                         and attack_dict['attack'] < armor_class_before + self.proficiency_bonus:
                     armor_dict['armor_class_shield_impact'] += self.proficiency_bonus
                     armor_dict['armor_class_armor_impact'] += self.proficiency_bonus
                     armor_dict['armor_class'] += self.proficiency_bonus
                     self.reaction = False
                     # Всё работает, вывод можно убрать:
-                    if attack_dict['attack'] <= armor_dict['armor_class']\
+                    if attack_dict['attack'] < armor_dict['armor_class']\
                             and not attack_dict['attack_crit']:
                         print('[+++] {0} {1} {2} reaction Def Duel {3}/{4} << {5} atc {6} dmg {7}'.format(
                             self.ally_side, self.place, self.behavior,
@@ -2556,25 +2566,6 @@ class soldier_in_battle(soldier):
             armor_dict['armor_class_shield_impact'] += 2
             armor_dict['armor_class_armor_impact'] += 2
             armor_dict['armor_class'] += 2
-        # Заклинание 'Shield' даёт +5 AC
-        # И защищает от волшебных стрел:
-        armor_class_before = armor_dict['armor_class']
-        if self.shield:
-            armor_dict['armor_class_no_impact'] += 5
-            armor_dict['armor_class_shield_impact'] += 5
-            armor_dict['armor_class_armor_impact'] += 5
-            armor_dict['armor_class'] += 5
-            if attack_choice[-1] == 'Magic_Missile':
-                attack_dict['direct_hit'] = False
-            # Вывод результата:
-            # TODO: в отдельную функцию.
-            if attack_dict.get('attack', 0) >= armor_class_before\
-                    and attack_dict.get('attack',0) < (armor_dict['armor_class'])\
-                    and not attack_dict['attack_crit']:
-                print('[+++] {0} {1} {2} reaction Shield {3}/{4} << {5} atc {6} dmg {7}'.format(
-                    self.ally_side, self.place, self.behavior,
-                    armor_dict['armor_class'], armor_class_before,
-                    attack_choice, attack_dict['attack'], attack_dict['damage']))
         return armor_dict
 
     def take_damage(self, attack_choice, attack_dict, metadict_soldiers):
@@ -2753,6 +2744,7 @@ class soldier_in_battle(soldier):
         """
         # ------------------------------------------------------------
         # TODO: проверки реакции здесь уже не нужны.
+        # Проверка на опасный урон должна быть отдельной функцией.
         # ------------------------------------------------------------
         # Пытаемся защититься с помощью руны или заклинания "Поглощение стихий":
         if not attack_dict['damage_type'] in self.resistance:

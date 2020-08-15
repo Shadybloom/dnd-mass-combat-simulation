@@ -1294,7 +1294,7 @@ metadict_items['Rune of Absorbtion'] = {
 
 metadict_items['Rune of Shielding'] = {
     'potion':True,
-    'effect':'shield',
+    'spell':'Shield',
     'weight (lb)':1/2,
     'cost (gp)':240,
     'cost (grams_of_gold)':60 * 4,

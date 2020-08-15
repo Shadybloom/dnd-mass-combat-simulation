@@ -73,6 +73,8 @@ class gen_spells():
                         spell_dict['ignore_resistance'] = ignore_resistance
                 # Указываем выбор заклинания (круг и тип) в его словаре:
                 spell_dict['spell_choice'] = spell_choice
+                #if spell_choice:
+                #    print('NYA', spell_choice)
 
                 # TODO: Arcane_Ward перенеси сюда из Mage_Armor.
                 # ------------------------------------------------------------
@@ -263,7 +265,7 @@ class gen_spells():
         spell_dict = {
                 'effect':'sacred_weapon',
                 'effect_timer':10,
-                'subspell':('subspell', 'light'),
+                'subspell':'Light',
                 'components':[],
                 'casting_time':None,
                 'attack_mod':self.mage.mods['charisma'],
@@ -1150,6 +1152,12 @@ class gen_spells():
                 'spell_of_choice':'Magic_Missile',
                 }
         spell_dict = copy.deepcopy(spell_dict)
+        if gen_spell:
+            soldier = self.mage
+            if not 'shield' in soldier.buffs:
+                soldier.buffs[spell_dict['effect']] = spell_dict
+            else:
+                return False
         return spell_dict
 
     @modify_spell
@@ -1276,7 +1284,7 @@ class gen_spells():
         """
         spell_dict = {
                 'effect':'ice_knife',
-                'subspell':('subspell', 'Ice_Knife_Piercing'),
+                'subspell':'Ice_Knife_Piercing',
                 'zone':True,
                 'direct_hit':True,
                 'savethrow':True,
@@ -1295,14 +1303,6 @@ class gen_spells():
                 'spell_of_choice':'Magic_Missile',
                 }
         spell_dict = copy.deepcopy(spell_dict)
-        # Добавляем субзаклинание Ice_Knife_Piercing как основной поражающий элемент:
-        if spell_dict.get('subspell'):
-            subspell = spell_dict['subspell']
-            subspell_name = spell_dict['subspell'][-1]
-            subspell_level = spell_dict['subspell'][0]
-            if subspell_name in self.usable_spells and not self.spells.get(subspell):
-                func = getattr(self, subspell_name)
-                self.spells[subspell] = func(subspell_level)
         if int(spell_level[0]) > 1:
             dice = int(spell_dict['damage_dice'][0])
             dice += int(spell_level[0]) - 1
@@ -1967,7 +1967,7 @@ class gen_spells():
                 'direct_hit':True,
                 'savethrow':True,
                 'savethrow_ability':'dexterity',
-                'subspell':('subspell', 'Ice_Storm_Cold'),
+                'subspell':'Ice_Storm_Cold',
                 'attacks_number':1,
                 'attack_range':300,
                 'radius':20,
@@ -1981,13 +1981,6 @@ class gen_spells():
                 'spell_of_choice':'Magic_Missile',
                 }
         spell_dict = copy.deepcopy(spell_dict)
-        if spell_dict.get('subspell'):
-            subspell = spell_dict['subspell']
-            subspell_name = spell_dict['subspell'][-1]
-            subspell_level = spell_dict['subspell'][0]
-            if subspell_name in self.usable_spells and not self.spells.get(subspell):
-                func = getattr(self, subspell_name)
-                self.spells[subspell] = func(subspell_level)
         if int(spell_level[0]) > 4:
             dice = int(spell_dict['damage_dice'][0])
             dice += int(spell_level[0]) - 1
@@ -1999,7 +1992,6 @@ class gen_spells():
 #----
 # 5 lvl
 
-    @modify_spell
     @modify_spell
     def Cone_of_Cold(self, spell_level, gen_spell = False):
         """Конус холода.
