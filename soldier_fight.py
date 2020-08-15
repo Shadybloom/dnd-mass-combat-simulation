@@ -181,11 +181,12 @@ class soldier_in_battle(soldier):
             self.help_action = False
         # Индивидуальные команды солдату:
         self.commands = []
-        # Скастованные заклинания (для отслеживания таймера):
-        self.spells_cast_list = []
         # Благотворные и вредные эффекты:
         self.buffs = {}
         self.debuffs = {}
+        # Скастованные заклинания:
+        # Для таймера в clear_spells.
+        self.spells_active = {}
         # Общие для всех параметры:
         self.immunity = []
         self.resistance = []
@@ -255,8 +256,6 @@ class soldier_in_battle(soldier):
             self.arcane_ward = False
         if not hasattr(self, 'heroism'):
             self.heroism = False
-        if not hasattr(self, 'blur'):
-            self.blur = False
         if not hasattr(self, 'sacred_weapon'):
             self.sacred_weapon = False
         if not hasattr(self, 'destructive_wrath'):
@@ -520,23 +519,6 @@ class soldier_in_battle(soldier):
                     self.bonus_hitpoints = self.level
             elif self.heroism_timer == 0:
                 self.heroism = None
-        # Сброс заклинаний:
-        if 'shield' in self.buffs:
-            self.buffs.pop('shield')
-        self.blur = False
-        # TODO: Таймер должен работать вне действий бойца.
-        # ------------------------------------------------------------
-        # Пили общий список заклинаний, проходись по ним перед ходом.
-        # ------------------------------------------------------------
-        # Универсальный таймер концентрации.
-        if self.concentration:
-            if self.concentration['concentration_timer'] == 0:
-                self.set_concentration_break(autofail = True)
-            elif self.concentration['concentration_timer'] > 0:
-                self.concentration['concentration_timer'] -= 1
-                spell_dict = self.concentration
-                if spell_dict.get('effect') == 'blur':
-                    self.blur = True
         # TODO: Потихоньку переделывай функции:
         # Channel_Sacred_Weapon
         if self.sacred_weapon:
@@ -724,8 +706,10 @@ class soldier_in_battle(soldier):
         if self.get_savethrow(difficult, ability, advantage, disadvantage) and not autofail:
             return False
         else:
-            # Этот тег используется, чтобы снимать баффы с солдат.
+            # Эти теги используются, чтобы снимать баффы с солдат:
             self.concentration['concentration_break'] = True
+            self.concentration['concentration_timer'] = 0
+            self.concentration['effect_timer'] = 0
             self.concentration = False
             return True
 

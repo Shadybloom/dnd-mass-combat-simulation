@@ -4,6 +4,7 @@
 import inspect
 import random
 import copy
+import uuid
 
 class gen_spells():
     """Заклинания представлены как функции.
@@ -53,7 +54,7 @@ class gen_spells():
                 spell_dict['spell_choice'] = spell
                 self.spells[spell] = spell_dict
         # Пополняемый список скастованных заклинаний.
-        self.spells_cast_list = []
+        soldier.spells_active = {}
         #print(self.spells)
 
 #----
@@ -67,18 +68,26 @@ class gen_spells():
             soldier = self.mage
             spell_dict = func(self, spell_level, gen_spell)
             if spell_dict and use_spell:
+                # Указываем выбор заклинания (круг и тип) в его словаре:
+                spell_dict['spell_choice'] = spell_choice
+                # Даём заклинанию уникальный номер:
+                # ЗАМЕТКА:
+                # ------------------------------------------------------------
+                # Помни, анон, только UUID v4 -- случайные числа,
+                # Версии 1-2 генерируются из MAC-адреса.
+                # ------------------------------------------------------------
+                spell_dict['uuid'] = uuid.uuid4()
                 # Создаём список скастованных в бою заклинаний:
                 if spell_choice:
-                    soldier.spells_cast_list.append(spell_dict)
-                    #print(len(soldier.spells_cast_list))
+                    if not spell_dict['uuid'] in soldier.spells_active:
+                        soldier.spells_active[spell_dict['uuid']] = spell_dict
+                    #print(len(soldier.spells_active))
                 # Стихийный адепт преодолевает сопротивляемость определённому урону:
                 if soldier.class_features.get('Feat_Elemental_Adept')\
                         and spell_dict.get('damage_type'):
                     ignore_resistance = soldier.class_features['Feat_Elemental_Adept']
                     if spell_dict['damage_type'] == ignore_resistance:
                         spell_dict['ignore_resistance'] = ignore_resistance
-                # Указываем выбор заклинания (круг и тип) в его словаре:
-                spell_dict['spell_choice'] = spell_choice
                 #if spell_choice:
                 #    print('NYA', spell_choice)
 
@@ -186,8 +195,13 @@ class gen_spells():
                 # Используем подготовленное заклинание из списка заклинаний:
                 elif self.spellslots[spell_slot] > 0:
                     self.spellslots[spell_slot] -= 1
-                    spell_dict = self.spells[spell_choice]
-                    spell_dict['spell_choice'] = spell_choice
+                    gen_spell = False
+                    spell_level = spell_slot[0]
+                    spell_name = spell_choice[-1]
+                    func = getattr(self, spell_name)
+                    spell_dict = func(spell_level, gen_spell, spell_choice)
+                    #spell_dict = copy.deepcopy(self.spells[spell_choice])
+                    #spell_dict['spell_choice'] = spell_choice
                 if self.spellslots[spell_slot] <= 0:
                     # Убираем закончившиеся ячейки:
                     # Убираем заклинания этого уровня, если ячейки закончились:
@@ -1224,6 +1238,7 @@ class gen_spells():
         # TODO: броня берётся из metadict_item.
         spell_dict = {
                 'effect':'mage_armor',
+                'effect_timer':4800,
                 'armor':True,
                 'armor_type':'Force',
                 'armor_class_armor':13,
@@ -1569,6 +1584,9 @@ class gen_spells():
                 'spell_of_choice':'Magic_Missile',
                 }
         spell_dict = copy.deepcopy(spell_dict)
+        if gen_spell:
+            soldier = self.mage
+            soldier.buffs[spell_dict['effect']] = spell_dict
         return spell_dict
 
     @modify_spell

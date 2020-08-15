@@ -570,6 +570,8 @@ class battle_simulation(battlescape):
             start = timeit.default_timer()
             # Чистим карту от павших в прошлом раунде:
             self.clear_battlemap()
+            # Чистим списки закончившихся заклинаний, работает таймер:
+            self.clear_spells()
             for squad in self.squads.values():
                 # Тяжелораненые могут погибнуть:
                 self.fall_to_death(squad)
@@ -2115,7 +2117,7 @@ class battle_simulation(battlescape):
                     'Blur',
                     ]
             for spell in spells_list:
-                soldier.try_spellcast(spell)
+                soldier.try_spellcast(spell, gen_spell = True)
         if soldier.concentration and soldier.bonus_action:
             # Hex перенацеливается за счёт бонусного действия:
             if soldier.concentration.get('effect') == 'hex':
@@ -2754,7 +2756,7 @@ class battle_simulation(battlescape):
         if enemy_soldier.dodge_action == True:
             disadvantage = True
         # Заклинание 'Размытый образ' прикрывает от атак:
-        elif enemy_soldier.blur == True:
+        if 'blur' in enemy_soldier.buffs:
             disadvantage = True
         # В темноте/тумане сложно атаковать:
         if 'obscure_terrain' in self.dict_battlespace[enemy_soldier.place]:
@@ -3100,6 +3102,27 @@ class battle_simulation(battlescape):
                     except ValueError:
                         #traceback.print_exc()
                         pass
+
+    def clear_spells(self):
+        """Работает таймер заклинаний.
+        
+        - Отмечаем закончившиеся заклинания.
+        """
+        for soldier in self.metadict_soldiers.values():
+            if soldier.spells_active:
+                for spell in soldier.spells_active.values():
+                    if spell.get('effect_timer', 0) > 0:
+                        spell['effect_timer'] -= 1
+                    if spell.get('concentration_timer', 0) > 0:
+                        spell['concentration_timer'] -= 1
+                    else:
+                        # Отмена закончившихся заклинаний:
+                        if spell == soldier.concentration:
+                            soldier.set_concentration_break(autofail = True)
+                        if spell in [el for el in soldier.buffs.values()]:
+                            soldier.buffs.pop(spell['effect'])
+                        if spell in [el for el in soldier.debuffs.values()]:
+                            soldier.debuffs.pop(spell['effect'])
 
     def print_battle_statistics(self):
         """Вывод статистики после боя. Убитые, раненые по отрядам."""
