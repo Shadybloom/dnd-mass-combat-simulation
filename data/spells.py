@@ -73,6 +73,17 @@ class gen_spells():
                         spell_dict['ignore_resistance'] = ignore_resistance
                 # Указываем выбор заклинания (круг и тип) в его словаре:
                 spell_dict['spell_choice'] = spell_choice
+
+                # TODO: Arcane_Ward перенеси сюда из Mage_Armor.
+                # ------------------------------------------------------------
+                # Срабатывает на любые заклинания школы abjuration.
+                # ------------------------------------------------------------
+                # Магическая защита восстанавливается или создаётся:
+                #if self.class_features.get('Arcane_Ward'):
+                #    if self.arcane_ward and not self.bonus_hitpoints:
+                #        self.bonus_hitpoints = int(spell_dict['spell_level'][0]) * 2
+                #    elif not self.arcane_ward:
+                #        self.bonus_hitpoints = self.level * 2 + self.mods['intelligence']
                 return spell_dict
             else:
                 # - Absorb_Elements не срабатывает, если урон не в absorb_damage_type.
