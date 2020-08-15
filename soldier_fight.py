@@ -2373,11 +2373,6 @@ class soldier_in_battle(soldier):
         1/2 cover -- +2 AC, +2 DEX sav
         3/2 cover -- +5 AC, +5 DEX sav
         """
-        # TODO: используй копию self.armor.
-        # ------------------------------------------------------------
-        # Обрабатывай её в отдельной функции.
-        # Бросок атаки нам известен, пользуйся.
-        # ------------------------------------------------------------
         result = {
                 'attack_choice':attack_choice,
                 'clumsy_miss':False,
@@ -2429,6 +2424,7 @@ class soldier_in_battle(soldier):
                 self.set_shield_break()
         # Если атака прошла, переходим к расчёту ранений:
         attack_dict.update(result)
+        # TODO: это в attack_action.
         if attack_dict['hit']:
             enemy_soldier = metadict_soldiers[attack_dict['sender_uuid']]
             if enemy_soldier.class_features.get('Stunning_Strike'):
@@ -2588,9 +2584,9 @@ class soldier_in_battle(soldier):
         damage = self.damage_modify_victim(attack_dict, damage)
         # Спасбросок против урона заклинаний:
         if attack_dict.get('savethrow'):
-            damage = self.damage_savethrow(attack_dict, damage)
+            damage = self.damage_modify_savethrow(attack_dict, damage)
         # Иммунитет, сопротивляемость, уязвимость:
-        damage = self.damage_resistance(attack_dict, damage)
+        damage = self.damage_modify_resistance(attack_dict, damage)
         if damage > 0:
             # Бонусные хиты от Feat_Inspiring_Leader и подобного:
             if self.bonus_hitpoints and self.bonus_hitpoints > 0:
@@ -2678,6 +2674,7 @@ class soldier_in_battle(soldier):
                     or attack_dict['damage_type'] == 'piercing'\
                     or attack_dict['damage_type'] == 'slashing':
                 damage -= 3
+        # TODO: сделай через декораторы, чтобы можно было менять порядок реакции.
         # Уклонение плута срабатывает только против ударов с броском атаки:
         if self.class_features.get('Uncanny_Dodge') and self.reaction\
                 and attack_dict.get('attack'):
@@ -2707,7 +2704,7 @@ class soldier_in_battle(soldier):
                     attack_choice, attack_dict['attack'], attack_dict['damage']))
         return damage
 
-    def damage_savethrow(self, attack_dict, damage, savethrow_bonus = 0):
+    def damage_modify_savethrow(self, attack_dict, damage, savethrow_bonus = 0):
         """Спасбросок от урона заклинаний, дыхания дракона, шрапнели и т.п.
         
         - Успешный спасбросок = 50% урона
@@ -2732,7 +2729,7 @@ class soldier_in_battle(soldier):
                 damage = round(damage / 2)
         return damage
 
-    def damage_resistance(self, attack_dict, damage):
+    def damage_modify_resistance(self, attack_dict, damage):
         """Иммунитет, сопротивляемость, уязвимость к урону.
 
         Иммунитет = 0 урона
