@@ -2425,7 +2425,7 @@ class battle_simulation(battlescape):
                 subspell_dict = None
                 if spell_dict.get('subspell'):
                     subspell_dict = soldier.try_spellcast(spell_dict.get('subspell'),
-                            use_spell_slot = False, use_action = False)
+                            use_spell_slot = False, use_action = False, gen_spell = True)
                 # Зональное заклинание поражает цели:
                 for enemy in targets:
                     self.fireball_action_target(soldier, squad, spell_dict, enemy, safe)
