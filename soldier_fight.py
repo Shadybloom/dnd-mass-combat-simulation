@@ -1963,7 +1963,6 @@ class soldier_in_battle(soldier):
         В выводе словарь атаки с числами атаки и урона.
         А также типом повреждений (piercing, slashing, bludgeoning)
         """
-        target_cover = enemy.cover
         enemy_soldier = metadict_soldiers[enemy.uuid]
         # Используется боеприпас (стрела, дротик, яд для меча), если указан:
         if attack_dict.get('ammo'):
@@ -1980,20 +1979,12 @@ class soldier_in_battle(soldier):
                 and 'two_handed' in attack_dict['weapon_type']\
                 and self.armor['shield_use']:
             self.unset_shield()
-        # Стрельба из лука/арбалета неудобна вблизи,
-        # Или на сверхдальности (для всех, кроме снайперов):
-        if attack_dict.get('weapon_type')\
-                and attack_choice[0] == 'ranged':
-            if attack_dict['attack_range'] > self.tile_size * 2:
-                if enemy.distance <= 2:
-                    disadvantage = True
-                elif enemy.distance > round(attack_dict['attack_range'] / self.tile_size)\
-                        and not self.class_features.get('Feat_Sharpshooter'):
-                    disadvantage = True
-            # Меткие стрелки игнорируют укрытие и помехи по дальности:
-            # TODO: для этого есть тег ignore_cover
-            if self.class_features.get('Feat_Sharpshooter'):
-                target_cover = 0
+        # Стрельба неудобна вблизи и на сверхдальности:
+        if attack_dict.get('weapon_type') and attack_choice[0] == 'ranged':
+            if enemy.distance <= 2:
+                disadvantage = True
+            elif enemy.distance > round(attack_dict['attack_range'] / self.tile_size):
+                disadvantage = True
         # Бардовское Vicious_Mockery портит одиночную атаку:
         if self.mockery_hit:
             self.mockery_hit = False
@@ -2131,7 +2122,7 @@ class soldier_in_battle(soldier):
                 'attack_loss':attack_loss,
                 'advantage':advantage,
                 'disadvantage':disadvantage,
-                'enemy_cover':target_cover,
+                'enemy_cover':enemy.cover,
                 'enemy_distance':enemy.distance,
                 'victim_side':enemy.side,
                 'victim_type':enemy.type,
@@ -2397,6 +2388,7 @@ class soldier_in_battle(soldier):
                 result['armor_impact'] = True
             elif attack_dict['attack'] <= 0 or attack_dict['attack_loss']:
                 result['clumsy_miss'] = True
+        # Волшебные стрелы всегда попадают в цель:
         elif attack_dict.get('direct_hit'):
             result['hit'] = True
         # Пилумы застревают в щитах:
@@ -2496,22 +2488,22 @@ class soldier_in_battle(soldier):
         # Местность даёт прикрытие (особенно от лучников):
         armor_dict = copy.deepcopy(self.armor)
         cover = attack_dict['enemy_cover']
-        # 1/2 cover -- +2 AC, +2 DEX sav
-        if cover >= 4 and cover < 7:
-            armor_dict['armor_class_no_impact'] += 2
-            armor_dict['armor_class_shield_impact'] += 2
-            armor_dict['armor_class_armor_impact'] += 2
-            armor_dict['armor_class'] += 2
-            armor_dict['savethrow_bonus_cover'] = 2
-        # 3/2 cover -- +5 AC, +5 DEX sav
-        elif cover >= 7:
-            armor_dict['armor_class_no_impact'] += 5
-            armor_dict['armor_class_shield_impact'] += 5
-            armor_dict['armor_class_armor_impact'] += 5
-            armor_dict['armor_class'] += 5
-            armor_dict['savethrow_bonus_cover'] = 5
-        else:
-            armor_dict['savethrow_bonus_cover'] = 0
+        armor_dict['savethrow_bonus_cover'] = 0
+        if not 'ignore_cover' in attack_dict:
+            # 1/2 cover -- +2 AC, +2 DEX sav
+            if cover >= 4 and cover < 7:
+                armor_dict['armor_class_no_impact'] += 2
+                armor_dict['armor_class_shield_impact'] += 2
+                armor_dict['armor_class_armor_impact'] += 2
+                armor_dict['armor_class'] += 2
+                armor_dict['savethrow_bonus_cover'] = 2
+            # 3/2 cover -- +5 AC, +5 DEX sav
+            elif cover >= 7:
+                armor_dict['armor_class_no_impact'] += 5
+                armor_dict['armor_class_shield_impact'] += 5
+                armor_dict['armor_class_armor_impact'] += 5
+                armor_dict['armor_class'] += 5
+                armor_dict['savethrow_bonus_cover'] = 5
         # Заклинание "Shield_of_Faith" даёт +2 AC:
         if 'shield_of_faith' in self.buffs:
             armor_dict['armor_class_no_impact'] += 2

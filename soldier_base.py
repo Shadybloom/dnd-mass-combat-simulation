@@ -1345,6 +1345,8 @@ class soldier():
         # Игнорировать укрытие; а также стрелять на +10 урон за счёт -5 атаки:
         if class_features.get('Feat_Sharpshooter') and dict_attack['attack_type'] == 'ranged':
             if 'ranged' in weapon_type_list:
+                dict_attack['ignore_cover'] = True
+                dict_attack['attack_range'] = dict_attack['attack_range_max']
                 weapon_skills_use.append('Sharpshooter')
         attack_mod_dict = {
                 'weapon_skills_use':weapon_skills_use,
