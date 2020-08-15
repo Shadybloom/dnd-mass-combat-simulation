@@ -61,15 +61,23 @@ class gen_spells():
         """Кастер меняет параметры заклинания.
         
         """
-        def wrapper(self, spell_level, gen_spell = False):
+        def wrapper(self, spell_level, gen_spell = False, spell_choice = False):
             soldier = self.mage
             spell_dict = func(self, spell_level, gen_spell)
-            # Стихийный адепт преодолевает сопротивляемость определённому урону:
-            if soldier.class_features.get('Feat_Elemental_Adept') and spell_dict.get('damage_type'):
-                ignore_resistance = soldier.class_features['Feat_Elemental_Adept']
-                if spell_dict['damage_type'] == ignore_resistance:
-                    spell_dict['ignore_resistance'] = ignore_resistance
-            return spell_dict
+            if spell_dict:
+                # Стихийный адепт преодолевает сопротивляемость определённому урону:
+                if soldier.class_features.get('Feat_Elemental_Adept')\
+                        and spell_dict.get('damage_type'):
+                    ignore_resistance = soldier.class_features['Feat_Elemental_Adept']
+                    if spell_dict['damage_type'] == ignore_resistance:
+                        spell_dict['ignore_resistance'] = ignore_resistance
+                # Указываем выбор заклинания (круг и тип) в его словаре:
+                spell_dict['spell_choice'] = spell_choice
+                return spell_dict
+            else:
+                # - Absorb_Elements не срабатывает, если урон не в absorb_damage_type.
+                #raise Exception("Заклинание не сработало", spell_choice)
+                pass
         return wrapper
 
 #----
@@ -128,8 +136,7 @@ class gen_spells():
         spell_level = '1_lvl'
         spell_name = spell_choice[-1]
         func = getattr(self, spell_name)
-        spell_dict = func(spell_level, gen_spell)
-        spell_dict['spell_choice'] = spell_choice
+        spell_dict = func(spell_level, gen_spell, spell_choice)
         return spell_dict
 
     def use_spell(self, spell_choice, gen_spell = False, use_spell_slot = True):
@@ -143,22 +150,19 @@ class gen_spells():
             spell_level = '1_lvl'
             spell_name = spell_choice[-1]
             func = getattr(self, spell_name)
-            spell_dict = func(spell_level, gen_spell)
-            if spell_dict:
-                spell_dict['spell_choice'] = spell_choice
-                return spell_dict
-            else:
-                return False
+            spell_dict = func(spell_level, gen_spell, spell_choice)
+            return spell_dict
         # Используем ячейку заклинания:
         for spell_slot in self.spellslots:
             if spell_slot == spell_slot_use:
+                # Генерируем заклинание, в том числе и неизвестное магу:
                 if self.spellslots[spell_slot] > 0 and gen_spell:
                     self.spellslots[spell_slot] -= 1
                     spell_level = spell_slot[0]
                     spell_name = spell_choice[-1]
                     func = getattr(self, spell_name)
-                    spell_dict = func(spell_level, gen_spell)
-                    spell_dict['spell_choice'] = spell_choice
+                    spell_dict = func(spell_level, gen_spell, spell_choice)
+                # Используем подготовленное заклинание из списка заклинаний:
                 elif self.spellslots[spell_slot] > 0:
                     self.spellslots[spell_slot] -= 1
                     spell_dict = self.spells[spell_choice]
