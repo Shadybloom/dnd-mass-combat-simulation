@@ -265,7 +265,7 @@ class gen_spells():
         spell_dict = {
                 'effect':'sacred_weapon',
                 'effect_timer':10,
-                'subspell':'Light',
+                #'subspell':'Light',
                 'components':[],
                 'casting_time':None,
                 'attack_mod':self.mage.mods['charisma'],
