@@ -78,7 +78,8 @@ class soldier_in_battle(soldier):
             '30':155000,
             }
 
-    def set_hitpoints(self, damage = None, heal = None, bonus_hitpoints = None):
+    def set_hitpoints(self, damage = None, heal = None,
+            bonus_hitpoints = None, max_hitpoints = None):
         """Контроль хитпоинтов в начале и в ходе боя.
         
         Варианты:
@@ -103,6 +104,10 @@ class soldier_in_battle(soldier):
             self.hitpoints_heal += heal
         if bonus_hitpoints:
             self.bonus_hitpoints = bonus_hitpoints
+        # Изменённый максимум хитов, например заклинанием Aid:
+        # Бэкап хитов хранится в self.hitpoints_max_backup
+        if max_hitpoints:
+            self.hitpoints_max = max_hitpoints
         return self.hitpoints
 
     def set_short_rest_rearm(self):
@@ -698,9 +703,7 @@ class soldier_in_battle(soldier):
         effect = spell_dict['effect']
         if effect not in self.buffs:
             self.buffs[effect] = spell_dict
-            return True
-        else:
-            self.buffs[effect] = spell_dict
+            self.spells_generator.use_buff(spell_dict['spell_choice'])
             return True
 
     def set_frenzy(self, attack_choice):

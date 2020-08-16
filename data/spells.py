@@ -2048,6 +2048,38 @@ class gen_spells():
             spell_dict['attack_range'] *= 2
         return spell_dict
 
+    @modify_spell
+    def Aid(self, spell_level, gen_spell = False):
+        """Подмога
+
+        Level: 2
+        Casting time: 1 Action
+        Range: 30 feet
+        Components: V, S, M (a tiny strip of white cloth)
+        Duration: 8 hours
+        https://www.dnd-spells.com/spell/aid
+        """
+        spell_dict = {
+                'buff':True,
+                'effect':'aid',
+                'effect_timer':4800,
+                'attack_range':30,
+                'attacks_number':3,
+                'damage_type':'heal',
+                'damage_dice':'0d0',
+                'damage_mod':5,
+                'components':['verbal','somatic','material'],
+                'casting_time':'action',
+                'spell_level':spell_level,
+                'spell_of_choice':'Magic_Missile',
+                }
+        spell_dict = copy.deepcopy(spell_dict)
+        if gen_spell:
+            soldier = self.mage
+            max_hitpoints = soldier.hitpoints_max + spell_dict['damage_mod']
+            soldier.set_hitpoints(max_hitpoints = max_hitpoints)
+        return spell_dict
+
 #----
 # 3 lvl
 

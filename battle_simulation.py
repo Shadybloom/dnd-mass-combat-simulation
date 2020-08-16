@@ -415,12 +415,13 @@ class battle_simulation(battlescape):
                 # В заклинаниях указывай buff = True.
                 ## -------------------------------------------------
                 bless_list = [
+                        'Aid',
                         'Bless',
                         'Shield_of_Faith',
                         ]
                 for bless in bless_list:
-                    if soldier.try_spellcast(bless):
-                        spell_dict = soldier.concentration
+                    spell_dict = soldier.try_spellcast(bless)
+                    if spell_dict:
                         soldiers_list = self.select_soldiers_for_bless(
                                 spell_dict['attacks_number'], squad.ally_side, spell_dict['effect'])
                         for ally_soldier in soldiers_list:
