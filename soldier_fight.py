@@ -253,8 +253,6 @@ class soldier_in_battle(soldier):
             self.wild_shape_old_form = None
         if not hasattr(self, 'arcane_ward'):
             self.arcane_ward = False
-        if not hasattr(self, 'heroism'):
-            self.heroism = False
         if not hasattr(self, 'sacred_weapon'):
             self.sacred_weapon = False
         if not hasattr(self, 'destructive_wrath'):
@@ -477,11 +475,6 @@ class soldier_in_battle(soldier):
         # Возвращение друида в обычную форму, если не осталось бонусных хитов:
         if self.wild_shape and self.bonus_hitpoints <= 0:
             self.return_old_form()
-        # Бесстрашные бойцы бесстрашны:
-        if self.__dict__.get('fearless_AI')\
-                or self.__dict__.get('heroism'):
-            self.fearless = True
-            self.commands.append('fearless')
         # Особенности монстров:
         # Перезарядка способности:
         if self.class_features.get('Recharge') and self.recharge_dict:
@@ -504,13 +497,6 @@ class soldier_in_battle(soldier):
                 self.resistance = []
                 self.frenzy = False
                 self.rage = False
-        if self.heroism:
-            if self.heroism_timer > 0:
-                self.heroism_timer -= 1
-                if self.bonus_hitpoints < self.level:
-                    self.bonus_hitpoints = self.level
-            elif self.heroism_timer == 0:
-                self.heroism = None
         # TODO: Потихоньку переделывай функции:
         # Channel_Sacred_Weapon
         if self.sacred_weapon:
@@ -1158,18 +1144,10 @@ class soldier_in_battle(soldier):
 
     def use_potion_of_heroism(self, use_battle_action = True):
         """Боец использует зелье героизма.
-        
-        Homebrew: даёт +1 hp/уровень в течении минуты.
         """
+        # TODO: переделать в заклинание.
         if self.battle_action or use_battle_action == False:
-            if self.equipment_weapon.get('Infusion of Heroism', 0) > 0:
-                self.drop_item('Infusion of Heroism')
-                self.heroism_timer = 10
-                self.heroism = True
-                if self.bonus_hitpoints < self.level:
-                    self.bonus_hitpoints = self.level
-                return True
-            elif self.equipment_weapon.get('Potion of Bravery', 0) > 0:
+            if self.equipment_weapon.get('Potion of Bravery', 0) > 0:
                 self.drop_item('Potion of Bravery')
                 spell_dict = self.metadict_items['Potion of Bravery']
                 bonus_hitpoints = dices.dice_throw(spell_dict['healing_dice'])

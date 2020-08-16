@@ -1263,15 +1263,15 @@ metadict_items['Infusion of Longstrider'] = {
     }
 
 metadict_items['Infusion of Heroism'] = {
-    # Бесстрашие и +1 бонусных_хитов/уровень каждый раунд. Действует минуту.  
     'potion':True,
-    'effect':'heroism',
+    'spell':'Heroism',
     'weight (lb)':0,
     'cost (gp)':50,
     'cost (grams_of_gold)':60 * 4,
     }
 
 metadict_items['Infusion of Claws'] = {
+    # TODO: переделай в заклинание. Пусть даёт дополнительную атаку.
     # Эссенции "перезаряжаются" друидами и жрецами.
     'potion':True,
     'weapon':True,

@@ -83,6 +83,9 @@ class gen_spells():
                 if spell_choice:
                     if not spell_dict['spell_uuid'] in soldier.spells_active:
                         soldier.spells_active[spell_dict['spell_uuid']] = spell_dict
+                    # Переносим заклинание в список баффов. Они учитываются оттуда.
+                    if spell_dict.get('buff'):
+                        soldier.buffs[spell_dict['effect']] = spell_dict
                     #print(len(soldier.spells_active))
                     #print('NYA', spell_choice)
                 # Стихийный адепт преодолевает сопротивляемость определённому урону:
@@ -101,6 +104,11 @@ class gen_spells():
                 #        self.bonus_hitpoints = int(spell_dict['spell_level'][0]) * 2
                 #    elif not self.arcane_ward:
                 #        self.bonus_hitpoints = self.level * 2 + self.mods['intelligence']
+
+                #soldier.mage_armor = spell_dict
+                #if soldier.class_features.get('Arcane_Ward') and not soldier.bonus_hitpoints:
+                #    soldier.bonus_hitpoints = soldier.level * 2 + soldier.mods['intelligence']
+                #    soldier.arcane_ward = True
                 return spell_dict
             elif spell_dict and not use_spell:
                 return spell_dict
@@ -113,7 +121,7 @@ class gen_spells():
 #----
 # Методы:
 
-    def find_spell_attack_mod(self):
+    def find_spell_attack_mod(self, proficiency_bonus = True):
         """Модификатор атаки заклинания зависит от класса.
         
         У волшебников это интеллект, у чародеев харизма, у жрецов мудрость.
@@ -123,27 +131,28 @@ class gen_spells():
                 or self.mage.char_class == 'Arcane_Tricker'\
                 or self.mage.char_class == 'Eldritch_Knight'\
                 or self.mage.char_class == 'Rogue':
-            attack_mod = self.mage.mods['intelligence'] + self.mage.proficiency_bonus
+            attack_mod = self.mage.mods['intelligence']
         elif self.mage.char_class == 'Sorcerer'\
                 or self.mage.char_class == 'Bard'\
                 or self.mage.char_class == 'Warlock'\
                 or self.mage.char_class == 'Barbarian'\
                 or self.mage.char_class == 'Paladin':
-            attack_mod = self.mage.mods['charisma'] + self.mage.proficiency_bonus
+            attack_mod = self.mage.mods['charisma']
         elif self.mage.char_class == 'Cleric'\
                 or self.mage.char_class == 'Cleric-heavy'\
                 or self.mage.char_class == 'Druid'\
                 or self.mage.char_class == 'Ranger'\
                 or self.mage.char_class == 'Monk':
-            attack_mod = self.mage.mods['wisdom'] + self.mage.proficiency_bonus
+            attack_mod = self.mage.mods['wisdom']
         elif self.mage.char_class == 'Empyrean':
-            attack_mod = self.mage.mods['charisma'] + self.mage.proficiency_bonus
+            attack_mod = self.mage.mods['charisma']
         else:
             # Если класса нет в списке, выбираем маскимальную характеристику:
             mods = self.mage.mods
             mods_list = [mods['intelligence'], mods['wisdom'], mods['charisma']]
-            attack_mod = max(mods_list) + self.mage.proficiency_bonus
-        # Монстры:
+            attack_mod = max(mods_list)
+        if proficiency_bonus:
+            attack_mod += self.mage.proficiency_bonus
         return attack_mod
 
     def find_spell(self, spell_name, effect = False):
@@ -163,7 +172,24 @@ class gen_spells():
 
     def get_spell_dict(self, spell_choice, gen_spell = False):
         """Берём словарь заклинания из функции."""
+        # TODO: почему я здесь указал 1_lvl? Проверить!
+        # Ясно почему, потому что иначе ломаются проверки на int в заклинаниях.
+        # Исправляется это не здесь, а в функции try_spellcast и ей подобных.
         spell_level = '1_lvl'
+        #spell_level = spell_choice[0]
+        spell_name = spell_choice[-1]
+        func = getattr(self, spell_name)
+        spell_dict = func(spell_level, gen_spell, spell_choice, use_spell = False)
+        return spell_dict
+
+    def use_buff(self, spell_choice, gen_spell = True):
+        """Используем функцию заклинания.
+        
+        - Меняет параметры солдата. if gen_spell в заклинании.
+        - При этом не должен запускаться декоратор modify_spell.
+        """
+        spell_level = '1_lvl'
+        #spell_level = spell_choice[0]
         spell_name = spell_choice[-1]
         func = getattr(self, spell_name)
         spell_dict = func(spell_level, gen_spell, spell_choice, use_spell = False)
@@ -1147,8 +1173,6 @@ class gen_spells():
         https://www.dnd-spells.com/spell/healing-word
         """
         # Дистанция заклинания увеличена до 120 футов.
-        # TODO: в damage_mod получается мод_характеристики + proficiency_bonus.
-        # А должно быть только мод_характеристики.
         spell_dict = {
                 'direct_hit':True,
                 'attacks_number':1,
@@ -1158,7 +1182,7 @@ class gen_spells():
                 'components':['verbal'],
                 'casting_time':'bonus_action',
                 'spell_level':spell_level,
-                'damage_mod':self.find_spell_attack_mod(),
+                'damage_mod':self.find_spell_attack_mod(proficiency_bonus = False),
                 'spell_save_DC':8 + self.find_spell_attack_mod(),
                 'spell_of_choice':'Bane',
                 }
@@ -1180,6 +1204,7 @@ class gen_spells():
         Range: 30 feet
         Components: V, S, M (a sprinkling of holy water)
         Duration: Concentration, up to 1 minute
+        https://www.dnd-spells.com/spell/bless
         """
         spell_dict = {
                 'concentration':True,
@@ -1204,12 +1229,12 @@ class gen_spells():
     def Shield_of_Faith(self, spell_level, gen_spell = False):
         """Щит веры.
 
-
         Level: 1
         Casting time: 1 Bonus Action
         Range: 60 feet
         Components: V, S, M (a small parchment with a bit of holy text written on it)
         Duration: Concentration, up to 10 minutes
+        https://www.dnd-spells.com/spell/shield-of-faith
         """
         spell_dict = {
                 'concentration':True,
@@ -1224,6 +1249,44 @@ class gen_spells():
                 'spell_of_choice':'Bane',
                 }
         spell_dict = copy.deepcopy(spell_dict)
+        return spell_dict
+
+    @modify_spell
+    def Heroism(self, spell_level, gen_spell = False):
+        """Героизм.
+
+
+        Level: 1
+        Casting time: 1 Action
+        Range: Touch
+        Components: V, S
+        Duration: Concentration, up to 1 minute
+        https://www.dnd-spells.com/spell/heroism
+        """
+        spell_dict = {
+                'buff':True,
+                'repeat':True,
+                'concentration':True,
+                'effect':'heroism',
+                'effect_timer':10,
+                'attacks_number':1,
+                'attack_range':5,
+                'damage_type':'bonus_hitpoints',
+                'damage_dice':'0d0',
+                'damage_mod':self.find_spell_attack_mod(proficiency_bonus = False),
+                'components':['verbal','somatic'],
+                'casting_time':'action',
+                'spell_level':spell_level,
+                'spell_save_DC':8 + self.find_spell_attack_mod(),
+                'spell_of_choice':'Bane',
+                }
+        spell_dict = copy.deepcopy(spell_dict)
+        if int(spell_level[0]) > 1:
+            spell_dict['attacks_number'] *= int(spell_level[0])
+        if gen_spell:
+            soldier = self.mage
+            if soldier.bonus_hitpoints < spell_dict['damage_mod']:
+                soldier.set_hitpoints(bonus_hitpoints = spell_dict['damage_mod'])
         return spell_dict
 
     @modify_spell
@@ -1499,6 +1562,7 @@ class gen_spells():
         https://www.dnd-spells.com/spell/shield
         """
         spell_dict = {
+                'buff':True,
                 'effect':'shield',
                 'effect_timer':1,
                 'attack_range':0,
@@ -1508,12 +1572,6 @@ class gen_spells():
                 'spell_of_choice':'Magic_Missile',
                 }
         spell_dict = copy.deepcopy(spell_dict)
-        if gen_spell:
-            soldier = self.mage
-            if not 'shield' in soldier.buffs:
-                soldier.buffs[spell_dict['effect']] = spell_dict
-            else:
-                return False
         return spell_dict
 
     @modify_spell
@@ -1528,7 +1586,9 @@ class gen_spells():
         https://www.dnd-spells.com/spell/absorb-elements
         """
         # 1d6 урона поглощённого типа можно направить атакой оружием в следующем раунде.
+        # TODO: передавать в gen_spell словарь, где в damage_type указан урон. Затем spell_dict.update
         spell_dict = {
+                'buff':True,
                 'effect':'absorb_elements',
                 'direct_hit':True,
                 'effect_timer':1,
@@ -1553,7 +1613,6 @@ class gen_spells():
             if damage_type in spell_dict['absorb_damage_type']:
                 spell_dict['damage_type'] = damage_type
                 soldier.resistance.append(spell_dict['damage_type'])
-                soldier.buffs[spell_dict['effect']] = spell_dict
             else:
                 return False
         return spell_dict
@@ -1571,6 +1630,7 @@ class gen_spells():
         """
         # TODO: броня берётся из metadict_item.
         spell_dict = {
+                'buff':True,
                 'effect':'mage_armor',
                 'effect_timer':4800,
                 'armor':True,
@@ -1585,13 +1645,8 @@ class gen_spells():
         spell_dict = copy.deepcopy(spell_dict)
         if gen_spell:
             soldier = self.mage
-            soldier.buffs[spell_dict['effect']] = spell_dict
             soldier.equipment_weapon['Mage_Armor'] = 1
             soldier.armor.update(soldier.get_armor())
-            #soldier.mage_armor = spell_dict
-            #if soldier.class_features.get('Arcane_Ward') and not soldier.bonus_hitpoints:
-            #    soldier.bonus_hitpoints = soldier.level * 2 + soldier.mods['intelligence']
-            #    soldier.arcane_ward = True
         return spell_dict
 
     @modify_spell
@@ -1607,6 +1662,7 @@ class gen_spells():
         https://www.dnd-spells.com/spell/armor-of-agathys
         """
         spell_dict = {
+                'buff':True,
                 'effect':'armor_of_agathys',
                 'effect_timer':600,
                 'direct_hit':True,
@@ -1625,7 +1681,6 @@ class gen_spells():
         if gen_spell:
             soldier = self.mage
             soldier.bonus_hitpoints = spell_dict['damage_mod']
-            soldier.buffs[spell_dict['effect']] = spell_dict
         return spell_dict
 
     @modify_spell
@@ -1908,6 +1963,7 @@ class gen_spells():
         https://www.dnd-spells.com/spell/blur
         """
         spell_dict = {
+                'buff':True,
                 'concentration':True,
                 'effect':'blur',
                 'effect_timer':10,
@@ -1918,9 +1974,6 @@ class gen_spells():
                 'spell_of_choice':'Magic_Missile',
                 }
         spell_dict = copy.deepcopy(spell_dict)
-        if gen_spell:
-            soldier = self.mage
-            soldier.buffs[spell_dict['effect']] = spell_dict
         return spell_dict
 
     @modify_spell

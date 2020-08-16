@@ -437,10 +437,13 @@ class battle_simulation(battlescape):
             if 'runes' in soldier.commands:
                 spells_list = [
                         'Mage_Armor',
+                        'Heroism',
                         ]
                 for spell in spells_list:
                     if not soldier.armor['armor_use'] and spell == 'Mage_Armor':
                         soldier.use_item('Mage_Armor', gen_spell = True)
+                    if not soldier.concentration and spell == 'Heroism':
+                        soldier.use_item('Heroism', gen_spell = True)
             # Используем зелья:
             if 'potions' in soldier.commands:
                 pass
@@ -614,7 +617,9 @@ class battle_simulation(battlescape):
             # Чистим карту от павших в прошлом раунде:
             self.clear_battlemap()
             # Чистим списки закончившихся заклинаний, работает таймер:
-            self.clear_spells()
+            # Срабатывают повторяющиеся каждый раунд заклинания вроде Heroism:
+            self.all_clear_spells()
+            self.all_get_buffs()
             for squad in self.squads.values():
                 # Тяжелораненые могут погибнуть:
                 self.fall_to_death(squad)
@@ -3149,7 +3154,7 @@ class battle_simulation(battlescape):
                         #traceback.print_exc()
                         pass
 
-    def clear_spells(self):
+    def all_clear_spells(self):
         """Работает таймер заклинаний.
         
         - Отмечаем закончившиеся заклинания.
@@ -3169,6 +3174,19 @@ class battle_simulation(battlescape):
                             soldier.buffs.pop(spell['effect'])
                         if spell in [el for el in soldier.debuffs.values()]:
                             soldier.debuffs.pop(spell['effect'])
+
+    def all_get_buffs(self):
+        """Срабатывают заклинания в списке buffs.
+
+        Если в заклинании указано, что оно повторяющееся.
+        """
+        # TODO: всё-таки заклинания должны быть объектами своего класса.
+        # Вот здесь лучше было бы запускать функцию через метод заклинания.
+        for soldier in self.metadict_soldiers.values():
+            if soldier.buffs:
+                for effect, spell_dict in soldier.buffs.items():
+                    if spell_dict.get('repeat'):
+                        soldier.spells_generator.use_buff(spell_dict['spell_choice'])
 
     def print_battle_statistics(self):
         """Вывод статистики после боя. Убитые, раненые по отрядам."""
