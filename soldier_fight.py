@@ -198,7 +198,7 @@ class soldier_in_battle(soldier):
         self.stunned = False
         self.paralyzed = False
         self.grappled = False
-        self.restained = False
+        self.restrained = False
         self.concentration = False
         self.help_action = False
         self.killer_mark = False
@@ -443,12 +443,12 @@ class soldier_in_battle(soldier):
                 self.paralyzed = False
                 self.paralyzed_difficult = None
         # Схваченный не может двигаться (но пытается вырваться):
-        elif self.grappled or self.restained:
+        elif self.grappled or self.restrained:
             self.move_action = False
             self.move_pool = 0
             if self.grappled:
                 self.set_grapple_break()
-            elif self.restained:
+            elif self.restrained:
                 self.set_restained_break()
         # Упавший встаёт на ноги (если он не схвачен):
         elif self.prone == True and not self.grappled:
@@ -1288,7 +1288,7 @@ class soldier_in_battle(soldier):
             return False
         else:
             self.restained_difficult = difficult
-            self.restained = True
+            self.restrained = True
             self.move_action = False
             self.move_pool = 0
             return True
@@ -1453,7 +1453,7 @@ class soldier_in_battle(soldier):
             self.battle_action = False
             self.restained_difficult = None
             self.enemy_grappler = None
-            self.restained = False
+            self.restrained = False
             return True
 
     def set_disarm_shield(self, enemy_soldier, advantage = False, disadvantage = False, difficult = False):
@@ -1737,7 +1737,7 @@ class soldier_in_battle(soldier):
         if self.poisoned:
             return True
         elif ability == 'dexterity':
-            if self.restained:
+            if self.restrained:
                 return True
 
 # ----

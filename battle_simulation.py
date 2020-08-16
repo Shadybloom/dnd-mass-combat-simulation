@@ -1936,11 +1936,11 @@ class battle_simulation(battlescape):
                     else:
                         enemy_soldier.reaction = False
                 # Осьминоги могут оплести щупальцами и затащить в воду:
-                if attack_result['hit'] and 'restained' in attack_result['weapon_type']\
-                        and not enemy_soldier.restained:
-                    restained = enemy_soldier.set_restained(attack_dict['restained_difficult'],
+                if attack_result['hit'] and 'restrained' in attack_result['weapon_type']\
+                        and not enemy_soldier.restrained:
+                    restrained = enemy_soldier.set_restained(attack_dict['restained_difficult'],
                             advantage, disadvantage)
-                    if restained:
+                    if restrained:
                         destination = self.find_spawn(soldier.place, soldier.ally_side, random_range = 1)
                         self.move_action(soldier, squad, destination, allow_replace = True)
                         self.change_place(enemy_soldier.place, soldier.place, enemy_soldier.uuid)
@@ -2198,7 +2198,7 @@ class battle_simulation(battlescape):
                 # Лучше просто не учитывать врага как угрозу в enemy_recon, если он опутан.
                 # ------------------------------------------------------------
                 elif spell_dict.get('effect') == 'entangle':
-                    enemy_soldier = self.find_target_for_debuff(soldier, enemy, 'restained')
+                    enemy_soldier = self.find_target_for_debuff(soldier, enemy, 'restrained')
                     if not enemy_soldier:
                         break
                     else:
@@ -2721,7 +2721,7 @@ class battle_simulation(battlescape):
         if enemy_soldier.paralyzed:
             advantage = True
         # Опутанный уязвим:
-        if enemy_soldier.restained:
+        if enemy_soldier.restrained:
             advantage = True
         # Упавшего легче поразить, но только вблизи:
         if enemy_soldier.prone == True:
@@ -2748,7 +2748,7 @@ class battle_simulation(battlescape):
         if soldier.poisoned == True:
             disadvantage = True
         # Опутанный получает помеху на атаки:
-        if soldier.restained == True:
+        if soldier.restrained == True:
             disadvantage = True
         # Наш боец может быть сбит с ног (и ему не удалось подняться в начале раунда):
         if soldier.prone == True:
