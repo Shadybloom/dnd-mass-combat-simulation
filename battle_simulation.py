@@ -143,7 +143,8 @@ class battle_simulation(battlescape):
         # Подготовка к бою (бонусные хиты, заклинания, отдых и лечение):
         for key,squad in self.squads.items():
             self.set_squad_buffs(squad)
-            self.set_squad_spells(squad)
+            self.set_squad_spells_bless(squad)
+            self.set_squad_spells_personal(squad)
             self.set_squad_heal(squad)
             # Пополнение боекомплекта:
             if namespace.rearm:
@@ -398,8 +399,16 @@ class battle_simulation(battlescape):
                     ally_soldier.set_hitpoints(bonus_hitpoints = bonus_hitpoints)
                     if bless_list:
                         ally_soldier.buffs['bardic_inspiration'] = bless_list.pop()
+
+    def set_squad_spells_bless(self, squad):
+        """Жрецы и маги обкастовывают союзников, начиная с командиров.
+    
+        Эта функция запускается до боя.
+        """
+        for soldier in squad.metadict_soldiers.values():
             # Заклинания и концентрация на них:
-            if not soldier.concentration and soldier.spells:
+            if 'spellcast' in soldier.commands and soldier.spells\
+                    and not soldier.concentration:
                 # TODO: bless_list создавать из soldier.spells.
                 ## -------------------------------------------------
                 # Сначала заклинания высших уровней, затем меньших.
@@ -417,7 +426,8 @@ class battle_simulation(battlescape):
                         for ally_soldier in soldiers_list:
                             ally_soldier.set_buff(spell_dict)
                             #print(ally_soldier.rank, ally_soldier.buffs.keys())
-    def set_squad_spells(self, squad):
+
+    def set_squad_spells_personal(self, squad):
         """Солдаты использует руны, заклинания, зелья.
     
         Эта функция запускается до боя.
@@ -442,7 +452,7 @@ class battle_simulation(battlescape):
                 #                or self.equipment_weapon.get('Potion of Bravery'):
                 #            self.use_potion_of_heroism()
             # Тратим слоты заклинаний:
-            if 'spellcast' in soldier.commands:
+            if 'spellcast' in soldier.commands and soldier.spells:
                 spells_list = [
                         'Armor_of_Agathys',
                         'Mage_Armor',
