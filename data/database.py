@@ -57,9 +57,9 @@ class database():
         soldier.place = None
         soldier.place_in_order = None
         soldier.danger = 0
-        soldier.buffs = {}
-        soldier.debuffs = {}
-        soldier.spells_active = {}
+        #soldier.buffs = {}
+        #soldier.debuffs = {}
+        #soldier.spells_active = {}
         soldier.recon_near = []
         soldier.near_zone = []
         soldier.near_allies = []

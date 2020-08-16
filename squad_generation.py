@@ -10,6 +10,7 @@ from data import lang_sindar
 from data import lang_human
 from data import squads
 from data import database
+from data import spells
 from collections import OrderedDict
 
 #-------------------------------------------------------------------------
@@ -114,6 +115,8 @@ class squad_generation():
                         or get_all or get_injured:
                     recruit = soldier_in_battle()
                     recruit.__dict__ = soldier_dict
+                    # Восстанавливаем рекурсивную ссылку:
+                    recruit.spells_generator.mage = recruit
                     metadict_soldiers[recruit.uuid] = recruit
         # Сортируем бойцов по уровню, чтобы на вершине были командиры.
         metadict_soldiers = OrderedDict(reversed(sorted(metadict_soldiers.items(),key=lambda x: x[1].level)))
