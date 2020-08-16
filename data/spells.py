@@ -217,6 +217,336 @@ class gen_spells():
                         self.spells.pop(spell)
                 return spell_dict
 
+#------------------------------------------------------------
+# Состояния
+
+    def Blinded(self, spell_level, gen_spell = False):
+        """Ослепление. Ослеплённый.
+        
+        - Преимущество на атаки врагов.
+        - Автоматический провал всех проверок, связанных со зрением.
+
+        # https://www.dandwiki.com/wiki/5e_SRD:Conditions#Blinded
+        """
+        # Используем тот же формат, что и для заклинаний.
+        # Длительность эффектов указана базовая.
+        spell_dict = {
+                'effect':'blinded',
+                'effect_timer':10,
+                'direct_hit':True,
+                'savethrow':True,
+                'savethrow_ability':'constitution',
+                'spell_level':spell_level,
+                'spell_save_DC':8 + self.find_spell_attack_mod(),
+                }
+        # Делаем полную копию словаря, чтобы оригинал не изменялся.
+        spell_dict = copy.deepcopy(spell_dict)
+        return spell_dict
+
+    def Charmed(self, spell_level, gen_spell = False):
+        """Очарование. Очарованный.
+        
+        - Цель не будет вредить кастеру.
+        - Преимущество на социальные броски кастеру.
+
+        # https://www.dandwiki.com/wiki/5e_SRD:Conditions#Charmed
+        """
+        spell_dict = {
+                'effect':'charmed',
+                'effect_timer':10,
+                'direct_hit':True,
+                'savethrow':True,
+                'savethrow_ability':'wisdom',
+                'spell_level':spell_level,
+                'spell_save_DC':8 + self.find_spell_attack_mod(),
+                }
+        spell_dict = copy.deepcopy(spell_dict)
+        return spell_dict
+
+    def Deafened(self, spell_level, gen_spell = False):
+        """Потеря слуха. Оглохший.
+        
+        - Автоматический провал всех проверок, связанных со слухом.
+
+        # https://www.dandwiki.com/wiki/5e_SRD:Conditions#Deafened
+        """
+        spell_dict = {
+                'effect':'deafened',
+                'effect_timer':10,
+                'direct_hit':True,
+                'savethrow':True,
+                'savethrow_ability':'constitution',
+                'spell_level':spell_level,
+                'spell_save_DC':8 + self.find_spell_attack_mod(),
+                }
+        spell_dict = copy.deepcopy(spell_dict)
+        return spell_dict
+
+    def Exhaustion(self, spell_level, gen_spell = False):
+        """Истощение. Истощённый.
+        
+        Шесть уровней истощения:
+        1. Помеха на проверки характеристик.
+        2. Скорость уменьшается вдвое.
+        3. Помеха на броски атаки и спасброски.
+        4. Максимум хитов уменьшается вдвое.
+        5. Скорость уменьшается до 0.
+        6. Смерть.
+        
+        # https://www.dandwiki.com/wiki/5e_SRD:Conditions#Exhaustion
+        """
+        spell_dict = {
+                'effect':'exhaustion',
+                'effect_timer':4800,
+                'direct_hit':True,
+                'savethrow':True,
+                'savethrow_ability':'constitution',
+                'spell_level':spell_level,
+                'spell_save_DC':8 + self.find_spell_attack_mod(),
+                }
+        spell_dict = copy.deepcopy(spell_dict)
+        return spell_dict
+
+    def Frightened(self, spell_level, gen_spell = False):
+        """Испуг. Испуганный.
+        
+        Если источник страха видим:
+        - Помеха на броски атаки и проверки характеристик.
+        - Цель не может добровольно приблизиться к источнику страха.
+        
+        # https://www.dandwiki.com/wiki/5e_SRD:Conditions#Frightened
+        """
+        spell_dict = {
+                'effect':'frightened',
+                'effect_timer':10,
+                'direct_hit':True,
+                'savethrow':True,
+                'savethrow_ability':'wisdom',
+                'spell_level':spell_level,
+                'spell_save_DC':8 + self.find_spell_attack_mod(),
+                }
+        spell_dict = copy.deepcopy(spell_dict)
+        return spell_dict
+
+    def Grappled(self, spell_level, gen_spell = False):
+        """Захват. Схваченный.
+        
+        - Скорость = 0. Нет никаких бонусов к скорости.
+        - Захват прекращается, если схвативший недееспособен.
+        - Захват прекращается, если цель вне радиуса захвата.
+        
+        # https://www.dandwiki.com/wiki/5e_SRD:Conditions#Grappled
+        """
+        spell_dict = {
+                'effect':'grappled',
+                'effect_timer':100,
+                'direct_hit':True,
+                'savethrow':True,
+                'savethrow_ability':'strength',
+                'spell_level':spell_level,
+                'spell_save_DC':8 + self.find_spell_attack_mod(),
+                }
+        spell_dict = copy.deepcopy(spell_dict)
+        return spell_dict
+
+    def Incapacitated(self, spell_level, gen_spell = False):
+        """Недееспособность. Недееспособный.
+
+        - Недееспособный не может двигаться
+        - Недееспособный не может совершать действия или реакции.
+        
+        # https://www.dandwiki.com/wiki/5e_SRD:Conditions#Incapacitated
+        """
+        spell_dict = {
+                'effect':'incapacitated',
+                'effect_timer':600,
+                'direct_hit':True,
+                #'savethrow':True,
+                #'savethrow_ability':'constitution',
+                'spell_level':spell_level,
+                'spell_save_DC':8 + self.find_spell_attack_mod(),
+                }
+        spell_dict = copy.deepcopy(spell_dict)
+        return spell_dict
+
+    def Invisible(self, spell_level, gen_spell = False):
+        """Невидимость. Невидимый.
+
+        - Броски атаки по невидимке с помехой.
+        - Броски атаки невидимого с преимуществом.
+        - Существо считается сильно заслонённым с точки зрения скрытности.
+        
+        # https://www.dandwiki.com/wiki/5e_SRD:Conditions#Invisible
+        """
+        spell_dict = {
+                'effect':'invisible',
+                'effect_timer':600,
+                'direct_hit':True,
+                #'savethrow':True,
+                #'savethrow_ability':'intelligence',
+                'spell_level':spell_level,
+                'spell_save_DC':8 + self.find_spell_attack_mod(),
+                }
+        spell_dict = copy.deepcopy(spell_dict)
+        return spell_dict
+
+    def Paralyzed(self, spell_level, gen_spell = False):
+        """Паралич. Парализованный.
+
+        - Парализованный = недееспособный
+        - Автоматический провал спасбросков Силы и Ловкости.
+        - Преимущество на броски атаки врагу.
+        - Каждая атака -- критическая, если враг в 5 футах от цели.
+        
+        # https://www.dandwiki.com/wiki/5e_SRD:Conditions#Paralyzed
+        """
+        spell_dict = {
+                'effect':'paralyzed',
+                'effect_timer':10,
+                'direct_hit':True,
+                'savethrow':True,
+                'savethrow_ability':'constitution',
+                'spell_level':spell_level,
+                'spell_save_DC':8 + self.find_spell_attack_mod(),
+                }
+        spell_dict = copy.deepcopy(spell_dict)
+        return spell_dict
+
+    def Petrified(self, spell_level, gen_spell = False):
+        """Окаменение. Окаменевший.
+
+        - Вес существа увеличивается вдесятеро. Плотность? Нет, не слышали.
+        - Окаменевший = недееспособный
+        - Преимущество на броски атаки врагу.
+        - Автоматический провал спасбросков Силы и Ловкости.
+        - Сопротивляемость любому урону
+        - Иммунитет к ядам и болезням
+
+        # https://www.dandwiki.com/wiki/5e_SRD:Conditions#Petrified
+        """
+        spell_dict = {
+                'effect':'petrified',
+                'effect_timer':4800,
+                'direct_hit':True,
+                'savethrow':True,
+                'savethrow_ability':'constitution',
+                'spell_level':spell_level,
+                'spell_save_DC':8 + self.find_spell_attack_mod(),
+                }
+        spell_dict = copy.deepcopy(spell_dict)
+        return spell_dict
+
+    def Poisoned(self, spell_level, gen_spell = False):
+        """Отравление. Отравленный.
+
+        - Помеха на броски атаки.
+        - Помеха на проверки характеристик.
+
+        # https://www.dandwiki.com/wiki/5e_SRD:Conditions#Poisoned
+        """
+        spell_dict = {
+                'effect':'poisoned',
+                'effect_timer':600,
+                'direct_hit':True,
+                'savethrow':True,
+                'savethrow_ability':'constitution',
+                'spell_level':spell_level,
+                'spell_save_DC':8 + self.find_spell_attack_mod(),
+                }
+        spell_dict = copy.deepcopy(spell_dict)
+        return spell_dict
+
+    def Prone(self, spell_level, gen_spell = False):
+        """Сбитый с ног. Лежащий ничком.
+
+        - Передвигается ползком.
+        - Помеха на броски атаки.
+        - Помеха на броски атаки врагу. Если он дальше 5 футов.
+        - Преимущество на броски атаки врагу. Если он в пределах 5 футов.
+
+        # https://www.dandwiki.com/wiki/5e_SRD:Conditions#Prone
+        """
+        spell_dict = {
+                'effect':'prone',
+                'effect_timer':10,
+                'direct_hit':True,
+                'savethrow':True,
+                'savethrow_ability':'strength',
+                'spell_level':spell_level,
+                'spell_save_DC':8 + self.find_spell_attack_mod(),
+                }
+        spell_dict = copy.deepcopy(spell_dict)
+        return spell_dict
+
+    def Restrained(self, spell_level, gen_spell = False):
+        """Опутывание. Опутанный.
+
+        - Скорость = 0. Нет никаких бонусов к скорости.
+        - Помеха на броски атаки.
+        - Преимущество на броски атаки врагу.
+        - Помеха на спасброски Ловкости.
+
+        # https://www.dandwiki.com/wiki/5e_SRD:Conditions#Restrained
+        """
+        spell_dict = {
+                'effect':'restrained',
+                'effect_timer':100,
+                'direct_hit':True,
+                'savethrow':True,
+                'savethrow_ability':'strength',
+                'spell_level':spell_level,
+                'spell_save_DC':8 + self.find_spell_attack_mod(),
+                }
+        spell_dict = copy.deepcopy(spell_dict)
+        return spell_dict
+
+    def Stunned(self, spell_level, gen_spell = False):
+        """Ошеломление. Ошеломлённый. Оглушение.
+
+        - Ошеломлённый = недееспособный
+        - Автоматический провал спасбросков Силы и Ловкости.
+        - Преимущество на броски атаки врагу.
+
+        # https://www.dandwiki.com/wiki/5e_SRD:Conditions#Stunned
+        """
+        spell_dict = {
+                'effect':'stunned',
+                'effect_timer':1,
+                'direct_hit':True,
+                'savethrow':True,
+                'savethrow_ability':'constitution',
+                'spell_level':spell_level,
+                'spell_save_DC':8 + self.find_spell_attack_mod(),
+                }
+        spell_dict = copy.deepcopy(spell_dict)
+        return spell_dict
+
+    def Unconscious(self, spell_level, gen_spell = False):
+        """Без сознания. Бессознательный.
+
+        - Бессознательный = недееспособный
+        - Теряет предметы из рук и падает (Prone)
+        - Автоматический провал спасбросков Силы и Ловкости.
+        - Преимущество на броски атаки врагу.
+        - Каждая атака -- критическая, если враг в 5 футах от цели.
+
+        # https://www.dandwiki.com/wiki/5e_SRD:Conditions#Unconscious
+        """
+        spell_dict = {
+                'effect':'unconscious',
+                'effect_timer':600,
+                'direct_hit':True,
+                'savethrow':True,
+                'savethrow_ability':'constitution',
+                'spell_level':spell_level,
+                'spell_save_DC':8 + self.find_spell_attack_mod(),
+                }
+        spell_dict = copy.deepcopy(spell_dict)
+        return spell_dict
+
+#------------------------------------------------------------
+# Заклинания
+
 #----
 # Channel_Divinity
 
