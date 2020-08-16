@@ -84,15 +84,13 @@ class gen_spells():
                     if not spell_dict['spell_uuid'] in soldier.spells_active:
                         soldier.spells_active[spell_dict['spell_uuid']] = spell_dict
                     #print(len(soldier.spells_active))
+                    #print('NYA', spell_choice)
                 # Стихийный адепт преодолевает сопротивляемость определённому урону:
                 if soldier.class_features.get('Feat_Elemental_Adept')\
                         and spell_dict.get('damage_type'):
                     ignore_resistance = soldier.class_features['Feat_Elemental_Adept']
                     if spell_dict['damage_type'] == ignore_resistance:
                         spell_dict['ignore_resistance'] = ignore_resistance
-                #if spell_choice:
-                #    print('NYA', spell_choice)
-
                 # TODO: Arcane_Ward перенеси сюда из Mage_Armor.
                 # ------------------------------------------------------------
                 # Срабатывает на любые заклинания школы abjuration.
@@ -1591,9 +1589,9 @@ class gen_spells():
             soldier.equipment_weapon['Mage_Armor'] = 1
             soldier.armor.update(soldier.get_armor())
             #soldier.mage_armor = spell_dict
-            if soldier.class_features.get('Arcane_Ward') and not soldier.bonus_hitpoints:
-                soldier.bonus_hitpoints = soldier.level * 2 + soldier.mods['intelligence']
-                soldier.arcane_ward = True
+            #if soldier.class_features.get('Arcane_Ward') and not soldier.bonus_hitpoints:
+            #    soldier.bonus_hitpoints = soldier.level * 2 + soldier.mods['intelligence']
+            #    soldier.arcane_ward = True
         return spell_dict
 
     @modify_spell

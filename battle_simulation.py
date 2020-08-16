@@ -143,6 +143,7 @@ class battle_simulation(battlescape):
         # Подготовка к бою (бонусные хиты, заклинания, отдых и лечение):
         for key,squad in self.squads.items():
             self.set_squad_buffs(squad)
+            self.set_squad_spells(squad)
             self.set_squad_heal(squad)
             # Пополнение боекомплекта:
             if namespace.rearm:
@@ -404,7 +405,10 @@ class battle_simulation(battlescape):
                 # Сначала заклинания высших уровней, затем меньших.
                 # В заклинаниях указывай buff = True.
                 ## -------------------------------------------------
-                bless_list = ['Bless', 'Shield_of_Faith']
+                bless_list = [
+                        'Bless',
+                        'Shield_of_Faith',
+                        ]
                 for bless in bless_list:
                     if soldier.try_spellcast(bless):
                         spell_dict = soldier.concentration
@@ -413,12 +417,41 @@ class battle_simulation(battlescape):
                         for ally_soldier in soldiers_list:
                             ally_soldier.set_buff(spell_dict)
                             #print(ally_soldier.rank, ally_soldier.buffs.keys())
-                spells_list = ['Armor_of_Agathys', 'Mage_Armor']
+    def set_squad_spells(self, squad):
+        """Солдаты использует руны, заклинания, зелья.
+    
+        Эта функция запускается до боя.
+        """
+        for soldier in squad.metadict_soldiers.values():
+            # Используем руны и заклинания в предметах:
+            if 'runes' in soldier.commands:
+                spells_list = [
+                        'Mage_Armor',
+                        ]
+                for spell in spells_list:
+                    if not soldier.armor['armor_use'] and spell == 'Mage_Armor':
+                        soldier.use_item('Mage_Armor', gen_spell = True)
+            # Используем зелья:
+            if 'potions' in soldier.commands:
+                pass
+                # Используем предметы перед боем:
+                # TODO: перепиши под формат.
+                #if hasattr(squad, 'commands') and 'potions' in squad.commands:
+                #    if not self.bonus_hitpoints:
+                #        if self.equipment_weapon.get('Infusion of Heroism')\
+                #                or self.equipment_weapon.get('Potion of Bravery'):
+                #            self.use_potion_of_heroism()
+            # Тратим слоты заклинаний:
+            if 'spellcast' in soldier.commands:
+                spells_list = [
+                        'Armor_of_Agathys',
+                        'Mage_Armor',
+                        ]
                 for spell in spells_list:
                     if soldier.bonus_hitpoints <= 0 and spell == 'Armor_of_Agathys':
-                        spell_dict = soldier.try_spellcast(spell, gen_spell = True)
+                        soldier.try_spellcast(spell, gen_spell = True)
                     if not soldier.armor['armor_use'] and spell == 'Mage_Armor':
-                        spell_dict = soldier.try_spellcast(spell, gen_spell = True)
+                        soldier.try_spellcast(spell, gen_spell = True)
 
     def select_soldiers_for_bless(self, number, ally_side, bless_type):
         """Выбираем солдат для Bless, Inspiring_Leader, Bardic_Inspiration и т.д.
@@ -1143,6 +1176,7 @@ class battle_simulation(battlescape):
                 self.fireball_action(soldier, squad)
                 self.spellcast_action(soldier, squad, enemy)
         # Осьминожки прячутся в чернильном облаке, остальные в "Fog_Cloud".
+        # Но только в том случае, если у врага есть дальнобойное оружие.
         if 'sneak' in soldier.commands and enemy and squad.__dict__.get('enemy_recon'):
             if self.metadict_soldiers[enemy.uuid].hero\
                     or 'throw' in squad.enemy_recon['attacks']\

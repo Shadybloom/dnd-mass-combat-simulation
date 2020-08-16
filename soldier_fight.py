@@ -482,13 +482,6 @@ class soldier_in_battle(soldier):
                 or self.__dict__.get('heroism'):
             self.fearless = True
             self.commands.append('fearless')
-        # Используем предметы перед боем:
-        # TODO: получается, что будут использоваться каждый раунд, если их несколько.
-        if hasattr(squad, 'commands') and 'potions' in squad.commands:
-            if not self.bonus_hitpoints:
-                if self.equipment_weapon.get('Infusion of Heroism')\
-                        or self.equipment_weapon.get('Potion of Bravery'):
-                    self.use_potion_of_heroism()
         # Особенности монстров:
         # Перезарядка способности:
         if self.class_features.get('Recharge') and self.recharge_dict:
