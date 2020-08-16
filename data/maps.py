@@ -1413,6 +1413,7 @@ battle_map_hero_cover = (
 
 battle_map_elite = (
         # Тест поля боя (10x60):
+        '.....!....................!.....',
         '.....!aaaaaaaaaaaaaaaaaaaa!.....',
         '.....!aaaaaaaaaaaaaaaaaaaa!.....',
         '.....!wwwwwwwwwwwwwwwwwwww!.....',
@@ -1420,7 +1421,6 @@ battle_map_elite = (
         '.....!wwwwwwwwwwwwwwwwwwww!.....',
         '.....!wwwwwwwwwwwwwwwwwwww!.....',
         '.....!cccccccccccccccccccc!.....',
-        '.....!eeeeeeeeeeeeeeeeeeee!.....',
         '.....!eeeeeeeeeeeeeeeeeeee!.....',
         '.....!eeeeeeeeeeeeeeeeeeee!.....',
         '.....!...................5!.....',
@@ -1442,14 +1442,13 @@ battle_map_elite = (
         '.....!eeeeeeeeeeeeeeeeeeee!.....',
         '.....!eeeeeeeeeeeeeeeeeeee!.....',
         '.....!cccccccccccccccccccc!.....',
-        '.....!eeeeeeeeeeeeeeeeeeee!.....',
-        '.....!eeeeeeeeeeeeeeeeeeee!.....',
         '.....!wwwwwwwwwwwwwwwwwwww!.....',
         '.....!wwwwwwwwwwwwwwwwwwww!.....',
         '.....!wwwwwwwwwwwwwwwwwwww!.....',
         '.....!wwwwwwwwwwwwwwwwwwww!.....',
         '.....!aaaaaaaaaaaaaaaaaaaa!.....',
         '.....!aaaaaaaaaaaaaaaaaaaa!.....',
+        '.....!....................!.....',
         )
 
 battle_map_brave = (

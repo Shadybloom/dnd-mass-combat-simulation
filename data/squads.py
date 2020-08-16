@@ -134,6 +134,22 @@ metadict_squads['Company-dummy (куклы)'] = {
     'Dummy-officer (CR 0)':4,
     }
 
+metadict_squads['Company-regular (гоплиты-ветераны)'] = {
+    'Warrior 1 lvl (achean hoplite)':46 + dice_throw('1d12'),
+    'Warrior 2 lvl (achean hoplite-corporal)':46,
+    'Warrior 3 lvl (achean hoplite-sergeant)':3,
+    'Warrior 4 lvl (achean hoplite-lieutenant)':1,
+    'Warrior 5 lvl (achean hoplite-captain)':1,
+    }
+
+metadict_squads['Company-regular (гоплиты-опытные)'] = {
+    'Warrior 1 lvl (achean hoplite)':65 + dice_throw('1d12'),
+    'Warrior 2 lvl (achean hoplite-corporal)':20,
+    'Warrior 3 lvl (achean hoplite-sergeant)':6,
+    'Warrior 4 lvl (achean hoplite-lieutenant)':2,
+    'Warrior 5 lvl (achean hoplite-captain)':2,
+    }
+
 #----
 # Тесты отрядов:
 

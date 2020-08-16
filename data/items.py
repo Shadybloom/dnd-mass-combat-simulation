@@ -1302,11 +1302,8 @@ metadict_items['Rune of Shielding'] = {
 
 metadict_items['Rune of Armor'] = {
     # Стоит как полулаты, зато очень лёгкая.
-    'armor':True,
     'potion':True,
-    'effect':'armor',
-    'armor_type':'Force',
-    'armor_class_armor':13,
+    'spell':'Mage_Armor',
     'weight (lb)':1/2,
     'cost (gp)':240,
     'cost (grams_of_gold)':60 * 4,
