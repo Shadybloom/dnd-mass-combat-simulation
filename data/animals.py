@@ -856,6 +856,7 @@ metadict_animals['Dummy (CR 0)'] = {
     'inactive_AI':True,
     'hitpoints_medial':True,
     'class_features':{
+        'immunity':['poison','poisoned'],
         'Undead_Fortitude':True,
         },
     'abilityes':{
@@ -887,6 +888,7 @@ metadict_animals['Dummy-officer (CR 0)'] = {
     'inactive_AI':True,
     'hitpoints_medial':True,
     'class_features':{
+        'immunity':['poison','poisoned'],
         'Undead_Fortitude':True,
         },
     'abilityes':{
@@ -1325,6 +1327,7 @@ metadict_animals['Zombie (CR 1/4)'] = {
     #'predator_AI':True,
     #'killer_AI':True,
     'class_features':{
+        'immunity':['poison','poisoned'],
         'Undead_Fortitude':True,
         },
     'abilityes':{
@@ -1374,6 +1377,7 @@ metadict_animals['Zombie (Danse_Macabre) (CR 1/2)'] = {
     'behavior':'warrior',
     'hitpoints_medial':True,
     'class_features':{
+        'immunity':['poison','poisoned'],
         'Undead_Fortitude':True,
         },
     'abilityes':{
@@ -1424,6 +1428,7 @@ metadict_animals['Wight (CR 3)'] = {
     'sunlight_sensitive':True,
     'class_features':{
         'Extra_Attack':True,
+        'immunity':['poison','poisoned'],
         'resistance':['slashing','piercing','bludgeoning','necrotic_energy'],
         },
     'abilityes':{
@@ -1475,6 +1480,7 @@ metadict_animals['Ghast (CR 2)'] = {
     'hitpoints_medial':True,
     'class_features':{
         # TODO: вонь отравляет всех в пределах 5 футов. СЛ 10.
+        'immunity':['poison','poisoned'],
         'Ghast_Stench':True,
         'Turn_Defiance':True,
         'Darkvision':60,
@@ -1543,6 +1549,7 @@ metadict_animals['Ghoul (CR 1)'] = {
     'behavior':'warrior',
     'hitpoints_medial':True,
     'class_features':{
+        'immunity':['poison','poisoned'],
         'Darkvision':60,
         },
     'abilityes':{
@@ -3623,6 +3630,9 @@ metadict_animals['Animated swords (CR 1)'] = {
     'behavior':'elite_warrior',
     'char_class':'Warrior',
     'hitpoints_base':20,
+    'class_features':{
+        'immunity':['poison','poisoned'],
+        },
     'abilityes':{
         'strength':4,
         'dexterity':18,
@@ -3657,7 +3667,7 @@ metadict_animals['Mordenkainen Sword (CR 10)'] = {
     'behavior':'commander',
     'char_class':'Warrior',
     'class_features':{
-        'immunity':['slashing','piercing','bludgeoning'],
+        'immunity':['slashing','piercing','bludgeoning','poison','poisoned'],
         #'Extra_Attack':True,
         },
     'hitpoints_base':1200,
