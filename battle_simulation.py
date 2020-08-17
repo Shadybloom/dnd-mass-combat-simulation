@@ -960,11 +960,6 @@ class battle_simulation(battlescape):
             #commands_list = ['disengage','dodge','attack']
             commands_list = ['retreat', 'rescue']
         if squad.commander:
-            # Захват пленных:
-            if squad.commander.__dict__.get('enslave_AI'):
-                commands_list.append('enslave')
-                if squad.commander.__dict__.get('unarmed_AI'):
-                    commands_list.append('unarmed')
             # Скрытные командиры прячутся за "Fog_Cloud":
             # Осторожный командир позволяет раненым отступать:
             if squad.commander.__dict__.get('carefull_AI'):
@@ -979,6 +974,17 @@ class battle_simulation(battlescape):
                 commands_list.append('spellcast')
                 commands_list.append('runes')
                 commands_list.append('volley')
+            # Поиск и атака всех:
+            if squad.commander.__dict__.get('seeker_AI'):
+                commands_list = ['engage','attack']
+                commands_list.append('spellcast')
+                commands_list.append('seek')
+                #commands_list.append('carefull')
+            # Захват пленных:
+            if squad.commander.__dict__.get('enslave_AI'):
+                commands_list.append('enslave')
+                if squad.commander.__dict__.get('unarmed_AI'):
+                    commands_list.append('unarmed')
             # Добавляем град стрел без лишних расчётов:
             if squad.commander.__dict__.get('volley_AI'):
                 commands_list.append('volley')
@@ -1008,12 +1014,6 @@ class battle_simulation(battlescape):
                 commands_list.append('fearless')
             else:
                 commands_list.append('rescue')
-            # Поиск и атака всех:
-            if squad.commander.__dict__.get('seeker_AI'):
-                commands_list = ['engage','attack']
-                commands_list.append('spellcast')
-                commands_list.append('seek')
-                #commands_list.append('carefull')
             if squad.commander.__dict__.get('predator_AI'):
                 commands_list.append('select_weaker')
             elif squad.commander.__dict__.get('hunter_AI'):

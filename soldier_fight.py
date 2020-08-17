@@ -920,13 +920,15 @@ class soldier_in_battle(soldier):
         # TODO: перенеси все escape в morality_check_escape.
         self.danger = danger - squad.moral
         # Некоторые бойцы вовсе не чувствуют опасности. Нежить, например.
-        if hasattr(self, 'fearless') and self.fearless == True:
+        if 'fearless' in self.commands:
             self.danger = 0
             self.escape = False
             return True
+        # Герои храбрее обычных бойцов:
         if hasattr(self, 'hero') and self.hero == True:
             self.danger = danger - ((squad.moral + 1) * 6)
             # Варварам в ярости на всё чихать (кроме магии):
+            # TODO: просто добавь им команду 'fearless'.
             if hasattr(self, 'rage') and self.rage and not self.fear:
                 self.danger = 0
                 self.escape = False
