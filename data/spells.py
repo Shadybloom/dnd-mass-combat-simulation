@@ -118,6 +118,26 @@ class gen_spells():
                 pass
         return wrapper
 
+    #def update_spell_dict(func):
+    #    """Передача заклинанию параметров.
+
+    #    """
+    #    # Нет, это так не работает.
+    #    def wrapper(self, spell_level, gen_spell = False, spell_choice = False):
+    #        spell_dict = func(self, spell_level, gen_spell = False)
+    #        if spell_dict and gen_spell and type(gen_spell) == dict:
+    #            # Обновляем словарь заклинания:
+    #            spell_dict.update(gen_spell)
+    #            # Исполняем функцию с обновлёнными параметрами:
+    #            spell_dict = func(self, spell_level, gen_spell)
+    #        elif spell_dict:
+    #            spell_dict = func(self, spell_level, gen_spell)
+    #            return spell_dict
+    #        else:
+    #            #raise Exception("Заклинание не сработало", spell_choice)
+    #            pass
+    #    return wrapper
+
 #----
 # Методы:
 
@@ -170,7 +190,7 @@ class gen_spells():
             spell_choice = random.choice(spell_list)
             return spell_choice
 
-    def get_spell_dict(self, spell_choice, gen_spell = False):
+    def get_spell_dict(self, spell_choice, gen_spell = False, spell_dict = False):
         """Берём словарь заклинания из функции."""
         # TODO: почему я здесь указал 1_lvl? Проверить!
         # Ясно почему, потому что иначе ломаются проверки на int в заклинаниях.
@@ -244,7 +264,7 @@ class gen_spells():
 #------------------------------------------------------------
 # Состояния
 
-    def Blinded(self, spell_level, gen_spell = False):
+    def Blinded(self, spell_level, gen_spell = False, spell_dict = False):
         """Ослепление. Ослеплённый.
         
         - Преимущество на атаки врагов.
@@ -254,20 +274,21 @@ class gen_spells():
         """
         # Используем тот же формат, что и для заклинаний.
         # Длительность эффектов указана базовая.
-        spell_dict = {
-                'effect':'blinded',
-                'effect_timer':10,
-                'direct_hit':True,
-                'savethrow':True,
-                'savethrow_ability':'constitution',
-                'spell_level':spell_level,
-                'spell_save_DC':8 + self.find_spell_attack_mod(),
-                }
-        # Делаем полную копию словаря, чтобы оригинал не изменялся.
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    'effect':'blinded',
+                    'effect_timer':10,
+                    'direct_hit':True,
+                    'savethrow':True,
+                    'savethrow_ability':'constitution',
+                    'spell_level':spell_level,
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    }
+            # Делаем полную копию словаря, чтобы оригинал не изменялся.
+            spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
-    def Charmed(self, spell_level, gen_spell = False):
+    def Charmed(self, spell_level, gen_spell = False, spell_dict = False):
         """Очарование. Очарованный.
         
         - Цель не будет вредить кастеру.
@@ -275,38 +296,40 @@ class gen_spells():
 
         # https://www.dandwiki.com/wiki/5e_SRD:Conditions#Charmed
         """
-        spell_dict = {
-                'effect':'charmed',
-                'effect_timer':10,
-                'direct_hit':True,
-                'savethrow':True,
-                'savethrow_ability':'wisdom',
-                'spell_level':spell_level,
-                'spell_save_DC':8 + self.find_spell_attack_mod(),
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    'effect':'charmed',
+                    'effect_timer':10,
+                    'direct_hit':True,
+                    'savethrow':True,
+                    'savethrow_ability':'wisdom',
+                    'spell_level':spell_level,
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
-    def Deafened(self, spell_level, gen_spell = False):
+    def Deafened(self, spell_level, gen_spell = False, spell_dict = False):
         """Потеря слуха. Оглохший.
         
         - Автоматический провал всех проверок, связанных со слухом.
 
         # https://www.dandwiki.com/wiki/5e_SRD:Conditions#Deafened
         """
-        spell_dict = {
-                'effect':'deafened',
-                'effect_timer':10,
-                'direct_hit':True,
-                'savethrow':True,
-                'savethrow_ability':'constitution',
-                'spell_level':spell_level,
-                'spell_save_DC':8 + self.find_spell_attack_mod(),
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    'effect':'deafened',
+                    'effect_timer':10,
+                    'direct_hit':True,
+                    'savethrow':True,
+                    'savethrow_ability':'constitution',
+                    'spell_level':spell_level,
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
-    def Exhaustion(self, spell_level, gen_spell = False):
+    def Exhaustion(self, spell_level, gen_spell = False, spell_dict = False):
         """Истощение. Истощённый.
         
         Шесть уровней истощения:
@@ -319,19 +342,20 @@ class gen_spells():
         
         # https://www.dandwiki.com/wiki/5e_SRD:Conditions#Exhaustion
         """
-        spell_dict = {
-                'effect':'exhaustion',
-                'effect_timer':4800,
-                'direct_hit':True,
-                'savethrow':True,
-                'savethrow_ability':'constitution',
-                'spell_level':spell_level,
-                'spell_save_DC':8 + self.find_spell_attack_mod(),
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    'effect':'exhaustion',
+                    'effect_timer':4800,
+                    'direct_hit':True,
+                    'savethrow':True,
+                    'savethrow_ability':'constitution',
+                    'spell_level':spell_level,
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
-    def Frightened(self, spell_level, gen_spell = False):
+    def Frightened(self, spell_level, gen_spell = False, spell_dict = False):
         """Испуг. Испуганный.
         
         Если источник страха видим:
@@ -340,19 +364,20 @@ class gen_spells():
         
         # https://www.dandwiki.com/wiki/5e_SRD:Conditions#Frightened
         """
-        spell_dict = {
-                'effect':'frightened',
-                'effect_timer':10,
-                'direct_hit':True,
-                'savethrow':True,
-                'savethrow_ability':'wisdom',
-                'spell_level':spell_level,
-                'spell_save_DC':8 + self.find_spell_attack_mod(),
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    'effect':'frightened',
+                    'effect_timer':10,
+                    'direct_hit':True,
+                    'savethrow':True,
+                    'savethrow_ability':'wisdom',
+                    'spell_level':spell_level,
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
-    def Grappled(self, spell_level, gen_spell = False):
+    def Grappled(self, spell_level, gen_spell = False, spell_dict = False):
         """Захват. Схваченный.
         
         - Скорость = 0. Нет никаких бонусов к скорости.
@@ -361,19 +386,20 @@ class gen_spells():
         
         # https://www.dandwiki.com/wiki/5e_SRD:Conditions#Grappled
         """
-        spell_dict = {
-                'effect':'grappled',
-                'effect_timer':100,
-                'direct_hit':True,
-                'savethrow':True,
-                'savethrow_ability':'strength',
-                'spell_level':spell_level,
-                'spell_save_DC':8 + self.find_spell_attack_mod(),
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    'effect':'grappled',
+                    'effect_timer':100,
+                    'direct_hit':True,
+                    'savethrow':True,
+                    'savethrow_ability':'strength',
+                    'spell_level':spell_level,
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
-    def Incapacitated(self, spell_level, gen_spell = False):
+    def Incapacitated(self, spell_level, gen_spell = False, spell_dict = False):
         """Недееспособность. Недееспособный.
 
         - Недееспособный не может двигаться
@@ -381,19 +407,20 @@ class gen_spells():
         
         # https://www.dandwiki.com/wiki/5e_SRD:Conditions#Incapacitated
         """
-        spell_dict = {
-                'effect':'incapacitated',
-                'effect_timer':600,
-                'direct_hit':True,
-                #'savethrow':True,
-                #'savethrow_ability':'constitution',
-                'spell_level':spell_level,
-                'spell_save_DC':8 + self.find_spell_attack_mod(),
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    'effect':'incapacitated',
+                    'effect_timer':600,
+                    'direct_hit':True,
+                    #'savethrow':True,
+                    #'savethrow_ability':'constitution',
+                    'spell_level':spell_level,
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
-    def Invisible(self, spell_level, gen_spell = False):
+    def Invisible(self, spell_level, gen_spell = False, spell_dict = False):
         """Невидимость. Невидимый.
 
         - Броски атаки по невидимке с помехой.
@@ -402,19 +429,20 @@ class gen_spells():
         
         # https://www.dandwiki.com/wiki/5e_SRD:Conditions#Invisible
         """
-        spell_dict = {
-                'effect':'invisible',
-                'effect_timer':600,
-                'direct_hit':True,
-                #'savethrow':True,
-                #'savethrow_ability':'intelligence',
-                'spell_level':spell_level,
-                'spell_save_DC':8 + self.find_spell_attack_mod(),
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    'effect':'invisible',
+                    'effect_timer':600,
+                    'direct_hit':True,
+                    #'savethrow':True,
+                    #'savethrow_ability':'intelligence',
+                    'spell_level':spell_level,
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
-    def Paralyzed(self, spell_level, gen_spell = False):
+    def Paralyzed(self, spell_level, gen_spell = False, spell_dict = False):
         """Паралич. Парализованный.
 
         - Парализованный = недееспособный
@@ -424,19 +452,20 @@ class gen_spells():
         
         # https://www.dandwiki.com/wiki/5e_SRD:Conditions#Paralyzed
         """
-        spell_dict = {
-                'effect':'paralyzed',
-                'effect_timer':10,
-                'direct_hit':True,
-                'savethrow':True,
-                'savethrow_ability':'constitution',
-                'spell_level':spell_level,
-                'spell_save_DC':8 + self.find_spell_attack_mod(),
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    'effect':'paralyzed',
+                    'effect_timer':10,
+                    'direct_hit':True,
+                    'savethrow':True,
+                    'savethrow_ability':'constitution',
+                    'spell_level':spell_level,
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
-    def Petrified(self, spell_level, gen_spell = False):
+    def Petrified(self, spell_level, gen_spell = False, spell_dict = False):
         """Окаменение. Окаменевший.
 
         - Вес существа увеличивается вдесятеро. Плотность? Нет, не слышали.
@@ -448,19 +477,20 @@ class gen_spells():
 
         # https://www.dandwiki.com/wiki/5e_SRD:Conditions#Petrified
         """
-        spell_dict = {
-                'effect':'petrified',
-                'effect_timer':4800,
-                'direct_hit':True,
-                'savethrow':True,
-                'savethrow_ability':'constitution',
-                'spell_level':spell_level,
-                'spell_save_DC':8 + self.find_spell_attack_mod(),
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    'effect':'petrified',
+                    'effect_timer':4800,
+                    'direct_hit':True,
+                    'savethrow':True,
+                    'savethrow_ability':'constitution',
+                    'spell_level':spell_level,
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
-    def Poisoned(self, spell_level, gen_spell = False):
+    def Poisoned(self, spell_level, gen_spell = False, spell_dict = False):
         """Отравление. Отравленный.
 
         - Помеха на броски атаки.
@@ -468,19 +498,20 @@ class gen_spells():
 
         # https://www.dandwiki.com/wiki/5e_SRD:Conditions#Poisoned
         """
-        spell_dict = {
-                'effect':'poisoned',
-                'effect_timer':600,
-                'direct_hit':True,
-                'savethrow':True,
-                'savethrow_ability':'constitution',
-                'spell_level':spell_level,
-                'spell_save_DC':8 + self.find_spell_attack_mod(),
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    'effect':'poisoned',
+                    'effect_timer':600,
+                    'direct_hit':True,
+                    'savethrow':True,
+                    'savethrow_ability':'constitution',
+                    'spell_level':spell_level,
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
-    def Prone(self, spell_level, gen_spell = False):
+    def Prone(self, spell_level, gen_spell = False, spell_dict = False):
         """Сбитый с ног. Лежащий ничком.
 
         - Передвигается ползком.
@@ -490,19 +521,20 @@ class gen_spells():
 
         # https://www.dandwiki.com/wiki/5e_SRD:Conditions#Prone
         """
-        spell_dict = {
-                'effect':'prone',
-                'effect_timer':10,
-                'direct_hit':True,
-                'savethrow':True,
-                'savethrow_ability':'strength',
-                'spell_level':spell_level,
-                'spell_save_DC':8 + self.find_spell_attack_mod(),
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    'effect':'prone',
+                    'effect_timer':10,
+                    'direct_hit':True,
+                    'savethrow':True,
+                    'savethrow_ability':'strength',
+                    'spell_level':spell_level,
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
-    def Restrained(self, spell_level, gen_spell = False):
+    def Restrained(self, spell_level, gen_spell = False, spell_dict = False):
         """Опутывание. Опутанный.
 
         - Скорость = 0. Нет никаких бонусов к скорости.
@@ -512,19 +544,20 @@ class gen_spells():
 
         # https://www.dandwiki.com/wiki/5e_SRD:Conditions#Restrained
         """
-        spell_dict = {
-                'effect':'restrained',
-                'effect_timer':100,
-                'direct_hit':True,
-                'savethrow':True,
-                'savethrow_ability':'strength',
-                'spell_level':spell_level,
-                'spell_save_DC':8 + self.find_spell_attack_mod(),
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    'effect':'restrained',
+                    'effect_timer':100,
+                    'direct_hit':True,
+                    'savethrow':True,
+                    'savethrow_ability':'strength',
+                    'spell_level':spell_level,
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
-    def Stunned(self, spell_level, gen_spell = False):
+    def Stunned(self, spell_level, gen_spell = False, spell_dict = False):
         """Ошеломление. Ошеломлённый. Оглушение.
 
         - Ошеломлённый = недееспособный
@@ -533,19 +566,20 @@ class gen_spells():
 
         # https://www.dandwiki.com/wiki/5e_SRD:Conditions#Stunned
         """
-        spell_dict = {
-                'effect':'stunned',
-                'effect_timer':1,
-                'direct_hit':True,
-                'savethrow':True,
-                'savethrow_ability':'constitution',
-                'spell_level':spell_level,
-                'spell_save_DC':8 + self.find_spell_attack_mod(),
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    'effect':'stunned',
+                    'effect_timer':1,
+                    'direct_hit':True,
+                    'savethrow':True,
+                    'savethrow_ability':'constitution',
+                    'spell_level':spell_level,
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
-    def Unconscious(self, spell_level, gen_spell = False):
+    def Unconscious(self, spell_level, gen_spell = False, spell_dict = False):
         """Без сознания. Бессознательный.
 
         - Бессознательный = недееспособный
@@ -556,16 +590,17 @@ class gen_spells():
 
         # https://www.dandwiki.com/wiki/5e_SRD:Conditions#Unconscious
         """
-        spell_dict = {
-                'effect':'unconscious',
-                'effect_timer':600,
-                'direct_hit':True,
-                'savethrow':True,
-                'savethrow_ability':'constitution',
-                'spell_level':spell_level,
-                'spell_save_DC':8 + self.find_spell_attack_mod(),
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    'effect':'unconscious',
+                    'effect_timer':600,
+                    'direct_hit':True,
+                    'savethrow':True,
+                    'savethrow_ability':'constitution',
+                    'spell_level':spell_level,
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
 #------------------------------------------------------------
@@ -575,7 +610,7 @@ class gen_spells():
 # Channel_Divinity
 
     @modify_spell
-    def Radiance_of_the_Dawn(self, spell_level, gen_spell = False):
+    def Radiance_of_the_Dawn(self, spell_level, gen_spell = False, spell_dict = False):
         """Сияние рассвета.
         
         """
@@ -583,25 +618,26 @@ class gen_spells():
         # Можно защититься баррикадами, которые и без того нередко используются в бою.
         # Как вариант, пусть работает только против волшебных созданий: нежити, демонов, духов и фей.
         # Пока что урон ослаблен 2d10 > 1d10. Зато на 5 lvl урон повышается.
-        spell_dict = {
-                'effect':'channel',
-                'direct_hit':True,
-                'savethrow':True,
-                'savethrow_ability':'constitution',
-                'attacks_number':1,
-                'radius':30,
-                'attack_range':5,
-                'damage_type':'radiant',
-                'damage_dice':'1d10',
-                'components':['somatic'],
-                'casting_time':'action',
-                'damage_mod':0,
-                'spell_level':spell_level,
-                'spell_save_DC':8 + self.find_spell_attack_mod(),
-                'spell_of_choice':'Sacred_Flame',
-                }
-        # Делаем полную копию словаря, чтобы оригинал не изменялся.
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    'effect':'channel',
+                    'direct_hit':True,
+                    'savethrow':True,
+                    'savethrow_ability':'constitution',
+                    'attacks_number':1,
+                    'radius':30,
+                    'attack_range':5,
+                    'damage_type':'radiant',
+                    'damage_dice':'1d10',
+                    'components':['somatic'],
+                    'casting_time':'action',
+                    'damage_mod':0,
+                    'spell_level':spell_level,
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    'spell_of_choice':'Sacred_Flame',
+                    }
+            # Делаем полную копию словаря, чтобы оригинал не изменялся.
+            spell_dict = copy.deepcopy(spell_dict)
         if self.mage.level >= 5:
             spell_dict['damage_dice'] = '2d10'
         if self.mage.level >= 11:
@@ -611,27 +647,28 @@ class gen_spells():
         return spell_dict
 
     @modify_spell
-    def Divine_Smite(self, spell_level, gen_spell = False):
+    def Divine_Smite(self, spell_level, gen_spell = False, spell_dict = False):
         """Божественная кара.
         
         """
         # TODO: эта атака усиливается критическим ударом.
         # Кроме того наносит дополнительные 1d8 урона нежити и исчадиям.
-        spell_dict = {
-                'effect':'smite',
-                'direct_hit':True,
-                'attacks_number':1,
-                'attack_range':5,
-                'damage_type':'radiant',
-                'damage_dice':'2d8',
-                'components':[],
-                'casting_time':None,
-                'damage_mod':0,
-                'spell_level':spell_level,
-                'spell_save_DC':8 + self.find_spell_attack_mod(),
-                'spell_of_choice':'Sacred_Flame',
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    'effect':'smite',
+                    'direct_hit':True,
+                    'attacks_number':1,
+                    'attack_range':5,
+                    'damage_type':'radiant',
+                    'damage_dice':'2d8',
+                    'components':[],
+                    'casting_time':None,
+                    'damage_mod':0,
+                    'spell_level':spell_level,
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    'spell_of_choice':'Sacred_Flame',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 1:
             dice = int(spell_dict['damage_dice'][0])
             dice += int(spell_level[0]) - 1
@@ -639,79 +676,82 @@ class gen_spells():
         return spell_dict
 
     @modify_spell
-    def Sacred_Weapon(self, spell_level, gen_spell = False):
+    def Sacred_Weapon(self, spell_level, gen_spell = False, spell_dict = False):
         """Священное оружие.
         
         Oath_of_Devotion
         """
-        spell_dict = {
-                'effect':'sacred_weapon',
-                'effect_timer':10,
-                #'subspell':'Light',
-                'components':[],
-                'casting_time':None,
-                'attack_mod':self.mage.mods['charisma'],
-                'damage_mod':0,
-                'spell_level':spell_level,
-                'spell_save_DC':8 + self.find_spell_attack_mod(),
-                'spell_of_choice':'Sacred_Flame',
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    'effect':'sacred_weapon',
+                    'effect_timer':10,
+                    #'subspell':'Light',
+                    'components':[],
+                    'casting_time':None,
+                    'attack_mod':self.mage.mods['charisma'],
+                    'damage_mod':0,
+                    'spell_level':spell_level,
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    'spell_of_choice':'Sacred_Flame',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
     @modify_spell
-    def Dreadful_Aspect(self, spell_level, gen_spell = False):
+    def Dreadful_Aspect(self, spell_level, gen_spell = False, spell_dict = False):
         """Пугающее присутствие антипаладина.
 
         Channel_Dreadful_Aspect
         """
-        spell_dict = {
-                'effect':'fear',
-                'attacks_number':1,
-                'zone':True,
-                'radius':30,
-                'attack_range':5,
-                'direct_hit':True,
-                'savethrow':True,
-                'savethrow_all':True,
-                'savethrow_ability':'wisdom',
-                'components':['verbal'],
-                'casting_time':'action',
-                'spell_level':spell_level,
-                'spell_save_DC':8 + self.find_spell_attack_mod(),
-                'spell_of_choice':'Dreadful_Aspect',
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    'effect':'fear',
+                    'attacks_number':1,
+                    'zone':True,
+                    'radius':30,
+                    'attack_range':5,
+                    'direct_hit':True,
+                    'savethrow':True,
+                    'savethrow_all':True,
+                    'savethrow_ability':'wisdom',
+                    'components':['verbal'],
+                    'casting_time':'action',
+                    'spell_level':spell_level,
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    'spell_of_choice':'Dreadful_Aspect',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
     @modify_spell
-    def Wrath_of_the_Storm(self, spell_level, gen_spell = False):
+    def Wrath_of_the_Storm(self, spell_level, gen_spell = False, spell_dict = False):
         """Контратака жреца
 
         """
-        spell_dict = {
-                'direct_hit':True,
-                'savethrow':True,
-                'savethrow_ability':'dexterity',
-                'attacks_number':1,
-                'attack_range':5,
-                'damage_type':'lightning',
-                'damage_dice':'2d8',
-                'components':['verbal'],
-                'casting_time':'action',
-                'damage_mod':0,
-                'spell_level':spell_level,
-                'spell_save_DC':8 + self.find_spell_attack_mod(),
-                'spell_of_choice':'Wrath_of_the_Storm',
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    'direct_hit':True,
+                    'savethrow':True,
+                    'savethrow_ability':'dexterity',
+                    'attacks_number':1,
+                    'attack_range':5,
+                    'damage_type':'lightning',
+                    'damage_dice':'2d8',
+                    'components':['verbal'],
+                    'casting_time':'action',
+                    'damage_mod':0,
+                    'spell_level':spell_level,
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    'spell_of_choice':'Wrath_of_the_Storm',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
 #----
 # Cantrips
 
     @modify_spell
-    def Eldritch_Blast(self, spell_level, gen_spell = False):
+    def Eldritch_Blast(self, spell_level, gen_spell = False, spell_dict = False):
         """Мистический заряд.
 
         Level: Cantrip
@@ -721,21 +761,22 @@ class gen_spells():
         Duration: Instantaneous
         https://www.dnd-spells.com/spell/eldritch-blast
         """
-        spell_dict = {
-                'attacks_number':1,
-                'attack_range':120,
-                'damage_type':'force',
-                'damage_dice':'1d10',
-                'components':['verbal','somatic'],
-                'casting_time':'action',
-                'spell_level':spell_level,
-                'damage_mod':0,
-                'attack_mod':self.find_spell_attack_mod(),
-                'spell_save_DC':8 + self.find_spell_attack_mod(),
-                # TODO: сделай выбор оптимального заклинания:
-                'spell_of_choice':'Eldritch_Blast',
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    'attacks_number':1,
+                    'attack_range':120,
+                    'damage_type':'force',
+                    'damage_dice':'1d10',
+                    'components':['verbal','somatic'],
+                    'casting_time':'action',
+                    'spell_level':spell_level,
+                    'damage_mod':0,
+                    'attack_mod':self.find_spell_attack_mod(),
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    # TODO: сделай выбор оптимального заклинания:
+                    'spell_of_choice':'Eldritch_Blast',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         if self.mage.class_features.get('Invocation_Agonizing_Blast'):
             spell_dict['damage_mod'] = self.mage.mods['charisma']
         if self.mage.class_features.get('Invocation_Eldritch_Spear'):
@@ -749,7 +790,7 @@ class gen_spells():
         return spell_dict
 
     @modify_spell
-    def Fire_Bolt(self, spell_level, gen_spell = False):
+    def Fire_Bolt(self, spell_level, gen_spell = False, spell_dict = False):
         """Огненный снаряд.
 
         Level: Cantrip
@@ -759,20 +800,21 @@ class gen_spells():
         Duration: Instantaneous
         https://www.dnd-spells.com/spell/fire-bolt
         """
-        spell_dict = {
-                'attacks_number':1,
-                'attack_range':120,
-                'damage_type':'fire',
-                'damage_dice':'1d10',
-                'components':['verbal','somatic'],
-                'casting_time':'action',
-                'spell_level':spell_level,
-                'damage_mod':0,
-                'attack_mod':self.find_spell_attack_mod(),
-                'spell_save_DC':8 + self.find_spell_attack_mod(),
-                'spell_of_choice':'Fire_Bolt',
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    'attacks_number':1,
+                    'attack_range':120,
+                    'damage_type':'fire',
+                    'damage_dice':'1d10',
+                    'components':['verbal','somatic'],
+                    'casting_time':'action',
+                    'spell_level':spell_level,
+                    'damage_mod':0,
+                    'attack_mod':self.find_spell_attack_mod(),
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    'spell_of_choice':'Fire_Bolt',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         if self.mage.level >= 5:
             spell_dict['damage_dice'] = '2d10'
         if self.mage.level >= 11:
@@ -782,7 +824,7 @@ class gen_spells():
         return spell_dict
 
     @modify_spell
-    def Acid_Splash(self, spell_level, gen_spell = False):
+    def Acid_Splash(self, spell_level, gen_spell = False, spell_dict = False):
         """Брызги кислоты.
         
         Поражает две цели, если не сумеют уклониться.
@@ -796,24 +838,25 @@ class gen_spells():
         """
         # TODO: две разные цели, обе должны быть рядом. Сделай через эффект.
         # Да не, фигня получается, лишнее переусложнение. Пусть будет пока так.
-        spell_dict = {
-                'direct_hit':True,
-                'savethrow':True,
-                'savethrow_all':True,
-                'savethrow_ability':'dexterity',
-                'attacks_number':2,
-                'attack_range':60,
-                'damage_type':'acid',
-                'damage_dice':'1d6',
-                'components':['verbal','somatic'],
-                'casting_time':'action',
-                'spell_level':spell_level,
-                'damage_mod':0,
-                'attack_mod':self.find_spell_attack_mod(),
-                'spell_save_DC':8 + self.find_spell_attack_mod(),
-                'spell_of_choice':'Acid_Splash',
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    'direct_hit':True,
+                    'savethrow':True,
+                    'savethrow_all':True,
+                    'savethrow_ability':'dexterity',
+                    'attacks_number':2,
+                    'attack_range':60,
+                    'damage_type':'acid',
+                    'damage_dice':'1d6',
+                    'components':['verbal','somatic'],
+                    'casting_time':'action',
+                    'spell_level':spell_level,
+                    'damage_mod':0,
+                    'attack_mod':self.find_spell_attack_mod(),
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    'spell_of_choice':'Acid_Splash',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         if self.mage.level >= 5:
             spell_dict['damage_dice'] = '2d6'
         if self.mage.level >= 11:
@@ -823,7 +866,7 @@ class gen_spells():
         return spell_dict
 
     @modify_spell
-    def Vicious_Mockery(self, spell_level, gen_spell = False):
+    def Vicious_Mockery(self, spell_level, gen_spell = False, spell_dict = False):
         """Злая насмешка
 
         Level: Cantrip
@@ -833,24 +876,25 @@ class gen_spells():
         Duration: Instantaneous
         https://www.dnd-spells.com/spell/vicious-mockery
         """
-        spell_dict = {
-                'effect':'mockery',
-                'direct_hit':True,
-                'savethrow':True,
-                'savethrow_all':True,
-                'savethrow_ability':'wisdom',
-                'attacks_number':1,
-                'attack_range':60,
-                'damage_type':'psychic',
-                'damage_dice':'1d4',
-                'components':['verbal'],
-                'casting_time':'action',
-                'spell_level':spell_level,
-                'damage_mod':0,
-                'spell_save_DC':8 + self.find_spell_attack_mod(),
-                'spell_of_choice':'Vicious_Mockery',
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    'effect':'mockery',
+                    'direct_hit':True,
+                    'savethrow':True,
+                    'savethrow_all':True,
+                    'savethrow_ability':'wisdom',
+                    'attacks_number':1,
+                    'attack_range':60,
+                    'damage_type':'psychic',
+                    'damage_dice':'1d4',
+                    'components':['verbal'],
+                    'casting_time':'action',
+                    'spell_level':spell_level,
+                    'damage_mod':0,
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    'spell_of_choice':'Vicious_Mockery',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         if self.mage.level >= 5:
             spell_dict['damage_dice'] = '2d4'
         if self.mage.level >= 11:
@@ -860,7 +904,7 @@ class gen_spells():
         return spell_dict
 
     @modify_spell
-    def Frostbite(self, spell_level, gen_spell = False):
+    def Frostbite(self, spell_level, gen_spell = False, spell_dict = False):
         """Обморожение.
 
         Level: Cantrip
@@ -870,24 +914,25 @@ class gen_spells():
         Duration: Instantaneous
         https://www.dnd-spells.com/spell/frostbite
         """
-        spell_dict = {
-                'direct_hit':True,
-                'savethrow':True,
-                'savethrow_all':True,
-                'savethrow_ability':'constitution',
-                'attacks_number':1,
-                'attack_range':60,
-                'effect':'mockery',
-                'damage_type':'cold',
-                'damage_dice':'1d6',
-                'components':['verbal', 'somatic'],
-                'casting_time':'action',
-                'spell_level':spell_level,
-                'damage_mod':0,
-                'spell_save_DC':8 + self.find_spell_attack_mod(),
-                'spell_of_choice':'Frostbite',
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    'direct_hit':True,
+                    'savethrow':True,
+                    'savethrow_all':True,
+                    'savethrow_ability':'constitution',
+                    'attacks_number':1,
+                    'attack_range':60,
+                    'effect':'mockery',
+                    'damage_type':'cold',
+                    'damage_dice':'1d6',
+                    'components':['verbal', 'somatic'],
+                    'casting_time':'action',
+                    'spell_level':spell_level,
+                    'damage_mod':0,
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    'spell_of_choice':'Frostbite',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         if self.mage.level >= 5:
             spell_dict['damage_dice'] = '2d6'
         if self.mage.level >= 11:
@@ -897,7 +942,7 @@ class gen_spells():
         return spell_dict
 
     @modify_spell
-    def Sacred_Flame(self, spell_level, gen_spell = False):
+    def Sacred_Flame(self, spell_level, gen_spell = False, spell_dict = False):
         """Священное пламя.
 
         Level: Cantrip
@@ -907,24 +952,25 @@ class gen_spells():
         Duration: Instantaneous
         https://www.dnd-spells.com/spell/sacred-flame
         """
-        spell_dict = {
-                'direct_hit':True,
-                'ignore_cover':True,
-                'savethrow':True,
-                'savethrow_all':True,
-                'savethrow_ability':'dexterity',
-                'attacks_number':1,
-                'attack_range':60,
-                'damage_type':'radiant',
-                'damage_dice':'1d8',
-                'components':['verbal','somatic'],
-                'casting_time':'action',
-                'spell_level':spell_level,
-                'damage_mod':0,
-                'spell_save_DC':8 + self.find_spell_attack_mod(),
-                'spell_of_choice':'Sacred_Flame',
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    'direct_hit':True,
+                    'ignore_cover':True,
+                    'savethrow':True,
+                    'savethrow_all':True,
+                    'savethrow_ability':'dexterity',
+                    'attacks_number':1,
+                    'attack_range':60,
+                    'damage_type':'radiant',
+                    'damage_dice':'1d8',
+                    'components':['verbal','somatic'],
+                    'casting_time':'action',
+                    'spell_level':spell_level,
+                    'damage_mod':0,
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    'spell_of_choice':'Sacred_Flame',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         if self.mage.level >= 5:
             spell_dict['damage_dice'] = '2d8'
         if self.mage.level >= 11:
@@ -934,7 +980,7 @@ class gen_spells():
         return spell_dict
 
     @modify_spell
-    def Sword_Burst(self, spell_level, gen_spell = False):
+    def Sword_Burst(self, spell_level, gen_spell = False, spell_dict = False):
         """Вихрь клинков мистического рыцаря.
 
         Level: Cantrip
@@ -944,25 +990,26 @@ class gen_spells():
         Duration: Instantaneous
         https://www.dnd-spells.com/spell/sword-burst
         """
-        spell_dict = {
-                'effect':'burst',
-                'direct_hit':True,
-                'savethrow':True,
-                'savethrow_all':True,
-                'savethrow_ability':'dexterity',
-                'attacks_number':1,
-                'radius':5,
-                'attack_range':5,
-                'damage_type':'force',
-                'damage_dice':'1d6',
-                'components':['verbal'],
-                'casting_time':'action',
-                'damage_mod':0,
-                'spell_level':spell_level,
-                'spell_save_DC':8 + self.find_spell_attack_mod(),
-                'spell_of_choice':'Sword_Burst',
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    'effect':'burst',
+                    'direct_hit':True,
+                    'savethrow':True,
+                    'savethrow_all':True,
+                    'savethrow_ability':'dexterity',
+                    'attacks_number':1,
+                    'radius':5,
+                    'attack_range':5,
+                    'damage_type':'force',
+                    'damage_dice':'1d6',
+                    'components':['verbal'],
+                    'casting_time':'action',
+                    'damage_mod':0,
+                    'spell_level':spell_level,
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    'spell_of_choice':'Sword_Burst',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         if self.mage.level >= 5:
             spell_dict['damage_dice'] = '2d6'
         if self.mage.level >= 11:
@@ -972,7 +1019,7 @@ class gen_spells():
         return spell_dict
 
     @modify_spell
-    def Thunderclap(self, spell_level, gen_spell = False):
+    def Thunderclap(self, spell_level, gen_spell = False, spell_dict = False):
         """Громовая атака барда.
 
         Level: Cantrip
@@ -982,25 +1029,26 @@ class gen_spells():
         Duration: Instantaneous
         https://www.dnd-spells.com/spell/thunderclap
         """
-        spell_dict = {
-                'effect':'burst',
-                'direct_hit':True,
-                'savethrow':True,
-                'savethrow_all':True,
-                'savethrow_ability':'constitution',
-                'attacks_number':1,
-                'radius':5,
-                'attack_range':5,
-                'damage_type':'thunder',
-                'damage_dice':'1d6',
-                'components':['somatic'],
-                'casting_time':'action',
-                'damage_mod':0,
-                'spell_level':spell_level,
-                'spell_save_DC':8 + self.find_spell_attack_mod(),
-                'spell_of_choice':'Thunderclap',
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    'effect':'burst',
+                    'direct_hit':True,
+                    'savethrow':True,
+                    'savethrow_all':True,
+                    'savethrow_ability':'constitution',
+                    'attacks_number':1,
+                    'radius':5,
+                    'attack_range':5,
+                    'damage_type':'thunder',
+                    'damage_dice':'1d6',
+                    'components':['somatic'],
+                    'casting_time':'action',
+                    'damage_mod':0,
+                    'spell_level':spell_level,
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    'spell_of_choice':'Thunderclap',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         if self.mage.level >= 5:
             spell_dict['damage_dice'] = '2d6'
         if self.mage.level >= 11:
@@ -1010,7 +1058,7 @@ class gen_spells():
         return spell_dict
 
     @modify_spell
-    def Word_of_Radiance(self, spell_level, gen_spell = False):
+    def Word_of_Radiance(self, spell_level, gen_spell = False, spell_dict = False):
         """Слово сияния.
 
         Level: Cantrip
@@ -1020,25 +1068,26 @@ class gen_spells():
         Duration: Instantaneous
         https://www.dnd-spells.com/spell/word-of-radiance
         """
-        spell_dict = {
-                'effect':'burst',
-                'direct_hit':True,
-                'savethrow':True,
-                'savethrow_all':True,
-                'savethrow_ability':'constitution',
-                'attacks_number':1,
-                'radius':5,
-                'attack_range':5,
-                'damage_type':'radiant',
-                'damage_dice':'1d6',
-                'components':['verbal','material'],
-                'casting_time':'action',
-                'damage_mod':0,
-                'spell_level':spell_level,
-                'spell_save_DC':8 + self.find_spell_attack_mod(),
-                'spell_of_choice':'Word_of_Radiance',
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    'effect':'burst',
+                    'direct_hit':True,
+                    'savethrow':True,
+                    'savethrow_all':True,
+                    'savethrow_ability':'constitution',
+                    'attacks_number':1,
+                    'radius':5,
+                    'attack_range':5,
+                    'damage_type':'radiant',
+                    'damage_dice':'1d6',
+                    'components':['verbal','material'],
+                    'casting_time':'action',
+                    'damage_mod':0,
+                    'spell_level':spell_level,
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    'spell_of_choice':'Word_of_Radiance',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         if self.mage.level >= 5:
             spell_dict['damage_dice'] = '2d6'
         if self.mage.level >= 11:
@@ -1048,7 +1097,7 @@ class gen_spells():
         return spell_dict
 
     @modify_spell
-    def Create_Bonfire(self, spell_level, gen_spell = False):
+    def Create_Bonfire(self, spell_level, gen_spell = False, spell_dict = False):
         """Сотворение костра.
 
         Level: Cantrip
@@ -1058,29 +1107,30 @@ class gen_spells():
         Duration: Concentration, up to 1 minute
         https://www.dnd-spells.com/spell/create-bonfire
         """
-        spell_dict = {
-                'effect':'bonfire',
-                'effect_timer':10,
-                'concentration':True,
-                'zone_effect':True,
-                'zone_danger':True,
-                'radius':0,
-                'direct_hit':True,
-                'savethrow':True,
-                'savethrow_all':True,
-                'savethrow_ability':'dexterity',
-                'attacks_number':1,
-                'attack_range':60,
-                'damage_type':'fire',
-                'damage_dice':'1d8',
-                'components':['verbal','somatic'],
-                'casting_time':'action',
-                'damage_mod':0,
-                'spell_level':spell_level,
-                'spell_save_DC':8 + self.find_spell_attack_mod(),
-                'spell_of_choice':'Create_Bonfire',
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    'effect':'bonfire',
+                    'effect_timer':10,
+                    'concentration':True,
+                    'zone_effect':True,
+                    'zone_danger':True,
+                    'radius':0,
+                    'direct_hit':True,
+                    'savethrow':True,
+                    'savethrow_all':True,
+                    'savethrow_ability':'dexterity',
+                    'attacks_number':1,
+                    'attack_range':60,
+                    'damage_type':'fire',
+                    'damage_dice':'1d8',
+                    'components':['verbal','somatic'],
+                    'casting_time':'action',
+                    'damage_mod':0,
+                    'spell_level':spell_level,
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    'spell_of_choice':'Create_Bonfire',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         if self.mage.level >= 5:
             spell_dict['damage_dice'] = '2d8'
         if self.mage.level >= 11:
@@ -1093,76 +1143,79 @@ class gen_spells():
 # Subspells
 
     @modify_spell
-    def Ice_Knife_Piercing(self, spell_level, gen_spell = False):
+    def Ice_Knife_Piercing(self, spell_level, gen_spell = False, spell_dict = False):
         """Главный поражающий элемент заклинания Ice_Knife."""
         # Субзаклинание от Ice_Knife.
-        spell_dict = {
-                'attacks_number':1,
-                'attack_range':60,
-                'damage_type':'piercing',
-                'damage_dice':'1d10',
-                'components':['somatic','material'],
-                'casting_time':'action',
-                'spell_level':spell_level,
-                'damage_mod':0,
-                'attack_mod':self.find_spell_attack_mod(),
-                'spell_save_DC':8 + self.find_spell_attack_mod(),
-                'spell_of_choice':'Ice_Knife_Piercing',
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    'attacks_number':1,
+                    'attack_range':60,
+                    'damage_type':'piercing',
+                    'damage_dice':'1d10',
+                    'components':['somatic','material'],
+                    'casting_time':'action',
+                    'spell_level':spell_level,
+                    'damage_mod':0,
+                    'attack_mod':self.find_spell_attack_mod(),
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    'spell_of_choice':'Ice_Knife_Piercing',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
     @modify_spell
-    def Ice_Storm_Cold(self, spell_level, gen_spell = False):
+    def Ice_Storm_Cold(self, spell_level, gen_spell = False, spell_dict = False):
         """Град. Повреждения холодом отдельно.
         
         Для каждой отдельной цели.
         """
-        spell_dict = {
-                'direct_hit':True,
-                'savethrow':True,
-                'savethrow_ability':'dexterity',
-                'attacks_number':1,
-                'attack_range':0,
-                'damage_type':'cold',
-                'damage_dice':'4d6',
-                'components':[],
-                'casting_time':'free_action',
-                'damage_mod':0,
-                'spell_level':spell_level,
-                'spell_save_DC':8 + self.find_spell_attack_mod(),
-                'spell_of_choice':'Magic_Missile',
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    'direct_hit':True,
+                    'savethrow':True,
+                    'savethrow_ability':'dexterity',
+                    'attacks_number':1,
+                    'attack_range':0,
+                    'damage_type':'cold',
+                    'damage_dice':'4d6',
+                    'components':[],
+                    'casting_time':'free_action',
+                    'damage_mod':0,
+                    'spell_level':spell_level,
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    'spell_of_choice':'Magic_Missile',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
     @modify_spell
-    def Empyrean_Bolt(self, spell_level, gen_spell = False):
+    def Empyrean_Bolt(self, spell_level, gen_spell = False, spell_dict = False):
         """Дальная атака Эмпирея.
 
         Он может выбрать тип урона.
         """
-        spell_dict = {
-                'attacks_number':1,
-                'attack_range':600,
-                'damage_type':'fire',
-                'damage_dice':'7d6',
-                'components':['somatic'],
-                'casting_time':'action',
-                'spell_level':spell_level,
-                'damage_mod':0,
-                'attack_mod':15,
-                'spell_save_DC':23,
-                'spell_of_choice':'Empyrean_Bolt',
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    'attacks_number':1,
+                    'attack_range':600,
+                    'damage_type':'fire',
+                    'damage_dice':'7d6',
+                    'components':['somatic'],
+                    'casting_time':'action',
+                    'spell_level':spell_level,
+                    'damage_mod':0,
+                    'attack_mod':15,
+                    'spell_save_DC':23,
+                    'spell_of_choice':'Empyrean_Bolt',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
 #----
 # 1 lvl
 
     @modify_spell
-    def Healing_Word(self, spell_level, gen_spell = False):
+    def Healing_Word(self, spell_level, gen_spell = False, spell_dict = False):
         """Лечащее слово.
 
         Level: 1
@@ -1173,20 +1226,21 @@ class gen_spells():
         https://www.dnd-spells.com/spell/healing-word
         """
         # Дистанция заклинания увеличена до 120 футов.
-        spell_dict = {
-                'direct_hit':True,
-                'attacks_number':1,
-                'attack_range':120,
-                'damage_type':'heal',
-                'damage_dice':'1d4',
-                'components':['verbal'],
-                'casting_time':'bonus_action',
-                'spell_level':spell_level,
-                'damage_mod':self.find_spell_attack_mod(proficiency_bonus = False),
-                'spell_save_DC':8 + self.find_spell_attack_mod(),
-                'spell_of_choice':'Bane',
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    'direct_hit':True,
+                    'attacks_number':1,
+                    'attack_range':120,
+                    'damage_type':'heal',
+                    'damage_dice':'1d4',
+                    'components':['verbal'],
+                    'casting_time':'bonus_action',
+                    'spell_level':spell_level,
+                    'damage_mod':self.find_spell_attack_mod(proficiency_bonus = False),
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    'spell_of_choice':'Bane',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 1:
             dice = int(spell_dict['damage_dice'][0])
             dice += int(spell_level[0]) - 1
@@ -1196,7 +1250,7 @@ class gen_spells():
         return spell_dict
 
     @modify_spell
-    def Bless(self, spell_level, gen_spell = False):
+    def Bless(self, spell_level, gen_spell = False, spell_dict = False):
         """Благословление.
 
         Level: 1
@@ -1206,27 +1260,28 @@ class gen_spells():
         Duration: Concentration, up to 1 minute
         https://www.dnd-spells.com/spell/bless
         """
-        spell_dict = {
-                'concentration':True,
-                'effect':'bless',
-                'effect_timer':10,
-                'direct_hit':True,
-                'attacks_number':3,
-                'attack_range':30,
-                'damage_dice':'1d4',
-                'components':['verbal','somatic','material'],
-                'casting_time':'action',
-                'spell_level':spell_level,
-                'spell_save_DC':8 + self.find_spell_attack_mod(),
-                'spell_of_choice':'Bane',
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    'concentration':True,
+                    'effect':'bless',
+                    'effect_timer':10,
+                    'direct_hit':True,
+                    'attacks_number':3,
+                    'attack_range':30,
+                    'damage_dice':'1d4',
+                    'components':['verbal','somatic','material'],
+                    'casting_time':'action',
+                    'spell_level':spell_level,
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    'spell_of_choice':'Bane',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 1:
             spell_dict['attacks_number'] += int(spell_level[0]) - 1
         return spell_dict
 
     @modify_spell
-    def Shield_of_Faith(self, spell_level, gen_spell = False):
+    def Shield_of_Faith(self, spell_level, gen_spell = False, spell_dict = False):
         """Щит веры.
 
         Level: 1
@@ -1236,23 +1291,25 @@ class gen_spells():
         Duration: Concentration, up to 10 minutes
         https://www.dnd-spells.com/spell/shield-of-faith
         """
-        spell_dict = {
-                'concentration':True,
-                'effect':'shield_of_faith',
-                'effect_timer':100,
-                'attacks_number':1,
-                'attack_range':60,
-                'components':['verbal','somatic','material'],
-                'casting_time':'bonus_action',
-                'spell_level':spell_level,
-                'spell_save_DC':8 + self.find_spell_attack_mod(),
-                'spell_of_choice':'Bane',
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    'concentration':True,
+                    'effect':'shield_of_faith',
+                    'effect_timer':100,
+                    'attacks_number':1,
+                    'attack_range':60,
+                    'components':['verbal','somatic','material'],
+                    'casting_time':'bonus_action',
+                    'spell_level':spell_level,
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    'spell_of_choice':'Bane',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
     @modify_spell
-    def Heroism(self, spell_level, gen_spell = False):
+    #@update_spell_dict
+    def Heroism(self, spell_level, gen_spell = False, spell_dict = False):
         """Героизм.
 
 
@@ -1263,24 +1320,27 @@ class gen_spells():
         Duration: Concentration, up to 1 minute
         https://www.dnd-spells.com/spell/heroism
         """
-        spell_dict = {
-                'buff':True,
-                'repeat':True,
-                'concentration':True,
-                'effect':'heroism',
-                'effect_timer':10,
-                'attacks_number':1,
-                'attack_range':5,
-                'damage_type':'bonus_hitpoints',
-                'damage_dice':'0d0',
-                'damage_mod':self.find_spell_attack_mod(proficiency_bonus = False),
-                'components':['verbal','somatic'],
-                'casting_time':'action',
-                'spell_level':spell_level,
-                'spell_save_DC':8 + self.find_spell_attack_mod(),
-                'spell_of_choice':'Bane',
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    'buff':True,
+                    'repeat':True,
+                    'concentration':True,
+                    'effect':'heroism',
+                    'effect_timer':10,
+                    'attacks_number':1,
+                    'attack_range':5,
+                    'damage_type':'bonus_hitpoints',
+                    'damage_dice':'0d0',
+                    'damage_mod':self.find_spell_attack_mod(proficiency_bonus = False),
+                    'components':['verbal','somatic'],
+                    'casting_time':'action',
+                    'spell_level':spell_level,
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    'spell_of_choice':'Bane',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
+        #if gen_spell and type(gen_spell) == dict:
+        #    spell_dict.update(gen_spell)
         if int(spell_level[0]) > 1:
             spell_dict['attacks_number'] *= int(spell_level[0])
         if gen_spell:
@@ -1290,7 +1350,7 @@ class gen_spells():
         return spell_dict
 
     @modify_spell
-    def Fog_Cloud(self, spell_level, gen_spell = False):
+    def Fog_Cloud(self, spell_level, gen_spell = False, spell_dict = False):
         """Туманное облако.
 
         Level: 1
@@ -1300,27 +1360,28 @@ class gen_spells():
         Duration: Concentration, up to 1 hour
         https://www.dnd-spells.com/spell/fog-cloud
         """
-        spell_dict = {
-                'concentration':True,
-                'effect':'fog',
-                'effect_timer':100,
-                'attacks_number':1,
-                'radius':20,
-                'attack_range':120,
-                'components':['verbal','somatic'],
-                'casting_time':'action',
-                'spell_level':spell_level,
-                'spell_save_DC':8 + self.find_spell_attack_mod(),
-                'spell_of_choice':'Cause_Fear',
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    'concentration':True,
+                    'effect':'fog',
+                    'effect_timer':100,
+                    'attacks_number':1,
+                    'radius':20,
+                    'attack_range':120,
+                    'components':['verbal','somatic'],
+                    'casting_time':'action',
+                    'spell_level':spell_level,
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    'spell_of_choice':'Cause_Fear',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         # Радиус облака растёт на 20 футов за каждый уровень выше первого:
         if int(spell_level[0]) > 1:
             spell_dict['radius'] += 20 * int(spell_level[0])
         return spell_dict
 
     @modify_spell
-    def Cause_Fear(self, spell_level, gen_spell = False):
+    def Cause_Fear(self, spell_level, gen_spell = False, spell_dict = False):
         """Вызвать страх.
 
         Level: 1
@@ -1330,29 +1391,30 @@ class gen_spells():
         Duration: Concentration, up to 1 minute
         https://www.dnd-spells.com/spell/cause-fear
         """
-        spell_dict = {
-                'concentration':True,
-                'attacks_number':1,
-                'attack_range':60,
-                'effect':'fear',
-                'effect_timer':10,
-                'direct_hit':True,
-                'savethrow':True,
-                'savethrow_all':True,
-                'savethrow_ability':'wisdom',
-                'components':['verbal'],
-                'casting_time':'action',
-                'spell_level':spell_level,
-                'spell_save_DC':8 + self.find_spell_attack_mod(),
-                'spell_of_choice':'Cause_Fear',
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    'concentration':True,
+                    'attacks_number':1,
+                    'attack_range':60,
+                    'effect':'fear',
+                    'effect_timer':10,
+                    'direct_hit':True,
+                    'savethrow':True,
+                    'savethrow_all':True,
+                    'savethrow_ability':'wisdom',
+                    'components':['verbal'],
+                    'casting_time':'action',
+                    'spell_level':spell_level,
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    'spell_of_choice':'Cause_Fear',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 1:
             spell_dict['attacks_number'] = int(spell_level[0])
         return spell_dict
 
     @modify_spell
-    def Hex(self, spell_level, gen_spell = False):
+    def Hex(self, spell_level, gen_spell = False, spell_dict = False):
         """Сглаз.
 
         Level: 1
@@ -1362,26 +1424,27 @@ class gen_spells():
         Duration: Concentration, up to 1 hour
         https://www.dnd-spells.com/spell/hex
         """
-        spell_dict = {
-                'concentration':True,
-                'effect_timer':600,
-                'attacks_number':1,
-                'attack_range':90,
-                'effect':'hex',
-                'direct_hit':True,
-                'damage_type':'necrotic_energy',
-                'damage_dice':'1d6',
-                'components':['verbal','somatic','material'],
-                'casting_time':'bonus_action',
-                'spell_level':spell_level,
-                'spell_save_DC':8 + self.find_spell_attack_mod(),
-                'spell_of_choice':'Magic_Missile',
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    'concentration':True,
+                    'effect_timer':600,
+                    'attacks_number':1,
+                    'attack_range':90,
+                    'effect':'hex',
+                    'direct_hit':True,
+                    'damage_type':'necrotic_energy',
+                    'damage_dice':'1d6',
+                    'components':['verbal','somatic','material'],
+                    'casting_time':'bonus_action',
+                    'spell_level':spell_level,
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    'spell_of_choice':'Magic_Missile',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
     @modify_spell
-    def Sleep(self, spell_level, gen_spell = False):
+    def Sleep(self, spell_level, gen_spell = False, spell_dict = False):
         """Усыпление.
 
         Level: 1
@@ -1391,20 +1454,21 @@ class gen_spells():
         Duration: 1 minute
         https://www.dnd-spells.com/spell/sleep
         """
-        spell_dict = {
-                'effect':'sleep',
-                'effect_timer':100,
-                'attacks_number':1,
-                'attack_range':90,
-                'damage_type':'sleep',
-                'damage_dice':'5d8',
-                'components':['verbal','somatic','material'],
-                'casting_time':'action',
-                'spell_level':spell_level,
-                'spell_save_DC':8 + self.find_spell_attack_mod(),
-                'spell_of_choice':'Sleep',
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    'effect':'sleep',
+                    'effect_timer':100,
+                    'attacks_number':1,
+                    'attack_range':90,
+                    'damage_type':'sleep',
+                    'damage_dice':'5d8',
+                    'components':['verbal','somatic','material'],
+                    'casting_time':'action',
+                    'spell_level':spell_level,
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    'spell_of_choice':'Sleep',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         # Плюс одна кость усыпления за каждый уровень выше первого:
         if int(spell_level[0]) > 1:
             dice = int(spell_dict['damage_dice'][0])
@@ -1415,7 +1479,7 @@ class gen_spells():
         return spell_dict
 
     @modify_spell
-    def Entangle(self, spell_level, gen_spell = False):
+    def Entangle(self, spell_level, gen_spell = False, spell_dict = False):
         """Опутывание.
 
         Level: 1
@@ -1427,30 +1491,31 @@ class gen_spells():
         """
         # TODO: Чертовски неудобно использовать как зональное заклинание.
         # Пусть лучше будет 10 целей, эффект опутывания и растущие кусты.
-        spell_dict = {
-                'concentration':True,
-                'effect':'entangle',
-                'effect_timer':10,
-                #'zone':True,
-                #'zone_shape':'square',
-                #'radius':10,
-                'direct_hit':True,
-                'savethrow':True,
-                'savethrow_all':True,
-                'savethrow_ability':'strength',
-                'attacks_number':10,
-                'attack_range':90,
-                'components':['verbal','somatic'],
-                'casting_time':'action',
-                'spell_level':spell_level,
-                'spell_save_DC':8 + self.find_spell_attack_mod(),
-                'spell_of_choice':'Entangle',
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    'concentration':True,
+                    'effect':'entangle',
+                    'effect_timer':10,
+                    #'zone':True,
+                    #'zone_shape':'square',
+                    #'radius':10,
+                    'direct_hit':True,
+                    'savethrow':True,
+                    'savethrow_all':True,
+                    'savethrow_ability':'strength',
+                    'attacks_number':10,
+                    'attack_range':90,
+                    'components':['verbal','somatic'],
+                    'casting_time':'action',
+                    'spell_level':spell_level,
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    'spell_of_choice':'Entangle',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
     @modify_spell
-    def Magic_Missile(self, spell_level, gen_spell = False):
+    def Magic_Missile(self, spell_level, gen_spell = False, spell_dict = False):
         """Волшебная стрела.
 
         Level: 1
@@ -1460,19 +1525,20 @@ class gen_spells():
         Duration: Instantaneous
         https://www.dnd-spells.com/spell/magic-missile
         """
-        spell_dict = {
-                'direct_hit':True,
-                'attacks_number':3,
-                'attack_range':120,
-                'damage_type':'force',
-                'damage_dice':'1d4',
-                'components':['verbal','somatic'],
-                'casting_time':'action',
-                'spell_level':spell_level,
-                'damage_mod':+1,
-                'spell_of_choice':'Magic_Missile',
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    'direct_hit':True,
+                    'attacks_number':3,
+                    'attack_range':120,
+                    'damage_type':'force',
+                    'damage_dice':'1d4',
+                    'components':['verbal','somatic'],
+                    'casting_time':'action',
+                    'spell_level':spell_level,
+                    'damage_mod':+1,
+                    'spell_of_choice':'Magic_Missile',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         # За каждый уровень сверх первого один дополнительный дротик:
         if int(spell_level[0]) > 1:
             spell_dict['attacks_number'] += int(spell_level[0]) - 1
@@ -1481,7 +1547,7 @@ class gen_spells():
         return spell_dict
 
     @modify_spell
-    def Guiding_Bolt(self, spell_level, gen_spell = False):
+    def Guiding_Bolt(self, spell_level, gen_spell = False, spell_dict = False):
         """Направленный снаряд.
 
         Level: 1
@@ -1491,22 +1557,23 @@ class gen_spells():
         Duration: 1 round
         https://www.dnd-spells.com/spell/guiding-bolt
         """
-        spell_dict = {
-                #'direct_hit':True,
-                'effect':'guiding_bolt_hit',
-                'attacks_number':1,
-                'attack_range':120,
-                'damage_type':'radiant',
-                'damage_dice':'4d6',
-                'components':['verbal','somatic'],
-                'casting_time':'action',
-                'spell_level':spell_level,
-                'damage_mod':0,
-                'attack_mod':self.find_spell_attack_mod(),
-                'spell_save_DC':8 + self.find_spell_attack_mod(),
-                'spell_of_choice':'Guiding_Bolt',
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    #'direct_hit':True,
+                    'effect':'guiding_bolt_hit',
+                    'attacks_number':1,
+                    'attack_range':120,
+                    'damage_type':'radiant',
+                    'damage_dice':'4d6',
+                    'components':['verbal','somatic'],
+                    'casting_time':'action',
+                    'spell_level':spell_level,
+                    'damage_mod':0,
+                    'attack_mod':self.find_spell_attack_mod(),
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    'spell_of_choice':'Guiding_Bolt',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 1:
             dice = int(spell_dict['damage_dice'][0])
             dice += int(spell_level[0]) - 1
@@ -1516,7 +1583,7 @@ class gen_spells():
         return spell_dict
 
     @modify_spell
-    def Burning_Hands(self, spell_level, gen_spell = False):
+    def Burning_Hands(self, spell_level, gen_spell = False, spell_dict = False):
         """Огненные ладони.
 
         Level: 1
@@ -1526,24 +1593,25 @@ class gen_spells():
         Duration: Instantaneous
         https://www.dnd-spells.com/spell/burning-hands
         """
-        spell_dict = {
-                'zone':True,
-                'zone_shape':'cone',
-                'direct_hit':True,
-                'savethrow':True,
-                'savethrow_ability':'dexterity',
-                'attacks_number':1,
-                'attack_range':15,
-                'damage_type':'fire',
-                'damage_dice':'3d6',
-                'components':['verbal','somatic'],
-                'casting_time':'action',
-                'damage_mod':0,
-                'spell_level':spell_level,
-                'spell_save_DC':8 + self.find_spell_attack_mod(),
-                'spell_of_choice':'Magic_Missile',
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    'zone':True,
+                    'zone_shape':'cone',
+                    'direct_hit':True,
+                    'savethrow':True,
+                    'savethrow_ability':'dexterity',
+                    'attacks_number':1,
+                    'attack_range':15,
+                    'damage_type':'fire',
+                    'damage_dice':'3d6',
+                    'components':['verbal','somatic'],
+                    'casting_time':'action',
+                    'damage_mod':0,
+                    'spell_level':spell_level,
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    'spell_of_choice':'Magic_Missile',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 1:
             dice = int(spell_dict['damage_dice'][0])
             dice += int(spell_level[0]) - 1
@@ -1551,7 +1619,7 @@ class gen_spells():
         return spell_dict
 
     @modify_spell
-    def Shield(self, spell_level, gen_spell = False):
+    def Shield(self, spell_level, gen_spell = False, spell_dict = False):
         """Щит.
 
         Level: 1
@@ -1561,21 +1629,22 @@ class gen_spells():
         Duration: 1 round
         https://www.dnd-spells.com/spell/shield
         """
-        spell_dict = {
-                'buff':True,
-                'effect':'shield',
-                'effect_timer':1,
-                'attack_range':0,
-                'components':['verbal','somatic'],
-                'casting_time':'reaction',
-                'spell_level':spell_level,
-                'spell_of_choice':'Magic_Missile',
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    'buff':True,
+                    'effect':'shield',
+                    'effect_timer':1,
+                    'attack_range':0,
+                    'components':['verbal','somatic'],
+                    'casting_time':'reaction',
+                    'spell_level':spell_level,
+                    'spell_of_choice':'Magic_Missile',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
     @modify_spell
-    def Absorb_Elements(self, spell_level, gen_spell = False):
+    def Absorb_Elements(self, spell_level, gen_spell = False, spell_dict = False):
         """Поглощение стихий.
 
         Level: 1
@@ -1587,22 +1656,24 @@ class gen_spells():
         """
         # 1d6 урона поглощённого типа можно направить атакой оружием в следующем раунде.
         # TODO: передавать в gen_spell словарь, где в damage_type указан урон. Затем spell_dict.update
-        spell_dict = {
-                'buff':True,
-                'effect':'absorb_elements',
-                'direct_hit':True,
-                'effect_timer':1,
-                'attack_range':0,
-                'absorb_damage_type':['acid','cold','fire','lightning','thunder'],
-                'damage_type':'absorbed',
-                'damage_dice':'1d6',
-                'components':['somatic'],
-                'casting_time':'reaction',
-                'damage_mod':0,
-                'spell_level':spell_level,
-                'spell_of_choice':'Magic_Missile',
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        # Будет сделано через декоратор update_spell_dict
+        if not spell_dict:
+            spell_dict = {
+                    'buff':True,
+                    'effect':'absorb_elements',
+                    'direct_hit':True,
+                    'effect_timer':1,
+                    'attack_range':0,
+                    'absorb_damage_type':['acid','cold','fire','lightning','thunder'],
+                    'damage_type':'absorbed',
+                    'damage_dice':'1d6',
+                    'components':['somatic'],
+                    'casting_time':'reaction',
+                    'damage_mod':0,
+                    'spell_level':spell_level,
+                    'spell_of_choice':'Magic_Missile',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 1:
             dice = int(spell_dict['damage_dice'][0])
             dice += int(spell_level[0]) - 1
@@ -1618,7 +1689,7 @@ class gen_spells():
         return spell_dict
 
     @modify_spell
-    def Mage_Armor(self, spell_level, gen_spell = False):
+    def Mage_Armor(self, spell_level, gen_spell = False, spell_dict = False):
         """Доспехи мага.
 
         Level: 1
@@ -1629,20 +1700,21 @@ class gen_spells():
         https://www.dnd-spells.com/spell/mage-armor
         """
         # TODO: броня берётся из metadict_item.
-        spell_dict = {
-                'buff':True,
-                'effect':'mage_armor',
-                'effect_timer':4800,
-                'armor':True,
-                'armor_type':'Force',
-                'armor_class_armor':13,
-                'attack_range':0,
-                'components':['verbal','somatic','material'],
-                'casting_time':'action',
-                'spell_level':spell_level,
-                'spell_of_choice':'Magic_Missile',
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    'buff':True,
+                    'effect':'mage_armor',
+                    'effect_timer':4800,
+                    'armor':True,
+                    'armor_type':'Force',
+                    'armor_class_armor':13,
+                    'attack_range':0,
+                    'components':['verbal','somatic','material'],
+                    'casting_time':'action',
+                    'spell_level':spell_level,
+                    'spell_of_choice':'Magic_Missile',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         if gen_spell:
             soldier = self.mage
             soldier.equipment_weapon['Mage_Armor'] = 1
@@ -1650,7 +1722,7 @@ class gen_spells():
         return spell_dict
 
     @modify_spell
-    def Armor_of_Agathys(self, spell_level, gen_spell = False):
+    def Armor_of_Agathys(self, spell_level, gen_spell = False, spell_dict = False):
         """Доспех Агатиса.
 
 
@@ -1661,21 +1733,22 @@ class gen_spells():
         Duration: 1 hour
         https://www.dnd-spells.com/spell/armor-of-agathys
         """
-        spell_dict = {
-                'buff':True,
-                'effect':'armor_of_agathys',
-                'effect_timer':600,
-                'direct_hit':True,
-                'attack_range':10,
-                'damage_type':'cold',
-                'damage_dice':'0d0',
-                'damage_mod':5,
-                'components':['verbal','somatic','material'],
-                'casting_time':'free_action',
-                'spell_level':spell_level,
-                'spell_of_choice':'Magic_Missile',
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    'buff':True,
+                    'effect':'armor_of_agathys',
+                    'effect_timer':600,
+                    'direct_hit':True,
+                    'attack_range':10,
+                    'damage_type':'cold',
+                    'damage_dice':'0d0',
+                    'damage_mod':5,
+                    'components':['verbal','somatic','material'],
+                    'casting_time':'free_action',
+                    'spell_level':spell_level,
+                    'spell_of_choice':'Magic_Missile',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 1:
             spell_dict['damage_mod'] *= int(spell_level[0])
         if gen_spell:
@@ -1684,7 +1757,7 @@ class gen_spells():
         return spell_dict
 
     @modify_spell
-    def Ice_Knife(self, spell_level, gen_spell = False):
+    def Ice_Knife(self, spell_level, gen_spell = False, spell_dict = False):
         """Ледяной кинжал.
 
         Level: 1
@@ -1694,27 +1767,28 @@ class gen_spells():
         Duration: Instantaneous
         https://www.dnd-spells.com/spell/ice-knife
         """
-        spell_dict = {
-                'effect':'ice_knife',
-                'subspell':'Ice_Knife_Piercing',
-                'zone':True,
-                'direct_hit':True,
-                'savethrow':True,
-                'savethrow_all':True,
-                'savethrow_ability':'dexterity',
-                'attacks_number':1,
-                'attack_range':60,
-                'radius':5,
-                'damage_type':'cold',
-                'damage_dice':'2d6',
-                'components':['somatic','material'],
-                'casting_time':'action',
-                'damage_mod':0,
-                'spell_level':spell_level,
-                'spell_save_DC':8 + self.find_spell_attack_mod(),
-                'spell_of_choice':'Magic_Missile',
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    'effect':'ice_knife',
+                    'subspell':'Ice_Knife_Piercing',
+                    'zone':True,
+                    'direct_hit':True,
+                    'savethrow':True,
+                    'savethrow_all':True,
+                    'savethrow_ability':'dexterity',
+                    'attacks_number':1,
+                    'attack_range':60,
+                    'radius':5,
+                    'damage_type':'cold',
+                    'damage_dice':'2d6',
+                    'components':['somatic','material'],
+                    'casting_time':'action',
+                    'damage_mod':0,
+                    'spell_level':spell_level,
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    'spell_of_choice':'Magic_Missile',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 1:
             dice = int(spell_dict['damage_dice'][0])
             dice += int(spell_level[0]) - 1
@@ -1724,7 +1798,7 @@ class gen_spells():
         return spell_dict
 
     @modify_spell
-    def Hail_of_Thorns(self, spell_level, gen_spell = False):
+    def Hail_of_Thorns(self, spell_level, gen_spell = False, spell_dict = False):
         """Град шипов.
 
         Level: 1
@@ -1734,30 +1808,31 @@ class gen_spells():
         Duration: Concentration, up to 1 minute
         https://www.dnd-spells.com/spell/hail-of-thorns
         """
-        spell_dict = {
-                'ammo':1,
-                'concentration':True,
-                'concentration_ready':True,
-                'effect':'thorns',
-                'effect_timer':10,
-                'zone':True,
-                'zone_shape':'square',
-                'direct_hit':True,
-                'savethrow':True,
-                'savethrow_ability':'dexterity',
-                'attacks_number':1,
-                'attack_range':600,
-                'radius':5,
-                'damage_type':'piercing',
-                'damage_dice':'1d10',
-                'components':['verbal'],
-                'casting_time':'bonus_action',
-                'damage_mod':0,
-                'spell_level':spell_level,
-                'spell_save_DC':8 + self.find_spell_attack_mod(),
-                'spell_of_choice':'Magic_Missile',
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    'ammo':1,
+                    'concentration':True,
+                    'concentration_ready':True,
+                    'effect':'thorns',
+                    'effect_timer':10,
+                    'zone':True,
+                    'zone_shape':'square',
+                    'direct_hit':True,
+                    'savethrow':True,
+                    'savethrow_ability':'dexterity',
+                    'attacks_number':1,
+                    'attack_range':600,
+                    'radius':5,
+                    'damage_type':'piercing',
+                    'damage_dice':'1d10',
+                    'components':['verbal'],
+                    'casting_time':'bonus_action',
+                    'damage_mod':0,
+                    'spell_level':spell_level,
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    'spell_of_choice':'Magic_Missile',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 1:
             dice = int(spell_dict['damage_dice'][0])
             dice += int(spell_level[0]) - 1
@@ -1765,7 +1840,7 @@ class gen_spells():
         return spell_dict
 
     @modify_spell
-    def Arms_of_Hadar(self, spell_level, gen_spell = False):
+    def Arms_of_Hadar(self, spell_level, gen_spell = False, spell_dict = False):
         """Руки хадара.
 
         Level: 1
@@ -1776,24 +1851,25 @@ class gen_spells():
         https://www.dnd-spells.com/spell/arms-of-hadar
         """
         # TODO: сделай сбивание реакции.
-        spell_dict = {
-                'effect':'burst',
-                'direct_hit':True,
-                'savethrow':True,
-                'savethrow_ability':'strength',
-                'attacks_number':1,
-                'radius':10,
-                'attack_range':5,
-                'damage_type':'necrotic',
-                'damage_dice':'2d6',
-                'components':['verbal', 'somatic'],
-                'casting_time':'action',
-                'damage_mod':0,
-                'spell_level':spell_level,
-                'spell_save_DC':8 + self.find_spell_attack_mod(),
-                'spell_of_choice':'Arms_of_Hadar',
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    'effect':'burst',
+                    'direct_hit':True,
+                    'savethrow':True,
+                    'savethrow_ability':'strength',
+                    'attacks_number':1,
+                    'radius':10,
+                    'attack_range':5,
+                    'damage_type':'necrotic',
+                    'damage_dice':'2d6',
+                    'components':['verbal', 'somatic'],
+                    'casting_time':'action',
+                    'damage_mod':0,
+                    'spell_level':spell_level,
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    'spell_of_choice':'Arms_of_Hadar',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 1:
             dice = int(spell_dict['damage_dice'][0])
             dice += int(spell_level[0]) - 1
@@ -1801,7 +1877,7 @@ class gen_spells():
         return spell_dict
 
     @modify_spell
-    def Thunderwave(self, spell_level, gen_spell = False):
+    def Thunderwave(self, spell_level, gen_spell = False, spell_dict = False):
         """Волна грома.
 
         Level: 1
@@ -1812,25 +1888,26 @@ class gen_spells():
         https://www.dnd-spells.com/spell/thunderwave
         """
         # TODO: сделай отталкивание
-        spell_dict = {
-                'effect':'burst',
-                'direct_hit':True,
-                'savethrow':True,
-                'zone_shape':'square',
-                'savethrow_ability':'constitution',
-                'attacks_number':1,
-                'radius':5,
-                'attack_range':5,
-                'damage_type':'thunder',
-                'damage_dice':'2d8',
-                'components':['verbal', 'somatic'],
-                'casting_time':'action',
-                'damage_mod':0,
-                'spell_level':spell_level,
-                'spell_save_DC':8 + self.find_spell_attack_mod(),
-                'spell_of_choice':'Thunderwave',
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    'effect':'burst',
+                    'direct_hit':True,
+                    'savethrow':True,
+                    'zone_shape':'square',
+                    'savethrow_ability':'constitution',
+                    'attacks_number':1,
+                    'radius':5,
+                    'attack_range':5,
+                    'damage_type':'thunder',
+                    'damage_dice':'2d8',
+                    'components':['verbal', 'somatic'],
+                    'casting_time':'action',
+                    'damage_mod':0,
+                    'spell_level':spell_level,
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    'spell_of_choice':'Thunderwave',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 1:
             dice = int(spell_dict['damage_dice'][0])
             dice += int(spell_level[0]) - 1
@@ -1841,7 +1918,7 @@ class gen_spells():
 # 2 lvl
 
     @modify_spell
-    def Scorching_Ray(self, spell_level, gen_spell = False):
+    def Scorching_Ray(self, spell_level, gen_spell = False, spell_dict = False):
         """Палящий луч.
 
         Level: 2
@@ -1851,21 +1928,22 @@ class gen_spells():
         Duration: Instantaneous
         https://www.dnd-spells.com/spell/scorching-ray
         """
-        spell_dict = {
-                #'direct_hit':True,
-                'attacks_number':3,
-                'attack_range':120,
-                'damage_type':'fire',
-                'damage_dice':'2d6',
-                'components':['verbal','somatic'],
-                'casting_time':'action',
-                'spell_level':spell_level,
-                'damage_mod':0,
-                'attack_mod':self.find_spell_attack_mod(),
-                'spell_save_DC':8 + self.find_spell_attack_mod(),
-                'spell_of_choice':'Scorching_Ray',
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    #'direct_hit':True,
+                    'attacks_number':3,
+                    'attack_range':120,
+                    'damage_type':'fire',
+                    'damage_dice':'2d6',
+                    'components':['verbal','somatic'],
+                    'casting_time':'action',
+                    'spell_level':spell_level,
+                    'damage_mod':0,
+                    'attack_mod':self.find_spell_attack_mod(),
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    'spell_of_choice':'Scorching_Ray',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         # За каждый уровень сверх первого один дополнительный луч:
         if int(spell_level[0]) > 1:
             spell_dict['attacks_number'] += int(spell_level[0]) - 1
@@ -1874,7 +1952,7 @@ class gen_spells():
         return spell_dict
 
     @modify_spell
-    def Melfs_Acid_Arrow(self, spell_level, gen_spell = False):
+    def Melfs_Acid_Arrow(self, spell_level, gen_spell = False, spell_dict = False):
         """Кислотная стрела Мельфа.
 
         Level: 2
@@ -1885,24 +1963,25 @@ class gen_spells():
         https://www.dnd-spells.com/spell/melfs-acid-arrow
         """
         # TODO: 2d4 урона в следующий раунд.
-        spell_dict = {
-                'effect':'acid_arrow',
-                'direct_hit':True,
-                'savethrow':True,
-                'savethrow_ability':'dexterity',
-                'attacks_number':1,
-                'attack_range':120,
-                'damage_type':'acid',
-                'damage_dice':'6d4',
-                'components':['verbal','somatic','material'],
-                'casting_time':'action',
-                'spell_level':spell_level,
-                'damage_mod':0,
-                'attack_mod':self.find_spell_attack_mod(),
-                'spell_save_DC':8 + self.find_spell_attack_mod(),
-                'spell_of_choice':'Melfs_Acid_Arrow',
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    'effect':'acid_arrow',
+                    'direct_hit':True,
+                    'savethrow':True,
+                    'savethrow_ability':'dexterity',
+                    'attacks_number':1,
+                    'attack_range':120,
+                    'damage_type':'acid',
+                    'damage_dice':'6d4',
+                    'components':['verbal','somatic','material'],
+                    'casting_time':'action',
+                    'spell_level':spell_level,
+                    'damage_mod':0,
+                    'attack_mod':self.find_spell_attack_mod(),
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    'spell_of_choice':'Melfs_Acid_Arrow',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 2:
             dice = int(spell_dict['damage_dice'][0])
             dice += int(spell_level[0]) * 2 - 1
@@ -1912,7 +1991,7 @@ class gen_spells():
         return spell_dict
 
     @modify_spell
-    def Moonbeam(self, spell_level, gen_spell = False):
+    def Moonbeam(self, spell_level, gen_spell = False, spell_dict = False):
         """Лунный луч.
 
         Level: 2
@@ -1921,30 +2000,31 @@ class gen_spells():
         Components: V, S, M (several seeds of any moonseed plant and a piece of opalescent feldspar)
         https://www.dnd-spells.com/spell/moonbeam
         """
-        spell_dict = {
-                'concentration':True,
-                'effect':'moonbeam',
-                'effect_timer':10,
-                'zone':True,
-                'zone_shape':'2x2',
-                'zone_effect':True,
-                'zone_danger':True,
-                'direct_hit':True,
-                'savethrow':True,
-                'savethrow_ability':'dexterity',
-                'attacks_number':1,
-                'attack_range':120,
-                'radius':5,
-                'damage_type':'radiant',
-                'damage_dice':'2d10',
-                'components':['verbal','somatic','material'],
-                'casting_time':'action',
-                'damage_mod':0,
-                'spell_level':spell_level,
-                'spell_save_DC':8 + self.find_spell_attack_mod(),
-                'spell_of_choice':'Magic_Missile',
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    'concentration':True,
+                    'effect':'moonbeam',
+                    'effect_timer':10,
+                    'zone':True,
+                    'zone_shape':'2x2',
+                    'zone_effect':True,
+                    'zone_danger':True,
+                    'direct_hit':True,
+                    'savethrow':True,
+                    'savethrow_ability':'dexterity',
+                    'attacks_number':1,
+                    'attack_range':120,
+                    'radius':5,
+                    'damage_type':'radiant',
+                    'damage_dice':'2d10',
+                    'components':['verbal','somatic','material'],
+                    'casting_time':'action',
+                    'damage_mod':0,
+                    'spell_level':spell_level,
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    'spell_of_choice':'Magic_Missile',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 2:
             dice = int(spell_dict['damage_dice'][0])
             dice += int(spell_level[0]) - 1
@@ -1952,7 +2032,7 @@ class gen_spells():
         return spell_dict
 
     @modify_spell
-    def Blur(self, spell_level, gen_spell = False):
+    def Blur(self, spell_level, gen_spell = False, spell_dict = False):
         """Размытый образ.
 
         Level: 2
@@ -1962,22 +2042,23 @@ class gen_spells():
         Duration: Concentration, up to 1 minute
         https://www.dnd-spells.com/spell/blur
         """
-        spell_dict = {
-                'buff':True,
-                'concentration':True,
-                'effect':'blur',
-                'effect_timer':10,
-                'attack_range':0,
-                'components':['verbal'],
-                'casting_time':'action',
-                'spell_level':spell_level,
-                'spell_of_choice':'Magic_Missile',
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    'buff':True,
+                    'concentration':True,
+                    'effect':'blur',
+                    'effect_timer':10,
+                    'attack_range':0,
+                    'components':['verbal'],
+                    'casting_time':'action',
+                    'spell_level':spell_level,
+                    'spell_of_choice':'Magic_Missile',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
     @modify_spell
-    def Shatter(self, spell_level, gen_spell = False):
+    def Shatter(self, spell_level, gen_spell = False, spell_dict = False):
         """Дребезги.
 
         Level: 2
@@ -1987,24 +2068,25 @@ class gen_spells():
         Duration: Instantaneous
         https://www.dnd-spells.com/spell/shatter
         """
-        spell_dict = {
-                'zone':True,
-                'direct_hit':True,
-                'savethrow':True,
-                'savethrow_ability':'constitution',
-                'attacks_number':1,
-                'attack_range':60,
-                'radius':10,
-                'damage_type':'thunder',
-                'damage_dice':'3d8',
-                'components':['verbal','somatic','material'],
-                'casting_time':'action',
-                'damage_mod':0,
-                'spell_level':spell_level,
-                'spell_save_DC':8 + self.find_spell_attack_mod(),
-                'spell_of_choice':'Magic_Missile',
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    'zone':True,
+                    'direct_hit':True,
+                    'savethrow':True,
+                    'savethrow_ability':'constitution',
+                    'attacks_number':1,
+                    'attack_range':60,
+                    'radius':10,
+                    'damage_type':'thunder',
+                    'damage_dice':'3d8',
+                    'components':['verbal','somatic','material'],
+                    'casting_time':'action',
+                    'damage_mod':0,
+                    'spell_level':spell_level,
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    'spell_of_choice':'Magic_Missile',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 2:
             dice = int(spell_dict['damage_dice'][0])
             dice += int(spell_level[0]) - 1
@@ -2014,7 +2096,7 @@ class gen_spells():
         return spell_dict
 
     @modify_spell
-    def Darkness(self, spell_level, gen_spell = False):
+    def Darkness(self, spell_level, gen_spell = False, spell_dict = False):
         """Темнота.
         
         Вокруг предмета, или вокруг точки.
@@ -2026,30 +2108,31 @@ class gen_spells():
         Duration: Concentration, up to 10 minutes
         https://www.dnd-spells.com/spell/darkness
         """
-        spell_dict = {
-                # Радиус 20 из-за круглой зоны. Получается 35 футов.
-                'concentration':True,
-                'effect':'darkness',
-                'effect_timer':100,
-                'zone_effect':True,
-                'zone_self':True,
-                'direct_hit':True,
-                'attacks_number':1,
-                'attack_range':60,
-                'radius':20,
-                'components':['verbal','material'],
-                'casting_time':'action',
-                'spell_level':spell_level,
-                'spell_save_DC':8 + self.find_spell_attack_mod(),
-                'spell_of_choice':'Darkness',
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    # Радиус 20 из-за круглой зоны. Получается 35 футов.
+                    'concentration':True,
+                    'effect':'darkness',
+                    'effect_timer':100,
+                    'zone_effect':True,
+                    'zone_self':True,
+                    'direct_hit':True,
+                    'attacks_number':1,
+                    'attack_range':60,
+                    'radius':20,
+                    'components':['verbal','material'],
+                    'casting_time':'action',
+                    'spell_level':spell_level,
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    'spell_of_choice':'Darkness',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         if self.mage.class_features.get('Metamagic_Distant_Spell'):
             spell_dict['attack_range'] *= 2
         return spell_dict
 
     @modify_spell
-    def Aid(self, spell_level, gen_spell = False):
+    def Aid(self, spell_level, gen_spell = False, spell_dict = False):
         """Подмога
 
         Level: 2
@@ -2059,21 +2142,22 @@ class gen_spells():
         Duration: 8 hours
         https://www.dnd-spells.com/spell/aid
         """
-        spell_dict = {
-                'buff':True,
-                'effect':'aid',
-                'effect_timer':4800,
-                'attack_range':30,
-                'attacks_number':3,
-                'damage_type':'heal',
-                'damage_dice':'0d0',
-                'damage_mod':5,
-                'components':['verbal','somatic','material'],
-                'casting_time':'action',
-                'spell_level':spell_level,
-                'spell_of_choice':'Magic_Missile',
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    'buff':True,
+                    'effect':'aid',
+                    'effect_timer':4800,
+                    'attack_range':30,
+                    'attacks_number':3,
+                    'damage_type':'heal',
+                    'damage_dice':'0d0',
+                    'damage_mod':5,
+                    'components':['verbal','somatic','material'],
+                    'casting_time':'action',
+                    'spell_level':spell_level,
+                    'spell_of_choice':'Magic_Missile',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         if gen_spell:
             soldier = self.mage
             max_hitpoints = soldier.hitpoints_max + spell_dict['damage_mod']
@@ -2084,7 +2168,7 @@ class gen_spells():
 # 3 lvl
 
     @modify_spell
-    def Fear(self, spell_level, gen_spell = False):
+    def Fear(self, spell_level, gen_spell = False, spell_dict = False):
         """Ужас.
 
         Level: 3
@@ -2094,28 +2178,29 @@ class gen_spells():
         Duration: Concentration, up to 1 minute 
         https://www.dnd-spells.com/spell/fear
         """
-        spell_dict = {
-                'concentration':True,
-                'effect':'fear',
-                'effect_timer':10,
-                'zone':True,
-                'zone_shape':'cone',
-                'attack_range':30,
-                'direct_hit':True,
-                'savethrow':True,
-                'savethrow_all':True,
-                'savethrow_ability':'wisdom',
-                'components':['verbal'],
-                'casting_time':'action',
-                'spell_level':spell_level,
-                'spell_save_DC':8 + self.find_spell_attack_mod(),
-                'spell_of_choice':'Magic_Missile',
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    'concentration':True,
+                    'effect':'fear',
+                    'effect_timer':10,
+                    'zone':True,
+                    'zone_shape':'cone',
+                    'attack_range':30,
+                    'direct_hit':True,
+                    'savethrow':True,
+                    'savethrow_all':True,
+                    'savethrow_ability':'wisdom',
+                    'components':['verbal'],
+                    'casting_time':'action',
+                    'spell_level':spell_level,
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    'spell_of_choice':'Magic_Missile',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
     @modify_spell
-    def Call_Lightning(self, spell_level, gen_spell = False):
+    def Call_Lightning(self, spell_level, gen_spell = False, spell_dict = False):
         """Призыв молнии.
 
         Level: 3
@@ -2127,28 +2212,29 @@ class gen_spells():
         """
         # Зона поражения 2x2 клетки, а не 3x3.
         # Молния поражает цели в пределах 5 футов от точки.
-        spell_dict = {
-                'concentration':True,
-                'effect':'call_lightning',
-                'effect_timer':100,
-                'zone':True,
-                'zone_shape':'2x2',
-                'direct_hit':True,
-                'savethrow':True,
-                'savethrow_ability':'dexterity',
-                'attacks_number':1,
-                'attack_range':120,
-                'radius':5,
-                'damage_type':'lightning',
-                'damage_dice':'3d10',
-                'components':['verbal','somatic'],
-                'casting_time':'action',
-                'damage_mod':0,
-                'spell_level':spell_level,
-                'spell_save_DC':8 + self.find_spell_attack_mod(),
-                'spell_of_choice':'Magic_Missile',
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    'concentration':True,
+                    'effect':'call_lightning',
+                    'effect_timer':100,
+                    'zone':True,
+                    'zone_shape':'2x2',
+                    'direct_hit':True,
+                    'savethrow':True,
+                    'savethrow_ability':'dexterity',
+                    'attacks_number':1,
+                    'attack_range':120,
+                    'radius':5,
+                    'damage_type':'lightning',
+                    'damage_dice':'3d10',
+                    'components':['verbal','somatic'],
+                    'casting_time':'action',
+                    'damage_mod':0,
+                    'spell_level':spell_level,
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    'spell_of_choice':'Magic_Missile',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 3:
             dice = int(spell_dict['damage_dice'][0])
             dice += int(spell_level[0]) - 1
@@ -2156,7 +2242,7 @@ class gen_spells():
         return spell_dict
 
     @modify_spell
-    def Fireball(self, spell_level, gen_spell = False):
+    def Fireball(self, spell_level, gen_spell = False, spell_dict = False):
         """Огненный шар.
 
         Level: 3
@@ -2166,24 +2252,25 @@ class gen_spells():
         Duration: Instantaneous
         https://www.dnd-spells.com/spell/fireball
         """
-        spell_dict = {
-                'zone':True,
-                'direct_hit':True,
-                'savethrow':True,
-                'savethrow_ability':'dexterity',
-                'attacks_number':1,
-                'attack_range':150,
-                'radius':20,
-                'damage_type':'fire',
-                'damage_dice':'8d6',
-                'components':['verbal','somatic','material'],
-                'casting_time':'action',
-                'damage_mod':0,
-                'spell_level':spell_level,
-                'spell_save_DC':8 + self.find_spell_attack_mod(),
-                'spell_of_choice':'Magic_Missile',
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    'zone':True,
+                    'direct_hit':True,
+                    'savethrow':True,
+                    'savethrow_ability':'dexterity',
+                    'attacks_number':1,
+                    'attack_range':150,
+                    'radius':20,
+                    'damage_type':'fire',
+                    'damage_dice':'8d6',
+                    'components':['verbal','somatic','material'],
+                    'casting_time':'action',
+                    'damage_mod':0,
+                    'spell_level':spell_level,
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    'spell_of_choice':'Magic_Missile',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 3:
             dice = int(spell_dict['damage_dice'][0])
             dice += int(spell_level[0]) - 1
@@ -2193,7 +2280,7 @@ class gen_spells():
         return spell_dict
 
     @modify_spell
-    def Lightning_Bolt(self, spell_level, gen_spell = False):
+    def Lightning_Bolt(self, spell_level, gen_spell = False, spell_dict = False):
         """Удар молнии.
 
         Level: 3
@@ -2204,25 +2291,26 @@ class gen_spells():
         https://www.dnd-spells.com/spell/lightning-bolt
         """
         # TODO: добавь эффект no_cover. А то следующие цели получают +2, +5 к спасброскам ловкости.
-        spell_dict = {
-                'zone':True,
-                'zone_shape':'ray',
-                #'ignore_cover':True,
-                'direct_hit':True,
-                'savethrow':True,
-                'savethrow_ability':'dexterity',
-                'attacks_number':1,
-                'attack_range':100,
-                'damage_type':'lightning',
-                'damage_dice':'8d6',
-                'components':['verbal','somatic','material'],
-                'casting_time':'action',
-                'damage_mod':0,
-                'spell_level':spell_level,
-                'spell_save_DC':8 + self.find_spell_attack_mod(),
-                'spell_of_choice':'Magic_Missile',
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    'zone':True,
+                    'zone_shape':'ray',
+                    #'ignore_cover':True,
+                    'direct_hit':True,
+                    'savethrow':True,
+                    'savethrow_ability':'dexterity',
+                    'attacks_number':1,
+                    'attack_range':100,
+                    'damage_type':'lightning',
+                    'damage_dice':'8d6',
+                    'components':['verbal','somatic','material'],
+                    'casting_time':'action',
+                    'damage_mod':0,
+                    'spell_level':spell_level,
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    'spell_of_choice':'Magic_Missile',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 3:
             dice = int(spell_dict['damage_dice'][0])
             dice += int(spell_level[0]) - 1
@@ -2232,7 +2320,7 @@ class gen_spells():
         return spell_dict
 
     @modify_spell
-    def Melf_Minute_Meteors(self, spell_level, gen_spell = False):
+    def Melf_Minute_Meteors(self, spell_level, gen_spell = False, spell_dict = False):
         """Мельфовы маленькие метеоры.
 
         Level: 3
@@ -2242,37 +2330,38 @@ class gen_spells():
         Duration: Concentration, up to 10 minutes
         https://www.dnd-spells.com/spell/melfs-minute-meteors
         """
-        spell_dict = {
-                'ammo':6,
-                'concentration':True,
-                'concentration_ready':True,
-                'effect':'minute_meteors',
-                'effect_timer':100,
-                'zone':True,
-                'zone_shape':'square',
-                'radius':5,
-                'direct_hit':True,
-                'savethrow':True,
-                'savethrow_ability':'dexterity',
-                'attacks_number':1,
-                'attack_range':120,
-                'damage_type':'fire',
-                'damage_dice':'2d6',
-                'components':['verbal'],
-                'casting_time':'bonus_action',
-                'damage_mod':0,
-                'spell_level':spell_level,
-                'spell_save_DC':8 + self.find_spell_attack_mod(),
-                'spell_of_choice':'Magic_Missile',
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    'ammo':6,
+                    'concentration':True,
+                    'concentration_ready':True,
+                    'effect':'minute_meteors',
+                    'effect_timer':100,
+                    'zone':True,
+                    'zone_shape':'square',
+                    'radius':5,
+                    'direct_hit':True,
+                    'savethrow':True,
+                    'savethrow_ability':'dexterity',
+                    'attacks_number':1,
+                    'attack_range':120,
+                    'damage_type':'fire',
+                    'damage_dice':'2d6',
+                    'components':['verbal'],
+                    'casting_time':'bonus_action',
+                    'damage_mod':0,
+                    'spell_level':spell_level,
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    'spell_of_choice':'Magic_Missile',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 3:
             bonus_ammo = 2 * int(spell_level[0]) - 3 * 2
             spell_dict['ammo'] += bonus_ammo
         return spell_dict
 
     @modify_spell
-    def Counterspell(self, spell_level, gen_spell = False):
+    def Counterspell(self, spell_level, gen_spell = False, spell_dict = False):
         """Контрзаклинание.
 
         Дальность 300 футов. Нужно видеть врага.
@@ -2284,19 +2373,20 @@ class gen_spells():
         Duration: Instantaneous
         https://www.dnd-spells.com/spell/counterspell
         """
-        spell_dict = {
-                'effect':'counterspell',
-                'attack_range':300,
-                'components':['somatic'],
-                'casting_time':'reaction',
-                'spell_level':spell_level,
-                'spell_of_choice':'Magic_Missile',
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    'effect':'counterspell',
+                    'attack_range':300,
+                    'components':['somatic'],
+                    'casting_time':'reaction',
+                    'spell_level':spell_level,
+                    'spell_of_choice':'Magic_Missile',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
     @modify_spell
-    def Dispel_Magic(self, spell_level, gen_spell = False):
+    def Dispel_Magic(self, spell_level, gen_spell = False, spell_dict = False):
         """Рассеивание магии.
         
         Можно использовать как импровизированный Counterspell
@@ -2308,19 +2398,20 @@ class gen_spells():
         Components: V, S
         Duration: Instantaneous
         """
-        spell_dict = {
-                'effect':'counterspell',
-                'attack_range':120,
-                'components':['verbal','somatic'],
-                'casting_time':'action',
-                'spell_level':spell_level,
-                'spell_of_choice':'Magic_Missile',
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    'effect':'counterspell',
+                    'attack_range':120,
+                    'components':['verbal','somatic'],
+                    'casting_time':'action',
+                    'spell_level':spell_level,
+                    'spell_of_choice':'Magic_Missile',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
     @modify_spell
-    def Crusaders_Mantle(self, spell_level, gen_spell = False):
+    def Crusaders_Mantle(self, spell_level, gen_spell = False, spell_dict = False):
         """Мантия крестоносца.
 
         Level: 3
@@ -2330,30 +2421,31 @@ class gen_spells():
         Duration: Concentration, up to 1 minute
         https://www.dnd-spells.com/spell/crusaders-mantle
         """
-        spell_dict = {
-                'safe':True,
-                'concentration':True,
-                'effect':'crusaders_mantle',
-                'effect_timer':10,
-                'zone_effect':True,
-                'zone_self':True,
-                'direct_hit':True,
-                'attack_range':0,
-                'radius':30,
-                'components':['verbal'],
-                'damage_type':'radiant',
-                'damage_dice':'1d4',
-                'casting_time':'action',
-                'spell_level':spell_level,
-                'damage_mod':0,
-                'spell_of_choice':'Magic_Missile',
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    'safe':True,
+                    'concentration':True,
+                    'effect':'crusaders_mantle',
+                    'effect_timer':10,
+                    'zone_effect':True,
+                    'zone_self':True,
+                    'direct_hit':True,
+                    'attack_range':0,
+                    'radius':30,
+                    'components':['verbal'],
+                    'damage_type':'radiant',
+                    'damage_dice':'1d4',
+                    'casting_time':'action',
+                    'spell_level':spell_level,
+                    'damage_mod':0,
+                    'spell_of_choice':'Magic_Missile',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
 
     @modify_spell
-    def Spirit_Guardians(self, spell_level, gen_spell = False):
+    def Spirit_Guardians(self, spell_level, gen_spell = False, spell_dict = False):
         """Духовные стражи.
 
         Level: 3
@@ -2363,30 +2455,31 @@ class gen_spells():
         Duration: Concentration, up to 10 minutes
         https://www.dnd-spells.com/spell/spirit-guardians
         """
-        spell_dict = {
-                'safe':True,
-                'concentration':True,
-                'effect':'spirit_guardians',
-                'effect_timer':100,
-                'zone_effect':True,
-                'zone_danger':True,
-                'zone_self':True,
-                'direct_hit':True,
-                'savethrow':True,
-                'savethrow_ability':'wisdom',
-                'attacks_number':1,
-                'radius':15,
-                'attack_range':0,
-                'damage_type':'radiant',
-                'damage_dice':'3d8',
-                'components':['verbal','somatic','material'],
-                'casting_time':'action',
-                'damage_mod':0,
-                'spell_level':spell_level,
-                'spell_save_DC':8 + self.find_spell_attack_mod(),
-                'spell_of_choice':'Sacred_Flame',
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    'safe':True,
+                    'concentration':True,
+                    'effect':'spirit_guardians',
+                    'effect_timer':100,
+                    'zone_effect':True,
+                    'zone_danger':True,
+                    'zone_self':True,
+                    'direct_hit':True,
+                    'savethrow':True,
+                    'savethrow_ability':'wisdom',
+                    'attacks_number':1,
+                    'radius':15,
+                    'attack_range':0,
+                    'damage_type':'radiant',
+                    'damage_dice':'3d8',
+                    'components':['verbal','somatic','material'],
+                    'casting_time':'action',
+                    'damage_mod':0,
+                    'spell_level':spell_level,
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    'spell_of_choice':'Sacred_Flame',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 3:
             dice = int(spell_dict['damage_dice'][0])
             dice += int(spell_level[0]) - 1
@@ -2397,7 +2490,7 @@ class gen_spells():
 # 4 lvl
 
     @modify_spell
-    def Ice_Storm(self, spell_level, gen_spell = False):
+    def Ice_Storm(self, spell_level, gen_spell = False, spell_dict = False):
         """Град
 
         Level: 4
@@ -2407,25 +2500,26 @@ class gen_spells():
         Duration: Instantaneous
         https://www.dnd-spells.com/spell/ice-storm
         """
-        spell_dict = {
-                'zone':True,
-                'direct_hit':True,
-                'savethrow':True,
-                'savethrow_ability':'dexterity',
-                'subspell':'Ice_Storm_Cold',
-                'attacks_number':1,
-                'attack_range':300,
-                'radius':20,
-                'damage_type':'bludgeoning',
-                'damage_dice':'2d8',
-                'components':['verbal','somatic','material'],
-                'casting_time':'action',
-                'damage_mod':0,
-                'spell_level':spell_level,
-                'spell_save_DC':8 + self.find_spell_attack_mod(),
-                'spell_of_choice':'Magic_Missile',
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    'zone':True,
+                    'direct_hit':True,
+                    'savethrow':True,
+                    'savethrow_ability':'dexterity',
+                    'subspell':'Ice_Storm_Cold',
+                    'attacks_number':1,
+                    'attack_range':300,
+                    'radius':20,
+                    'damage_type':'bludgeoning',
+                    'damage_dice':'2d8',
+                    'components':['verbal','somatic','material'],
+                    'casting_time':'action',
+                    'damage_mod':0,
+                    'spell_level':spell_level,
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    'spell_of_choice':'Magic_Missile',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 4:
             dice = int(spell_dict['damage_dice'][0])
             dice += int(spell_level[0]) - 1
@@ -2438,7 +2532,7 @@ class gen_spells():
 # 5 lvl
 
     @modify_spell
-    def Cone_of_Cold(self, spell_level, gen_spell = False):
+    def Cone_of_Cold(self, spell_level, gen_spell = False, spell_dict = False):
         """Конус холода.
 
         Level: 5
@@ -2449,24 +2543,25 @@ class gen_spells():
         https://www.dnd-spells.com/spell/cone-of-cold
         """
         # TODO: effect "icing" -- превращает погибших в ледяные статуи.
-        spell_dict = {
-                'zone':True,
-                'zone_shape':'cone',
-                'direct_hit':True,
-                'savethrow':True,
-                'savethrow_ability':'constitution',
-                'attacks_number':1,
-                'attack_range':60,
-                'damage_type':'cold',
-                'damage_dice':'8d8',
-                'components':['verbal','somatic','material'],
-                'casting_time':'action',
-                'damage_mod':0,
-                'spell_level':spell_level,
-                'spell_save_DC':8 + self.find_spell_attack_mod(),
-                'spell_of_choice':'Magic_Missile',
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    'zone':True,
+                    'zone_shape':'cone',
+                    'direct_hit':True,
+                    'savethrow':True,
+                    'savethrow_ability':'constitution',
+                    'attacks_number':1,
+                    'attack_range':60,
+                    'damage_type':'cold',
+                    'damage_dice':'8d8',
+                    'components':['verbal','somatic','material'],
+                    'casting_time':'action',
+                    'damage_mod':0,
+                    'spell_level':spell_level,
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    'spell_of_choice':'Magic_Missile',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 5:
             dice = int(spell_dict['damage_dice'][0])
             dice += int(spell_level[0]) - 1
@@ -2474,7 +2569,7 @@ class gen_spells():
         return spell_dict
 
     @modify_spell
-    def Dawn(self, spell_level, gen_spell = False):
+    def Dawn(self, spell_level, gen_spell = False, spell_dict = False):
         """Рассвет.
 
         Level: 5
@@ -2485,31 +2580,32 @@ class gen_spells():
         https://www.dnd-spells.com/spell/dawn
         """
         # Первый удар заклинания неожиданный, дальше только смещение луча.
-        spell_dict = {
-                'ammo':1,
-                'concentration':True,
-                'concentration_no_ammo':True,
-                'effect':'dawn',
-                'effect_timer':10,
-                'zone':True,
-                'zone_effect':True,
-                'zone_danger':True,
-                'direct_hit':True,
-                'savethrow':True,
-                'savethrow_ability':'constitution',
-                'attacks_number':1,
-                'attack_range':60,
-                'radius':30,
-                'damage_type':'radiant',
-                'damage_dice':'4d10',
-                'components':['verbal','somatic','material'],
-                'casting_time':'action',
-                'damage_mod':0,
-                'spell_level':spell_level,
-                'spell_save_DC':8 + self.find_spell_attack_mod(),
-                'spell_of_choice':'Magic_Missile',
-                }
-        spell_dict = copy.deepcopy(spell_dict)
+        if not spell_dict:
+            spell_dict = {
+                    'ammo':1,
+                    'concentration':True,
+                    'concentration_no_ammo':True,
+                    'effect':'dawn',
+                    'effect_timer':10,
+                    'zone':True,
+                    'zone_effect':True,
+                    'zone_danger':True,
+                    'direct_hit':True,
+                    'savethrow':True,
+                    'savethrow_ability':'constitution',
+                    'attacks_number':1,
+                    'attack_range':60,
+                    'radius':30,
+                    'damage_type':'radiant',
+                    'damage_dice':'4d10',
+                    'components':['verbal','somatic','material'],
+                    'casting_time':'action',
+                    'damage_mod':0,
+                    'spell_level':spell_level,
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    'spell_of_choice':'Magic_Missile',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         #if int(spell_level[0]) > 5:
         #    dice = int(spell_dict['damage_dice'][0])
         #    dice += int(spell_level[0]) - 1
