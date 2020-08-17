@@ -444,7 +444,8 @@ class battle_simulation(battlescape):
                     if not soldier.armor['armor_use'] and spell == 'Mage_Armor':
                         soldier.use_item('Mage_Armor', gen_spell = True)
                     if not soldier.concentration and spell == 'Heroism':
-                        soldier.use_item('Heroism', gen_spell = True)
+                        spell_dict_modify = {'concentration':False,}
+                        soldier.use_item('Heroism', gen_spell = spell_dict_modify)
             # Используем зелья:
             if 'potions' in soldier.commands:
                 pass
