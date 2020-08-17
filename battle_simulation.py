@@ -1077,6 +1077,9 @@ class battle_simulation(battlescape):
         # Команды отряду считаются личными:
         if squad.commands:
             soldier.commands.extend(squad.commands)
+            if soldier.__dict__.get('archer_AI') or soldier.behavior == 'archer':
+                if 'engage' in soldier.commands:
+                    soldier.commands.remove('engage')
             # Существа с перезарядкой атак не бросаются в бой, пока не готовы:
             if 'recharge' in soldier.commands and soldier.recharge_dict:
                 if 'engage' in soldier.commands:
