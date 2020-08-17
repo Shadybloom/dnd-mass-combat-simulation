@@ -186,12 +186,17 @@ class soldier_in_battle(soldier):
             self.help_action = False
         # Индивидуальные команды солдату:
         self.commands = []
-        # Благотворные и вредные эффекты:
-        self.buffs = {}
-        self.debuffs = {}
         # Скастованные заклинания:
         # Для таймера в clear_spells.
-        self.spells_active = {}
+        if not hasattr(self, 'spells_active'):
+            self.spells_active = {}
+        # Благотворные и вредные эффекты:
+        if not hasattr(self, 'buffs'):
+            self.buffs = {}
+        if not hasattr(self, 'debuffs'):
+            self.debuffs = {}
+        if not hasattr(self, 'concentration'):
+            self.concentration = False
         # Общие для всех параметры:
         self.immunity = []
         self.resistance = []
@@ -204,7 +209,6 @@ class soldier_in_battle(soldier):
         self.paralyzed = False
         self.grappled = False
         self.restrained = False
-        self.concentration = False
         self.help_action = False
         self.killer_mark = False
         # Долговременные параметры:
@@ -2519,7 +2523,7 @@ class soldier_in_battle(soldier):
                 self.sleep_timer = 0
                 self.sleep = False
             # Прерывание концентрации
-            if self.concentration:
+            if damage and self.concentration:
                 spell = self.concentration['spell_choice']
                 concentration_break = self.set_concentration_break(difficult = round(damage / 2))
                 if concentration_break:

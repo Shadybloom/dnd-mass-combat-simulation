@@ -620,6 +620,7 @@ class battle_simulation(battlescape):
             self.clear_battlemap()
             # Чистим списки закончившихся заклинаний, работает таймер:
             # Срабатывают повторяющиеся каждый раунд заклинания вроде Heroism:
+            # TODO: последний раунд боя не учитывается
             self.all_clear_spells()
             self.all_get_buffs()
             for squad in self.squads.values():
@@ -3163,19 +3164,60 @@ class battle_simulation(battlescape):
         """
         for soldier in self.metadict_soldiers.values():
             if soldier.spells_active:
-                for spell in soldier.spells_active.values():
+                for spell_uuid, spell in soldier.spells_active.items():
                     if spell.get('effect_timer', 0) > 0:
                         spell['effect_timer'] -= 1
                     if spell.get('concentration_timer', 0) > 0:
                         spell['concentration_timer'] -= 1
-                    else:
-                        # Отмена закончившихся заклинаний:
-                        if spell == soldier.concentration:
-                            soldier.set_concentration_break(autofail = True)
-                        if spell in [el for el in soldier.buffs.values()]:
-                            soldier.buffs.pop(spell['effect'])
-                        if spell in [el for el in soldier.debuffs.values()]:
-                            soldier.debuffs.pop(spell['effect'])
+            # Создаём список закончившихся заклинаний:
+            spells_delite_list = self.create_end_spells_list(soldier.spells_active)
+            spells_delite_list.extend(self.create_end_spells_list(soldier.buffs))
+            spells_delite_list.extend(self.create_end_spells_list(soldier.debuffs))
+            if spells_delite_list:
+                for spell_uuid in spells_delite_list:
+                    # Концентрация:
+                    if soldier.concentration and spell_uuid == soldier.concentration['spell_uuid']:
+                        soldier.set_concentration_break(autofail = True)
+                    # Бафф:
+                    if spell_uuid in [el['spell_uuid'] for el in soldier.buffs.values()]:
+                        effect_end = [el['effect'] for el in soldier.buffs.values()
+                                if spell_uuid == el['spell_uuid']]
+                        spell_dict = soldier.buffs.pop(effect_end[0])
+                        #print('NYA', soldier.rank, spell_dict['spell_choice'])
+                    # Дебафф:
+                    if spell_uuid in [el['spell_uuid'] for el in soldier.debuffs.values()]:
+                        effect_end = [el['effect'] for el in soldier.debuffs.values()
+                                if spell_uuid == el['spell_uuid']]
+                        spell_dict = soldier.debuffs.pop(effect_end[0])
+                    # Само заклинание, чтобы не засоряло БД:
+                    # ------------------------------------------------------------
+                    # TODO: Заодно можно отправлять заклинанию сигнал о завершении:
+                    # И снимать так, например, сопротивляемость от Absorb_Elements.
+                    # Функция заклинания из словаря, боец под эффектом отсюда.
+                    # ------------------------------------------------------------
+                    if spell_uuid in soldier.spells_active:
+                        spell_dict = soldier.spells_active.pop(spell_uuid)
+                        #print('NYA', spell_dict['spell_choice'])
+
+    def create_end_spells_list(self, metadict_spells):
+        """Список uuid закончившихся заклинаний.
+        
+        Закончившимися считаются заклинания:
+        - Без таймеров концентрации или эффекта.
+        - С нулевым таймером концентрации.
+        - С нулевым таймером эффекта.
+        - С меткой concentration_break
+        """
+        spells_delite_list = []
+        for spell_dict in metadict_spells.values():
+            spell_uuid = spell_dict['spell_uuid']
+            if not spell_dict.get('effect_timer'):
+                spells_delite_list.append(spell_uuid)
+            elif spell_dict.get('concentration') and not spell_dict.get('concentration_timer'):
+                spells_delite_list.append(spell_uuid)
+            elif spell_dict.get('concentration_break'):
+                spells_delite_list.append(spell_uuid)
+        return spells_delite_list
 
     def all_get_buffs(self):
         """Срабатывают заклинания в списке buffs.
