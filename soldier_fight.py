@@ -2535,7 +2535,7 @@ class soldier_in_battle(soldier):
             if self.class_features.get('Undead_Fortitude') and self.hitpoints <= 0\
                     and not attack_dict.get('attack_crit')\
                     and attack_dict['damage_type'] != 'radiant':
-                difficul = 5 + damage
+                difficult = 5 + damage
                 ability = 'constitution'
                 if self.get_savethrow(difficult, ability):
                     self.hitpoints = 1
