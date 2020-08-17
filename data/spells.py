@@ -67,6 +67,7 @@ class gen_spells():
         def wrapper(self, spell_level, gen_spell = False, spell_choice = False, use_spell = True):
             soldier = self.mage
             spell_dict = func(self, spell_level, gen_spell)
+            #print('NYA', gen_spell, spell_choice, spell_dict)
             if spell_dict and use_spell:
                 # Указываем выбор заклинания (круг и тип) в его словаре:
                 spell_dict['spell_choice'] = spell_choice
@@ -132,9 +133,11 @@ class gen_spells():
                 # Исполняем функцию с обновлёнными параметрами:
                 spell_dict_raw.update(spell_dict)
                 spell_dict = func(self, spell_level, gen_spell, spell_dict_raw)
+                return spell_dict
             elif spell_dict_raw and gen_spell and type(gen_spell) == dict:
                 spell_dict_raw.update(gen_spell)
                 spell_dict = func(self, spell_level, gen_spell, spell_dict_raw)
+                return spell_dict
             elif spell_dict_raw:
                 spell_dict = func(self, spell_level, gen_spell)
                 return spell_dict_raw
@@ -1699,7 +1702,7 @@ class gen_spells():
                     'effect_timer':1,
                     'attack_range':0,
                     'absorb_damage_type':['acid','cold','fire','lightning','thunder'],
-                    'damage_type':'absorbed',
+                    #'damage_type':'absorbed',
                     'damage_dice':'1d6',
                     'components':['somatic'],
                     'casting_time':'reaction',
@@ -1714,9 +1717,8 @@ class gen_spells():
             spell_dict['damage_dice'] = str(dice) + spell_dict['damage_dice'][1:]
         if gen_spell:
             soldier = self.mage
-            damage_type = gen_spell
-            if damage_type in spell_dict['absorb_damage_type']:
-                spell_dict['damage_type'] = damage_type
+            # Параметр 'damage_type' должен быть передан заклинанию с помощью update_spell_dict:
+            if spell_dict['damage_type'] in spell_dict['absorb_damage_type']:
                 soldier.resistance.append(spell_dict['damage_type'])
             else:
                 return False

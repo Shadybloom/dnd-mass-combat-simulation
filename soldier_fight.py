@@ -2670,11 +2670,11 @@ class soldier_in_battle(soldier):
                 if 'runes' in self.commands and self.reaction:
                     self.use_item(
                             'Absorb_Elements',
-                            gen_spell = attack_dict['damage_type'])
+                            gen_spell = {'damage_type':attack_dict['damage_type']})
                 elif self.reaction:
                     spell_dict = self.try_spellcast(
                             'Absorb_Elements',
-                            gen_spell = attack_dict['damage_type'])
+                            gen_spell = {'damage_type':attack_dict['damage_type']})
         # Урон от магического оружия преодолевает иммунитет:
         if attack_dict['damage_type'] in self.immunity:
             if attack_dict.get('weapon_type') and 'magic' in attack_dict['weapon_type']:
