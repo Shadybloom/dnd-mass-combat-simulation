@@ -49,14 +49,13 @@ class database():
         # Сбрасываем параметры:
         soldier.escape = False
         soldier.grappled = False
-        soldier.concentration = False
-        soldier.hex = False
         #soldier.ally_side = None
         #soldier.enemy_side = None
         soldier.initiative = None
         soldier.place = None
         soldier.place_in_order = None
         soldier.danger = 0
+        #soldier.concentration = False
         #soldier.buffs = {}
         #soldier.debuffs = {}
         #soldier.spells_active = {}
