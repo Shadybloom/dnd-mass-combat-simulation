@@ -334,6 +334,45 @@ class squad_generation():
             metadict_pets[pet.uuid] = pet
         return metadict_pets
 
+    def select_soldiers(func):
+        """Выкидываем слабейших из состава отряда.
+
+        Для этого есть метка recruit_selection (которая должна быть у всех).
+        """
+        def wrapper(self, squad_number, rank = None):
+            metadict_soldiers = func(self, squad_number, rank = None)
+            if not rank and [soldier for soldier in metadict_soldiers.values()
+                    if soldier.__dict__.get('recruit_selection')]:
+                # Убираем рекрутов из шаблона отряда:
+                dict_squad = self.dict_squad.copy()
+                common_soldier = max(dict_squad, key=lambda k: dict_squad[k])
+                dict_squad.pop(common_soldier)
+                # Отбираем лучших по оставшемуся числу:
+                number = (sum(dict_squad.values()))
+                metadict_soldiers = self.select_best_soldiers(number, metadict_soldiers)
+            return metadict_soldiers
+        return wrapper
+
+    def select_best_soldiers(self, number, metadict_soldiers):
+        """Выбирает определённое число лучших солдат в отряде.
+        
+        Лучшими считаются бойцы с наибольшей суммой параметров.
+        """
+        # ЗАМЕТКА: Стоило бы учесть хитпоинты, но все бойцы пока что 1 lvl.
+        # ------------------------------------------------------------
+        # Если понадобится, прибавь к сумме ниже число хитов, делённое на уровень.
+        # Тогда нам нужна независимая от constitution сумма хитов. Да просто вычти!
+        # ------------------------------------------------------------
+        abilityes_dict = {uuid:sum(soldier.abilityes.values())
+                for uuid, soldier in metadict_soldiers.items()}
+        abilityes_dict = OrderedDict(reversed(sorted(abilityes_dict.items(),key=lambda x: x[1])))
+        best_soldiers_list = list(abilityes_dict.keys())[0:number]
+        best_soldiers_dict = {uuid:soldier for uuid, soldier in metadict_soldiers.items()
+                if uuid in best_soldiers_list}
+        #print([sum(soldier.abilityes.values()) for soldier in best_soldiers_dict.values()])
+        return best_soldiers_dict
+
+    @select_soldiers
     def gen_soldiers(self, squad_number, rank = None):
         """Даём отряду столько-то бойцов определённого ранга.
 
@@ -533,7 +572,6 @@ if __name__ == '__main__':
             l = soldier.overload['equipment_weight (lb)'],
             l_max = soldier.overload['normal_load (lb)'],
             ))
-        #if soldier.hero:
         #    print('{r} sum:{s} STR:{str} DEX:{dex} CON:{con} INT:{int} WIS:{wis} CHA:{cha}'.format(
         #        r = soldier.rank,
         #        s = sum(soldier.abilityes.values()),
