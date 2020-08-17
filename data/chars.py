@@ -12,6 +12,25 @@ metadict_chars = {}
 #----
 # Сельское ополчение (крестьяне и городская беднота):
 
+metadict_chars['Commoner 1 lvl (recruit)'] = {
+    # Отсеиваются из состава отряда на этапе генерации.
+    # Отражают отбор в отряд лучших солдат:
+        # 100 рекрутов на 100 должностей = 100 раных солдат, 30 из которых негодные.
+        # 200 рекрутов на 100 должностей = 100 сильных и ловких солдат.
+        # 500 рекрутов на 100 должностей = 100 бойцов уровня ветеранов.
+    'level':1,
+    'recruit_selection':True,
+    'char_class':'Commoner',
+    'behavior':'Warrior',
+    'hit_dice':'1d8',
+    'race':'Human-common',
+    'weapon_skill':['simple'],
+    'armor_skill':['light','medium','shield'],
+    'equipment_supply':{},
+    'equipment_backpack':{},
+    'equipment_weapon':{},
+    }
+
 metadict_chars['Commoner 1 lvl (militia javeliner)'] = {
     # Пельтасты, левисы. Ополченцы с метательными копьями.
         # https://ru.wikipedia.org/wiki/Левисы
@@ -9228,7 +9247,7 @@ metadict_chars['Warrior 5 lvl (нейтрал) (бронзовый гоплит-
     'level':5,
     'killer_AI':True,
     'carefull_AI':True,
-    'no_grappler_AI':True,
+    #'no_grappler_AI':True,
     #'fearless_AI':True,
     #'seeker_AI':True,
     'char_class':'Warrior-officer',
@@ -9947,6 +9966,130 @@ metadict_chars['Warrior 5 lvl (враг) (демон-капитан)'] = {
         'Half Plate':1,
         'Battleaxe':1,
         'Shield':1,
+        },
+    }
+
+#----
+# Враги (армии) (водяные Нингиримы):
+
+metadict_chars['Warrior 1 lvl (враг) (гоплит Нингиримы)'] = {
+    'level':1,
+    'water_walk':True,
+    'char_class':'Warrior',
+    'behavior':'warrior',
+    'hit_dice':'1d8',
+    'race':'Humanoid-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Studded Leather':1,
+        'Heavy Shield':1,
+        'Shortsword':1,
+        'Long Spear':1,
+        'Poison Blade':10,
+        },
+    }
+
+metadict_chars['Warrior 2 lvl (враг) (гоплит-ветеран Нингиримы)'] = {
+    'level':2,
+    'water_walk':True,
+    'char_class':'Warrior',
+    'behavior':'elite_warrior',
+    'hit_dice':'1d8',
+    'class_features':{
+        'Fighting_Style_Dueling':True,
+        },
+    'race':'Humanoid-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Scale Mail':1,
+        'Heavy Shield':1,
+        'Shortsword':1,
+        'Long Spear':1,
+        'Poison Blade':10,
+        },
+    }
+
+metadict_chars['Warrior 3 lvl (враг) (гоплит-сержант Нингиримы)'] = {
+    'level':3,
+    'water_walk':True,
+    'char_class':'Warrior',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Dueling':True,
+        },
+    'race':'Humanoid-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Breastplate':1,
+        'Heavy Shield':1,
+        'Shortsword':1,
+        'Long Spear':1,
+        'Poison Blade':10,
+        },
+    }
+
+metadict_chars['Warrior 4 lvl (враг) (гоплит-лейтенант Нингиримы)'] = {
+    'level':4,
+    'water_walk':True,
+    'char_class':'Warrior-officer',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Dueling':True,
+        'Feat_Inspiring_Leader':True,
+        },
+    'race':'Humanoid-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Rune of Absorbtion':1,
+        'Breastplate':1,
+        'Heavy Shield':1,
+        'Shortsword':1,
+        'Long Spear':1,
+        'Poison Blade':10,
+        },
+    }
+
+metadict_chars['Warrior 5 lvl (враг) (гоплит-капитан Нингиримы)'] = {
+    'level':5,
+    'water_walk':True,
+    'char_class':'Warrior-officer',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Dueling':True,
+        'Feat_Inspiring_Leader':True,
+        'Extra_Attack':True,
+        },
+    'race':'Humanoid-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Rune of Absorbtion':1,
+        'Rune of Shielding':1,
+        'Half Plate':1,
+        'Heavy Shield':1,
+        'Shortsword':1,
+        'Long Spear':1,
+        'Poison Blade':10,
         },
     }
 

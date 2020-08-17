@@ -18,6 +18,13 @@ metadict_squads = {}
 #    'Warrior 5 lvl (legionary infantry-captain)':1,
 #    }
 
+metadict_squads['Company-regular (test-recruits)'] = {
+    # От этого отряда остаётся только отборный лейтенант.
+    # Рекруты используются для отбора. Они покидают отряд.
+    'Commoner 1 lvl (recruit)':100,
+    'Warrior 4 lvl (achean hoplite-lieutenant)':1,
+    }
+
 metadict_squads['test 12 animals'] = {
     #'Brown Bear (CR 1)':12,
     'Giant Octopus (CR 1)':12,
@@ -134,22 +141,6 @@ metadict_squads['Company-dummy (куклы)'] = {
     'Dummy-officer (CR 0)':4,
     }
 
-metadict_squads['Company-regular (гоплиты-ветераны)'] = {
-    'Warrior 1 lvl (achean hoplite)':46 + dice_throw('1d12'),
-    'Warrior 2 lvl (achean hoplite-corporal)':46,
-    'Warrior 3 lvl (achean hoplite-sergeant)':3,
-    'Warrior 4 lvl (achean hoplite-lieutenant)':1,
-    'Warrior 5 lvl (achean hoplite-captain)':1,
-    }
-
-metadict_squads['Company-regular (гоплиты-опытные)'] = {
-    'Warrior 1 lvl (achean hoplite)':65 + dice_throw('1d12'),
-    'Warrior 2 lvl (achean hoplite-corporal)':20,
-    'Warrior 3 lvl (achean hoplite-sergeant)':6,
-    'Warrior 4 lvl (achean hoplite-lieutenant)':2,
-    'Warrior 5 lvl (achean hoplite-captain)':2,
-    }
-
 #----
 # Тесты отрядов:
 
@@ -188,6 +179,23 @@ metadict_squads['Company-test (standard) (bless + disadvantage) (greataxes)'] = 
 metadict_squads['Company-test (standard) (battleaxes)'] = {
     'Warrior 1 lvl (standard) (Battleaxe + Shield)':100,
     'Trap (commander)':1,
+    }
+
+metadict_squads['Company-regular (гоплиты-ветераны)'] = {
+    # Хм, ветеранский отряд и опытный сравнимы по боевой эффективности.
+    'Warrior 1 lvl (achean hoplite)':46 + dice_throw('1d12'),
+    'Warrior 2 lvl (achean hoplite-corporal)':46,
+    'Warrior 3 lvl (achean hoplite-sergeant)':3,
+    'Warrior 4 lvl (achean hoplite-lieutenant)':1,
+    'Warrior 5 lvl (achean hoplite-captain)':2,
+    }
+
+metadict_squads['Company-regular (гоплиты-опытные)'] = {
+    'Warrior 1 lvl (achean hoplite)':65 + dice_throw('1d12'),
+    'Warrior 2 lvl (achean hoplite-corporal)':20,
+    'Warrior 3 lvl (achean hoplite-sergeant)':6,
+    'Warrior 4 lvl (achean hoplite-lieutenant)':2,
+    'Warrior 5 lvl (achean hoplite-captain)':2,
     }
 
 #----
@@ -340,6 +348,12 @@ metadict_squads['Squad-regular (гигантские осьминоги) (при
 #----
 # Нейтралы, Иллирийский союз (Менон Теварин):
 
+metadict_squads['Squad-hero (бронзовые гоплиты Менона) (нейтрал)'] = {
+    # Всего у Менона 110 бронзовых гоплитов:
+    'Warrior 4 lvl (нейтрал) (бронзовый гоплит Менона)':30,
+    'Warrior 5 lvl (нейтрал) (бронзовый гоплит-капитан Менона)':10,
+    }
+
 metadict_squads['Company-hero (бронзовые гоплиты Менона) (нейтрал)'] = {
     # Всего у Менона 110 бронзовых гоплитов:
     'Warrior 4 lvl (нейтрал) (бронзовый гоплит Менона)':80,
@@ -355,13 +369,14 @@ metadict_squads['Squad-hero (упыри Менона) (нейтрал)'] = {
 metadict_squads['Squad-hero (зомби и гоплиты Менона) (нейтрал)'] = {
     'Warrior 4 lvl (нейтрал) (бронзовый гоплит Менона)':10,
     'Warrior 5 lvl (нейтрал) (бронзовый гоплит-капитан Менона)':4,
-    'Zombie (CR 1/4)':80 + dice_throw('1d12'),
+    #'Zombie (CR 1/4)':80 + dice_throw('1d12'),
+    'Zombie (Danse_Macabre) (CR 1/2)':60,
     }
 
 metadict_squads['Squad-hero (зомби Менона) (нейтрал)'] = {
     # Зомби под Danse_Macabre с +5 атаки и +9 урона.
     'Zombie (Danse_Macabre) (CR 1/2)':60,
-    'Trap (commander)':1,
+    'Warrior 5 lvl (нейтрал) (бронзовый гоплит-капитан Менона)':2,
     }
 
 #----
@@ -528,6 +543,25 @@ metadict_squads['Company-regular (карлы Ашеры) (враг)'] = {
     'Commoner 1 lvl (враг) (карл)':180 + dice_throw('3d12'),
     'Commoner 1 lvl (враг) (карл-ветеран)':4,
     'Warrior 3 lvl (враг) (демон-сержант)':1,
+    }
+
+#----
+# Армия Нингиримы:
+
+metadict_squads['Company-regular (гоплиты Нингиримы) (враг)'] = {
+    'Warrior 1 lvl (враг) (гоплит Нингиримы)':46 + dice_throw('1d12'),
+    'Warrior 2 lvl (враг) (гоплит-ветеран Нингиримы)':46,
+    'Warrior 3 lvl (враг) (гоплит-сержант Нингиримы)':3,
+    'Warrior 5 lvl (враг) (гоплит-капитан Нингиримы)':2,
+    'Warrior 4 lvl (враг) (гоплит-лейтенант Нингиримы)':1,
+    }
+
+metadict_squads['Company-regular (гоплиты Клеомена) (враг)'] = {
+    # Опытный отряд.
+    'Warrior 2 lvl (враг) (гоплит-ветеран Нингиримы)':90,
+    'Warrior 3 lvl (враг) (гоплит-сержант Нингиримы)':6,
+    'Warrior 5 lvl (враг) (гоплит-капитан Нингиримы)':2,
+    'Warrior 4 lvl (враг) (гоплит-лейтенант Нингиримы)':2,
     }
 
 #----

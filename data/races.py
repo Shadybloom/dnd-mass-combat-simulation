@@ -25,6 +25,15 @@ dict_races = {
             #'wisdom':+1,
             #'charisma':+1,
             },
+        'Humanoid-common':{
+            'hero':False,
+            'size':'medium',
+            'base_speed':30,
+            'height_base_inches':4 * 12 + 8,
+            'height_mod_dice':'2d10',
+            'weight_base_lb':110,
+            'weight_mod_dice':'2d4',
+            },
         'Humanoid-big':{
             'hero':False,
             'size':'large',
