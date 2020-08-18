@@ -462,15 +462,14 @@ class battle_simulation(battlescape):
                     if not soldier.bonus_hitpoints and spell == 'False_Life':
                         soldier.use_item('False_Life', gen_spell = True)
             # Используем зелья:
+            # TODO: Вообще, зелья дублируют руны по сути и содержимому.
             if 'potions' in soldier.commands:
-                pass
-                # Используем предметы перед боем:
-                # TODO: перепиши под формат.
-                #if hasattr(squad, 'commands') and 'potions' in squad.commands:
-                #    if not self.bonus_hitpoints:
-                #        if self.equipment_weapon.get('Infusion of Heroism')\
-                #                or self.equipment_weapon.get('Potion of Bravery'):
-                #            self.use_potion_of_heroism()
+                potions_list = [
+                        'False_Life',
+                        ]
+                for spell in spells_list:
+                    if not soldier.bonus_hitpoints and spell == 'False_Life':
+                        soldier.use_item('False_Life', gen_spell = True)
             # Тратим слоты заклинаний:
             if 'spellcast' in soldier.commands and soldier.spells:
                 spells_list = [

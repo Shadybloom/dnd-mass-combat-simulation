@@ -1153,28 +1153,6 @@ class soldier_in_battle(soldier):
             else:
                 return False
 
-    def use_potion_of_heroism(self, use_battle_action = True):
-        """Боец использует зелье героизма.
-        """
-        # TODO: переделать в заклинание.
-        if self.battle_action or use_battle_action == False:
-            if self.equipment_weapon.get('Potion of Bravery', 0) > 0:
-                self.drop_item('Potion of Bravery')
-                spell_dict = self.metadict_items['Potion of Bravery']
-                bonus_hitpoints = dices.dice_throw(spell_dict['healing_dice'])
-                poisoned = self.set_poisoned(spell_dict['spell_save_DC'], spell_dict['effect_timer'])
-                if poisoned:
-                    print('[+++] {side_1}, {c1} {s} POISONED << Potion of Bravery'.format(
-                        side_1 = self.ally_side,
-                        c1 = self.place,
-                        s = self.behavior,
-                        ))
-                if self.bonus_hitpoints < bonus_hitpoints:
-                    self.bonus_hitpoints = bonus_hitpoints
-                return True
-            else:
-                return False
-
     def first_aid(self, injured_ally, stabilizing_difficul = 10, advantage = False, disadvantage = False):
         """Боец пытается оказать первую помощь раненому.
         
@@ -2244,13 +2222,17 @@ class soldier_in_battle(soldier):
     def use_item(self, spell, gen_spell = True, use_spell_slot = False, use_action = True):
         """Используется руна, свиток, предмет.
 
-        Хранящий заклинание под ключом 'spell'.
+        - Хранящий заклинание под ключом 'spell'.
+        - При этом базовый словарь заклинание через update пополняется словарём предмета.
         """
         for item, number in self.equipment_weapon.items():
             if number > 0 and 'runes' in self.commands:
                 if item == spell and spell == self.metadict_items[item].get('spell'):
                     spell = self.metadict_items[item].get('spell')
                 if spell == self.metadict_items[item].get('spell'):
+                    item_dict = self.metadict_items[item]
+                    if gen_spell:
+                        gen_spell = item_dict
                     spell_dict = self.try_spellcast(spell, gen_spell, use_spell_slot, use_action)
                     if spell_dict:
                         self.drop_item(item)

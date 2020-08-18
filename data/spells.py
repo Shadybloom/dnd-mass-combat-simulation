@@ -1822,9 +1822,8 @@ class gen_spells():
                     'buff':True,
                     'effect':'bonus_hitpoints',
                     'effect_timer':600,
-                    'damage_type':'bonus_hitpoints',
-                    'damage_dice':'1d4',
-                    'damage_mod':4,
+                    'healing_dice':'1d4',
+                    'healing_mod':4,
                     'components':['verbal','somatic','material'],
                     'casting_time':'action',
                     'spell_level':spell_level,
@@ -1832,11 +1831,11 @@ class gen_spells():
                     }
             spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 1:
-            spell_dict['damage_mod'] = spell_dict['damage_mod'] * int(spell_level[0])
+            spell_dict['healing_mod'] = spell_dict['healing_mod'] * int(spell_level[0])
         if gen_spell:
             soldier = self.mage
-            bonus_hitpoints = dices.dice_throw_advantage(spell_dict['damage_dice'])\
-                    + spell_dict['damage_mod']
+            bonus_hitpoints = dices.dice_throw_advantage(spell_dict['healing_dice'])\
+                    + spell_dict['healing_mod']
             soldier.set_hitpoints(bonus_hitpoints = bonus_hitpoints)
         return spell_dict
 
