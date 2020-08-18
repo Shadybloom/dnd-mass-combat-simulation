@@ -449,6 +449,7 @@ class battle_simulation(battlescape):
             # Используем руны и заклинания в предметах:
             if 'runes' in soldier.commands:
                 spells_list = [
+                        'False_Life',
                         'Mage_Armor',
                         'Heroism',
                         ]
@@ -458,6 +459,8 @@ class battle_simulation(battlescape):
                     if not soldier.concentration and spell == 'Heroism':
                         spell_dict_modify = {'concentration':False,}
                         soldier.use_item('Heroism', gen_spell = spell_dict_modify)
+                    if not soldier.bonus_hitpoints and spell == 'False_Life':
+                        soldier.use_item('False_Life', gen_spell = True)
             # Используем зелья:
             if 'potions' in soldier.commands:
                 pass
@@ -472,12 +475,15 @@ class battle_simulation(battlescape):
             if 'spellcast' in soldier.commands and soldier.spells:
                 spells_list = [
                         'Armor_of_Agathys',
+                        'False_Life',
                         'Mage_Armor',
                         ]
                 for spell in spells_list:
                     if soldier.bonus_hitpoints <= 0 and spell == 'Armor_of_Agathys':
                         soldier.try_spellcast(spell, gen_spell = True)
                     if not soldier.armor['armor_use'] and spell == 'Mage_Armor':
+                        soldier.try_spellcast(spell, gen_spell = True)
+                    if not soldier.bonus_hitpoints and spell == 'False_Life':
                         soldier.try_spellcast(spell, gen_spell = True)
                     #print(soldier.rank, soldier.buffs.keys())
 

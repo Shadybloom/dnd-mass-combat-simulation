@@ -6,6 +6,8 @@ import random
 import copy
 import uuid
 
+import dices
+
 class gen_spells():
     """Заклинания представлены как функции.
     
@@ -610,6 +612,9 @@ class gen_spells():
                     }
             spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
+
+#------------------------------------------------------------
+# Зелья
 
 #------------------------------------------------------------
 # Заклинания
@@ -1748,7 +1753,8 @@ class gen_spells():
                     'armor_class_armor':13,
                     'attack_range':0,
                     'components':['verbal','somatic','material'],
-                    'casting_time':'action',
+                    #'casting_time':'action',
+                    'casting_time':'free_action',
                     'spell_level':spell_level,
                     'spell_of_choice':'Magic_Missile',
                     }
@@ -1797,6 +1803,41 @@ class gen_spells():
         if gen_spell:
             soldier = self.mage
             soldier.bonus_hitpoints = spell_dict['damage_mod']
+        return spell_dict
+
+    @modify_spell
+    @update_spell_dict
+    def False_Life(self, spell_level, gen_spell = False, spell_dict = False):
+        """Псевдожизнь.
+
+        Level: 1
+        Casting time: 1 Action
+        Range: Self
+        Components: V, S, M (a small amount of alcohol or distilled spirits)
+        Duration: 1 hour
+        https://www.dnd-spells.com/spell/false-life
+        """
+        if not spell_dict:
+            spell_dict = {
+                    'buff':True,
+                    'effect':'bonus_hitpoints',
+                    'effect_timer':600,
+                    'damage_type':'bonus_hitpoints',
+                    'damage_dice':'1d4',
+                    'damage_mod':4,
+                    'components':['verbal','somatic','material'],
+                    'casting_time':'action',
+                    'spell_level':spell_level,
+                    'spell_of_choice':'Magic_Missile',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
+        if int(spell_level[0]) > 1:
+            spell_dict['damage_mod'] = spell_dict['damage_mod'] * int(spell_level[0])
+        if gen_spell:
+            soldier = self.mage
+            bonus_hitpoints = dices.dice_throw_advantage(spell_dict['damage_dice'])\
+                    + spell_dict['damage_mod']
+            soldier.set_hitpoints(bonus_hitpoints = bonus_hitpoints)
         return spell_dict
 
     @modify_spell
