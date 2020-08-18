@@ -59,6 +59,7 @@ class database():
         #soldier.buffs = {}
         #soldier.debuffs = {}
         #soldier.spells_active = {}
+        soldier.metadict_soldiers = {}
         soldier.recon_near = []
         soldier.near_zone = []
         soldier.near_allies = []
@@ -75,6 +76,7 @@ class database():
             soldier.wild_shape_old_form['place'] = None
             soldier.wild_shape_old_form['place_in_order'] = None
             soldier.wild_shape_old_form['danger'] = 0
+            soldier.wild_shape_old_form['metadict_soldiers'] = {}
             soldier.wild_shape_old_form['recon_near'] = []
             soldier.wild_shape_old_form['near_zone'] = []
             soldier.wild_shape_old_form['near_allies'] = []

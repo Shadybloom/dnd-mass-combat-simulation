@@ -125,6 +125,7 @@ class battle_simulation(battlescape):
         self.create_battlespace(battle_map)
         self.squads = self.create_squads(zones_squads_dict)
         self.metadict_soldiers = self.create_metadict_soldiers(self.squads)
+        # Размещаем солдат на поле боя в точках спавна:
         self.place_soldiers()
         for key,squad in self.squads.items():
             if 'commander' in [soldier.behavior for soldier in squad.metadict_soldiers.values()
@@ -132,6 +133,12 @@ class battle_simulation(battlescape):
                 self.set_squad_battle_order(squad, key.zone)
             #[print(el) for el in squad.battle_order.items()]
             for soldier in squad.metadict_soldiers.values():
+                # ЗАМЕТКА: Даём каждому солдату ссылку на остальных
+                # ------------------------------------------------------------
+                # Это понадобится для нацеливания заклинаний в их функциях.
+                # При записи бойца в базу данных этот словарь будет обнуляться.
+                # ------------------------------------------------------------
+                soldier.metadict_soldiers = self.metadict_soldiers
                 soldier.set_actions_base(squad)
                 soldier.set_actions(squad)
             # Командование отряда начинает свою работу:
@@ -415,15 +422,20 @@ class battle_simulation(battlescape):
                 # В заклинаниях указывай buff = True.
                 ## -------------------------------------------------
                 bless_list = [
+                        # Используя Mage_Armor на союзника маг тратит действие.
+                        # И поэтому не может применить его на себя в set_squad_spells_personal
                         'Aid',
                         'Bless',
                         'Shield_of_Faith',
+                        #'Mage_Armor',
                         ]
                 for bless in bless_list:
-                    spell_dict = soldier.try_spellcast(bless)
+                    spell_dict = soldier.try_spellcast(bless, gen_spell = False)
                     if spell_dict:
                         soldiers_list = self.select_soldiers_for_bless(
                                 spell_dict['attacks_number'], squad.ally_side, spell_dict['effect'])
+                        # Функция set_buff исполняет заклинание от имени цели:
+                        # Лучше бы сделать через target_uuid в spell_dict.
                         for ally_soldier in soldiers_list:
                             ally_soldier.set_buff(spell_dict)
                             #print(ally_soldier.rank, ally_soldier.buffs.keys())
@@ -467,6 +479,7 @@ class battle_simulation(battlescape):
                         soldier.try_spellcast(spell, gen_spell = True)
                     if not soldier.armor['armor_use'] and spell == 'Mage_Armor':
                         soldier.try_spellcast(spell, gen_spell = True)
+                    #print(soldier.rank, soldier.buffs.keys())
 
     def select_soldiers_for_bless(self, number, ally_side, bless_type):
         """Выбираем солдат для Bless, Inspiring_Leader, Bardic_Inspiration и т.д.
