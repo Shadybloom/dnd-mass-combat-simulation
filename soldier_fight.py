@@ -1270,6 +1270,10 @@ class soldier_in_battle(soldier):
             self.poison_difficult = difficult
             self.poison_timer = timer
             self.poisoned = True
+            #print('[+++] {side_1}, {s} POISONED'.format(
+            #    side_1 = self.ally_side,
+            #    s = self.behavior,
+            #    ))
             return True
 
     def set_stunned(self, difficult, timer = 1, advantage = False, disadvantage = False):
@@ -2231,7 +2235,10 @@ class soldier_in_battle(soldier):
                     spell = self.metadict_items[item].get('spell')
                 if spell == self.metadict_items[item].get('spell'):
                     item_dict = self.metadict_items[item]
-                    if gen_spell:
+                    if gen_spell and type(gen_spell) == dict:
+                        item_dict.update(gen_spell)
+                        gen_spell = item_dict
+                    elif gen_spell:
                         gen_spell = item_dict
                     spell_dict = self.try_spellcast(spell, gen_spell, use_spell_slot, use_action)
                     if spell_dict:
