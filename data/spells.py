@@ -1742,6 +1742,7 @@ class gen_spells():
                     'buff':True,
                     'effect':'mage_armor',
                     'effect_timer':4800,
+                    'attacks_number':1,
                     'armor':True,
                     'armor_type':'Force',
                     'armor_class_armor':13,
@@ -1753,7 +1754,11 @@ class gen_spells():
                     }
             spell_dict = copy.deepcopy(spell_dict)
         if gen_spell:
-            soldier = self.mage
+            # Нацеливаем на себя, либо на другого, если указана цель:
+            if not spell_dict.get('target_uuid'):
+                soldier = self.mage
+            else:
+                soldier = self.mage.metadict_soldiers[spell_dict['target_uuid']]
             soldier.equipment_weapon['Mage_Armor'] = 1
             soldier.armor.update(soldier.get_armor())
         return spell_dict
