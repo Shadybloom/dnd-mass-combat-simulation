@@ -609,6 +609,7 @@ class soldier_in_battle(soldier):
                         self.use_action_to_spellcast(spell_dict)
                     if use_spell_slot:
                         self.drop_spell(spell_choice)
+                        #print(self.rank, self.drop_spells_dict)
                     return spell_dict
 
     def check_action_to_spellcast(self, spell_choice):
@@ -703,6 +704,7 @@ class soldier_in_battle(soldier):
     def set_buff(self, spell_dict):
         """Солдат получает эффект заклинания.
         
+        - Он исполняет функцию заклинания на себя.
         """
         effect = spell_dict['effect']
         if effect not in self.buffs:
