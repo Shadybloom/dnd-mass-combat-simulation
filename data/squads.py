@@ -693,6 +693,7 @@ metadict_squads['Company-regular (ветераны Гая Юлия) (Katorjnik)'
     'Warrior 3 lvl (Katorjnik) (урагос)':6,
     'Warrior 5 lvl (Katorjnik) (центурион)':2,
     'Warrior 4 lvl (Katorjnik) (опцион)':2,
+    #'Commoner 1 lvl (recruit)':100,
     }
 
 #metadict_squads['Company-regular (ветераны Гая Юлия) (смешанный) (Katorjnik)'] = {
@@ -712,11 +713,11 @@ metadict_squads['Band-hero (преторианцы Гая Юлия) (Katorjnik)'
 # Геройские отряды (армия Фарама):
 
 metadict_squads['Company-regular (лучники Фарама) (Mordodrukow)'] = {
-    'Warrior 1 lvl (Mordodrukow) (рядовой)':85,
-    'Warrior 2 lvl (Mordodrukow) (ветеран)':10,
-    'Warrior 3 lvl (Mordodrukow) (сержант)':3,
-    'Warrior 5 lvl (Mordodrukow) (капитан)':1,
-    'Warrior 4 lvl (Mordodrukow) (лейтенант)':1,
+    'Warrior 1 lvl (Mordodrukow) (лучник Фарама)':85,
+    'Warrior 2 lvl (Mordodrukow) (ветеран Фарама)':10,
+    'Warrior 3 lvl (Mordodrukow) (сержант Фарама)':3,
+    'Warrior 5 lvl (Mordodrukow) (капитан Фарама)':1,
+    'Warrior 4 lvl (Mordodrukow) (лейтенант Фарама)':1,
     }
 
 metadict_squads['Band-hero (жрецы Фарама) (Mordodrukow)'] = {
@@ -756,7 +757,7 @@ metadict_squads['Company-regular (онагры Патрокла) (siege) (Vened)
     'Warrior 4 lvl (siege engineer-master)':1,
     }
 
-metadict_squads['Company-militia (скорпионы Патрокла) (Vened)'] = {
+metadict_squads['Company-militia (тяжёлые арбалетчики Патрокла) (Vened)'] = {
     # TODO: переименуй в тяжёлых арбалетчиков для следующего боя.
     # Отряд ополчения с тяжёлыми арбалетами:
     'Commoner 1 lvl (militia heavy crossbowman)':80 + dice_throw('3d12'),
@@ -766,10 +767,19 @@ metadict_squads['Company-militia (скорпионы Патрокла) (Vened)']
     }
 
 metadict_squads['Company-regular (сариссофоры Патрокла) (Vened)'] = {
-    'Warrior 1 lvl (city pikeman)':85,
-    'Warrior 2 lvl (city pikeman-corporal)':10,
-    'Warrior 3 lvl (city pikeman-sergeant)':3,
-    'Warrior 4 lvl (city pikeman-lieutenant)':1,
+    'Warrior 1 lvl (Vened) (сариссофор Патрокла)':80 + dice_throw('1d12'),
+    'Warrior 2 lvl (Vened) (ветеран Патрокла)':10,
+    'Warrior 3 lvl (Vened) (сержант Патрокла)':3,
+    'Warrior 4 lvl (Vened) (лейтенант Патрокла)':1,
+    'Warrior 5 lvl (Vened) (капитан Патрокла)':1,
+    }
+
+metadict_squads['Company-regular (ветераны Патрокла) (Vened)'] = {
+    'Warrior 2 lvl (Vened) (ветеран Патрокла)':60,
+    'Warrior 3 lvl (Vened) (сержант Патрокла)':18,
+    'Warrior 4 lvl (Vened) (лейтенант Патрокла)':6,
+    'Warrior 5 lvl (Vened) (капитан Патрокла)':6,
+    'Commoner 1 lvl (recruit)':500,
     }
 
 #----

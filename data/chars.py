@@ -4341,7 +4341,7 @@ metadict_chars['Cleric 1 lvl (city maatcarian-acolyte)'] = {
     'equipment_weapon':{
         'Infusion of Healing':1,
         'Rune of Armor':1,
-        'Healer\'s Kit':1,
+        'Healer Kit':1,
         'Shortsword':1,
         },
     #'mount_combat':False,
@@ -4383,7 +4383,7 @@ metadict_chars['Cleric 2 lvl (city maatcarian-celebrant)'] = {
     'equipment_weapon':{
         'Infusion of Healing':1,
         'Rune of Armor':1,
-        'Healer\'s Kit':1,
+        'Healer Kit':1,
         'Shortsword':1,
         },
     #'mount_combat':False,
@@ -4487,7 +4487,7 @@ metadict_chars['Cleric 4 lvl (city maatcarian-arbiter)'] = {
         'Infusion of Healing':1,
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
-        'Healer\'s Kit':1,
+        'Healer Kit':1,
         'Shortsword':1,
         },
     #'mount_combat':False,
@@ -4554,7 +4554,7 @@ metadict_chars['Cleric 5 lvl (city maatcarian-reviver)'] = {
         'Infusion of Healing':1,
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
-        'Healer\'s Kit':1,
+        'Healer Kit':1,
         'Shortsword':1,
         },
     #'mount_combat':False,
@@ -6467,6 +6467,8 @@ metadict_chars['Warrior 1 lvl (Vaarsuvius) (дочерь медведицы)'] =
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
+        'Goodberry':4,
+        'Infusion of Longstrider':1,
         'Hide Armor':1,
         'Heavy Shield':1,
         'Glaive':1,
@@ -6491,11 +6493,14 @@ metadict_chars['Warrior 2 lvl (Vaarsuvius) (ветеран)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
+        'Goodberry':5,
+        'Infusion of Longstrider':1,
         'Infusion of Healing':1,
         'Scale Mail':1,
         'Shield':1,
+        'Shortsword':1,
         'Glaive':1,
-        'Javelin':6,
+        'Javelin':5,
         },
     }
 
@@ -6516,12 +6521,14 @@ metadict_chars['Warrior 3 lvl (Vaarsuvius) (сержант)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
+        'Infusion of Longstrider':1,
         'Infusion of Healing':1,
         'Rune of Shielding':1,
         'Half Plate':1,
         'Heavy Shield':1,
+        'Shortsword':1,
         'Glaive':1,
-        'Javelin':5,
+        'Javelin':2,
         },
     }
 
@@ -6544,12 +6551,14 @@ metadict_chars['Warrior 4 lvl (Vaarsuvius) (первый помощник)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
+        'Infusion of Longstrider':1,
         'Infusion of Healing':1,
-        'Rune of Shielding':1,
+        'Rune of Absorbtion':1,
         'Half Plate':1,
         'Heavy Shield':1,
+        'Shortsword':1,
         'Glaive':1,
-        'Javelin':5,
+        'Javelin':2,
         },
     #'mount_combat':False,
     #'mount_type':'Riding Horse',
@@ -6578,14 +6587,14 @@ metadict_chars['Warrior 5 lvl (Vaarsuvius) (Филлис)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Goodberry':30,
+        'Infusion of Longstrider':1,
         'Infusion of Healing':1,
         'Rune of Absorbtion':1,
-        'Rune of Shielding':1,
         'Half Plate':1,
         'Heavy Shield':1,
+        'Shortsword':1,
         'Glaive':1,
-        'Javelin':5,
+        'Javelin':2,
         },
     #'mount_combat':False,
     #'mount_type':'Riding Horse',
@@ -7584,6 +7593,138 @@ metadict_chars['Druid 7 lvl (Vened) (Брат Патрокла)'] = {
     }
 
 #----
+# Сариссофоры (армия) (Патрокл «Македонянин»):
+
+metadict_chars['Warrior 1 lvl (Vened) (сариссофор Патрокла)'] = {
+    'level':1,
+    'char_class':'Warrior',
+    'behavior':'warrior',
+    'hit_dice':'1d8',
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Studded Leather':1,
+        'Scimitar':1,
+        'Shield':1,
+        'Pike':1,
+        'Potion of Bravery':1,
+        },
+    }
+
+metadict_chars['Warrior 2 lvl (Vened) (ветеран Патрокла)'] = {
+    'level':2,
+    'char_class':'Warrior',
+    'behavior':'elite_warrior',
+    'hit_dice':'1d8',
+    'class_features':{
+        'Fighting_Style_Defence':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        # Длинные копья для подводного боя:
+        'Infusion of False Life':1,
+        'Infusion of Healing':1,
+        'Scale Mail':1,
+        'Scimitar':1,
+        'Shield':1,
+        #'Pike':1,
+        'Long Spear':1,
+        },
+    }
+
+metadict_chars['Warrior 3 lvl (Vened) (сержант Патрокла)'] = {
+    'level':3,
+    'char_class':'Warrior',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Defence':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of False Life':1,
+        'Infusion of Healing':1,
+        'Breastplate':1,
+        'Scimitar':1,
+        'Shield':1,
+        #'Pike':1,
+        'Long Spear':1,
+        },
+    }
+
+metadict_chars['Warrior 4 lvl (Vened) (лейтенант Патрокла)'] = {
+    'level':4,
+    'char_class':'Warrior-officer',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Defence':True,
+        'Feat_Inspiring_Leader':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of False Life':1,
+        'Infusion of Healing':1,
+        'Rune of Absorbtion':1,
+        'Breastplate':1,
+        'Scimitar':1,
+        'Shield':1,
+        #'Pike':1,
+        'Long Spear':1,
+        },
+    #'mount_combat':False,
+    #'mount_type':'Riding Horse',
+    #'equipment_mount':{
+    #    },
+    }
+
+metadict_chars['Warrior 5 lvl (Vened) (капитан Патрокла)'] = {
+    'level':5,
+    'char_class':'Warrior-officer',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Defence':True,
+        'Feat_Inspiring_Leader':True,
+        'Extra_Attack':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Rune of Absorbtion':1,
+        'Rune of Shielding':1,
+        'Half Plate':1,
+        'Scimitar':1,
+        'Shield':1,
+        #'Pike':1,
+        'Long Spear':1,
+        },
+    #'mount_combat':False,
+    #'mount_type':'Riding Horse',
+    #'equipment_mount':{
+    #    },
+    }
+
+#----
 # Жрецы (свита) (Фарам «Друг богов»):
 
 metadict_chars['Cleric 2 lvl (Mordodrukow) (жрец Фарама) (боевой)'] = {
@@ -7899,7 +8040,7 @@ metadict_chars['Cleric 7 lvl (Mordodrukow) (Фарам «Друг Богов»)'
 #----
 # Лучники (армия) (Фарам):
 
-metadict_chars['Warrior 1 lvl (Mordodrukow) (рядовой)'] = {
+metadict_chars['Warrior 1 lvl (Mordodrukow) (лучник Фарама)'] = {
     'level':1,
     'char_class':'Warrior-bowman',
     'hit_dice':'1d8',
@@ -7917,7 +8058,7 @@ metadict_chars['Warrior 1 lvl (Mordodrukow) (рядовой)'] = {
         },
     }
 
-metadict_chars['Warrior 2 lvl (Mordodrukow) (ветеран)'] = {
+metadict_chars['Warrior 2 lvl (Mordodrukow) (ветеран Фарама)'] = {
     'level':2,
     'char_class':'Warrior-bowman',
     'hit_dice':'1d8',
@@ -7940,7 +8081,7 @@ metadict_chars['Warrior 2 lvl (Mordodrukow) (ветеран)'] = {
         },
     }
 
-metadict_chars['Warrior 3 lvl (Mordodrukow) (сержант)'] = {
+metadict_chars['Warrior 3 lvl (Mordodrukow) (сержант Фарама)'] = {
     'level':3,
     'char_class':'Warrior-bowman',
     'hit_dice':'1d8',
@@ -7963,7 +8104,7 @@ metadict_chars['Warrior 3 lvl (Mordodrukow) (сержант)'] = {
         },
     }
 
-metadict_chars['Warrior 4 lvl (Mordodrukow) (лейтенант)'] = {
+metadict_chars['Warrior 4 lvl (Mordodrukow) (лейтенант Фарама)'] = {
     'level':4,
     'char_class':'Warrior-bowman',
     'hit_dice':'1d8',
@@ -7994,7 +8135,7 @@ metadict_chars['Warrior 4 lvl (Mordodrukow) (лейтенант)'] = {
     #    },
     }
 
-metadict_chars['Warrior 5 lvl (Mordodrukow) (капитан)'] = {
+metadict_chars['Warrior 5 lvl (Mordodrukow) (капитан Фарама)'] = {
     'level':5,
     'char_class':'Warrior-bowman',
     'hit_dice':'1d8',
