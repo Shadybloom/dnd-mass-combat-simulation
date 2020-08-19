@@ -1264,21 +1264,80 @@ class gen_spells():
                     'attacks_number':1,
                     'attack_range':120,
                     'damage_type':'heal',
-                    'damage_dice':'1d4',
+                    'healing_dice':'1d4',
+                    'healing_mod':self.find_spell_attack_mod(proficiency_bonus = False),
                     'components':['verbal'],
                     'casting_time':'bonus_action',
                     'spell_level':spell_level,
-                    'damage_mod':self.find_spell_attack_mod(proficiency_bonus = False),
                     'spell_save_DC':8 + self.find_spell_attack_mod(),
                     'spell_of_choice':'Bane',
                     }
             spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 1:
-            dice = int(spell_dict['damage_dice'][0])
+            dice = int(spell_dict['healing_dice'][0])
             dice += int(spell_level[0]) - 1
-            spell_dict['damage_dice'] = str(dice) + spell_dict['damage_dice'][1:]
+            spell_dict['healing_dice'] = str(dice) + spell_dict['healing_dice'][1:]
         if self.mage.class_features.get('Disciple_of_Life'):
-            spell_dict['damage_mod'] = 2 + int(spell_level[0])
+            spell_dict['healing_mod'] += 2 + int(spell_level[0])
+        if gen_spell:
+            if not spell_dict.get('target_uuid'):
+                soldier = self.mage
+            else:
+                soldier = self.mage.metadict_soldiers[spell_dict['target_uuid']]
+            if soldier.hitpoints < soldier.hitpoints_max:
+                heal = dices.dice_throw_advantage(spell_dict['healing_dice'])\
+                        + spell_dict['healing_mod']
+                soldier.set_hitpoints(heal = heal)
+                soldier.stable = True
+            else:
+                return False
+        return spell_dict
+
+    @modify_spell
+    @update_spell_dict
+    def Cure_Wounds(self, spell_level, gen_spell = False, spell_dict = False):
+        """Лечение ран.
+
+        Level: 1
+        Casting time: 1 Action
+        Range: Touch
+        Components: V, S
+        Duration: Instantaneous
+        https://www.dnd-spells.com/spell/cure-wounds
+        """
+        if not spell_dict:
+            spell_dict = {
+                    'direct_hit':True,
+                    'attacks_number':1,
+                    'attack_range':5,
+                    'damage_type':'heal',
+                    'healing_dice':'1d8',
+                    'healing_mod':self.find_spell_attack_mod(proficiency_bonus = False),
+                    'components':['verbal','somatic'],
+                    'casting_time':'action',
+                    'spell_level':spell_level,
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    'spell_of_choice':'Bane',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
+        if int(spell_level[0]) > 1:
+            dice = int(spell_dict['healing_dice'][0])
+            dice += int(spell_level[0]) - 1
+            spell_dict['healing_dice'] = str(dice) + spell_dict['healing_dice'][1:]
+        if self.mage.class_features.get('Disciple_of_Life'):
+            spell_dict['healing_mod'] += 2 + int(spell_level[0])
+        if gen_spell:
+            if not spell_dict.get('target_uuid'):
+                soldier = self.mage
+            else:
+                soldier = self.mage.metadict_soldiers[spell_dict['target_uuid']]
+            if soldier.hitpoints < soldier.hitpoints_max:
+                heal = dices.dice_throw_advantage(spell_dict['healing_dice'])\
+                        + spell_dict['healing_mod']
+                soldier.set_hitpoints(heal = heal)
+                soldier.stable = True
+            else:
+                return False
         return spell_dict
 
     @modify_spell

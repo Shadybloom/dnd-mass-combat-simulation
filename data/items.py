@@ -1235,12 +1235,8 @@ metadict_items['Potion of Bravery'] = {
     }
 
 metadict_items['Infusion of Healing'] = {
-    # Эссенции "перезаряжаются" друидами и жрецами.
-    # Лечение равно костям хитов бойца. Для варвара 5 lvl это 5d12, в среднем 30 hp.
     'potion':True,
-    'effect':'healing',
-    #'healing_dice':'2d4',
-    #'healing_mod':2,
+    'spell':'Cure_Wounds',
     'weight (lb)':0,
     'cost (gp)':50,
     'cost (grams_of_gold)':60,

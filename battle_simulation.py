@@ -468,7 +468,7 @@ class battle_simulation(battlescape):
             # Используем зелья:
             # TODO: Вообще, зелья дублируют руны по сути и содержимому.
             if 'potions' in soldier.commands:
-                potions_list = [
+                spells_list = [
                         'False_Life',
                         ]
                 for spell in spells_list:
@@ -3083,48 +3083,24 @@ class battle_simulation(battlescape):
                         break
 
     def rescue_magic(self, soldier):
-        """Клирик спасает раненого, используя Healing_Word.
-        
-        Либо раненый спасает себя сам, используя зелье лечения.
-        Только стабилизация, без лечения (потому что раненый, скорее всего, в толпе врагов).
-        """
-        # TODO: добавь проверки.
-        # ------------------------------------------------------------
-        # Во-первых у тебя даже мёртвый клирик может лечить.
-        # Во-вторых нет ограничений по дистанции, а Healing_Word работает на 60 футов.
-        # ------------------------------------------------------------
-        if not soldier.grappled\
-                and not soldier.behavior == 'mount'\
-                and not soldier.__dict__.get('mechanism'):
-            if soldier.equipment_weapon.get('Infusion of Healing')\
-                    or soldier.equipment_weapon.get('Infusion of Regeneration'):
-                soldier.stable = soldier.use_heal_potion(use_battle_action = False)
-                if soldier.stable\
-                        and 'fall_place' in self.dict_battlespace[soldier.place]\
-                        and soldier.ally_side in self.dict_battlespace[soldier.place]:
-                    self.dict_battlespace[soldier.place].remove('fall_place')
-                    self.dict_battlespace[soldier.place].remove(soldier.ally_side)
-            else:
-                for healer in self.metadict_soldiers.values():
-                    if healer.ally_side == soldier.ally_side and hasattr(healer, 'spells')\
-                            and not healer.hitpoints <= 0\
-                            and not healer.uuid == soldier.uuid\
-                            and not healer.escape and not healer.sleep\
-                            and healer.spells_generator.find_spell('Healing_Word')\
-                            and 'spellcast' in healer.commands:
-                        spell_choice = healer.spells_generator.find_spell('Healing_Word')
-                        vision_tuple = self.calculate_enemy_cover(healer.place, soldier.place)
-                        if spell_choice and vision_tuple.visibility:
-                            if not soldier.stable:
-                                soldier.stable = healer.first_aid_spell(soldier, spell_choice, vision_tuple)
-                                if soldier.stable\
-                                        and 'fall_place' in self.dict_battlespace[soldier.place]\
-                                        and soldier.ally_side in self.dict_battlespace[soldier.place]:
-                                    self.dict_battlespace[soldier.place].remove('fall_place')
-                                    self.dict_battlespace[soldier.place].remove(soldier.ally_side)
-                            elif soldier.stable and soldier.hitpoints <= 0:
-                                healer.first_aid_spell(soldier, spell_choice, vision_tuple)
-                            break
+        """Клирик спасает раненого, используя Healing_Word."""
+        for healer in self.metadict_soldiers.values():
+            if healer.spells_generator.find_spell('Healing_Word')\
+                    and not healer.defeat and not healer.fall\
+                    and healer.ally_side == soldier.ally_side\
+                    and 'spellcast' in healer.commands:
+                spell_choice = healer.spells_generator.find_spell('Healing_Word')
+                spell_dict = healer.spells_generator.get_spell_dict(spell_choice)
+                distance_max = spell_dict['attack_range'] / self.tile_size
+                vision_tuple = self.calculate_enemy_cover(healer.place, soldier.place)
+                if vision_tuple.visibility and vision_tuple.distance < distance_max:
+                    healer.try_spellcast(spell_choice, gen_spell = {'target_uuid':soldier.uuid})
+                    if soldier.stable:
+                        if 'fall_place' in self.dict_battlespace[soldier.place]\
+                                and soldier.ally_side in self.dict_battlespace[soldier.place]:
+                            self.dict_battlespace[soldier.place].remove('fall_place')
+                            self.dict_battlespace[soldier.place].remove(soldier.ally_side)
+                        break
 
     def clear_battlemap(self):
         """Чистим карту от павших/беглецов.

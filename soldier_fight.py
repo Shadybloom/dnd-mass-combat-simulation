@@ -198,6 +198,7 @@ class soldier_in_battle(soldier):
         if not hasattr(self, 'concentration'):
             self.concentration = False
         # Общие для всех параметры:
+        self.stable = True
         self.immunity = []
         self.resistance = []
         self.vultenability = []
@@ -288,9 +289,8 @@ class soldier_in_battle(soldier):
         if not hasattr(self, 'defeats'):
             self.defeats = 0
         # В составе отряда могут быть "мёртвые души":
-        if not hasattr(self, 'death') or not hasattr(self, 'stable'):
+        if not hasattr(self, 'death'):
             self.death = False
-            self.stable = False
         # Бонусные хиты от Feat_Inspiring_Leader:
         if not hasattr(self, 'bonus_hitpoints'):
             self.bonus_hitpoints = 0
@@ -1062,20 +1062,33 @@ class soldier_in_battle(soldier):
             self.dodge_action = True
             return True
 
-    def use_heal(self, use_minor_potion = False):
+    def use_heal(self, use_minor_potion = False, use_action = True, gen_spell = True):
         """Боец лечит себя, если способен."""
         if self.__dict__.get('second_wind'):
             self.use_second_wind()
         elif self.__dict__.get('lay_on_hands'):
             self.use_lay_on_hands()
         elif 'potions' in self.commands:
-            self.use_heal_potion(use_minor_potion)
+            self.use_heal_potion(use_minor_potion, use_action, gen_spell)
+
+    def use_heal_potion(self, use_minor_potion = False, use_action = True, gen_spell = True):
+        """Боец лечится зельем."""
+        spells_list = [
+                'Cure_Wounds',
+                'Goodberry',
+                ]
+        if use_minor_potion:
+            spells_list = ['Goodberry']
+        for spell in spells_list:
+            return self.use_item(spell, gen_spell, use_action)
 
     def use_second_wind(self):
         """Fighter может очухаться после ранения.
         
         https://www.dandwiki.com/wiki/5e_SRD:Fighter#Second_Wind
         """
+        # TODO: можно использовать функцию заклинания Cure_Wounds.
+        # Только отправить изменённый словарь.
         if self.class_features.get('Second_Wind'):
             if self.second_wind and self.bonus_action:
                 second_wind_heal = dices.dice_throw('1d10') + self.level
@@ -1093,6 +1106,7 @@ class soldier_in_battle(soldier):
         
         https://www.dandwiki.com/wiki/5e_SRD:Paladin#Lay_on_Hands
         """
+        # TODO: перенеси в заклинания.
         if self.class_features.get('Lay_on_Hands'):
             if self.lay_on_hands and self.battle_action:
                 lay_on_hands_heal = self.hitpoints_max - self.hitpoints 
@@ -1103,50 +1117,6 @@ class soldier_in_battle(soldier):
                 self.battle_action = False
                 print('{0} {1} {2} heal (lay_on_hands): {3}'.format(
                     self.ally_side, self.place, self.behavior, lay_on_hands_heal))
-                return True
-            else:
-                return False
-
-    def use_heal_potion(self, use_battle_action = True, use_minor_potion = False):
-        """Боец использует зелье лечения.
-        
-        Лечение равно костям хитов бойца. Для варвара 5 lvl это 5d12, в среднем 30 hp.
-        """
-        # TODO: есть мнение, что лечение эссенцией слишком сильное.
-        # Варвар с x3 лечилками восстанавливает аж 90 хитов.
-        # Когда паладин с его Lay_on_Hands получает всего 25 хитов.
-        # TODO: У солдата с плюсовыми хитпоинтами должен исчезать статус defeat
-        if self.battle_action or use_battle_action == False:
-            if self.equipment_weapon.get('Infusion of Healing', 0) > 0 and not use_minor_potion:
-                self.drop_item('Infusion of Healing')
-                potion_heal = round(sum([dices.dice_throw(self.hit_dice) for x in range(self.level)]))
-                self.set_hitpoints(heal = potion_heal)
-                self.battle_action = False
-                print('{0} {1} {2} heal (potion): {3}'.format(
-                    self.ally_side, self.place, self.behavior, potion_heal))
-                return True
-            elif self.equipment_weapon.get('Goodberry', 0) > 0:
-                self.drop_item('Goodberry')
-                potion_heal = 1
-                self.set_hitpoints(heal = potion_heal)
-                self.battle_action = False
-                print('{0} {1} {2} heal (potion): {3}'.format(
-                    self.ally_side, self.place, self.behavior, potion_heal))
-                return True
-            elif self.equipment_weapon.get('Infusion of Regeneration', 0) > 0:
-                spell_dict = self.metadict_items['Infusion of Regeneration']
-                potion_heal = spell_dict['healing_mod']
-                self.set_hitpoints(heal = potion_heal)
-                self.battle_action = False
-                #print('{0} {1} {2} heal (regen): {3}'.format(
-                #    self.ally_side, self.place, self.behavior, potion_heal))
-                return True
-            elif self.class_features.get('Regeneration_Minor'):
-                potion_heal = self.class_features['Regeneration_Minor']
-                self.set_hitpoints(heal = potion_heal)
-                self.battle_action = False
-                #print('{0} {1} {2} heal (potion): {3}'.format(
-                #    self.ally_side, self.place, self.behavior, potion_heal))
                 return True
             else:
                 return False
@@ -1174,32 +1144,6 @@ class soldier_in_battle(soldier):
                 + self.saves['wisdom']
         if stabilizing_throw >= stabilizing_difficul:
             return True
-        else:
-            return False
-
-    def first_aid_spell(self, injured_ally, spell_choice, vision_tuple):
-        """Лекарь использует заклинание лечения.
-        
-        - Лекарь должен видеть раненого.
-        - Раненый должен быть на дистанции заклинания.
-        """
-        distance_max = round(self.spells[spell_choice].get('attack_range', 0) / self.tile_size)
-        casting_action = self.spells[spell_choice].get('casting_time', None)
-        # casting_action должно иметь значение "battle_action" или "bonus_action":
-        if casting_action and self.__dict__.get(casting_action)\
-                and vision_tuple.distance <= distance_max:
-            self.__dict__[casting_action] = False
-            spell_dict = self.try_spellcast(spell_choice)
-            if spell_dict:
-                heal = dices.dice_throw_advantage(spell_dict['damage_dice']) + spell_dict['damage_mod']
-                injured_ally.set_hitpoints(heal)
-                print('{0} {1} {2} (help_action) >> {3}, {4}, {5} heal (spell): {6}'.format(
-                    self.ally_side, self.place, self.behavior,
-                    injured_ally.ally_side, injured_ally.place, injured_ally.behavior,
-                    heal))
-                return True
-            else:
-                return False
         else:
             return False
 
@@ -1544,13 +1488,11 @@ class soldier_in_battle(soldier):
             self.set_disabled()
         # Механизмы не бросают спасброски:
         if self.__dict__.get('mechanism') and not self.death:
-            #self.death_save_success = 3
-            #self.stable = True
+            self.stable = True
             return False
         # Тролли и прочие создания с регенерацией стабилизируются сами:
         # Их нельзя убить, уведя хиты в минусовой максимум. Только огнём.
         if self.class_features.get('Regeneration'):
-            self.death_save_success = 3
             self.stable = True
             return False
         # Иначе борьба за жизнь, где всё в руках судьбя:
@@ -2221,7 +2163,7 @@ class soldier_in_battle(soldier):
                 self.drop_spells_dict[spell_choice] += 1
             return True
 
-    def use_item(self, spell, gen_spell = True, use_spell_slot = False, use_action = True):
+    def use_item(self, spell, gen_spell = True, use_action = True, use_spell_slot = False):
         """Используется руна, свиток, предмет.
 
         - Хранящий заклинание под ключом 'spell'.
@@ -2722,6 +2664,8 @@ class soldier_in_battle(soldier):
         enemy_soldier.defeat = True
         enemy_soldier.prone = True
         enemy_soldier.fall = True
+        # Раненый начинает спасброски от смерти:
+        enemy_soldier.stable = False
         # Противник лишается действий и реакции:
         # TODO: Создай для этого функцию set_incapacitated
         # Не забудь, что неподвижный теряет dodge_action, если имел.
