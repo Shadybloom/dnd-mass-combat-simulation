@@ -2857,6 +2857,7 @@ metadict_animals['Mage (CR 6)'] = {
             ('ritual', 'Detect_Magic'),
             ('1_lvl', 'Magic_Missile'),
             ('1_lvl', 'Mage_Armor'),
+            ('1_lvl', 'False_Life'),
             ('1_lvl', 'Shield'),
             ('2_lvl', 'Suggestion'),
             ('2_lvl', 'Misty_Step'),
