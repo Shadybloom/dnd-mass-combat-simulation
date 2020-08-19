@@ -1086,7 +1086,7 @@ metadict_items['Warhorse'] = {
 # Adventuring Gear
 # https://www.dandwiki.com/wiki/5e_SRD:Adventuring_Gear
 
-metadict_items['Healer\'s Kit'] = {
+metadict_items['Healer Kit'] = {
     # На 10 использований:
     'gear':True,
     'healer':True,
@@ -1210,12 +1210,12 @@ metadict_items['Goodberry'] = {
         # - Корзина с 60 ягодами – 60 фунтов (аттический талант)
         # - Бочка с 1000 ягодами – 1000 фунтов (вес упряжной телеги)
     'potion':True,
-    'effect':'healing',
-    'healing_dice':'1d1',
-    'healing_mod':0,
-    'weight (lb)':1,
-    'cost (gp)':0.06,
-    'cost (grams_of_gold)':0.06,
+    'use_goodberry':True,
+    'create_goodberry':False,
+    'spell':'Goodberry',
+    'weight (lb)':0,
+    'cost (gp)':0.6,
+    'cost (grams_of_gold)':0.6,
     }
 
 metadict_items['Potion of Bravery'] = {

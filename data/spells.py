@@ -1342,6 +1342,57 @@ class gen_spells():
 
     @modify_spell
     @update_spell_dict
+    def Goodberry(self, spell_level, gen_spell = False, spell_dict = False):
+        """Чудо-ягода, добряника.
+
+        Level: 1
+        Casting time: 1 Action
+        Range: Touch
+        Components: V, S, M (a sprig of mistletoe)
+        Duration: Instantaneous
+        https://www.dnd-spells.com/spell/goodberry
+        """
+        # Этим заклинанием мы создаём 10 ягод добряники в инвентаре.
+        # А передав use_goodberry (используя предмет Goodberry) съедаем одну из них.
+        if not spell_dict:
+            spell_dict = {
+                    'direct_hit':True,
+                    'use_goodberry':False,
+                    'create_goodberry':True,
+                    'attacks_number':10,
+                    'damage_type':'heal',
+                    'healing_mod':1,
+                    'components':['verbal','somatic','material'],
+                    'casting_time':'action',
+                    'spell_level':spell_level,
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    'spell_of_choice':'Bane',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
+        # В "Ответах мудреца" сказано, что Disciple_of_Life усиливает эффект добряники.
+        if self.mage.class_features.get('Disciple_of_Life'):
+            spell_dict['healing_mod'] += 2 + int(spell_level[0])
+        if gen_spell:
+            if not spell_dict.get('target_uuid'):
+                soldier = self.mage
+            else:
+                soldier = self.mage.metadict_soldiers[spell_dict['target_uuid']]
+            if spell_dict.get('create_goodberry'):
+                if not 'Goodberry' in soldier.equipment_weapon:
+                    soldier.equipment_weapon['Goodberry'] = spell_dict['attacks_number']
+                else:
+                    soldier.equipment_weapon['Goodberry'] += spell_dict['attacks_number']
+            elif spell_dict.get('use_goodberry'):
+                if soldier.hitpoints < soldier.hitpoints_max:
+                    heal = spell_dict['healing_mod']
+                    soldier.set_hitpoints(heal = heal)
+                    soldier.stable = True
+                else:
+                    return False
+        return spell_dict
+
+    @modify_spell
+    @update_spell_dict
     def Bless(self, spell_level, gen_spell = False, spell_dict = False):
         """Благословление.
 

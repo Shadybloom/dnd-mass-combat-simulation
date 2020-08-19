@@ -1080,7 +1080,9 @@ class soldier_in_battle(soldier):
         if use_minor_potion:
             spells_list = ['Goodberry']
         for spell in spells_list:
-            return self.use_item(spell, gen_spell, use_action)
+            spell_dict = self.use_item(spell, gen_spell, use_action)
+            if spell_dict:
+                return spell_dict
 
     def use_second_wind(self):
         """Fighter может очухаться после ранения.
@@ -1121,31 +1123,32 @@ class soldier_in_battle(soldier):
             else:
                 return False
 
-    def first_aid(self, injured_ally, stabilizing_difficul = 10, advantage = False, disadvantage = False):
-        """Боец пытается оказать первую помощь раненому.
-        
-        https://www.dandwiki.com/wiki/5e_SRD:Dropping_to_0_Hit_Points#Stabilizing_a_Creature
-        - Добряника обнуляет сложность стабилизации, потому что стабилизирует даже +1 hp.
+    def first_aid(self, injured_ally):
+        """Боец лечит раненого союзника зельем, или пытается перевязать.
+
         """
-        # TODO: лучше сделай поиск предмета по эффекту "healing".
-        # potion_heal бери из словаря Goodberry.
         self.help_action = True
-        if injured_ally.equipment_weapon.get('Goodberry', 0) > 0:
-            injured_ally.drop_item('Goodberry')
-            potion_heal = 1
-            injured_ally.set_hitpoints(heal = potion_heal)
-            stabilizing_difficul = 0
-            print('{0} {1} {2} (help_action) >> {3}, {4}, {5} heal (potion): {6}'.format(
-                self.ally_side, self.place, self.behavior,
-                injured_ally.ally_side, injured_ally.place, injured_ally.behavior,
-                potion_heal))
+        injured_ally.use_heal_potion(use_action = False, gen_spell = True)
+        if not injured_ally.stable:
+            return self.first_aid_bandage(injured_ally)
+        else:
+            return True
+
+    def first_aid_bandage(self, injured_ally,
+            stabilizing_difficul = 10, advantage = False, disadvantage = False):
+        """Боец пытается оказать первую помощь раненому.
+
+        https://www.dandwiki.com/wiki/5e_SRD:Dropping_to_0_Hit_Points#Stabilizing_a_Creature
+        """
         # TODO: Учти Feat_Healer, что даёт автоматический успех стабилизации. И набор лекаря.
+        self.help_action = True
         stabilizing_throw = dices.dice_throw_advantage('1d20', advantage, disadvantage)\
                 + self.saves['wisdom']
-        if stabilizing_throw >= stabilizing_difficul:
-            return True
-        else:
+        if stabilizing_throw < stabilizing_difficul:
             return False
+        else:
+            injured_ally.stable = True
+            return True
 
 # ----
 # Спасброски
@@ -2182,6 +2185,7 @@ class soldier_in_battle(soldier):
                         gen_spell = item_dict
                     spell_dict = self.try_spellcast(spell, gen_spell, use_spell_slot, use_action)
                     if spell_dict:
+                        #print('NYA', spell, use_action, gen_spell)
                         self.drop_item(item)
                         return spell_dict
 

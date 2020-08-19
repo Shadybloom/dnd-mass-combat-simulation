@@ -3071,9 +3071,10 @@ class battle_simulation(battlescape):
                         soldier.captured = False
                         break
                     # Только одна попытка первой помощи за ход:
+                    # Сначала перевязка. Затем откармливание добряникой.
                     else:
                         if not soldier.stable:
-                            soldier.stable = ally_soldier.first_aid(soldier)
+                            ally_soldier.first_aid(soldier)
                         elif soldier.stable and soldier.hitpoints <= 0:
                             ally_soldier.first_aid(soldier)
                         if not soldier.stable\
