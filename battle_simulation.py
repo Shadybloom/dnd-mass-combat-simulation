@@ -427,6 +427,7 @@ class battle_simulation(battlescape):
                         'Aid',
                         'Bless',
                         'Shield_of_Faith',
+                        #'Longstrider',
                         #'Mage_Armor',
                         ]
                 for bless in bless_list:
@@ -452,6 +453,7 @@ class battle_simulation(battlescape):
                         'False_Life',
                         'Mage_Armor',
                         'Heroism',
+                        'Longstrider',
                         ]
                 for spell in spells_list:
                     if not soldier.armor['armor_use'] and spell == 'Mage_Armor':
@@ -461,6 +463,8 @@ class battle_simulation(battlescape):
                         soldier.use_item('Heroism', gen_spell = spell_dict_modify)
                     if not soldier.bonus_hitpoints and spell == 'False_Life':
                         soldier.use_item('False_Life', gen_spell = True)
+                    if spell == 'Longstrider':
+                        soldier.use_item('Longstrider', gen_spell = True)
             # Используем зелья:
             # TODO: Вообще, зелья дублируют руны по сути и содержимому.
             if 'potions' in soldier.commands:

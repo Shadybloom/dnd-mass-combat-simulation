@@ -1343,6 +1343,47 @@ class gen_spells():
 
     @modify_spell
     @update_spell_dict
+    def Longstrider(self, spell_level, gen_spell = False, spell_dict = False):
+        """Скороход
+
+        Level: 1
+        Casting time: 1 Action
+        Range: Touch
+        Components: V, S, M (a pinch of dirt)
+        Duration: 1 hour
+        https://www.dnd-spells.com/spell/longstrider
+        """
+        if not spell_dict:
+            spell_dict = {
+                    'buff':True,
+                    'effect':'longstrider',
+                    'effect_timer':600,
+                    'attacks_number':1,
+                    'attack_range':5,
+                    'components':['verbal','somatic','material'],
+                    #'casting_time':'action',
+                    'casting_time':'free_action',
+                    'spell_level':spell_level,
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    'spell_of_choice':'Bane',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
+        if int(spell_level[0]) > 1:
+            spell_dict['attacks_number'] *= int(spell_level[0])
+        if gen_spell:
+            # Нацеливаем на себя, либо на другого, если указана цель:
+            if not spell_dict.get('target_uuid'):
+                soldier = self.mage
+            else:
+                soldier = self.mage.metadict_soldiers[spell_dict['target_uuid']]
+            if not 'longstrider' in soldier.buffs:
+                soldier.base_speed += 10
+            else:
+                return False
+        return spell_dict
+
+    @modify_spell
+    @update_spell_dict
     def Heroism(self, spell_level, gen_spell = False, spell_dict = False):
         """Героизм.
 

@@ -1266,7 +1266,7 @@ metadict_items['Infusion of Regeneration'] = {
 
 metadict_items['Infusion of Longstrider'] = {
     'potion':True,
-    'effect':'longstrider',
+    'spell':'Longstrider',
     'weight (lb)':0,
     'cost (gp)':60,
     'cost (grams_of_gold)':60,
