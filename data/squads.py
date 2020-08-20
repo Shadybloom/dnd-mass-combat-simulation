@@ -349,7 +349,6 @@ metadict_squads['Squad-regular (гигантские осьминоги) (при
 # Нейтралы, Иллирийский союз (Менон Теварин):
 
 metadict_squads['Squad-hero (бронзовые гоплиты Менона) (нейтрал)'] = {
-    # Всего у Менона 110 бронзовых гоплитов:
     'Warrior 4 lvl (нейтрал) (бронзовый гоплит Менона)':30,
     'Warrior 5 lvl (нейтрал) (бронзовый гоплит-капитан Менона)':10,
     }
@@ -654,13 +653,21 @@ metadict_squads['Squad-hero (барды Тетры) (друг)'] = {
     'Bard 6 lvl (друг) (Тетра Курио)':1,
     }
 
-metadict_squads['Squad-hero (арбалетчики Тетры) (друг)'] = {
+metadict_squads['Company-hero (арбалетчики Тетры) (друг)'] = {
     # в отряде два капитана и +3 лейтенанта
     'Warrior 1 lvl (друг) (арбалетчик Тетры)':80 + dice_throw('1d12'),
     'Warrior 2 lvl (друг) (арбалетчик-ветеран Тетры)':10,
     'Warrior 3 lvl (друг) (арбалетчик-сержант Тетры)':3,
     'Warrior 4 lvl (друг) (арбалетчик-лейтенант Тетры)':4,
     'Warrior 5 lvl (друг) (арбалетчик-капитан Тетры)':2,
+    }
+
+#----
+# Союзные отряды (армия Козы):
+
+metadict_squads['Company-hero (гневнорожки Сефо) (друг)'] = {
+    'Warlock 2 lvl (друг) (гневнорожка Козы)':90,
+    'Warlock 3 lvl (друг) (Сефо Форонейская)':1,
     }
 
 #----
@@ -746,12 +753,12 @@ metadict_squads['Band-hero (снайпер Лонгин) (Mordodrukow)'] = {
 #----
 # Геройские отряды (армия Патрокла):
 
-metadict_squads['Band-hero (жрецы Патрокла) (Vened)'] = {
+metadict_squads['Squad-hero (жрецы Патрокла) (Vened)'] = {
     'Cleric 7 lvl (Vened) (Патрокл «Македонянин»)':1,
     'Cleric 2 lvl (Vened) (жрец Патрокла)':12,
     }
 
-metadict_squads['Band-hero (друиды Патрокла) (Vened)'] = {
+metadict_squads['Squad-hero (друиды Патрокла) (Vened)'] = {
     'Druid 7 lvl (Vened) (Брат Патрокла)':1,
     'Druid 2 lvl (Vened) (друид Патрокла)':10,
     }
@@ -789,6 +796,22 @@ metadict_squads['Company-regular (ветераны Патрокла) (Vened)'] =
     'Warrior 4 lvl (Vened) (лейтенант Патрокла)':6,
     'Warrior 5 lvl (Vened) (капитан Патрокла)':6,
     'Commoner 1 lvl (recruit)':500,
+    }
+
+#----
+# Геройские отряды (армия Тави):
+
+metadict_squads['Company-regular (ветераны Тави) (друг)'] = {
+    'Warrior 2 lvl (друг) (ветеран Тави)':60,
+    'Warrior 3 lvl (друг) (сержант Тави)':18,
+    'Warrior 4 lvl (друг) (лейтенант Тави)':6,
+    'Warrior 5 lvl (друг) (капитан Тави)':6,
+    'Commoner 1 lvl (recruit)':500,
+    }
+
+metadict_squads['Squad-hero (кошки Тави) (друг)'] = {
+    'Wizard 2 lvl (друг) (кошка Тави)':10,
+    'Wizard 7 lvl (друг) (Тави)':1,
     }
 
 #----
@@ -839,17 +862,26 @@ metadict_squads['Company-regular (лучники Ианты) (Vaarsuvius)'] = {
     }
 
 metadict_squads['Company-regular (дочери медведицы Ианты) (Vaarsuvius)'] = {
-    'Warrior 1 lvl (Vaarsuvius) (дочерь медведицы)':85,
-    'Warrior 2 lvl (Vaarsuvius) (ветеран)':10,
-    'Warrior 3 lvl (Vaarsuvius) (сержант)':3,
+    'Warrior 1 lvl (Vaarsuvius) (дочерь медведицы Филлис)':85,
+    'Warrior 2 lvl (Vaarsuvius) (ветеран Филлис)':10,
+    'Warrior 3 lvl (Vaarsuvius) (сержант Филлис)':3,
+    'Warrior 4 lvl (Vaarsuvius) (лейтенант Филлис)':1,
     'Warrior 5 lvl (Vaarsuvius) (Филлис)':1,
-    'Warrior 4 lvl (Vaarsuvius) (первый помощник)':1,
+    }
+
+metadict_squads['Company-regular (ветераны Филлис) (Vaarsuvius)'] = {
+    'Warrior 2 lvl (Vaarsuvius) (ветеран Филлис)':60,
+    'Warrior 3 lvl (Vaarsuvius) (сержант Филлис)':18,
+    'Warrior 4 lvl (Vaarsuvius) (лейтенант Филлис)':6,
+    'Warrior 5 lvl (Vaarsuvius) (капитан Филлис)':6,
+    'Warrior 5 lvl (Vaarsuvius) (Филлис)':1,
+    'Commoner 1 lvl (recruit)':500,
     }
 
 metadict_squads['Squad-hero (друиды Ианты) (Vaarsuvius)'] = {
     'Druid 7 lvl (Vaarsuvius) (Ианта «Дочь бури»)':1,
     'Druid 2 lvl (Vaarsuvius) (друид Ианты) (Психея)':1,
-    'Druid 2 lvl (Vaarsuvius) (друид Ианты) (Агата)':1,
+    #'Druid 2 lvl (Vaarsuvius) (друид Ианты) (Агата)':1,
     'Druid 2 lvl (Vaarsuvius) (друид Ианты)':18,
     }
 

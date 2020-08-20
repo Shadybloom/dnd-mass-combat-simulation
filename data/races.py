@@ -137,6 +137,16 @@ dict_races = {
             'wisdom':+1,
             'charisma':+1,
             },
+        'Fourlegged-common':{
+            # Четвероногое
+            'hero':False,
+            'size':'medium',
+            'base_speed':40,
+            'height_base_inches':12,
+            'height_mod_dice':'1d2',
+            'weight_base_lb':50,
+            'weight_mod_dice':'1d2',
+            },
         'Dog':{
             # Мастиффы.
             'hero':False,
@@ -144,7 +154,7 @@ dict_races = {
             'base_speed':40,
             'height_base_inches':12,
             'height_mod_dice':'1d2',
-            'weight_base_lb':4,
+            'weight_base_lb':50,
             'weight_mod_dice':'1d2',
             },
         'Cat-hero':{
