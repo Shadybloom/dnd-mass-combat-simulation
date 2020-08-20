@@ -276,16 +276,16 @@ metadict_items['Crossbow, Light'] = {
     }
 
 metadict_items['Crossbow, Heavy'] = {
-    # Скорпион. Считается простым оружием. Станковый, потому очень тяжёлый.
+    # Скорпион. Считается простым оружием.
     'weapon':True,
     'loading':True,
     'ammo_type':crossbow_bolts,
     'weapon_type':['simple','ranged','volley','two_handed','heavy'],
     'damage_type':'piercing',
-    'damage_dice':'1d8',
+    'damage_dice':'1d10',
     'shoot_range':100,
     'shoot_range_max':600,
-    'weight (lb)':28,
+    'weight (lb)':18,
     'cost (gp)':50,
     'cost (grams_of_gold)':50,
     }
@@ -1213,7 +1213,7 @@ metadict_items['Goodberry'] = {
     'use_goodberry':True,
     'create_goodberry':False,
     'spell':'Goodberry',
-    'weight (lb)':0,
+    'weight (lb)':1,
     'cost (gp)':0.6,
     'cost (grams_of_gold)':0.6,
     }
@@ -1251,6 +1251,7 @@ metadict_items['Infusion of False Life'] = {
     }
 
 metadict_items['Infusion of Regeneration'] = {
+    # TODO: не работает. Заклинание не указано, да и не сделано.
     'potion':True,
     'effect':'healing',
     #'healing_dice':'1d4',
