@@ -2027,7 +2027,7 @@ class battle_simulation(battlescape):
                 if attack_result['hit'] and soldier.concentration\
                         and soldier.concentration.get('effect') == 'hex'\
                         and soldier.concentration['effect'] in enemy_soldier.debuffs\
-                        and soldier.concentration['target_uuid'] == enemy_soldier.uuid:
+                        and soldier.concentration.get('target_uuid') == enemy_soldier.uuid:
                     spell_dict = soldier.concentration
                     self.fireball_action(soldier, squad, spell_dict, enemy.place,
                             single_target = enemy)
@@ -2304,9 +2304,10 @@ class battle_simulation(battlescape):
                         if sleep_pool > 0:
                             enemy_soldier.set_sleep()
                             sleep = enemy_soldier.set_sleep()
-                            #fall_place = enemy_soldier.place
-                            #self.dict_battlespace[fall_place].append('fall_place')
-                            #self.dict_battlespace[fall_place].append(enemy_soldier.ally_side)
+                            if enemy_soldier.sleep:
+                                fall_place = enemy_soldier.place
+                                self.dict_battlespace[fall_place].append('fall_place')
+                                self.dict_battlespace[fall_place].append(enemy_soldier.ally_side)
                     continue
                 # Magic_Missile всегда попадает.
                 elif spell_dict.get('direct_hit'):
@@ -2339,7 +2340,7 @@ class battle_simulation(battlescape):
                 if attack_result['hit'] and soldier.concentration\
                         and soldier.concentration.get('effect') == 'hex'\
                         and soldier.concentration['effect'] in enemy_soldier.debuffs\
-                        and soldier.concentration['target_uuid'] == enemy_soldier.uuid:
+                        and soldier.concentration.get('target_uuid') == enemy_soldier.uuid:
                     spell_dict = soldier.concentration
                     self.fireball_action(soldier, squad, spell_dict, enemy.place,
                             single_target = enemy)
