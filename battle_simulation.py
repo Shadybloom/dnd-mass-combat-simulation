@@ -553,7 +553,7 @@ class battle_simulation(battlescape):
                 soldier.set_hitpoints(bonus_hitpoints = 0)
             # Друид возвращает облик человека:
             if soldier.wild_shape:
-                soldier.return_old_form()
+                soldier.return_old_form(self.metadict_soldiers)
 
     def set_squad_battle_stat(self, attack_result, squad, attack_choice = None):
         """Подсчёт попадания, промахов и урона под каждый вид оружия."""
@@ -984,12 +984,12 @@ class battle_simulation(battlescape):
             #commands_list = ['disengage','dodge','attack']
             commands_list = ['retreat', 'rescue']
         if squad.commander:
-            # Скрытные командиры прячутся за "Fog_Cloud":
             # Осторожный командир позволяет раненым отступать:
             if squad.commander.__dict__.get('carefull_AI'):
                 commands_list.append('very_carefull')
+            # Скрытные командиры прячутся за "Fog_Cloud":
+            if squad.commander.__dict__.get('sneak_AI'):
                 commands_list.append('sneak')
-                commands_list.append('runes')
             # Оборонительная тактика:
             if squad.commander.__dict__.get('defender_AI'):
                 commands_list = ['carefull','dodge']
@@ -1122,8 +1122,10 @@ class battle_simulation(battlescape):
         # Солдат отступает, если ранен и таков приказ:
         if soldier.hitpoints <= soldier.hitpoints_max * 0.5\
                 and 'carefull' in soldier.commands\
+                and not 'fearless' in soldier.commands\
                 or soldier.hitpoints <= soldier.hitpoints_max * 0.75\
-                and'very_carefull' in soldier.commands:
+                and'very_carefull' in soldier.commands\
+                and not 'fearless' in soldier.commands:
             destination = self.find_spawn(soldier.place, soldier.ally_side)
             destination = random.choice(self.point_to_field(destination))
             self.move_action(soldier, squad, destination, allow_replace = True)
@@ -1207,10 +1209,6 @@ class battle_simulation(battlescape):
         # Кастеры работают магией, сначала по группам, а потом целевой:
         if 'spellcast' in soldier.commands and enemy:
             self.recon_action(soldier, squad)
-            # Друиды меняют форму, если враг рядом:
-            if soldier.class_features.get('Wild_Shape'):
-                if soldier.near_enemies or 'change' in soldier.commands:
-                    soldier.set_change_form()
             # Кастеры колдуют:
             if soldier.danger <= 0 or 'fearless' in soldier.commands:
                 if 'channel' in soldier.commands:
@@ -1218,6 +1216,10 @@ class battle_simulation(battlescape):
                 self.prepare_spell_action(soldier, squad, enemy)
                 self.fireball_action(soldier, squad)
                 self.spellcast_action(soldier, squad, enemy)
+            # Друиды меняют форму, если враг рядом:
+            if soldier.class_features.get('Wild_Shape'):
+                if soldier.near_enemies or 'change' in soldier.commands:
+                    soldier.set_change_form(squad)
         # Осьминожки прячутся в чернильном облаке, остальные в "Fog_Cloud".
         # Но только в том случае, если у врага есть дальнобойное оружие.
         if 'sneak' in soldier.commands and enemy and squad.__dict__.get('enemy_recon'):

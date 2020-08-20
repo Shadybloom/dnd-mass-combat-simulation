@@ -324,7 +324,7 @@ class soldier():
         self.spells = self.spells_generator.spells
         self.unit_cost = self.calculate_unit_cost()
 
-    def levelup(self, rank):
+    def levelup(self, rank, regen_spells = True):
         """Меняет ранг солдата на новый. Многое пересчитывается.
         
         Например: Warrior 1 lvl (legionary infantry) >>> Warrior 2 lvl (legionary infantry-corporal)
@@ -383,10 +383,11 @@ class soldier():
         self.attacks.update(self.modify_attacks_weapon_of_choice())
         # TODO: пилим заклинания.
         # Класс должен создавать словарь spells и обрабатывать его.
-        self.spells_generator = spells.gen_spells(self)
-        self.spellslots = self.spells_generator.spellslots
-        self.spells = self.spells_generator.spells
-        self.unit_cost = self.calculate_unit_cost()
+        if regen_spells:
+            self.spells_generator = spells.gen_spells(self)
+            self.spellslots = self.spells_generator.spellslots
+            self.spells = self.spells_generator.spells
+            self.unit_cost = self.calculate_unit_cost()
 
     def gen_height_and_weight(self):
         """По правилам D&D 5 рост и вес персонажа зависят только от расы.

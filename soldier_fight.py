@@ -94,7 +94,7 @@ class soldier_in_battle(soldier):
             self.bonus_hitpoints = 0
         if not hasattr(self, 'hitpoints_heal'):
             self.hitpoints_heal = 0
-        if damage:
+        if damage and damage > 0:
             self.hitpoints -= damage
         if heal:
             hitpoints_damage = self.hitpoints_max - self.hitpoints
@@ -479,9 +479,6 @@ class soldier_in_battle(soldier):
         self.near_zone = [ ]
         self.near_allies = [ ]
         self.near_enemies = [ ]
-        # Возвращение друида в обычную форму, если не осталось бонусных хитов:
-        if self.wild_shape and self.bonus_hitpoints <= 0:
-            self.return_old_form()
         # Особенности монстров:
         # Перезарядка способности:
         if self.class_features.get('Recharge') and self.recharge_dict:
@@ -512,51 +509,62 @@ class soldier_in_battle(soldier):
             elif self.sacred_weapon_timer == 0:
                 self.sacred_weapon = None
 
-    def set_change_form(self):
+    def set_change_form(self, squad):
         """Друид меняет форму
         
         """
         if self.class_features.get('Wild_Shape_Form')\
                 and self.class_features['Wild_Shape_Form'] in self.metadict_animals\
-                and not self.wild_shape:
+                and not self.wild_shape\
+                and self.wild_shape_number > 0:
             if self.battle_action or self.bonus_action and self.class_features.get('Combat_Wild_Shape'):
                 if self.class_features.get('Combat_Wild_Shape'):
                     self.bonus_action = False
                 else:
                     self.battle_action = False
+                # Сохраняем ссылку, чтобы восстановить:
                 # Сохраняем старую форму, чтобы восстановить:
-                animal_type = self.class_features['Wild_Shape_Form']
-                self.wild_shape_old_form = copy.deepcopy(self.__dict__)
-                # Меняем форму:
-                self.rank = animal_type
-                self.__dict__.update(copy.deepcopy(self.metadict_animals[animal_type]))
-                self.body = self.gen_height_and_weight()
-                self.size = self.body['size']
-                self.proficiency = self.find_class_proficiency()
-                self.proficiency_bonus = self.proficiency['proficiency_bonus']
-                self.overload = self.calculate_overload()
-                self.base_speed = self.overload['base_speed']
-                self.mods = self.calculate_mods()
-                self.saves = self.calculate_saves()
-                self.armor = self.takeoff_armor()
-                self.armor.update(self.get_armor())
-                self.attacks = self.takeoff_weapon()
-                self.attacks.update(self.get_weapon())
-                self.attacks.update(self.modify_attacks())
-                self.attacks.update(self.modify_attacks_weapon_of_choice())
-                # Хиты изменённой формы, это бонусные хиты:
-                self.bonus_hitpoints = self.calculate_hitpoints()
-                self.behavior = self.wild_shape_old_form['behavior']
+                metadict_soldiers = self.metadict_soldiers
+                self.metadict_soldiers = None
                 self.wild_shape = True
                 self.wild_shape_number -= 1
+                old_form = copy.deepcopy(self.__dict__)
+                # Создаём новую форму:
+                animal_type = self.class_features['Wild_Shape_Form']
+                self.levelup(animal_type, regen_spells = False)
+                # Сохранаяме старую форму:
+                self.wild_shape_old_form = old_form
+                # Хиты новой формы, это бонусные хиты:
+                self.bonus_hitpoints = self.hitpoints
+                self.hitpoints = self.wild_shape_old_form['hitpoints']
+                self.hitpoints_max = self.wild_shape_old_form['hitpoints_max']
+                # Базовая тактика остаётся прежней:
+                self.behavior = self.wild_shape_old_form['behavior']
+                # Восстанавливаем активные заклинания:
+                self.buffs = self.wild_shape_old_form['buffs']
+                self.debuffs = self.wild_shape_old_form['debuffs']
+                self.spells_active = self.wild_shape_old_form['spells_active']
+                # Восстанавливаем ссылки:
+                self.metadict_soldiers = metadict_soldiers
+                self.spells_generator.mage = self
+                # Убираем заклинания:
+                self.spells = {}
 
-    def return_old_form(self):
+    def return_old_form(self, metadict_soldiers):
         """Друид возвращает облик человека.
         
         """
+        #hitpoints = self.wild_shape_old_form['hitpoints']
+        hitpoints = self.hitpoints
+        place = self.place
+        self.__dict__ = copy.deepcopy(self.wild_shape_old_form)
+        # Восстанавливаем ссылки:
+        self.metadict_soldiers = metadict_soldiers
+        self.spells_generator.mage = self
+        self.hitpoints = hitpoints
+        self.place = place
+        self.wild_shape_old_form = None
         self.wild_shape = False
-        self.wild_shape_old_form['hitpoints'] = self.hitpoints
-        self.__dict__.update(copy.deepcopy(self.wild_shape_old_form))
 
     def set_rage(self):
         """Варвар злится.
@@ -1469,9 +1477,6 @@ class soldier_in_battle(soldier):
                 and not hasattr(self, 'death_save_loss'):
             self.death_save_loss = 0
             self.death_save_success = 0
-        # Возвращение друида в обычную форму, если выбыл:
-        if self.wild_shape:
-            self.return_old_form()
         # Схваченного легко убить, или взять в плен:
         if self.grappled and self.enemy_grappler\
                 and not 'kill' in self.enemy_grappler.commands:
@@ -2435,18 +2440,21 @@ class soldier_in_battle(soldier):
             damage = self.damage_modify_savethrow(attack_dict, damage)
         # Иммунитет, сопротивляемость, уязвимость:
         damage = self.damage_modify_resistance(attack_dict, damage)
-        if damage > 0:
-            # Бонусные хиты от Feat_Inspiring_Leader и подобного:
-            if self.bonus_hitpoints and self.bonus_hitpoints > 0:
-                shield_of_bravery = self.bonus_hitpoints
-                self.bonus_hitpoints -= damage
-                damage = damage - shield_of_bravery
-                if self.bonus_hitpoints < 0:
-                    self.bonus_hitpoints = 0
-                if damage < 0:
-                    attack_dict['bonus_hitpoints_damage'] = damage + shield_of_bravery
-                else:
-                    attack_dict['bonus_hitpoints_damage'] = shield_of_bravery
+        # Бонусные хиты от Feat_Inspiring_Leader и подобного:
+        if self.bonus_hitpoints and self.bonus_hitpoints > 0:
+            shield_of_bravery = self.bonus_hitpoints
+            self.bonus_hitpoints -= damage
+            damage = damage - shield_of_bravery
+            if self.bonus_hitpoints < 0:
+                self.bonus_hitpoints = 0
+            if damage < 0:
+                attack_dict['bonus_hitpoints_damage'] = damage + shield_of_bravery
+            else:
+                attack_dict['bonus_hitpoints_damage'] = shield_of_bravery
+            # Возвращение друида в обычную форму, если не осталось бонусных хитов:
+            if self.wild_shape and self.bonus_hitpoints <= 0:
+                self.return_old_form(metadict_soldiers)
+        if damage > 0 or attack_dict.get('bonus_hitpoints_damage'):
             # Боец получает урон:
             self.set_hitpoints(damage = damage)
             attack_dict['damage'] = damage
