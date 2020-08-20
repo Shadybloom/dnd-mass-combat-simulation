@@ -1416,7 +1416,7 @@ metadict_chars['Warrior 2 lvl (cilician infantry-corporal)'] = {
 
 metadict_chars['Warrior 3 lvl (cilician infantry-sergeant)'] = {
     'level':3,
-    'char_class':'Warrior',
+    'char_class':'Warrior-bowman',
     'hit_dice':'1d8',
     'behavior':'commander',
     'class_features':{
@@ -7040,7 +7040,7 @@ metadict_chars['Druid 2 lvl (Vaarsuvius) (друид Ианты)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Goodberry':30,
+        'Goodberry':20,
         'Infusion of Healing':1,
         'Rune of Absorbtion':1,
         'Rune of Armor':1,
@@ -7103,7 +7103,7 @@ metadict_chars['Druid 2 lvl (Vaarsuvius) (друид Ианты) (Агата)'] 
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Goodberry':30,
+        'Goodberry':20,
         'Infusion of Healing':1,
         'Rune of Absorbtion':1,
         'Rune of Armor':1,
@@ -7164,7 +7164,7 @@ metadict_chars['Druid 2 lvl (Vaarsuvius) (друид Ианты) (Психея)'
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Goodberry':30,
+        'Goodberry':20,
         'Infusion of Healing':1,
         'Rune of Absorbtion':1,
         'Rune of Armor':1,
@@ -7249,7 +7249,7 @@ metadict_chars['Druid 7 lvl (Vaarsuvius) (Ианта «Дочь бури»)'] = 
         'Infusion of Healing':1,
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
-        'Half Plate':1,
+        'Breastplate':1,
         'Shield':1,
         'Longbow +1':1,
         'Arrow':60,
@@ -9345,6 +9345,9 @@ metadict_chars['Warrior 3 lvl (враг) (демон Кема\'Эша)'] = {
 metadict_chars['Warrior 4 lvl (нейтрал) (бронзовый гоплит Менона)'] = {
     # Умертвие.
     'level':4,
+    'sneak_AI':True,
+    'killer_AI':True,
+    'fearless_AI':True,
     'char_class':'Warrior-officer',
     'hit_dice':'1d8',
     'behavior':'elite_warrior',
@@ -9370,9 +9373,10 @@ metadict_chars['Warrior 4 lvl (нейтрал) (бронзовый гоплит 
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
         # Нежить не может использовать эссенции:
-        'Infusion of Healing':1,
-        'Rune of Absorbtion':1,
-        'Rune of Shielding':1,
+        #'Infusion of Healing':1,
+        'Infusion of False Life':1,
+        'Rune of Absorbtion':2,
+        #'Rune of Shielding':1,
         'Plate Armor':1,
         'Heavy Shield':1,
         'Long Spear':1,
@@ -9386,8 +9390,10 @@ metadict_chars['Warrior 4 lvl (нейтрал) (бронзовый гоплит 
 
 metadict_chars['Warrior 5 lvl (нейтрал) (бронзовый гоплит-капитан Менона)'] = {
     'level':5,
+    'sneak_AI':True,
     'killer_AI':True,
-    'carefull_AI':True,
+    'fearless_AI':True,
+    #'carefull_AI':True,
     #'no_grappler_AI':True,
     #'fearless_AI':True,
     #'seeker_AI':True,
@@ -9418,9 +9424,10 @@ metadict_chars['Warrior 5 lvl (нейтрал) (бронзовый гоплит-
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
         # Нежить не может использовать эссенции:
-        'Infusion of Healing':1,
-        'Rune of Absorbtion':1,
-        'Rune of Shielding':1,
+        #'Infusion of Healing':1,
+        'Infusion of False Life':1,
+        'Rune of Absorbtion':2,
+        #'Rune of Shielding':1,
         'Plate Armor':1,
         'Heavy Shield':1,
         'Long Spear':1,
@@ -10786,6 +10793,141 @@ metadict_chars['Bard 6 lvl (друг) (Тетра Курио)'] = {
         },
     #'mount_combat':True,
     #'mount_type':'Light Warhorse',
+    #'equipment_mount':{
+    #    },
+    }
+
+#----
+# Союзники (армии) (Тетро):
+
+metadict_chars['Warrior 1 lvl (друг) (арбалетчик Тетры)'] = {
+    'level':1,
+    #'archer_AI':True,
+    'char_class':'Warrior-bowman',
+    'hit_dice':'1d8',
+    'behavior':'warrior',
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Studded Leather':1,
+        'Shield':1,
+        'Shortsword':1,
+        'Crossbow, Heavy':1,
+        'Crossbow Bolt':60,
+        },
+    }
+
+metadict_chars['Warrior 2 lvl (друг) (арбалетчик-ветеран Тетры)'] = {
+    'level':2,
+    #'archer_AI':True,
+    'char_class':'Warrior-bowman',
+    'hit_dice':'1d8',
+    'behavior':'elite_warrior',
+    'class_features':{
+        'Fighting_Style_Archery':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Chain Shirt':1,
+        'Shield':1,
+        'Shortsword':1,
+        'Crossbow, Heavy':1,
+        'Crossbow Bolt':60,
+        },
+    }
+
+metadict_chars['Warrior 3 lvl (друг) (арбалетчик-сержант Тетры)'] = {
+    'level':3,
+    #'archer_AI':True,
+    'brave_AI':True,
+    'char_class':'Warrior-bowman',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Archery':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Breastplate':1,
+        'Shield':1,
+        'Shortsword':1,
+        'Crossbow, Heavy':1,
+        'Crossbow Bolt':60,
+        },
+    }
+
+metadict_chars['Warrior 4 lvl (друг) (арбалетчик-лейтенант Тетры)'] = {
+    'level':4,
+    #'archer_AI':True,
+    'brave_AI':True,
+    'char_class':'Warrior-bowman',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Archery':True,
+        'Feat_Sharpshooter':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Rune of Shielding':1,
+        'Breastplate':1,
+        'Shield':1,
+        'Shortsword':1,
+        'Crossbow, Heavy':1,
+        'Crossbow Bolt':60,
+        },
+    #'mount_combat':False,
+    #'mount_type':'Riding Horse',
+    #'equipment_mount':{
+    #    },
+    }
+
+metadict_chars['Warrior 5 lvl (друг) (арбалетчик-капитан Тетры)'] = {
+    'level':5,
+    #'archer_AI':True,
+    'brave_AI':True,
+    'char_class':'Warrior-bowman',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Archery':True,
+        'Feat_Sharpshooter':True,
+        'Extra_Attack':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Rune of Absorbtion':1,
+        'Rune of Shielding':1,
+        'Breastplate':1,
+        'Shield':1,
+        'Shortsword':1,
+        'Crossbow, Heavy':1,
+        'Crossbow Bolt':60,
+        },
+    #'mount_combat':False,
+    #'mount_type':'Riding Horse',
     #'equipment_mount':{
     #    },
     }
