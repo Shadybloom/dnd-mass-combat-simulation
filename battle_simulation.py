@@ -45,7 +45,7 @@ def create_parser():
                         )
     parser.add_argument('-w', '--weather',
                         action='store', dest='weather', type=str,
-                        help='Доступно: night, wind, water'
+                        help='Доступно: night, wind, water, underwater'
                         )
     parser.add_argument('-v', '--visual',
                         action='store_true', dest='visual', default=False,
@@ -179,6 +179,12 @@ class battle_simulation(battlescape):
                 for point in self.dict_battlespace.keys():
                     if not 'water' in self.dict_battlespace[point]:
                         self.dict_battlespace[point].append('water')
+            if 'underwater' in namespace.weather:
+                for point in self.dict_battlespace.keys():
+                    if not 'underwater' in self.dict_battlespace[point]:
+                        self.dict_battlespace[point].append('underwater')
+                    if not 'height' in self.dict_battlespace[point]:
+                        self.dict_battlespace[point].append('height')
         # Вывод карты до начала боя:
         #print_ascii_map(battle.gen_battlemap())
 
@@ -984,6 +990,9 @@ class battle_simulation(battlescape):
             #commands_list = ['disengage','dodge','attack']
             commands_list = ['retreat', 'rescue']
         if squad.commander:
+            # Командир уплотняет строй до 2 солдат на тайл:
+            if squad.commander.__dict__.get('close_up_AI'):
+                commands_list.append('close_up')
             # Осторожный командир позволяет раненым отступать:
             if squad.commander.__dict__.get('carefull_AI'):
                 commands_list.append('very_carefull')
@@ -1619,6 +1628,14 @@ class battle_simulation(battlescape):
                 elif not place.free and place.units\
                         and soldier.size == 'tiny'\
                         and len(place.units) < 4:
+                    next_place = path.pop(0)
+                    prev_place = soldier.place
+                    move = soldier.move(self.tile_size, place.rough)
+                    self.change_place(prev_place, next_place, soldier.uuid)
+                # Командой можно уплотнить строй:
+                elif not place.free and place.units\
+                        and 'close_up' in soldier.commands\
+                        and len(place.units) < 2:
                     next_place = path.pop(0)
                     prev_place = soldier.place
                     move = soldier.move(self.tile_size, place.rough)
@@ -2791,8 +2808,10 @@ class battle_simulation(battlescape):
         if enemy_soldier.__dict__.get('squad_advantage'):
             disadvantage = True
         # Homebrew, солдаты без умения плавать уязвимы:
-        if not enemy_soldier.water_walk\
-                and 'water' in self.dict_battlespace[enemy_soldier.place]:
+        if not enemy_soldier.water_walk and 'water' in self.dict_battlespace[enemy_soldier.place]:
+            advantage = True
+        # Две цели на одной точке. Легче попасть.
+        if len([el for el in self.dict_battlespace[enemy_soldier.place] if type(el) == tuple]) >= 2:
             advantage = True
         # Ошеломлённый уязвим:
         if enemy_soldier.stunned:
@@ -2843,8 +2862,10 @@ class battle_simulation(battlescape):
         if 'obscure_terrain' in self.dict_battlespace[enemy_soldier.place]:
             disadvantage = True
         # Homebrew, солдаты без умения плавать уязвимы:
-        if not soldier.water_walk\
-                and 'water' in self.dict_battlespace[soldier.place]:
+        if not soldier.water_walk and 'water' in self.dict_battlespace[soldier.place]:
+            disadvantage = True
+        # Два наших бойца на одной точке. Сложно целиться:
+        if len([el for el in self.dict_battlespace[soldier.place] if type(el) == tuple]) >= 2:
             disadvantage = True
         # Сильный ветер мешает стрелкам:
         if attack_choice[0] == 'throw'\
@@ -2852,6 +2873,7 @@ class battle_simulation(battlescape):
                 or attack_choice[0] == 'volley':
             if 'warding_wind' in self.dict_battlespace[enemy_soldier.place]:
                 disadvantage = True
+        # TODO: перенеси это в attack класса бойца:
         # Противника может защитить товарищ с Fighting_Style_Protection:
         elif len(enemy_soldier.near_allies) > 1:
             for soldier_tuple in enemy_soldier.near_allies:
@@ -2867,6 +2889,7 @@ class battle_simulation(battlescape):
                     #    enemy_soldier.ally_side, enemy_soldier.place, enemy_soldier.behavior,
                     #    enemy_ally.ally_side, enemy_ally.place, enemy_ally.behavior))
                     break
+        # TODO: перенеси это в attack класса бойца:
         # Жрец домена света может поставить помеху на одиночную атаку (на дистанции до 30 футов):
         elif hasattr(enemy_soldier, 'warding_flare') and enemy_soldier.warding_flare > 0\
                 and enemy_soldier.reaction\

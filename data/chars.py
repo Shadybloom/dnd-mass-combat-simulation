@@ -354,6 +354,7 @@ metadict_chars['Commoner 2 lvl (militia spearman-corporal)'] = {
 
 metadict_chars['Warrior 3 lvl (militia spearman-sergeant)'] = {
     'level':3,
+    'close_up_AI':True,
     'char_class':'Warrior',
     'hit_dice':'1d8',
     'behavior':'commander',
@@ -376,6 +377,7 @@ metadict_chars['Warrior 3 lvl (militia spearman-sergeant)'] = {
 
 metadict_chars['Warrior 4 lvl (militia spearman-lieutenant)'] = {
     'level':4,
+    'close_up_AI':True,
     'char_class':'Warrior-officer',
     'hit_dice':'1d8',
     'behavior':'commander',
@@ -10250,6 +10252,7 @@ metadict_chars['Warrior 3 lvl (враг) (гоплит-сержант Нинги
 
 metadict_chars['Warrior 4 lvl (враг) (гоплит-лейтенант Нингиримы)'] = {
     'level':4,
+    #'close_up_AI':True,
     'water_walk':True,
     'char_class':'Warrior-officer',
     'hit_dice':'1d8',
@@ -10276,6 +10279,7 @@ metadict_chars['Warrior 4 lvl (враг) (гоплит-лейтенант Нин
 
 metadict_chars['Warrior 5 lvl (враг) (гоплит-капитан Нингиримы)'] = {
     'level':5,
+    #'close_up_AI':True,
     'water_walk':True,
     'char_class':'Warrior-officer',
     'hit_dice':'1d8',
