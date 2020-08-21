@@ -866,7 +866,8 @@ metadict_squads['Company-regular (дочери медведицы Ианты) (V
     'Warrior 2 lvl (Vaarsuvius) (ветеран Филлис)':10,
     'Warrior 3 lvl (Vaarsuvius) (сержант Филлис)':3,
     'Warrior 4 lvl (Vaarsuvius) (лейтенант Филлис)':1,
-    'Warrior 5 lvl (Vaarsuvius) (Филлис)':1,
+    'Warrior 5 lvl (Vaarsuvius) (капитан Филлис)':1,
+    'Warrior 7 lvl (Vaarsuvius) (Филлис)':1,
     }
 
 metadict_squads['Company-regular (ветераны Филлис) (Vaarsuvius)'] = {
@@ -874,7 +875,7 @@ metadict_squads['Company-regular (ветераны Филлис) (Vaarsuvius)'] 
     'Warrior 3 lvl (Vaarsuvius) (сержант Филлис)':18,
     'Warrior 4 lvl (Vaarsuvius) (лейтенант Филлис)':6,
     'Warrior 5 lvl (Vaarsuvius) (капитан Филлис)':6,
-    'Warrior 5 lvl (Vaarsuvius) (Филлис)':1,
+    'Warrior 7 lvl (Vaarsuvius) (Филлис)':1,
     'Commoner 1 lvl (recruit)':500,
     }
 

@@ -6620,9 +6620,9 @@ metadict_chars['Warrior 5 lvl (Vaarsuvius) (капитан Филлис)'] = {
     #    },
     }
 
-metadict_chars['Warrior 5 lvl (Vaarsuvius) (Филлис)'] = {
+metadict_chars['Warrior 7 lvl (Vaarsuvius) (Филлис)'] = {
     # Сестра Ианты
-    'level':5,
+    'level':7,
     'char_class':'Warrior-officer',
     'hit_dice':'1d8',
     'behavior':'commander',
