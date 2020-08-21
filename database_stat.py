@@ -73,6 +73,8 @@ class database_stat():
         for squad_name in self.database.print_squads():
             squad = squad_generation()
             squad.load_squad_from_DB(squad_name, get_all = True)
+            for soldier in squad.metadict_soldiers.values():
+                soldier.set_actions_base(squad)
             squad.victories = sum([soldier.__dict__.get('victories',0) for soldier\
                 in squad.metadict_soldiers.values()])
             squad.experience = sum([soldier.__dict__.get('experience',0) for soldier\
