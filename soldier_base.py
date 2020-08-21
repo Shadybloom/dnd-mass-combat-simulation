@@ -807,7 +807,7 @@ class soldier():
             else:
                 armor_dexterity_mod = allow_dexterity_mod
         # Тяжёлая броня нивелирует как плюсы высокой, так и минусы низкой ловкости.
-        elif armor_choice.get('armor_type') == 'heavy':
+        elif armor_choice.get('armor_type') == 'heavy' or armor_choice.get('armor_type') == 'Barkskin':
             armor_dexterity_mod = 0
         else:
             armor_dexterity_mod = dexterity_mod
@@ -837,7 +837,8 @@ class soldier():
         for item in self.equipment_weapon:
             if metadict_items[item].get('armor') == True:
                 if metadict_items[item]['armor_type'] in self.armor_skill\
-                        or metadict_items[item]['armor_type'] == 'Force':
+                        or metadict_items[item]['armor_type'] == 'Barkskin'\
+                        or metadict_items[item]['armor_type'] == 'Mage_Armor':
                     # Боец примеряет броню и оценивает её по своим способностям:
                     armor_choice = self.select_armor(item)
                     item_armor_ac = armor_choice['armor_class_armor']

@@ -1900,7 +1900,7 @@ class gen_spells():
                     'effect_timer':4800,
                     'attacks_number':1,
                     'armor':True,
-                    'armor_type':'Force',
+                    'armor_type':'Mage_Armor',
                     'armor_class_armor':13,
                     'attack_range':0,
                     'components':['verbal','somatic','material'],
@@ -2407,6 +2407,47 @@ class gen_spells():
             soldier = self.mage
             max_hitpoints = soldier.hitpoints_max + spell_dict['damage_mod']
             soldier.set_hitpoints(max_hitpoints = max_hitpoints)
+        return spell_dict
+
+    @modify_spell
+    @update_spell_dict
+    def Barkskin(self, spell_level, gen_spell = False, spell_dict = False):
+        """Дубовая кора
+
+        Level: 2
+        Casting time: 1 Action
+        Range: Touch
+        Components: V, S, M (A handful of oak bark)
+        Duration: Concentration, up to 1 hour
+        https://www.dnd-spells.com/spell/barkskin
+        """
+        # TODO: броня берётся из metadict_item.
+        if not spell_dict:
+            spell_dict = {
+                    'buff':True,
+                    'concentration':True,
+                    'effect':'barkskin',
+                    'effect_timer':600,
+                    'attacks_number':1,
+                    'armor':True,
+                    'armor_type':'Barkskin',
+                    'armor_class_armor':16,
+                    'attack_range':5,
+                    'components':['verbal','somatic','material'],
+                    #'casting_time':'action',
+                    'casting_time':'free_action',
+                    'spell_level':spell_level,
+                    'spell_of_choice':'Magic_Missile',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
+        if gen_spell:
+            # Нацеливаем на себя, либо на другого, если указана цель:
+            if not spell_dict.get('target_uuid'):
+                soldier = self.mage
+            else:
+                soldier = self.mage.metadict_soldiers[spell_dict['target_uuid']]
+            soldier.equipment_weapon['Barkskin'] = 1
+            soldier.armor.update(soldier.get_armor())
         return spell_dict
 
 #----
