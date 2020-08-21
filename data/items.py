@@ -2154,7 +2154,7 @@ metadict_items['Sleep Blade'] = {
             'savethrow':True,
             'savethrow_ability':'constitution',
             'spell_save_DC':10,
-            'spell_choice':('Sleep Blade','Яд лесного Йобы'),
+            'spell_choice':('Sleep Blade','Unconscious'),
             },
     'weight (lb)':1/20,
     'cost (gp)':1/20,

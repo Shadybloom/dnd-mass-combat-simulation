@@ -216,7 +216,6 @@ class soldier_in_battle(soldier):
         # Эффекты заклинаний:
         self.fear = False
         self.fear_source = None
-        self.sleep = False
         self.damage_absorbed = None
         self.guiding_bolt_hit = False
         self.mockery_hit = False
@@ -390,7 +389,8 @@ class soldier_in_battle(soldier):
         else:
             self.fall = False
         # Даём боевые действия и пул движения:
-        if not self.stunned and not self.paralyzed and not self.sleep:
+        if not self.stunned and not self.paralyzed\
+                and not 'sleep' in self.debuffs:
             self.battle_action = True
             self.bonus_action = True
             self.reaction = True
@@ -1243,32 +1243,6 @@ class soldier_in_battle(soldier):
             self.paralyzed = True
             return True
 
-    def set_sleep(self, difficult = 100, timer = 10, advantage = False, disadvantage = False):
-        """Бойца пытаются усыпить.
-        
-        - Заклинание "Sleep" срабатывает без спасброска.
-        - Яд позволяет сделать спасбросок телосложения.
-
-        https://www.dandwiki.com/wiki/5e_SRD:Conditions#Unconscious
-        """
-        # TODO: Мертвяки и конструкты неуязвимы к усыплению. Эльфы тоже.
-        ability = 'constitution'
-        # Спасбросок только от усыпления ядами:
-        if 'antidote' in self.buffs:
-            advantage = True
-        if self.get_savethrow(difficult, ability, advantage, disadvantage):
-            return False
-        else:
-            self.sleep = True
-            self.prone = True
-            self.battle_action = None
-            self.bonus_action = None
-            self.reaction = None
-            self.move_action = None
-            self.move_pool = 0
-            self.sleep_timer = timer
-            return True
-
     def set_grappled(self, enemy_soldier, advantage = False, disadvantage = False, difficult = False):
         """Бойца пытаются схватить.
         
@@ -1589,7 +1563,7 @@ class soldier_in_battle(soldier):
         if self.__dict__.get('savethrow_autofail'):
             return True
         elif ability == 'strength' or ability == 'dexterity':
-            if self.sleep:
+            if 'sleep' in self.debuffs:
                 return True
             elif self.stunned:
                 return True
@@ -1912,7 +1886,7 @@ class soldier_in_battle(soldier):
         # Если атака неудачная, то независимо от модификаторов результат нулевой:
         # Атаки по бессознательным вблизи всегда дают критическое попадание.
         if attack_throw >= crit_range\
-                or attack_dict['attack_range'] <= 5 and enemy_soldier.sleep\
+                or attack_dict['attack_range'] <= 5 and 'sleep' in enemy_soldier.debuffs\
                 or attack_dict['attack_range'] <= 5 and enemy_soldier.paralyzed:
             damage_throw = 0
             for throw in range(0, self.crit_multiplier):
@@ -1936,7 +1910,7 @@ class soldier_in_battle(soldier):
                         advantage = False, disadvantage = False, max_throw = sharpness)
                 damage_throw += sneak_attack_throw
                 if attack_throw >= crit_range\
-                        or attack_dict['attack_range'] <= 5 and enemy_soldier.sleep:
+                        or attack_dict['attack_range'] <= 5 and 'sleep' in enemy_soldier.debuffs:
                     # Критический удар удваивает урон от скрытной атаки:
                     sneak_attack_throw = dices.dice_throw_advantage(self.proficiency['sneak_attack_dice'],
                             advantage = False, disadvantage = False, max_throw = sharpness)
@@ -2438,9 +2412,8 @@ class soldier_in_battle(soldier):
             if self.hitpoints <= 0 and not self.defeat:
                 attack_dict['fatal_hit'] = True
             # Спящий просыпается, если ранен:
-            if damage and self.sleep:
-                self.sleep_timer = 0
-                self.sleep = False
+            if damage and 'sleep' in self.debuffs:
+                self.debuffs.pop('sleep')
             # Прерывание концентрации
             if damage and self.concentration:
                 spell = self.concentration['spell_choice']

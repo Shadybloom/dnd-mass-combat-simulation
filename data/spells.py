@@ -672,10 +672,35 @@ class gen_spells():
                     'direct_hit':True,
                     'savethrow':True,
                     'savethrow_ability':'constitution',
+                    'savethrow_advantage':False,
+                    'savethrow_disadvantage':False,
                     'spell_level':spell_level,
-                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    # Обычно это потеря сознания от ран или заклинания "Sleep":
+                    'spell_save_DC':100,
                     }
             spell_dict = copy.deepcopy(spell_dict)
+        if gen_spell:
+            if not spell_dict.get('target_uuid'):
+                soldier = self.mage
+            else:
+                soldier = self.mage.metadict_soldiers[spell_dict['target_uuid']]
+            difficult = spell_dict['spell_save_DC']
+            ability = spell_dict['savethrow_ability']
+            advantage = spell_dict['savethrow_advantage']
+            disadvantage = spell_dict['savethrow_disadvantage']
+            # Спасбросок только от усыпления ядами:
+            if 'antidote' in soldier.buffs:
+                advantage = True
+            # Спасбросок против потери сознания (от яда):
+            if soldier.get_savethrow(difficult, ability, advantage, disadvantage)\
+                    or 'unconscious' in soldier.immunity:
+                return False
+            else:
+                soldier.battle_action = False
+                soldier.bonus_action = False
+                soldier.reaction = False
+                soldier.dodge_action = False
+                soldier.prone = True
         return spell_dict
 
 #------------------------------------------------------------
@@ -1731,6 +1756,7 @@ class gen_spells():
         """
         if not spell_dict:
             spell_dict = {
+                    'debuff':True,
                     'effect':'sleep',
                     'effect_timer':100,
                     'attacks_number':1,

@@ -693,7 +693,8 @@ class battle_simulation(battlescape):
         # Боец действует, только если он находится на карте и боеспособен:
         for uuid, soldier in squad.metadict_soldiers.items():
             if soldier.get_coordinates() and soldier.hitpoints > 0\
-                    and not soldier.sleep and not soldier.defeat\
+                    and not soldier.defeat\
+                    and not 'sleep' in soldier.debuffs\
                     and not 'inactive' in squad.commands:
                 # Начинаем раунд солдата
                 self.round_run_soldier(soldier, squad)
@@ -1981,7 +1982,7 @@ class battle_simulation(battlescape):
                             or 'grapple' in soldier.commands\
                             or enemy_soldier.paralyzed\
                             or enemy_soldier.stunned\
-                            or enemy_soldier.sleep:
+                            or 'sleep' in enemy_soldier.debuffs:
                         wrestling_action = self.wrestling_action(soldier, squad,
                                 enemy_soldier, advantage, disadvantage)
                         if wrestling_action != None:
@@ -2323,18 +2324,13 @@ class battle_simulation(battlescape):
                     sleep_pool = dices.dice_throw_advantage(spell_dict['damage_dice'])
                     # Перебираем цели, пока есть хоть кто-то с хитами меньшими, чем sleep_pool:
                     while sleep_pool > 0:
-                        if enemy_soldier.sleep or enemy_soldier.hitpoints > sleep_pool:
+                        if 'sleep' in enemy_soldier.debuffs or enemy_soldier.hitpoints > sleep_pool:
                             enemy_soldier = self.find_target_for_debuff(soldier, enemy, 'sleep')
                             if not enemy_soldier:
                                 break
                         sleep_pool -= enemy_soldier.hitpoints
                         if sleep_pool > 0:
-                            enemy_soldier.set_sleep()
-                            sleep = enemy_soldier.set_sleep()
-                            if enemy_soldier.sleep:
-                                fall_place = enemy_soldier.place
-                                self.dict_battlespace[fall_place].append('fall_place')
-                                self.dict_battlespace[fall_place].append(enemy_soldier.ally_side)
+                            self.fireball_action_target(soldier, squad, spell_dict, enemy)
                     continue
                 # Magic_Missile всегда попадает.
                 elif spell_dict.get('direct_hit'):
@@ -2435,6 +2431,8 @@ class battle_simulation(battlescape):
         for enemy in enemy_list:
             enemy_soldier = self.metadict_soldiers[enemy.uuid]
             if getattr(enemy_soldier, debuff) != True:
+                return enemy_soldier
+            if debuff not in enemy_soldier.debuff:
                 return enemy_soldier
 
     def counterspell_action(self, spell_dict, soldier):
@@ -2611,6 +2609,11 @@ class battle_simulation(battlescape):
                     e = enemy_soldier.behavior,
                     effect_upper = effect_upper
                     ))
+                # Показываем усыплённых:
+                if debuff_dict.get('effect') == 'sleep':
+                    fall_place = enemy_soldier.place
+                    self.dict_battlespace[fall_place].append('fall_place')
+                    self.dict_battlespace[fall_place].append(enemy_soldier.ally_side)
             # Если заклинание не наносит урона, то прерывание:
             if not spell_dict.get('damage_dice'):
                 return True
@@ -2663,24 +2666,24 @@ class battle_simulation(battlescape):
             if not spell_dict.get('damage_dice'):
                 return True
         # TODO: всё это переносить в функции заклинаний и set_debuff:
-        elif spell_dict.get('effect') == 'sleep':
-            sleep = enemy_soldier.set_sleep(
-                    spell_dict['spell_save_DC'], spell_dict['effect_timer'])
-            if sleep:
-                self.clear_battlemap()
-                fall_place = enemy_soldier.place
-                self.dict_battlespace[fall_place].append('fall_place')
-                self.dict_battlespace[fall_place].append(enemy_soldier.ally_side)
-                print('[+++] {side_1}, {c1} {s} SLEEP >> {side_2} {c2} {e}'.format(
-                    side_1 = soldier.ally_side,
-                    c1 = soldier.place,
-                    s = soldier.behavior,
-                    side_2 = enemy_soldier.ally_side,
-                    c2 = enemy_soldier.place,
-                    e = enemy_soldier.behavior,
-                    ))
-            if not spell_dict.get('damage_dice'):
-                return True
+        #elif spell_dict.get('effect') == 'sleep':
+        #    sleep = enemy_soldier.set_sleep(
+        #            spell_dict['spell_save_DC'], spell_dict['effect_timer'])
+        #    if sleep:
+        #        self.clear_battlemap()
+        #        fall_place = enemy_soldier.place
+        #        self.dict_battlespace[fall_place].append('fall_place')
+        #        self.dict_battlespace[fall_place].append(enemy_soldier.ally_side)
+        #        print('[+++] {side_1}, {c1} {s} SLEEP >> {side_2} {c2} {e}'.format(
+        #            side_1 = soldier.ally_side,
+        #            c1 = soldier.place,
+        #            s = soldier.behavior,
+        #            side_2 = enemy_soldier.ally_side,
+        #            c2 = enemy_soldier.place,
+        #            e = enemy_soldier.behavior,
+        #            ))
+        #    if not spell_dict.get('damage_dice'):
+        #        return True
         # У заклинания Ice_Knife есть и шрапнель, и основной поражающий элемент:
         if spell_dict.get('effect') == 'ice_knife' and enemy.place == zone_center:
             self.spellcast_action(soldier, squad, enemy,
@@ -3056,11 +3059,8 @@ class battle_simulation(battlescape):
         """
         for soldier in squad.metadict_soldiers.values():
             # Спящего от заклинания Sleep разбудят (или сам проснётся)
-            if soldier.sleep and not soldier.captured:
+            if 'sleep' in soldier.debuffs and not soldier.captured:
                 self.rescue(soldier, squad)
-                soldier.sleep_timer -= 1
-                if soldier.sleep_timer <= 0:
-                    soldier.sleep = False
             # Тяжелораненые играют в рулетку с мрачным жнецом:
             if soldier.hitpoints <= 0 and not soldier.death and not soldier.stable:
                 soldier.set_death()
@@ -3096,7 +3096,8 @@ class battle_simulation(battlescape):
                 if len(ally_soldier.near_enemies) <= 1\
                         and not ally_soldier.hitpoints <= 0\
                         and not ally_soldier.uuid == soldier.uuid\
-                        and not ally_soldier.escape and not ally_soldier.sleep:
+                        and not ally_soldier.escape\
+                        and not 'sleep' in ally_soldier.debuffs:
                     # Если рядом враги, раненого вытаскивают из боя:
                     if len(soldier.near_enemies) > 0:
                         if 'fall_place' in self.dict_battlespace[soldier.place]\
@@ -3107,9 +3108,8 @@ class battle_simulation(battlescape):
                         self.change_place(soldier.place, ally_soldier.place, soldier.uuid)
                     if soldier.killer_mark:
                         soldier.killer_mark = False
-                    if soldier.sleep:
-                        soldier.sleep_timer = 0
-                        soldier.sleep = False
+                    if 'sleep' in soldier.debuffs:
+                        soldier.debuffs.pop('sleep')
                         break
                     elif soldier.captured:
                         soldier.captured = False
