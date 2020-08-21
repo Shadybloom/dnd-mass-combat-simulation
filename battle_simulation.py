@@ -991,8 +991,8 @@ class battle_simulation(battlescape):
             commands_list = ['retreat', 'rescue']
         if squad.commander:
             # Командир уплотняет строй до 2 солдат на тайл:
-            if squad.commander.__dict__.get('close_up_AI'):
-                commands_list.append('close_up')
+            if squad.commander.__dict__.get('close_order_AI'):
+                commands_list.append('close_order')
             # Осторожный командир позволяет раненым отступать:
             if squad.commander.__dict__.get('carefull_AI'):
                 commands_list.append('very_carefull')
@@ -1634,7 +1634,7 @@ class battle_simulation(battlescape):
                     self.change_place(prev_place, next_place, soldier.uuid)
                 # Командой можно уплотнить строй:
                 elif not place.free and place.units\
-                        and 'close_up' in soldier.commands\
+                        and 'close_order' in soldier.commands\
                         and len(place.units) < 2:
                     next_place = path.pop(0)
                     prev_place = soldier.place
@@ -2811,6 +2811,7 @@ class battle_simulation(battlescape):
         if not enemy_soldier.water_walk and 'water' in self.dict_battlespace[enemy_soldier.place]:
             advantage = True
         # Две цели на одной точке. Легче попасть.
+        # "Книга игрока", "Протискивание в меньшее пространство"
         if len([el for el in self.dict_battlespace[enemy_soldier.place] if type(el) == tuple]) >= 2:
             advantage = True
         # Ошеломлённый уязвим:
@@ -2865,6 +2866,7 @@ class battle_simulation(battlescape):
         if not soldier.water_walk and 'water' in self.dict_battlespace[soldier.place]:
             disadvantage = True
         # Два наших бойца на одной точке. Сложно целиться:
+        # "Книга игрока", "Протискивание в меньшее пространство"
         if len([el for el in self.dict_battlespace[soldier.place] if type(el) == tuple]) >= 2:
             disadvantage = True
         # Сильный ветер мешает стрелкам:
