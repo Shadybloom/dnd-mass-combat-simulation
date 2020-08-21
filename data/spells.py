@@ -616,6 +616,29 @@ class gen_spells():
 #------------------------------------------------------------
 # Зелья
 
+    @modify_spell
+    @update_spell_dict
+    def Antidote(self, spell_level, gen_spell = False, spell_dict = False):
+        """Антидот. Противоядие.
+        
+        Даёт преимущество к спасброскам от ядов.
+        """
+        if not spell_dict:
+            spell_dict = {
+                    'buff':True,
+                    'effect':'antidote',
+                    'effect_timer':600,
+                    'casting_time':'free_action',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
+        if gen_spell:
+            # Нацеливаем на себя, либо на другого, если указана цель:
+            if not spell_dict.get('target_uuid'):
+                soldier = self.mage
+            else:
+                soldier = self.mage.metadict_soldiers[spell_dict['target_uuid']]
+        return spell_dict
+
 #------------------------------------------------------------
 # Заклинания
 

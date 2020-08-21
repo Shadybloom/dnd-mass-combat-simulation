@@ -1216,6 +1216,8 @@ class soldier_in_battle(soldier):
         https://www.dandwiki.com/wiki/5e_SRD:Conditions#Poisoned
         """
         ability = 'constitution'
+        if 'antidote' in self.buffs:
+            advantage = True
         if self.get_savethrow(difficult, ability, advantage, disadvantage)\
                 or 'poisoned' in self.immunity:
             return False
@@ -1280,6 +1282,9 @@ class soldier_in_battle(soldier):
         """
         # TODO: Мертвяки и конструкты неуязвимы к усыплению. Эльфы тоже.
         ability = 'constitution'
+        # Спасбросок только от усыпления ядами:
+        if 'antidote' in self.buffs:
+            advantage = True
         if self.get_savethrow(difficult, ability, advantage, disadvantage):
             return False
         else:
@@ -1572,9 +1577,9 @@ class soldier_in_battle(soldier):
         - Учитываем преимущества к броскам характеристик.
         - И помехи к броскам характеристик.
         """
-        if not advantage == None:
+        if not advantage:
             advantage = self.check_savethrow_advantage(ability)
-        if not disadvantage == None:
+        if not disadvantage:
             disadvantage = self.check_savethrow_disadvantage(ability)
         savethrow_result = dices.dice_throw_advantage('1d20', advantage, disadvantage) + self.saves[ability]
         savethrow_result += self.get_savethrow_bonus(difficult, savethrow_result, ability, bonus)

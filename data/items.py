@@ -1244,6 +1244,17 @@ metadict_items['Potion of Bravery'] = {
     'cost (grams_of_gold)':0.06,
     }
 
+metadict_items['Potion of Antidote'] = {
+    # Антидот. Даёт преимущество к спасброскам от ядов.
+    'spell':'Antidote',
+    'buff':True,
+    'potion':True,
+    'effect_timer':600,
+    'weight (lb)':0.5,
+    'cost (gp)':6,
+    'cost (grams_of_gold)':6,
+    }
+
 metadict_items['Infusion of Healing'] = {
     'potion':True,
     'spell':'Cure_Wounds',

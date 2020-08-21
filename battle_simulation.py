@@ -478,10 +478,13 @@ class battle_simulation(battlescape):
             if 'potions' in soldier.commands:
                 spells_list = [
                         'False_Life',
+                        'Antidote',
                         ]
                 for spell in spells_list:
                     if not soldier.bonus_hitpoints and spell == 'False_Life':
                         soldier.use_item('False_Life', gen_spell = True)
+                    if not 'antidote' in soldier.buffs and spell == 'Antidote':
+                        soldier.use_item('Antidote', gen_spell = True)
             # Тратим слоты заклинаний:
             if 'spellcast' in soldier.commands and soldier.spells:
                 spells_list = [
@@ -2672,6 +2675,9 @@ class battle_simulation(battlescape):
                     ))
             if not spell_dict.get('damage_dice'):
                 return True
+            # Яд не наносит урона, если цель прокинула спасбросок.
+            #if not poisoned
+            #    return False
         # У заклинания Ice_Knife есть и шрапнель, и основной поражающий элемент:
         if spell_dict.get('effect') == 'ice_knife' and enemy.place == zone_center:
             self.spellcast_action(soldier, squad, enemy,
