@@ -490,6 +490,7 @@ class battle_simulation(battlescape):
                         'Mage_Armor',
                         'Barkskin',
                         ]
+                # TODO: сделай функцию выбора в классе soldier_fight. Пусть возвращает True.
                 for spell in spells_list:
                     if soldier.bonus_hitpoints <= 0 and spell == 'Armor_of_Agathys':
                         soldier.try_spellcast(spell, gen_spell = True)
@@ -3270,7 +3271,9 @@ class battle_simulation(battlescape):
 
     def print_battle_statistics(self):
         """Вывод статистики после боя. Убитые, раненые по отрядам."""
-        for key, squad in self.squads.items():
+        # Сортируем отряды по номерам зон:
+        squads = OrderedDict(sorted(self.squads.items(),key=lambda x: x[0].zone))
+        for key, squad in squads.items():
             casualty = squad.casualty
             # Опыт отряда, это сумма опыта солдат:
             squad.experience = sum([soldier.experience for soldier in squad.metadict_soldiers.values()])
