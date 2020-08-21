@@ -2597,6 +2597,24 @@ class battle_simulation(battlescape):
                 and not races.dict_races[enemy_soldier.race].get('unholy')\
                 and not enemy_soldier.__dict__.get('unholy'):
             return False
+        # Срабатывают вредоносные эффекты заклинаний:
+        if spell_dict.get('debuff'):
+            debuff_dict = enemy_soldier.set_debuff(spell_dict)
+            if debuff_dict:
+                effect_upper = debuff_dict.get('effect', spell_choice[-1]).upper()
+                print('[+++] {side_1}, {c1} {s} {effect_upper} >> {side_2} {c2} {e}'.format(
+                    side_1 = soldier.ally_side,
+                    c1 = soldier.place,
+                    s = soldier.behavior,
+                    side_2 = enemy_soldier.ally_side,
+                    c2 = enemy_soldier.place,
+                    e = enemy_soldier.behavior,
+                    effect_upper = effect_upper
+                    ))
+            # Если заклинание не наносит урона, то прерывание:
+            if not spell_dict.get('damage_dice'):
+                return True
+        # TODO: всё это переносить в функции заклинаний и set_debuff:
         # Вызов страха от паладинского Dreadful_Aspect и заклинания "Fear"
         if spell_dict.get('effect') == 'fear':
             fear = enemy_soldier.set_fear(soldier, spell_dict['spell_save_DC'])
@@ -2614,6 +2632,7 @@ class battle_simulation(battlescape):
                     ))
             if not spell_dict.get('damage_dice'):
                 return True
+        # TODO: всё это переносить в функции заклинаний и set_debuff:
         if spell_dict.get('effect') == 'stun':
             stunned = enemy_soldier.set_stunned(
                     spell_dict['spell_save_DC'], spell_dict['effect_timer'])
@@ -2628,6 +2647,7 @@ class battle_simulation(battlescape):
                     ))
             if not spell_dict.get('damage_dice'):
                 return True
+        # TODO: всё это переносить в функции заклинаний и set_debuff:
         if spell_dict.get('effect') == 'paralyze':
             paralyzed = enemy_soldier.set_paralyzed(
                     spell_dict['spell_save_DC'], spell_dict['effect_timer'])
@@ -2642,6 +2662,7 @@ class battle_simulation(battlescape):
                     ))
             if not spell_dict.get('damage_dice'):
                 return True
+        # TODO: всё это переносить в функции заклинаний и set_debuff:
         elif spell_dict.get('effect') == 'sleep':
             sleep = enemy_soldier.set_sleep(
                     spell_dict['spell_save_DC'], spell_dict['effect_timer'])
@@ -2660,24 +2681,6 @@ class battle_simulation(battlescape):
                     ))
             if not spell_dict.get('damage_dice'):
                 return True
-        if spell_dict.get('effect') == 'poison':
-            # Отравление, это помеха на 20-30 атак в столкновении отрядов.
-            poisoned = enemy_soldier.set_poisoned(
-                    spell_dict['spell_save_DC'], spell_dict['effect_timer'])
-            if poisoned:
-                print('[+++] {side_1}, {c1} {s} POISONED >> {side_2} {c2} {e}'.format(
-                    side_1 = soldier.ally_side,
-                    c1 = soldier.place,
-                    s = soldier.behavior,
-                    side_2 = enemy_soldier.ally_side,
-                    c2 = enemy_soldier.place,
-                    e = enemy_soldier.behavior,
-                    ))
-            if not spell_dict.get('damage_dice'):
-                return True
-            # Яд не наносит урона, если цель прокинула спасбросок.
-            #if not poisoned
-            #    return False
         # У заклинания Ice_Knife есть и шрапнель, и основной поражающий элемент:
         if spell_dict.get('effect') == 'ice_knife' and enemy.place == zone_center:
             self.spellcast_action(soldier, squad, enemy,
@@ -2858,7 +2861,7 @@ class battle_simulation(battlescape):
                         and not self.metadict_soldiers[enemy_soldier.mount_uuid].place == enemy_soldier.place:
                     advantage = True
         # Отравленный получает помеху на атаки:
-        if soldier.poisoned == True:
+        if 'poisoned' in soldier.debuffs:
             disadvantage = True
         # Опутанный получает помеху на атаки:
         if soldier.restrained == True:

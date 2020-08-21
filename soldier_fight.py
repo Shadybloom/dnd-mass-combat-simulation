@@ -205,7 +205,6 @@ class soldier_in_battle(soldier):
         self.defeat = False
         self.escape = False
         self.prone = False
-        self.poisoned = False
         self.stunned = False
         self.paralyzed = False
         self.grappled = False
@@ -419,16 +418,6 @@ class soldier_in_battle(soldier):
                     s = self.behavior,
                     fear = self.fear
                     ))
-        # Отравленный отходит от яда (делая спасброски):
-        if self.poisoned:
-            if self.get_savethrow(self.poison_difficult, 'constitution'):
-                self.poisoned = False
-                self.poison_difficult = None
-            elif self.poison_timer > 0:
-                self.poison_timer -= 1
-            elif self.poison_timer == 0:
-                self.poisoned = False
-                self.poison_difficult = None
         # Ошеломлённый пытается очухаться:
         if self.stunned:
             if self.stunned_timer > 0:
@@ -714,9 +703,16 @@ class soldier_in_battle(soldier):
         """
         effect = spell_dict['effect']
         if effect not in self.buffs:
-            self.buffs[effect] = spell_dict
-            self.spells_generator.use_buff(spell_dict['spell_choice'])
-            return True
+            spell_dict = self.spells_generator.use_buff(spell_dict['spell_choice'], gen_spell = spell_dict)
+            if spell_dict:
+                return spell_dict
+
+    def set_debuff(self, spell_dict):
+        """Солдат получает эффект заклинания."""
+        effect = spell_dict['effect']
+        spell_dict = self.spells_generator.use_buff(spell_dict['spell_choice'], gen_spell = spell_dict)
+        if spell_dict:
+            return spell_dict
 
     def set_frenzy(self, attack_choice):
         """Берсерк бесится.
@@ -1206,31 +1202,6 @@ class soldier_in_battle(soldier):
             self.move_pool = 0
             return True
 
-    def set_poisoned(self, difficult, timer = 10, advantage = False, disadvantage = False):
-        """Бойца пытаются отравить
-
-        - Помеха на броски атаки
-        - Помеха на проверки характеристик
-        
-        Спасбросок телосложения.
-        https://www.dandwiki.com/wiki/5e_SRD:Conditions#Poisoned
-        """
-        ability = 'constitution'
-        if 'antidote' in self.buffs:
-            advantage = True
-        if self.get_savethrow(difficult, ability, advantage, disadvantage)\
-                or 'poisoned' in self.immunity:
-            return False
-        else:
-            self.poison_difficult = difficult
-            self.poison_timer = timer
-            self.poisoned = True
-            #print('[+++] {side_1}, {s} POISONED'.format(
-            #    side_1 = self.ally_side,
-            #    s = self.behavior,
-            #    ))
-            return True
-
     def set_stunned(self, difficult, timer = 1, advantage = False, disadvantage = False):
         """Бойца пытаются оглушить.
         
@@ -1651,7 +1622,7 @@ class soldier_in_battle(soldier):
         """Способности могут дать преимущество на спасбросок."""
         # TODO: уточни, включают ли "проверки характеристик" спасброски.
         # Отравление даёт помеху на проверки характеристик.
-        if self.poisoned:
+        if 'poisoned' in self.debuffs:
             return True
         elif ability == 'dexterity':
             if self.restrained:

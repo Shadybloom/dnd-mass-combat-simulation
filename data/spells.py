@@ -52,7 +52,7 @@ class gen_spells():
             spell_level = spell[0]
             if spell_name in self.usable_spells:
                 func = getattr(self, spell_name)
-                spell_dict = func(spell_level)
+                spell_dict = func(spell_level, use_spell = False)
                 spell_dict['spell_choice'] = spell
                 self.spells[spell] = spell_dict
         # Пополняемый список скастованных заклинаний.
@@ -82,13 +82,15 @@ class gen_spells():
                 # Версии 1-2 генерируются из MAC-адреса.
                 # ------------------------------------------------------------
                 spell_dict['spell_uuid'] = uuid.uuid4()
+                # Переносим заклинание в список баффов/дебаффов. Они учитываются оттуда.
+                if spell_dict.get('buff'):
+                    soldier.buffs[spell_dict['effect']] = spell_dict
+                if spell_dict.get('debuff'):
+                    soldier.debuffs[spell_dict['effect']] = spell_dict
                 # Создаём список скастованных в бою заклинаний:
                 if spell_choice:
                     if not spell_dict['spell_uuid'] in soldier.spells_active:
                         soldier.spells_active[spell_dict['spell_uuid']] = spell_dict
-                    # Переносим заклинание в список баффов. Они учитываются оттуда.
-                    if spell_dict.get('buff'):
-                        soldier.buffs[spell_dict['effect']] = spell_dict
                     #print(len(soldier.spells_active))
                     #print('NYA', spell_choice)
                 # Стихийный адепт преодолевает сопротивляемость определённому урону:
@@ -218,11 +220,12 @@ class gen_spells():
         - Меняет параметры солдата. if gen_spell в заклинании.
         - При этом не должен запускаться декоратор modify_spell.
         """
+        # Декоратор таки запускается. Используется use_spell = True
         spell_level = '1_lvl'
         #spell_level = spell_choice[0]
         spell_name = spell_choice[-1]
         func = getattr(self, spell_name)
-        spell_dict = func(spell_level, gen_spell, spell_choice, use_spell = False)
+        spell_dict = func(spell_level, gen_spell, spell_choice, use_spell = True)
         return spell_dict
 
     def use_spell(self, spell_choice, gen_spell = False, use_spell_slot = True):
@@ -274,6 +277,8 @@ class gen_spells():
 #------------------------------------------------------------
 # Состояния
 
+    @modify_spell
+    @update_spell_dict
     def Blinded(self, spell_level, gen_spell = False, spell_dict = False):
         """Ослепление. Ослеплённый.
         
@@ -286,6 +291,7 @@ class gen_spells():
         # Длительность эффектов указана базовая.
         if not spell_dict:
             spell_dict = {
+                    'debuff':True,
                     'effect':'blinded',
                     'effect_timer':10,
                     'direct_hit':True,
@@ -298,6 +304,8 @@ class gen_spells():
             spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
+    @modify_spell
+    @update_spell_dict
     def Charmed(self, spell_level, gen_spell = False, spell_dict = False):
         """Очарование. Очарованный.
         
@@ -308,6 +316,7 @@ class gen_spells():
         """
         if not spell_dict:
             spell_dict = {
+                    'debuff':True,
                     'effect':'charmed',
                     'effect_timer':10,
                     'direct_hit':True,
@@ -319,6 +328,8 @@ class gen_spells():
             spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
+    @modify_spell
+    @update_spell_dict
     def Deafened(self, spell_level, gen_spell = False, spell_dict = False):
         """Потеря слуха. Оглохший.
         
@@ -328,6 +339,7 @@ class gen_spells():
         """
         if not spell_dict:
             spell_dict = {
+                    'debuff':True,
                     'effect':'deafened',
                     'effect_timer':10,
                     'direct_hit':True,
@@ -339,6 +351,8 @@ class gen_spells():
             spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
+    @modify_spell
+    @update_spell_dict
     def Exhaustion(self, spell_level, gen_spell = False, spell_dict = False):
         """Истощение. Истощённый.
         
@@ -354,6 +368,7 @@ class gen_spells():
         """
         if not spell_dict:
             spell_dict = {
+                    'debuff':True,
                     'effect':'exhaustion',
                     'effect_timer':4800,
                     'direct_hit':True,
@@ -365,6 +380,8 @@ class gen_spells():
             spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
+    @modify_spell
+    @update_spell_dict
     def Frightened(self, spell_level, gen_spell = False, spell_dict = False):
         """Испуг. Испуганный.
         
@@ -376,6 +393,7 @@ class gen_spells():
         """
         if not spell_dict:
             spell_dict = {
+                    'debuff':True,
                     'effect':'frightened',
                     'effect_timer':10,
                     'direct_hit':True,
@@ -387,6 +405,8 @@ class gen_spells():
             spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
+    @modify_spell
+    @update_spell_dict
     def Grappled(self, spell_level, gen_spell = False, spell_dict = False):
         """Захват. Схваченный.
         
@@ -398,6 +418,7 @@ class gen_spells():
         """
         if not spell_dict:
             spell_dict = {
+                    'debuff':True,
                     'effect':'grappled',
                     'effect_timer':100,
                     'direct_hit':True,
@@ -409,6 +430,8 @@ class gen_spells():
             spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
+    @modify_spell
+    @update_spell_dict
     def Incapacitated(self, spell_level, gen_spell = False, spell_dict = False):
         """Недееспособность. Недееспособный.
 
@@ -419,6 +442,7 @@ class gen_spells():
         """
         if not spell_dict:
             spell_dict = {
+                    'debuff':True,
                     'effect':'incapacitated',
                     'effect_timer':600,
                     'direct_hit':True,
@@ -430,6 +454,8 @@ class gen_spells():
             spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
+    @modify_spell
+    @update_spell_dict
     def Invisible(self, spell_level, gen_spell = False, spell_dict = False):
         """Невидимость. Невидимый.
 
@@ -441,6 +467,7 @@ class gen_spells():
         """
         if not spell_dict:
             spell_dict = {
+                    'buff':True,
                     'effect':'invisible',
                     'effect_timer':600,
                     'direct_hit':True,
@@ -452,6 +479,8 @@ class gen_spells():
             spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
+    @modify_spell
+    @update_spell_dict
     def Paralyzed(self, spell_level, gen_spell = False, spell_dict = False):
         """Паралич. Парализованный.
 
@@ -464,6 +493,7 @@ class gen_spells():
         """
         if not spell_dict:
             spell_dict = {
+                    'debuff':True,
                     'effect':'paralyzed',
                     'effect_timer':10,
                     'direct_hit':True,
@@ -475,6 +505,8 @@ class gen_spells():
             spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
+    @modify_spell
+    @update_spell_dict
     def Petrified(self, spell_level, gen_spell = False, spell_dict = False):
         """Окаменение. Окаменевший.
 
@@ -489,6 +521,7 @@ class gen_spells():
         """
         if not spell_dict:
             spell_dict = {
+                    'debuff':True,
                     'effect':'petrified',
                     'effect_timer':4800,
                     'direct_hit':True,
@@ -500,6 +533,8 @@ class gen_spells():
             spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
+    @modify_spell
+    @update_spell_dict
     def Poisoned(self, spell_level, gen_spell = False, spell_dict = False):
         """Отравление. Отравленный.
 
@@ -510,17 +545,37 @@ class gen_spells():
         """
         if not spell_dict:
             spell_dict = {
+                    'debuff':True,
                     'effect':'poisoned',
                     'effect_timer':600,
                     'direct_hit':True,
                     'savethrow':True,
                     'savethrow_ability':'constitution',
+                    'savethrow_advantage':False,
+                    'savethrow_disadvantage':False,
                     'spell_level':spell_level,
                     'spell_save_DC':8 + self.find_spell_attack_mod(),
                     }
             spell_dict = copy.deepcopy(spell_dict)
+        if gen_spell:
+            if not spell_dict.get('target_uuid'):
+                soldier = self.mage
+            else:
+                soldier = self.mage.metadict_soldiers[spell_dict['target_uuid']]
+            difficult = spell_dict['spell_save_DC']
+            ability = spell_dict['savethrow_ability']
+            advantage = spell_dict['savethrow_advantage']
+            disadvantage = spell_dict['savethrow_disadvantage']
+            # Спасбросок против отравления:
+            if 'antidote' in soldier.buffs:
+                advantage = True
+            if soldier.get_savethrow(difficult, ability, advantage, disadvantage)\
+                    or 'poisoned' in soldier.immunity:
+                return False
         return spell_dict
 
+    @modify_spell
+    @update_spell_dict
     def Prone(self, spell_level, gen_spell = False, spell_dict = False):
         """Сбитый с ног. Лежащий ничком.
 
@@ -533,6 +588,7 @@ class gen_spells():
         """
         if not spell_dict:
             spell_dict = {
+                    'debuff':True,
                     'effect':'prone',
                     'effect_timer':10,
                     'direct_hit':True,
@@ -544,6 +600,8 @@ class gen_spells():
             spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
+    @modify_spell
+    @update_spell_dict
     def Restrained(self, spell_level, gen_spell = False, spell_dict = False):
         """Опутывание. Опутанный.
 
@@ -556,6 +614,7 @@ class gen_spells():
         """
         if not spell_dict:
             spell_dict = {
+                    'debuff':True,
                     'effect':'restrained',
                     'effect_timer':100,
                     'direct_hit':True,
@@ -567,6 +626,8 @@ class gen_spells():
             spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
+    @modify_spell
+    @update_spell_dict
     def Stunned(self, spell_level, gen_spell = False, spell_dict = False):
         """Ошеломление. Ошеломлённый. Оглушение.
 
@@ -578,6 +639,7 @@ class gen_spells():
         """
         if not spell_dict:
             spell_dict = {
+                    'debuff':True,
                     'effect':'stunned',
                     'effect_timer':1,
                     'direct_hit':True,
@@ -589,6 +651,8 @@ class gen_spells():
             spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
+    @modify_spell
+    @update_spell_dict
     def Unconscious(self, spell_level, gen_spell = False, spell_dict = False):
         """Без сознания. Бессознательный.
 
@@ -602,6 +666,7 @@ class gen_spells():
         """
         if not spell_dict:
             spell_dict = {
+                    'debuff':True,
                     'effect':'unconscious',
                     'effect_timer':600,
                     'direct_hit':True,
