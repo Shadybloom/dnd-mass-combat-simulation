@@ -1193,7 +1193,9 @@ class battle_simulation(battlescape):
                 squad.destination = destination
                 self.move_action(soldier, squad, destination, allow_replace = True)
         # Командир ведёт бойцов автоматически, но не вырывается впереди строя:
-        if 'lead' in soldier.commands and soldier.behavior == 'commander':
+        if 'lead' in soldier.commands\
+                and soldier.behavior == 'commander'\
+                and soldier.uuid == squad.commanders_list[0].uuid:
             if len(soldier.near_allies) >= 2 or 'fearless' in soldier.commands:
                 if hasattr(squad, 'destination') and squad.destination\
                         and not 'auto' in soldier.commands:
