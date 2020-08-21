@@ -411,10 +411,10 @@ metadict_squads['Band-hero (колдуны Кара\'Яма) (враг)'] = {
     'Warlock 1 lvl (враг) (колдун Кара\'Яма)':12,
     }
 
-metadict_squads['Band-hero (колдуны Кема\'Эша) (враг)'] = {
-    'Warlock 5 lvl (враг) (Кема\'Эш)':1,
-    'Warlock 1 lvl (враг) (колдун Кема\'Эша)':6,
-    }
+#metadict_squads['Band-hero (колдуны Кема\'Эша) (враг)'] = {
+#    'Warlock 5 lvl (враг) (Кема\'Эш)':1,
+#    'Warlock 1 lvl (враг) (колдун Кема\'Эша)':6,
+#    }
 
 metadict_squads['Band-hero (следопыты Энзифа) (враг)'] = {
     'Ranger 5 lvl (враг) (Энзиф «Ходи-гора»)':1,
@@ -812,6 +812,14 @@ metadict_squads['Company-regular (ветераны Тави) (друг)'] = {
 metadict_squads['Squad-hero (кошки Тави) (друг)'] = {
     'Wizard 2 lvl (друг) (кошка Тави)':10,
     'Wizard 7 lvl (друг) (Тави)':1,
+    }
+
+#----
+# Геройские отряды (армия Кемы):
+
+metadict_squads['Squad-hero (колдуны Кема\'Эша) (друг)'] = {
+    'Warlock 6 lvl (друг) (Кема\'Эш)':1,
+    'Warlock 2 lvl (друг) (колдун Кема\'Эша)':10,
     }
 
 #----
