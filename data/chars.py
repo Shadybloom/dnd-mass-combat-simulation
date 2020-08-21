@@ -11026,9 +11026,10 @@ metadict_chars['Warlock 2 lvl (друг) (гневнорожка Козы)'] = {
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
         'Infusion of Claws':1,
+        'Infusion of Barkskin':1,
         'Infusion of Healing':1,
         'Rune of Absorbtion':1,
-        'Rune of Armor':1,
+        #'Rune of Armor':1,
         },
     }
 
@@ -11068,9 +11069,10 @@ metadict_chars['Warlock 3 lvl (друг) (Сефо Форонейская)'] = {
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
         #'Infusion of Healing':1,
+        'Infusion of Barkskin':1,
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
-        'Rune of Armor':1,
+        #'Rune of Armor':1,
         'Dagger':1,
         },
     #'mount_combat':True,

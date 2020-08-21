@@ -458,15 +458,17 @@ class battle_simulation(battlescape):
                 spells_list = [
                         'False_Life',
                         'Mage_Armor',
+                        'Barkskin',
                         'Heroism',
                         'Longstrider',
                         ]
                 for spell in spells_list:
                     if not soldier.armor['armor_use'] and spell == 'Mage_Armor':
                         soldier.use_item('Mage_Armor', gen_spell = True)
-                    if not soldier.concentration and spell == 'Heroism':
-                        spell_dict_modify = {'concentration':False,}
-                        soldier.use_item('Heroism', gen_spell = spell_dict_modify)
+                    if soldier.armor['armor_class'] < 16 and spell == 'Barkskin':
+                        soldier.use_item('Barkskin', gen_spell = True)
+                    if not soldier.bonus_hitpoints and spell == 'Heroism':
+                        soldier.use_item('Heroism', gen_spell = True)
                     if not soldier.bonus_hitpoints and spell == 'False_Life':
                         soldier.use_item('False_Life', gen_spell = True)
                     if spell == 'Longstrider':
@@ -486,11 +488,15 @@ class battle_simulation(battlescape):
                         'Armor_of_Agathys',
                         'False_Life',
                         'Mage_Armor',
+                        'Barkskin',
                         ]
                 for spell in spells_list:
                     if soldier.bonus_hitpoints <= 0 and spell == 'Armor_of_Agathys':
                         soldier.try_spellcast(spell, gen_spell = True)
                     if not soldier.armor['armor_use'] and spell == 'Mage_Armor':
+                        soldier.try_spellcast(spell, gen_spell = True)
+                    if soldier.armor['armor_class'] < 16 and spell == 'Barkskin'\
+                            and not soldier.concentration:
                         soldier.try_spellcast(spell, gen_spell = True)
                     if not soldier.bonus_hitpoints and spell == 'False_Life':
                         soldier.try_spellcast(spell, gen_spell = True)

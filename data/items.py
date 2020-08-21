@@ -1255,9 +1255,18 @@ metadict_items['Infusion of Healing'] = {
 metadict_items['Infusion of False Life'] = {
     'potion':True,
     'spell':'False_Life',
-    'weight (lb)':1/2,
+    'weight (lb)':0,
     'cost (gp)':60 * 2,
     'cost (grams_of_gold)':60 * 2,
+    }
+
+metadict_items['Infusion of Barkskin'] = {
+    'potion':True,
+    'concentration':False,
+    'spell':'Barkskin',
+    'weight (lb)':0,
+    'cost (gp)':60 * 4,
+    'cost (grams_of_gold)':60 * 4,
     }
 
 metadict_items['Infusion of Regeneration'] = {
@@ -1281,6 +1290,7 @@ metadict_items['Infusion of Longstrider'] = {
 
 metadict_items['Infusion of Heroism'] = {
     'potion':True,
+    'concentration':False,
     'spell':'Heroism',
     'weight (lb)':0,
     'cost (gp)':50,
