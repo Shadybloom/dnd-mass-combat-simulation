@@ -1260,7 +1260,7 @@ class soldier():
         attack_mod = dict_attack.get('attack_mod', 0)
         attack_mod_type = dict_attack.get('attack_mod_type',0)
         damage_mod = dict_attack.get('damage_mod', 0)
-        damage_dice = dict_attack['damage_dice']
+        damage_dice = dict_attack.get('damage_dice', None)
         weapon_type_list = dict_attack['weapon_type']
         weapon_skills_use = dict_attack['weapon_skills_use']
         # Большие существа наносят x2 костей урона оружием

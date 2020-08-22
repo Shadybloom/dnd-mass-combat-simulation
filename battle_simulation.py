@@ -577,7 +577,7 @@ class battle_simulation(battlescape):
             if not hasattr(squad, 'battle_stat'):
                 squad.battle_stat = {}
             if not attack_choice:
-                attack_choice = attack_result['attack_choice']
+                attack_choice = attack_result.get('attack_choice',attack_result.get('spell_choice'))
             attack_key_hit = tuple(list(attack_choice) + ['hit'])
             attack_key_fatal = tuple(list(attack_choice) + ['fatal'])
             attack_key_miss = tuple(list(attack_choice) + ['miss'])
@@ -587,9 +587,9 @@ class battle_simulation(battlescape):
             attack_key_hit_friendly = tuple(list(attack_choice) + ['damage_friend'])
             if attack_result.get('hit')\
                     and not attack_result.get('victim_side') == squad.ally_side:
-                if not attack_key_damage in squad.battle_stat and attack_result['damage'] > 0:
+                if not attack_key_damage in squad.battle_stat and attack_result.get('damage',0) > 0:
                     squad.battle_stat[attack_key_damage] = attack_result['damage']
-                elif attack_key_damage in squad.battle_stat and attack_result['damage'] > 0:
+                elif attack_key_damage in squad.battle_stat and attack_result.get('damage',0) > 0:
                     squad.battle_stat[attack_key_damage] += attack_result['damage']
                 if not attack_key_damage_temp_hp in squad.battle_stat\
                         and attack_result.get('bonus_hitpoints_damage',0) > 0:
@@ -606,9 +606,9 @@ class battle_simulation(battlescape):
             # Учитывем дружественный огонь:
             elif attack_result.get('hit')\
                     and attack_result.get('victim_side') == squad.ally_side:
-                if not attack_key_hit_friendly in squad.battle_stat and attack_result['damage'] > 0:
+                if not attack_key_hit_friendly in squad.battle_stat and attack_result.get('damage',0) > 0:
                     squad.battle_stat[attack_key_hit_friendly] = attack_result['damage']
-                elif attack_key_damage in squad.battle_stat and attack_result['damage'] > 0:
+                elif attack_key_damage in squad.battle_stat and attack_result.get('damage',0) > 0:
                     squad.battle_stat[attack_key_hit_friendly] += attack_result['damage']
                 if not attack_key_hit in squad.battle_stat:
                     squad.battle_stat[attack_key_hit] = 1
@@ -2481,6 +2481,7 @@ class battle_simulation(battlescape):
                 # Точка удара заклинания предопределена:
                 spell_choice = spell_dict['spell_choice']
                 auto_zone_target = False
+                #soldier.use_spell_ammo(spell_dict)
             elif spell_dict:
                 # Поиск точки удара для выбранного заклинания:
                 spell_choice = spell_dict['spell_choice']
@@ -2506,6 +2507,7 @@ class battle_simulation(battlescape):
                 elif spell_choice in soldier.attacks:
                     spell_dict = soldier.attacks[spell_choice]
                     spell_dict['spell_choice'] = spell_choice
+                    soldier.use_ammo(soldier.attacks[spell_choice], squad.metadict_soldiers)
                 # Используется слот заклинания:
                 else:
                     spell_dict = soldier.try_spellcast(spell_choice)
@@ -2601,6 +2603,7 @@ class battle_simulation(battlescape):
         if spell_dict.get('debuff'):
             debuff_dict = enemy_soldier.set_debuff(spell_dict)
             if debuff_dict:
+                debuff_dict['hit'] = True
                 effect_upper = debuff_dict.get('effect', spell_choice[-1]).upper()
                 print('[+++] {side_1}, {c1} {s} {effect_upper} >> {side_2} {c2} {e}'.format(
                     side_1 = soldier.ally_side,
@@ -2617,8 +2620,8 @@ class battle_simulation(battlescape):
                     self.dict_battlespace[fall_place].append('fall_place')
                     self.dict_battlespace[fall_place].append(enemy_soldier.ally_side)
             # Если заклинание не наносит урона, то прерывание:
-            if not spell_dict.get('damage_dice'):
-                return True
+            #if not spell_dict.get('damage_dice'):
+            #    return True
         # TODO: всё это переносить в функции заклинаний и set_debuff:
         # Вызов страха от паладинского Dreadful_Aspect и заклинания "Fear"
         if spell_dict.get('effect') == 'fear':
@@ -2691,45 +2694,40 @@ class battle_simulation(battlescape):
             self.spellcast_action(soldier, squad, enemy,
                     spell_choice = spell_dict['subspell'], subspell = True, use_spell = False)
         # Атака заклинанием:
-        advantage, disadvantage = self.test_enemy_defence(soldier, enemy_soldier, spell_choice)
-        if spell_dict.get('direct_hit'):
-            attack_dict = soldier.spell_attack(spell_dict, enemy,
-                    squad.metadict_soldiers,
-                    advantage = advantage, disadvantage = disadvantage)
-            attack_result = enemy_soldier.take_attack(
-                    spell_choice, attack_dict, self.metadict_soldiers)
-        # Заклинания с показателем атаки мало отличаются от стрел и мечей:
-        elif spell_dict.get('attack_mod') or spell_dict.get('attack_mod') == 0:
-            attack_dict = soldier.attack(spell_dict, spell_choice,
-                    enemy, self.metadict_soldiers,
-                    advantage = advantage, disadvantage = disadvantage)
-            attack_result = enemy_soldier.take_attack(
-                    spell_choice, attack_dict, self.metadict_soldiers)
+        if spell_dict.get('damage_dice'):
+            advantage, disadvantage = self.test_enemy_defence(soldier, enemy_soldier, spell_choice)
+            if spell_dict.get('direct_hit'):
+                attack_dict = soldier.spell_attack(spell_dict, enemy,
+                        squad.metadict_soldiers,
+                        advantage = advantage, disadvantage = disadvantage)
+                attack_result = enemy_soldier.take_attack(
+                        spell_choice, attack_dict, self.metadict_soldiers)
+            # Заклинания с показателем атаки мало отличаются от стрел и мечей:
+            elif spell_dict.get('attack_mod') or spell_dict.get('attack_mod') == 0:
+                attack_dict = soldier.attack(spell_dict, spell_choice,
+                        enemy, self.metadict_soldiers,
+                        advantage = advantage, disadvantage = disadvantage)
+                attack_result = enemy_soldier.take_attack(
+                        spell_choice, attack_dict, self.metadict_soldiers)
+            else:
+                print('NYA. Недопиленое заклинание', spell_choice, spell_dict)
+                return False
+            if spell_dict.get('effect') == 'steal_life':
+                bonus_hitpoints_bless = attack_result['damage']
+                if bonus_hitpoints_bless > soldier.bonus_hitpoints:
+                    soldier.set_hitpoints(bonus_hitpoints = bonus_hitpoints_bless)
+        elif spell_dict.get('debuff') and debuff_dict:
+            attack_result = debuff_dict
         else:
-            print('NYA. Недопиленое заклинание', spell_choice, spell_dict)
-            return False
-        if spell_dict.get('effect') == 'steal_life':
-            bonus_hitpoints_bless = attack_result['damage']
-            if bonus_hitpoints_bless > soldier.bonus_hitpoints:
-                soldier.set_hitpoints(bonus_hitpoints = bonus_hitpoints_bless)
-        # Заклинание Hex:
-        # Только для атак, а не для зональных эффектов.
-        #if attack_result['hit'] and soldier.concentration\
-        #        and not spell_dict.get('effect') == 'hex'\
-        #        and soldier.concentration.get('effect') == 'hex'\
-        #        and soldier.concentration['effect'] in enemy_soldier.debuffs\
-        #        and soldier.concentration['target_uuid'] == enemy_soldier.uuid:
-        #    spell_dict = soldier.concentration
-        #    self.fireball_action(soldier, squad, spell_dict, enemy.place,
-        #            single_target = enemy)
+            attack_result = spell_dict
         # Победа приносит бойцу опыт:
-        if attack_result['fatal_hit']:
+        if attack_result.get('fatal_hit'):
             soldier.set_victory_and_enemy_defeat(enemy_soldier)
             # Критический удар калечит цель:
             if attack_result['crit']:
                 enemy_soldier.set_disabled()
         # Убираем противника из списка целей и с карты:
-        if attack_result['fatal_hit']:
+        if attack_result.get('fatal_hit'):
             if 'kill' in soldier.commands:
                 enemy_soldier.killer_mark = True
             self.clear_battlemap()
@@ -2740,7 +2738,7 @@ class battle_simulation(battlescape):
                 squad.enemies.pop(enemy.uuid)
         # Обобщаем статистику атак (расход боеприпасов и прочее):
         self.set_squad_battle_stat(attack_result, squad)
-        if attack_result['hit']:
+        if attack_result.get('hit'):
             return True
         else:
             return False
@@ -3112,6 +3110,10 @@ class battle_simulation(battlescape):
                         soldier.killer_mark = False
                     if 'sleep' in soldier.debuffs:
                         soldier.debuffs.pop('sleep')
+                        if 'fall_place' in self.dict_battlespace[soldier.place]\
+                                and soldier.ally_side in self.dict_battlespace[soldier.place]:
+                            self.dict_battlespace[soldier.place].remove('fall_place')
+                            self.dict_battlespace[soldier.place].remove(soldier.ally_side)
                         break
                     elif soldier.captured:
                         soldier.captured = False
