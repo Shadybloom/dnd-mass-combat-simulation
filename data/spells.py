@@ -689,8 +689,8 @@ class gen_spells():
             advantage = spell_dict['savethrow_advantage']
             disadvantage = spell_dict['savethrow_disadvantage']
             # Спасбросок только от усыпления ядами:
-            if 'antidote' in soldier.buffs:
-                advantage = True
+            #if 'antidote' in soldier.buffs:
+            #    advantage = True
             # Спасбросок против потери сознания (от яда):
             if soldier.get_savethrow(difficult, ability, advantage, disadvantage)\
                     or 'unconscious' in soldier.immunity:
