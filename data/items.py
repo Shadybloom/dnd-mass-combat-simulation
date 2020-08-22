@@ -1281,11 +1281,14 @@ metadict_items['Infusion of Barkskin'] = {
     }
 
 metadict_items['Infusion of Regeneration'] = {
-    # TODO: не работает. Заклинание не указано, да и не сделано.
+    # Действует 10 минут, ослабленная версия заклинания.
+    # В первый раунд 2d4+2 хитов, в последующие 1 хит/раунд.
     'potion':True,
-    'effect':'healing',
-    #'healing_dice':'1d4',
-    'healing_mod':1,
+    'spell':'Regeneration',
+    'effect_timer':100,
+    'damage_type':'heal',
+    'healing_dice':'2d4',
+    'healing_mod':2,
     'weight (lb)':0,
     'cost (gp)':50 * 4,
     'cost (grams_of_gold)':60 * 4,

@@ -222,7 +222,7 @@ class soldier_in_battle(soldier):
         # Способности бойца, паладина:
         self.action_surge = False
         # Словарь ранений (disabled)
-        if not hasattr(self, 'trophy_items_dict'):
+        if not hasattr(self, 'traumas_dict'):
             self.traumas_dict = {}
         # Словарь трофеев:
         if not hasattr(self, 'trophy_items_dict'):
@@ -1080,6 +1080,7 @@ class soldier_in_battle(soldier):
         """Боец лечится зельем."""
         spells_list = [
                 'Cure_Wounds',
+                'Regeneration',
                 'Goodberry',
                 ]
         if use_minor_potion:

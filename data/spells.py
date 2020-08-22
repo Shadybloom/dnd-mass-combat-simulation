@@ -3023,3 +3023,60 @@ class gen_spells():
         #    dice += int(spell_level[0]) - 1
         #    spell_dict['damage_dice'] = str(dice) + spell_dict['damage_dice'][1:]
         return spell_dict
+
+#----
+# 7 lvl
+
+    @modify_spell
+    @update_spell_dict
+    def Regeneration(self, spell_level, gen_spell = False, spell_dict = False):
+        """Регенерация
+
+        Level: 7
+        Casting time: 1 Minute
+        Range: Touch
+        Components: V, S, M (a prayer wheel and holy water)
+        Duration: 1 hour
+        https://www.dnd-spells.com/spell/regenerate
+        """
+        if not spell_dict:
+            spell_dict = {
+                    'buff':True,
+                    'repeat':True,
+                    'effect':'regeneration',
+                    'effect_timer':600,
+                    'attacks_number':1,
+                    'attack_range':5,
+                    'damage_type':'heal',
+                    'healing_dice':'4d8',
+                    'healing_mod':15,
+                    'components':['verbal','somatic','material'],
+                    'casting_time':'action',
+                    'spell_level':spell_level,
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    'spell_of_choice':'Bane',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
+        if gen_spell:
+            if not spell_dict.get('target_uuid'):
+                soldier = self.mage
+            else:
+                soldier = self.mage.metadict_soldiers[spell_dict['target_uuid']]
+            # При первом использовании восстанавливает 4d8+15 хитов:
+            if soldier.hitpoints < soldier.hitpoints_max and not 'regeneration' in soldier.buffs:
+                heal = dices.dice_throw_advantage(spell_dict['healing_dice']) + spell_dict['healing_mod']
+                soldier.set_hitpoints(heal = heal)
+                soldier.stable = True
+            # Далее 1 хит/раунд, лечит травмы:
+            elif 'regeneration' in soldier.buffs:
+                soldier.set_hitpoints(heal = 1)
+                soldier.stable = True
+                if soldier.disabled:
+                    soldier.disabled = False
+                if soldier.traumas_dict:
+                    soldier.traumas_dict = {}
+                #if len(soldier.traumas_dict) >= 1
+                #    soldier.traumas_dict.pop(random.choice(list(soldier.traumas_dict.keys())))
+            else:
+                return False
+        return spell_dict
