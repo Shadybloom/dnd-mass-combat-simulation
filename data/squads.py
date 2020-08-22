@@ -711,7 +711,7 @@ metadict_squads['Company-regular (ветераны Гая Юлия) (Katorjnik)'
     'Warrior 3 lvl (Katorjnik) (урагос)':6,
     'Warrior 5 lvl (Katorjnik) (центурион)':2,
     'Warrior 4 lvl (Katorjnik) (опцион)':2,
-    #'Commoner 1 lvl (recruit)':100,
+    'Commoner 1 lvl (recruit)':100,
     }
 
 #metadict_squads['Company-regular (ветераны Гая Юлия) (смешанный) (Katorjnik)'] = {

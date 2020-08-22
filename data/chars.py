@@ -10209,14 +10209,9 @@ metadict_chars['Warrior 5 lvl (враг) (капитан Акхена)'] = {
 
 metadict_chars['Warrior 1 lvl (враг) (демон-рядовой)'] = {
     # У них природный доспех с 12 AC. Крепкая шкура. В лёгкой броне демоны не нуждаются.
-    # Regeneration_Minor восстанавливает отряду 100+ хитов за 3 минуты боя. Требует действия.
     'level':1,
     'char_class':'Warrior',
     'behavior':'warrior',
-    'class_features':{
-        'Regeneration_Minor':1,
-        'vultenability':['radiant'],
-        },
     'hit_dice':'1d8',
     'race':'Primevial-medium',
     'weapon_skill':['simple','martial'],
@@ -10224,21 +10219,20 @@ metadict_chars['Warrior 1 lvl (враг) (демон-рядовой)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':militia_pack,
     'equipment_weapon':{
-        'Heavy Shield':1,
-        'Shortsword':1,
+        'Shield':1,
+        'Battleaxe':1,
         'Long Spear':1,
+        #'Javelin':6,
         },
     }
 
 metadict_chars['Warrior 2 lvl (враг) (демон-ветеран)'] = {
-    # Демоны-ветераны регенерируют на 1 hp/раунд. Но только лёгкие раны, пока больше 0 hp.
     # У демонов-ветеранов сопротивляемость к огню и обычному оружию.
     # Уязвимость к излучению и серебру.
     'level':2,
     'char_class':'Warrior',
     'behavior':'elite_warrior',
     'class_features':{
-        'Regeneration':1,
         'resistance':['slashing','piercing','bludgeoning'],
         'vultenability':['radiant'],
         },
@@ -10249,17 +10243,15 @@ metadict_chars['Warrior 2 lvl (враг) (демон-ветеран)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':militia_pack,
     'equipment_weapon':{
-        'Infusion of Longstrider':1,
-        'Shield':1,
+        'Infusion of Regeneration':1,
+        'Heavy Shield':1,
         'Battleaxe':1,
         'Long Spear':1,
+        #'Javelin':6,
         },
     }
 
 metadict_chars['Warrior 3 lvl (враг) (демон-сержант)'] = {
-    # Есть мнение, что героизм им больше вредит, чем помогает.
-    # Тактически, им выгоднее отступить, чтобы восстановить хиты. Регенерация же.
-    # А они прут вперёд, несмотря на раны, потому что "бесстрашны" из-за 'Infusion of Heroism'
     'level':3,
     'brave_AI':True,
     'killer_AI':True,
@@ -10267,7 +10259,6 @@ metadict_chars['Warrior 3 lvl (враг) (демон-сержант)'] = {
     'char_class':'Warrior-officer',
     'behavior':'commander',
     'class_features':{
-        'Regeneration':2,
         'resistance':['slashing','piercing','bludgeoning'],
         'vultenability':['radiant'],
         },
@@ -10278,9 +10269,12 @@ metadict_chars['Warrior 3 lvl (враг) (демон-сержант)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':militia_pack,
     'equipment_weapon':{
+        'Infusion of Regeneration':1,
         'Infusion of Heroism':1,
+        'Heavy Shield':1,
         'Battleaxe':1,
-        'Shield':1,
+        'Long Spear':1,
+        #'Javelin':6,
         },
     }
 
@@ -10292,7 +10286,6 @@ metadict_chars['Warrior 4 lvl (враг) (демон-лейтенант)'] = {
     'char_class':'Warrior-officer',
     'behavior':'commander',
     'class_features':{
-        'Regeneration':3,
         'resistance':['slashing','piercing','bludgeoning'],
         'vultenability':['radiant'],
         },
@@ -10303,10 +10296,13 @@ metadict_chars['Warrior 4 lvl (враг) (демон-лейтенант)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':militia_pack,
     'equipment_weapon':{
+        'Infusion of Regeneration':1,
         'Infusion of Heroism':1,
-        'Rune of Shielding':1,
+        'Rune of Absorbtion':1,
+        'Heavy Shield':1,
         'Battleaxe':1,
-        'Shield':1,
+        'Long Spear':1,
+        #'Javelin':6,
         },
     }
 
@@ -10318,7 +10314,6 @@ metadict_chars['Warrior 5 lvl (враг) (демон-капитан)'] = {
     'char_class':'Warrior-officer',
     'behavior':'commander',
     'class_features':{
-        'Regeneration':4,
         'resistance':['slashing','piercing','bludgeoning'],
         'vultenability':['radiant'],
         },
@@ -10329,12 +10324,14 @@ metadict_chars['Warrior 5 lvl (враг) (демон-капитан)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':militia_pack,
     'equipment_weapon':{
+        'Infusion of Regeneration':1,
         'Infusion of Heroism':1,
         'Rune of Absorbtion':1,
-        'Rune of Shielding':1,
         'Half Plate':1,
+        'Heavy Shield':1,
         'Battleaxe':1,
-        'Shield':1,
+        'Long Spear':1,
+        #'Javelin':6,
         },
     }
 
