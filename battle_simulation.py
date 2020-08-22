@@ -2139,7 +2139,6 @@ class battle_simulation(battlescape):
                 if attack_result['hit']:
                     if 'armor_of_agathys' in enemy_soldier.buffs:
                         if attack_choice[0] == 'close' or attack_choice[0] == 'reach':
-                            print(enemy_soldier.rank, enemy_soldier.bonus_hitpoints)
                             recon_dict = self.recon(soldier.place,
                                     soldier_coordinates = enemy_soldier.place)
                             if soldier.uuid in recon_dict.keys():
