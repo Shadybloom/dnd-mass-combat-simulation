@@ -7123,7 +7123,7 @@ metadict_chars['Druid 2 lvl (Vaarsuvius) (друид Ианты)'] = {
     }
 
 metadict_chars['Druid 2 lvl (Vaarsuvius) (друид Ианты) (Агата)'] = {
-    # погибла в "Битве за Лемнос". Реинкарнирована.
+    # Погибла в "Битве за Лемнос". Реинкарнирована в дракона. Повезло.
     'level':2,
     'seeker_AI':True,
     'killer_AI':True,
@@ -7196,6 +7196,7 @@ metadict_chars['Brass Dragon, (Vaarsuvius) (Агаталара Огненная)
     #'recharge_AI':True,
     'no_grappler_AI':True,
     'air_walk':True,
+    'armor_class_natural':17,
     'challenge_rating':'6',
     'char_class':'Sorcerer',
     'behavior':'commander',
@@ -7208,6 +7209,26 @@ metadict_chars['Brass Dragon, (Vaarsuvius) (Агаталара Огненная)
         'Recharge':True,
         'Recharge_dice':'1d6',
         'Recharge_numbers':[5,6],
+        # Способности Агаты:
+        'Feat_Healer':True,
+        'Spellcasting':True,
+        'Spells':[
+            ('cantrip', 'Druidcraft'),
+            ('cantrip', 'Mold_Earth'),
+            ('ritual', 'Speak_with_Animals'),
+            #('1_lvl', 'Goodberry'),
+            #('1_lvl', 'Cure_Wounds'),
+            #('1_lvl', 'Healing_Word'),
+            ('1_lvl', 'Absorb_Elements'),
+            ('1_lvl', 'Fog_Cloud'),
+            ],
+        'Druidic_Language':True,
+        'Wild_Shape':True,
+        #'Wild_Shape_Form':'Brown Bear (CR 1)',
+        #'Wild_Shape_Form':'Giant Octopus (CR 1)',
+        'Druid_Circle_Moon':True,
+        'Combat_Wild_Shape':True,
+        'Circle_Forms':True,
         },
     'abilityes':{
         'strength':19,
