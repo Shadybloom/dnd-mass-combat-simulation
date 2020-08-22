@@ -118,6 +118,7 @@ metadict_squads['test enemy (archmage)'] = {
     }
 
 metadict_squads['test enemy (dragon)'] = {
+    # Дракон
     'Red Dragon, Young (CR 10)':1,
     }
 
@@ -666,7 +667,8 @@ metadict_squads['Company-hero (арбалетчики Тетры) (друг)'] =
 # Союзные отряды (армия Козы):
 
 metadict_squads['Company-hero (гневнорожки Сефо) (друг)'] = {
-    'Warlock 2 lvl (друг) (гневнорожка Козы)':90,
+    'Warlock 2 lvl (друг) (гневнорожка Козы)':80,
+    'Warlock 3 lvl (друг) (главнорожка Козы)':10,
     'Warlock 3 lvl (друг) (Сефо Форонейская)':1,
     }
 
@@ -890,8 +892,11 @@ metadict_squads['Company-regular (ветераны Филлис) (Vaarsuvius)'] 
 metadict_squads['Squad-hero (друиды Ианты) (Vaarsuvius)'] = {
     'Druid 7 lvl (Vaarsuvius) (Ианта «Дочь бури»)':1,
     'Druid 2 lvl (Vaarsuvius) (друид Ианты) (Психея)':1,
-    #'Druid 2 lvl (Vaarsuvius) (друид Ианты) (Агата)':1,
-    'Druid 2 lvl (Vaarsuvius) (друид Ианты)':18,
+    'Druid 2 lvl (Vaarsuvius) (друид Ианты)':19,
+    }
+
+metadict_squads['Band-hero (дракон Ианты) (Vaarsuvius)'] = {
+    'Brass Dragon, (Vaarsuvius) (Агаталара Огненная)':1,
     }
 
 #----
