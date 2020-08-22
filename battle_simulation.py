@@ -1123,7 +1123,7 @@ class battle_simulation(battlescape):
                 if 'engage' in soldier.commands:
                     soldier.commands.remove('engage')
             # Существа с перезарядкой атак не бросаются в бой, пока не готовы:
-            if 'recharge' in soldier.commands and soldier.recharge_dict:
+            if 'recharge' in soldier.commands and len(soldier.metadict_recharge) >= 1:
                 if 'engage' in soldier.commands:
                     soldier.commands.remove('engage')
             # Солдат отступает из опасной зоны:
@@ -2525,6 +2525,11 @@ class battle_simulation(battlescape):
                     counterspell = self.counterspell_action(spell_dict, soldier)
                     if counterspell:
                         return False
+                # Маг всеми силами не задевает своих:
+                # Для драконьего дыхания.
+                if spell_dict.get('accurate'):
+                    if [target for target in targets if target.side == soldier.ally_side]:
+                        return False
                 if single_target:
                     targets = [target for target in targets
                             if target.uuid == single_target.uuid]
@@ -2780,9 +2785,14 @@ class battle_simulation(battlescape):
                 for zone_center, danger in squad.danger_points.items():
                     distance = round(distance_measure(soldier.place, zone_center))
                     if not spell_dict.get('zone_shape') == 'cone'\
+                            and not spell_dict.get('zone_shape') == 'ray'\
                             and distance <= attack_range:
                         return spell_choice, zone_center
                     elif spell_dict.get('zone_shape') == 'cone'\
+                            and distance <= attack_range / 2\
+                            and not distance == 0:
+                        return spell_choice, zone_center
+                    elif spell_dict.get('zone_shape') == 'ray'\
                             and distance <= attack_range / 2\
                             and not distance == 0:
                         return spell_choice, zone_center

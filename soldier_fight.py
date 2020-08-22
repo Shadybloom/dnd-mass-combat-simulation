@@ -250,7 +250,7 @@ class soldier_in_battle(soldier):
             self.wild_shape_old_form['place'] = self.place
             self.wild_shape_old_form['place_in_order'] = self.place_in_order
         if not hasattr(self, 'recharge'):
-            self.recharge_dict = None
+            self.metadict_recharge = {}
         if not hasattr(self, 'wild_shape'):
             self.wild_shape = False
         if not hasattr(self, 'water_walk'):
@@ -470,12 +470,13 @@ class soldier_in_battle(soldier):
         self.near_enemies = [ ]
         # Особенности монстров:
         # Перезарядка способности:
-        if self.class_features.get('Recharge') and self.recharge_dict:
+        if self.class_features.get('Recharge') and len(self.metadict_recharge) >= 1:
             recharge_throw = dices.dice_throw(self.class_features['Recharge_dice'])
             if recharge_throw in self.class_features['Recharge_numbers']:
-                attack_choice = self.recharge_dict['recharge']
-                self.attacks[attack_choice] = self.recharge_dict
-                self.recharge_dict = None
+                attack_choice = random.choice(list(self.metadict_recharge.keys()))
+                attack_dict = self.metadict_recharge.pop(attack_choice)
+                attack_dict['ammo'] = 1
+                self.attacks[attack_choice] = attack_dict
         # Регенерация троллей и демонов:
         if self.class_features.get('Regeneration')\
                 and self.hitpoints < self.hitpoints_max:
@@ -2039,15 +2040,13 @@ class soldier_in_battle(soldier):
             for attack in unset_list:
                 attack_dict = self.attacks.pop(attack)
                 if attack_dict.get('recharge'):
-                    self.recharge_dict = attack_dict
-                    self.recharge_dict['recharge'] = attack
-                    self.recharge_dict['ammo'] = 1
+                    self.metadict_recharge[attack] = attack_dict
             if ammo_type and ammo_type in self.equipment_weapon:
                 self.drop_item(ammo_type, drop_all = True)
             if disarm:
                 self.drop_item(weapon_type, drop_all = True)
             # Выбираем лучшее оружие из оставшегося:
-            if not self.recharge_dict:
+            if not len(self.metadict_recharge) >= 1:
                 self.attacks.update(self.modify_attacks_weapon_of_choice())
 
     def set_shield(self):
