@@ -664,16 +664,17 @@ class soldier_in_battle(soldier):
 
         Концентрация прерывается, если закончился боекомплект.
         """
-        if spell_dict.get('ammo') > 0:
-            spell_dict['ammo'] -=1
-            return True
-        if spell_dict.get('ammo') <= 0:
-            if self.concentration\
-                    and self.concentration.get('spell_choice')\
-                    and spell_dict.get('spell_choice') == self.concentration['spell_choice']\
-                    and not spell_dict.get('concentration_no_ammo'):
-                self.set_concentration_break(autofail = True)
-            return False
+        if spell_dict.get('ammo'):
+            if spell_dict.get('ammo') > 0:
+                spell_dict['ammo'] -=1
+                return True
+            if spell_dict.get('ammo') <= 0:
+                if self.concentration\
+                        and self.concentration.get('spell_choice')\
+                        and spell_dict.get('spell_choice') == self.concentration['spell_choice']\
+                        and not spell_dict.get('concentration_no_ammo'):
+                    self.set_concentration_break(autofail = True)
+                return False
 
     def set_concentration_break(self, difficult = 10,
             advantage = False, disadvantage = False, autofail = False):
