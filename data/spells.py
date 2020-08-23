@@ -105,21 +105,14 @@ class gen_spells():
                         and spell_dict.get('direct_hit'):
                     spell_dict['ignore_cover'] = True
                     spell_dict['attack_range'] *= 2
-                # TODO: Arcane_Ward перенеси сюда из Mage_Armor.
-                # ------------------------------------------------------------
-                # Срабатывает на любые заклинания школы abjuration.
-                # ------------------------------------------------------------
                 # Магическая защита восстанавливается или создаётся:
-                #if self.class_features.get('Arcane_Ward'):
-                #    if self.arcane_ward and not self.bonus_hitpoints:
-                #        self.bonus_hitpoints = int(spell_dict['spell_level'][0]) * 2
-                #    elif not self.arcane_ward:
-                #        self.bonus_hitpoints = self.level * 2 + self.mods['intelligence']
-
-                #soldier.mage_armor = spell_dict
-                #if soldier.class_features.get('Arcane_Ward') and not soldier.bonus_hitpoints:
-                #    soldier.bonus_hitpoints = soldier.level * 2 + soldier.mods['intelligence']
-                #    soldier.arcane_ward = True
+                if soldier.class_features.get('Arcane_Ward')\
+                        and spell_dict.get('school') == 'abjuration':
+                    if soldier.arcane_ward and not soldier.bonus_hitpoints:
+                        soldier.bonus_hitpoints = int(spell_dict['spell_level'][0]) * 2
+                    elif not soldier.arcane_ward and not soldier.bonus_hitpoints:
+                        soldier.bonus_hitpoints = soldier.level * 2 + soldier.mods['intelligence']
+                        soldier.arcane_ward = True
                 return spell_dict
             elif spell_dict and not use_spell:
                 return spell_dict
