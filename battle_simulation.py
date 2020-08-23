@@ -1247,7 +1247,8 @@ class battle_simulation(battlescape):
         if 'sneak' in soldier.commands and enemy and squad.__dict__.get('enemy_recon'):
             if self.metadict_soldiers[enemy.uuid].hero\
                     or 'throw' in squad.enemy_recon['attacks']\
-                    or 'ranged' in squad.enemy_recon['attacks']:
+                    or 'ranged' in squad.enemy_recon['attacks']\
+                    or squad.enemy_recon['enemy_strenght'] > squad.enemy_recon['ally_strenght']:
                 self.sneak_action(soldier, squad, enemy)
         # Атака следует за 'engage', поэтому осматриваемся снова:
         if 'attack' in soldier.commands:
