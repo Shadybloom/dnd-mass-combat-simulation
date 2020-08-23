@@ -913,6 +913,7 @@ class gen_spells():
                     'spell_save_DC':8 + self.find_spell_attack_mod(),
                     # TODO: сделай выбор оптимального заклинания:
                     'spell_of_choice':'Eldritch_Blast',
+                    'school':'evocation',
                     }
             spell_dict = copy.deepcopy(spell_dict)
         if self.mage.class_features.get('Invocation_Agonizing_Blast'):
@@ -952,6 +953,7 @@ class gen_spells():
                     'attack_mod':self.find_spell_attack_mod(),
                     'spell_save_DC':8 + self.find_spell_attack_mod(),
                     'spell_of_choice':'Fire_Bolt',
+                    'school':'evocation',
                     }
             spell_dict = copy.deepcopy(spell_dict)
         if self.mage.level >= 5:
@@ -995,6 +997,7 @@ class gen_spells():
                     'attack_mod':self.find_spell_attack_mod(),
                     'spell_save_DC':8 + self.find_spell_attack_mod(),
                     'spell_of_choice':'Acid_Splash',
+                    'school':'conjuration',
                     }
             spell_dict = copy.deepcopy(spell_dict)
         if self.mage.level >= 5:
@@ -1034,6 +1037,7 @@ class gen_spells():
                     'damage_mod':0,
                     'spell_save_DC':8 + self.find_spell_attack_mod(),
                     'spell_of_choice':'Vicious_Mockery',
+                    'school':'enchantment',
                     }
             spell_dict = copy.deepcopy(spell_dict)
         if self.mage.level >= 5:
@@ -1073,6 +1077,7 @@ class gen_spells():
                     'damage_mod':0,
                     'spell_save_DC':8 + self.find_spell_attack_mod(),
                     'spell_of_choice':'Frostbite',
+                    'school':'evocation',
                     }
             spell_dict = copy.deepcopy(spell_dict)
         if self.mage.level >= 5:
@@ -1112,6 +1117,7 @@ class gen_spells():
                     'damage_mod':0,
                     'spell_save_DC':8 + self.find_spell_attack_mod(),
                     'spell_of_choice':'Sacred_Flame',
+                    'school':'evocation',
                     }
             spell_dict = copy.deepcopy(spell_dict)
         if self.mage.level >= 5:
@@ -1152,6 +1158,7 @@ class gen_spells():
                     'spell_level':spell_level,
                     'spell_save_DC':8 + self.find_spell_attack_mod(),
                     'spell_of_choice':'Sword_Burst',
+                    'school':'conjuration',
                     }
             spell_dict = copy.deepcopy(spell_dict)
         if self.mage.level >= 5:
@@ -1192,6 +1199,7 @@ class gen_spells():
                     'spell_level':spell_level,
                     'spell_save_DC':8 + self.find_spell_attack_mod(),
                     'spell_of_choice':'Thunderclap',
+                    'school':'evocation',
                     }
             spell_dict = copy.deepcopy(spell_dict)
         if self.mage.level >= 5:
@@ -1232,6 +1240,7 @@ class gen_spells():
                     'spell_level':spell_level,
                     'spell_save_DC':8 + self.find_spell_attack_mod(),
                     'spell_of_choice':'Word_of_Radiance',
+                    'school':'evocation',
                     }
             spell_dict = copy.deepcopy(spell_dict)
         if self.mage.level >= 5:
@@ -1276,6 +1285,7 @@ class gen_spells():
                     'spell_level':spell_level,
                     'spell_save_DC':8 + self.find_spell_attack_mod(),
                     'spell_of_choice':'Create_Bonfire',
+                    'school':'conjuration',
                     }
             spell_dict = copy.deepcopy(spell_dict)
         if self.mage.level >= 5:
@@ -1307,6 +1317,7 @@ class gen_spells():
                     'attack_mod':self.find_spell_attack_mod(),
                     'spell_save_DC':8 + self.find_spell_attack_mod(),
                     'spell_of_choice':'Ice_Knife_Piercing',
+                    'school':'conjuration',
                     }
             spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
@@ -1333,6 +1344,7 @@ class gen_spells():
                     'spell_level':spell_level,
                     'spell_save_DC':8 + self.find_spell_attack_mod(),
                     'spell_of_choice':'Magic_Missile',
+                    'school':'evocation',
                     }
             spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
@@ -1357,6 +1369,7 @@ class gen_spells():
                     'attack_mod':15,
                     'spell_save_DC':23,
                     'spell_of_choice':'Empyrean_Bolt',
+                    'school':'evocation',
                     }
             spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
@@ -1390,6 +1403,7 @@ class gen_spells():
                     'spell_level':spell_level,
                     'spell_save_DC':8 + self.find_spell_attack_mod(),
                     'spell_of_choice':'Bane',
+                    'school':'evocation',
                     }
             spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 1:
@@ -1437,6 +1451,7 @@ class gen_spells():
                     'spell_level':spell_level,
                     'spell_save_DC':8 + self.find_spell_attack_mod(),
                     'spell_of_choice':'Bane',
+                    'school':'evocation',
                     }
             spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 1:
@@ -1486,6 +1501,7 @@ class gen_spells():
                     'spell_level':spell_level,
                     'spell_save_DC':8 + self.find_spell_attack_mod(),
                     'spell_of_choice':'Bane',
+                    'school':'transmutation',
                     }
             spell_dict = copy.deepcopy(spell_dict)
         # В "Ответах мудреца" сказано, что Disciple_of_Life усиливает эффект добряники.
@@ -1536,6 +1552,7 @@ class gen_spells():
                     'spell_level':spell_level,
                     'spell_save_DC':8 + self.find_spell_attack_mod(),
                     'spell_of_choice':'Bane',
+                    'school':'enchantment',
                     }
             spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 1:
@@ -1566,6 +1583,7 @@ class gen_spells():
                     'spell_level':spell_level,
                     'spell_save_DC':8 + self.find_spell_attack_mod(),
                     'spell_of_choice':'Bane',
+                    'school':'abjuration',
                     }
             spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
@@ -1595,6 +1613,7 @@ class gen_spells():
                     'spell_level':spell_level,
                     'spell_save_DC':8 + self.find_spell_attack_mod(),
                     'spell_of_choice':'Bane',
+                    'school':'transmutation',
                     }
             spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 1:
@@ -1641,6 +1660,7 @@ class gen_spells():
                     'spell_level':spell_level,
                     'spell_save_DC':8 + self.find_spell_attack_mod(),
                     'spell_of_choice':'Bane',
+                    'school':'enchantment',
                     }
             spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 1:
@@ -1676,6 +1696,7 @@ class gen_spells():
                     'spell_level':spell_level,
                     'spell_save_DC':8 + self.find_spell_attack_mod(),
                     'spell_of_choice':'Cause_Fear',
+                    'school':'conjuration',
                     }
             spell_dict = copy.deepcopy(spell_dict)
         # Радиус облака растёт на 20 футов за каждый уровень выше первого:
@@ -1711,6 +1732,7 @@ class gen_spells():
                     'spell_level':spell_level,
                     'spell_save_DC':8 + self.find_spell_attack_mod(),
                     'spell_of_choice':'Cause_Fear',
+                    'school':'necromancy',
                     }
             spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 1:
@@ -1744,6 +1766,7 @@ class gen_spells():
                     'spell_level':spell_level,
                     'spell_save_DC':8 + self.find_spell_attack_mod(),
                     'spell_of_choice':'Magic_Missile',
+                    'school':'enchantment',
                     }
             spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
@@ -1774,6 +1797,7 @@ class gen_spells():
                     'spell_level':spell_level,
                     'spell_save_DC':8 + self.find_spell_attack_mod(),
                     'spell_of_choice':'Sleep',
+                    'school':'enchantment',
                     }
             spell_dict = copy.deepcopy(spell_dict)
         # Плюс одна кость усыпления за каждый уровень выше первого:
@@ -1818,6 +1842,7 @@ class gen_spells():
                     'spell_level':spell_level,
                     'spell_save_DC':8 + self.find_spell_attack_mod(),
                     'spell_of_choice':'Entangle',
+                    'school':'conjuration',
                     }
             spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
@@ -1846,6 +1871,7 @@ class gen_spells():
                     'spell_level':spell_level,
                     'damage_mod':+1,
                     'spell_of_choice':'Magic_Missile',
+                    'school':'evocation',
                     }
             spell_dict = copy.deepcopy(spell_dict)
         # За каждый уровень сверх первого один дополнительный дротик:
@@ -1882,6 +1908,7 @@ class gen_spells():
                     'attack_mod':self.find_spell_attack_mod(),
                     'spell_save_DC':8 + self.find_spell_attack_mod(),
                     'spell_of_choice':'Guiding_Bolt',
+                    'school':'evocation',
                     }
             spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 1:
@@ -1921,6 +1948,7 @@ class gen_spells():
                     'spell_level':spell_level,
                     'spell_save_DC':8 + self.find_spell_attack_mod(),
                     'spell_of_choice':'Magic_Missile',
+                    'school':'evocation',
                     }
             spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 1:
@@ -1951,6 +1979,7 @@ class gen_spells():
                     'casting_time':'reaction',
                     'spell_level':spell_level,
                     'spell_of_choice':'Magic_Missile',
+                    'school':'abjuration',
                     }
             spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
@@ -1985,6 +2014,7 @@ class gen_spells():
                     'damage_mod':0,
                     'spell_level':spell_level,
                     'spell_of_choice':'Magic_Missile',
+                    'school':'abjuration',
                     }
             spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 1:
@@ -2028,6 +2058,7 @@ class gen_spells():
                     'casting_time':'free_action',
                     'spell_level':spell_level,
                     'spell_of_choice':'Magic_Missile',
+                    'school':'abjuration',
                     }
             spell_dict = copy.deepcopy(spell_dict)
         if gen_spell:
@@ -2067,6 +2098,7 @@ class gen_spells():
                     'casting_time':'free_action',
                     'spell_level':spell_level,
                     'spell_of_choice':'Magic_Missile',
+                    'school':'abjuration',
                     }
             spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 1:
@@ -2099,6 +2131,7 @@ class gen_spells():
                     'casting_time':'action',
                     'spell_level':spell_level,
                     'spell_of_choice':'Magic_Missile',
+                    'school':'necromancy',
                     }
             spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 1:
@@ -2142,6 +2175,7 @@ class gen_spells():
                     'spell_level':spell_level,
                     'spell_save_DC':8 + self.find_spell_attack_mod(),
                     'spell_of_choice':'Magic_Missile',
+                    'school':'conjuration',
                     }
             spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 1:
@@ -2187,6 +2221,7 @@ class gen_spells():
                     'spell_level':spell_level,
                     'spell_save_DC':8 + self.find_spell_attack_mod(),
                     'spell_of_choice':'Magic_Missile',
+                    'school':'conjuration',
                     }
             spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 1:
@@ -2225,6 +2260,7 @@ class gen_spells():
                     'spell_level':spell_level,
                     'spell_save_DC':8 + self.find_spell_attack_mod(),
                     'spell_of_choice':'Arms_of_Hadar',
+                    'school':'conjuration',
                     }
             spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 1:
@@ -2264,6 +2300,7 @@ class gen_spells():
                     'spell_level':spell_level,
                     'spell_save_DC':8 + self.find_spell_attack_mod(),
                     'spell_of_choice':'Thunderwave',
+                    'school':'evocation',
                     }
             spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 1:
@@ -2312,6 +2349,7 @@ class gen_spells():
                     'attack_mod':self.find_spell_attack_mod(),
                     'spell_save_DC':8 + self.find_spell_attack_mod(),
                     'spell_of_choice':'Scorching_Ray',
+                    'school':'conjuration',
                     }
             spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 2:
@@ -2348,6 +2386,7 @@ class gen_spells():
                     'attack_mod':self.find_spell_attack_mod(),
                     'spell_save_DC':8 + self.find_spell_attack_mod(),
                     'spell_of_choice':'Scorching_Ray',
+                    'school':'evocation',
                     }
             spell_dict = copy.deepcopy(spell_dict)
         # За каждый уровень сверх первого один дополнительный луч:
@@ -2387,6 +2426,7 @@ class gen_spells():
                     'attack_mod':self.find_spell_attack_mod(),
                     'spell_save_DC':8 + self.find_spell_attack_mod(),
                     'spell_of_choice':'Melfs_Acid_Arrow',
+                    'school':'evocation',
                     }
             spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 2:
@@ -2431,6 +2471,7 @@ class gen_spells():
                     'spell_level':spell_level,
                     'spell_save_DC':8 + self.find_spell_attack_mod(),
                     'spell_of_choice':'Magic_Missile',
+                    'school':'evocation',
                     }
             spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 2:
@@ -2462,6 +2503,7 @@ class gen_spells():
                     'casting_time':'action',
                     'spell_level':spell_level,
                     'spell_of_choice':'Magic_Missile',
+                    'school':'illusion',
                     }
             spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
@@ -2495,6 +2537,7 @@ class gen_spells():
                     'spell_level':spell_level,
                     'spell_save_DC':8 + self.find_spell_attack_mod(),
                     'spell_of_choice':'Magic_Missile',
+                    'school':'evocation',
                     }
             spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 2:
@@ -2536,6 +2579,7 @@ class gen_spells():
                     'spell_level':spell_level,
                     'spell_save_DC':8 + self.find_spell_attack_mod(),
                     'spell_of_choice':'Darkness',
+                    'school':'evocation',
                     }
             spell_dict = copy.deepcopy(spell_dict)
         if self.mage.class_features.get('Metamagic_Distant_Spell'):
@@ -2568,6 +2612,7 @@ class gen_spells():
                     'casting_time':'action',
                     'spell_level':spell_level,
                     'spell_of_choice':'Magic_Missile',
+                    'school':'abjuration',
                     }
             spell_dict = copy.deepcopy(spell_dict)
         if gen_spell:
@@ -2605,6 +2650,7 @@ class gen_spells():
                     'casting_time':'free_action',
                     'spell_level':spell_level,
                     'spell_of_choice':'Magic_Missile',
+                    'school':'transmutation',
                     }
             spell_dict = copy.deepcopy(spell_dict)
         if gen_spell:
@@ -2649,6 +2695,7 @@ class gen_spells():
                     'spell_level':spell_level,
                     'spell_save_DC':8 + self.find_spell_attack_mod(),
                     'spell_of_choice':'Magic_Missile',
+                    'school':'illusion',
                     }
             spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
@@ -2688,6 +2735,7 @@ class gen_spells():
                     'spell_level':spell_level,
                     'spell_save_DC':8 + self.find_spell_attack_mod(),
                     'spell_of_choice':'Magic_Missile',
+                    'school':'conjuration',
                     }
             spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 3:
@@ -2725,6 +2773,7 @@ class gen_spells():
                     'spell_level':spell_level,
                     'spell_save_DC':8 + self.find_spell_attack_mod(),
                     'spell_of_choice':'Magic_Missile',
+                    'school':'evocation',
                     }
             spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 3:
@@ -2766,6 +2815,7 @@ class gen_spells():
                     'spell_level':spell_level,
                     'spell_save_DC':8 + self.find_spell_attack_mod(),
                     'spell_of_choice':'Magic_Missile',
+                    'school':'evocation',
                     }
             spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 3:
@@ -2811,6 +2861,7 @@ class gen_spells():
                     'spell_level':spell_level,
                     'spell_save_DC':8 + self.find_spell_attack_mod(),
                     'spell_of_choice':'Magic_Missile',
+                    'school':'evocation',
                     }
             spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 3:
@@ -2840,6 +2891,7 @@ class gen_spells():
                     'casting_time':'reaction',
                     'spell_level':spell_level,
                     'spell_of_choice':'Magic_Missile',
+                    'school':'abjuration',
                     }
             spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
@@ -2866,6 +2918,7 @@ class gen_spells():
                     'casting_time':'action',
                     'spell_level':spell_level,
                     'spell_of_choice':'Magic_Missile',
+                    'school':'abjuration',
                     }
             spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
@@ -2900,6 +2953,7 @@ class gen_spells():
                     'spell_level':spell_level,
                     'damage_mod':0,
                     'spell_of_choice':'Magic_Missile',
+                    'school':'evocation',
                     }
             spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
@@ -2940,6 +2994,7 @@ class gen_spells():
                     'spell_level':spell_level,
                     'spell_save_DC':8 + self.find_spell_attack_mod(),
                     'spell_of_choice':'Sacred_Flame',
+                    'school':'conjuration',
                     }
             spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 3:
@@ -2981,6 +3036,7 @@ class gen_spells():
                     'spell_level':spell_level,
                     'spell_save_DC':8 + self.find_spell_attack_mod(),
                     'spell_of_choice':'Magic_Missile',
+                    'school':'evocation',
                     }
             spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 4:
@@ -3024,6 +3080,7 @@ class gen_spells():
                     'spell_level':spell_level,
                     'spell_save_DC':8 + self.find_spell_attack_mod(),
                     'spell_of_choice':'Magic_Missile',
+                    'school':'evocation',
                     }
             spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 5:
@@ -3069,6 +3126,7 @@ class gen_spells():
                     'spell_level':spell_level,
                     'spell_save_DC':8 + self.find_spell_attack_mod(),
                     'spell_of_choice':'Magic_Missile',
+                    'school':'evocation',
                     }
             spell_dict = copy.deepcopy(spell_dict)
         #if int(spell_level[0]) > 5:
@@ -3108,6 +3166,7 @@ class gen_spells():
                     'spell_level':spell_level,
                     'spell_save_DC':8 + self.find_spell_attack_mod(),
                     'spell_of_choice':'Bane',
+                    'school':'transmutation',
                     }
             spell_dict = copy.deepcopy(spell_dict)
         if gen_spell:
