@@ -524,6 +524,19 @@ metadict_squads['Company-regular (легионеры Акхена) (враг)'] 
 #----
 # Армия Чары:
 
+metadict_squads['Squad-hero (колдуны Чары) (враг)'] = {
+    'Warlock 3 lvl (враг) (колдун Чары)':16,
+    'Warlock 11 lvl (враг) (Чара Атенак)':1,
+    }
+
+metadict_squads['Squad-hero (колдун Чары) (враг)'] = {
+    'Warlock 3 lvl (враг) (колдун Чары)':1,
+    }
+
+metadict_squads['Squad-hero (лично Чара) (враг)'] = {
+    'Warlock 11 lvl (враг) (Чара Атенак)':1,
+    }
+
 metadict_squads['Company-regular (мирмидоны Чары) (враг)'] = {
     'Warrior 1 lvl (враг) (мирмидон)':180 + dice_throw('1d12'),
     'Warrior 2 lvl (враг) (мирмидон-ветеран)':10,

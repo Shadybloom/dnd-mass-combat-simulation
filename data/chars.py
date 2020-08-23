@@ -9949,6 +9949,177 @@ metadict_chars['Barbarian 5 lvl (враг) (Радамант «Бдительн�
     }
 
 #----
+# Враги (свита) (Чара Атенак):
+
+metadict_chars['Warlock 3 lvl (враг) (колдун Чары)'] = {
+    # Фамильяр -- бес. Разведчик-невидимка.
+    'level':3,
+    'fireball_AI':True,
+    'disengage_AI':True,
+    #'archer_AI':True,
+    'char_class':'Warlock',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Feat_Elemental_Adept':'fire',
+        'Otherworldly_Patron':True,
+        'Otherworldly_Patron_The_Fiend':True,
+        'Pact_Magic':True,
+        'Spells':[
+            ('cantrip', 'Eldritch_Blast'),
+            ('cantrip', 'Create_Bonfire'),
+            ('ritual', 'Find_Familiar'),
+            ('2_lvl', 'Armor_of_Agathys'),
+            ('2_lvl', 'Flaming_Sphere'),
+            ('2_lvl', 'Invisibility'),
+            #('2_lvl', 'Shatter'),
+            ],
+        'Dark_One\'s_Blessing':True,
+        'Eldritch_Invocations':True,
+        'Invocation_Agonizing_Blast':True,
+        'Invocation_Eldritch_Spear':True,
+        'Pact_Boon':True,
+        'Pact_of_the_Chain':True,
+        },
+    'race':'Human-hero',
+    'weapon_skill':['simple'],
+    'armor_skill':['light'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Regeneration':1,
+        'Rune of Absorbtion':1,
+        'Rune of Armor':1,
+        'Shortsword':1,
+        'Shortbow':1,
+        'Arrow':60,
+        'Poison Arrow':60,
+        'Poison Blade':10,
+        },
+    #'mount_combat':True,
+    #'mount_type':'Horseclaw',
+    #'equipment_mount':{
+    #    'Horse Scale Mail':1,
+    #    },
+    }
+
+metadict_chars['Warlock 11 lvl (враг) (Чара Атенак)'] = {
+     # Warlock 1 lvl (otherworld seeker-follower) sum:97 STR:15 DEX:18 CON:16 INT:15 WIS:15 CHA:18
+        # 18 слотов/сутки под "Вещий сон" (Dream) и "Наблюдение" (Scrying)
+        # Неограниченный "Разговор с мёртвыми" (Speak_with_Dead).
+        # Фамильяр (попугай) может передавать голос Чары.
+        # Ритуальный заклинатель (заклинания волшебника):
+    'level':11,
+    'fireball_AI':True,
+    'disengage_AI':True,
+    #'archer_AI':True,
+    'char_class':'Warlock',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'hitpoints_medial':True,
+    'abilityes':{
+        'strength':15,
+        'dexterity':18,
+        'constitution':16,
+        'intelligence':15,
+        'wisdom':15,
+        'charisma':18,
+        },
+    'class_features':{
+        'Feat_Elemental_Adept':'fire',
+        'Otherworldly_Patron':True,
+        'Otherworldly_Patron_The_Fiend':True,
+        'Pact_Magic':True,
+        'Spells':[
+            ('cantrip', 'Eldritch_Blast'),
+            ('cantrip', 'Create_Bonfire'),
+            ('cantrip', 'Prestidigitation'),
+            ('cantrip', 'Message'),
+            # Pact_of_the_Chain:
+            ('ritual', 'Find_Familiar'),
+            # Ритуальный заклинатель (волшебник):
+            ('ritual', 'Alarm'),
+            ('ritual', 'Identify'),
+            ('ritual', 'Detect_Magic'),
+            ('ritual', 'Unseen_Servant'),
+            ('ritual', 'Water_Breathing'),
+            ('ritual', 'Leomund_Tiny_Hut'),
+            ('ritual', 'Rary_Telepathic_Bond'),
+            ('ritual', 'Contact_Other_Plane'),
+            # Для свиты:
+            ('5_lvl', 'Armor_of_Agathys'),
+            ('5_lvl', 'Flaming_Sphere'),
+            ('5_lvl', 'Invisibility'),
+            #('5_lvl', 'Shatter'),
+            # Личные:
+            ('5_lvl', 'Dream'),
+            ('5_lvl', 'Scrying'),
+            ('5_lvl', 'Counterspell'),
+            ('5_lvl', 'Wall_of_Fire'),
+            ('5_lvl', 'Summon_Greater_Demon'),
+            ('5_lvl', 'Dimension_Door'),
+            ('5_lvl', 'Banishment'),
+            # Invocation_Minios_of_Chaos:
+            ('5_lvl', 'Conjure_Elemental'),
+            ],
+        # TODO:
+        # - Удача темнейшего, +1d10 к спасброску/проверке характеристики. 1 раз/кор.отдых.
+        # - Устойчивость исчадия, сопротивление типу урона. Даже к колющему/рубящему.
+        'Dark_One\'s_Blessing':True,
+        'Dark_One\'s_Own_Luck':True,
+        'Fiendish_Resilience':True,
+        'resistance':['piercing'],
+        # 11 lvl, 5 инвокаций:
+        'Eldritch_Invocations':True,
+        'Invocation_Eldritch_Spear':True,
+        'Invocation_Agonizing_Blast':True,
+        'Invocation_Minios_of_Chaos':True,
+        'Invocation_Voice_of_the_Chain_Master':True,
+        'Invocation_Whispers_of_the_Grave':True,
+        # Договор цепи:
+        'Pact_Boon':True,
+        'Pact_of_the_Chain':True,
+        # Черта на 8 lvl:
+        'Feat_Ritual_Caster':True,
+        'Ability_Score_Improvement':{
+            'charisma':+2,
+            },
+        },
+    'race':'Human-hero',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        # Магические предметы:
+        # d6    | Ритуальная магия Шекелеш  |  Свойства                                             
+        # ----- | ------------------------- | ------------------------------------------------------
+        # 1     | Жезл договора*            | Восстанавливает ячейку заклинания колдуна. 1 раз/сутки
+        # 2     | Мантия глаз*              | Всестороннее зрение. Тёмное, эфирный план, 120 футов. 
+        # 3     | Кольцо заклинаний*        | Хранит любое заклинание 1-3 lvl. Перезарядка магом.   
+        # 4     | Оковы измерений           | Служат как наручники. Запрещают телепорты всех форм.  
+        # 5     | Подковы скорости          | Увеличивает скорость лошади на 30 футов/раунд         
+        # 6     | Подковы ветра             | Лошадь свободно бежит по сложной местности, воде.     
+        # Чара не использует руны, привязка к магическим предметам.
+        #'Rune of Absorbtion':1,
+        #'Rune of Shielding':1,
+        'Mage_Armor':1,
+        'Shortsword +1':1,
+        'Shortbow +1':1,
+        'Arrow':60,
+        'Poison Arrow':60,
+        'Poison Blade':10,
+        },
+    # TODO: летучий зверь вместо когтеклюва:
+    #'mount_combat':True,
+    #'mount_type':'Horseclaw',
+    #'equipment_mount':{
+    #    'Horse Scale Mail':1,
+    #    },
+    }
+
+
+#----
 # Враги (армии) (мирмидоны Чары):
 
 metadict_chars['Warrior 1 lvl (враг) (мирмидон)'] = {
