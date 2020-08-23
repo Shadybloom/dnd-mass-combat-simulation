@@ -2567,7 +2567,25 @@ class battle_simulation(battlescape):
                         spell_dict['damage_dice'] = '0d0'
                         spell_dict['damage_mod'] = damage_mod
                         soldier.destructive_wrath = False
-                # TODO: это для Flaming_Sphere и подобных.
+                # Неподвижные зональные заклинания:
+                if spell_dict.get('effect') == 'sickening_radiance':
+                    spell_dict = soldier.concentration
+                    zone_radius = round(spell_dict['radius'] / self.tile_size)
+                    if not spell_dict.get('zone_center'):
+                        spell_dict['zone_center'] = zone_center
+                        spell_dict['concentration_ready'] = True
+                        try:
+                            self.change_place_effect(spell_dict['effect'],
+                                    spell_dict['zone_center'], zone_center, zone_radius)
+                            if spell_dict.get('zone_danger'):
+                                self.change_place_effect('danger_terrain',
+                                        spell_dict['zone_center'], zone_center, zone_radius)
+                        except ValueError:
+                            #traceback.print_exc()
+                            pass
+                    if not single_target:
+                        return False
+                # Подвижные зональные заклинания вроде Flaming_Sphere:
                 if spell_dict.get('effect') == 'dawn'\
                         or spell_dict.get('effect') == 'bonfire'\
                         or spell_dict.get('effect') == 'flaming_sphere'\

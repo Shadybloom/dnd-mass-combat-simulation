@@ -3040,6 +3040,47 @@ class gen_spells():
             spell_dict['attack_range'] *= 2
         return spell_dict
 
+    @modify_spell
+    @update_spell_dict
+    def Sickening_Radiance(self, spell_level, gen_spell = False, spell_dict = False):
+        """Болезнное сияние.
+
+        Level: 4
+        Casting time: 1 Action
+        Range: 120 feet
+        Components: V, S
+        Duration: Concentration, up to 10 minutes
+        https://www.dnd-spells.com/spell/sickening-radiance
+        """
+        # TODO: уровень истощения после каждого неудачного спасброска.
+        if not spell_dict:
+            spell_dict = {
+                    'concentration':True,
+                    'effect':'sickening_radiance',
+                    'effect_timer':100,
+                    'zone':True,
+                    'zone_effect':True,
+                    'zone_danger':True,
+                    'direct_hit':True,
+                    'savethrow':True,
+                    'savethrow_all':True,
+                    'savethrow_ability':'constitution',
+                    'attacks_number':1,
+                    'attack_range':120,
+                    'radius':30,
+                    'damage_type':'radiant',
+                    'damage_dice':'4d10',
+                    'components':['verbal','somatic'],
+                    'casting_time':'action',
+                    'damage_mod':0,
+                    'spell_level':spell_level,
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    'spell_of_choice':'Magic_Missile',
+                    'school':'evocation',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
+        return spell_dict
+
 #----
 # 5 lvl
 
