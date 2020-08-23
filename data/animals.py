@@ -1364,13 +1364,12 @@ metadict_animals['Zombie (CR 1/4)'] = {
     }
 
 metadict_animals['Zombie (Danse_Macabre) (CR 1/2)'] = {
-    # TODO: сделай помеху атакам, если броня тяжелее лёгкой.
-    # Зомби с кучей усилений.
+    # Зомби Менона, некроманта 12 lvl.
     'level':3,
     'killer_AI':True,
     'predator_AI':True,
     'fearless_AI':True,
-    'bonus_hitpoints':10,
+    'bonus_hitpoints':12,
     'challenge_rating':'1/2',
     #'squad_disadvantage':True,
     'char_class':'Commoner',
@@ -1623,8 +1622,9 @@ metadict_animals['Air Elemental (CR 5)'] = {
     'behavior':'commander',
     'hitpoints_medial':True,
     'class_features':{
-        'Extra_Attack':True,
+        'immunity':['poison','poisoned'],
         'resistance':['slashing','piercing','bludgeoning','thunder','lightning'],
+        'Extra_Attack':True,
         'Air_Form':True,
         'Recharge':True,
         'Recharge_dice':'1d6',
@@ -1693,6 +1693,7 @@ metadict_animals['Earth Elemental (CR 5)'] = {
     'behavior':'commander',
     'hitpoints_medial':True,
     'class_features':{
+        'immunity':['poison','poisoned'],
         'resistance':['slashing','piercing','bludgeoning'],
         'vultenability':['thunder'],
         'Extra_Attack':True,
