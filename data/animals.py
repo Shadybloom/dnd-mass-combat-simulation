@@ -2839,6 +2839,49 @@ metadict_animals['Veteran (CR 3)'] = {
         },
     }
 
+metadict_animals['Druid (CR 2)'] = {
+    # Друид
+    'level':5,
+    'archer_AI':True,
+    'fireball_AI':True,
+    'challenge_rating':'2',
+    'hitpoints_medial':True,
+    'char_class':'Druid',
+    'class_features':{
+        'Spellcasting':True,
+        'Spells':[
+            ('cantrip', 'Shillelagh'),
+            ('cantrip', 'Druidcraft'),
+            ('cantrip', 'Produce_Flame'),
+            ('ritual', 'Speak_with_Animals'),
+            ('1_lvl', 'Thunderwave'),
+            #('1_lvl', 'Entangle'),
+            ('1_lvl', 'Longstrider'),
+            ('2_lvl', 'Animal_Messenger'),
+            #('2_lvl', 'Barkskin'),
+            ('2_lvl', 'Flaming_Sphere'),
+            ],
+        },
+    'abilityes':{
+        'strength':10,
+        'dexterity':12,
+        'constitution':13,
+        'intelligence':12,
+        'wisdom':15,
+        'charisma':11,
+        },
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Quarterstaff':1,
+        },
+    }
+
 metadict_animals['Mage (CR 6)'] = {
     # Маг
     'level':9,
