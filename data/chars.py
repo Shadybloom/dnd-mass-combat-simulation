@@ -9961,13 +9961,16 @@ metadict_chars['Warlock 3 lvl (враг) (колдун Чары)'] = {
     'hit_dice':'1d8',
     'behavior':'commander',
     'class_features':{
-        'Feat_Elemental_Adept':'fire',
+        'Feat_Spellsniper':True,
+        #'Feat_Elemental_Adept':'fire',
         'Otherworldly_Patron':True,
         'Otherworldly_Patron_The_Fiend':True,
         'Pact_Magic':True,
         'Spells':[
+            # Дополнительный кантрип за Feat_Spellsniper
             ('cantrip', 'Eldritch_Blast'),
             ('cantrip', 'Create_Bonfire'),
+            ('cantrip', 'Message'),
             ('ritual', 'Find_Familiar'),
             ('2_lvl', 'Armor_of_Agathys'),
             ('2_lvl', 'Flaming_Sphere'),
@@ -10026,14 +10029,17 @@ metadict_chars['Warlock 11 lvl (враг) (Чара Атенак)'] = {
         'charisma':18,
         },
     'class_features':{
-        'Feat_Elemental_Adept':'fire',
+        'Feat_Spellsniper':True,
+        #'Feat_Elemental_Adept':'fire',
         'Otherworldly_Patron':True,
         'Otherworldly_Patron_The_Fiend':True,
         'Pact_Magic':True,
         'Spells':[
+            # Дополнительный кантрип за Feat_Spellsniper
             ('cantrip', 'Eldritch_Blast'),
             ('cantrip', 'Create_Bonfire'),
             ('cantrip', 'Prestidigitation'),
+            ('cantrip', 'Minor_Illusion'),
             ('cantrip', 'Message'),
             # Pact_of_the_Chain:
             ('ritual', 'Find_Familiar'),
