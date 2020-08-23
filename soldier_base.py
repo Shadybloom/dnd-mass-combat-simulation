@@ -726,6 +726,9 @@ class soldier():
         # "Крепкий" Feat_Tough получает +2 hp/уровень:
         if self.class_features.get('Feat_Tough'):
             hitpoints_max += level * 2
+        # У симулякра только половина хитпоинтов оригинала:
+        if hasattr(self, 'simulacrum') and self.simulacrum:
+            hitpoints_max = hitpoints_max / 2
         return int(hitpoints_max)
 
     def takeoff_armor(self):
