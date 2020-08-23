@@ -1153,8 +1153,8 @@ class battlescape():
         # Находим бойцов на поле боя (а заодно считаем их на точке):
         soldiers_in_place = 0
         for el in self.dict_battlespace[key]:
-            if 'danger_terrain' in self.dict_battlespace[key]:
-                symbol_colored = '\x1b[48;5;23m' + symbol_colored
+            #if 'danger_terrain' in self.dict_battlespace[key]:
+            #    symbol_colored = '\x1b[48;5;23m' + symbol_colored
             if type(el) == tuple:
                 soldiers_in_place += 1
                 if el[0] == self.ally_side:
