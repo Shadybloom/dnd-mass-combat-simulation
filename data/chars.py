@@ -11318,19 +11318,21 @@ metadict_chars['Warlock 2 lvl (друг) (колдун Кема\'Эша)'] = {
     'class_features':{
         'Feat_Mounted_Combatant':True,
         'Otherworldly_Patron':True,
-        'Otherworldly_Patron_The_Fiend':True,
+        'Otherworldly_Patron_The_Archfey':True,
         'Pact_Magic':True,
         'Spells':[
+            ('cantrip', 'Shape_Water'),
             ('cantrip', 'Eldritch_Blast'),
-            ('cantrip', 'Create_Bonfire'),
             ('1_lvl', 'Charm_Person'),
             ('1_lvl', 'Armor_of_Agathys'),
-            ('1_lvl', 'Hex'),
+            ('1_lvl', 'Sleep'),
             ],
-        'Dark_One\'s_Blessing':True,
+        # TODO: пили бонусы архифеи Козы.
+        # - 1 lvl Fey_Presence, пугает/очаровывает на ход, 10-футовый куб на себя.
+        'Fey_Presence':True,
         'Eldritch_Invocations':True,
         'Invocation_Agonizing_Blast':True,
-        'Invocation_Eldritch_Spear':True,
+        'Invocation_Mask_of_Many_Faces':True,
         },
     'race':'Human-hero',
     'weapon_skill':['simple'],
@@ -11338,24 +11340,24 @@ metadict_chars['Warlock 2 lvl (друг) (колдун Кема\'Эша)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Goodberry':10,
+        # Коза даёт своим эссенцию регенерации:
+        'Infusion of Regeneration':1,
         'Potion of Antidote':1,
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
         'Rune of Armor':1,
-        'Dagger':1,
+        'Shortsword':1,
         'Shortbow':1,
         'Arrow':60,
         },
-    'mount_combat':True,
-    'mount_type':'Horseclaw',
-    'equipment_mount':{
-        'Horse Scale Mail':1,
-        },
+    #'mount_combat':True,
+    #'mount_type':'Horseclaw',
+    #'equipment_mount':{
+    #    'Horse Scale Mail':1,
+    #    },
     }
 
-metadict_chars['Warlock 6 lvl (друг) (Кема\'Эш)'] = {
-    # Передаёт команды с помощью Dancing_Lights и Message.
+metadict_chars['Warlock 6 lvl (друг) (Кема\'Эш «Ловкач»)'] = {
     'level':6,
     'fireball_AI':True,
     'char_class':'Warlock',
@@ -11373,26 +11375,33 @@ metadict_chars['Warlock 6 lvl (друг) (Кема\'Эш)'] = {
     'class_features':{
         'Feat_Mounted_Combatant':True,
         'Otherworldly_Patron':True,
-        'Otherworldly_Patron_The_Fiend':True,
+        'Otherworldly_Patron_The_Archfey':True,
         'Pact_Magic':True,
         'Spells':[
+            # Козочка даёт кантрип Shape_Water вместо Create_Bonfire Ашеры:
+            ('cantrip', 'Shape_Water'),
             ('cantrip', 'Eldritch_Blast'),
             ('cantrip', 'Minor_Illusion'),
             ('cantrip', 'Prestidigitation'),
-            ('cantrip', 'Dancing_Lights'),
             ('cantrip', 'Message'),
             ('ritual', 'Detect_Magic'),
             ('ritual', 'Identify'),
-            ('3_lvl', 'Hex'),
+            ('3_lvl', 'Sleep'),
             ('3_lvl', 'Charm_Person'),
             ('3_lvl', 'Armor_of_Agathys'),
             ('3_lvl', 'Summon_Lesser_Demons'),
-            ('3_lvl', 'Fly'),
+            ('3_lvl', 'Counterspell'),
+            # Коза не даёт лётных заклинаний, не умеет:
+            #('3_lvl', 'Fly'),
             ],
-        'Dark_One\'s_Blessing':True,
+        # TODO: пили бонусы архифеи Козы.
+        # - 1 lvl Fey_Presence, пугает/очаровывает на ход, 10-футовый куб на себя.
+        # - 6 lvl Misty_Escape, телепорт на 60 футов, реакцией, после ранения. Плюс невидимость на ход.
+        'Fey_Presence':True,
+        'Misty_Escape':True,
         'Eldritch_Invocations':True,
         'Invocation_Agonizing_Blast':True,
-        'Invocation_Eldritch_Spear':True,
+        'Invocation_Mask_of_Many_Faces':True,
         'Invocation_Book_of_Ancient_Secrets':True,
         'Pact_Boon':True,
         'Pact_of_the_Tome':True,
@@ -11404,20 +11413,21 @@ metadict_chars['Warlock 6 lvl (друг) (Кема\'Эш)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Goodberry':10,
+        # Коза даёт своим эссенцию регенерации:
+        'Infusion of Regeneration':1,
         'Potion of Antidote':1,
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
         'Rune of Armor':1,
-        'Dagger':1,
-        'Shortbow +1':1,
+        'Shortsword +1':1,
+        'Shortbow':1,
         'Arrow':60,
         },
-    'mount_combat':True,
-    'mount_type':'Horseclaw',
-    'equipment_mount':{
-        'Horse Scale Mail':1,
-        },
+    #'mount_combat':True,
+    #'mount_type':'Horseclaw',
+    #'equipment_mount':{
+    #    'Horse Scale Mail':1,
+    #    },
     }
 
 #----

@@ -549,11 +549,13 @@ metadict_squads['Company-regular (карлы Ашеры) (враг)'] = {
 # Армия Нингиримы:
 
 metadict_squads['Company-regular (гоплиты Нингиримы) (враг)'] = {
+    # Опытный отряд.
     'Warrior 1 lvl (враг) (гоплит Нингиримы)':46 + dice_throw('1d12'),
     'Warrior 2 lvl (враг) (гоплит-ветеран Нингиримы)':46,
     'Warrior 3 lvl (враг) (гоплит-сержант Нингиримы)':3,
     'Warrior 5 lvl (враг) (гоплит-капитан Нингиримы)':2,
     'Warrior 4 lvl (враг) (гоплит-лейтенант Нингиримы)':1,
+    'Commoner 1 lvl (recruit)':100,
     }
 
 metadict_squads['Company-regular (гоплиты Клеомена) (враг)'] = {
@@ -562,6 +564,7 @@ metadict_squads['Company-regular (гоплиты Клеомена) (враг)'] 
     'Warrior 3 lvl (враг) (гоплит-сержант Нингиримы)':6,
     'Warrior 5 lvl (враг) (гоплит-капитан Нингиримы)':2,
     'Warrior 4 lvl (враг) (гоплит-лейтенант Нингиримы)':2,
+    'Commoner 1 lvl (recruit)':100,
     }
 
 #----
@@ -820,7 +823,7 @@ metadict_squads['Squad-hero (кошки Тави) (друг)'] = {
 # Геройские отряды (армия Кемы):
 
 metadict_squads['Squad-hero (колдуны Кема\'Эша) (друг)'] = {
-    'Warlock 6 lvl (друг) (Кема\'Эш)':1,
+    'Warlock 6 lvl (друг) (Кема\'Эш «Ловкач»)':1,
     'Warlock 2 lvl (друг) (колдун Кема\'Эша)':10,
     }
 
@@ -895,7 +898,7 @@ metadict_squads['Squad-hero (друиды Ианты) (Vaarsuvius)'] = {
     'Druid 2 lvl (Vaarsuvius) (друид Ианты)':19,
     }
 
-metadict_squads['Band-hero (дракон Ианты) (Vaarsuvius)'] = {
+metadict_squads['Band-hero (дракон Ианты) (Агаталара Огненная) (Vaarsuvius)'] = {
     'Brass Dragon, (Vaarsuvius) (Агаталара Огненная)':1,
     }
 
