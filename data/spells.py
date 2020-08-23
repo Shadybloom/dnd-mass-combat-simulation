@@ -2271,6 +2271,53 @@ class gen_spells():
 
     @modify_spell
     @update_spell_dict
+    def Flaming_Sphere(self, spell_level, gen_spell = False, spell_dict = False):
+        """Пылающий шар.
+
+        Level: 2
+        Casting time: 1 Action
+        Range: 60 feet
+        Components: V, S, M (a bit of tallow, a pinch of brimstone, and a dusting of powdered iron)
+        Duration: Concentration, up to 1 minute
+        https://www.dnd-spells.com/spell/flaming-sphere
+        """
+        if not spell_dict:
+            spell_dict = {
+                    'concentration':True,
+                    'effect':'flaming_sphere',
+                    'effect_timer':10,
+                    'zone':True,
+                    'zone_target':True,
+                    'zone_effect':True,
+                    'zone_danger':True,
+                    'zone_shape':'square',
+                    'radius':5,
+                    'attacks_number':1,
+                    'attack_range':60,
+                    'direct_hit':True,
+                    'savethrow':True,
+                    'savethrow_ability':'dexterity',
+                    'damage_type':'fire',
+                    'damage_dice':'2d6',
+                    'components':['verbal','somatic','material'],
+                    'casting_time':'bonus_action',
+                    'spell_level':spell_level,
+                    'damage_mod':0,
+                    'attack_mod':self.find_spell_attack_mod(),
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    'spell_of_choice':'Scorching_Ray',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
+        if int(spell_level[0]) > 2:
+            dice = int(spell_dict['damage_dice'][0])
+            dice += int(spell_level[0]) - 1
+            spell_dict['damage_dice'] = str(dice) + spell_dict['damage_dice'][1:]
+        if self.mage.class_features.get('Metamagic_Distant_Spell'):
+            spell_dict['attack_range'] *= 2
+        return spell_dict
+
+    @modify_spell
+    @update_spell_dict
     def Scorching_Ray(self, spell_level, gen_spell = False, spell_dict = False):
         """Палящий луч.
 

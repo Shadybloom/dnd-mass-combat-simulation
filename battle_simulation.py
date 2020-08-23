@@ -1421,6 +1421,11 @@ class battle_simulation(battlescape):
                     and ally.concentration.get('zone_danger')
                     and not ally.concentration.get('safe')]
             enemy_mages_list.extend(ally_mages_list)
+            # TODO: сначала перебор меток, потом перебор магов.
+            # -------------------------------------------------
+            # Несколько магов с Create_Bonfire не усилят единственный костёр.
+            # Один вид эффекта наносит только один урон.
+            # -------------------------------------------------
             if enemy_mages_list:
                 for enemy_soldier in enemy_mages_list:
                     for descript in self.dict_battlespace[soldier.place]:
@@ -2434,7 +2439,7 @@ class battle_simulation(battlescape):
             enemy_soldier = self.metadict_soldiers[enemy.uuid]
             if getattr(enemy_soldier, debuff) != True:
                 return enemy_soldier
-            if debuff not in enemy_soldier.debuff:
+            if debuff not in enemy_soldier.debuffs:
                 return enemy_soldier
 
     def counterspell_action(self, spell_dict, soldier):
@@ -2500,9 +2505,15 @@ class battle_simulation(battlescape):
                 if soldier.concentration\
                         and soldier.concentration.get('spell_choice')\
                         and spell_choice == soldier.concentration['spell_choice']:
-                    spell_dict = soldier.concentration
-                    soldier.use_spell_ammo(spell_dict)
-                    #print('NYA', soldier.rank, soldier.concentration)
+                    #spell_dict = soldier.try_spellcast(spell_choice,
+                    #        use_spell_slot = False, use_action = True,
+                    #        gen_spell = soldier.concentration)
+                    if soldier.check_action_to_spellcast(spell_choice):
+                        spell_dict = soldier.concentration
+                        soldier.use_action_to_spellcast(spell_dict)
+                        #soldier.use_spell_ammo(spell_dict)
+                    else:
+                        return False
                 # Зональная атака из списка атак. Дыхание дракона, молния штормового великана и т.д.
                 elif spell_choice in soldier.attacks:
                     spell_dict = soldier.attacks[spell_choice]
@@ -2545,6 +2556,7 @@ class battle_simulation(battlescape):
                 # TODO: это для Flaming_Sphere и подобных.
                 if spell_dict.get('effect') == 'dawn'\
                         or spell_dict.get('effect') == 'bonfire'\
+                        or spell_dict.get('effect') == 'flaming_sphere'\
                         or spell_dict.get('effect') == 'moonbeam':
                     spell_dict = soldier.concentration
                     zone_radius = round(spell_dict['radius'] / self.tile_size)
@@ -2568,6 +2580,12 @@ class battle_simulation(battlescape):
                     elif not single_target and soldier.concentration.get('ammo') == 0:
                         soldier.concentration['zone_center'] = zone_center
                         return False
+                    # TODO: эту селекцию можно использовать для любых заклинаний:
+                    # Накат "Пламенного шара", только одна цель. Выбор кастером из ближайших:
+                    elif not single_target and spell_dict.get('effect') == 'flaming_sphere':
+                        soldier.concentration['zone_center'] = zone_center
+                        targets = [target for target in targets if target.side == soldier.enemy_side]
+                        targets = [soldier.select_enemy(targets)]
                 # Перемещение в центр зоны заклинания (whirlwind воздушного элементаля)
                 if spell_dict.get('effect') == 'move':
                     self.change_place(soldier.place, zone_center, soldier.uuid)
