@@ -9582,6 +9582,297 @@ metadict_chars['Warrior 3 lvl (враг) (демон Кема\'Эша)'] = {
     }
 
 #----
+# Нейтралы (свита) (волшебники Менона):
+
+metadict_chars['Wizard 4 lvl (нейтрал) (волшебник Менона)'] = {
+    'level':4,
+    'fireball_AI':True,
+    'disengage_AI':True,
+    'char_class':'Wizard',
+    'hit_dice':'1d6',
+    'behavior':'commander',
+    'class_features':{
+        'Feat_Resilient':'constitution',
+        'Ability_Score_Improvement':{
+            'constitution':+1,
+            'intelligence':+2,
+            },
+        'Arcane_Recovery':True,
+        'Spellcasting':True,
+        'Spells':[
+            # Уровень_персонажа + мод_интеллекта (8 заклинаний)
+            ('cantrip', 'Sword_Burst'),
+            ('cantrip', 'Shape_Water'),
+            ('cantrip', 'Mold_Earth'),
+            ('cantrip', 'Message'),
+            # Ритуалы из книги заклинаний:
+            ('ritual', 'Alarm'),
+            ('ritual', 'Identify'),
+            ('ritual', 'Detect_Magic'),
+            ('ritual', 'Unseen_Servant'),
+            ('ritual', 'Gentle_Repose'),
+            ('ritual', 'Find_Familiar'),
+            ('ritual', 'Comprehend_Languages'),
+            ('1_lvl', 'Shield'),
+            ('1_lvl', 'Fog_Cloud'),
+            ('1_lvl', 'Magic_Missile'),
+            ('1_lvl', 'Absorb_Elements'),
+            ('2_lvl', 'Warding_Wind'),
+            ('2_lvl', 'Invisibility'),
+            ('2_lvl', 'Flaming_Sphere'),
+            ('2_lvl', 'Suggestion'),
+            #('2_lvl', 'Shatter'),
+            ],
+        # TODO:
+        # - Grim_Harvest -- лечение x2 круг заклинания, или x3, если некромантия.
+        'School_of_Necromancy':True,
+        'Grim_Harvest':True,
+        },
+    'race':'Human-hero',
+    'weapon_skill':['simple'],
+    'armor_skill':[],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Rune of Absorbtion':1,
+        'Rune of Shielding':1,
+        'Rune of Armor':1,
+        'Dagger':1,
+        },
+    #'mount_combat':True,
+    #'mount_type':'Light Warhorse',
+    #'equipment_mount':{
+    #    },
+    }
+
+metadict_chars['Wizard 12 lvl (нейтрал) (Менон Теварин)'] = {
+    # Wizard 1 lvl (otherworld mage-disciple) sum:100 STR:16 DEX:17 CON:17 INT:19 WIS:17 CHA:14
+    # "Предосторожность" (Contingency) хранит заклинание Otiluke_Resilent_Sphere, или Wall_of_Force.
+    # "Feat_Alert", -- нельзя застать врасплох. "Feat_Keen_Mind" -- помнит всё.
+    'level':12,
+    'fireball_AI':True,
+    'disengage_AI':True,
+    'char_class':'Wizard',
+    'hit_dice':'1d6',
+    'behavior':'commander',
+    'hitpoints_medial':True,
+    'abilityes':{
+        'strength':16,
+        'dexterity':17,
+        'constitution':17,
+        'intelligence':19,
+        'wisdom':17,
+        'charisma':14,
+        },
+    'class_features':{
+        'Feat_Alert':True,
+        'Feat_Keen_Mind':True,
+        'Feat_Resilient':'constitution',
+        'Ability_Score_Improvement':{
+            'dexterity':+1,
+            'constitution':+1,
+            'intelligence':+1,
+            'wisdom':+1,
+            },
+        'Arcane_Recovery':True,
+        'Spellcasting':True,
+        'Spells':[
+            # Уровень_персонажа + мод_интеллекта (17 заклинаний)
+            ('cantrip', 'Sword_Burst'),
+            ('cantrip', 'Shape_Water'),
+            ('cantrip', 'Mold_Earth'),
+            ('cantrip', 'Message'),
+            ('cantrip', 'Minor_Illusion'),
+            # Ритуалы из книги заклинаний:
+            ('ritual', 'Alarm'),
+            ('ritual', 'Identify'),
+            ('ritual', 'Detect_Magic'),
+            ('ritual', 'Unseen_Servant'),
+            ('ritual', 'Gentle_Repose'),
+            ('ritual', 'Find_Familiar'),
+            ('ritual', 'Comprehend_Languages'),
+            ('ritual', 'Feign_Death'),
+            ('ritual', 'Water_Breathing'),
+            ('ritual', 'Leomund_Tiny_Hut'),
+            ('ritual', 'Rary_Telepathic_Bond'),
+            ('ritual', 'Contact_Other_Plane'),
+            # Для свиты:
+            ('1_lvl', 'Shield'),
+            ('1_lvl', 'Fog_Cloud'),
+            ('1_lvl', 'Magic_Missile'),
+            ('1_lvl', 'Absorb_Elements'),
+            ('2_lvl', 'Warding_Wind'),
+            ('2_lvl', 'Invisibility'),
+            ('2_lvl', 'Flaming_Sphere'),
+            ('2_lvl', 'Suggestion'),
+            #('2_lvl', 'Shatter'),
+            # Личные (9 заклинаний):
+            ('3_lvl', 'Counterspell'),
+            ('3_lvl', 'Fireball'),
+            ('3_lvl', 'Sending'),
+            ('4_lvl', 'Fabricate'),
+            ('4_lvl', 'Dimension_Door'),
+            ('5_lvl', 'Teleportation_Circle'),
+            ('5_lvl', 'Animated_Objects'),
+            ('5_lvl', 'Cone_of_Cold'),
+            ('6_lvl', 'Soul_Cage'),
+            # ----
+            #('3_lvl', 'Blink'),
+            #('3_lvl', 'Animate_Dead'),
+            #('3_lvl', 'Dispel_Magic'),
+            #('3_lvl', 'Vampiric_Touch'),
+            #('3_lvl', 'Melf_Minute_Meteors'),
+            # ----
+            #('4_lvl', 'Stoneskin'),
+            #('4_lvl', 'Arcane_Eye'),
+            #('4_lvl', 'Control_Water'),
+            #('4_lvl', 'Leomund_Secret_Chest'),
+            #('4_lvl', 'Otiluke_Resilent_Sphere'),
+            #('4_lvl', 'Mordenkainen_Private_Sanctum'),
+            #('4_lvl', 'Conjure_Minor_Elementals'),
+            #('4_lvl', 'Sickening_Radiance'),
+            #('4_lvl', 'Ice_Storm'),
+            #('4_lvl', 'Banishment'),
+            # ----
+            #('5_lvl', 'Enervation'),
+            #('5_lvl', 'Cone_of_Cold'),
+            #('5_lvl', 'Danse_Macabre'),
+            #('5_lvl', 'Negative_Energy_Flood'),
+            #('5_lvl', 'Conjure_Elemental'),
+            #('5_lvl', 'Wall_of_Force'),
+            #('5_lvl', 'Cloudkill'),
+            #('5_lvl', 'Passwall'),
+            #('5_lvl', 'Scrying'),
+            # ----
+            #('6_lvl', 'Create_Undead'),
+            #('6_lvl', 'Circle_of_Death'),
+            #('6_lvl', 'Programmed_Illusion'),
+            #('6_lvl', 'Arcane_Gate'),
+            #('6_lvl', 'True_Seeing'),
+            #('6_lvl', 'Magic_Jar'),
+            #('6_lvl', 'Contingency'),
+            #('6_lvl', 'Create_Undead'),
+            ],
+        # TODO:
+        # - Grim_Harvest -- лечение x2 круг заклинания, или x3, если некромантия.
+        # - Undead_Thralls -- 2 цели "Animate_Dead", +уровень_мага к max_hp, +бонус_мастерства к урону.
+        # - Inured_to_Undeath -- сопротивление к урону некротикой, максимум хитов не уменьшается.
+        'School_of_Necromancy':True,
+        'Grim_Harvest':True,
+        'Undead_Thralls':True,
+        'Inured_to_Undeath':True,
+        'resistance':['necrotic_energy'],
+        },
+    'race':'Human-hero',
+    'weapon_skill':['simple'],
+    'armor_skill':[],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        # TODO: руны 3-4 круга
+        # - Rune of Flying
+        # - Rune of Stoneskin
+        # - Rune of Greater Invisibility
+        'Rune of Absorbtion':1,
+        'Rune of Shielding':1,
+        'Rune of Armor':1,
+        'Dagger':1,
+        },
+    #'mount_combat':True,
+    #'mount_type':'Light Warhorse',
+    #'equipment_mount':{
+    #    },
+    }
+
+metadict_chars['Wizard 12 lvl (нейтрал) (симулякр Менона)'] = {
+    # "Feat_Alert", -- нельзя застать врасплох. "Feat_Keen_Mind" -- помнит всё.
+    'level':12,
+    'simulacrum':True,
+    'fireball_AI':True,
+    'disengage_AI':True,
+    'char_class':'Wizard',
+    'hit_dice':'1d6',
+    'behavior':'commander',
+    'hitpoints_medial':True,
+    'abilityes':{
+        'strength':16,
+        'dexterity':17,
+        'constitution':17,
+        'intelligence':19,
+        'wisdom':17,
+        'charisma':14,
+        },
+    'class_features':{
+        'Feat_Alert':True,
+        'Feat_Keen_Mind':True,
+        'Feat_Resilient':'constitution',
+        'Ability_Score_Improvement':{
+            'dexterity':+1,
+            'constitution':+1,
+            'intelligence':+1,
+            'wisdom':+1,
+            },
+        'Arcane_Recovery':True,
+        'Spellcasting':True,
+        'Spells':[
+            # Уровень_персонажа + мод_интеллекта (17 заклинаний)
+            # https://www.dandwiki.com/wiki/5e_SRD:Wizard
+            ('cantrip', 'Sword_Burst'),
+            ('cantrip', 'Shape_Water'),
+            ('cantrip', 'Mold_Earth'),
+            ('cantrip', 'Message'),
+            ('cantrip', 'Minor_Illusion'),
+            # Ритуалы из книги заклинаний:
+            ('ritual', 'Alarm'),
+            ('ritual', 'Identify'),
+            ('ritual', 'Detect_Magic'),
+            ('ritual', 'Unseen_Servant'),
+            ('ritual', 'Gentle_Repose'),
+            ('ritual', 'Water_Breathing'),
+            ('ritual', 'Leomund_Tiny_Hut'),
+            ('ritual', 'Rary_Telepathic_Bond'),
+            ('1_lvl', 'Fog_Cloud'),
+            ('1_lvl', 'Absorb_Elements'),
+            ('2_lvl', 'Detect_Thoughts'),
+            ('2_lvl', 'Invisibility'),
+            ('2_lvl', 'Knock'),
+            ('3_lvl', 'Counterspell'),
+            ('3_lvl', 'Dispel_Magic'),
+            ('3_lvl', 'Sending'),
+            ('4_lvl', 'Arcane_Eye'),
+            ('4_lvl', 'Dimension_Door'),
+            ('4_lvl', 'Sickening_Radiance'),
+            ('5_lvl', 'Teleportation_Circle'),
+            ('5_lvl', 'Conjure_Elemental'),
+            ('5_lvl', 'Danse_Macabre'),
+            ('5_lvl', 'Passwall'),
+            ('6_lvl', 'Circle_of_Death'),
+            ('6_lvl', 'Arcane_Gate'),
+            ],
+        'School_of_Necromancy':True,
+        #'Grim_Harvest':True,
+        'Undead_Thralls':True,
+        'Inured_to_Undeath':True,
+        'resistance':['necrotic_energy'],
+        },
+    'race':'Human-hero',
+    'weapon_skill':['simple'],
+    'armor_skill':[],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        # Симулякру не полагаются драгоценные руны.
+        'Rune of Shielding':2,
+        'Rune of Armor':1,
+        'Dagger':1,
+        },
+    #'mount_combat':True,
+    #'mount_type':'Light Warhorse',
+    #'equipment_mount':{
+    #    },
+    }
+
+#----
 # Нейтралы (армии) (Бронзовые гоплиты Менона):
 
 metadict_chars['Warrior 4 lvl (нейтрал) (бронзовый гоплит Менона)'] = {
@@ -9961,7 +10252,11 @@ metadict_chars['Warlock 3 lvl (враг) (колдун Чары)'] = {
     'hit_dice':'1d8',
     'behavior':'commander',
     'class_features':{
-        'Feat_Spellsniper':True,
+        'Feat_Resilient':'constitution',
+        'Ability_Score_Improvement':{
+            'constitution':+1,
+            },
+        #'Feat_Spellsniper':True,
         #'Feat_Elemental_Adept':'fire',
         'Otherworldly_Patron':True,
         'Otherworldly_Patron_The_Fiend':True,
@@ -10029,7 +10324,12 @@ metadict_chars['Warlock 11 lvl (враг) (Чара Атенак)'] = {
         'charisma':18,
         },
     'class_features':{
-        'Feat_Spellsniper':True,
+        'Feat_Resilient':'constitution',
+        'Ability_Score_Improvement':{
+            'constitution':+1,
+            'charisma':+2,
+            },
+        #'Feat_Spellsniper':True,
         #'Feat_Elemental_Adept':'fire',
         'Otherworldly_Patron':True,
         'Otherworldly_Patron_The_Fiend':True,
@@ -10048,6 +10348,7 @@ metadict_chars['Warlock 11 lvl (враг) (Чара Атенак)'] = {
             ('ritual', 'Identify'),
             ('ritual', 'Detect_Magic'),
             ('ritual', 'Unseen_Servant'),
+            ('ritual', 'Comprehend_Languages'),
             ('ritual', 'Water_Breathing'),
             ('ritual', 'Leomund_Tiny_Hut'),
             ('ritual', 'Rary_Telepathic_Bond'),
@@ -10067,6 +10368,8 @@ metadict_chars['Warlock 11 lvl (враг) (Чара Атенак)'] = {
             ('5_lvl', 'Banishment'),
             # Invocation_Minios_of_Chaos:
             ('5_lvl', 'Conjure_Elemental'),
+            # Таинственный арканум:
+            ('6_lvl', 'True_Seeing'),
             ],
         # TODO:
         # - Удача темнейшего, +1d10 к спасброску/проверке характеристики. 1 раз/кор.отдых.
@@ -10087,9 +10390,6 @@ metadict_chars['Warlock 11 lvl (враг) (Чара Атенак)'] = {
         'Pact_of_the_Chain':True,
         # Черта на 8 lvl:
         'Feat_Ritual_Caster':True,
-        'Ability_Score_Improvement':{
-            'charisma':+2,
-            },
         },
     'race':'Human-hero',
     'weapon_skill':['simple','martial'],
