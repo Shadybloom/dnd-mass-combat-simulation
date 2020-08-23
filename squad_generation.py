@@ -437,11 +437,15 @@ class squad_generation():
         return metadict_soldiers
 
     def throw_squad_initiative(self):
-        """Инициатива отряда -- сумма бросков инициативы командиров."""
+        """Инициатива отряда = инициативы командира.
+        
+        Ранее была сумма инициативы командиров, но так честнее.
+        """
         squad_initiative = 0
         for uuid,soldier in self.metadict_soldiers.items():
             if soldier.behavior == 'commander':
                 squad_initiative += soldier.initiative
+                break
         return squad_initiative
 
     def throw_squad_moral(self, enemy_recon, commanders_list, advantage = False, disadvantage = False):
