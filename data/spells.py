@@ -99,6 +99,12 @@ class gen_spells():
                     ignore_resistance = soldier.class_features['Feat_Elemental_Adept']
                     if spell_dict['damage_type'] == ignore_resistance:
                         spell_dict['ignore_resistance'] = ignore_resistance
+                # TODO: не срабатывает для копий заклинаний в soldier.spells:
+                if soldier.class_features.get('Feat_Spellsniper')\
+                        and spell_dict.get('damage_type')\
+                        and spell_dict.get('direct_hit'):
+                    spell_dict['ignore_cover'] = True
+                    spell_dict['attack_range'] *= 2
                 # TODO: Arcane_Ward перенеси сюда из Mage_Armor.
                 # ------------------------------------------------------------
                 # Срабатывает на любые заклинания школы abjuration.
