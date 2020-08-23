@@ -2583,9 +2583,16 @@ class battle_simulation(battlescape):
                     # TODO: эту селекцию можно использовать для любых заклинаний:
                     # Накат "Пламенного шара", только одна цель. Выбор кастером из ближайших:
                     elif not single_target and spell_dict.get('effect') == 'flaming_sphere':
+                        # Сфера перемещается дальше радиуса начального каста. Пока костыль:
+                        spell_dict['attack_range'] += 30
                         soldier.concentration['zone_center'] = zone_center
                         targets = [target for target in targets if target.side == soldier.enemy_side]
                         targets = [soldier.select_enemy(targets)]
+                        # Убираем точку удара, чтобы следующие "Flaming_Sphere" не били в одно место:
+                        if zone_center in squad.danger_points:
+                            squad.danger_points.pop(zone_center)
+                        if not targets:
+                            return False
                 # Перемещение в центр зоны заклинания (whirlwind воздушного элементаля)
                 if spell_dict.get('effect') == 'move':
                     self.change_place(soldier.place, zone_center, soldier.uuid)
