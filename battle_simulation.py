@@ -998,9 +998,9 @@ class battle_simulation(battlescape):
                     if zonal_spell_victims:
                         commands_list.append('danger')
                         # Если больше 5% солдат под ударом, то отряд отступает:
-                        if len(zonal_spell_victims) > len(squad.metadict_soldiers) * 0.05\
-                                and 'engage' in commands_list:
-                            commands_list.remove('engage')
+                        if len(zonal_spell_victims) > len(squad.metadict_soldiers) * 0.05:
+                            if 'engage' in commands_list:
+                                commands_list.remove('engage')
                             commands_list.append('disengage')
                             #print(len(zonal_spell_victims))
                         #else:
