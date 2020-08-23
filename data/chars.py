@@ -10992,6 +10992,7 @@ metadict_chars['Bard 6 lvl (друг) (Тетра Курио)'] = {
         'Spellcasting':True,
         'Spells':[
             # 6 lvl -- 9 заклинаний
+            # TODO: "Тишина" (Silence) на 2 lvl. Защита от урона громом.
             ('cantrip', 'Message'),
             ('cantrip', 'Prestidigitation'),
             ('cantrip', 'Dancing_Lights'),
