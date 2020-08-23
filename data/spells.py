@@ -2245,7 +2245,7 @@ class gen_spells():
                     'attacks_number':1,
                     'radius':10,
                     'attack_range':5,
-                    'damage_type':'necrotic',
+                    'damage_type':'necrotic_energy',
                     'damage_dice':'2d6',
                     'components':['verbal', 'somatic'],
                     'casting_time':'action',
@@ -3126,6 +3126,50 @@ class gen_spells():
         #    dice = int(spell_dict['damage_dice'][0])
         #    dice += int(spell_level[0]) - 1
         #    spell_dict['damage_dice'] = str(dice) + spell_dict['damage_dice'][1:]
+        return spell_dict
+
+#----
+# 6 lvl
+
+    @modify_spell
+    @update_spell_dict
+    def Circle_of_Death(self, spell_level, gen_spell = False, spell_dict = False):
+        """Круг смерти.
+
+        Level: 6
+        Casting time: 1 Action
+        Range: 150 feet
+        Components: V, S, M (the powder of a crushed black pearl worth at least 500 gp)
+        Duration: Instantaneous
+        https://www.dnd-spells.com/spell/circle-of-death
+        """
+        if not spell_dict:
+            spell_dict = {
+                    'zone':True,
+                    'direct_hit':True,
+                    'savethrow':True,
+                    'savethrow_ability':'constitution',
+                    'attacks_number':1,
+                    'attack_range':150,
+                    'radius':60,
+                    'damage_type':'necrotic_energy',
+                    'damage_dice':'8d6',
+                    'components':['verbal','somatic','material'],
+                    'casting_time':'action',
+                    'damage_mod':0,
+                    'spell_level':spell_level,
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    'spell_of_choice':'Magic_Missile',
+                    'school':'necromancy',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
+        # Плюс 2d6 урона за каждый круг выше 6
+        if int(spell_level[0]) > 6:
+            dice = int(spell_dict['damage_dice'][0])
+            dice += (int(spell_level[0]) - 6) * 2
+            spell_dict['damage_dice'] = str(dice) + spell_dict['damage_dice'][1:]
+        if self.mage.class_features.get('Metamagic_Distant_Spell'):
+            spell_dict['attack_range'] *= 2
         return spell_dict
 
 #----
