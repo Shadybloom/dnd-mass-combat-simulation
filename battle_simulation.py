@@ -786,7 +786,10 @@ class battle_simulation(battlescape):
             squad.moral = squad.throw_squad_moral(squad.enemy_recon, squad.commanders_list)
 
     def commanders_to_list(self, squad):
-        """Командиры возвращают свои координаты и уровень опасности рядом."""
+        """Командиры возвращают свои координаты и уровень опасности рядом.
+        
+        Если не осталось командиров в отряде, то командиром считается кто-то из бойцов.
+        """
         commanders_list = []
         for uuid, soldier in squad.metadict_soldiers.items():
             if hasattr(soldier, 'place') and soldier.place\
@@ -796,6 +799,17 @@ class battle_simulation(battlescape):
                     and soldier.defeat != True:
                 commander_tuple = self.namedtuple_commander(soldier.place,soldier.danger,soldier.uuid)
                 commanders_list.append(commander_tuple)
+        # Обычный боец может принять командование, но, лучше, не стоит.
+        #if not commanders_list and [soldier for soldier in soldier.metadict_soldiers.values()
+        #        if not soldier.defeat and not soldier.escape]:
+        #    for uuid, soldier in squad.metadict_soldiers.items():
+        #        if hasattr(soldier, 'place') and soldier.place\
+        #                and soldier.hitpoints > 0\
+        #                and soldier.escape != True\
+        #                and soldier.defeat != True:
+        #            commander_tuple = self.namedtuple_commander(soldier.place,soldier.danger,soldier.uuid)
+        #            commanders_list.append(commander_tuple)
+        #            break
         return commanders_list
 
     def commanders_seek_enemies(self, squad):
