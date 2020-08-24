@@ -721,7 +721,6 @@ class gen_spells():
                     }
             spell_dict = copy.deepcopy(spell_dict)
         if gen_spell:
-            # Нацеливаем на себя, либо на другого, если указана цель:
             if not spell_dict.get('target_uuid'):
                 soldier = self.mage
             else:
@@ -1611,7 +1610,6 @@ class gen_spells():
         if int(spell_level[0]) > 1:
             spell_dict['attacks_number'] *= int(spell_level[0])
         if gen_spell:
-            # Нацеливаем на себя, либо на другого, если указана цель:
             if not spell_dict.get('target_uuid'):
                 soldier = self.mage
             else:
@@ -1658,7 +1656,10 @@ class gen_spells():
         if int(spell_level[0]) > 1:
             spell_dict['attacks_number'] *= int(spell_level[0])
         if gen_spell:
-            soldier = self.mage
+            if not spell_dict.get('target_uuid'):
+                soldier = self.mage
+            else:
+                soldier = self.mage.metadict_soldiers[spell_dict['target_uuid']]
             if soldier.bonus_hitpoints < spell_dict['damage_mod']:
                 soldier.set_hitpoints(bonus_hitpoints = spell_dict['damage_mod'])
         return spell_dict
@@ -2014,7 +2015,10 @@ class gen_spells():
             dice += int(spell_level[0]) - 1
             spell_dict['damage_dice'] = str(dice) + spell_dict['damage_dice'][1:]
         if gen_spell:
-            soldier = self.mage
+            if not spell_dict.get('target_uuid'):
+                soldier = self.mage
+            else:
+                soldier = self.mage.metadict_soldiers[spell_dict['target_uuid']]
             # Параметр 'damage_type' должен быть передан заклинанию с помощью update_spell_dict:
             if spell_dict['damage_type'] in spell_dict['absorb_damage_type']:
                 soldier.resistance.append(spell_dict['damage_type'])
@@ -2053,7 +2057,6 @@ class gen_spells():
                     }
             spell_dict = copy.deepcopy(spell_dict)
         if gen_spell:
-            # Нацеливаем на себя, либо на другого, если указана цель:
             if not spell_dict.get('target_uuid'):
                 soldier = self.mage
             else:
@@ -2095,7 +2098,10 @@ class gen_spells():
         if int(spell_level[0]) > 1:
             spell_dict['damage_mod'] *= int(spell_level[0])
         if gen_spell:
-            soldier = self.mage
+            if not spell_dict.get('target_uuid'):
+                soldier = self.mage
+            else:
+                soldier = self.mage.metadict_soldiers[spell_dict['target_uuid']]
             soldier.bonus_hitpoints = spell_dict['damage_mod']
         return spell_dict
 
@@ -2128,7 +2134,10 @@ class gen_spells():
         if int(spell_level[0]) > 1:
             spell_dict['healing_mod'] = spell_dict['healing_mod'] * int(spell_level[0])
         if gen_spell:
-            soldier = self.mage
+            if not spell_dict.get('target_uuid'):
+                soldier = self.mage
+            else:
+                soldier = self.mage.metadict_soldiers[spell_dict['target_uuid']]
             bonus_hitpoints = dices.dice_throw_advantage(spell_dict['healing_dice'])\
                     + spell_dict['healing_mod']
             soldier.set_hitpoints(bonus_hitpoints = bonus_hitpoints)
@@ -2607,7 +2616,10 @@ class gen_spells():
                     }
             spell_dict = copy.deepcopy(spell_dict)
         if gen_spell:
-            soldier = self.mage
+            if not spell_dict.get('target_uuid'):
+                soldier = self.mage
+            else:
+                soldier = self.mage.metadict_soldiers[spell_dict['target_uuid']]
             max_hitpoints = soldier.hitpoints_max + spell_dict['damage_mod']
             soldier.set_hitpoints(max_hitpoints = max_hitpoints)
             soldier.set_hitpoints(heal = max_hitpoints)
@@ -2645,7 +2657,6 @@ class gen_spells():
                     }
             spell_dict = copy.deepcopy(spell_dict)
         if gen_spell:
-            # Нацеливаем на себя, либо на другого, если указана цель:
             if not spell_dict.get('target_uuid'):
                 soldier = self.mage
             else:
