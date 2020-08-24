@@ -231,8 +231,7 @@ class battle_simulation(battlescape):
 
     def place_soldiers(self):
         """Размещаем метки бойцов на карте.
-        
-        Каждая метка, это кортеж со стороной юнита, его типом и uuid.
+
         """
         # Перемешиваем пункты спавна, чтобы получился разомкнутый строй:
         spawn_list = list(self.spawn_list)
@@ -253,47 +252,53 @@ class battle_simulation(battlescape):
                                         and soldier.mount_combat == True\
                                         and soldier.mount_uuid in squad.metadict_soldiers:
                                     mount = squad.metadict_soldiers[soldier.mount_uuid]
-                                    mount_tuple = (squad.ally_side, mount.behavior, mount.uuid)
-                                    # TODO: размер ездового животного может быть и 'huge'
-                                    # Лошади крупные создания, занимают 2x2 тайла:
-                                    mount_place_field = self.point_to_field_2x2(spawn_point.place)
-                                    for point in mount_place_field:
-                                        if point in self.dict_battlespace:
-                                            self.dict_battlespace[point].append(mount_tuple)
-                                    # А ещё лошадки высокие, что позволяет смотреть далеко:
-                                    self.dict_battlespace[spawn_point.place].append('mount_height')
-                                    squad.metadict_soldiers[mount.uuid].set_coordinates(spawn_point.place)
-                                # TODO: Сделай нормальный поиск по namedtuple.
-                                # ------------------------------------------------------------
-                                # Сейчас бойцы на карте ищутся перебором type(tuple), это неэффективно.
-                                # Проблема в том, что namedtuple не определяется как обычный кортеж
-                                # ------------------------------------------------------------
-                                #soldier_tuple = self.namedtuple_soldier(side,behavior,uuid)
-                                soldier_tuple = (squad.ally_side, soldier.behavior, soldier.uuid)
-                                # Дополняем словарь поля боя и вырубаем цикл, так как спавн занят:
-                                if soldier.size == 'medium'\
-                                        or soldier.size == 'small'\
-                                        or soldier.size == 'tiny':
-                                    self.dict_battlespace[spawn_point.place].append(squad.ally_side)
-                                    self.dict_battlespace[spawn_point.place].append(soldier_tuple)
-                                # Большие существа занимают 2x2 тайла:
-                                elif soldier.size == 'large':
-                                    soldier_place_field = self.point_to_field_2x2(spawn_point.place)
-                                    for point in soldier_place_field:
-                                        if point in self.dict_battlespace:
-                                            self.dict_battlespace[point].append(soldier_tuple)
-                                            self.dict_battlespace[point].append(squad.ally_side)
-                                            self.dict_battlespace[point].append('mount_height')
-                                elif soldier.size == 'huge':
-                                    soldier_place_field = self.point_to_field(spawn_point.place)
-                                    for point in soldier_place_field:
-                                        if point in self.dict_battlespace:
-                                            self.dict_battlespace[point].append(soldier_tuple)
-                                            self.dict_battlespace[point].append(squad.ally_side)
-                                            self.dict_battlespace[point].append('mount_height')
-                                # Даём бойцу его координаты:
-                                squad.metadict_soldiers[uuid].set_coordinates(spawn_point.place)
+                                    self.place_unit(mount, spawn_point.place)
+                                # Метка солдата, это кортеж/кортежи на поле боя:
+                                self.place_unit(soldier, spawn_point.place)
                                 break
+
+    def place_unit(self, soldier, place):
+        """Боец появляется на поле боя.
+        
+        Каждая метка, это кортеж со стороной юнита, его типом и uuid.
+        """
+        # TODO: Сделай нормальный поиск по namedtuple.
+        # ------------------------------------------------------------
+        # Сейчас бойцы на карте ищутся перебором type(tuple), это неэффективно.
+        # Проблема в том, что namedtuple не определяется как обычный кортеж
+        # ------------------------------------------------------------
+        #soldier_tuple = self.namedtuple_soldier(side,behavior,uuid)
+        soldier_tuple = (soldier.ally_side, soldier.behavior, soldier.uuid)
+        # Дополняем словарь поля боя и вырубаем цикл, так как спавн занят:
+        if soldier.size == 'medium'\
+                or soldier.size == 'small'\
+                or soldier.size == 'tiny':
+            self.dict_battlespace[place].append(soldier.ally_side)
+            self.dict_battlespace[place].append(soldier_tuple)
+            # Даём бойцу его координаты:
+            self.metadict_soldiers[soldier.uuid].set_coordinates(place)
+            return True
+        # Большие существа занимают 2x2 тайла:
+        elif soldier.size == 'large':
+            soldier_place_field = self.point_to_field_2x2(place)
+            for point in soldier_place_field:
+                if point in self.dict_battlespace:
+                    self.dict_battlespace[point].append(soldier_tuple)
+                    self.dict_battlespace[point].append(soldier.ally_side)
+                    self.dict_battlespace[point].append('mount_height')
+            # Даём бойцу его координаты:
+            self.metadict_soldiers[soldier.uuid].set_coordinates(place)
+            return True
+        elif soldier.size == 'huge':
+            soldier_place_field = self.point_to_field(place)
+            for point in soldier_place_field:
+                if point in self.dict_battlespace:
+                    self.dict_battlespace[point].append(soldier_tuple)
+                    self.dict_battlespace[point].append(soldier.ally_side)
+                    self.dict_battlespace[point].append('mount_height')
+            # Даём бойцу его координаты:
+            self.metadict_soldiers[soldier.uuid].set_coordinates(place)
+            return True
 
     def find_zone_exit_points(self, zone):
         """Точки выхода с карты для бегущих с поля боя.
@@ -437,7 +442,7 @@ class battle_simulation(battlescape):
                         #'Mage_Armor',
                         ]
                 for bless in bless_list:
-                    spell_dict = soldier.try_spellcast(bless, gen_spell = False)
+                    spell_dict = soldier.try_spellcast(bless, gen_spell = False, use_action = False)
                     if spell_dict:
                         soldiers_list = self.select_soldiers_for_bless(
                                 spell_dict['attacks_number'], squad.ally_side, spell_dict['effect'])
@@ -464,15 +469,15 @@ class battle_simulation(battlescape):
                         ]
                 for spell in spells_list:
                     if not soldier.armor['armor_use'] and spell == 'Mage_Armor':
-                        soldier.use_item('Mage_Armor', gen_spell = True)
+                        soldier.use_item('Mage_Armor', gen_spell = True, use_action = False)
                     if soldier.armor['armor_class'] < 16 and spell == 'Barkskin':
-                        soldier.use_item('Barkskin', gen_spell = True)
+                        soldier.use_item('Barkskin', gen_spell = True, use_action = False)
                     if not soldier.bonus_hitpoints and spell == 'Heroism':
-                        soldier.use_item('Heroism', gen_spell = True)
+                        soldier.use_item('Heroism', gen_spell = True, use_action = False)
                     if not soldier.bonus_hitpoints and spell == 'False_Life':
-                        soldier.use_item('False_Life', gen_spell = True)
+                        soldier.use_item('False_Life', gen_spell = True, use_action = False)
                     if spell == 'Longstrider':
-                        soldier.use_item('Longstrider', gen_spell = True)
+                        soldier.use_item('Longstrider', gen_spell = True, use_action = False)
             # Используем зелья:
             # TODO: Вообще, зелья дублируют руны по сути и содержимому.
             if 'potions' in soldier.commands:
@@ -482,9 +487,9 @@ class battle_simulation(battlescape):
                         ]
                 for spell in spells_list:
                     if not soldier.bonus_hitpoints and spell == 'False_Life':
-                        soldier.use_item('False_Life', gen_spell = True)
+                        soldier.use_item('False_Life', gen_spell = True, use_action = False)
                     if not 'antidote' in soldier.buffs and spell == 'Antidote':
-                        soldier.use_item('Antidote', gen_spell = True)
+                        soldier.use_item('Antidote', gen_spell = True, use_action = False)
             # Тратим слоты заклинаний:
             if 'spellcast' in soldier.commands and soldier.spells:
                 spells_list = [
@@ -492,19 +497,23 @@ class battle_simulation(battlescape):
                         'False_Life',
                         'Mage_Armor',
                         'Barkskin',
+                        'Blink',
                         ]
                 # TODO: сделай функцию выбора в классе soldier_fight. Пусть возвращает True.
                 for spell in spells_list:
-                    if soldier.bonus_hitpoints <= 0 and spell == 'Armor_of_Agathys':
-                        soldier.try_spellcast(spell, gen_spell = True)
-                    if not soldier.armor['armor_use'] and spell == 'Mage_Armor':
-                        soldier.try_spellcast(spell, gen_spell = True)
-                    if soldier.armor['armor_class'] < 16 and spell == 'Barkskin'\
-                            and not soldier.concentration:
-                        soldier.try_spellcast(spell, gen_spell = True)
-                    if not soldier.bonus_hitpoints and spell == 'False_Life':
-                        soldier.try_spellcast(spell, gen_spell = True)
-                    #print(soldier.rank, soldier.buffs.keys())
+                    if spell in [spell[-1] for spell in soldier.spells.keys()]:
+                        if soldier.bonus_hitpoints <= 0 and spell == 'Armor_of_Agathys':
+                            soldier.try_spellcast(spell, gen_spell = True, use_action = False)
+                        if not soldier.armor['armor_use'] and spell == 'Mage_Armor':
+                            soldier.try_spellcast(spell, gen_spell = True, use_action = False)
+                        if soldier.armor['armor_class'] < 16 and spell == 'Barkskin'\
+                                and not soldier.concentration:
+                            soldier.try_spellcast(spell, gen_spell = True, use_action = False)
+                        if not soldier.bonus_hitpoints and spell == 'False_Life':
+                            soldier.try_spellcast(spell, gen_spell = True, use_action = False)
+                        if spell == 'Blink':
+                            soldier.try_spellcast(spell, gen_spell = True, use_action = False)
+                        #print(soldier.rank, soldier.buffs.keys())
 
     def select_soldiers_for_bless(self, number, ally_side, bless_type):
         """Выбираем солдат для Bless, Inspiring_Leader, Bardic_Inspiration и т.д.
@@ -696,6 +705,10 @@ class battle_simulation(battlescape):
             # Зональные эффекты бьют в том числе и раненых:
             if soldier.get_coordinates():
                 self.get_zone_effects(soldier, squad, before_round = True)
+                # Маг под "Blink" возвращается с эфирного плана:
+                if 'blink' in soldier.buffs and soldier.blink and not soldier.defeat:
+                    self.place_unit(soldier, soldier.place)
+                    soldier.blink = False
             if soldier.get_coordinates() and soldier.hitpoints > 0\
                     and not soldier.defeat\
                     and not 'sleep' in soldier.debuffs\
@@ -706,6 +719,10 @@ class battle_simulation(battlescape):
                 self.set_control_zone(soldier, squad)
             # Зональные эффекты после раунда бойца. От таких можно сбежать:
             if soldier.get_coordinates():
+                # Маг под "Blink" уходит в конце хода на эфирный план:
+                if 'blink' in soldier.buffs and dices.dice_throw('1d20') > 11:
+                    self.clear_battlemap(uuid_for_clear = soldier.uuid)
+                    soldier.blink = True
                 self.get_zone_effects(soldier, squad)
                 # Ставим ауру, на случай, если боец применил заклинание, но не ходил:
                 if soldier.concentration and soldier.concentration.get('zone_self'):
@@ -2243,7 +2260,7 @@ class battle_simulation(battlescape):
         # TODO: допиливай прочее.
         # - смайты паладина
         enemy_soldier = self.metadict_soldiers[enemy.uuid]
-        if not soldier.concentration and soldier.battle_action:
+        if not soldier.concentration:
             spells_list = [
                     'Hex',
                     'Hail_of_Thorns',
@@ -3230,7 +3247,7 @@ class battle_simulation(battlescape):
                             self.dict_battlespace[soldier.place].remove(soldier.ally_side)
                         break
 
-    def clear_battlemap(self):
+    def clear_battlemap(self, uuid_for_clear = None):
         """Чистим карту от павших/беглецов.
         
         Убираем всех, у кого хитов меньше нуля. А также сбежавших с поля боя.
@@ -3246,7 +3263,8 @@ class battle_simulation(battlescape):
                             or soldier.death\
                             or soldier.hitpoints < -(soldier.hitpoints_max)\
                             or soldier.death and soldier.__dict__.get('mechanism')\
-                            or soldier.defeat and soldier.__dict__.get('mechanism_construct'):
+                            or soldier.defeat and soldier.__dict__.get('mechanism_construct')\
+                            or uuid_for_clear == soldier.uuid:
                         content.remove(el)
                         #soldier.place = None
                         #if 'fall_place' in content and soldier.ally_side in content:

@@ -214,6 +214,7 @@ class soldier_in_battle(soldier):
         # Долговременные параметры:
         self.petrified = False
         # Эффекты заклинаний:
+        self.blink = False
         self.fear = False
         self.fear_source = None
         self.damage_absorbed = None

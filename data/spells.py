@@ -1601,8 +1601,7 @@ class gen_spells():
                     'attacks_number':1,
                     'attack_range':5,
                     'components':['verbal','somatic','material'],
-                    #'casting_time':'action',
-                    'casting_time':'free_action',
+                    'casting_time':'action',
                     'spell_level':spell_level,
                     'spell_save_DC':8 + self.find_spell_attack_mod(),
                     'spell_of_choice':'Bane',
@@ -2047,8 +2046,7 @@ class gen_spells():
                     'armor_class_armor':13,
                     'attack_range':0,
                     'components':['verbal','somatic','material'],
-                    #'casting_time':'action',
-                    'casting_time':'free_action',
+                    'casting_time':'action',
                     'spell_level':spell_level,
                     'spell_of_choice':'Magic_Missile',
                     'school':'abjuration',
@@ -2088,7 +2086,7 @@ class gen_spells():
                     'damage_dice':'0d0',
                     'damage_mod':5,
                     'components':['verbal','somatic','material'],
-                    'casting_time':'free_action',
+                    'casting_time':'action',
                     'spell_level':spell_level,
                     'spell_of_choice':'Magic_Missile',
                     'school':'abjuration',
@@ -2639,8 +2637,7 @@ class gen_spells():
                     'armor_class_armor':16,
                     'attack_range':5,
                     'components':['verbal','somatic','material'],
-                    #'casting_time':'action',
-                    'casting_time':'free_action',
+                    'casting_time':'action',
                     'spell_level':spell_level,
                     'spell_of_choice':'Magic_Missile',
                     'school':'transmutation',
@@ -2995,6 +2992,33 @@ class gen_spells():
             dice = int(spell_dict['damage_dice'][0])
             dice += int(spell_level[0]) - 1
             spell_dict['damage_dice'] = str(dice) + spell_dict['damage_dice'][1:]
+        return spell_dict
+
+    @modify_spell
+    @update_spell_dict
+    def Blink(self, spell_level, gen_spell = False, spell_dict = False):
+        """Мерцание.
+
+        Level: 3
+        Casting time: 1 Action
+        Range: Self
+        Components: V, S
+        Duration: 1 minute
+        https://www.dnd-spells.com/spell/blink
+        """
+        if not spell_dict:
+            spell_dict = {
+                    'buff':True,
+                    'effect':'blink',
+                    'effect_timer':10,
+                    'attack_range':0,
+                    'components':['verbal','somatic'],
+                    'casting_time':'action',
+                    'spell_level':spell_level,
+                    'spell_of_choice':'Magic_Missile',
+                    'school':'transmutation',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
 #----
