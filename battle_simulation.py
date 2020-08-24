@@ -2964,37 +2964,39 @@ class battle_simulation(battlescape):
         # "Книга игрока", "Протискивание в меньшее пространство"
         if len([el for el in self.dict_battlespace[soldier.place] if type(el) == tuple]) >= 2:
             disadvantage = True
-        # Сильный ветер мешает стрелкам:
+        # Влияние погоды:
         if attack_choice[0] == 'throw' or attack_choice[0] == 'ranged' or attack_choice[0] == 'volley':
+            # Сильный ветер мешает стрелкам:
             if 'warding_wind' in self.dict_battlespace[enemy_soldier.place]:
                 disadvantage = True
-            # Homebrew, солдату без умения плавать сложно прицелиться:
-            if not soldier.water_walk and 'water' in self.dict_battlespace[soldier.place]:
+            # Вода мешает стрелкам:
+            if 'water' in self.dict_battlespace[soldier.place] and not soldier.water_walk:
                 disadvantage = True
         # TODO: перенеси это в attack класса бойца:
         # Противника может защитить товарищ с Fighting_Style_Protection:
-        elif len(enemy_soldier.near_allies) > 1:
-            for soldier_tuple in enemy_soldier.near_allies:
-                enemy_ally = self.metadict_soldiers[soldier_tuple.uuid]
-                if enemy_ally.class_features.get('Fighting_Style_Protection')\
-                        and enemy_ally.reaction == True\
-                        and enemy_ally.uuid != enemy_soldier.uuid\
-                        and enemy_ally.armor['shield_use'] != None\
-                        and enemy_ally.shield_ready:
-                    disadvantage = enemy_ally.set_protection(enemy_soldier)
-                    #print('{0} {1} {2} attack {3} {4} {5} reaction protect from {6} {7} {8}'.format(
-                    #    soldier.ally_side, soldier.place, soldier.behavior,
-                    #    enemy_soldier.ally_side, enemy_soldier.place, enemy_soldier.behavior,
-                    #    enemy_ally.ally_side, enemy_ally.place, enemy_ally.behavior))
-                    break
-        # TODO: перенеси это в attack класса бойца:
-        # Жрец домена света может поставить помеху на одиночную атаку (на дистанции до 30 футов):
-        elif hasattr(enemy_soldier, 'warding_flare') and enemy_soldier.warding_flare > 0\
-                and enemy_soldier.reaction\
-                and distance_measure(enemy_soldier.place, soldier.place) <= 30 / self.tile_size:
-            enemy_soldier.warding_flare -= 1
-            enemy_soldier.reaction = False
-            disadvantage = True
+        if not disadvantage:
+            if len(enemy_soldier.near_allies) > 1:
+                for soldier_tuple in enemy_soldier.near_allies:
+                    enemy_ally = self.metadict_soldiers[soldier_tuple.uuid]
+                    if enemy_ally.class_features.get('Fighting_Style_Protection')\
+                            and enemy_ally.reaction == True\
+                            and enemy_ally.uuid != enemy_soldier.uuid\
+                            and enemy_ally.armor['shield_use'] != None\
+                            and enemy_ally.shield_ready:
+                        disadvantage = enemy_ally.set_protection(enemy_soldier)
+                        #print('{0} {1} {2} attack {3} {4} {5} reaction protect from {6} {7} {8}'.format(
+                        #    soldier.ally_side, soldier.place, soldier.behavior,
+                        #    enemy_soldier.ally_side, enemy_soldier.place, enemy_soldier.behavior,
+                        #    enemy_ally.ally_side, enemy_ally.place, enemy_ally.behavior))
+                        break
+            # TODO: перенеси это в attack класса бойца:
+            # Жрец домена света может поставить помеху на одиночную атаку (на дистанции до 30 футов):
+            if hasattr(enemy_soldier, 'warding_flare') and enemy_soldier.warding_flare > 0\
+                    and enemy_soldier.reaction\
+                    and distance_measure(enemy_soldier.place, soldier.place) <= 30 / self.tile_size:
+                enemy_soldier.warding_flare -= 1
+                enemy_soldier.reaction = False
+                disadvantage = True
         return advantage, disadvantage
 
     def break_enemy_defence(self, soldier, squad, enemy_soldier, attack_choice):
