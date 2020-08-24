@@ -143,7 +143,7 @@ class gen_spells():
                 return spell_dict
             elif spell_dict_raw:
                 spell_dict = func(self, spell_level, gen_spell)
-                return spell_dict_raw
+                return spell_dict
             else:
                 #raise Exception("Заклинание не сработало", func.__name__, spell_choice)
                 pass
@@ -2506,6 +2506,51 @@ class gen_spells():
                     'school':'illusion',
                     }
             spell_dict = copy.deepcopy(spell_dict)
+        return spell_dict
+
+    @modify_spell
+    @update_spell_dict
+    def Mirror_Image(self, spell_level, gen_spell = False, spell_dict = False):
+        """Отражения.
+
+        Level: 2
+        Casting time: 1 Action
+        Range: Self
+        Components: V, S
+        Duration: 1 minute
+        https://www.dnd-spells.com/spell/mirror-image
+        """
+        if not spell_dict:
+            spell_dict = {
+                    'buff':True,
+                    'effect':'mirror_image',
+                    'effect_timer':10,
+                    'attack_range':0,
+                    'components':['verbal','somatic'],
+                    'casting_time':'action',
+                    'spell_level':spell_level,
+                    'spell_of_choice':'Magic_Missile',
+                    'school':'illusion',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
+        if gen_spell:
+            if not spell_dict.get('target_uuid'):
+                soldier = self.mage
+            else:
+                soldier = self.mage.metadict_soldiers[spell_dict['target_uuid']]
+            # Создаются три иллюзорные копии:
+            spell_dict['images'] = {}
+            from soldier_fight import soldier_in_battle
+            for n in range (0,3):
+                image = soldier_in_battle()
+                image.create_soldier('Mirror_Image (CR 0)')
+                image.armor = copy.deepcopy(soldier.armor)
+                image.set_actions_base(squad = None)
+                image.set_ally_side(soldier.ally_side)
+                image.set_enemy_side(soldier.enemy_side)
+                image.set_coordinates(soldier.place)
+                soldier.metadict_soldiers[image.uuid] = image
+                spell_dict['images'][image.uuid] = image
         return spell_dict
 
     @modify_spell

@@ -847,6 +847,36 @@ metadict_animals['Trap (Boulders)'] = {
 #----
 # Предметы:
 
+metadict_animals['Mirror_Image (CR 0)'] = {
+    # Иллюзии. Созданы заклинанием Mirror_Image
+    'level':1,
+    'mirror_image':True,
+    'inactive_AI':True,
+    'armor_class_natural':10,
+    'challenge_rating':'-',
+    'char_class':'Commoner',
+    'behavior':'warrior',
+    'hitpoints_base':1,
+    'class_features':{
+        'immunity':['poison','poisoned'],
+        },
+    'abilityes':{
+        'strength':10,
+        'dexterity':10,
+        'constitution':10,
+        'intelligence':0,
+        'wisdom':0,
+        'charisma':0,
+        },
+    'hit_dice':'1d8',
+    'race':'Human-dummy',
+    'weapon_skill':[],
+    'armor_skill':[],
+    'equipment_weapon':{},
+    'equipment_backpack':{},
+    'equipment_supply':{},
+    }
+
 metadict_animals['Dummy (CR 0)'] = {
     # Просто чучело в броне.
     'level':1,

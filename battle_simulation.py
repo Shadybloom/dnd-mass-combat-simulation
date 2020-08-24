@@ -498,6 +498,7 @@ class battle_simulation(battlescape):
                         'Mage_Armor',
                         'Barkskin',
                         'Blink',
+                        'Mirror_Image',
                         ]
                 # TODO: сделай функцию выбора в классе soldier_fight. Пусть возвращает True.
                 for spell in spells_list:
@@ -516,6 +517,8 @@ class battle_simulation(battlescape):
                             if 'blink' in soldier.buffs and dices.dice_throw('1d20') > 11:
                                 self.clear_battlemap(uuid_for_clear = soldier.uuid)
                                 soldier.blink = True
+                        if spell == 'Mirror_Image':
+                            soldier.try_spellcast(spell, gen_spell = True, use_action = False)
                         #print(soldier.rank, soldier.buffs.keys())
 
     def select_soldiers_for_bless(self, number, ally_side, bless_type):
@@ -2022,6 +2025,18 @@ class battle_simulation(battlescape):
                             and master.hitpoints > master.hitpoints_max / 2:
                         enemy_soldier = master
                         enemy = self.get_enemy_tuple(soldier, enemy_soldier)
+                # Перенаправление атаки: маг --> Mirror_Image:
+                # Иллюзии остаются, но попадание распознаёт их.
+                if 'mirror_image' in enemy_soldier.buffs:
+                    spell_dict = enemy_soldier.buffs['mirror_image']
+                    targets = [image for image in spell_dict['images'].values()
+                            if image.hitpoints > 0]
+                    if targets:
+                        targets.append(enemy_soldier)
+                        enemy_soldier = random.choice(targets)
+                        enemy = self.get_enemy_tuple(soldier, enemy_soldier)
+                    else:
+                        enemy_soldier.buffs.pop('mirror_image')
                 # Боец подготавливает атаку:
                 attack_choice = attacks_chain.pop(0)
                 advantage, disadvantage = self.test_enemy_defence(soldier, enemy_soldier, attack_choice)

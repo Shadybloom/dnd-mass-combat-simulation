@@ -211,6 +211,13 @@ class soldier_in_battle(soldier):
         self.restrained = False
         self.help_action = False
         self.killer_mark = False
+        self.reckless_attack = False
+        self.dodge_action = False
+        # Убираем окружение:
+        self.danger = 0
+        self.near_zone = [ ]
+        self.near_allies = [ ]
+        self.near_enemies = [ ]
         # Долговременные параметры:
         self.petrified = False
         # Эффекты заклинаний:
