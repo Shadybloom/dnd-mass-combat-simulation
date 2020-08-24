@@ -340,7 +340,7 @@ class battlescape():
     finder = AStarFinder(diagonal_movement=DiagonalMovement.always)
     # Хорошая штука эти namedtuple. Зададим их здесь.
     namedtuple_spawn = namedtuple('spawn',['place','zone','type'])
-    namedtuple_target = namedtuple('target',['side','type','place','distance','cover','uuid'])
+    namedtuple_target = namedtuple('target',['side','type','level','place','distance','cover','uuid'])
     namedtuple_visibility = namedtuple('visibility',['distance','cover','visibility'])
     namedtuple_place = namedtuple('place',['place','free','rough','units'])
 
@@ -625,13 +625,13 @@ class battlescape():
             for el in descript:
                 if type(el) == tuple:
                     soldier_tuple = el
-                    soldier_side, soldier_type, soldier_uuid = soldier_tuple
+                    soldier_side, soldier_type, soldier_level, soldier_uuid = soldier_tuple
                     soldier_place = place
                     distance = 0
                     if scout_place:
                         distance = round(distance_measure(scout_place, soldier_place))
                     target = self.namedtuple_target(
-                            soldier_side, soldier_type, soldier_place,
+                            soldier_side, soldier_type, soldier_level, soldier_place,
                             distance, cover = 0, uuid = soldier_uuid)
                     if side == None:
                         dict_soldiers[soldier_uuid] = target
@@ -647,7 +647,7 @@ class battlescape():
         for soldier in dict_soldiers.values():
             distance = round(distance_measure(scout_place, soldier.place))
             target = self.namedtuple_target(
-                    soldier.side, soldier.type, soldier.place,
+                    soldier.side, soldier.type, soldier.level, soldier.place,
                     distance, cover = 0, uuid = soldier.uuid)
             dict_soldiers[soldier.uuid] = target
         dict_soldiers = OrderedDict(sorted(dict_soldiers.items(),key=lambda x: x[1].distance))
@@ -715,7 +715,14 @@ class battlescape():
                 uuid = value.uuid
                 distance = vision_tuple[0]
                 cover = vision_tuple[1]
-                target = self.namedtuple_target(value.side,value.type,value.place,distance,cover,value.uuid)
+                target = self.namedtuple_target(
+                        value.side,
+                        value.type,
+                        value.level,
+                        value.place,
+                        distance,
+                        cover,
+                        value.uuid)
                 dict_recon_visible[uuid] = target
                 found_number += 1
                 if found_number >= max_number:
@@ -896,7 +903,8 @@ class battlescape():
                             cover = vision_tuple[1]
                             uuid = value[-1]
                             #Сторона, тип_юнита, кординаты, дистанция, прикрытие (от взгляда), uuid.
-                            target = self.namedtuple_target(value[0],value[1],place,distance,cover,uuid)
+                            target = self.namedtuple_target(value[0],value[1],value[2],
+                                    place,distance,cover,uuid)
                             dict_recon[uuid] = target
         # Сортировка целей по дистанции:
         dict_recon = OrderedDict(sorted(dict_recon.items(),key=lambda x: x[1].distance))

@@ -270,7 +270,7 @@ class battle_simulation(battlescape):
         # Проблема в том, что namedtuple не определяется как обычный кортеж
         # ------------------------------------------------------------
         #soldier_tuple = self.namedtuple_soldier(side,behavior,uuid)
-        soldier_tuple = (soldier.ally_side, soldier.behavior, soldier.uuid)
+        soldier_tuple = (soldier.ally_side, soldier.behavior, soldier.level, soldier.uuid)
         # Дополняем словарь поля боя и вырубаем цикл, так как спавн занят:
         if soldier.size == 'medium'\
                 or soldier.size == 'small'\
@@ -846,9 +846,11 @@ class battle_simulation(battlescape):
         dict_enemies = {}
         for commander_tuple in squad.commanders_list:
             commander = squad.metadict_soldiers[commander_tuple.uuid]
-            dict_enemies.update(self.find_visible_soldiers(
-                    commander.place, commander.enemy_side,
-                    max_number = 30, max_try = 60))
+            # На случай, если враг зачаровал командира:
+            if commander.ally_side == squad.ally_side:
+                dict_enemies.update(self.find_visible_soldiers(
+                        commander.place, commander.enemy_side,
+                        max_number = 30, max_try = 60))
         dict_enemies = OrderedDict(sorted(dict_enemies.items(),key=lambda x: x[1].distance))
         return dict_enemies
 
@@ -1184,6 +1186,7 @@ class battle_simulation(battlescape):
                         if enemy_mage.uuid in enemy_squad.metadict_soldiers][0]
                 self.clear_battlemap(uuid_for_clear = soldier.uuid)
                 self.place_unit(soldier, soldier.place)
+                soldier.commands.append('spellcast')
                 soldier.commands.append('fearless')
                 squad = enemy_squad
         # Осматриваем зону врагов, находим противника:
@@ -1446,6 +1449,7 @@ class battle_simulation(battlescape):
         enemy = self.namedtuple_target(
                 enemy_soldier.ally_side,
                 enemy_soldier.behavior,
+                enemy_soldier.level,
                 enemy_soldier.place,
                 distance = round(distance_measure(soldier.place, enemy_soldier.place)),
                 cover = self.calculate_enemy_cover(soldier.place, enemy_soldier.place).cover,
@@ -1951,7 +1955,8 @@ class battle_simulation(battlescape):
                         uuid = value[-1]
                         cover = self.calculate_enemy_cover(target, target).cover
                         distance = round(distance_measure(soldier.place, target))
-                        enemy = self.namedtuple_target(value[0],value[1],target,distance,cover,uuid)
+                        enemy = self.namedtuple_target(value[0],value[1],value[2],
+                                target,distance,cover,uuid)
                         self.attack_action(soldier, squad, enemy, attack_choice = attack_choice)
                         break
                 else:
@@ -3161,7 +3166,7 @@ class battle_simulation(battlescape):
             sorted_enemies = self.refind_soldiers_distance(soldier.place, squad.enemies)
             visible_enemies = self.find_visible_soldiers(
                     soldier.place, soldier.enemy_side, sorted_enemies,
-                    max_number = 30, max_try = 60)
+                    max_number = 60, max_try = 120)
             return soldier.select_enemy(visible_enemies, select_strongest = True)
         # Сортируем цели по дистанции и берём по три, чтобы захватить всадника и коня:
         elif squad.enemies:

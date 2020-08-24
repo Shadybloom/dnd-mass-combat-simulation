@@ -1699,6 +1699,8 @@ class soldier_in_battle(soldier):
         else:
             danger_list = (list(self.dict_danger.keys()))
             random.shuffle(danger_list)
+        # Сортировка врагов по уровню:
+        near_enemies = list(reversed(sorted(near_enemies,key=lambda x: x.level)))
         # Выбор первого врага, который сильнейший/слабейший из списка угроз:
         for enemy_type in danger_list:
             for target in near_enemies:
