@@ -92,6 +92,8 @@ class battle_simulation(battlescape):
     """
     # Боец переходит в оборону, если враг в пределах 3x3 клеток сильнее друзей:
     engage_danger = 0
+    # Для магов. Если врагов пострадает вчетверо больше, чем наших, то бьём AoE-спеллом:
+    danger_factor = 4
     # Размер тайла -- 5 футов (1.5 метра):
     tile_size = 5
     namedtuple_squad = namedtuple('squad',['zone','type','initiative'])
@@ -1175,6 +1177,15 @@ class battle_simulation(battlescape):
                 if 'engage' in soldier.commands:
                     soldier.commands.remove('engage')
                     soldier.commands.append('disengage')
+            # Солдат сходит с ума от заклинания "Изобилие врагов":
+            if 'enemies_abound' in soldier.debuffs and soldier.enemy_side == squad.ally_side:
+                enemy_mage = self.metadict_soldiers[soldier.debuffs['enemies_abound']['caster_uuid']]
+                enemy_squad = [enemy_squad for enemy_squad in self.squads.values()
+                        if enemy_mage.uuid in enemy_squad.metadict_soldiers][0]
+                self.clear_battlemap(uuid_for_clear = soldier.uuid)
+                self.place_unit(soldier, soldier.place)
+                soldier.commands.append('fearless')
+                squad = enemy_squad
         # Осматриваем зону врагов, находим противника:
         self.recon_action(soldier, squad)
         enemy = self.find_enemy(soldier, squad)
@@ -1238,6 +1249,7 @@ class battle_simulation(battlescape):
                 self.move_action(soldier, squad, destination, allow_replace = True)
         # Командир ведёт бойцов автоматически, но не вырывается впереди строя:
         if 'lead' in soldier.commands\
+                and squad.commanders_list\
                 and soldier.behavior == 'commander'\
                 and soldier.uuid == squad.commanders_list[0].uuid:
             if len(soldier.near_allies) >= 2 or 'fearless' in soldier.commands:
@@ -1481,6 +1493,13 @@ class battle_simulation(battlescape):
                             else:
                                 enemy_squad = [enemy_squad for enemy_squad in self.squads.values()
                                         if enemy_soldier.uuid in enemy_squad.metadict_soldiers][0]
+                                # Для зачарованных жрецов:
+                                if 'enemies_abound' in enemy_soldier.debuffs\
+                                        and enemy_soldier.enemy_side == enemy_squad.ally_side:
+                                    enemy_mage = self.metadict_soldiers[
+                                            enemy_soldier.debuffs['enemies_abound']['caster_uuid']]
+                                    enemy_squad = [enemy_squad for enemy_squad in self.squads.values()
+                                            if enemy_mage.uuid in enemy_squad.metadict_soldiers][0]
                                 self.fireball_action(enemy_soldier, enemy_squad,
                                         spell_dict, soldier.place,
                                         safe = spell_dict.get('safe', False),
@@ -2323,8 +2342,24 @@ class battle_simulation(battlescape):
             while spell_chain:
                 spell_choice = spell_chain.pop(0)
                 advantage, disadvantage = self.test_enemy_defence(soldier, enemy_soldier, spell_choice)
+                # Срабатывают вредоносные эффекты заклинаний:
+                if spell_dict.get('debuff'):
+                    debuff_dict = enemy_soldier.set_debuff(spell_dict)
+                    if debuff_dict:
+                        debuff_dict['hit'] = True
+                        effect_upper = debuff_dict.get('effect', spell_choice[-1]).upper()
+                        print('[+++] {side_1}, {c1} {s} {effect_upper} >> {side_2} {c2} {e} {r}'.format(
+                            side_1 = soldier.ally_side,
+                            c1 = soldier.place,
+                            s = soldier.behavior,
+                            side_2 = enemy_soldier.ally_side,
+                            c2 = enemy_soldier.place,
+                            e = enemy_soldier.behavior,
+                            r = enemy_soldier.rank,
+                            effect_upper = effect_upper
+                            ))
                 # Заклинание Word_of_Radiance, избирательно бьющее по врагам вблизи.
-                if spell_dict.get('effect') == 'burst':
+                elif spell_dict.get('effect') == 'burst':
                     spell_dict['spell_choice'] = spell_choice
                     self.fireball_action(soldier, squad, spell_dict, soldier.place, safe = True)
                     continue
@@ -2399,35 +2434,40 @@ class battle_simulation(battlescape):
                         if sleep_pool > 0:
                             self.fireball_action_target(soldier, squad, spell_dict, enemy)
                     continue
-                # Magic_Missile всегда попадает.
-                elif spell_dict.get('direct_hit'):
-                    attack_dict = soldier.spell_attack(spell_dict, enemy,
-                            squad.metadict_soldiers,
-                            advantage = advantage, disadvantage = disadvantage)
-                    attack_result = enemy_soldier.take_attack(
-                            spell_choice, attack_dict, self.metadict_soldiers)
-                    # Заклинание "Create_Bonfire" создаёт пожары:
-                    if spell_dict.get('effect') == 'bonfire':
-                        spell_dict = soldier.concentration
-                        self.fireball_action(soldier, squad, spell_dict, enemy_soldier.place)
-                # Заклинания с показателем атаки мало отличаются от стрел и мечей:
-                elif spell_dict.get('attack_mod'):
-                    attack_dict = soldier.attack(spell_dict, spell_choice,
-                            enemy, self.metadict_soldiers,
-                            advantage = advantage, disadvantage = disadvantage)
-                    attack_result = enemy_soldier.take_attack(
-                            spell_choice, attack_dict, self.metadict_soldiers)
+                if spell_dict.get('damage_dice'):
+                    # Magic_Missile всегда попадает.
+                    if spell_dict.get('direct_hit'):
+                        attack_dict = soldier.spell_attack(spell_dict, enemy,
+                                squad.metadict_soldiers,
+                                advantage = advantage, disadvantage = disadvantage)
+                        attack_result = enemy_soldier.take_attack(
+                                spell_choice, attack_dict, self.metadict_soldiers)
+                        # Заклинание "Create_Bonfire" создаёт пожары:
+                        if spell_dict.get('effect') == 'bonfire':
+                            spell_dict = soldier.concentration
+                            self.fireball_action(soldier, squad, spell_dict, enemy_soldier.place)
+                    # Заклинания с показателем атаки мало отличаются от стрел и мечей:
+                    elif spell_dict.get('attack_mod'):
+                        attack_dict = soldier.attack(spell_dict, spell_choice,
+                                enemy, self.metadict_soldiers,
+                                advantage = advantage, disadvantage = disadvantage)
+                        attack_result = enemy_soldier.take_attack(
+                                spell_choice, attack_dict, self.metadict_soldiers)
+                    else:
+                        print('NYA. Недопиленое заклинание', spell_choice, spell_dict)
+                        continue
+                elif spell_dict.get('debuff') and debuff_dict:
+                    attack_result = debuff_dict
                 else:
-                    print('NYA. Недопиленое заклинание', spell_choice, spell_dict)
-                    continue
+                    attack_result = spell_dict
                 # Guiding_Bolt даёт преимущество на следующую атаку:
-                if attack_result['hit'] and spell_dict.get('effect') == 'guiding_bolt_hit':
+                if attack_result.get('hit') and spell_dict.get('effect') == 'guiding_bolt_hit':
                     enemy_soldier.guiding_bolt_hit = True
                 # Vicious_Mockery портит одиночную атаку врагу:
-                if attack_result['hit'] and spell_dict.get('effect') == 'mockery':
+                if attack_result.get('hit') and spell_dict.get('effect') == 'mockery':
                     enemy_soldier.mockery_hit = True
                 # Заклинание Hex:
-                if attack_result['hit'] and soldier.concentration\
+                if attack_result.get('hit') and soldier.concentration\
                         and soldier.concentration.get('effect') == 'hex'\
                         and soldier.concentration['effect'] in enemy_soldier.debuffs\
                         and soldier.concentration.get('target_uuid') == enemy_soldier.uuid:
@@ -2435,13 +2475,13 @@ class battle_simulation(battlescape):
                     self.fireball_action(soldier, squad, spell_dict, enemy.place,
                             single_target = enemy)
                 # Победа приносит бойцу опыт:
-                if attack_result['fatal_hit']:
+                if attack_result.get('fatal_hit'):
                     soldier.set_victory_and_enemy_defeat(enemy_soldier)
                     # Критический удар калечит цель:
                     if attack_result['crit']:
                         enemy_soldier.set_disabled()
                 # Убираем противника из списка целей и с карты:
-                if attack_result['fatal_hit']:
+                if attack_result.get('fatal_hit'):
                     if 'kill' in soldier.commands:
                         enemy_soldier.killer_mark = True
                     self.clear_battlemap()
@@ -2502,7 +2542,7 @@ class battle_simulation(battlescape):
             if debuff not in enemy_soldier.debuffs:
                 return enemy_soldier
 
-    def counterspell_action(self, spell_dict, soldier):
+    def counterspell_action(self, spell_dict, soldier, targets):
         """Контрзаклинание.
         
         - Если заклинание 3+ круга.
@@ -2518,9 +2558,12 @@ class battle_simulation(battlescape):
                 and enemy_soldier.spells_generator.find_spell('counterspell', effect = True)]
         if counterspell_enemies:
             for enemy_soldier in counterspell_enemies:
+                # Контрзаклинание срабатывает только если враг видит мага,
+                # И если под ударом заклинания есть союзники контркастера:
+                targets_enemy_allies = [target for target in targets
+                        if target.side == enemy_soldier.ally_side]
                 vision_tuple = self.calculate_enemy_cover(enemy_soldier.place, soldier.place)
-                # Контрзаклинание срабатывает только если враг видит мага:
-                if vision_tuple.visibility:
+                if vision_tuple.visibility and targets_enemy_allies:
                     counterspell_dict = enemy_soldier.try_spellcast('counterspell')
                     if counterspell_dict:
                         # Прерывание концентрации мага:
@@ -2593,7 +2636,7 @@ class battle_simulation(battlescape):
             if targets:
                 # Вражеское контрзаклинание, если наше заклинание 3+ круга:
                 if spell_choice[0][0].isnumeric() and int(spell_choice[0][0]) >= 3:
-                    counterspell = self.counterspell_action(spell_dict, soldier)
+                    counterspell = self.counterspell_action(spell_dict, soldier, targets)
                     if counterspell:
                         return False
                 if single_target:
@@ -2681,7 +2724,7 @@ class battle_simulation(battlescape):
                         self.fireball_action_target(soldier, squad, subspell_dict, enemy, safe)
                 # TODO: сделай декоратор.
                 # Переоцениваем опасные зоны на текущий ход:
-                if auto_zone_target:
+                if auto_zone_target and squad.commanders_list:
                     squad.danger_points = battle.find_danger_zones(
                             squad.enemy_side, zone_length = 5,
                             soldier_coordinates = squad.commanders_list[0].place)
@@ -2712,13 +2755,14 @@ class battle_simulation(battlescape):
             if debuff_dict:
                 debuff_dict['hit'] = True
                 effect_upper = debuff_dict.get('effect', spell_choice[-1]).upper()
-                print('[+++] {side_1}, {c1} {s} {effect_upper} >> {side_2} {c2} {e}'.format(
+                print('[+++] {side_1}, {c1} {s} {effect_upper} >> {side_2} {c2} {e} {r}'.format(
                     side_1 = soldier.ally_side,
                     c1 = soldier.place,
                     s = soldier.behavior,
                     side_2 = enemy_soldier.ally_side,
                     c2 = enemy_soldier.place,
                     e = enemy_soldier.behavior,
+                    r = enemy_soldier.rank,
                     effect_upper = effect_upper
                     ))
                 # Показываем усыплённых:
@@ -2894,10 +2938,18 @@ class battle_simulation(battlescape):
                             point_of_view = soldier.place
                             )
                     if targets:
+                        # Пропускаем точку удара, если союзники страдают больше врагов.
+                        target_allies = [target for target in targets
+                                if target.side == soldier.ally_side]
+                        target_enemies = [target for target in targets
+                                if target.side == soldier.enemy_side]
+                        if len(target_allies) * self.danger_factor >= len(target_enemies)\
+                                and not spell_dict.get('safe'):
+                            continue
                         # Пропускаем точку удара, если там есть союзные бойцы.
                         if spell_dict.get('accurate') or 'accurate' in soldier.commands\
-                                and not spell_dict.get('safe'):
-                            if [target for target in targets if target.side == soldier.ally_side]:
+                                and not spell_dict.get('safe')\
+                                and target_allies:
                                 continue
                         if not spell_dict.get('zone_shape') == 'cone'\
                                 and not spell_dict.get('zone_shape') == 'ray'\
@@ -3262,6 +3314,7 @@ class battle_simulation(battlescape):
             if healer.spells_generator.find_spell('Healing_Word')\
                     and not healer.defeat and not healer.fall\
                     and healer.ally_side == soldier.ally_side\
+                    and healer.__dict__.get('place')\
                     and 'spellcast' in healer.commands:
                 spell_choice = healer.spells_generator.find_spell('Healing_Word')
                 spell_dict = healer.spells_generator.get_spell_dict(spell_choice)

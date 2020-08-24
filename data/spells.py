@@ -74,14 +74,16 @@ class gen_spells():
                 # Указываем выбор заклинания (круг и тип) в его словаре:
                 spell_dict['spell_choice'] = spell_choice
                 # А также uuid создателя заклинания:
-                spell_dict['caster_uuid'] = soldier.uuid
+                if not spell_dict.get('caster_uuid'):
+                    spell_dict['caster_uuid'] = soldier.uuid
                 # Даём заклинанию уникальный номер:
                 # ЗАМЕТКА:
                 # ------------------------------------------------------------
                 # Помни, анон, только UUID v4 -- случайные числа,
                 # Версии 1-2 генерируются из MAC-адреса.
                 # ------------------------------------------------------------
-                spell_dict['spell_uuid'] = uuid.uuid4()
+                if not spell_dict.get('spell_uuid'):
+                    spell_dict['spell_uuid'] = uuid.uuid4()
                 # Переносим заклинание в список баффов/дебаффов. Они учитываются оттуда.
                 if spell_dict.get('buff'):
                     soldier.buffs[spell_dict['effect']] = spell_dict
@@ -2712,6 +2714,57 @@ class gen_spells():
 
 #----
 # 3 lvl
+
+    @modify_spell
+    @update_spell_dict
+    def Enemies_Abound(self, spell_level, gen_spell = False, spell_dict = False):
+        """Изобилие врагов.
+
+        Level: 3
+        Casting time: 1 Action
+        Range: 120 feet
+        Components: V, S
+        Duration: Concentration, up to 1 minute
+        https://www.dnd-spells.com/spell/enemies-abound
+        """
+        if not spell_dict:
+            spell_dict = {
+                    'debuff':True,
+                    'concentration':True,
+                    'effect':'enemies_abound',
+                    'effect_timer':10,
+                    'attacks_number':1,
+                    'attack_range':120,
+                    'direct_hit':True,
+                    'savethrow':True,
+                    'savethrow_all':True,
+                    'savethrow_ability':'intelligence',
+                    'components':['verbal','somatic'],
+                    'casting_time':'action',
+                    'spell_level':spell_level,
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    'spell_of_choice':'Enemies_Abound',
+                    'school':'enchantment',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
+        if gen_spell:
+            if not spell_dict.get('target_uuid'):
+                soldier = self.mage
+            else:
+                soldier = self.mage.metadict_soldiers[spell_dict['target_uuid']]
+            # Спасбросок интеллекта против очарования:
+            # Бесстрашные неуязвимы к Enemies_Abound
+            difficult = spell_dict['spell_save_DC']
+            ability = spell_dict['savethrow_ability']
+            advantage = spell_dict.get('savethrow_advantage', False)
+            disadvantage = spell_dict.get('savethrow_disadvantage', False)
+            # Эффекты заклинания висят в round_run_soldier. Здесь только спасбросок.
+            if soldier.get_savethrow(difficult, ability, advantage, disadvantage)\
+                    or 'fearless' in soldier.commands:
+                return False
+            else:
+                soldier.ally_side, soldier.enemy_side, = soldier.enemy_side, soldier.ally_side
+        return spell_dict
 
     @modify_spell
     @update_spell_dict
