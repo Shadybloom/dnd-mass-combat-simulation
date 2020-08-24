@@ -1834,8 +1834,8 @@ class soldier_in_battle(soldier):
                 and 'two_handed' in attack_dict['weapon_type']\
                 and self.armor['shield_use']:
             self.unset_shield()
-        # Стрельба неудобна вблизи и на сверхдальности:
-        if attack_dict.get('weapon_type') and attack_choice[0] == 'ranged':
+        if attack_dict.get('weapon_type') and attack_choice[0] == 'ranged'\
+                and not 'Sharpshooter' in attack_dict['weapon_skills_use']:
             if enemy.distance <= 2:
                 disadvantage = True
             elif enemy.distance > round(attack_dict['attack_range'] / self.tile_size):
@@ -1946,7 +1946,8 @@ class soldier_in_battle(soldier):
                 if enemy_soldier.armor['armor_class'] <= attack_dict['attack_mod'] + 10\
                         and enemy_soldier.hitpoints > damage_throw_mod\
                         and advantage and not disadvantage\
-                        or 'kill' in self.commands:
+                        or 'kill' in self.commands\
+                        and not disadvantage:
                     damage_throw_mod += 10
                     attack_throw_mod -=5
         # Menacing_Attack мастера боевых искусств может испугать противника:
