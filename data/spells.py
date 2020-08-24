@@ -1065,7 +1065,7 @@ class gen_spells():
                     'effect':'mockery',
                     'damage_type':'cold',
                     'damage_dice':'1d6',
-                    'components':['verbal', 'somatic'],
+                    'components':['verbal','somatic'],
                     'casting_time':'action',
                     'spell_level':spell_level,
                     'damage_mod':0,
@@ -2710,6 +2710,55 @@ class gen_spells():
                 soldier = self.mage.metadict_soldiers[spell_dict['target_uuid']]
             soldier.equipment_weapon['Barkskin'] = 1
             soldier.armor.update(soldier.get_armor())
+        return spell_dict
+
+    @modify_spell
+    @update_spell_dict
+    def Dragon_Breath(self, spell_level, gen_spell = False, spell_dict = False):
+        """Дыхание дракона
+
+        Level: 2
+        Casting time: 1 Bonus Action
+        Range: Touch
+        Components: V, S, M (a hot pepper)
+        Duration: Concentration, up to 1 minute
+        https://www.dnd-spells.com/spell/dragons-breath
+        """
+        if not spell_dict:
+            spell_dict = {
+                    'ammo':1,
+                    'buff':True,
+                    'effect':'dragon_breath',
+                    'effect_timer':10,
+                    'zone':True,
+                    'zone_shape':'cone',
+                    'direct_hit':True,
+                    'savethrow':True,
+                    'savethrow_ability':'dexterity',
+                    'attacks_number':1,
+                    'attack_range':15,
+                    'damage_type':'fire',
+                    'damage_type_choice':['acid','cold','fire','lightning','poison'],
+                    'damage_dice':'3d6',
+                    'components':['verbal','somatic','material'],
+                    'casting_time':'bonus_action',
+                    'damage_mod':0,
+                    'spell_level':spell_level,
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    'spell_of_choice':'Magic_Missile',
+                    'school':'transmutation',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
+        if gen_spell:
+            if not spell_dict.get('target_uuid'):
+                soldier = self.mage
+            else:
+                soldier = self.mage.metadict_soldiers[spell_dict['target_uuid']]
+            # Даёт атаку драконьим дыханием, тип урона на выбор заклинателя:
+            damage_type = random.choice(spell_dict['damage_type_choice'])
+            spell_dict_copy = copy.deepcopy(spell_dict)
+            spell_dict_copy['buff'] = False
+            soldier.attacks[('zone', 'Dragon_Breath')] = spell_dict_copy
         return spell_dict
 
 #----
