@@ -2669,6 +2669,10 @@ class battle_simulation(battlescape):
                 and not races.dict_races[enemy_soldier.race].get('unholy')\
                 and not enemy_soldier.__dict__.get('unholy'):
             return False
+        # Огненные заклинания в воде наносят 50% урона:
+        if 'water' in self.dict_battlespace[enemy_soldier.place]\
+                and spell_dict.get('damage_type') == 'fire':
+            spell_dict['damage_halved'] = True
         # Срабатывают вредоносные эффекты заклинаний:
         if spell_dict.get('debuff'):
             debuff_dict = enemy_soldier.set_debuff(spell_dict)

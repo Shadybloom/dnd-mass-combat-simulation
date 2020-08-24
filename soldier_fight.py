@@ -2471,10 +2471,13 @@ class soldier_in_battle(soldier):
         """Модификаторы к урону от врага.
 
         - Осадное вооружение = x2 урона зданиям.
+        - Под водой огонь наносит 50% урона.
         """
         if 'siege' in attack_dict.get('weapon_type',[]):
             if self.__dict__.get('mechanism'):
                 damage *= 2
+        if attack_dict.get('damage_halved'):
+            damage = round(damage / 2)
         return damage
 
     def damage_modify_victim(self, attack_dict, damage):
