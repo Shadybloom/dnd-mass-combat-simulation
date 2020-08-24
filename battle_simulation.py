@@ -692,6 +692,10 @@ class battle_simulation(battlescape):
             squad.dict_control_zones[key] = []
         # Боец действует, только если он находится на карте и боеспособен:
         for uuid, soldier in squad.metadict_soldiers.items():
+            # Зональные эффекты до начала раунда бойца:
+            # Зональные эффекты бьют в том числе и раненых:
+            if soldier.get_coordinates():
+                self.get_zone_effects(soldier, squad, before_round = True)
             if soldier.get_coordinates() and soldier.hitpoints > 0\
                     and not soldier.defeat\
                     and not 'sleep' in soldier.debuffs\
@@ -700,7 +704,7 @@ class battle_simulation(battlescape):
                 self.round_run_soldier(soldier, squad)
                 # Зона контроля для атак реакцией.
                 self.set_control_zone(soldier, squad)
-            # Зональные эффекты бьют в том числе и раненых:
+            # Зональные эффекты после раунда бойца. От таких можно сбежать:
             if soldier.get_coordinates():
                 self.get_zone_effects(soldier, squad)
                 # Ставим ауру, на случай, если боец применил заклинание, но не ходил:
@@ -1410,7 +1414,7 @@ class battle_simulation(battlescape):
                 uuid = enemy_soldier.uuid)
         return enemy
 
-    def get_zone_effects(self, soldier, squad):
+    def get_zone_effects(self, soldier, squad, before_round = False):
         """Эффекты зоны ранит солдата.
 
         Например: Spirit_Guardians, Create_Bonfire
@@ -1446,13 +1450,16 @@ class battle_simulation(battlescape):
                         if enemy_soldier.concentration\
                                 and enemy_soldier.concentration['effect'] == descript:
                             spell_dict = dict(enemy_soldier.concentration)
-                            enemy_squad = [enemy_squad for enemy_squad in self.squads.values()
-                                    if enemy_soldier.uuid in enemy_squad.metadict_soldiers][0]
-                            self.fireball_action(enemy_soldier, enemy_squad,
-                                    spell_dict, soldier.place,
-                                    safe = spell_dict.get('safe', False),
-                                    single_target = soldier
-                                    )
+                            if not before_round and spell_dict.get('before_round'):
+                                return False
+                            else:
+                                enemy_squad = [enemy_squad for enemy_squad in self.squads.values()
+                                        if enemy_soldier.uuid in enemy_squad.metadict_soldiers][0]
+                                self.fireball_action(enemy_soldier, enemy_squad,
+                                        spell_dict, soldier.place,
+                                        safe = spell_dict.get('safe', False),
+                                        single_target = soldier
+                                        )
 
     def follow_action(self, soldier, squad, commander, accuracy = 1):
         """Солдат следует за командиром, стараясь держать строй.
