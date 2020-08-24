@@ -513,6 +513,9 @@ class battle_simulation(battlescape):
                             soldier.try_spellcast(spell, gen_spell = True, use_action = False)
                         if spell == 'Blink':
                             soldier.try_spellcast(spell, gen_spell = True, use_action = False)
+                            if 'blink' in soldier.buffs and dices.dice_throw('1d20') > 11:
+                                self.clear_battlemap(uuid_for_clear = soldier.uuid)
+                                soldier.blink = True
                         #print(soldier.rank, soldier.buffs.keys())
 
     def select_soldiers_for_bless(self, number, ally_side, bless_type):
@@ -2877,7 +2880,8 @@ class battle_simulation(battlescape):
                             )
                     if targets:
                         # Пропускаем точку удара, если там есть союзные бойцы.
-                        if spell_dict.get('accurate') or 'accurate' in soldier.commands:
+                        if spell_dict.get('accurate') or 'accurate' in soldier.commands\
+                                and not spell_dict.get('safe'):
                             if [target for target in targets if target.side == soldier.ally_side]:
                                 continue
                         if not spell_dict.get('zone_shape') == 'cone'\
