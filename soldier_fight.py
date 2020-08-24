@@ -1697,13 +1697,18 @@ class soldier_in_battle(soldier):
                 if target.type == enemy_type:
                     return target    
 
-    def select_attack(self, squad, enemy, tile_size = 5):
+    def select_attack(self, squad, enemy, tile_size = 5, weather = None):
         """Боец выбирает атаку, уже зная врага.
         
         Смотрит по дистанции. Сначала выбирает ближние атаки, после дальние.
         """
         distance = enemy.distance
         enemy_cover = enemy.cover
+        # Под водой минимальный радиус атаки для стрелкового/метательного оружия:
+        if weather == 'underwater':
+            attack_range_choice = 'attack_range'
+        else:
+            attack_range_choice = 'attack_range_max'
         # ЗАМЕТКА: хитрый выбор атаки.
         # ------------------------------------------------------------
         # У бойца может быть куча разных атак (рукопашная, копьём, мечом)
@@ -1743,11 +1748,11 @@ class soldier_in_battle(soldier):
                 throw_attack = random.choice(throw_attack_list)
             # Метатли дротиков работают с максимальной дистанции:
             if self.behavior == 'archer'\
-                    and distance <= round(self.attacks[throw_attack]['attack_range_max'] / tile_size):
+                    and distance <= round(self.attacks[throw_attack][attack_range_choice] / tile_size):
                 return throw_attack
             # Застрельщики с пилумами тоже могут метать издалека по команде:
             elif 'volley' in self.commands\
-                    and distance <= round(self.attacks[throw_attack]['attack_range_max'] / tile_size):
+                    and distance <= round(self.attacks[throw_attack][attack_range_choice] / tile_size):
                 return throw_attack
             # Бойцы ближнего боя подпускают пехоту врага поближе и метают прицельно:
             elif self.behavior != 'archer'\
@@ -1761,7 +1766,7 @@ class soldier_in_battle(soldier):
             else:
                 ranged_attack_list = [attack for attack in self.attacks if attack[0] == 'ranged']
                 ranged_attack = random.choice(ranged_attack_list)
-            if distance <= round(self.attacks[ranged_attack]['attack_range_max'] / tile_size):
+            if distance <= round(self.attacks[ranged_attack][attack_range_choice] / tile_size):
                 return ranged_attack
 
     def select_spell(self, squad, enemy, tile_size = 5):

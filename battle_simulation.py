@@ -1937,7 +1937,8 @@ class battle_simulation(battlescape):
         if soldier.battle_action or reaction and soldier.reaction:
             # Смотрим, возможно ли атаковать:
             if not attack_choice:
-                attack_choice = soldier.select_attack(squad, enemy, self.tile_size)
+                attack_choice = soldier.select_attack(squad, enemy,
+                        self.tile_size, namespace.weather)
                 if attack_choice == None:
                     return False
             # Готовим цепь атак:
