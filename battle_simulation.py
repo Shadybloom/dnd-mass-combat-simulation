@@ -1076,6 +1076,9 @@ class battle_simulation(battlescape):
             if squad.commander.__dict__.get('fireball_AI'):
                 commands_list.append('fireball')
                 commands_list.append('channel')
+            # Нацеливание зональных заклинаний, чтобы не задели своих:
+            if squad.commander.__dict__.get('accurate_AI'):
+                commands_list.append('accurate')
             # Плохие командиры плохо поддерживают строй:
             if squad.commander.level < 5:
                 commands_list.append('crowd')
@@ -2575,11 +2578,6 @@ class battle_simulation(battlescape):
                     counterspell = self.counterspell_action(spell_dict, soldier)
                     if counterspell:
                         return False
-                # Маг всеми силами не задевает своих:
-                # Для драконьего дыхания.
-                if spell_dict.get('accurate'):
-                    if [target for target in targets if target.side == soldier.ally_side]:
-                        return False
                 if single_target:
                     targets = [target for target in targets
                             if target.uuid == single_target.uuid]
@@ -2870,18 +2868,30 @@ class battle_simulation(battlescape):
                 attack_range = round(spell_dict['attack_range'] / self.tile_size)
                 for zone_center, danger in squad.danger_points.items():
                     distance = round(distance_measure(soldier.place, zone_center))
-                    if not spell_dict.get('zone_shape') == 'cone'\
-                            and not spell_dict.get('zone_shape') == 'ray'\
-                            and distance <= attack_range:
-                        return spell_choice, zone_center
-                    elif spell_dict.get('zone_shape') == 'cone'\
-                            and distance <= attack_range / 2\
-                            and not distance == 0:
-                        return spell_choice, zone_center
-                    elif spell_dict.get('zone_shape') == 'ray'\
-                            and distance <= attack_range / 2\
-                            and not distance == 0:
-                        return spell_choice, zone_center
+                    targets = self.find_targets_in_zone(
+                            zone_center = zone_center,
+                            zone_shape = spell_dict.get('zone_shape'),
+                            zone_radius = round(spell_dict.get('radius', 0) / self.tile_size),
+                            distance = round(spell_dict.get('attack_range', 0) / self.tile_size),
+                            point_of_view = soldier.place
+                            )
+                    if targets:
+                        # Пропускаем точку удара, если там есть союзные бойцы.
+                        if spell_dict.get('accurate') or 'accurate' in soldier.commands:
+                            if [target for target in targets if target.side == soldier.ally_side]:
+                                continue
+                        if not spell_dict.get('zone_shape') == 'cone'\
+                                and not spell_dict.get('zone_shape') == 'ray'\
+                                and distance <= attack_range:
+                            return spell_choice, zone_center
+                        elif spell_dict.get('zone_shape') == 'cone'\
+                                and distance <= attack_range / 2\
+                                and not distance == 0:
+                            return spell_choice, zone_center
+                        elif spell_dict.get('zone_shape') == 'ray'\
+                                and distance <= attack_range / 2\
+                                and not distance == 0:
+                            return spell_choice, zone_center
 
     def check_danger_offence(self, soldier, enemy):
         """Проверяем, опасно ли атаковать врага."""
