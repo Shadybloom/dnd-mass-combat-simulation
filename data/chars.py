@@ -7192,8 +7192,9 @@ metadict_chars['Brass Dragon, (Vaarsuvius) (Агаталара Огненная)
     'level':13,
     'Dash_AI':True,
     'fearless_AI':True,
-    #'disengage_AI':True,
-    #'recharge_AI':True,
+    'disengage_AI':True,
+    'recharge_AI':True,
+    #'accurate_AI':True,
     'no_grappler_AI':True,
     'air_walk':True,
     'armor_class_natural':17,
@@ -9786,6 +9787,7 @@ metadict_chars['Wizard 12 lvl (нейтрал) (Менон Теварин)'] = {
 
 metadict_chars['Wizard 12 lvl (нейтрал) (симулякр Менона)'] = {
     # "Feat_Alert", -- нельзя застать врасплох. "Feat_Keen_Mind" -- помнит всё.
+    # Связан с самим Меноном через Rary_Telepathic_Bond.
     'level':12,
     'simulacrum':True,
     'fireball_AI':True,
@@ -9838,7 +9840,7 @@ metadict_chars['Wizard 12 lvl (нейтрал) (симулякр Менона)']
             ('2_lvl', 'Knock'),
             ('3_lvl', 'Counterspell'),
             ('3_lvl', 'Dispel_Magic'),
-            ('3_lvl', 'Sending'),
+            ('3_lvl', 'Blink'),
             ('4_lvl', 'Arcane_Eye'),
             ('4_lvl', 'Dimension_Door'),
             ('4_lvl', 'Sickening_Radiance'),
@@ -10270,7 +10272,7 @@ metadict_chars['Warlock 3 lvl (враг) (колдун Чары)'] = {
             ('2_lvl', 'Armor_of_Agathys'),
             ('2_lvl', 'Flaming_Sphere'),
             ('2_lvl', 'Invisibility'),
-            #('2_lvl', 'Shatter'),
+            ('2_lvl', 'Shatter'),
             ],
         'Dark_One\'s_Blessing':True,
         'Eldritch_Invocations':True,
@@ -10357,12 +10359,13 @@ metadict_chars['Warlock 11 lvl (враг) (Чара Атенак)'] = {
             ('5_lvl', 'Armor_of_Agathys'),
             ('5_lvl', 'Flaming_Sphere'),
             ('5_lvl', 'Invisibility'),
-            #('5_lvl', 'Shatter'),
+            ('5_lvl', 'Shatter'),
             # Личные:
             ('5_lvl', 'Dream'),
             ('5_lvl', 'Scrying'),
             ('5_lvl', 'Counterspell'),
-            ('5_lvl', 'Wall_of_Fire'),
+            #('5_lvl', 'Wall_of_Fire'),
+            ('5_lvl', 'Synaptic_Static'),
             ('5_lvl', 'Summon_Greater_Demon'),
             ('5_lvl', 'Dimension_Door'),
             ('5_lvl', 'Banishment'),
