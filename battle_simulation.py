@@ -2901,9 +2901,9 @@ class battle_simulation(battlescape):
         # Homebrew, идеальное взаимодействие свиты:
         if enemy_soldier.__dict__.get('squad_advantage'):
             disadvantage = True
-        # Homebrew, солдаты без умения плавать уязвимы:
-        if not enemy_soldier.water_walk and 'water' in self.dict_battlespace[enemy_soldier.place]:
-            advantage = True
+        # Homebrew, солдаты без умения плавать уязвимы (по правилам из "Книги игрока" -- нет):
+        #if not enemy_soldier.water_walk and 'water' in self.dict_battlespace[enemy_soldier.place]:
+        #    advantage = True
         # Две цели на одной точке. Легче попасть.
         # "Книга игрока", "Протискивание в меньшее пространство"
         if len([el for el in self.dict_battlespace[enemy_soldier.place] if type(el) == tuple]) >= 2:
@@ -2956,18 +2956,16 @@ class battle_simulation(battlescape):
         # В темноте/тумане сложно атаковать:
         if 'obscure_terrain' in self.dict_battlespace[enemy_soldier.place]:
             disadvantage = True
-        # Homebrew, солдаты без умения плавать уязвимы:
-        if not soldier.water_walk and 'water' in self.dict_battlespace[soldier.place]:
-            disadvantage = True
         # Два наших бойца на одной точке. Сложно целиться:
         # "Книга игрока", "Протискивание в меньшее пространство"
         if len([el for el in self.dict_battlespace[soldier.place] if type(el) == tuple]) >= 2:
             disadvantage = True
         # Сильный ветер мешает стрелкам:
-        if attack_choice[0] == 'throw'\
-                or attack_choice[0] == 'ranged'\
-                or attack_choice[0] == 'volley':
+        if attack_choice[0] == 'throw' or attack_choice[0] == 'ranged' or attack_choice[0] == 'volley':
             if 'warding_wind' in self.dict_battlespace[enemy_soldier.place]:
+                disadvantage = True
+            # Homebrew, солдату без умения плавать сложно прицелиться:
+            if not soldier.water_walk and 'water' in self.dict_battlespace[soldier.place]:
                 disadvantage = True
         # TODO: перенеси это в attack класса бойца:
         # Противника может защитить товарищ с Fighting_Style_Protection:
