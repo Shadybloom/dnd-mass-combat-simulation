@@ -9844,7 +9844,7 @@ metadict_chars['Wizard 12 lvl (нейтрал) (симулякр Менона)']
             ('3_lvl', 'Blink'),
             ('4_lvl', 'Arcane_Eye'),
             ('4_lvl', 'Dimension_Door'),
-            #('4_lvl', 'Sickening_Radiance'),
+            ('4_lvl', 'Sickening_Radiance'),
             ('5_lvl', 'Teleportation_Circle'),
             ('5_lvl', 'Conjure_Elemental'),
             ('5_lvl', 'Danse_Macabre'),
