@@ -440,6 +440,7 @@ class battle_simulation(battlescape):
                         'Aid',
                         'Bless',
                         'Shield_of_Faith',
+                        'Dragon_Breath',
                         'Stoneskin',
                         #'Longstrider',
                         #'Mage_Armor',
@@ -2688,6 +2689,37 @@ class battle_simulation(battlescape):
                     zone_radius = round(spell_dict['radius'] / self.tile_size)
                     if not spell_dict.get('zone_center'):
                         spell_dict['zone_center'] = zone_center
+                        if spell_dict.get('effect') == 'flaming_sphere':
+                            path = sight_line_to_list(soldier.place, zone_center)
+                            for place in path:
+                                place = self.check_place(soldier, place)
+                                if place.free:
+                                    zone_center = place.place
+                                    spell_dict['zone_center'] = zone_center
+                    # TODO: эту селекцию можно использовать для любых заклинаний:
+                    # Накат "Пламенного шара", только одна цель. Выбор кастером из ближайших:
+                    elif not single_target and spell_dict.get('effect') == 'flaming_sphere':
+                        # Сфера перемещается дальше радиуса начального каста. Пока костыль:
+                        path = sight_line_to_list(spell_dict['zone_center'], zone_center)
+                        for n, place in enumerate(path):
+                            place = self.check_place(soldier, place)
+                            if not place.free:
+                                zone_center = path[n-1]
+                                break
+                        targets = self.find_targets_in_zone(
+                                zone_center = zone_center,
+                                zone_shape = spell_dict.get('zone_shape'),
+                                zone_radius = round(spell_dict.get('radius', 0) / self.tile_size),
+                                distance = round(spell_dict.get('attack_range', 0) / self.tile_size),
+                                point_of_view = soldier.place
+                                )
+                        targets = [target for target in targets if target.side == soldier.enemy_side]
+                        targets = [soldier.select_enemy(targets)]
+                        # Убираем точку удара, чтобы следующие "Flaming_Sphere" не били в одно место:
+                        if zone_center in squad.danger_points:
+                            squad.danger_points.pop(zone_center)
+                        if not len(targets) > 0:
+                            return False
                     if not single_target:
                         try:
                             self.change_place_effect(spell_dict['effect'],
@@ -2706,19 +2738,8 @@ class battle_simulation(battlescape):
                     elif not single_target and spell_dict.get('ammo') == 0:
                         spell_dict['zone_center'] = zone_center
                         return False
-                    # TODO: эту селекцию можно использовать для любых заклинаний:
-                    # Накат "Пламенного шара", только одна цель. Выбор кастером из ближайших:
-                    elif not single_target and spell_dict.get('effect') == 'flaming_sphere':
-                        # Сфера перемещается дальше радиуса начального каста. Пока костыль:
-                        spell_dict['attack_range'] += 30
+                    else:
                         spell_dict['zone_center'] = zone_center
-                        targets = [target for target in targets if target.side == soldier.enemy_side]
-                        targets = [soldier.select_enemy(targets)]
-                        # Убираем точку удара, чтобы следующие "Flaming_Sphere" не били в одно место:
-                        if zone_center in squad.danger_points:
-                            squad.danger_points.pop(zone_center)
-                        if not targets:
-                            return False
                 # Перемещение в центр зоны заклинания (whirlwind воздушного элементаля)
                 if spell_dict.get('effect') == 'move':
                     self.change_place(soldier.place, zone_center, soldier.uuid)
@@ -2728,10 +2749,11 @@ class battle_simulation(battlescape):
                     subspell_dict = soldier.try_spellcast(spell_dict.get('subspell'),
                             use_spell_slot = False, use_action = False, gen_spell = True)
                 # Зональное заклинание поражает цели:
-                for enemy in targets:
-                    self.fireball_action_target(soldier, squad, spell_dict, enemy, safe)
-                    if subspell_dict:
-                        self.fireball_action_target(soldier, squad, subspell_dict, enemy, safe)
+                if len(targets) > 0:
+                    for enemy in targets:
+                        self.fireball_action_target(soldier, squad, spell_dict, enemy, safe)
+                        if subspell_dict:
+                            self.fireball_action_target(soldier, squad, subspell_dict, enemy, safe)
                 # TODO: сделай декоратор.
                 # Переоцениваем опасные зоны на текущий ход:
                 if auto_zone_target and squad.commanders_list:
@@ -2937,42 +2959,47 @@ class battle_simulation(battlescape):
                 # Подготовленные залкинания вроде Hail_of_Thorns пропускаем:
                 if 'concentration_ready' in spell_dict and not spell_choice_once:
                     continue
+                # Полезные заклинания пропускаем:
+                elif spell_dict.get('buff'):
+                    continue
                 attack_range = round(spell_dict['attack_range'] / self.tile_size)
                 for zone_center, danger in squad.danger_points.items():
                     distance = round(distance_measure(soldier.place, zone_center))
-                    targets = self.find_targets_in_zone(
-                            zone_center = zone_center,
-                            zone_shape = spell_dict.get('zone_shape'),
-                            zone_radius = round(spell_dict.get('radius', 0) / self.tile_size),
-                            distance = round(spell_dict.get('attack_range', 0) / self.tile_size),
-                            point_of_view = soldier.place
-                            )
-                    if targets:
-                        # Пропускаем точку удара, если союзники страдают больше врагов.
-                        target_allies = [target for target in targets
-                                if target.side == soldier.ally_side]
-                        target_enemies = [target for target in targets
-                                if target.side == soldier.enemy_side]
-                        if len(target_allies) * self.danger_factor >= len(target_enemies)\
-                                and not spell_dict.get('safe'):
-                            continue
-                        # Пропускаем точку удара, если там есть союзные бойцы.
-                        if spell_dict.get('accurate') or 'accurate' in soldier.commands\
-                                and not spell_dict.get('safe')\
-                                and target_allies:
+                    # На себя не наводим:
+                    if not distance == 0:
+                        targets = self.find_targets_in_zone(
+                                zone_center = zone_center,
+                                zone_shape = spell_dict.get('zone_shape'),
+                                zone_radius = round(spell_dict.get('radius', 0) / self.tile_size),
+                                distance = round(spell_dict.get('attack_range', 0) / self.tile_size),
+                                point_of_view = soldier.place
+                                )
+                        if targets:
+                            # Пропускаем точку удара, если союзники страдают больше врагов.
+                            target_allies = [target for target in targets
+                                    if target.side == soldier.ally_side]
+                            target_enemies = [target for target in targets
+                                    if target.side == soldier.enemy_side]
+                            if len(target_allies) * self.danger_factor >= len(target_enemies)\
+                                    and not spell_dict.get('safe'):
                                 continue
-                        if not spell_dict.get('zone_shape') == 'cone'\
-                                and not spell_dict.get('zone_shape') == 'ray'\
-                                and distance <= attack_range:
-                            return spell_choice, zone_center
-                        elif spell_dict.get('zone_shape') == 'cone'\
-                                and distance <= attack_range / 2\
-                                and not distance == 0:
-                            return spell_choice, zone_center
-                        elif spell_dict.get('zone_shape') == 'ray'\
-                                and distance <= attack_range / 2\
-                                and not distance == 0:
-                            return spell_choice, zone_center
+                            # Пропускаем точку удара, если там есть союзные бойцы.
+                            if spell_dict.get('accurate') or 'accurate' in soldier.commands\
+                                    and not spell_dict.get('safe')\
+                                    and target_allies:
+                                    continue
+                            if not spell_dict.get('zone_shape') == 'cone'\
+                                    and not spell_dict.get('zone_shape') == 'ray'\
+                                    and distance <= attack_range:
+                                return spell_choice, zone_center
+                            elif spell_dict.get('zone_shape') == 'cone'\
+                                    and distance <= attack_range / 2\
+                                    and not distance == 0:
+                                return spell_choice, zone_center
+                            elif spell_dict.get('zone_shape') == 'ray'\
+                                    and distance <= attack_range / 2\
+                                    and not distance == 0:
+                                return spell_choice, zone_center
 
     def check_danger_offence(self, soldier, enemy):
         """Проверяем, опасно ли атаковать врага."""
