@@ -3136,6 +3136,44 @@ class gen_spells():
 
     @modify_spell
     @update_spell_dict
+    def Stoneskin(self, spell_level, gen_spell = False, spell_dict = False):
+        """Каменная кожа.
+
+        Level: 4
+        Casting time: 1 Action
+        Range: Touch
+        Components: V, S, M (diamond dust worth 100 gp, which the spell consumes)
+        Duration: Concentration, up to 1 hour
+        https://www.dnd-spells.com/spell/stoneskin
+        """
+        if not spell_dict:
+            spell_dict = {
+                    'buff':True,
+                    'repeat':True,
+                    'concentration':True,
+                    'effect':'stoneskin',
+                    'effect_timer':600,
+                    'attacks_number':1,
+                    'attack_range':0,
+                    'resistance':['slashing','piercing','bludgeoning'],
+                    'components':['verbal','somatic','material'],
+                    'casting_time':'action',
+                    'spell_level':spell_level,
+                    'spell_of_choice':'Magic_Missile',
+                    'school':'abjuration',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
+        if gen_spell:
+            if not spell_dict.get('target_uuid'):
+                soldier = self.mage
+            else:
+                soldier = self.mage.metadict_soldiers[spell_dict['target_uuid']]
+            soldier.resistance.extend(spell_dict['resistance'])
+            soldier.resistance = list(set(soldier.resistance))
+        return spell_dict
+
+    @modify_spell
+    @update_spell_dict
     def Ice_Storm(self, spell_level, gen_spell = False, spell_dict = False):
         """Град
 

@@ -440,6 +440,7 @@ class battle_simulation(battlescape):
                         'Aid',
                         'Bless',
                         'Shield_of_Faith',
+                        'Stoneskin',
                         #'Longstrider',
                         #'Mage_Armor',
                         ]
@@ -468,6 +469,7 @@ class battle_simulation(battlescape):
                         'Barkskin',
                         'Heroism',
                         'Longstrider',
+                        'Stoneskin',
                         ]
                 for spell in spells_list:
                     if not soldier.armor['armor_use'] and spell == 'Mage_Armor':
@@ -480,6 +482,8 @@ class battle_simulation(battlescape):
                         soldier.use_item('False_Life', gen_spell = True, use_action = False)
                     if spell == 'Longstrider':
                         soldier.use_item('Longstrider', gen_spell = True, use_action = False)
+                    if spell == 'Stoneskin':
+                        soldier.use_item('Stoneskin', gen_spell = True, use_action = False)
             # Используем зелья:
             # TODO: Вообще, зелья дублируют руны по сути и содержимому.
             if 'potions' in soldier.commands:
@@ -520,6 +524,8 @@ class battle_simulation(battlescape):
                                 self.clear_battlemap(uuid_for_clear = soldier.uuid)
                                 soldier.blink = True
                         if spell == 'Mirror_Image':
+                            soldier.try_spellcast(spell, gen_spell = True, use_action = False)
+                        if spell == 'Stoneskin' and not soldier.concentration:
                             soldier.try_spellcast(spell, gen_spell = True, use_action = False)
                         #print(soldier.rank, soldier.buffs.keys())
 
