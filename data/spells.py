@@ -3217,6 +3217,46 @@ class gen_spells():
             spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
+    @modify_spell
+    @update_spell_dict
+    def Vitriolic_Sphere(self, spell_level, gen_spell = False, spell_dict = False):
+        """Едкий шар.
+
+        Level: 4
+        Casting time: 1 Action
+        Range: 150 feet
+        Components: V, S, M (a drop of giant slug bile)
+        Duration: Instantaneous 
+        https://www.dnd-spells.com/spell/vitriolic-sphere
+        """
+        if not spell_dict:
+            spell_dict = {
+                    # TODO: атака во второй раунд на 5d4. Пока сделано 15d4.
+                    'effect':'vitriolic_sphere',
+                    'effect_timer':1,
+                    'zone':True,
+                    'zone_effect':True,
+                    'zone_danger':True,
+                    'direct_hit':True,
+                    'savethrow':True,
+                    'savethrow_ability':'dexterity',
+                    'attacks_number':1,
+                    'attack_range':150,
+                    'radius':20,
+                    'damage_type':'acid',
+                    #'damage_dice':'10d4',
+                    'damage_dice':'15d4',
+                    'components':['verbal','somatic','material'],
+                    'casting_time':'action',
+                    'damage_mod':0,
+                    'spell_level':spell_level,
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    'spell_of_choice':'Magic_Missile',
+                    'school':'evocation',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
+        return spell_dict
+
 #----
 # 5 lvl
 

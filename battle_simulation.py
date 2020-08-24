@@ -2658,7 +2658,6 @@ class battle_simulation(battlescape):
                         soldier.destructive_wrath = False
                 # Неподвижные зональные заклинания:
                 if spell_dict.get('effect') == 'sickening_radiance':
-                    spell_dict = soldier.concentration
                     zone_radius = round(spell_dict['radius'] / self.tile_size)
                     if not spell_dict.get('zone_center'):
                         spell_dict['zone_center'] = zone_center
@@ -2677,9 +2676,9 @@ class battle_simulation(battlescape):
                 # Подвижные зональные заклинания вроде Flaming_Sphere:
                 if spell_dict.get('effect') == 'dawn'\
                         or spell_dict.get('effect') == 'bonfire'\
+                        or spell_dict.get('effect') == 'vitriolic_sphere'\
                         or spell_dict.get('effect') == 'flaming_sphere'\
                         or spell_dict.get('effect') == 'moonbeam':
-                    spell_dict = soldier.concentration
                     zone_radius = round(spell_dict['radius'] / self.tile_size)
                     if not spell_dict.get('zone_center'):
                         spell_dict['zone_center'] = zone_center
@@ -2694,19 +2693,19 @@ class battle_simulation(battlescape):
                             #traceback.print_exc()
                             pass
                     # Первая атака лучом по всем в зоне:
-                    if not single_target and soldier.concentration.get('ammo'):
-                        soldier.concentration['zone_center'] = zone_center
-                        soldier.concentration['ammo'] -=1
+                    if not single_target and spell_dict.get('ammo'):
+                        spell_dict['zone_center'] = zone_center
+                        spell_dict['ammo'] -=1
                     # Перенацеливание луча, без мгновенного урона:
-                    elif not single_target and soldier.concentration.get('ammo') == 0:
-                        soldier.concentration['zone_center'] = zone_center
+                    elif not single_target and spell_dict.get('ammo') == 0:
+                        spell_dict['zone_center'] = zone_center
                         return False
                     # TODO: эту селекцию можно использовать для любых заклинаний:
                     # Накат "Пламенного шара", только одна цель. Выбор кастером из ближайших:
                     elif not single_target and spell_dict.get('effect') == 'flaming_sphere':
                         # Сфера перемещается дальше радиуса начального каста. Пока костыль:
                         spell_dict['attack_range'] += 30
-                        soldier.concentration['zone_center'] = zone_center
+                        spell_dict['zone_center'] = zone_center
                         targets = [target for target in targets if target.side == soldier.enemy_side]
                         targets = [soldier.select_enemy(targets)]
                         # Убираем точку удара, чтобы следующие "Flaming_Sphere" не били в одно место:
