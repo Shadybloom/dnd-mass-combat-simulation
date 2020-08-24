@@ -2610,6 +2610,7 @@ class gen_spells():
             soldier = self.mage
             max_hitpoints = soldier.hitpoints_max + spell_dict['damage_mod']
             soldier.set_hitpoints(max_hitpoints = max_hitpoints)
+            soldier.set_hitpoints(heal = max_hitpoints)
         return spell_dict
 
     @modify_spell
