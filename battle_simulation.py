@@ -2728,13 +2728,13 @@ class battle_simulation(battlescape):
                                 distance = round(spell_dict.get('attack_range', 0) / self.tile_size),
                                 point_of_view = soldier.place
                                 )
-                        if targets and not len(targets) == 0 or not targets[0] == None:
+                        if targets and len(targets) > 0:
                             targets = [target for target in targets if target.side == soldier.enemy_side]
                             targets = [soldier.select_enemy(targets)]
                         # Убираем точку удара, чтобы следующие "Flaming_Sphere" не били в одно место:
                         if zone_center in squad.danger_points:
                             squad.danger_points.pop(zone_center)
-                        if not targets or len(targets) == 0 or targets[0] == None:
+                        if not targets or len(targets) == 0 or not targets[0]:
                             return False
                     if not single_target:
                         try:
