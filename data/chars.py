@@ -9587,8 +9587,8 @@ metadict_chars['Warrior 3 lvl (враг) (демон Кема\'Эша)'] = {
 
 metadict_chars['Wizard 4 lvl (нейтрал) (волшебник Менона)'] = {
     'level':4,
+    'archer_AI':True,
     'fireball_AI':True,
-    'disengage_AI':True,
     'char_class':'Wizard',
     'hit_dice':'1d6',
     'behavior':'commander',
@@ -9602,7 +9602,7 @@ metadict_chars['Wizard 4 lvl (нейтрал) (волшебник Менона)'
         'Spellcasting':True,
         'Spells':[
             # Уровень_персонажа + мод_интеллекта (8 заклинаний)
-            ('cantrip', 'Sword_Burst'),
+            ('cantrip', 'Prestidigitation'),
             ('cantrip', 'Shape_Water'),
             ('cantrip', 'Mold_Earth'),
             ('cantrip', 'Message'),
@@ -9621,7 +9621,9 @@ metadict_chars['Wizard 4 lvl (нейтрал) (волшебник Менона)'
             ('2_lvl', 'Warding_Wind'),
             ('2_lvl', 'Invisibility'),
             ('2_lvl', 'Flaming_Sphere'),
-            ('2_lvl', 'Suggestion'),
+            ('2_lvl', 'See_Invisibility'),
+            #('2_lvl', 'Dragon_Breath'),
+            #('2_lvl', 'Suggestion'),
             #('2_lvl', 'Shatter'),
             ],
         # TODO:
@@ -9679,7 +9681,7 @@ metadict_chars['Wizard 12 lvl (нейтрал) (Менон Теварин)'] = {
         'Spellcasting':True,
         'Spells':[
             # Уровень_персонажа + мод_интеллекта (17 заклинаний)
-            ('cantrip', 'Sword_Burst'),
+            ('cantrip', 'Prestidigitation'),
             ('cantrip', 'Shape_Water'),
             ('cantrip', 'Mold_Earth'),
             ('cantrip', 'Message'),
@@ -9705,7 +9707,9 @@ metadict_chars['Wizard 12 lvl (нейтрал) (Менон Теварин)'] = {
             ('2_lvl', 'Warding_Wind'),
             ('2_lvl', 'Invisibility'),
             ('2_lvl', 'Flaming_Sphere'),
-            ('2_lvl', 'Suggestion'),
+            ('2_lvl', 'See_Invisibility'),
+            #('2_lvl', 'Dragon_Breath'),
+            #('2_lvl', 'Suggestion'),
             #('2_lvl', 'Shatter'),
             # Личные (9 заклинаний):
             ('3_lvl', 'Counterspell'),
@@ -9792,7 +9796,6 @@ metadict_chars['Wizard 12 lvl (нейтрал) (симулякр Менона)']
     'simulacrum':True,
     'fireball_AI':True,
     'disengage_AI':True,
-    #'archer_AI':True,
     'char_class':'Wizard',
     'hit_dice':'1d6',
     'behavior':'commander',
@@ -9820,7 +9823,7 @@ metadict_chars['Wizard 12 lvl (нейтрал) (симулякр Менона)']
         'Spells':[
             # Уровень_персонажа + мод_интеллекта (17 заклинаний)
             # https://www.dandwiki.com/wiki/5e_SRD:Wizard
-            ('cantrip', 'Sword_Burst'),
+            ('cantrip', 'Prestidigitation'),
             ('cantrip', 'Shape_Water'),
             ('cantrip', 'Mold_Earth'),
             ('cantrip', 'Message'),
@@ -10273,7 +10276,7 @@ metadict_chars['Warlock 3 lvl (враг) (колдун Чары)'] = {
             ('2_lvl', 'Armor_of_Agathys'),
             ('2_lvl', 'Flaming_Sphere'),
             ('2_lvl', 'Invisibility'),
-            ('2_lvl', 'Shatter'),
+            #('2_lvl', 'Shatter'),
             ],
         'Dark_One\'s_Blessing':True,
         'Eldritch_Invocations':True,
@@ -10360,7 +10363,7 @@ metadict_chars['Warlock 11 lvl (враг) (Чара Атенак)'] = {
             ('5_lvl', 'Armor_of_Agathys'),
             ('5_lvl', 'Flaming_Sphere'),
             ('5_lvl', 'Invisibility'),
-            ('5_lvl', 'Shatter'),
+            #('5_lvl', 'Shatter'),
             # Личные:
             ('5_lvl', 'Dream'),
             ('5_lvl', 'Scrying'),

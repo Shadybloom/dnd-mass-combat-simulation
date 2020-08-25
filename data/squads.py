@@ -358,6 +358,10 @@ metadict_squads['Squad-hero (волшебники Менона) (нейтрал)
     'Wizard 12 lvl (нейтрал) (Менон Теварин)':1,
     }
 
+metadict_squads['Band-hero (волшебники Менона) (нейтрал)'] = {
+    'Wizard 4 lvl (нейтрал) (волшебник Менона)':2,
+    }
+
 metadict_squads['Single-hero (волшебник Менона) (нейтрал)'] = {
     'Wizard 4 lvl (нейтрал) (волшебник Менона)':1,
     }
