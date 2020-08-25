@@ -1188,6 +1188,7 @@ class battle_simulation(battlescape):
                 if 'engage' in soldier.commands:
                     soldier.commands.remove('engage')
                     soldier.commands.append('disengage')
+                    soldier.commands.append('close_order')
             # Солдат сходит с ума от заклинания "Изобилие врагов":
             if 'enemies_abound' in soldier.debuffs and soldier.enemy_side == squad.ally_side:
                 enemy_mage = self.metadict_soldiers[soldier.debuffs['enemies_abound']['caster_uuid']]
@@ -1265,6 +1266,11 @@ class battle_simulation(battlescape):
                 and soldier.behavior == 'commander'\
                 and soldier.uuid == squad.commanders_list[0].uuid:
             if len(soldier.near_allies) >= 2 or 'fearless' in soldier.commands:
+                # Командиры прорываются через зональные заклинания и атакуют магов:
+                if 'danger' in soldier.commands and 'fearless' in soldier.commands\
+                        or 'danger' in soldier.commands\
+                        and squad.enemy_recon['ally_strenght'] > squad.enemy_recon['enemy_strenght']:
+                    soldier.commands.remove('danger')
                 if hasattr(squad, 'destination') and squad.destination\
                         and not 'auto' in soldier.commands:
                     self.move_action(soldier, squad, squad.destination, allow_replace = True)
@@ -1687,11 +1693,6 @@ class battle_simulation(battlescape):
         if save_path and path and squad.frontline != None:
             # Безопасный путь, это остановка перед линией фронта:
             path = self.path_to_savepath(path, squad.frontline)
-        # Боец не идёт через опасные зоны:
-        if not danger_path:
-            if 'danger' in soldier.commands\
-                    and list(set(path) & set(squad.enemy_recon.get('danger_places',[]))):
-                return False
         if 'free_path' in soldier.commands or soldier.__dict__.get('air_walk'):
             free_path = True
         if path:
@@ -1700,6 +1701,10 @@ class battle_simulation(battlescape):
                 move = False
                 place = self.check_place(soldier, path[0])
                 dangers_dict = self.check_place_danger(soldier, path[0])
+                # Боец не идёт через зоны опасных заклинаний:
+                if not danger_path and 'danger' in soldier.commands\
+                        and place.place in squad.enemy_recon.get('danger_places',[]):
+                            return False
                 if dangers_dict and dangers_dict['provoke_attacks']:
                     self.provoke_attack_chain(soldier, squad, dangers_dict['provoke_attacks'])
                 if place.free or free_path:
@@ -1763,9 +1768,17 @@ class battle_simulation(battlescape):
                     destination_slice = list(set(destination_field) & set(coordinates_field))
                     for destination in destination_slice:
                         near_place = self.check_place(soldier, destination)
+                        # TODO: проверка на опасность должна быть частью функции check_place
                         if near_place.free:
-                            path[0] = destination
-                            break
+                            if danger_path or not 'danger' in soldier.commands:
+                                path[0] = destination
+                                break
+                            elif 'danger' in soldier.commands\
+                                    and not destination in squad.enemy_recon.get('danger_places',[]):
+                                path[0] = destination
+                                break
+                            else:
+                                pass
                     else:
                         path = None
                 else:
@@ -2715,12 +2728,13 @@ class battle_simulation(battlescape):
                                 distance = round(spell_dict.get('attack_range', 0) / self.tile_size),
                                 point_of_view = soldier.place
                                 )
-                        targets = [target for target in targets if target.side == soldier.enemy_side]
-                        targets = [soldier.select_enemy(targets)]
+                        if targets and not len(targets) == 0 or not targets[0] == None:
+                            targets = [target for target in targets if target.side == soldier.enemy_side]
+                            targets = [soldier.select_enemy(targets)]
                         # Убираем точку удара, чтобы следующие "Flaming_Sphere" не били в одно место:
                         if zone_center in squad.danger_points:
                             squad.danger_points.pop(zone_center)
-                        if len(targets) == 0 or targets[0] == None:
+                        if not targets or len(targets) == 0 or targets[0] == None:
                             return False
                     if not single_target:
                         try:

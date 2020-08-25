@@ -773,6 +773,10 @@ class battlescape():
         # TODO: Допили проверку пересечённой местности. Или выведи в move_action.
         unit_tuples = []
         for value in self.dict_battlespace[place]:
+            #if 'danger' in soldier.commands and value == 'danger_terrain':
+            #    free_place = False
+            #    rough_place = True
+            #    break
             if type(value) == tuple:
                 unit_tuples.append(value)
             if soldier.__dict__.get('water_walk') and value == 'water':
