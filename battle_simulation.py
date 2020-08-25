@@ -2720,7 +2720,7 @@ class battle_simulation(battlescape):
                         # Убираем точку удара, чтобы следующие "Flaming_Sphere" не били в одно место:
                         if zone_center in squad.danger_points:
                             squad.danger_points.pop(zone_center)
-                        if not len(targets) > 0:
+                        if len(targets) == 0 or targets[0] == None:
                             return False
                     if not single_target:
                         try:
@@ -2751,11 +2751,10 @@ class battle_simulation(battlescape):
                     subspell_dict = soldier.try_spellcast(spell_dict.get('subspell'),
                             use_spell_slot = False, use_action = False, gen_spell = True)
                 # Зональное заклинание поражает цели:
-                if len(targets) > 0:
-                    for enemy in targets:
-                        self.fireball_action_target(soldier, squad, spell_dict, enemy, safe)
-                        if subspell_dict:
-                            self.fireball_action_target(soldier, squad, subspell_dict, enemy, safe)
+                for enemy in targets:
+                    self.fireball_action_target(soldier, squad, spell_dict, enemy, safe)
+                    if subspell_dict:
+                        self.fireball_action_target(soldier, squad, subspell_dict, enemy, safe)
                 # TODO: сделай декоратор.
                 # Переоцениваем опасные зоны на текущий ход:
                 if auto_zone_target and squad.commanders_list:
