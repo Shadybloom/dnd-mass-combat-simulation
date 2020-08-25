@@ -549,7 +549,7 @@ class battle_simulation(battlescape):
                         and soldier.hero\
                         and not soldier.behavior == 'mount'\
                         and not soldier.__dict__.get(bless_type)\
-                        and not bless_type in soldier.buffs\
+                        and not bless_type in soldier.__dict__.get('buffs',{})\
                         and soldier.ally_side == ally_side\
                         and soldier.level == level:
                     soldiers_list.append(soldier)
@@ -560,7 +560,7 @@ class battle_simulation(battlescape):
                         and not soldier.hero\
                         and not soldier.behavior == 'mount'\
                         and not soldier.__dict__.get(bless_type)\
-                        and not bless_type in soldier.buffs\
+                        and not bless_type in soldier.__dict__.get('buffs',{})\
                         and soldier.ally_side == ally_side\
                         and soldier.level == level:
                     soldiers_list.append(soldier)
@@ -1408,7 +1408,7 @@ class battle_simulation(battlescape):
         # Запоминаем все точки вокруг, не занятые непроходимой местностью или границами зон:
         # Находим противников и союзников в области 5 футов, 3x3 клетки:
         if soldier.size == 'large':
-            soldier_tuple = (squad.ally_side, soldier.behavior, soldier.uuid)
+            soldier_tuple = (squad.ally_side, soldier.behavior, soldier.level, soldier.uuid)
             soldier_place_field = self.point_to_field_2x2(soldier.place)
             recon_near = {}
             near_zone = []
@@ -1419,7 +1419,7 @@ class battle_simulation(battlescape):
                     near_zone.extend(self.find_points_in_zone(point, distance))
             near_zone = list(set(near_zone))
         elif soldier.size == 'huge':
-            soldier_tuple = (squad.ally_side, soldier.behavior, soldier.uuid)
+            soldier_tuple = (squad.ally_side, soldier.behavior, soldier.level, soldier.uuid)
             soldier_place_field = self.point_to_field(soldier.place)
             recon_near = {}
             near_zone = []
