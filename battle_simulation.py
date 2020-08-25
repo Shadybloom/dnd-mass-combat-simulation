@@ -94,6 +94,8 @@ class battle_simulation(battlescape):
     engage_danger = 0
     # Для магов. Если врагов пострадает вчетверо больше, чем наших, то бьём AoE-спеллом:
     danger_factor = 4
+    # Для солдат. Если 10% отряда под ударом зонального заклинания, то отряд отступает.
+    danger_percent = 0.1
     # Размер тайла -- 5 футов (1.5 метра):
     tile_size = 5
     namedtuple_squad = namedtuple('squad',['zone','type','initiative'])
@@ -1030,13 +1032,13 @@ class battle_simulation(battlescape):
                         and not ally.concentration.get('safe')]
                 enemy_mages_list.extend(ally_mages_list)
                 if enemy_mages_list:
+                    commands_list.append('danger')
                     #print('NYA', enemy_mages_list[0].rank, danger_places)
                     zonal_spell_victims = [soldier for soldier in squad.metadict_soldiers.values()
                             if hasattr(soldier, 'place') and soldier.place in danger_places]
                     if zonal_spell_victims:
-                        commands_list.append('danger')
                         # Если больше 5% солдат под ударом, то отряд отступает:
-                        if len(zonal_spell_victims) > len(squad.metadict_soldiers) * 0.05:
+                        if len(zonal_spell_victims) > len(squad.metadict_soldiers) * self.danger_percent:
                             if 'engage' in commands_list:
                                 commands_list.remove('engage')
                             commands_list.append('disengage')
