@@ -1612,6 +1612,10 @@ class soldier_in_battle(soldier):
         elif ability == 'dexterity':
             if self.restrained:
                 return True
+        # Homebrew: помеха к морали из-за негодного командира:
+        elif ability == 'charisma':
+            if 'coward' in self.commands:
+                return True
 
 # ----
 # Вывод данных

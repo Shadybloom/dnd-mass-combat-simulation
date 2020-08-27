@@ -837,17 +837,17 @@ class battle_simulation(battlescape):
                     and soldier.defeat != True:
                 commander_tuple = self.namedtuple_commander(soldier.place,soldier.danger,soldier.uuid)
                 commanders_list.append(commander_tuple)
-        # Обычный боец может принять командование, но, лучше, не стоит.
-        #if not commanders_list and [soldier for soldier in soldier.metadict_soldiers.values()
-        #        if not soldier.defeat and not soldier.escape]:
-        #    for uuid, soldier in squad.metadict_soldiers.items():
-        #        if hasattr(soldier, 'place') and soldier.place\
-        #                and soldier.hitpoints > 0\
-        #                and soldier.escape != True\
-        #                and soldier.defeat != True:
-        #            commander_tuple = self.namedtuple_commander(soldier.place,soldier.danger,soldier.uuid)
-        #            commanders_list.append(commander_tuple)
-        #            break
+        # Если командир выбыл, командование принимает обычный боец.
+        if not commanders_list and [soldier for soldier in soldier.metadict_soldiers.values()
+                if not soldier.defeat and not soldier.escape]:
+            for uuid, soldier in squad.metadict_soldiers.items():
+                if hasattr(soldier, 'place') and soldier.place\
+                        and soldier.hitpoints > 0\
+                        and soldier.escape != True\
+                        and soldier.defeat != True:
+                    commander_tuple = self.namedtuple_commander(soldier.place,soldier.danger,soldier.uuid)
+                    commanders_list.append(commander_tuple)
+                    break
         return commanders_list
 
     def commanders_seek_enemies(self, squad):
@@ -1064,6 +1064,16 @@ class battle_simulation(battlescape):
             # Скрытные командиры прячутся за "Fog_Cloud":
             if squad.commander.__dict__.get('sneak_AI'):
                 commands_list.append('sneak')
+            # Обычный боец -- негодный командир:
+            if squad.commander.level < 3:
+                commands_list = ['lead','follow']
+                commands_list.append('dodge')
+                commands_list.append('disengage')
+                commands_list.append('carefull')
+                commands_list.append('attack')
+                commands_list.append('spellcast')
+                commands_list.append('potions')
+                commands_list.append('runes')
             # Оборонительная тактика:
             if squad.commander.__dict__.get('defender_AI'):
                 commands_list = ['carefull','dodge']
@@ -1101,6 +1111,9 @@ class battle_simulation(battlescape):
             # Плохие командиры плохо поддерживают строй:
             if squad.commander.level < 5:
                 commands_list.append('crowd')
+            # Обычный боец -- негодный командир:
+            if squad.commander.level < 3:
+                commands_list.append('coward')
             # Чучела, иллюзии и механизмы просто стоят:
             if squad.commander.__dict__.get('inactive_AI'):
                 commands_list = []
