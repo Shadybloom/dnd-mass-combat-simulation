@@ -59,6 +59,8 @@ class database():
         #soldier.buffs = {}
         #soldier.debuffs = {}
         #soldier.spells_active = {}
+        soldier.squad = None
+        soldier.battle = None
         soldier.metadict_soldiers = {}
         soldier.recon_near = []
         soldier.near_zone = []

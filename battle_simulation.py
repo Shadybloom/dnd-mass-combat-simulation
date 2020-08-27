@@ -137,11 +137,13 @@ class battle_simulation(battlescape):
                 self.set_squad_battle_order(squad, key.zone)
             #[print(el) for el in squad.battle_order.items()]
             for soldier in squad.metadict_soldiers.values():
-                # ЗАМЕТКА: Даём каждому солдату ссылку на остальных
+                # ЗАМЕТКА: Даём каждому солдату ссылку на симуляцию и словарь остальных
                 # ------------------------------------------------------------
                 # Это понадобится для нацеливания заклинаний в их функциях.
                 # При записи бойца в базу данных этот словарь будет обнуляться.
                 # ------------------------------------------------------------
+                soldier.squad = squad
+                soldier.battle = battle
                 soldier.metadict_soldiers = self.metadict_soldiers
                 soldier.set_actions_base(squad)
                 soldier.set_actions(squad)
@@ -395,6 +397,8 @@ class battle_simulation(battlescape):
     
         Эта функция запускается до боя.
         """
+        # TODO: перенести в функции способностей.
+        # Bardic_Inspiration уже там.
         for soldier in squad.metadict_soldiers.values():
             # Воодушевляющий лидер:
             if soldier.class_features.get('Feat_Inspiring_Leader')\
@@ -408,19 +412,15 @@ class battle_simulation(battlescape):
                 for ally_soldier in soldiers_list:
                     ally_soldier.set_hitpoints(bonus_hitpoints = bonus_hitpoints)
             # Вдохновение барда:
-            if soldier.class_features.get('Bardic_Inspiration')\
-                    and soldier.inspiring_bard_number:
-                bless_list = []
-                for n in range(0, soldier.inspiring_bard_number):
-                    bless_list.append(dices.dice_throw_advantage(soldier.inspiring_bard_dice))
-                soldier.inspiring_bard_number = 0
-                # Передаём вдохновение барда:
-                soldiers_list = self.select_soldiers_for_bless(ally_number,
-                        squad.ally_side, 'bardic_inspiration')
+            if soldier.class_features.get('Bardic_Inspiration') and soldier.inspiring_bard_number:
+                spell_dict = soldier.spells_generator.get_spell_dict('Bardic_Inspiration')
+                soldiers_list = self.select_soldiers_for_bless(spell_dict['attacks_number'],
+                        squad.ally_side, spell_dict['effect'])
                 for ally_soldier in soldiers_list:
-                    ally_soldier.set_hitpoints(bonus_hitpoints = bonus_hitpoints)
-                    if bless_list:
-                        ally_soldier.buffs['bardic_inspiration'] = bless_list.pop()
+                    soldier.try_spellcast('Bardic_Inspiration',
+                            gen_spell = {'target_uuid':ally_soldier.uuid},
+                            use_action = False, use_spell_slot = 'feature')
+                    #print(ally_soldier.rank, ally_soldier.buffs.keys())
 
     def set_squad_spells_bless(self, squad):
         """Жрецы и маги обкастовывают союзников, начиная с командиров.

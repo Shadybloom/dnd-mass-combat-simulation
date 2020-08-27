@@ -84,11 +84,16 @@ class gen_spells():
                 # ------------------------------------------------------------
                 if not spell_dict.get('spell_uuid'):
                     spell_dict['spell_uuid'] = uuid.uuid4()
+                # Бафф/дебафф передаём цели заклинания:
+                if spell_dict.get('target_uuid'):
+                    target = self.mage.metadict_soldiers[spell_dict['target_uuid']]
+                else:
+                    target = soldier
                 # Переносим заклинание в список баффов/дебаффов. Они учитываются оттуда.
                 if spell_dict.get('buff'):
-                    soldier.buffs[spell_dict['effect']] = spell_dict
+                    target.buffs[spell_dict['effect']] = spell_dict
                 if spell_dict.get('debuff'):
-                    soldier.debuffs[spell_dict['effect']] = spell_dict
+                    target.debuffs[spell_dict['effect']] = spell_dict
                 # Создаём список скастованных в бою заклинаний:
                 if spell_choice:
                     if not spell_dict['spell_uuid'] in soldier.spells_active:
@@ -210,7 +215,10 @@ class gen_spells():
         # Исправляется это не здесь, а в функции try_spellcast и ей подобных.
         spell_level = '1_lvl'
         #spell_level = spell_choice[0]
-        spell_name = spell_choice[-1]
+        if type(spell_choice) == tuple:
+            spell_name = spell_choice[-1]
+        else:
+            spell_name = spell_choice
         func = getattr(self, spell_name)
         spell_dict = func(spell_level, gen_spell, spell_choice, use_spell = False)
         return spell_dict
@@ -235,6 +243,13 @@ class gen_spells():
         # Заклинания 0 уровня бесконечные:
         if spell_slot_use == 'cantrip':
             spell_level = spell_slot_use
+            spell_name = spell_choice[-1]
+            func = getattr(self, spell_name)
+            spell_dict = func(spell_level, gen_spell, spell_choice)
+            return spell_dict
+        # Вызываем заклинание как способность, например Bardic_Inspiration:
+        if type(use_spell_slot) == str:
+            spell_level = '1_lvl'
             spell_name = spell_choice[-1]
             func = getattr(self, spell_name)
             spell_dict = func(spell_level, gen_spell, spell_choice)
@@ -728,6 +743,42 @@ class gen_spells():
             else:
                 soldier = self.mage.metadict_soldiers[spell_dict['target_uuid']]
         return spell_dict
+
+#------------------------------------------------------------
+# Способности
+
+    @modify_spell
+    @update_spell_dict
+    def Bardic_Inspiration(self, spell_level, gen_spell = False, spell_dict = False):
+        """Вдохновение барда.
+        
+        Даёт бонус к атаке/спасброску или проверке характеристики на выбор воодушевлённого.
+        """
+        if not spell_dict:
+            spell_dict = {
+                    'buff':True,
+                    'class_feature':True,
+                    'effect':'bardic_inspiration',
+                    'effect_timer':100,
+                    'direct_hit':True,
+                    'inspiration_dice':self.mage.proficiency['bardic_inspiration'],
+                    'attacks_number':self.find_spell_attack_mod(proficiency_bonus = False),
+                    'attack_range':60,
+                    'components':['verbal'],
+                    'casting_time':'bonus_action',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
+        if gen_spell:
+            if not spell_dict.get('target_uuid'):
+                soldier = self.mage
+            else:
+                soldier = self.mage.metadict_soldiers[spell_dict['target_uuid']]
+            spell_dict['inspiration_mod'] = dices.dice_throw(spell_dict['inspiration_dice'])
+            # Бард тратит свои вдохновения, передавая их бойцу:
+            #print(soldier.rank, self.mage.rank, self.mage.inspiring_bard_number)
+            self.mage.inspiring_bard_number -= 1
+        return spell_dict
+
 
 #------------------------------------------------------------
 # Заклинания
@@ -2309,6 +2360,60 @@ class gen_spells():
             dice = int(spell_dict['damage_dice'][0])
             dice += int(spell_level[0]) - 1
             spell_dict['damage_dice'] = str(dice) + spell_dict['damage_dice'][1:]
+        return spell_dict
+
+    @modify_spell
+    @update_spell_dict
+    def Dissonant_Whispers(self, spell_level, gen_spell = False, spell_dict = False):
+        """Диссонирующий щёпот.
+
+        Level: 1
+        Casting time: 1 Action
+        Range: 60 feet
+        Components: V
+        Duration: Instantaneous
+        https://www.dnd-spells.com/spell/dissonant-whispers
+        """
+        if not spell_dict:
+            spell_dict = {
+                    'debuff':True,
+                    'effect':'dissonant_whispers',
+                    'attacks_number':1,
+                    'attack_range':60,
+                    'direct_hit':True,
+                    'savethrow':True,
+                    'savethrow_all':True,
+                    'savethrow_ability':'wisdom',
+                    'damage_type':'psychic',
+                    'damage_dice':'3d6',
+                    'components':['verbal'],
+                    'casting_time':'action',
+                    'spell_level':spell_level,
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    'spell_of_choice':'Dissonant_Whispers',
+                    'school':'enchantment',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
+        if gen_spell:
+            if not spell_dict.get('target_uuid'):
+                soldier = self.mage
+            else:
+                soldier = self.mage.metadict_soldiers[spell_dict['target_uuid']]
+            # Спасбросок мудрости против очарования:
+            difficult = spell_dict['spell_save_DC']
+            ability = spell_dict['savethrow_ability']
+            advantage = spell_dict.get('savethrow_advantage', False)
+            disadvantage = spell_dict.get('savethrow_disadvantage', False)
+            if soldier.get_savethrow(difficult, ability, advantage, disadvantage):
+                return False
+            else:
+                if soldier.reaction:
+                    # Солдат убегает за счёт реакции:
+                    soldier.reaction = False
+                    soldier.move_pool = soldier.base_speed
+                    destination = soldier.battle.find_spawn(soldier.place, soldier.ally_side)
+                    destination = random.choice(soldier.battle.point_to_field(destination))
+                    soldier.battle.move_action(soldier, soldier.squad, destination, allow_replace = True)
         return spell_dict
 
 #----

@@ -338,7 +338,6 @@ class soldier_in_battle(soldier):
                 self.lay_on_hands = self.level * 5
             if self.class_features.get('Bardic_Inspiration') and not hasattr(self, 'inspiring_bard_number'):
                 self.inspiring_bard_number = self.mods['charisma']
-                self.inspiring_bard_dice = self.proficiency['bardic_inspiration']
             if self.proficiency.get('rages_max') and not hasattr(self, 'rages'):
                 self.rages = self.proficiency['rages_max']
             if self.class_features.get('Rage'):
@@ -522,6 +521,7 @@ class soldier_in_battle(soldier):
                     self.battle_action = False
                 # Сохраняем ссылку, чтобы восстановить:
                 # Сохраняем старую форму, чтобы восстановить:
+                battle = self.battle
                 metadict_soldiers = self.metadict_soldiers
                 self.metadict_soldiers = None
                 self.wild_shape = True
@@ -543,6 +543,7 @@ class soldier_in_battle(soldier):
                 self.debuffs = self.wild_shape_old_form['debuffs']
                 self.spells_active = self.wild_shape_old_form['spells_active']
                 # Восстанавливаем ссылки:
+                self.battle = battle
                 self.metadict_soldiers = metadict_soldiers
                 self.spells_generator.mage = self
                 # Убираем заклинания:
@@ -552,11 +553,14 @@ class soldier_in_battle(soldier):
         """Друид возвращает облик человека.
         
         """
+        battle = self.battle
+        metadict_soldiers = self.metadict_soldiers
         #hitpoints = self.wild_shape_old_form['hitpoints']
         hitpoints = self.hitpoints
         place = self.place
         self.__dict__ = copy.deepcopy(self.wild_shape_old_form)
         # Восстанавливаем ссылки:
+        self.battle = battle
         self.metadict_soldiers = metadict_soldiers
         self.spells_generator.mage = self
         self.hitpoints = hitpoints
@@ -600,7 +604,9 @@ class soldier_in_battle(soldier):
             if not spell_choice:
                 spell_effect = spell_name
                 spell_choice = self.spells_generator.find_spell(spell_effect, effect = True)
-                if not spell_choice and not use_spell_slot and gen_spell:
+                if not spell_choice and type(use_spell_slot) == str:
+                    spell_choice = (use_spell_slot, spell_name)
+                if not spell_choice and not use_spell_slot:
                     spell_choice = ('subspell', spell_name)
         if spell_choice:
             action = self.check_action_to_spellcast(spell_choice)
@@ -1559,8 +1565,8 @@ class soldier_in_battle(soldier):
         # Bardic_Inspiration усиливает спасбросок:
         if 'bardic_inspiration' in self.buffs\
                 and savethrow_result < difficult\
-                and not savethrow_result + self.buffs['bardic_inspiration'] < difficult:
-            bonus += self.buffs.pop('bardic_inspiration',0)
+                and not savethrow_result + self.buffs['bardic_inspiration']['inspiration_mod'] < difficult:
+            bonus += self.buffs.pop('bardic_inspiration')['inspiration_mod']
         return bonus
 
     def check_savethrow_autofail(self, ability):
@@ -1879,8 +1885,8 @@ class soldier_in_battle(soldier):
         if 'bardic_inspiration' in self.buffs\
                 and enemy_soldier.armor['armor_class'] > attack_throw_mod\
                 and not enemy_soldier.armor['armor_class'] > attack_throw_mod\
-                + self.buffs['bardic_inspiration']:
-            attack_throw_mod += self.buffs.pop('bardic_inspiration',0)
+                + self.buffs['bardic_inspiration']['inspiration_mod']:
+            attack_throw_mod += self.buffs.pop('bardic_inspiration')['inspiration_mod']
         # Precision_Attack мастера боевых искусств:
         if self.class_features.get('Precision_Attack') and not superiority_use:
             superiority_dice_mid = round(int(self.superiority_dice[-1]) / 2)
