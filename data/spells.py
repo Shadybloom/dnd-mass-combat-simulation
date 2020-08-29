@@ -2957,6 +2957,7 @@ class gen_spells():
                     'direct_hit':True,
                     'savethrow':True,
                     'savethrow_all':True,
+                    'savethrow_danger':True,
                     'savethrow_ability':'intelligence',
                     'components':['verbal','somatic'],
                     'casting_time':'action',
@@ -2977,8 +2978,9 @@ class gen_spells():
             ability = spell_dict['savethrow_ability']
             advantage = spell_dict.get('savethrow_advantage', False)
             disadvantage = spell_dict.get('savethrow_disadvantage', False)
+            danger = spell_dict.get('savethrow_danger', False)
             # Эффекты заклинания висят в round_run_soldier. Здесь только спасбросок.
-            if soldier.get_savethrow(difficult, ability, advantage, disadvantage)\
+            if soldier.get_savethrow(difficult, ability, advantage, disadvantage, danger)\
                     or 'fearless' in soldier.commands:
                 return False
             else:
