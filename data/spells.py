@@ -1176,7 +1176,7 @@ class gen_spells():
     @modify_spell
     @update_spell_dict
     def Sword_Burst(self, spell_level, gen_spell = False, spell_dict = False):
-        """Вихрь клинков мистического рыцаря.
+        """Вспышка мечей.
 
         Level: Cantrip
         Casting time: 1 Action
@@ -1339,6 +1339,59 @@ class gen_spells():
             spell_dict['damage_dice'] = '3d8'
         if self.mage.level >= 17:
             spell_dict['damage_dice'] = '4d8'
+        return spell_dict
+
+    @modify_spell
+    @update_spell_dict
+    def Lightning_Lure(self, spell_level, gen_spell = False, spell_dict = False):
+        """Лассо молний.
+
+        Level: Cantrip
+        Casting time: 1 Action
+        Range: 15 feet
+        Components: V
+        Duration: Instantaneous
+        https://www.dnd-spells.com/spell/lightning-lure
+        """
+        if not spell_dict:
+            spell_dict = {
+                    'debuff':True,
+                    'effect':'lightning_lure',
+                    'attacks_number':1,
+                    'attack_range':15,
+                    'direct_hit':True,
+                    'savethrow':True,
+                    'savethrow_all':True,
+                    'savethrow_ability':'strength',
+                    'damage_type':'lightning',
+                    'damage_dice':'1d8',
+                    'components':['verbal'],
+                    'casting_time':'action',
+                    'spell_level':spell_level,
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    'spell_of_choice':'Lightning_Lure',
+                    'school':'evocation',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
+        if gen_spell:
+            if not spell_dict.get('target_uuid'):
+                soldier = self.mage
+            else:
+                soldier = self.mage.metadict_soldiers[spell_dict['target_uuid']]
+            # Спасбросок силы против притягивания.
+            difficult = spell_dict['spell_save_DC']
+            ability = spell_dict['savethrow_ability']
+            advantage = spell_dict.get('savethrow_advantage', False)
+            disadvantage = spell_dict.get('savethrow_disadvantage', False)
+            if soldier.get_savethrow(difficult, ability, advantage, disadvantage):
+                return False
+            else:
+                # Врага притягивает на 10 футов
+                if soldier.reaction:
+                    caster = soldier.metadict_soldiers[spell_dict['caster_uuid']]
+                    soldier.move_pool += 10
+                    destination = caster.place
+                    soldier.battle.move_action(soldier, soldier.squad, destination, free_path = True)
         return spell_dict
 
 #----
@@ -1585,6 +1638,7 @@ class gen_spells():
         """
         if not spell_dict:
             spell_dict = {
+                    'buff':True,
                     'concentration':True,
                     'effect':'bless',
                     'effect_timer':10,
@@ -1602,6 +1656,11 @@ class gen_spells():
             spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 1:
             spell_dict['attacks_number'] += int(spell_level[0]) - 1
+        if gen_spell:
+            if not spell_dict.get('target_uuid'):
+                soldier = self.mage
+            else:
+                soldier = self.mage.metadict_soldiers[spell_dict['target_uuid']]
         return spell_dict
 
     @modify_spell
@@ -1618,6 +1677,7 @@ class gen_spells():
         """
         if not spell_dict:
             spell_dict = {
+                    'buff':True,
                     'concentration':True,
                     'effect':'shield_of_faith',
                     'effect_timer':100,
@@ -1631,6 +1691,11 @@ class gen_spells():
                     'school':'abjuration',
                     }
             spell_dict = copy.deepcopy(spell_dict)
+        if gen_spell:
+            if not spell_dict.get('target_uuid'):
+                soldier = self.mage
+            else:
+                soldier = self.mage.metadict_soldiers[spell_dict['target_uuid']]
         return spell_dict
 
     @modify_spell
