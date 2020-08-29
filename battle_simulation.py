@@ -3076,7 +3076,8 @@ class battle_simulation(battlescape):
         # Две цели на одной точке. Легче попасть.
         # "Книга игрока", "Протискивание в меньшее пространство"
         if len([el for el in self.dict_battlespace[enemy_soldier.place] if type(el) == tuple]) >= 2:
-            advantage = True
+            if not enemy_soldier.size == 'tiny':
+                advantage = True
         # Ошеломлённый уязвим:
         if enemy_soldier.stunned:
             advantage = True
@@ -3128,7 +3129,8 @@ class battle_simulation(battlescape):
         # Два наших бойца на одной точке. Сложно целиться:
         # "Книга игрока", "Протискивание в меньшее пространство"
         if len([el for el in self.dict_battlespace[soldier.place] if type(el) == tuple]) >= 2:
-            disadvantage = True
+            if not soldier.size == 'tiny':
+                disadvantage = True
         # Влияние погоды:
         if attack_choice[0] == 'throw' or attack_choice[0] == 'ranged' or attack_choice[0] == 'volley':
             # Сильный ветер мешает стрелкам:
