@@ -1351,7 +1351,9 @@ class battle_simulation(battlescape):
                             and not 'disengage' in soldier.commands:
                         self.engage_action(soldier, squad, enemy.place)
                 # Удвоенный ход бойца:
-                if soldier.action_surge and len(soldier.near_enemies) >= 2:
+                if len(soldier.near_enemies) >= 2\
+                        or len(soldier.near_enemies) >= 1\
+                        and max([enemy.level for enemy in soldier.near_enemies]) >= 5:
                     if soldier.set_action_surge():
                         self.round_run_soldier(soldier, squad)
         # Не видя врага, лучники стреляют навесом:
