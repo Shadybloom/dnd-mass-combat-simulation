@@ -2788,6 +2788,44 @@ metadict_animals['Sentinel (CR 1/8)'] = {
         },
     }
 
+metadict_animals['Tribe Warrior (CR 1/8)'] = {
+    # Воитель племени
+    # В тестах считается эталонным бойцом с CR 1/8
+        # fearless_AI -- не бежит с поля боя.
+        # seeker_AI -- ищет противника без командира.
+        # volley_AI -- кидает копья издалека.
+    'level':2,
+    'volley_AI':True,
+    'seeker_AI':True,
+    'fearless_AI':True,
+    'challenge_rating':'1/8',
+    'hitpoints_medial':True,
+    'char_class':'Warrior',
+    'class_features':{
+        'Pack_Tactic':True,
+        },
+    'abilityes':{
+        'strength':13,
+        'dexterity':11,
+        'constitution':12,
+        'intelligence':8,
+        'wisdom':11,
+        'charisma':8,
+        },
+    'hit_dice':'1d8',
+    'behavior':'warrior',
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Hide Armor':1,
+        'Spear':1,
+        'Javelin':8,
+        },
+    }
+
 metadict_animals['Veteran (CR 3)'] = {
     # Ветеран
     # В тестах считается эталонным бойцом с CR 3
@@ -3711,6 +3749,7 @@ metadict_animals['Громовая птица-вожак (Thunderbird) (CR 1)'] 
 
 metadict_animals['Animated swords (CR 1)'] = {
     # Заклинание 5 круга "Оживление вещей" (Animated_Objects)
+    # Blindvision великолепно сочетается с "Тьмой" (Darkness).
     'level':9,
     'killer_AI':True,
     'seeker_AI':True,
@@ -3726,6 +3765,7 @@ metadict_animals['Animated swords (CR 1)'] = {
     'hitpoints_base':20,
     'class_features':{
         'immunity':['poison','poisoned'],
+        'Blindvision':30,
         },
     'abilityes':{
         'strength':4,

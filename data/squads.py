@@ -1013,6 +1013,11 @@ metadict_squads['Company-dummy (sentinels)'] = {
     'Sentinel (CR 1/8)':100,
     }
 
+metadict_squads['Company-dummy (tribe warriors)'] = {
+    # Для тестов сравнительной силы отрядов.
+    'Tribe Warrior (CR 1/8)':100,
+    }
+
 metadict_squads['Company-dummy (veterans)'] = {
     # Для тестов сравнительной силы отрядов.
     'Veteran (CR 3)':100,
