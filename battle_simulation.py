@@ -1543,23 +1543,25 @@ class battle_simulation(battlescape):
         - Если у него нет места, он выбирает свободное из доступных.
         - Точность построения в пределах 3x3 точек (чтобы не толкались за места)
         """
+        destination = None
         # Боец следует к своему месту в строю:
         if hasattr(soldier, 'place_in_order') and soldier.place_in_order:
             destination = [c1 + c2 for c1, c2 in zip(commander.place, soldier.place_in_order)]
             destination = tuple(destination)
         # Если в строю есть свободное место, боец занимает его:
-        else:
+        elif squad.__dict__.get('battle_order'):
             for place_in_order, unit in squad.battle_order.items():
                 if None in unit:
                     squad.battle_order[place_in_order] = (soldier.behavior, soldier.uuid)
                     soldier.set_place_in_order(place_in_order)
                     destination = [c1 + c2 for c1, c2 in zip(commander.place, soldier.place_in_order)]
                     break
+        # Толпимся рядом с командиром, если боевого порядка нет:
+        if not destination:
+            if commander.near_zone:
+                destination = random.choice(commander.near_zone)
             else:
-                if commander.near_zone:
-                    destination = random.choice(commander.near_zone)
-                else:
-                    destination = commander.place
+                destination = commander.place
         # Абсолютная точность не нужна, боец не двигается, если его местов пределах 3x3 тайлов:
         if not destination in self.point_to_field(soldier.place, accuracy):
             try:
