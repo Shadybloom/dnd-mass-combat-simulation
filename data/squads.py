@@ -157,33 +157,33 @@ metadict_squads['Company-test (осадные инженеры) (Greataxe)'] = {
 
 metadict_squads['Company-test (standard) (shortbow)'] = {
     'Warrior 1 lvl (standard) (Shortbow)':100,
-    'Trap (commander)':1,
+    #'Trap (commander)':1,
     }
 
 metadict_squads['Company-test (standard) (shortbow) (archery)'] = {
     'Warrior 1 lvl (standard) (Shortbow) (archery)':100,
-    'Trap (commander)':1,
+    #'Trap (commander)':1,
     }
 
 metadict_squads['Company-test (standard) (greataxes)'] = {
     # Тесты типовых отрядов для Vened'а.
     'Warrior 1 lvl (standard) (Greataxe)':100,
-    'Trap (commander)':1,
+    #'Trap (commander)':1,
     }
 
 metadict_squads['Company-test (standard) (disadvantage) (greataxes)'] = {
     'Warrior 1 lvl (standard) (disadvantage) (Greataxe)':100,
-    'Trap (commander)':1,
+    #'Trap (commander)':1,
     }
 
 metadict_squads['Company-test (standard) (bless + disadvantage) (greataxes)'] = {
     'Warrior 1 lvl (standard) (bless + disadvantage) (Greataxe)':100,
-    'Trap (commander)':1,
+    #'Trap (commander)':1,
     }
 
 metadict_squads['Company-test (standard) (battleaxes)'] = {
     'Warrior 1 lvl (standard) (Battleaxe + Shield)':100,
-    'Trap (commander)':1,
+    #'Trap (commander)':1,
     }
 
 metadict_squads['Company-regular (гоплиты-ветераны)'] = {
@@ -325,7 +325,7 @@ metadict_squads['Squad-regular (оживлённые вещи) (призванн
     # Заклинание 5 круга "Оживление вещей" (Animated_Objects)
     # Homebrew: Можно анимировать 36 предметов с CR 1 на 10 минут.
     'Animated swords (CR 1)':36,
-    'Trap (commander)':1,
+    #'Trap (commander)':1,
     }
 
 metadict_squads['Squad-regular (меч Морденкайнена) (призванные)'] = {
