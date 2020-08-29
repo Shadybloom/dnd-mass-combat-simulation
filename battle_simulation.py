@@ -452,8 +452,6 @@ class battle_simulation(battlescape):
                     if spell_dict:
                         soldiers_list = self.select_soldiers_for_bless(
                                 spell_dict['attacks_number'], squad.ally_side, spell_dict['effect'])
-                        # Функция set_buff исполняет заклинание от имени цели:
-                        # Лучше бы сделать через target_uuid в spell_dict.
                         for ally_soldier in soldiers_list:
                             ally_soldier.set_buff(spell_dict)
                             #print(ally_soldier.rank, ally_soldier.buffs.keys())
@@ -838,8 +836,7 @@ class battle_simulation(battlescape):
                 commander_tuple = self.namedtuple_commander(soldier.place,soldier.danger,soldier.uuid)
                 commanders_list.append(commander_tuple)
         # Если командир выбыл, командование принимает обычный боец.
-        if not commanders_list and [soldier for soldier in soldier.metadict_soldiers.values()
-                if not soldier.defeat and not soldier.escape]:
+        if not commanders_list:
             for uuid, soldier in squad.metadict_soldiers.items():
                 if hasattr(soldier, 'place') and soldier.place\
                         and soldier.hitpoints > 0\
