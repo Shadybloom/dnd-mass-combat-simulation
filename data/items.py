@@ -1388,6 +1388,26 @@ metadict_items['Sword of the Past +2'] = {
     'cost (grams_of_gold)':5000*60,
     }
 
+metadict_items['Sword of Flame Tongue'] = {
+    'weapon':True,
+    #'ammo_type':blade_poisons,
+    'weapon_type':['martial','close','versatile','magic'],
+    'damage_type':'slashing',
+    'damage_dice':'1d8',
+    'damage_dice_versatile':'1d10',
+    'spell_dict':{
+            'safe':True,
+            'direct_hit':True,
+            'attacks_number':1,
+            'damage_type':'fire',
+            'damage_dice':'2d6',
+            'spell_choice':('Sword of Flame Tongue','Fire Stike'),
+            },
+    'weight (lb)':3,
+    'cost (gp)':300*60,
+    'cost (grams_of_gold)':300*60,
+    }
+
 metadict_items['Sword of Life-Stealing'] = {
     # TODO: сделай это модификациями мечей. Не забудь увеличение стоимости.
     # При крите наносит 10 урона некторической энергией и даёт 10 бонусных хитов.
@@ -1528,6 +1548,18 @@ metadict_items['Longsword +1'] = {
     'weight (lb)':3,
     'cost (gp)':30*60,
     'cost (grams_of_gold)':30*60,
+    }
+
+metadict_items['Longsword +2'] = {
+    'weapon':True,
+    'ammo_type':blade_poisons,
+    'weapon_type':['martial','close','versatile','magic','+2'],
+    'damage_type':'slashing',
+    'damage_dice':'1d8',
+    'damage_dice_versatile':'1d10',
+    'weight (lb)':3,
+    'cost (gp)':200*60,
+    'cost (grams_of_gold)':200*60,
     }
 
 metadict_items['Battleaxe +1'] = {
