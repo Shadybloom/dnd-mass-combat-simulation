@@ -1006,7 +1006,17 @@ metadict_squads['Company-militia (heavy crossbowmans)'] = {
     }
 
 #----
-# Рекруты:
+# Отряды из Monsters_Manual:
+
+metadict_squads['Company-dummy (sentinels)'] = {
+    # Для тестов сравнительной силы отрядов.
+    'Sentinel (CR 1/8)':100,
+    }
+
+metadict_squads['Company-dummy (veterans)'] = {
+    # Для тестов сравнительной силы отрядов.
+    'Veteran (CR 3)':100,
+    }
 
 metadict_squads['Company-dummy (zombies)'] = {
     'Zombie (CR 1/4)':80 + dice_throw('1d12'),
@@ -1016,11 +1026,6 @@ metadict_squads['Company-dummy (zombies)'] = {
 metadict_squads['Company-dummy (bandits)'] = {
     'Bandit (CR 1/8)':80 + dice_throw('1d12'),
     'Thug (CR 1/2)':4,
-    'Veteran (CR 3)':1,
-    }
-
-metadict_squads['Company-dummy (sentinels)'] = {
-    'Sentinel (CR 1/8)':80 + dice_throw('1d12'),
     'Veteran (CR 3)':1,
     }
 

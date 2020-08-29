@@ -2556,11 +2556,12 @@ metadict_animals['Bugbear (CR 1)'] = {
 
 metadict_animals['Warrior 1 lvl (standard) (Shortbow) (archery)'] = {
     'level':1,
+    'seeker_AI':True,
+    'fearless_AI':True,
+    'no_grappler_AI':True,
     'challenge_rating':'1/8',
     'char_class':'Commoner',
     'behavior':'archer',
-    'seeker_AI':True,
-    'fearless_AI':True,
     'hitpoints_base':10,
     'class_features':{
         'Fighting_Style_Archery':True,
@@ -2588,11 +2589,12 @@ metadict_animals['Warrior 1 lvl (standard) (Shortbow) (archery)'] = {
 
 metadict_animals['Warrior 1 lvl (standard) (Shortbow)'] = {
     'level':1,
+    'seeker_AI':True,
+    'fearless_AI':True,
+    'no_grappler_AI':True,
     'challenge_rating':'1/8',
     'char_class':'Commoner',
     'behavior':'archer',
-    'seeker_AI':True,
-    'fearless_AI':True,
     'hitpoints_base':10,
     #'class_features':{
     #    'Fighting_Style_Archery':True,
@@ -2621,11 +2623,12 @@ metadict_animals['Warrior 1 lvl (standard) (Shortbow)'] = {
 metadict_animals['Warrior 1 lvl (standard) (Greataxe)'] = {
     # Боец средних параметров с Greataxe.
     'level':1,
+    'seeker_AI':True,
+    'fearless_AI':True,
+    'no_grappler_AI':True,
     'challenge_rating':'1/8',
     'char_class':'Commoner',
     'behavior':'warrior',
-    'seeker_AI':True,
-    'fearless_AI':True,
     'hitpoints_base':10,
     'abilityes':{
         'strength':10,
@@ -2650,12 +2653,13 @@ metadict_animals['Warrior 1 lvl (standard) (Greataxe)'] = {
 metadict_animals['Warrior 1 lvl (standard) (disadvantage) (Greataxe)'] = {
     # Боец средних параметров с Greataxe.
     'level':1,
+    'seeker_AI':True,
+    'fearless_AI':True,
+    'no_grappler_AI':True,
+    'squad_disadvantage':True,
     'challenge_rating':'1/8',
     'char_class':'Commoner',
     'behavior':'warrior',
-    'seeker_AI':True,
-    'fearless_AI':True,
-    'squad_disadvantage':True,
     'hitpoints_base':10,
     'abilityes':{
         'strength':10,
@@ -2679,12 +2683,13 @@ metadict_animals['Warrior 1 lvl (standard) (disadvantage) (Greataxe)'] = {
 
 metadict_animals['Warrior 1 lvl (standard) (bless + disadvantage) (Greataxe)'] = {
     'level':1,
+    'seeker_AI':True,
+    'fearless_AI':True,
+    'no_grappler_AI':True,
+    'squad_disadvantage':True,
     'challenge_rating':'1/8',
     'char_class':'Commoner',
     'behavior':'warrior',
-    'seeker_AI':True,
-    'fearless_AI':True,
-    'squad_disadvantage':True,
     'hitpoints_base':10,
     'abilityes':{
         'strength':10,
@@ -2716,11 +2721,12 @@ metadict_animals['Warrior 1 lvl (standard) (bless + disadvantage) (Greataxe)'] =
 metadict_animals['Warrior 1 lvl (standard) (Battleaxe + Shield)'] = {
     # Боец средних параметров с Greataxe.
     'level':1,
+    'seeker_AI':True,
+    'fearless_AI':True,
+    'no_grappler_AI':True,
     'challenge_rating':'1/8',
     'char_class':'Commoner',
     'behavior':'warrior',
-    'seeker_AI':True,
-    'fearless_AI':True,
     'hitpoints_base':10,
     'abilityes':{
         'strength':10,
@@ -2748,7 +2754,14 @@ metadict_animals['Warrior 1 lvl (standard) (Battleaxe + Shield)'] = {
 
 metadict_animals['Sentinel (CR 1/8)'] = {
     # Страж
+    # В тестах считается эталонным бойцом с CR 1/8
+        # fearless_AI -- не бежит с поля боя.
+        # seeker_AI -- ищет противника без командира.
+        # volley_AI -- кидает копья издалека.
     'level':2,
+    'volley_AI':True,
+    'seeker_AI':True,
+    'fearless_AI':True,
     'challenge_rating':'1/8',
     'hitpoints_medial':True,
     'char_class':'Warrior',
@@ -2771,7 +2784,47 @@ metadict_animals['Sentinel (CR 1/8)'] = {
         'Chain Shirt':1,
         'Shield':1,
         'Spear':1,
-        'Javelin':4,
+        'Javelin':8,
+        },
+    }
+
+metadict_animals['Veteran (CR 3)'] = {
+    # Ветеран
+    # В тестах считается эталонным бойцом с CR 3
+        # fearless_AI -- не бежит с поля боя.
+        # seeker_AI -- ищет противника без командира.
+    'level':9,
+    #'volley_AI':True,
+    'seeker_AI':True,
+    'fearless_AI':True,
+    'challenge_rating':'3',
+    'hitpoints_medial':True,
+    'char_class':'Warrior',
+    'class_features':{
+        'Fighting_Style_Two_Weapon_Fighting':True,
+        'Extra_Attack':True,
+        },
+    'abilityes':{
+        'strength':16,
+        'dexterity':13,
+        'constitution':14,
+        'intelligence':10,
+        'wisdom':11,
+        'charisma':10,
+        },
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Splint Armor':1,
+        'Longsword':1,
+        'Shortsword':1,
+        'Crossbow, Heavy':1,
+        'Crossbow Bolt':60,
         },
     }
 
@@ -2831,40 +2884,6 @@ metadict_animals['Thug (CR 1/2)'] = {
     'equipment_weapon':{
         'Leather Armor':1,
         'Mace':1,
-        'Crossbow, Heavy':1,
-        'Crossbow Bolt':60,
-        },
-    }
-
-metadict_animals['Veteran (CR 3)'] = {
-    # Ветеран
-    'level':9,
-    'challenge_rating':'3',
-    'hitpoints_medial':True,
-    'char_class':'Warrior',
-    'class_features':{
-        'Fighting_Style_Two_Weapon_Fighting':True,
-        'Extra_Attack':True,
-        },
-    'abilityes':{
-        'strength':16,
-        'dexterity':13,
-        'constitution':14,
-        'intelligence':10,
-        'wisdom':11,
-        'charisma':10,
-        },
-    'hit_dice':'1d8',
-    'behavior':'commander',
-    'race':'Human-common',
-    'weapon_skill':['simple','martial'],
-    'armor_skill':['light','medium','heavy','shield'],
-    'equipment_supply':soldier_supply,
-    'equipment_backpack':soldiers_pack,
-    'equipment_weapon':{
-        'Splint Armor':1,
-        'Longsword':1,
-        'Shortsword':1,
         'Crossbow, Heavy':1,
         'Crossbow Bolt':60,
         },
