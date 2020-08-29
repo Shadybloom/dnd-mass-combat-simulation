@@ -970,6 +970,10 @@ class battle_simulation(battlescape):
             danger_list.append(self.dict_danger[enemy_soldier.behavior])
             attacks_types = set([key[0] for key in enemy_soldier.attacks.keys()])
             attacks_list.extend(attacks_types)
+            attack_ranges = [value.get('attack_range',0)
+                    for value in enemy_soldier.attacks.values()]
+            attack_ranges.extend([value.get('attack_range_max',0)
+                    for value in enemy_soldier.attacks.values()])
         for uuid, ally_tuple in allies_dict.items():
             ally_soldier = self.metadict_soldiers[uuid]
             ally_strenght_list.append(self.dict_danger[ally_soldier.behavior])
@@ -991,6 +995,7 @@ class battle_simulation(battlescape):
         # Средняя скорость и длина хода врага:
         medial_speed = sum(speed_list) / len(enemies_dict)
         enemy_recon['move'] = round(medial_speed / self.tile_size)
+        enemy_recon['attack_range'] = round(max(attack_ranges) / self.tile_size)
         # Средняя дистанция до врага:
         enemy_recon['distance_medial'] = round(sum(distance_list) / len(enemies_dict))
         enemy_recon['distance'] = min(distance_list)
@@ -1154,7 +1159,7 @@ class battle_simulation(battlescape):
                 if 'engage' in commands_list:
                     commands_list.append('disengage')
                     commands_list.remove('engage')
-                if squad.enemies and squad.enemy_recon['distance'] <= save_distance * 3:
+                if squad.enemies and squad.enemy_recon['distance'] <= save_distance * 2:
                     commands_list.append('dodge')
                     if 'lead' in commands_list:
                         commands_list.remove('lead')
@@ -3095,9 +3100,12 @@ class battle_simulation(battlescape):
         # Безрассудного варвара легче поразить (но хрена с два это помогает):
         if enemy_soldier.reckless_attack == True:
             advantage = True
+        # Преимущество от "Тактики стаи", если союзник рядом с врагом:
+        if soldier.class_features.get('Pack_Tactic') and len(enemy_soldier.near_enemies) > 1:
+            advantage = True
         # Верховой боец атакует с преимуществом, если цель не всадник:
         if attack_choice[0] == 'close' or attack_choice[0] == 'reach':
-            if soldier.class_features.get('Feat_Mounted_Combatant') == True\
+            if soldier.class_features.get('Feat_Mounted_Combatant')\
                     and soldier.mount_combat\
                     and hasattr(soldier, 'mount_uuid')\
                     and self.metadict_soldiers.get(soldier.mount_uuid)\
