@@ -2600,7 +2600,8 @@ class battle_simulation(battlescape):
         spell_choice = spell_dict['spell_choice']
         counterspell_enemies = [enemy_soldier\
                 for enemy_soldier in self.metadict_soldiers.values()\
-                if enemy_soldier.ally_side == soldier.enemy_side\
+                if enemy_soldier.__dict__.get('place')\
+                and enemy_soldier.ally_side == soldier.enemy_side\
                 and enemy_soldier.spells_generator.find_spell('counterspell', effect = True)]
         if counterspell_enemies:
             for enemy_soldier in counterspell_enemies:
@@ -3529,13 +3530,12 @@ class battle_simulation(battlescape):
 
         Если в заклинании указано, что оно повторяющееся.
         """
-        # TODO: всё-таки заклинания должны быть объектами своего класса.
-        # Вот здесь лучше было бы запускать функцию через метод заклинания.
         for soldier in self.metadict_soldiers.values():
             if soldier.buffs:
                 for effect, spell_dict in soldier.buffs.items():
                     if spell_dict.get('repeat'):
-                        soldier.spells_generator.use_buff(spell_dict['spell_choice'])
+                        soldier.spells_generator.use_buff(spell_dict['spell_choice'],
+                                gen_spell = spell_dict, use_spell = False)
 
     def print_battle_statistics(self):
         """Вывод статистики после боя. Убитые, раненые по отрядам."""

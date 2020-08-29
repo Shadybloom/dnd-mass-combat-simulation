@@ -223,7 +223,7 @@ class gen_spells():
         spell_dict = func(spell_level, gen_spell, spell_choice, use_spell = False)
         return spell_dict
 
-    def use_buff(self, spell_choice, gen_spell = True):
+    def use_buff(self, spell_choice, gen_spell = True, use_spell = True):
         """Используем функцию заклинания.
         
         - Меняет параметры солдата. if gen_spell в заклинании.
@@ -234,7 +234,7 @@ class gen_spells():
         #spell_level = spell_choice[0]
         spell_name = spell_choice[-1]
         func = getattr(self, spell_name)
-        spell_dict = func(spell_level, gen_spell, spell_choice, use_spell = True)
+        spell_dict = func(spell_level, gen_spell, spell_choice, use_spell)
         return spell_dict
 
     def use_spell(self, spell_choice, gen_spell = False, use_spell_slot = True):
