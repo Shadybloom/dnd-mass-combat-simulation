@@ -17,8 +17,8 @@ duel_map = (
         '.......',
         '-------',
         '0eeeeee',
-        'wwwwwww',
         'ccccccc',
+        'wwwwwww',
         'aaaaaaa',
         )
 
@@ -959,17 +959,17 @@ battle_map = (
         '.....!aaaaaaaaaaaaaaaaaaaa!.....',
         )
 
-battle_map_test = (
+battle_map_test_commanders = (
         # Тест поля боя (10x60):
-        '.....!aaaaaaaaaaaaaaaaaaaa!.....',
-        '.....!aaaaaaaaaaaaaaaaaaaa!.....',
-        '.....!wwwwwwwwwwwwwwwwwwww!.....',
-        '.....!wwwwwwwwwwwwwwwwwwww!.....',
-        '.....!wwwwwwwwwwwwwwwwwwww!.....',
-        '.....!wwwwwwwwwwwwwwwwwwww!.....',
-        '.....!wwwwwwwwwwwwwwwwwwww!.....',
         '.....!cccccccccccccccccccc!.....',
-        '.....!wwwwwwwwwwwwwwwwwwww!.....',
+        '.....!cccccccccccccccccccc!.....',
+        '.....!cccccccccccccccccccc!.....',
+        '.....!cccccccccccccccccccc!.....',
+        '.....!cccccccccccccccccccc!.....',
+        '.....!eeeeeeeeeeeeeeeeeeee!.....',
+        '.....!eeeeeeeeeeeeeeeeeeee!.....',
+        '.....!eeeeeeeeeeeeeeeeeeee!.....',
+        '.....!eeeeeeeeeeeeeeeeeeee!.....',
         '.....!eeeeeeeeeeeeeeeeeeee!.....',
         '.....!................56..!.....',
         '.....!--------------------!.....',
@@ -996,6 +996,44 @@ battle_map_test = (
         '.....!wwwwwwwwwwwwwwwwwwww!.....',
         '.....!aaaaaaaaaaaaaaaaaaaa!.....',
         '.....!aaaaaaaaaaaaaaaaaaaa!.....',
+        )
+
+battle_map_test_commanders_vs_commanders = (
+        # Тест поля боя (10x60):
+        '.....!cccccccccccccccccccc!.....',
+        '.....!eeeeeeeeeeeeeeeeeeee!.....',
+        '.....!cccccccccccccccccccc!.....',
+        '.....!eeeeeeeeeeeeeeeeeeee!.....',
+        '.....!cccccccccccccccccccc!.....',
+        '.....!eeeeeeeeeeeeeeeeeeee!.....',
+        '.....!cccccccccccccccccccc!.....',
+        '.....!eeeeeeeeeeeeeeeeeeee!.....',
+        '.....!cccccccccccccccccccc!.....',
+        '.....!eeeeeeeeeeeeeeeeeeee!.....',
+        '.....!................56..!.....',
+        '.....!--------------------!.....',
+        '.....!....................!.....',
+        '.....!....................!.....',
+        '.....!....................!.....',
+        '.....!....................!.....',
+        '.....!....................!.....',
+        '.....!....................!.....',
+        '.....!....................!.....',
+        '.....!....................!.....',
+        '.....!....................!.....',
+        '.....!....................!.....',
+        '.....!--------------------!.....',
+        '.....!................01..!.....',
+        '.....!eeeeeeeeeeeeeeeeeeee!.....',
+        '.....!cccccccccccccccccccc!.....',
+        '.....!eeeeeeeeeeeeeeeeeeee!.....',
+        '.....!cccccccccccccccccccc!.....',
+        '.....!eeeeeeeeeeeeeeeeeeee!.....',
+        '.....!cccccccccccccccccccc!.....',
+        '.....!eeeeeeeeeeeeeeeeeeee!.....',
+        '.....!cccccccccccccccccccc!.....',
+        '.....!eeeeeeeeeeeeeeeeeeee!.....',
+        '.....!cccccccccccccccccccc!.....',
         )
 
 battle_map_wide = (
