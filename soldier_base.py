@@ -507,15 +507,9 @@ class soldier():
         """
         level = self.level
         char_class = self.char_class
-        dict_proficiency = self.metadict_class_proficiency[('Any',level)]
-        try:
-            dict_proficiency.update(self.metadict_class_proficiency[(char_class,level)])
-        except Exception as error_output:
-            print('Исключение find_class_proficiency (metadict_class_proficiency):', error_output)
-        try:
-            dict_proficiency['spellslots'] = self.metadict_class_spells[(char_class,level)]
-        except Exception as error_output:
-            print('Исключение find_class_proficiency (metadict_class_spells):', error_output)
+        dict_proficiency = copy.deepcopy(self.metadict_class_proficiency[('Any',level)])
+        dict_proficiency.update(self.metadict_class_proficiency[(char_class,level)])
+        dict_proficiency['spellslots'] = copy.deepcopy(self.metadict_class_spells[(char_class,level)])
         return dict_proficiency
 
     def calculate_mods(self):
