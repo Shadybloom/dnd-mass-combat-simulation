@@ -2304,8 +2304,9 @@ class soldier_in_battle(soldier):
                         or attack_choice[-1] == 'Magic_Missile':
                     if 'runes' in self.commands and self.reaction:
                         self.use_item('Shield', gen_spell = True)
-                    elif self.reaction:
-                        self.try_spellcast('Shield', gen_spell = True)
+                        if not 'shield' in self.buffs\
+                                and 'spellcast' in self.commands and self.reaction:
+                            self.try_spellcast('Shield', gen_spell = True)
             # Заклинание 'Shield' даёт +5 AC
             # И защищает от волшебных стрел:
             armor_class_before = armor_dict['armor_class']
