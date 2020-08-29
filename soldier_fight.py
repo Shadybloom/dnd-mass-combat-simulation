@@ -153,8 +153,6 @@ class soldier_in_battle(soldier):
         # Восстанавливаются после короткого отдыха (short_rest):
         if self.class_features.get('Second_Wind'):
             self.second_wind = True
-        if self.class_features.get('Action_Surge'):
-            self.action_surge = True
         if self.class_features.get('Feat_Inspiring_Leader'):
             self.inspiring_leader = True
         if self.proficiency.get('ki_points_max'):
@@ -227,8 +225,6 @@ class soldier_in_battle(soldier):
         self.damage_absorbed = None
         self.guiding_bolt_hit = False
         self.mockery_hit = False
-        # Способности бойца, паладина:
-        self.action_surge = False
         # Словарь ранений (disabled)
         if not hasattr(self, 'traumas_dict'):
             self.traumas_dict = {}
@@ -321,8 +317,6 @@ class soldier_in_battle(soldier):
             # Восстанавливаются после короткого отдыха (short_rest):
             if self.class_features.get('Second_Wind') and not hasattr(self, 'second_wind'):
                 self.second_wind = True
-            if self.class_features.get('Action_Surge') and not hasattr(self, 'action_surge'):
-                self.action_surge = True
             if self.class_features.get('Martial_Archetype_Battlemaster')\
                     and not hasattr(self, 'superiority_dices'):
                 self.superiority_dice = self.proficiency['superiority_dice']
@@ -756,6 +750,7 @@ class soldier_in_battle(soldier):
         if self.class_features.get('Patient_Defense'):
             #if hasattr(self, 'ki_points') and self.ki_points > 0 and self.bonus_action == True:
             #    self.ki_points -= 1
+            #    self.drop_spell(('ki', 'Patient_Defense'))
             #    self.bonus_action = False
             #    self.dodge_action = True
             if self.bonus_action == True:
@@ -768,6 +763,7 @@ class soldier_in_battle(soldier):
         if self.class_features.get('Step_of_the_Wind'):
             #if hasattr(self, 'ki_points') and self.ki_points > 0 and self.bonus_action == True:
             #    self.ki_points -= 1
+            #    self.drop_spell(('ki', 'Step_of_the_Wind'))
             #    self.bonus_action = False
             #    self.disengage_action = True
             if self.bonus_action == True:
@@ -830,6 +826,7 @@ class soldier_in_battle(soldier):
         if self.class_features.get('Flurry_of_Blows'):
             if hasattr(self, 'ki_points') and self.ki_points > 0 and self.bonus_action == True:
                 self.ki_points -= 1
+                self.drop_spell(('ki', 'Flurry_of_Blows'))
                 self.bonus_action = False
                 attack_choice = ('close','unarmed')
                 attacks_chain_bonus.append(attack_choice)
@@ -858,6 +855,7 @@ class soldier_in_battle(soldier):
                 and hasattr(self, 'ki_points')\
                 and self.ki_points > 0:
             self.ki_points -= 1
+            self.drop_spell(('ki', 'Stunning_Strike'))
             stunned_difficult = 8 + self.proficiency_bonus + self.mods['wisdom']
             stunned = enemy_soldier.set_stunned(stunned_difficult)
             if stunned:
@@ -1033,9 +1031,9 @@ class soldier_in_battle(soldier):
         """Fighter может получить удвоенный ход."""
         # Только показываем, что двойной ход взят:
         if self.class_features.get('Action_Surge'):
-            if self.action_surge and self.bonus_action:
-                self.bonus_action = False
-                self.action_surge = False
+            if self.proficiency['Action_Surge'] and self.bonus_action:
+                self.drop_spell(('feature', 'Action_Surge'))
+                self.proficiency['Action_Surge'] -= 1
                 return True
             else:
                 return False
@@ -1116,6 +1114,7 @@ class soldier_in_battle(soldier):
             if self.second_wind and self.bonus_action:
                 second_wind_heal = dices.dice_throw('1d10') + self.level
                 self.set_hitpoints(heal = second_wind_heal)
+                self.drop_spell(('feature', 'Second_Wind'))
                 self.bonus_action = False
                 self.second_wind = False
                 print('{0} {1} {2} heal (second_wind): {3}'.format(
@@ -1135,6 +1134,7 @@ class soldier_in_battle(soldier):
                 lay_on_hands_heal = self.hitpoints_max - self.hitpoints 
                 if lay_on_hands_heal > self.lay_on_hands:
                     lay_on_hands_heal = self.lay_on_hands
+                self.drop_spell(('feature', 'Lay_on_Hands'))
                 self.set_hitpoints(heal = lay_on_hands_heal)
                 self.lay_on_hands = self.lay_on_hands - lay_on_hands_heal
                 self.battle_action = False
@@ -1231,7 +1231,7 @@ class soldier_in_battle(soldier):
         # https://www.dandwiki.com/wiki/5e_SRD:Conditions#Incapacitated
         """
         ability = 'constitution'
-        if self.get_savethrow(difficult, ability, advantage, disadvantage):
+        if self.get_savethrow(difficult, ability, advantage, disadvantage, danger = True):
             return False
         else:
             self.stunned_difficult = difficult
@@ -1534,8 +1534,10 @@ class soldier_in_battle(soldier):
 # Универсальная проверка спасброска.
 
     def get_savethrow(self, difficult, ability,
-            advantage = None, disadvantage = None, bonus = 0):
+            advantage = None, disadvantage = None, danger = False, bonus = 0):
         """Делаем спасбросок.
+
+        Метка danger значит, что спасбросок опасный, тогда используем способности.
         
         - Учитываем преимущества к броскам характеристик.
         - И помехи к броскам характеристик.
@@ -1545,15 +1547,23 @@ class soldier_in_battle(soldier):
         if not disadvantage:
             disadvantage = self.check_savethrow_disadvantage(ability)
         savethrow_result = dices.dice_throw_advantage('1d20', advantage, disadvantage) + self.saves[ability]
-        savethrow_result += self.get_savethrow_bonus(difficult, savethrow_result, ability, bonus)
+        savethrow_result += self.get_savethrow_bonus(difficult, savethrow_result, ability, danger, bonus)
         if self.check_savethrow_autofail(ability):
             return False
         elif difficult <= savethrow_result:
             return True
+        elif difficult > savethrow_result and danger\
+                and self.class_features.get('Indomitable')\
+                and self.proficiency.get('Indomitable'):
+            # TODO: использование Indomitable перенеси в spells.
+            self.proficiency['Indomitable'] -= 1
+            self.drop_spell(('feature', 'Indomitable'))
+            result = self.get_savethrow (difficult, ability, advantage, disadvantage, danger = False)
+            return  result
         else:
             return False
 
-    def get_savethrow_bonus(self, difficult, savethrow_result, ability, bonus = 0):
+    def get_savethrow_bonus(self, difficult, savethrow_result, ability, danger = False, bonus = 0):
         """Бонус к спасброскам от способностей класса.
 
         """
@@ -1564,10 +1574,11 @@ class soldier_in_battle(soldier):
         if 'bless' in self.buffs:
             bonus += dices.dice_throw_advantage('1d4')
         # Bardic_Inspiration усиливает спасбросок:
-        if 'bardic_inspiration' in self.buffs\
-                and savethrow_result < difficult\
-                and not savethrow_result + self.buffs['bardic_inspiration']['inspiration_mod'] < difficult:
-            bonus += self.buffs.pop('bardic_inspiration')['inspiration_mod']
+        if danger:
+            if 'bardic_inspiration' in self.buffs\
+                    and savethrow_result < difficult\
+                    and not savethrow_result + self.buffs['bardic_inspiration']['inspiration_mod'] < difficult:
+                bonus += self.buffs.pop('bardic_inspiration')['inspiration_mod']
         return bonus
 
     def check_savethrow_autofail(self, ability):
