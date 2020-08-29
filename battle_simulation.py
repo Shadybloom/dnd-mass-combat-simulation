@@ -1229,7 +1229,7 @@ class battle_simulation(battlescape):
                 and not 'fearless' in soldier.commands:
             destination = self.find_spawn(soldier.place, soldier.ally_side)
             destination = random.choice(self.point_to_field(destination))
-            self.move_action(soldier, squad, destination, allow_replace = True)
+            self.move_action(soldier, squad, destination, close_order = True)
         # Солдат лечится способностями/зельями, если это необходимо:
         if soldier.hitpoints <= soldier.hitpoints_max * 0.5\
                 and 'carefull' in soldier.commands\
@@ -1240,7 +1240,7 @@ class battle_simulation(battlescape):
         if soldier.danger > self.engage_danger and not soldier.escape:
             destination = self.find_spawn(soldier.place, soldier.ally_side)
             destination = random.choice(self.point_to_field(destination))
-            self.move_action(soldier, squad, destination, allow_replace = False)
+            self.move_action(soldier, squad, destination, close_order = False)
             # Испуганный боец может сбежать (но у храброго преимущество):
             soldier.escape = soldier.morality_check_escape(soldier.danger)
             # Командир может отступить в глубину строя:
@@ -1258,7 +1258,7 @@ class battle_simulation(battlescape):
             else:
                 destination = self.find_spawn(soldier.place, soldier.ally_side)
                 destination = random.choice(self.point_to_field(destination))
-            self.move_action(soldier, squad, destination, allow_replace = True)
+            self.move_action(soldier, squad, destination, close_order = True)
             if 'exit' in self.dict_battlespace[soldier.place]:
                 self.clear_battlemap()
         # Отряд может ускориться с dash_action, если таков приказ (и врагов нет рядом):
@@ -1277,7 +1277,7 @@ class battle_simulation(battlescape):
         if 'lead' in soldier.commands\
                 and squad.commanders_list\
                 and soldier.behavior == 'commander'\
-                and soldier.uuid == squad.commanders_list[0].uuid:
+                and soldier.uuid == squad.commander.uuid:
             if len(soldier.near_allies) >= 2 or 'fearless' in soldier.commands:
                 # Командиры прорываются через зональные заклинания и атакуют магов:
                 if 'danger' in soldier.commands and 'fearless' in soldier.commands\
@@ -1370,7 +1370,7 @@ class battle_simulation(battlescape):
                     else:
                         destination = self.find_spawn(soldier.place, soldier.ally_side)
                 self.move_action(soldier, squad, destination,
-                        allow_replace = True, save_path = False, danger_path = True)
+                        close_order = True, save_path = False, danger_path = True)
                 if 'exit' in self.dict_battlespace[soldier.place]:
                     self.clear_battlemap()
         # Если не видно врагов, боец лечится добряникой:
@@ -1610,7 +1610,7 @@ class battle_simulation(battlescape):
             if not soldier.near_enemies or 'fearless' in soldier.commands:
                 self.move_action(soldier, squad, enemy_place, save_path = False)
                 if soldier.hero == True or soldier.behavior == 'commander':
-                    self.move_action(soldier, squad, enemy_place, allow_replace = True)
+                    self.move_action(soldier, squad, enemy_place, save_path = False, allow_replace = True)
 
     def pathfinder(self, soldier, squad, destination):
         """Пытаемся найти путь к цели.
@@ -1683,7 +1683,7 @@ class battle_simulation(battlescape):
     def move_action(self, soldier, squad, destination,
             free_path = False, allow_replace = False,
             save_path = True, danger_path = False,
-            allow_manoeuvre = True):
+            allow_manoeuvre = True, close_order = False):
         """Боец следует к цели.
         
         Как работает следование маршруту:
@@ -1708,6 +1708,8 @@ class battle_simulation(battlescape):
             path = self.path_to_savepath(path, squad.frontline)
         if 'free_path' in soldier.commands or soldier.__dict__.get('air_walk'):
             free_path = True
+        if 'close_order' in soldier.commands or soldier.__dict__.get('close_order'):
+            close_order = True
         if path:
             while path and soldier.move_pool > 0:
                 # Если ближайшая точка пути свободна, переходим на неё:
@@ -1750,7 +1752,7 @@ class battle_simulation(battlescape):
                     self.change_place(prev_place, next_place, soldier.uuid)
                 # Командой можно уплотнить строй:
                 elif not place.free and place.units\
-                        and 'close_order' in soldier.commands\
+                        and close_order\
                         and len(place.units) < 2:
                     next_place = path.pop(0)
                     prev_place = soldier.place
@@ -2176,7 +2178,7 @@ class battle_simulation(battlescape):
                             advantage, disadvantage)
                     if restrained:
                         destination = self.find_spawn(soldier.place, soldier.ally_side, random_range = 1)
-                        self.move_action(soldier, squad, destination, allow_replace = True)
+                        self.move_action(soldier, squad, destination, close_order = True)
                         self.change_place(enemy_soldier.place, soldier.place, enemy_soldier.uuid)
                 # Заклинание Hex:
                 if attack_result['hit'] and soldier.concentration\
@@ -2307,7 +2309,7 @@ class battle_simulation(battlescape):
             if grappled and not enemy_soldier.behavior == 'mount':
                 if 'grapple' in soldier.commands:
                     destination = self.find_spawn(soldier.place, soldier.ally_side)
-                    self.move_action(soldier, squad, destination, allow_replace = True)
+                    self.move_action(soldier, squad, destination, close_order = True)
                     self.change_place(enemy_soldier.place, soldier.place, enemy_soldier.uuid)
                 else:
                     self.change_place(soldier.place, enemy_soldier.place, soldier.uuid)
@@ -2326,7 +2328,7 @@ class battle_simulation(battlescape):
             disarmed = enemy_soldier.set_disarm_weapon(soldier)
             if disarmed and len(soldier.near_allies) >= 1:
                 destination = self.find_spawn(soldier.place, soldier.ally_side)
-                self.move_action(soldier, squad, destination, allow_replace = True)
+                self.move_action(soldier, squad, destination, close_order = True)
                 self.change_place(enemy_soldier.place, soldier.place, enemy_soldier.uuid)
                 return disarmed
 
