@@ -444,6 +444,8 @@ metadict_chars['Commoner 2 lvl (militia swordsman-corporal)'] = {
 
 metadict_chars['Warrior 3 lvl (militia swordsman-sergeant)'] = {
     'level':3,
+    'brave_AI':True,
+    #'close_order_AI':True,
     'char_class':'Warrior',
     'hit_dice':'1d8',
     'behavior':'commander',
@@ -466,6 +468,8 @@ metadict_chars['Warrior 3 lvl (militia swordsman-sergeant)'] = {
 
 metadict_chars['Warrior 4 lvl (militia swordsman-lieutenant)'] = {
     'level':4,
+    'brave_AI':True,
+    #'close_order_AI':True,
     'char_class':'Warrior-officer',
     'hit_dice':'1d8',
     'behavior':'commander',
@@ -743,8 +747,8 @@ metadict_chars['Warrior 2 lvl (achean hoplite-corporal)'] = {
     'hit_dice':'1d8',
     'class_features':{
         # Изначально ветераны не обладают боевым стилем. Этому их обучают герои-бойцы.
-        #'Fighting_Style_Protection':True,
-        'Fighting_Style_Dueling':True,
+        'Fighting_Style_Protection':True,
+        #'Fighting_Style_Dueling':True,
         },
     'race':'Human-common',
     'weapon_skill':['simple','martial'],
@@ -769,8 +773,8 @@ metadict_chars['Warrior 3 lvl (achean hoplite-sergeant)'] = {
     'hit_dice':'1d8',
     'behavior':'commander',
     'class_features':{
-        #'Fighting_Style_Protection':True,
-        'Fighting_Style_Dueling':True,
+        'Fighting_Style_Protection':True,
+        #'Fighting_Style_Dueling':True,
         },
     'race':'Human-common',
     'weapon_skill':['simple','martial'],
@@ -795,7 +799,8 @@ metadict_chars['Warrior 4 lvl (achean hoplite-lieutenant)'] = {
     'hit_dice':'1d8',
     'behavior':'commander',
     'class_features':{
-        'Fighting_Style_Dueling':True,
+        'Fighting_Style_Protection':True,
+        #'Fighting_Style_Dueling':True,
         'Feat_Inspiring_Leader':True,
         },
     'race':'Human-common',
@@ -827,7 +832,8 @@ metadict_chars['Warrior 5 lvl (achean hoplite-captain)'] = {
     'hit_dice':'1d8',
     'behavior':'commander',
     'class_features':{
-        'Fighting_Style_Dueling':True,
+        'Fighting_Style_Protection':True,
+        #'Fighting_Style_Dueling':True,
         'Feat_Inspiring_Leader':True,
         'Extra_Attack':True,
         },
@@ -5787,6 +5793,7 @@ metadict_chars['Sorcerer 2 lvl (otherworld wildfire-burner)'] = {
 metadict_chars['Sorcerer 3 lvl (otherworld wildfire-enchanter)'] = {
     'level':3,
     'fireball_AI':True,
+    'disengage_AI':True,
     'char_class':'Sorcerer',
     'hit_dice':'1d6',
     'behavior':'commander',
@@ -5832,6 +5839,7 @@ metadict_chars['Sorcerer 3 lvl (otherworld wildfire-enchanter)'] = {
 metadict_chars['Sorcerer 4 lvl (otherworld wildfire-paragon)'] = {
     'level':4,
     'fireball_AI':True,
+    'disengage_AI':True,
     'char_class':'Sorcerer',
     'hit_dice':'1d6',
     'behavior':'commander',
@@ -5850,7 +5858,8 @@ metadict_chars['Sorcerer 4 lvl (otherworld wildfire-paragon)'] = {
             ('1_lvl', 'Burning_Hands'),
             ('1_lvl', 'Absorb_Elements'),
             ('2_lvl', 'Flaming_Sphere'),
-            ('2_lvl', 'Blur'),
+            ('2_lvl', 'Mirror_Image'),
+            #('2_lvl', 'Blur'),
             ],
         'Font_of_Magic':True,
         'Metamagic':True,
@@ -5881,6 +5890,7 @@ metadict_chars['Sorcerer 4 lvl (otherworld wildfire-paragon)'] = {
 metadict_chars['Sorcerer 5 lvl (otherworld wildfire-ravager)'] = {
     'level':5,
     'fireball_AI':True,
+    'disengage_AI':True,
     'char_class':'Sorcerer',
     'hit_dice':'1d6',
     'behavior':'commander',
@@ -5898,7 +5908,8 @@ metadict_chars['Sorcerer 5 lvl (otherworld wildfire-ravager)'] = {
             ('1_lvl', 'Shield'),
             ('1_lvl', 'Burning_Hands'),
             ('1_lvl', 'Absorb_Elements'),
-            ('2_lvl', 'Blur'),
+            ('2_lvl', 'Mirror_Image'),
+            #('2_lvl', 'Blur'),
             ('3_lvl', 'Counterspell'),
             ('3_lvl', 'Fireball'),
             ],
@@ -11059,8 +11070,8 @@ metadict_chars['Monk 9 lvl (друг) (Кумар «Чугуннорукий»)'
         'Stunning_Strike':True,
         'Ability_Score_Improvement':{
             'wisdom':+2,
-            'charisma':+1,
             'dexterity':+1,
+            'constitution':+1,
             },
         'Ki_Empowered_Strikes':True,
         'Shadow_Step':True,
@@ -11431,7 +11442,8 @@ metadict_chars['Bard 2 lvl (друг) (бард Тетры)'] = {
             ('1_lvl', 'Charm_Person'),
             ('1_lvl', 'Healing_Word'),
             ('1_lvl', 'Silent_Image'),
-            ('1_lvl', 'Sleep'),
+            ('1_lvl', 'Dissonant_Whispers'),
+            #('1_lvl', 'Sleep'),
             ],
         'Jack_of_All_Trades':True,
         'Song_of_Rest':True,
@@ -11486,7 +11498,8 @@ metadict_chars['Bard 6 lvl (друг) (Тетра Курио)'] = {
             ('1_lvl', 'Charm_Person'),
             ('1_lvl', 'Healing_Word'),
             ('1_lvl', 'Silent_Image'),
-            ('1_lvl', 'Sleep'),
+            ('1_lvl', 'Dissonant_Whispers'),
+            #('1_lvl', 'Sleep'),
             ('2_lvl', 'Shatter'),
             ('3_lvl', 'Crusaders_Mantle'),
             ('3_lvl', 'Counterspell'),
