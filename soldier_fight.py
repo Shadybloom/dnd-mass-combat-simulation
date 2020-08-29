@@ -1503,31 +1503,32 @@ class soldier_in_battle(soldier):
         "Длительные травмы" из "Руководства мастера".
         """
         # Герои и офицеры реже получают серьёзные травмы.
-        if self.hero or self.level >= 3:
-            advantage = True
-        if death_trauma:
-            disadvantage = True
-        if self.trauma_damage_type:
-            trauma_damage_type = self.trauma_damage_type
-        trauma_throw = dices.dice_throw_advantage('1d20', advantage, disadvantage)
-        if trauma_damage_type in ['slashing','piercing','bludgeoning','thunder']:
-            dict_traumas = dict(traumas.dict_traumas_base)
-        elif trauma_damage_type in ['fire','lightning','radiant','acid']:
-            dict_traumas = dict(traumas.dict_traumas_fire)
-        elif trauma_damage_type in ['cold','necrotic','necrotic_energy']:
-            dict_traumas = dict(traumas.dict_traumas_cold)
-        elif trauma_damage_type in ['poison']:
-            dict_traumas = dict(traumas.dict_traumas_necrotic)
-        else:
-            dict_traumas = dict(traumas.dict_traumas_base)
-        # Только травмы 1-10 лишают бойца боеспособности.
-        if trauma_throw <= 10:
-            self.disabled = True
-        trauma = dict_traumas[trauma_throw]
-        if not trauma in self.traumas_dict:
-            self.traumas_dict[trauma] = 1
-        elif trauma in self.traumas_dict:
-            self.traumas_dict[trauma] += 1
+        if not self.__dict__.get('mechanism'):
+            if self.hero or self.level >= 3:
+                advantage = True
+            if death_trauma:
+                disadvantage = True
+            if self.trauma_damage_type:
+                trauma_damage_type = self.trauma_damage_type
+            trauma_throw = dices.dice_throw_advantage('1d20', advantage, disadvantage)
+            if trauma_damage_type in ['slashing','piercing','bludgeoning','thunder']:
+                dict_traumas = dict(traumas.dict_traumas_base)
+            elif trauma_damage_type in ['fire','lightning','radiant','acid']:
+                dict_traumas = dict(traumas.dict_traumas_fire)
+            elif trauma_damage_type in ['cold','necrotic','necrotic_energy']:
+                dict_traumas = dict(traumas.dict_traumas_cold)
+            elif trauma_damage_type in ['poison']:
+                dict_traumas = dict(traumas.dict_traumas_necrotic)
+            else:
+                dict_traumas = dict(traumas.dict_traumas_base)
+            # Только травмы 1-10 лишают бойца боеспособности.
+            if trauma_throw <= 10:
+                self.disabled = True
+            trauma = dict_traumas[trauma_throw]
+            if not trauma in self.traumas_dict:
+                self.traumas_dict[trauma] = 1
+            elif trauma in self.traumas_dict:
+                self.traumas_dict[trauma] += 1
 
 # ----
 # Универсальная проверка спасброска.
