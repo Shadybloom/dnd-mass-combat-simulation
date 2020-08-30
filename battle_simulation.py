@@ -2545,9 +2545,6 @@ class battle_simulation(battlescape):
                 # Guiding_Bolt даёт преимущество на следующую атаку:
                 if attack_result.get('hit') and spell_dict.get('effect') == 'guiding_bolt_hit':
                     enemy_soldier.guiding_bolt_hit = True
-                # Vicious_Mockery портит одиночную атаку врагу:
-                if attack_result.get('hit') and spell_dict.get('effect') == 'mockery':
-                    enemy_soldier.mockery_hit = True
                 # Заклинание Hex:
                 if attack_result.get('hit') and soldier.concentration\
                         and soldier.concentration.get('effect') == 'hex'\
@@ -3186,8 +3183,15 @@ class battle_simulation(battlescape):
             if 'water' in self.dict_battlespace[soldier.place] and not soldier.water_walk:
                 disadvantage = True
         # TODO: перенеси это в attack класса бойца:
-        # Противника может защитить товарищ с Fighting_Style_Protection:
         if not disadvantage:
+            # Frostbite портит одиночкую атаку:
+            if 'frostbite' in soldier.debuffs:
+                soldier.debuffs.pop('frostbite')
+                disadvantage = True
+            if 'mockery' in soldier.debuffs:
+                soldier.debuffs.pop('mockery')
+                disadvantage = True
+            # Противника может защитить товарищ с Fighting_Style_Protection:
             if len(enemy_soldier.near_allies) > 1:
                 for soldier_tuple in enemy_soldier.near_allies:
                     enemy_ally = self.metadict_soldiers[soldier_tuple.uuid]

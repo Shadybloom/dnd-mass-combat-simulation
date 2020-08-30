@@ -224,7 +224,6 @@ class soldier_in_battle(soldier):
         self.fear_source = None
         self.damage_absorbed = None
         self.guiding_bolt_hit = False
-        self.mockery_hit = False
         # Словарь ранений (disabled)
         if not hasattr(self, 'traumas_dict'):
             self.traumas_dict = {}
@@ -1888,10 +1887,6 @@ class soldier_in_battle(soldier):
                 disadvantage = True
             elif enemy.distance > round(attack_dict['attack_range'] / self.tile_size):
                 disadvantage = True
-        # Бардовское Vicious_Mockery портит одиночную атаку:
-        if self.mockery_hit:
-            self.mockery_hit = False
-            disadvantage = True
         # Диапазон критического урона может увеличить Champion_Improved_Critical:
         crit_range = self.crit_range
         loss_range = self.loss_range

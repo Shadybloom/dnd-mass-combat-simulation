@@ -1067,7 +1067,9 @@ class gen_spells():
         """
         if not spell_dict:
             spell_dict = {
+                    'debuff':True,
                     'effect':'mockery',
+                    'effect_timer':1,
                     'direct_hit':True,
                     'savethrow':True,
                     'savethrow_all':True,
@@ -1091,6 +1093,18 @@ class gen_spells():
             spell_dict['damage_dice'] = '3d4'
         if self.mage.level >= 17:
             spell_dict['damage_dice'] = '4d4'
+        if gen_spell:
+            if not spell_dict.get('target_uuid'):
+                soldier = self.mage
+            else:
+                soldier = self.mage.metadict_soldiers[spell_dict['target_uuid']]
+            # Спасбросок против помехи на следующую атаку:
+            difficult = spell_dict['spell_save_DC']
+            ability = spell_dict['savethrow_ability']
+            advantage = spell_dict.get('savethrow_advantage', False)
+            disadvantage = spell_dict.get('savethrow_disadvantage', False)
+            if soldier.get_savethrow(difficult, ability, advantage, disadvantage):
+                return False
         return spell_dict
 
     @modify_spell
@@ -1107,13 +1121,15 @@ class gen_spells():
         """
         if not spell_dict:
             spell_dict = {
+                    'debuff':True,
+                    'effect':'frostbite',
+                    'effect_timer':1,
                     'direct_hit':True,
                     'savethrow':True,
                     'savethrow_all':True,
                     'savethrow_ability':'constitution',
                     'attacks_number':1,
                     'attack_range':60,
-                    'effect':'mockery',
                     'damage_type':'cold',
                     'damage_dice':'1d6',
                     'components':['verbal','somatic'],
@@ -1131,6 +1147,18 @@ class gen_spells():
             spell_dict['damage_dice'] = '3d6'
         if self.mage.level >= 17:
             spell_dict['damage_dice'] = '4d6'
+        if gen_spell:
+            if not spell_dict.get('target_uuid'):
+                soldier = self.mage
+            else:
+                soldier = self.mage.metadict_soldiers[spell_dict['target_uuid']]
+            # Спасбросок против помехи на следующую атаку:
+            difficult = spell_dict['spell_save_DC']
+            ability = spell_dict['savethrow_ability']
+            advantage = spell_dict.get('savethrow_advantage', False)
+            disadvantage = spell_dict.get('savethrow_disadvantage', False)
+            if soldier.get_savethrow(difficult, ability, advantage, disadvantage):
+                return False
         return spell_dict
 
     @modify_spell
