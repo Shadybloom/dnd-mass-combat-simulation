@@ -2424,6 +2424,11 @@ class battle_simulation(battlescape):
                     attack_dict = self.attack_action(soldier, squad, enemy, spell_action = True)
                     if not attack_dict:
                         continue
+                # Заклинание "Create_Bonfire" создаёт пожары:
+                if spell_dict.get('effect') == 'bonfire':
+                    spell_dict = soldier.concentration
+                    self.fireball_action(soldier, squad, spell_dict, enemy_soldier.place)
+                    continue
                 # Срабатывают вредоносные эффекты заклинаний:
                 if spell_dict.get('debuff'):
                     spell_dict['target_uuid'] = enemy_soldier.uuid
@@ -2525,10 +2530,6 @@ class battle_simulation(battlescape):
                                 advantage = advantage, disadvantage = disadvantage)
                         attack_result = enemy_soldier.take_attack(
                                 spell_choice, attack_dict, self.metadict_soldiers)
-                        # Заклинание "Create_Bonfire" создаёт пожары:
-                        if spell_dict.get('effect') == 'bonfire':
-                            spell_dict = soldier.concentration
-                            self.fireball_action(soldier, squad, spell_dict, enemy_soldier.place)
                     # Заклинания с показателем атаки мало отличаются от стрел и мечей:
                     elif spell_dict.get('attack_mod'):
                         attack_dict = soldier.attack(spell_dict, spell_choice,
