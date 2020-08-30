@@ -2129,7 +2129,8 @@ class soldier_in_battle(soldier):
         Каждое попадание пилума в щит, это -1 к его классу защиты.
         Бой сотня на сотню, 12-24 попаданий в щиты, это весомо.
         """
-        if self.armor['shield_use']:
+        if self.armor['shield_use']\
+                and not self.metadict_items[self.armor['shield_use']].get('unbreakable'):
             self.armor['armor_class'] -= 1
             self.armor['armor_class_armor_impact'] -= 1
             self.armor['armor_class_shield_impact'] -= 1

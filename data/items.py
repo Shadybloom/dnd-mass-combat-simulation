@@ -1014,6 +1014,17 @@ metadict_items['Shield'] = {
     'cost (grams_of_gold)':5,
     }
 
+metadict_items['Shield +1'] = {
+    # Не пробивается пилумами.
+    'shield':True,
+    'unbreakable':True,
+    'armor_type':'shield',
+    'armor_class_shield':3,
+    'weight (lb)':6,
+    'cost (gp)':300 * 60,
+    'cost (grams_of_gold)':300 * 60,
+    }
+
 #----
 # Shield (homebrew)
     # TODO: щит с AC 3, или щит с AC 5. Сложный вопрос.
@@ -1045,6 +1056,18 @@ metadict_items['Heavy Shield'] = {
     'weight (lb)':16,
     'cost (gp)':20,
     'cost (grams_of_gold)':20,
+    }
+
+metadict_items['Heavy Shield +1'] = {
+    # Не пробивается пилумами.
+    'shield':True,
+    'unbreakable':True,
+    'mounted_disadvantage':True,
+    'armor_type':'shield',
+    'armor_class_shield':4,
+    'weight (lb)':16,
+    'cost (gp)':300 * 60,
+    'cost (grams_of_gold)':300 * 60,
     }
 
 metadict_items['Tower Shield'] = {
