@@ -696,7 +696,10 @@ class soldier_in_battle(soldier):
         ability = 'constitution'
         if difficult < 10:
             difficult = 10
-        if self.get_savethrow(difficult, ability, advantage, disadvantage) and not autofail:
+        if self.class_features.get('Feat_War_Caster'):
+            advantage = True
+        if self.get_savethrow(difficult, ability, advantage, disadvantage, danger = True)\
+                and not autofail:
             return False
         else:
             # Эти теги используются, чтобы снимать баффы с солдат:
