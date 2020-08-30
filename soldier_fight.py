@@ -223,7 +223,6 @@ class soldier_in_battle(soldier):
         self.fear = False
         self.fear_source = None
         self.damage_absorbed = None
-        self.guiding_bolt_hit = False
         # Словарь ранений (disabled)
         if not hasattr(self, 'traumas_dict'):
             self.traumas_dict = {}

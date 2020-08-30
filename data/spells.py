@@ -92,7 +92,7 @@ class gen_spells():
                 # Переносим заклинание в список баффов/дебаффов. Они учитываются оттуда.
                 if spell_dict.get('buff'):
                     target.buffs[spell_dict['effect']] = spell_dict
-                if spell_dict.get('debuff'):
+                if spell_dict.get('debuff') and spell_dict.get('target_uuid'):
                     target.debuffs[spell_dict['effect']] = spell_dict
                 # Создаём список скастованных в бою заклинаний:
                 if spell_choice:
@@ -1069,7 +1069,7 @@ class gen_spells():
             spell_dict = {
                     'debuff':True,
                     'effect':'mockery',
-                    'effect_timer':1,
+                    'effect_timer':2,
                     'direct_hit':True,
                     'savethrow':True,
                     'savethrow_all':True,
@@ -1123,7 +1123,7 @@ class gen_spells():
             spell_dict = {
                     'debuff':True,
                     'effect':'frostbite',
-                    'effect_timer':1,
+                    'effect_timer':2,
                     'direct_hit':True,
                     'savethrow':True,
                     'savethrow_all':True,
@@ -2088,8 +2088,9 @@ class gen_spells():
         """
         if not spell_dict:
             spell_dict = {
-                    #'direct_hit':True,
-                    'effect':'guiding_bolt_hit',
+                    'debuff':True,
+                    'effect':'guiding_bolt',
+                    'effect_timer':2,
                     'attacks_number':1,
                     'attack_range':120,
                     'damage_type':'radiant',
@@ -2110,6 +2111,11 @@ class gen_spells():
             spell_dict['damage_dice'] = str(dice) + spell_dict['damage_dice'][1:]
         if self.mage.class_features.get('Metamagic_Distant_Spell'):
             spell_dict['attack_range'] *= 2
+        if gen_spell:
+            if not spell_dict.get('target_uuid'):
+                soldier = self.mage
+            else:
+                soldier = self.mage.metadict_soldiers[spell_dict['target_uuid']]
         return spell_dict
 
     @modify_spell

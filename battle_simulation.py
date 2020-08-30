@@ -2426,6 +2426,7 @@ class battle_simulation(battlescape):
                         continue
                 # Срабатывают вредоносные эффекты заклинаний:
                 if spell_dict.get('debuff'):
+                    spell_dict['target_uuid'] = enemy_soldier.uuid
                     debuff_dict = enemy_soldier.set_debuff(spell_dict)
                     if debuff_dict:
                         debuff_dict['hit'] = True
@@ -2542,9 +2543,6 @@ class battle_simulation(battlescape):
                     attack_result = debuff_dict
                 else:
                     attack_result = spell_dict
-                # Guiding_Bolt даёт преимущество на следующую атаку:
-                if attack_result.get('hit') and spell_dict.get('effect') == 'guiding_bolt_hit':
-                    enemy_soldier.guiding_bolt_hit = True
                 # Заклинание Hex:
                 if attack_result.get('hit') and soldier.concentration\
                         and soldier.concentration.get('effect') == 'hex'\
@@ -2851,6 +2849,7 @@ class battle_simulation(battlescape):
             spell_dict['damage_halved'] = True
         # Срабатывают вредоносные эффекты заклинаний:
         if spell_dict.get('debuff'):
+            spell_dict['target_uuid'] = enemy_soldier.uuid
             debuff_dict = enemy_soldier.set_debuff(spell_dict)
             if debuff_dict:
                 debuff_dict['hit'] = True
@@ -3224,9 +3223,9 @@ class battle_simulation(battlescape):
             advantage = True
             return advantage
         # Подсвеченный уязвим:
-        if enemy_soldier.guiding_bolt_hit:
+        if 'guiding_bolt' in enemy_soldier.debuffs:
+            enemy_soldier.debuffs.pop('guiding_bolt')
             advantage = True
-            enemy_soldier.guiding_bolt_hit = False
             return advantage
         # Безрассудная атака варвара, преимущество своим, преимущество врагу:
         if attack_choice[0] == 'close' or attack_choice[0] == 'reach'\
