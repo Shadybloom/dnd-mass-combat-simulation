@@ -1931,33 +1931,43 @@ class battle_simulation(battlescape):
         """
         if not soldier.disengage_action:
             disengage = soldier.use_disengage_action()
-            if disengage:
-                return False
-            else:
-                for enemy in provoke_attacks_list:
-                    enemy_soldier = self.metadict_soldiers[enemy[-1]]
-                    enemy_squad = [enemy_squad for enemy_squad in self.squads.values()
-                            if enemy_soldier.uuid in enemy_squad.metadict_soldiers][0]
-                    # Взгляд со стороны врага:
-                    recon_dict = self.recon(soldier.place,
-                            soldier_coordinates = enemy_soldier.place)
-                    if soldier.uuid in recon_dict.keys():
-                        soldier_tuple = recon_dict[soldier.uuid]
-                        attack_dict = self.attack_action(
-                                enemy_soldier, enemy_squad,
-                                soldier_tuple, reaction = True)
-                        #if attack_dict:
+            for enemy in provoke_attacks_list:
+                enemy_soldier = self.metadict_soldiers[enemy[-1]]
+                enemy_squad = [enemy_squad for enemy_squad in self.squads.values()
+                        if enemy_soldier.uuid in enemy_squad.metadict_soldiers][0]
+                # Взгляд со стороны врага:
+                recon_dict = self.recon(soldier.place,
+                        soldier_coordinates = enemy_soldier.place)
+                if soldier.uuid in recon_dict.keys():
+                    soldier_tuple = recon_dict[soldier.uuid]
+                    if not soldier.disengage_action\
+                            or enemy_soldier.class_features.get('Feat_Sentinel'):
+                        if enemy_soldier.class_features.get('Feat_War_Caster'):
+                            # Сначала пытаемся колдовать, потом атакуем, если не вышло:
+                            attack_dict = self.spellcast_action(
+                                    enemy_soldier, enemy_squad,
+                                    soldier_tuple, reaction = True)
+                            attack_dict = self.attack_action(
+                                    enemy_soldier, enemy_squad,
+                                    soldier_tuple, reaction = True)
+                        else:
+                            attack_dict = self.attack_action(
+                                    enemy_soldier, enemy_squad,
+                                    soldier_tuple, reaction = True)
+                        if attack_dict:
+                            if enemy_soldier.class_features.get('Feat_Sentinel'):
+                                soldier.move_pool = 0
                         #    # 15-20 провоцированных атак за минуту боя, 30-50 атак за бой.
-                        #    print('{side_1}, {c1} {s} PROVOKE >> {side_2} {c2} {e} act {a} dodge {d}'.format(
-                        #        side_1 = enemy_soldier.ally_side,
-                        #        c1 = enemy_soldier.place,
-                        #        s = enemy_soldier.behavior,
-                        #        side_2 = soldier.ally_side,
-                        #        c2 = soldier.place,
-                        #        e = soldier.behavior,
-                        #        a = soldier.battle_action,
-                        #        d = soldier.dodge_action,
-                        #        ))
+                            print('{side_1}, {c1} {s} PROVOKE >> {side_2} {c2} {e} act {a} dodge {d}'.format(
+                                side_1 = enemy_soldier.ally_side,
+                                c1 = enemy_soldier.place,
+                                s = enemy_soldier.behavior,
+                                side_2 = soldier.ally_side,
+                                c2 = soldier.place,
+                                e = soldier.behavior,
+                                a = soldier.battle_action,
+                                d = soldier.dodge_action,
+                                ))
 
     def volley_action(self, soldier, squad):
         """Лучник обстреливает зону градом стрел."""
@@ -2265,9 +2275,9 @@ class battle_simulation(battlescape):
                                 and enemy_ally.uuid != enemy_soldier.uuid:
                             soldier_tuple = self.get_enemy_tuple(enemy_ally, soldier)
                             enemy_squad = [enemy_squad for enemy_squad in self.squads.values()
-                                    if enemy_soldier.uuid in enemy_squad.metadict_soldiers][0]
+                                    if enemy_ally.uuid in enemy_squad.metadict_soldiers][0]
                             self.attack_action(
-                                    enemy_soldier, enemy_squad,
+                                    enemy_ally, enemy_squad,
                                     soldier_tuple, reaction = True)
                 if attack_result['hit'] and not attack_result['fatal_hit']:
                     if enemy_soldier.class_features.get('Wrath_of_the_Storm'):
@@ -2411,9 +2421,12 @@ class battle_simulation(battlescape):
                 soldier.bonus_action = False
 
     def spellcast_action(self, soldier, squad, enemy,
-            spell_choice = None, subspell = False, use_spell = True):
+            spell_choice = None, subspell = False, use_spell = True, reaction = False):
         """Боец атакует заклинанием."""
         enemy_soldier = self.metadict_soldiers[enemy.uuid]
+        if reaction and soldier.reaction and not soldier.battle_action:
+            soldier.battle_action = True
+            soldier.reaction = False
         if hasattr(soldier, 'spells') and soldier.spells and soldier.battle_action\
                 or spell_choice and subspell:
             # Смотрим, возможно ли атаковать:
