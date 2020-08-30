@@ -660,11 +660,37 @@ class gen_spells():
                     'effect_timer':1,
                     'direct_hit':True,
                     'savethrow':True,
+                    'savethrow_danger':True,
                     'savethrow_ability':'constitution',
+                    'savethrow_advantage':False,
+                    'savethrow_disadvantage':False,
                     'spell_level':spell_level,
                     'spell_save_DC':8 + self.find_spell_attack_mod(),
                     }
             spell_dict = copy.deepcopy(spell_dict)
+        if gen_spell:
+            if not spell_dict.get('target_uuid'):
+                soldier = self.mage
+            else:
+                soldier = self.mage.metadict_soldiers[spell_dict['target_uuid']]
+            difficult = spell_dict['spell_save_DC']
+            ability = spell_dict['savethrow_ability']
+            advantage = spell_dict['savethrow_advantage']
+            disadvantage = spell_dict['savethrow_disadvantage']
+            danger = spell_dict.get('savethrow_danger', False)
+            # Спасбросок против ошеломления:
+            if soldier.get_savethrow(difficult, ability, advantage, disadvantage, danger)\
+                    or 'stunned' in soldier.immunity:
+                return False
+            else:
+                # Лишаем действий:
+                soldier.battle_action = False
+                soldier.bonus_action = False
+                soldier.reaction = False
+                soldier.dodge_action = False
+                soldier.stunned_difficult = spell_dict['spell_save_DC']
+                soldier.stunned_timer = spell_dict.get('effect_timer', 1)
+                soldier.stunned = True
         return spell_dict
 
     @modify_spell
