@@ -482,7 +482,7 @@ metadict_items['Pike'] = {
     'weapon_type':['martial','close','reach','two_handed','heavy'],
     'damage_type':'piercing',
     'damage_dice':'1d10',
-    'weight (lb)':18,
+    'weight (lb)':16,
     'cost (gp)':5,
     'cost (grams_of_gold)':5,
     }
