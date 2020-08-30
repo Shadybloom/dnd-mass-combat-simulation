@@ -2257,6 +2257,18 @@ class battle_simulation(battlescape):
                             enemy_soldier = self.metadict_soldiers[enemy.uuid]
                 # TODO: в отдельную функцию
                 # Контратаки врага:
+                if len(soldier.near_enemies) >= 1:
+                    for soldier_tuple in soldier.near_enemies:
+                        enemy_ally = self.metadict_soldiers[soldier_tuple.uuid]
+                        if enemy_ally.class_features.get('Feat_Sentinel')\
+                                and enemy_ally.reaction == True\
+                                and enemy_ally.uuid != enemy_soldier.uuid:
+                            soldier_tuple = self.get_enemy_tuple(enemy_ally, soldier)
+                            enemy_squad = [enemy_squad for enemy_squad in self.squads.values()
+                                    if enemy_soldier.uuid in enemy_squad.metadict_soldiers][0]
+                            self.attack_action(
+                                    enemy_soldier, enemy_squad,
+                                    soldier_tuple, reaction = True)
                 if attack_result['hit'] and not attack_result['fatal_hit']:
                     if enemy_soldier.class_features.get('Wrath_of_the_Storm'):
                         # Взгляд со стороны врага:
