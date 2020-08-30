@@ -72,7 +72,7 @@ def create_parser():
                         help='Павшие с 0 hp тоже попадают на поле боя.'
                         )
     parser.add_argument('--rest',
-                        action='store_true', dest='short_rest', default=False,
+                        action='store_true', dest='rest', default=False,
                         help='Короткий отдых перед боем, лечение всех.'
                         )
     parser.add_argument('--rearm',
@@ -174,7 +174,7 @@ class battle_simulation(battlescape):
             if namespace.rearm:
                 self.set_squad_rearm(squad)
             # Короткий отдых (но сначала перевязка):
-            if namespace.short_rest:
+            if namespace.rest:
                 for n in range (0,60):
                     self.set_squad_heal(squad, heal_all = True)
                 self.set_squad_short_rest(squad)
@@ -714,7 +714,7 @@ class battle_simulation(battlescape):
             if namespace.reinforce:
                 self.place_soldiers()
             # Заканчиваем бой, если остались солдаты одной стороны:
-            if namespace.stop:
+            if namespace.stop and not namespace.rest and not namespace.rearm:
                 sides_list = []
                 for place, content in self.dict_battlespace.items():
                     for el in content:
