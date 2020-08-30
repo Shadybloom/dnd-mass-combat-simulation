@@ -1394,6 +1394,60 @@ class gen_spells():
                     soldier.battle.move_action(soldier, soldier.squad, destination, free_path = True)
         return spell_dict
 
+    @modify_spell
+    @update_spell_dict
+    def Green_Flame_Blade(self, spell_level, gen_spell = False, spell_dict = False):
+        """Клинок зелёного пламени.
+
+        Level: Cantrip
+        Casting time: 1 Action
+        Range: 5 feet
+        Components: V, M (a weapon)
+        Duration: Instantaneous
+        https://www.dnd-spells.com/spell/green-flame-blade
+        """
+        if not spell_dict:
+            spell_dict = {
+                    'debuff':True,
+                    'weapon_attack':True,
+                    'effect':'green_flame_blade',
+                    'attacks_number':1,
+                    'attack_range':5,
+                    'direct_hit':True,
+                    'damage_type':'fire',
+                    'damage_dice':'0d0',
+                    'damage_mod':0,
+                    'components':['verbal','material'],
+                    'casting_time':'action',
+                    'spell_level':spell_level,
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    'spell_of_choice':'Green_Flame_Blade',
+                    'school':'evocation',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
+        if self.mage.level >= 5:
+            spell_dict['damage_dice'] = '1d8'
+        if self.mage.level >= 11:
+            spell_dict['damage_dice'] = '2d8'
+        if self.mage.level >= 17:
+            spell_dict['damage_dice'] = '3d8'
+        if gen_spell:
+            if not spell_dict.get('target_uuid'):
+                soldier = self.mage
+            else:
+                soldier = self.mage.metadict_soldiers[spell_dict['target_uuid']]
+            if soldier.near_allies:
+                enemy = soldier.near_allies[0]
+                enemy_soldier = soldier.battle.metadict_soldiers[enemy.uuid]
+                enemy = soldier.battle.get_enemy_tuple(soldier, enemy_soldier)
+                mage = soldier.metadict_soldiers[spell_dict['caster_uuid']]
+                spell_dict['debuff'] = False
+                spell_dict['damage_mod'] = mage.spells_generator.find_spell_attack_mod(
+                        proficiency_bonus = False)
+                soldier.battle.fireball_action(mage, mage.squad,
+                        spell_dict, enemy.place, single_target = enemy)
+        return spell_dict
+
 #----
 # Subspells
 

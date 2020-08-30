@@ -1943,10 +1943,10 @@ class battle_simulation(battlescape):
                             soldier_coordinates = enemy_soldier.place)
                     if soldier.uuid in recon_dict.keys():
                         soldier_tuple = recon_dict[soldier.uuid]
-                        hit = self.attack_action(
+                        attack_dict = self.attack_action(
                                 enemy_soldier, enemy_squad,
                                 soldier_tuple, reaction = True)
-                        #if hit:
+                        #if attack_dict:
                         #    # 15-20 провоцированных атак за минуту боя, 30-50 атак за бой.
                         #    print('{side_1}, {c1} {s} PROVOKE >> {side_2} {c2} {e} act {a} dodge {d}'.format(
                         #        side_1 = enemy_soldier.ally_side,
@@ -2020,14 +2020,15 @@ class battle_simulation(battlescape):
                                 self.fireball_action(soldier, squad, spell_dict, target,
                                         single_target = enemy)
 
-    def attack_action(self, soldier, squad, enemy, attack_choice = None, reaction = False):
+    def attack_action(self, soldier, squad, enemy, attack_choice = None,
+            reaction = False, spell_action = False):
         """Боец выбирает противника и атакует."""
         # Данные о враге:
         enemy_soldier = self.metadict_soldiers[enemy.uuid]
         enemy_squad = [enemy_squad for enemy_squad in self.squads.values()
                 if enemy_soldier.uuid in enemy_squad.metadict_soldiers][0]
         # Для атаки используется действие, бонусное действие, или реакция:
-        if soldier.battle_action or reaction and soldier.reaction:
+        if soldier.battle_action or reaction and soldier.reaction or spell_action:
             # Смотрим, возможно ли атаковать:
             if not attack_choice:
                 attack_choice = soldier.select_attack(squad, enemy,
@@ -2043,6 +2044,15 @@ class battle_simulation(battlescape):
                 # Атака реакцией может быть только одна:
                 soldier.reaction = False
                 attacks_chain = [attacks_chain[0]]
+            # Атака с заклинанием, вроде Green_Flame_Blade:
+            elif spell_action:
+                if soldier.class_features.get('War_Magic')\
+                        and len(attacks_chain) >= 2\
+                        and soldier.bonus_action:
+                    attacks_chain = attacks_chain[:2]
+                    soldier.bonus_action = False
+                else:
+                    attacks_chain = [attacks_chain[0]]
             else:
                 soldier.battle_action = False
                 # TODO: бонусы классов в отдельную функцию:
@@ -2277,7 +2287,7 @@ class battle_simulation(battlescape):
                 if attack_result['hit']:
                     hit = True
             if hit:
-                return True
+                return attack_result
 
     def check_wrestling_action(self, attack_choice, soldier, squad, enemy_soldier):
         """Проверяем, возможно ли перейти в рукопашный бой.
@@ -2408,6 +2418,12 @@ class battle_simulation(battlescape):
             while spell_chain:
                 spell_choice = spell_chain.pop(0)
                 advantage, disadvantage = self.test_enemy_defence(soldier, enemy_soldier, spell_choice)
+                # Заклинание Green_Flame_Blade, сочетающееся с атакой оружием:
+                # Срабатывает, только если атака прошла:
+                if spell_dict.get('weapon_attack'):
+                    attack_dict = self.attack_action(soldier, squad, enemy, spell_action = True)
+                    if not attack_dict:
+                        continue
                 # Срабатывают вредоносные эффекты заклинаний:
                 if spell_dict.get('debuff'):
                     debuff_dict = enemy_soldier.set_debuff(spell_dict)

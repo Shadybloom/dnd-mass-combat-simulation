@@ -914,14 +914,18 @@ class soldier_in_battle(soldier):
         for char in dict_recon.values():
             if char.side == self.enemy_side:
                 near_enemies.append(char)
+        # Сортировка по уровню:
+        near_enemies = list(reversed(sorted(near_enemies,key=lambda x: x.level)))
         self.near_enemies = near_enemies
 
     def set_near_allies(self, dict_recon):
-        """Словарь врагов в радиусе 5 футов"""
+        """Словарь союзников в радиусе 5 футов"""
         near_allies = [ ]
         for char in dict_recon.values():
-            if char.side == self.ally_side:
+            if char.side == self.ally_side and not char.uuid == self.uuid:
                 near_allies.append(char)
+        # Сортировка по уровню:
+        near_allies = list(reversed(sorted(near_allies,key=lambda x: x.level)))
         self.near_allies = near_allies
 
     def set_place_in_order(self, place_in_order):
@@ -1836,12 +1840,21 @@ class soldier_in_battle(soldier):
                 for spell_attack in spell_attack_list:
                     if distance <= round(self.spells[spell_attack]['attack_range'] / tile_size):
                         return spell_attack
+        # Используем Sword_Burst только если врагов больше одного:
         if distance < 2 and 'cantrip' in [attack[0] for attack in self.spells]:
             spell_attack_list = [attack for attack in self.spells if attack[0] == 'cantrip'
                     and attack[1] == self.spells[attack]['spell_of_choice']
                     and self.spells[attack].get('effect',None) == 'burst']
-            # Используем Sword_Burst только если врагов больше одного:
             if spell_attack_list and len(self.near_enemies) > 1:
+                for spell_attack in spell_attack_list:
+                    if distance <= round(self.spells[spell_attack]['attack_range'] / tile_size):
+                        return spell_attack
+        # Используем Green_Flame_Blade:
+        if distance < 2 and 'cantrip' in [attack[0] for attack in self.spells]:
+            spell_attack_list = [attack for attack in self.spells if attack[0] == 'cantrip'
+                    and attack[1] == self.spells[attack]['spell_of_choice']
+                    and self.spells[attack].get('weapon_attack')]
+            if spell_attack_list:
                 for spell_attack in spell_attack_list:
                     if distance <= round(self.spells[spell_attack]['attack_range'] / tile_size):
                         return spell_attack
