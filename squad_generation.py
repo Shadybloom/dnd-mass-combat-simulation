@@ -434,6 +434,7 @@ class squad_generation():
             dict_squad[rank] -=1
             if dict_squad[rank] <= 0:
                 dict_squad.pop(rank)
+        metadict_soldiers = OrderedDict(reversed(sorted(metadict_soldiers.items(),key=lambda x: x[1].level)))
         return metadict_soldiers
 
     def throw_squad_initiative(self):
