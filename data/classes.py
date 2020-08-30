@@ -22,7 +22,7 @@ dict_class_abilityes = {
         'Wizard':['intelligence','dexterity','constitution'],
         # Класс обычных солдат.
         'Warrior':['strength','dexterity','constitution'],
-        'Warrior-heavy':['strength','constitution','dexterity'],
+        'Warrior-heavy':['strength','constitution','charisma'],
         'Warrior-bowman':['dexterity','strength','constitution'],
         'Warrior-officer':['charisma','strength','dexterity','constitution'],
         # Класс простолюдинов. Все параметры случайные.
@@ -49,7 +49,7 @@ dict_class_saves = {
         'Wizard':['intelligence','wisdom'],
         # Классы обычных солдат
         'Warrior':['strength','dexterity'],
-        'Warrior-heavy':['strength','constitution'],
+        'Warrior-heavy':['strength','charisma'],
         'Warrior-bowman':['strength','dexterity'],
         'Warrior-officer':['strength','charisma'],
         # Класс простолюдинов. Бонусов к спасброскам нет.
