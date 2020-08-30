@@ -945,7 +945,8 @@ class soldier_in_battle(soldier):
         - Потеря 10% союзников -- +1 к опсности.
         """
         # TODO: перенеси все escape в morality_check_escape.
-        self.danger = danger - squad.moral
+        #morality_mod = self.mods['charisma'] + self.proficiency_bonus
+        self.danger = danger - squad.moral - self.saves['charisma']
         # Некоторые бойцы вовсе не чувствуют опасности. Нежить, например.
         if 'fearless' in self.commands:
             self.danger = 0
