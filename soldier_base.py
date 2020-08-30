@@ -1306,10 +1306,11 @@ class soldier():
                 weapon_skills_use.append('Sneak_Attack')
         # Боевые стили:
         # Dueling можно использовать вместе с щитом. С парным/двуручным оружием нельзя:
-        if class_features.get('Fighting_Style_Dueling') and dict_attack['attack_type'] == 'close':
-            if 'two_handed' not in weapon_type_list and 'heavy' not in weapon_type_list:
-                weapon_skills_use.append('Fighting_Style_Dueling')
-                damage_mod += 2
+        if class_features.get('Fighting_Style_Dueling'):
+            if dict_attack['attack_type'] == 'close' or dict_attack['attack_type'] == 'reach':
+                if 'two_handed' not in weapon_type_list and dict_attack['weapon']:
+                    weapon_skills_use.append('Fighting_Style_Dueling')
+                    damage_mod += 2
         # Great_Weapon_Fighting даёт преимущество по урону (в среднем +2 для диапазона 2d6):
         if class_features.get('Fighting_Style_Great_Weapon_Fighting'):
             if dict_attack['attack_type'] == 'close' or dict_attack['attack_type'] == 'reach':
