@@ -2108,20 +2108,11 @@ class battle_simulation(battlescape):
                 attack_choice = attacks_chain.pop(0)
                 advantage, disadvantage = self.test_enemy_defence(soldier, enemy_soldier, attack_choice)
                 # Вместо атаки можно перейти в рукопашный бой (сбивание с ног, захваты, разоружение):
-                if attack_choice[0] == 'close' and not 'no_grapple' in soldier.commands:
-                    if len(soldier.near_allies) > 2\
-                            and len(soldier.near_enemies) == 1\
-                            and not enemy_soldier.size == 'huge'\
-                            and not enemy_soldier.size == 'large'\
-                            and not enemy_soldier.__dict__.get('air_walk')\
-                            or 'grapple' in soldier.commands\
-                            or enemy_soldier.paralyzed\
-                            or enemy_soldier.stunned\
-                            or 'sleep' in enemy_soldier.debuffs:
-                        wrestling_action = self.wrestling_action(soldier, squad,
-                                enemy_soldier, advantage, disadvantage)
-                        if wrestling_action != None:
-                            continue
+                if self.check_wrestling_action(attack_choice, soldier, squad, enemy_soldier):
+                    wrestling_action = self.wrestling_action(soldier, squad,
+                            enemy_soldier, advantage, disadvantage)
+                    if wrestling_action != None:
+                        continue
                 # Используем приёмы вроде help_action союзника по строю:
                 if not advantage:
                     advantage = self.break_enemy_defence(soldier, squad, enemy_soldier, attack_choice)
@@ -2287,6 +2278,33 @@ class battle_simulation(battlescape):
                     hit = True
             if hit:
                 return True
+
+    def check_wrestling_action(self, attack_choice, soldier, squad, enemy_soldier):
+        """Проверяем, возможно ли перейти в рукопашный бой.
+        
+        """
+        wrestling_check = False
+        if attack_choice[0] == 'close' and not 'no_grapple' in soldier.commands:
+            if len(soldier.near_allies) > 2 and len(soldier.near_enemies) == 1\
+                    or 'grapple' in soldier.commands\
+                    or enemy_soldier.paralyzed\
+                    or enemy_soldier.stunned\
+                    or 'sleep' in enemy_soldier.debuffs:
+                wrestling_check = True
+            if enemy_soldier.size == 'huge'\
+                    or enemy_soldier.size == 'large'\
+                    or enemy_soldier.__dict__.get('air_walk'):
+                wrestling_check = False
+                return wrestling_check
+            if enemy_soldier.__dict__.get('mount_uuid')\
+                    and self.metadict_soldiers.get(enemy_soldier.mount_uuid):
+                enemy_mount = self.metadict_soldiers[enemy_soldier.mount_uuid]
+                if enemy_mount.__dict__.get('place') == enemy_soldier.place\
+                        and not enemy_mount.prone\
+                        and not enemy_mount.defeat:
+                    wrestling_check = False
+                    return wrestling_check
+        return wrestling_check
 
     def wrestling_action(self, soldier, squad, enemy_soldier, advantage = False, disadvantage = False):
         """Рукопашный бой вместо обычных атак.
