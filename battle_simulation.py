@@ -34,6 +34,10 @@ def create_parser():
                         action='store', dest='rounds', type=int, default=10,
                         help='Например: 10 -- раундов боя'
                         )
+    parser.add_argument('-T', '--test',
+                        action='store', dest='test', type=int, default=0,
+                        help='Например: 10 -- тестовых боёв'
+                        )
     parser.add_argument('-m', '--map',
                         action='store', dest='map', type=str,
                         help='Например: battle_map'
@@ -96,6 +100,7 @@ class battle_simulation(battlescape):
     """
     # Раунд боя:
     battle_round = 0
+    winner = None
     # Боец переходит в оборону, если враг в пределах 3x3 клеток сильнее друзей:
     engage_danger = 0
     # Для магов. Если врагов пострадает вчетверо больше, чем наших, то бьём AoE-спеллом:
@@ -388,15 +393,15 @@ class battle_simulation(battlescape):
                     soldier.set_hitpoints(heal = heal)
                     soldier.treated = True
                     #soldier.fall = False
-                    print('{side} Feat_Healer, {p} {b} {n} heal: {hit}/{hit_max} ({heal})'.format(
-                        side = soldier.ally_side,
-                        p = soldier.place,
-                        b = soldier.behavior,
-                        n = soldier.name,
-                        hit = soldier.hitpoints,
-                        hit_max = soldier.hitpoints_max,
-                        heal = heal,
-                        ))
+                    #print('{side} Feat_Healer, {p} {b} {n} heal: {hit}/{hit_max} ({heal})'.format(
+                    #    side = soldier.ally_side,
+                    #    p = soldier.place,
+                    #    b = soldier.behavior,
+                    #    n = soldier.name,
+                    #    hit = soldier.hitpoints,
+                    #    hit_max = soldier.hitpoints_max,
+                    #    heal = heal,
+                    #    ))
 
     def set_squad_buffs(self, squad):
         """Кастеры баффают солдат.
@@ -662,22 +667,23 @@ class battle_simulation(battlescape):
                     squad.battle_stat[attack_key_fatal] += 1
             #print(squad.battle_stat)
             # Красивый вывод данных:
-            if attack_result.get('fatal_hit'):
-                attack_choice = attack_result['attack_choice']
-                soldier = self.metadict_soldiers[attack_result['sender_uuid']]
-                enemy_soldier = self.metadict_soldiers[attack_result['victim_uuid']]
-                print('{side}, {c1} {s} {w} >> {c2} {e}, hit {h}, fall {f}'.format(
-                    side = enemy_soldier.enemy_side,
-                    s = soldier.behavior,
-                    e = enemy_soldier.behavior,
-                    c1 = soldier.place,
-                    c2 = enemy_soldier.place,
-                    w = attack_choice,
-                    h = attack_result['hit'],
-                    f = attack_result['fatal_hit'],
-                    ))
-                if namespace.visual:
-                    time.sleep(0.2)
+            if not namespace.test:
+                if attack_result.get('fatal_hit'):
+                    attack_choice = attack_result['attack_choice']
+                    soldier = self.metadict_soldiers[attack_result['sender_uuid']]
+                    enemy_soldier = self.metadict_soldiers[attack_result['victim_uuid']]
+                    print('{side}, {c1} {s} {w} >> {c2} {e}, hit {h}, fall {f}'.format(
+                        side = enemy_soldier.enemy_side,
+                        s = soldier.behavior,
+                        e = enemy_soldier.behavior,
+                        c1 = soldier.place,
+                        c2 = enemy_soldier.place,
+                        w = attack_choice,
+                        h = attack_result['hit'],
+                        f = attack_result['fatal_hit'],
+                        ))
+                    if namespace.visual:
+                        time.sleep(0.2)
 
     def start (self, max_rounds = 10, commands = False):
         """Начинаем бой."""
@@ -697,11 +703,13 @@ class battle_simulation(battlescape):
                 # Отряд делает ход:
                 self.round_run_squad(squad, commands)
                 # Выводим карту после хода каждого отряда:
-                print_ascii_map(self.gen_battlemap())
-                time.sleep(0.2)
+                if not namespace.test:
+                    print_ascii_map(self.gen_battlemap())
+                    time.sleep(0.2)
             stop = timeit.default_timer()
             self.battle_round = battle_round
-            print('round end:', battle_round, 'time:', round(stop - start, 3))
+            if not namespace.test:
+                print('round end:', battle_round, 'time:', round(stop - start, 3))
             # Подкрепления в конце хода (кому не хватило точек спавна):
             if namespace.reinforce:
                 self.place_soldiers()
@@ -713,7 +721,7 @@ class battle_simulation(battlescape):
                         if type(el) == tuple:
                             sides_list.append(el[0])
                 sides_dict = Counter(sides_list)
-                if len(sides_dict.keys()) <= 1:
+                if len(sides_dict.keys()) == 1:
                     self.winner = list(sides_dict.keys())[0]
                     break
         # Уточняем потери по результатам боя:
@@ -1885,7 +1893,7 @@ class battle_simulation(battlescape):
                     if spell_dict.get('zone_danger'):
                         self.change_place_effect('danger_terrain', coordinates, soldier.place, zone_radius)
         # Показывает ходы бойца:
-        if namespace.visual:
+        if namespace.visual and not namespace.test:
             print_ascii_map(self.gen_battlemap())
             time.sleep(0.02)
 
@@ -1976,16 +1984,16 @@ class battle_simulation(battlescape):
                             if enemy_soldier.class_features.get('Feat_Sentinel'):
                                 soldier.move_pool = 0
                         #    # 15-20 провоцированных атак за минуту боя, 30-50 атак за бой.
-                            print('{side_1}, {c1} {s} PROVOKE >> {side_2} {c2} {e} act {a} dodge {d}'.format(
-                                side_1 = enemy_soldier.ally_side,
-                                c1 = enemy_soldier.place,
-                                s = enemy_soldier.behavior,
-                                side_2 = soldier.ally_side,
-                                c2 = soldier.place,
-                                e = soldier.behavior,
-                                a = soldier.battle_action,
-                                d = soldier.dodge_action,
-                                ))
+                            #print('{side_1}, {c1} {s} PROVOKE >> {side_2} {c2} {e} act {a} dodge {d}'.format(
+                            #    side_1 = enemy_soldier.ally_side,
+                            #    c1 = enemy_soldier.place,
+                            #    s = enemy_soldier.behavior,
+                            #    side_2 = soldier.ally_side,
+                            #    c2 = soldier.place,
+                            #    e = soldier.behavior,
+                            #    a = soldier.battle_action,
+                            #    d = soldier.dodge_action,
+                            #    ))
 
     def volley_action(self, soldier, squad):
         """Лучник обстреливает зону градом стрел."""
@@ -2478,6 +2486,7 @@ class battle_simulation(battlescape):
                     debuff_dict = enemy_soldier.set_debuff(spell_dict)
                     if debuff_dict:
                         debuff_dict['hit'] = True
+                    if debuff_dict and not namespace.test:
                         effect_upper = debuff_dict.get('effect', spell_choice[-1]).upper()
                         print('[+++] {side_1}, {c1} {s} {effect_upper} >> {side_2} {c2} {e} {r}'.format(
                             side_1 = soldier.ally_side,
@@ -2502,15 +2511,15 @@ class battle_simulation(battlescape):
                         break
                     else:
                         fear = enemy_soldier.set_fear(soldier, spell_dict['spell_save_DC'])
-                        if fear:
-                            print('{side_1}, {c1} {s} FEAR >> {side_2} {c2} {e}'.format(
-                                side_1 = soldier.ally_side,
-                                c1 = soldier.place,
-                                s = soldier.behavior,
-                                side_2 = enemy_soldier.ally_side,
-                                c2 = enemy_soldier.place,
-                                e = enemy_soldier.behavior,
-                                ))
+                        #if fear:
+                        #    print('{side_1}, {c1} {s} FEAR >> {side_2} {c2} {e}'.format(
+                        #        side_1 = soldier.ally_side,
+                        #        c1 = soldier.place,
+                        #        s = soldier.behavior,
+                        #        side_2 = enemy_soldier.ally_side,
+                        #        c2 = enemy_soldier.place,
+                        #        e = enemy_soldier.behavior,
+                        #        ))
                     continue
                 elif spell_dict.get('effect') == 'darkness':
                     # TODO: Сделай уже функцию draw_circle.
@@ -2691,13 +2700,15 @@ class battle_simulation(battlescape):
                         # Прерывание концентрации мага:
                         if soldier.concentration and spell_dict == soldier.concentration:
                             soldier.set_concentration_break(autofail = True)
-                            print('DISPELL', soldier.ally_side, soldier.place, spell_choice, '<<',
-                                    enemy_soldier.ally_side, enemy_soldier.place,
-                                    counterspell_dict['spell_choice'])
+                            if not namespace.test:
+                                print('DISPELL', soldier.ally_side, soldier.place, spell_choice, '<<',
+                                        enemy_soldier.ally_side, enemy_soldier.place,
+                                        counterspell_dict['spell_choice'])
                         else:
-                            print('COUNTERSPELL', soldier.ally_side, soldier.place, spell_choice, '<<',
-                                    enemy_soldier.ally_side, enemy_soldier.place,
-                                    counterspell_dict['spell_choice'])
+                            if not namespace.test:
+                                print('COUNTERSPELL', soldier.ally_side, soldier.place, spell_choice, '<<',
+                                        enemy_soldier.ally_side, enemy_soldier.place,
+                                        counterspell_dict['spell_choice'])
                         return True
 
     def fireball_action(self, soldier, squad, spell_dict = None, zone_center = None,
@@ -2897,22 +2908,23 @@ class battle_simulation(battlescape):
             debuff_dict = enemy_soldier.set_debuff(spell_dict)
             if debuff_dict:
                 debuff_dict['hit'] = True
-                effect_upper = debuff_dict.get('effect', spell_choice[-1]).upper()
-                print('[+++] {side_1}, {c1} {s} {effect_upper} >> {side_2} {c2} {e} {r}'.format(
-                    side_1 = soldier.ally_side,
-                    c1 = soldier.place,
-                    s = soldier.behavior,
-                    side_2 = enemy_soldier.ally_side,
-                    c2 = enemy_soldier.place,
-                    e = enemy_soldier.behavior,
-                    r = enemy_soldier.rank,
-                    effect_upper = effect_upper
-                    ))
                 # Показываем усыплённых:
                 if debuff_dict.get('effect') == 'sleep':
                     fall_place = enemy_soldier.place
                     self.dict_battlespace[fall_place].append('fall_place')
                     self.dict_battlespace[fall_place].append(enemy_soldier.ally_side)
+                if not namespace.test:
+                    effect_upper = debuff_dict.get('effect', spell_choice[-1]).upper()
+                    print('[+++] {side_1}, {c1} {s} {effect_upper} >> {side_2} {c2} {e} {r}'.format(
+                        side_1 = soldier.ally_side,
+                        c1 = soldier.place,
+                        s = soldier.behavior,
+                        side_2 = enemy_soldier.ally_side,
+                        c2 = enemy_soldier.place,
+                        e = enemy_soldier.behavior,
+                        r = enemy_soldier.rank,
+                        effect_upper = effect_upper
+                        ))
             # Если заклинание не наносит урона, то прерывание:
             #if not spell_dict.get('damage_dice'):
             #    return True
@@ -2924,44 +2936,44 @@ class battle_simulation(battlescape):
                 # Враг бросает оружие и бежит:
                 enemy_soldier.unset_shield(disarm = True)
                 enemy_soldier.unset_weapon(enemy_soldier.weapon_ready, disarm = True)
-                print('[+++] {side_1}, {c1} {s} FEAR >> {side_2} {c2} {e}'.format(
-                    side_1 = soldier.ally_side,
-                    c1 = soldier.place,
-                    s = soldier.behavior,
-                    side_2 = enemy_soldier.ally_side,
-                    c2 = enemy_soldier.place,
-                    e = enemy_soldier.behavior,
-                    ))
+                #print('[+++] {side_1}, {c1} {s} FEAR >> {side_2} {c2} {e}'.format(
+                #    side_1 = soldier.ally_side,
+                #    c1 = soldier.place,
+                #    s = soldier.behavior,
+                #    side_2 = enemy_soldier.ally_side,
+                #    c2 = enemy_soldier.place,
+                #    e = enemy_soldier.behavior,
+                #    ))
             if not spell_dict.get('damage_dice'):
                 return True
         # TODO: всё это переносить в функции заклинаний и set_debuff:
         if spell_dict.get('effect') == 'stun':
             stunned = enemy_soldier.set_stunned(
                     spell_dict['spell_save_DC'], spell_dict['effect_timer'])
-            if stunned:
-                print('[+++] {side_1}, {c1} {s} STUNNED >> {side_2} {c2} {e}'.format(
-                    side_1 = soldier.ally_side,
-                    c1 = soldier.place,
-                    s = soldier.behavior,
-                    side_2 = enemy_soldier.ally_side,
-                    c2 = enemy_soldier.place,
-                    e = enemy_soldier.behavior,
-                    ))
+            #if stunned:
+            #    print('[+++] {side_1}, {c1} {s} STUNNED >> {side_2} {c2} {e}'.format(
+            #        side_1 = soldier.ally_side,
+            #        c1 = soldier.place,
+            #        s = soldier.behavior,
+            #        side_2 = enemy_soldier.ally_side,
+            #        c2 = enemy_soldier.place,
+            #        e = enemy_soldier.behavior,
+            #        ))
             if not spell_dict.get('damage_dice'):
                 return True
         # TODO: всё это переносить в функции заклинаний и set_debuff:
         if spell_dict.get('effect') == 'paralyze':
             paralyzed = enemy_soldier.set_paralyzed(
                     spell_dict['spell_save_DC'], spell_dict['effect_timer'])
-            if paralyzed:
-                print('[+++] {side_1}, {c1} {s} PARALYZED >> {side_2} {c2} {e}'.format(
-                    side_1 = soldier.ally_side,
-                    c1 = soldier.place,
-                    s = soldier.behavior,
-                    side_2 = enemy_soldier.ally_side,
-                    c2 = enemy_soldier.place,
-                    e = enemy_soldier.behavior,
-                    ))
+            #if paralyzed:
+            #    print('[+++] {side_1}, {c1} {s} PARALYZED >> {side_2} {c2} {e}'.format(
+            #        side_1 = soldier.ally_side,
+            #        c1 = soldier.place,
+            #        s = soldier.behavior,
+            #        side_2 = enemy_soldier.ally_side,
+            #        c2 = enemy_soldier.place,
+            #        e = enemy_soldier.behavior,
+            #        ))
             if not spell_dict.get('damage_dice'):
                 return True
         # TODO: всё это переносить в функции заклинаний и set_debuff:
@@ -3517,9 +3529,10 @@ class battle_simulation(battlescape):
                     elif soldier.escape and 'exit' in content:
                         content.remove(el)
                         soldier.defeat = True
-                        print('{0} {1} {2} hp {3}/{4} retreat {5}'.format(
-                            soldier.ally_side, soldier.place, soldier.behavior,
-                            soldier.hitpoints, soldier.hitpoints_max, soldier.escape))
+                        if not namespace.test:
+                            print('{0} {1} {2} hp {3}/{4} retreat {5}'.format(
+                                soldier.ally_side, soldier.place, soldier.behavior,
+                                soldier.hitpoints, soldier.hitpoints_max, soldier.escape))
                         # Проверяем, есть ли рядом с бойцом его ездовое животное:
                         if hasattr(soldier, 'mount_uuid') and soldier.mount_uuid\
                                 and self.metadict_soldiers.get(soldier.mount_uuid):
@@ -3622,7 +3635,7 @@ class battle_simulation(battlescape):
                         soldier.spells_generator.use_buff(spell_dict['spell_choice'],
                                 gen_spell = spell_dict, use_spell = False)
 
-    def print_battle_statistics(self):
+    def print_battle_statistics(self, short = False):
         """Вывод статистики после боя. Убитые, раненые по отрядам."""
         # Сортируем отряды по номерам зон:
         squads = OrderedDict(sorted(self.squads.items(),key=lambda x: x[0].zone))
@@ -3662,18 +3675,6 @@ class battle_simulation(battlescape):
                 if not soldier.hitpoints <= 0])
             squad_bonus_hitpoints_new = sum([soldier.bonus_hitpoints for soldier\
                 in squad.metadict_soldiers.values()])
-            print('--------------------------------------------------------------------------------')
-            #print('{0} {1} {2} exp {3} hp {4}/{5} (dead {6}% disabled {7}% captured {8}%) fall {9}%, injured {10}%, light {11}%, escape {12}% lucky {13}%'.format(
-            print('{0} {1} {2} exp {3} hp {4}/{5} (temp_hp {n}/{b}) (dead {6}% disabled {7}% captured {8}%) fall {9}%, injured {10}%, light {11}%, escape {12}% lucky {13}%'.format(
-                    squad.ally_side, key.zone, key.type, squad.experience,
-                    squad_hitpoints_new, squad_hitpoints_max,
-                    casualty['dead_percent'], casualty['disabled_percent'],
-                    casualty['captured_percent'], casualty['fall_percent'],
-                    casualty['injured_percent'], casualty['light_injured_percent'],
-                    casualty['escape_percent'], casualty['lucky_one_percent'],
-                    b = squad.bonus_hitpoints_max,
-                    n = squad_bonus_hitpoints_new,
-                    ))
             dict_dead = {}
             dict_disabled = {}
             dict_capture = {}
@@ -3703,54 +3704,91 @@ class battle_simulation(battlescape):
             dict_disabled = OrderedDict(reversed(sorted(dict_disabled.items(),key=lambda x: x)))
             dict_capture = OrderedDict(reversed(sorted(dict_capture.items(),key=lambda x: x)))
             dict_fall = OrderedDict(reversed(sorted(dict_fall.items(),key=lambda x: x)))
-            for key, el in dict_dead.items():
-                print('dead', el, key)
-            for key, el in dict_disabled.items():
-                print('disabled', el, key)
-            for key, el in dict_capture.items():
-                print('captured', el, key)
-            for key, el in dict_fall.items():
-                print('fall', el, key)
             if hasattr(squad, 'battle_stat'):
                 battle_stat = squad.battle_stat
                 battle_stat = OrderedDict(sorted(battle_stat.items(),key=lambda x: x))
-                damage_sum = 0
-                miss_sum = 0
-                hit_sum = 0
+                # TODO: единички, чтобы не было деления на ноль. Позже подправлю.
+                damage_sum = 1
+                miss_sum = 1
+                hit_sum = 1
                 for attack, stat in battle_stat.items():
-                    print(attack, stat)
                     if attack[-1] == 'damage':
                         damage_sum += stat
                     if attack[-1] == 'hit':
                         hit_sum += stat
                     if attack[-1] == 'miss':
                         miss_sum += stat
-                print('damage_sum:', damage_sum,
-                        'damage_per_hit:', round(damage_sum / hit_sum, 1),
-                        'hits_per_round:', round(hit_sum / self.battle_round),
-                        'hit_per_attack:', round(hit_sum / (hit_sum + miss_sum), 2),
-                        'damage_per_round:', round(damage_sum / self.battle_round))
-            # Потерянное снаряжение и трофеи:
-            if squad.trophy_items_dict and casualty['lucky_one_percent'] > casualty['escape_percent']:
-                squad.trophy_items_dict = dict(OrderedDict(reversed(sorted(
-                    squad.trophy_items_dict.items(),key=lambda x: x[1]
-                    ))))
-                print('trophy:', squad.trophy_items_dict)
-            if squad.drop_items_dict:
-                squad.drop_items_dict = dict(OrderedDict(reversed(sorted(
-                    squad.drop_items_dict.items(),key=lambda x: x[1]
-                    ))))
-                print('loss:', squad.drop_items_dict)
-            if squad.drop_spells_dict:
-                squad.drop_spells_dict = dict(OrderedDict(reversed(sorted(
-                    squad.drop_spells_dict.items(),key=lambda x: x
-                    ))))
-                print('spells:', squad.drop_spells_dict)
-            if squad.traumas_dict:
-                squad.traumas_dict = dict(OrderedDict(reversed(sorted(
-                    squad.traumas_dict.items(),key=lambda x: x[1]
-                    ))))
-                print('traumas:', squad.traumas_dict)
+            if squad.ally_side == self.winner:
+                squad_combativity = '●'
+            else:
+                squad_combativity = '○'
+            if short:
+                print('{0} {1} {2} {3} exp {4} hp {hp}% hit_rate {hr} DPR {dpr}'.format(
+                        squad_combativity, squad.ally_side, key.zone, key.type, squad.experience,
+                        hp = round((squad_hitpoints_new / squad_hitpoints_max) * 100),
+                        # damage_per_hit,
+                        # damage_per_round,
+                        # hits_per_round,
+                        # hit_rate,
+                        dmg = damage_sum,
+                        dph = round(damage_sum / hit_sum, 1),
+                        dpr = round(damage_sum / self.battle_round),
+                        hpr = round(hit_sum / self.battle_round),
+                        hr = round(hit_sum / (hit_sum + miss_sum), 2),
+                        r = self.battle_round
+                        ))
+            else:
+                print('--------------------------------------------------------------------------------')
+                #print('{0} {1} {2} exp {3} hp {4}/{5} (dead {6}% disabled {7}% captured {8}%) fall {9}%, injured {10}%, light {11}%, escape {12}% lucky {13}%'.format(
+                print('{0} {1} {2} exp {3} hp {4}/{5} (temp_hp {n}/{b}) (dead {6}% disabled {7}% captured {8}%) fall {9}%, injured {10}%, light {11}%, escape {12}% lucky {13}%'.format(
+                        squad.ally_side, key.zone, key.type, squad.experience,
+                        squad_hitpoints_new, squad_hitpoints_max,
+                        casualty['dead_percent'], casualty['disabled_percent'],
+                        casualty['captured_percent'], casualty['fall_percent'],
+                        casualty['injured_percent'], casualty['light_injured_percent'],
+                        casualty['escape_percent'], casualty['lucky_one_percent'],
+                        b = squad.bonus_hitpoints_max,
+                        n = squad_bonus_hitpoints_new,
+                        ))
+                for key, el in dict_dead.items():
+                    print('dead', el, key)
+                for key, el in dict_disabled.items():
+                    print('disabled', el, key)
+                for key, el in dict_capture.items():
+                    print('captured', el, key)
+                for key, el in dict_fall.items():
+                    print('fall', el, key)
+                if hasattr(squad, 'battle_stat'):
+                    battle_stat = squad.battle_stat
+                    battle_stat = OrderedDict(sorted(battle_stat.items(),key=lambda x: x))
+                    for attack, stat in battle_stat.items():
+                        print(attack, stat)
+                    print('damage_sum:', damage_sum,
+                            'damage_per_hit:', round(damage_sum / hit_sum, 1),
+                            'hits_per_round:', round(hit_sum / self.battle_round),
+                            'hit_per_attack:', round(hit_sum / (hit_sum + miss_sum), 2),
+                            'damage_per_round:', round(damage_sum / self.battle_round))
+                # Потерянное снаряжение и трофеи:
+                if squad.trophy_items_dict and casualty['lucky_one_percent'] > casualty['escape_percent']:
+                    squad.trophy_items_dict = dict(OrderedDict(reversed(sorted(
+                        squad.trophy_items_dict.items(),key=lambda x: x[1]
+                        ))))
+                    print('trophy:', squad.trophy_items_dict)
+                if squad.drop_items_dict:
+                    squad.drop_items_dict = dict(OrderedDict(reversed(sorted(
+                        squad.drop_items_dict.items(),key=lambda x: x[1]
+                        ))))
+                    print('loss:', squad.drop_items_dict)
+                if squad.drop_spells_dict:
+                    squad.drop_spells_dict = dict(OrderedDict(reversed(sorted(
+                        squad.drop_spells_dict.items(),key=lambda x: x
+                        ))))
+                    print('spells:', squad.drop_spells_dict)
+                if squad.traumas_dict:
+                    squad.traumas_dict = dict(OrderedDict(reversed(sorted(
+                        squad.traumas_dict.items(),key=lambda x: x[1]
+                        ))))
+                    print('traumas:', squad.traumas_dict)
 
     def save_soldiers_to_database(self):
         """Сохраняем солдат в базу данных."""
@@ -3883,14 +3921,41 @@ if __name__ == '__main__':
         zones_squads_dict = console.select_squads(selected_map)
     # Симуляция:
     battle = battle_simulation()
-    battle.prepare_battlefield(selected_map, zones_squads_dict)
-    try:
-        battle.start(max_rounds = namespace.rounds, commands = namespace.commands)
-        # Смотрим сколько народу пострадало:
-        battle.print_battle_statistics()
-        # Сохраняем отряды в БД:
-        if namespace.save:
-            battle.save_soldiers_to_database()
-    except KeyboardInterrupt:
-        #traceback.print_exc()
-        battle.print_battle_statistics()
+    if not namespace.test:
+        battle.prepare_battlefield(selected_map, zones_squads_dict)
+        try:
+            battle.start(max_rounds = namespace.rounds, commands = namespace.commands)
+            # Смотрим сколько народу пострадало:
+            battle.print_battle_statistics()
+            # Сохраняем отряды в БД:
+            if namespace.save:
+                battle.save_soldiers_to_database()
+        except KeyboardInterrupt:
+            #traceback.print_exc()
+            battle.print_battle_statistics()
+    elif namespace.test:
+        winners_list = []
+        for test in range(0, namespace.test):
+            battle.prepare_battlefield(selected_map, zones_squads_dict)
+            try:
+                start = timeit.default_timer()
+                battle.start(max_rounds = namespace.rounds, commands = namespace.commands)
+                stop = timeit.default_timer()
+                # Смотрим сколько народу пострадало:
+                print('------------------------------------------------------------')
+                print('№', test, 'rounds:', battle.battle_round, 'time:', round(stop - start, 3))
+                battle.print_battle_statistics(short = True)
+                winners_list.append(battle.winner)
+                # Сохраняем отряды в БД:
+                if namespace.save:
+                    battle.save_soldiers_to_database()
+            except KeyboardInterrupt:
+                #traceback.print_exc()
+                battle.print_battle_statistics(short = True)
+                winners_dict = dict(Counter(winners_list))
+                for key, stat in winners_dict.items():
+                    print(key, round(stat / sum(winners_dict.values()), 2))
+        #print(Counter(winners_list))
+        winners_dict = dict(Counter(winners_list))
+        for key, stat in winners_dict.items():
+            print(key, round(stat / sum(winners_dict.values()), 2))

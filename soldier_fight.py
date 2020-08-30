@@ -410,13 +410,13 @@ class soldier_in_battle(soldier):
         # Испуганный бросает спасброски против страха:
         if self.fear:
             self.fear = self.set_fear(self.fear_source, self.fear_difficult)
-            if self.fear:
-                print('{side_1} {c1} {s} FEAR {fear}'.format(
-                    side_1 = self.ally_side,
-                    c1 = self.place,
-                    s = self.behavior,
-                    fear = self.fear
-                    ))
+            #if self.fear:
+            #    print('{side_1} {c1} {s} FEAR {fear}'.format(
+            #        side_1 = self.ally_side,
+            #        c1 = self.place,
+            #        s = self.behavior,
+            #        fear = self.fear
+            #        ))
         # Ошеломлённый пытается очухаться:
         if self.stunned:
             if self.stunned_timer > 0:
@@ -860,14 +860,14 @@ class soldier_in_battle(soldier):
             stunned_difficult = 8 + self.proficiency_bonus + self.mods['wisdom']
             stunned = enemy_soldier.set_stunned(stunned_difficult)
             if stunned:
-                print('[+++] {side_1}, {c1} {s} STUNNED >> {side_2} {c2} {e}'.format(
-                    side_1 = self.ally_side,
-                    c1 = self.place,
-                    s = self.behavior,
-                    side_2 = enemy_soldier.ally_side,
-                    c2 = enemy_soldier.place,
-                    e = enemy_soldier.behavior,
-                    ))
+                #print('[+++] {side_1}, {c1} {s} STUNNED >> {side_2} {c2} {e}'.format(
+                #    side_1 = self.ally_side,
+                #    c1 = self.place,
+                #    s = self.behavior,
+                #    side_2 = enemy_soldier.ally_side,
+                #    c2 = enemy_soldier.place,
+                #    e = enemy_soldier.behavior,
+                #    ))
                 return True
 
     def set_initiative(self, advantage = False, disadvantage = False):
@@ -1122,8 +1122,8 @@ class soldier_in_battle(soldier):
                 self.drop_spell(('feature', 'Second_Wind'))
                 self.bonus_action = False
                 self.second_wind = False
-                print('{0} {1} {2} heal (second_wind): {3}'.format(
-                    self.ally_side, self.place, self.behavior, second_wind_heal))
+                #print('{0} {1} {2} heal (second_wind): {3}'.format(
+                #    self.ally_side, self.place, self.behavior, second_wind_heal))
                 return True
             else:
                 return False
@@ -1143,8 +1143,8 @@ class soldier_in_battle(soldier):
                 self.set_hitpoints(heal = lay_on_hands_heal)
                 self.lay_on_hands = self.lay_on_hands - lay_on_hands_heal
                 self.battle_action = False
-                print('{0} {1} {2} heal (lay_on_hands): {3}'.format(
-                    self.ally_side, self.place, self.behavior, lay_on_hands_heal))
+                #print('{0} {1} {2} heal (lay_on_hands): {3}'.format(
+                #    self.ally_side, self.place, self.behavior, lay_on_hands_heal))
                 return True
             else:
                 return False
@@ -1495,11 +1495,11 @@ class soldier_in_battle(soldier):
             self.killer_mark = False
         if self.death:
             self.killer_mark = False
-            print('{0} {1} {2} {3} hp {4}/{5} throw {6} result {7}:{8} stable {9} dead {10}'.format(
-                self.ally_side, self.place, self.behavior, self.name,
-                self.hitpoints, self.hitpoints_max,
-                reaper_throw, self.death_save_success, self.death_save_loss,
-                self.stable, self.death))
+            #print('{0} {1} {2} {3} hp {4}/{5} throw {6} result {7}:{8} stable {9} dead {10}'.format(
+            #    self.ally_side, self.place, self.behavior, self.name,
+            #    self.hitpoints, self.hitpoints_max,
+            #    reaper_throw, self.death_save_success, self.death_save_loss,
+            #    self.stable, self.death))
 
     def set_disabled(self, advantage = False, disadvantage = False,
             trauma_damage_type = None, death_trauma = False):
@@ -2002,15 +2002,15 @@ class soldier_in_battle(soldier):
                 superiority_use = True
                 fear_difficult = 8 + max(self.mods.values()) + self.proficiency_bonus
                 fear = enemy_soldier.set_fear(self, fear_difficult)
-                if fear:
-                    print('[+++] {side_1}, {c1} {s} FEAR >> {side_2} {c2} {e}'.format(
-                        side_1 = self.ally_side,
-                        c1 = self.place,
-                        s = self.behavior,
-                        side_2 = enemy_soldier.ally_side,
-                        c2 = enemy_soldier.place,
-                        e = enemy_soldier.behavior,
-                        ))
+                #if fear:
+                #    print('[+++] {side_1}, {c1} {s} FEAR >> {side_2} {c2} {e}'.format(
+                #        side_1 = self.ally_side,
+                #        c1 = self.place,
+                #        s = self.behavior,
+                #        side_2 = enemy_soldier.ally_side,
+                #        c2 = enemy_soldier.place,
+                #        e = enemy_soldier.behavior,
+                #        ))
         attack_result_dict = {
                 'damage':damage_throw_mod,
                 'attack':attack_throw_mod,
@@ -2341,13 +2341,13 @@ class soldier_in_battle(soldier):
                     attack_dict['direct_hit'] = False
                 # Вывод результата:
                 # TODO: в отдельную функцию.
-                if attack_dict.get('attack', 0) >= armor_class_before\
-                        and attack_dict.get('attack',0) < (armor_dict['armor_class'])\
-                        and not attack_dict['attack_crit']:
-                    print('[+++] {0} {1} {2} reaction Shield {3}/{4} << {5} atc {6} dmg {7}'.format(
-                        self.ally_side, self.place, self.behavior,
-                        armor_dict['armor_class'], armor_class_before,
-                        attack_choice, attack_dict['attack'], attack_dict['damage']))
+                #if attack_dict.get('attack', 0) >= armor_class_before\
+                #        and attack_dict.get('attack',0) < (armor_dict['armor_class'])\
+                #        and not attack_dict['attack_crit']:
+                #    print('[+++] {0} {1} {2} reaction Shield {3}/{4} << {5} atc {6} dmg {7}'.format(
+                #        self.ally_side, self.place, self.behavior,
+                #        armor_dict['armor_class'], armor_class_before,
+                #        attack_choice, attack_dict['attack'], attack_dict['damage']))
             return armor_dict
         return wrapper
 
@@ -2372,12 +2372,12 @@ class soldier_in_battle(soldier):
                     armor_dict['armor_class'] += self.proficiency_bonus
                     self.reaction = False
                     # Всё работает, вывод можно убрать:
-                    if attack_dict['attack'] < armor_dict['armor_class']\
-                            and not attack_dict['attack_crit']:
-                        print('[+++] {0} {1} {2} reaction Def Duel {3}/{4} << {5} atc {6} dmg {7}'.format(
-                            self.ally_side, self.place, self.behavior,
-                            armor_dict['armor_class'], armor_class_before,
-                            attack_choice, attack_dict['attack'], attack_dict['damage']))
+                    #if attack_dict['attack'] < armor_dict['armor_class']\
+                    #        and not attack_dict['attack_crit']:
+                    #    print('[+++] {0} {1} {2} reaction Def Duel {3}/{4} << {5} atc {6} dmg {7}'.format(
+                    #        self.ally_side, self.place, self.behavior,
+                    #        armor_dict['armor_class'], armor_class_before,
+                    #        attack_choice, attack_dict['attack'], attack_dict['damage']))
             return armor_dict
         return wrapper
 
@@ -2469,17 +2469,17 @@ class soldier_in_battle(soldier):
             if damage and self.concentration:
                 spell = self.concentration['spell_choice']
                 concentration_break = self.set_concentration_break(difficult = round(damage / 2))
-                if concentration_break:
-                    enemy_soldier = metadict_soldiers[attack_dict['sender_uuid']]
-                    print('[!!!] {side_1}, {c1} {s} DISPELL {spell} >> {side_2} {c2} {e}'.format(
-                        side_1 = enemy_soldier.ally_side,
-                        c1 = enemy_soldier.place,
-                        s = enemy_soldier.behavior,
-                        spell = spell[-1],
-                        side_2 = self.ally_side,
-                        c2 = self.place,
-                        e = self.behavior,
-                        ))
+                #if concentration_break:
+                #    enemy_soldier = metadict_soldiers[attack_dict['sender_uuid']]
+                #    print('[!!!] {side_1}, {c1} {s} DISPELL {spell} >> {side_2} {c2} {e}'.format(
+                #        side_1 = enemy_soldier.ally_side,
+                #        c1 = enemy_soldier.place,
+                #        s = enemy_soldier.behavior,
+                #        spell = spell[-1],
+                #        side_2 = self.ally_side,
+                #        c2 = self.place,
+                #        e = self.behavior,
+                #        ))
             # Стойкость нежити (зомби не так-то просто убить):
             if self.class_features.get('Undead_Fortitude') and self.hitpoints <= 0\
                     and not attack_dict.get('attack_crit')\
@@ -2490,19 +2490,19 @@ class soldier_in_battle(soldier):
                     self.hitpoints = 1
             # Показываем, если командиру достаётся:
             # TODO: перенеси вовне. Сделай декоратором.
-            enemy_soldier = metadict_soldiers[attack_dict['sender_uuid']]
-            if self.level >= 5 and damage > 0:
-                print('[!!!] {side}, {c1} {s} {w} >>>> {c2} {e}, crit {c} atc {a} dmg {d}'.format(
-                    side = enemy_soldier.ally_side,
-                    s = enemy_soldier.behavior,
-                    e = self.behavior,
-                    c1 = enemy_soldier.place,
-                    c2 = self.place,
-                    w = attack_choice,
-                    c = attack_dict['crit'],
-                    a = attack_dict.get('attack', None),
-                    d = damage,
-                    ))
+            #enemy_soldier = metadict_soldiers[attack_dict['sender_uuid']]
+            #if self.level >= 5 and damage > 0:
+            #    print('[!!!] {side}, {c1} {s} {w} >>>> {c2} {e}, crit {c} atc {a} dmg {d}'.format(
+            #        side = enemy_soldier.ally_side,
+            #        s = enemy_soldier.behavior,
+            #        e = self.behavior,
+            #        c1 = enemy_soldier.place,
+            #        c2 = self.place,
+            #        w = attack_choice,
+            #        c = attack_dict['crit'],
+            #        a = attack_dict.get('attack', None),
+            #        d = damage,
+            #        ))
             return attack_dict
         # Промах, если урон нулевой:
         elif damage <= 0:
@@ -2558,10 +2558,10 @@ class soldier_in_battle(soldier):
                 damage_deflect = dices.dice_throw('1d10') + self.mods['dexterity'] + self.level
                 damage -= damage_deflect
                 self.reaction = False
-                print('[+++] {0} {1} {2} reaction Deflect {3}/{4} << {5} atc {6} dmg {7}'.format(
-                    self.ally_side, self.place, self.behavior,
-                    damage_deflect, attack_dict['damage'],
-                    attack_choice, attack_dict['attack'], attack_dict['damage']))
+                #print('[+++] {0} {1} {2} reaction Deflect {3}/{4} << {5} atc {6} dmg {7}'.format(
+                #    self.ally_side, self.place, self.behavior,
+                #    damage_deflect, attack_dict['damage'],
+                #    attack_choice, attack_dict['attack'], attack_dict['damage']))
         # Прирование мастера боевых искусств:
         if attack_choice[0] == 'close' or attack_choice[0] == 'reach':
             if self.class_features.get('Parry') and self.superiority_dices and self.reaction == True:
@@ -2569,10 +2569,10 @@ class soldier_in_battle(soldier):
                 damage -= damage_deflect
                 self.reaction = False
                 self.superiority_dices -= 1
-                print('[+++] {0} {1} {2} reaction Parry {3}/{4} << {5} atc {6} dmg {7}'.format(
-                    self.ally_side, self.place, self.behavior,
-                    damage_deflect, attack_dict['damage'],
-                    attack_choice, attack_dict['attack'], attack_dict['damage']))
+                #print('[+++] {0} {1} {2} reaction Parry {3}/{4} << {5} atc {6} dmg {7}'.format(
+                #    self.ally_side, self.place, self.behavior,
+                #    damage_deflect, attack_dict['damage'],
+                #    attack_choice, attack_dict['attack'], attack_dict['damage']))
         return damage
 
     def damage_modify_savethrow(self, attack_dict, damage, savethrow_bonus = 0):
