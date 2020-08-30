@@ -90,6 +90,8 @@ class battle_simulation(battlescape):
     """Описание класса.
     
     """
+    # Раунд боя:
+    battle_round = 0
     # Боец переходит в оборону, если враг в пределах 3x3 клеток сильнее друзей:
     engage_danger = 0
     # Для магов. Если врагов пострадает вчетверо больше, чем наших, то бьём AoE-спеллом:
@@ -694,6 +696,7 @@ class battle_simulation(battlescape):
                 print_ascii_map(self.gen_battlemap())
                 time.sleep(0.2)
             stop = timeit.default_timer()
+            self.battle_round = battle_round
             print('round end:', battle_round, 'time:', round(stop - start, 3))
             # Подкрепления в конце хода (кому не хватило точек спавна):
             if namespace.reinforce:
@@ -3696,8 +3699,22 @@ class battle_simulation(battlescape):
             if hasattr(squad, 'battle_stat'):
                 battle_stat = squad.battle_stat
                 battle_stat = OrderedDict(sorted(battle_stat.items(),key=lambda x: x))
+                damage_sum = 0
+                miss_sum = 0
+                hit_sum = 0
                 for attack, stat in battle_stat.items():
                     print(attack, stat)
+                    if attack[-1] == 'damage':
+                        damage_sum += stat
+                    if attack[-1] == 'hit':
+                        hit_sum += stat
+                    if attack[-1] == 'miss':
+                        miss_sum += stat
+                print('damage_sum:', damage_sum,
+                        'damage_per_hit:', round(damage_sum / hit_sum, 1),
+                        'hits_per_round:', round(hit_sum / self.battle_round),
+                        'hit_per_attack:', round(hit_sum / (hit_sum + miss_sum), 2),
+                        'damage_per_round:', round(damage_sum / self.battle_round))
             # Потерянное снаряжение и трофеи:
             if squad.trophy_items_dict and casualty['lucky_one_percent'] > casualty['escape_percent']:
                 squad.trophy_items_dict = dict(OrderedDict(reversed(sorted(
