@@ -55,6 +55,10 @@ def create_parser():
                         action='store_true', dest='save', default=False,
                         help='Сохранить отряды после боя.'
                         )
+    parser.add_argument('-S', '--stop',
+                        action='store_true', dest='stop', default=False,
+                        help='Останавливать бой, когда враги кончились.'
+                        )
     parser.add_argument('-R', '--reinforce',
                         action='store_true', dest='reinforce', default=False,
                         help='Подкрепления во время боя.'
@@ -701,6 +705,17 @@ class battle_simulation(battlescape):
             # Подкрепления в конце хода (кому не хватило точек спавна):
             if namespace.reinforce:
                 self.place_soldiers()
+            # Заканчиваем бой, если остались солдаты одной стороны:
+            if namespace.stop:
+                sides_list = []
+                for place, content in self.dict_battlespace.items():
+                    for el in content:
+                        if type(el) == tuple:
+                            sides_list.append(el[0])
+                sides_dict = Counter(sides_list)
+                if len(sides_dict.keys()) <= 1:
+                    self.winner = list(sides_dict.keys())[0]
+                    break
         # Уточняем потери по результатам боя:
         for squad in self.squads.values():
             self.fall_to_death(squad)
