@@ -351,6 +351,25 @@ metadict_squads['Squad-regular (гигантские осьминоги) (при
     }
 
 #----
+# Свита Кироса:
+
+metadict_squads['Squad-hero (бойцы Кироса) (нейтрал)'] = {
+    'Fighter 4 lvl (нейтрал) (боец Кироса)':16,
+    'Fighter 13 lvl (нейтрал) (Кирос «Симарх»)':1,
+    }
+
+metadict_squads['Single-hero (боец Кироса) (нейтрал)'] = {
+    'Fighter 4 lvl (нейтрал) (боец Кироса)':1,
+    }
+
+metadict_squads['Single-hero (лично Кирос) (нейтрал)'] = {
+    'Fighter 13 lvl (нейтрал) (Кирос «Симарх»)':1,
+    }
+
+#----
+# Армия Кироса:
+
+#----
 # Свита Менона:
 
 metadict_squads['Squad-hero (волшебники Менона) (нейтрал)'] = {

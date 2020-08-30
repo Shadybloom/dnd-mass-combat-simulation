@@ -8411,7 +8411,7 @@ metadict_chars['Warrior 5 lvl (Mordodrukow) (капитан Фарама)'] = {
 metadict_chars['Fighter 1 lvl (Katorjnik) (преторианец Гая Юлия)'] = {
     # Преторианцы, всадники.
     'level':1,
-    'char_class':'Fighter-officer',
+    'char_class':'Fighter',
     'abilityes_choice':['strength','charisma','constitution','wisdom'],
     'hit_dice':'1d10',
     'behavior':'elite_warrior',
@@ -8444,8 +8444,8 @@ metadict_chars['Fighter 1 lvl (Katorjnik) (преторианец Гая Юли�
 
 metadict_chars['Fighter 2 lvl (Katorjnik) (преторианец Гая Юлия)'] = {
     # Преторианцы, всадники.
-    'level':1,
-    'char_class':'Fighter-officer',
+    'level':2,
+    'char_class':'Fighter',
     'abilityes_choice':['strength','charisma','constitution','wisdom'],
     'hit_dice':'1d10',
     'behavior':'elite_warrior',
@@ -8482,7 +8482,7 @@ metadict_chars['Fighter 2 lvl (Katorjnik) (преторианец Гая Юли�
 
 metadict_chars['Fighter 7 lvl (Katorjnik) (Гай Юлий)'] = {
     'level':7,
-    'char_class':'Fighter-officer',
+    'char_class':'Fighter',
     'hit_dice':'1d10',
     'behavior':'commander',
     'hitpoints_medial':True,
@@ -9858,12 +9858,12 @@ metadict_chars['Wizard 12 lvl (нейтрал) (симулякр Менона)']
             ('3_lvl', 'Blink'),
             ('4_lvl', 'Arcane_Eye'),
             ('4_lvl', 'Dimension_Door'),
-            ('4_lvl', 'Sickening_Radiance'),
+           # ('4_lvl', 'Sickening_Radiance'),
             ('5_lvl', 'Teleportation_Circle'),
             ('5_lvl', 'Conjure_Elemental'),
             ('5_lvl', 'Danse_Macabre'),
             ('5_lvl', 'Passwall'),
-            ('6_lvl', 'Circle_of_Death'),
+            #('6_lvl', 'Circle_of_Death'),
             ('6_lvl', 'Arcane_Gate'),
             ],
         'School_of_Necromancy':True,
@@ -10167,7 +10167,10 @@ metadict_chars['Barbarian 9 lvl (нейтрал) (Карагос «Мудрый�
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':3,
+        'Potion of Antidote':1,
+        'Infusion of Regeneration':1,
+        'Rune of Absorbtion':1,
+        'Rune of Shielding':1,
         #'Sword of Life-Stealing':1,
         #'Sword of Sharpness':1,
         'Sword of the Past +2':1,
@@ -10176,6 +10179,143 @@ metadict_chars['Barbarian 9 lvl (нейтрал) (Карагос «Мудрый�
     #'mount_type':'Warhorse',
     #'equipment_mount':{
     #    },
+    }
+
+#----
+# Нейтралы (герои) (Кирос):
+
+metadict_chars['Fighter 4 lvl (нейтрал) (боец Кироса)'] = {
+    'level':4,
+    'char_class':'Eldritch_Knight',
+    'hit_dice':'1d10',
+    'behavior':'commander',
+    'class_features':{
+        'Feat_Mounted_Combatant':True,
+        'Feat_Heavy_Armor_Master':True,
+        'Ability_Score_Improvement':{
+            'strength':+1,
+            },
+        'Fighting_Style_Dueling':True,
+        'Second_Wind':True,
+        'Action_Surge':True,
+        'Martial_Archetype_Eldritch_Knight':True,
+        'Weapon_Bond':True,
+        'Spellcasting':True,
+        'Spells':[
+            ('cantrip', 'Message'),
+            ('cantrip', 'Green_Flame_Blade'),
+            ('ritual', 'Alarm'),
+            ('1_lvl', 'Shield'),
+            ('1_lvl', 'Magic_Missile'),
+            #('1_lvl', 'Fog_Cloud'),
+            ],
+        },
+    'race':'Human-hero',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Heroism':1,
+        'Infusion of Regeneration':1,
+        'Rune of Absorbtion':1,
+        'Plate Armor':1,
+        'Heavy Shield':1,
+        'Longsword +1':1,
+        'Lance':1,
+        #'Pilum':6,
+        },
+    'mount_combat':True,
+    'mount_type':'Warhorse',
+    'equipment_mount':{
+        'Rune of Absorbtion':1,
+        'Infusion of Regeneration':1,
+        'Horse Scale Mail':1,
+        },
+    }
+
+metadict_chars['Fighter 13 lvl (нейтрал) (Кирос «Симарх»)'] = {
+    # Fighter 1 lvl (legionary sentinel-battler) sum:103 STR:19 DEX:17 CON:18 INT:16 WIS:16 CHA:17
+    # Использует "Обнаружение мыслей" (Detect_Thoughts), чтобы читать мысли других.
+    'level':13,
+    'fearless_AI':True,
+    #'commando_AI':True,
+    #'predator_AI':True,
+    'no_grappler_AI':True,
+    'char_class':'Eldritch_Knight',
+    'hit_dice':'1d10',
+    'behavior':'commander',
+    'hitpoints_medial':True,
+    'abilityes':{
+        'strength':19,
+        'dexterity':17,
+        'constitution':18,
+        'intelligence':16,
+        'wisdom':16,
+        'charisma':17,
+        },
+    'class_features':{
+        # TODO:
+        # - Eldritch_Strike -- удачный удар = помеха на спасброски от закл. до конца следующего хода.
+        'Feat_Mounted_Combatant':True,
+        'Feat_Heavy_Armor_Master':True,
+        'Feat_War_Caster':True,
+        'Ability_Score_Improvement':{
+            'strength':+1,
+            'intelligence':+4,
+            },
+        'Fighting_Style_Dueling':True,
+        'Second_Wind':True,
+        'Action_Surge':True,
+        'Martial_Archetype_Eldritch_Knight':True,
+        'Weapon_Bond':True,
+        'Spellcasting':True,
+        'Spells':[
+            # 9 заклинаний на 13 lvl (2 заклинания вне школ evocation и abjuration)
+            ('cantrip', 'Message'),
+            ('cantrip', 'Green_Flame_Blade'),
+            ('cantrip', 'Prestidigitation'),
+            ('ritual', 'Alarm'),
+            ('1_lvl', 'Shield'),
+            ('2_lvl', 'Shield'),
+            #('1_lvl', 'Magic_Missile'),
+            #('1_lvl', 'Fog_Cloud'),
+            ('2_lvl', 'Blur'),
+            ('3_lvl', 'Blur'),
+            ('2_lvl', 'Detect_Thoughts'),
+            ('2_lvl', 'Warding_Wind'),
+            ('2_lvl', 'Gust_of_Wind'),
+            ('3_lvl', 'Counterspell'),
+            ('3_lvl', 'Sending'),
+            ],
+        'Extra_Attack':True,
+        'Indomitable':True,
+        'War_Magic':True,
+        'Eldritch_Strike':True,
+        },
+    'race':'Human-hero',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Heroism':1,
+        'Infusion of Regeneration':1,
+        'Rune of Absorbtion':1,
+        'Plate Armor':1,
+        'Heavy Shield +1':1,
+        #'Sword of Flame Tongue':1,
+        'Longsword +2':1,
+        'Lance':1,
+        #'Pilum':6,
+        },
+    'mount_combat':True,
+    'mount_type':'Warhorse',
+    'equipment_mount':{
+        'Rune of Absorbtion':1,
+        'Infusion of Regeneration':1,
+        'Horse Scale Mail':1,
+        },
     }
 
 #----
