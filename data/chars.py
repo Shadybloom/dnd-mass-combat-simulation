@@ -420,7 +420,7 @@ metadict_chars['Commoner 1 lvl (militia swordsman)'] = {
         'Shield':1,
         'Shortsword':1,
         'Javelin':2,
-        'Potion of Bravery':1,
+        #'Potion of Bravery':1,
         },
     }
 
@@ -438,14 +438,13 @@ metadict_chars['Commoner 2 lvl (militia swordsman-corporal)'] = {
         'Hide Armor':1,
         'Heavy Shield':1,
         'Shortsword':1,
-        'Javelin':2,
+        #'Javelin':2,
         },
     }
 
 metadict_chars['Warrior 3 lvl (militia swordsman-sergeant)'] = {
     'level':3,
-    'brave_AI':True,
-    #'close_order_AI':True,
+    'close_order_AI':True,
     'char_class':'Warrior',
     'hit_dice':'1d8',
     'behavior':'commander',
@@ -462,14 +461,13 @@ metadict_chars['Warrior 3 lvl (militia swordsman-sergeant)'] = {
         'Scale Mail':1,
         'Heavy Shield':1,
         'Longsword':1,
-        'Javelin':6,
+        #'Javelin':6,
         },
     }
 
 metadict_chars['Warrior 4 lvl (militia swordsman-lieutenant)'] = {
     'level':4,
-    'brave_AI':True,
-    #'close_order_AI':True,
+    'close_order_AI':True,
     'char_class':'Warrior-officer',
     'hit_dice':'1d8',
     'behavior':'commander',
@@ -733,7 +731,7 @@ metadict_chars['Warrior 1 lvl (achean hoplite)'] = {
         'Heavy Shield':1,
         'Shortsword':1,
         'Long Spear':1,
-        #'Javelin':5,
+        'Javelin':5,
         },
     }
 
@@ -747,8 +745,8 @@ metadict_chars['Warrior 2 lvl (achean hoplite-corporal)'] = {
     'hit_dice':'1d8',
     'class_features':{
         # Изначально ветераны не обладают боевым стилем. Этому их обучают герои-бойцы.
-        'Fighting_Style_Protection':True,
-        #'Fighting_Style_Dueling':True,
+        #'Fighting_Style_Protection':True,
+        'Fighting_Style_Dueling':True,
         },
     'race':'Human-common',
     'weapon_skill':['simple','martial'],
@@ -760,7 +758,6 @@ metadict_chars['Warrior 2 lvl (achean hoplite-corporal)'] = {
         'Heavy Shield':1,
         'Shortsword':1,
         'Long Spear':1,
-        #'Javelin':5,
         },
     }
 
@@ -773,8 +770,8 @@ metadict_chars['Warrior 3 lvl (achean hoplite-sergeant)'] = {
     'hit_dice':'1d8',
     'behavior':'commander',
     'class_features':{
-        'Fighting_Style_Protection':True,
-        #'Fighting_Style_Dueling':True,
+        #'Fighting_Style_Protection':True,
+        'Fighting_Style_Dueling':True,
         },
     'race':'Human-common',
     'weapon_skill':['simple','martial'],
@@ -787,7 +784,6 @@ metadict_chars['Warrior 3 lvl (achean hoplite-sergeant)'] = {
         'Heavy Shield':1,
         'Shortsword':1,
         'Long Spear':1,
-        #'Javelin':5,
         },
     }
 
@@ -799,8 +795,8 @@ metadict_chars['Warrior 4 lvl (achean hoplite-lieutenant)'] = {
     'hit_dice':'1d8',
     'behavior':'commander',
     'class_features':{
-        'Fighting_Style_Protection':True,
-        #'Fighting_Style_Dueling':True,
+        #'Fighting_Style_Protection':True,
+        'Fighting_Style_Dueling':True,
         'Feat_Inspiring_Leader':True,
         },
     'race':'Human-common',
@@ -815,7 +811,6 @@ metadict_chars['Warrior 4 lvl (achean hoplite-lieutenant)'] = {
         'Heavy Shield':1,
         'Shortsword':1,
         'Long Spear':1,
-        #'Javelin':5,
         },
     #'mount_combat':False,
     #'mount_type':'Riding Horse',
@@ -832,8 +827,8 @@ metadict_chars['Warrior 5 lvl (achean hoplite-captain)'] = {
     'hit_dice':'1d8',
     'behavior':'commander',
     'class_features':{
-        'Fighting_Style_Protection':True,
-        #'Fighting_Style_Dueling':True,
+        #'Fighting_Style_Protection':True,
+        'Fighting_Style_Dueling':True,
         'Feat_Inspiring_Leader':True,
         'Extra_Attack':True,
         },
@@ -850,7 +845,6 @@ metadict_chars['Warrior 5 lvl (achean hoplite-captain)'] = {
         'Heavy Shield':1,
         'Shortsword':1,
         'Long Spear':1,
-        #'Javelin':5,
         },
     'mount_combat':False,
     'mount_type':'Riding Horse',
@@ -866,7 +860,7 @@ metadict_chars['Warrior 1 lvl (city pikeman)'] = {
         # В мире, где летают огнешары, плотное построение фаланги слишком опасно.
         # https://ru.wikipedia.org/wiki/Сариссофор
     'level':1,
-    'char_class':'Warrior',
+    'char_class':'Warrior-heavy',
     'behavior':'warrior',
     'hit_dice':'1d8',
     'race':'Human-common',
@@ -875,8 +869,8 @@ metadict_chars['Warrior 1 lvl (city pikeman)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Studded Leather':1,
-        'Scimitar':1,
+        'Ring Mail':1,
+        'Shortsword':1,
         'Shield':1,
         'Pike':1,
         },
@@ -884,7 +878,7 @@ metadict_chars['Warrior 1 lvl (city pikeman)'] = {
 
 metadict_chars['Warrior 2 lvl (city pikeman-corporal)'] = {
     'level':2,
-    'char_class':'Warrior',
+    'char_class':'Warrior-heavy',
     'behavior':'elite_warrior',
     'hit_dice':'1d8',
     'class_features':{
@@ -896,8 +890,8 @@ metadict_chars['Warrior 2 lvl (city pikeman-corporal)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Scale Mail':1,
-        'Scimitar':1,
+        'Chain Mail':1,
+        'Shortsword':1,
         'Shield':1,
         'Pike':1,
         },
@@ -905,7 +899,8 @@ metadict_chars['Warrior 2 lvl (city pikeman-corporal)'] = {
 
 metadict_chars['Warrior 3 lvl (city pikeman-sergeant)'] = {
     'level':3,
-    'char_class':'Warrior',
+    'char_class':'Warrior-heavy',
+    'behavior':'elite_warrior',
     'hit_dice':'1d8',
     'behavior':'commander',
     'class_features':{
@@ -918,8 +913,8 @@ metadict_chars['Warrior 3 lvl (city pikeman-sergeant)'] = {
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
         'Infusion of Healing':1,
-        'Breastplate':1,
-        'Scimitar':1,
+        'Chain Mail':1,
+        'Shortsword':1,
         'Shield':1,
         'Pike':1,
         },
@@ -942,8 +937,8 @@ metadict_chars['Warrior 4 lvl (city pikeman-lieutenant)'] = {
     'equipment_weapon':{
         'Infusion of Healing':1,
         'Rune of Absorbtion':1,
-        'Breastplate':1,
-        'Scimitar':1,
+        'Half Plate':1,
+        'Shortsword':1,
         'Shield':1,
         'Pike':1,
         },
@@ -955,6 +950,7 @@ metadict_chars['Warrior 4 lvl (city pikeman-lieutenant)'] = {
 
 metadict_chars['Warrior 5 lvl (city pikeman-captain)'] = {
     'level':5,
+    #'close_order_AI':True,
     'char_class':'Warrior-officer',
     'hit_dice':'1d8',
     'behavior':'commander',
@@ -973,7 +969,7 @@ metadict_chars['Warrior 5 lvl (city pikeman-captain)'] = {
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
         'Half Plate':1,
-        'Scimitar':1,
+        'Shortsword':1,
         'Shield':1,
         'Pike':1,
         },
@@ -10191,6 +10187,7 @@ metadict_chars['Fighter 4 lvl (нейтрал) (боец Кироса)'] = {
     'behavior':'commander',
     'class_features':{
         'Feat_Mounted_Combatant':True,
+        #'Feat_Sentinel':True,
         'Feat_Heavy_Armor_Master':True,
         'Ability_Score_Improvement':{
             'strength':+1,
@@ -10207,6 +10204,7 @@ metadict_chars['Fighter 4 lvl (нейтрал) (боец Кироса)'] = {
             ('ritual', 'Alarm'),
             ('1_lvl', 'Shield'),
             ('1_lvl', 'Magic_Missile'),
+            ('1_lvl', 'Absorb_Elements'),
             #('1_lvl', 'Fog_Cloud'),
             ],
         },
@@ -10239,8 +10237,6 @@ metadict_chars['Fighter 13 lvl (нейтрал) (Кирос «Симарх»)'] 
     # Использует "Обнаружение мыслей" (Detect_Thoughts), чтобы читать мысли других.
     'level':13,
     'fearless_AI':True,
-    #'commando_AI':True,
-    #'predator_AI':True,
     'no_grappler_AI':True,
     'char_class':'Eldritch_Knight',
     'hit_dice':'1d10',
@@ -10258,8 +10254,9 @@ metadict_chars['Fighter 13 lvl (нейтрал) (Кирос «Симарх»)'] 
         # TODO:
         # - Eldritch_Strike -- удачный удар = помеха на спасброски от закл. до конца следующего хода.
         'Feat_Mounted_Combatant':True,
-        'Feat_Heavy_Armor_Master':True,
         'Feat_War_Caster':True,
+        #'Feat_Sentinel':True,
+        'Feat_Heavy_Armor_Master':True,
         'Ability_Score_Improvement':{
             'strength':+1,
             'intelligence':+4,
@@ -10273,7 +10270,7 @@ metadict_chars['Fighter 13 lvl (нейтрал) (Кирос «Симарх»)'] 
         'Spells':[
             # 9 заклинаний на 13 lvl (2 заклинания вне школ evocation и abjuration)
             ('cantrip', 'Message'),
-            ('cantrip', 'Green_Flame_Blade'),
+            #('cantrip', 'Green_Flame_Blade'),
             ('cantrip', 'Prestidigitation'),
             ('ritual', 'Alarm'),
             ('1_lvl', 'Shield'),
@@ -10880,7 +10877,7 @@ metadict_chars['Warrior 1 lvl (враг) (демон-рядовой)'] = {
         'Shield':1,
         'Battleaxe':1,
         'Long Spear':1,
-        #'Javelin':6,
+        'Javelin':6,
         },
     }
 
@@ -10905,7 +10902,7 @@ metadict_chars['Warrior 2 lvl (враг) (демон-ветеран)'] = {
         'Heavy Shield':1,
         'Battleaxe':1,
         'Long Spear':1,
-        #'Javelin':6,
+        'Javelin':6,
         },
     }
 
@@ -10932,7 +10929,7 @@ metadict_chars['Warrior 3 lvl (враг) (демон-сержант)'] = {
         'Heavy Shield':1,
         'Battleaxe':1,
         'Long Spear':1,
-        #'Javelin':6,
+        'Javelin':6,
         },
     }
 
@@ -10960,7 +10957,7 @@ metadict_chars['Warrior 4 lvl (враг) (демон-лейтенант)'] = {
         'Heavy Shield':1,
         'Battleaxe':1,
         'Long Spear':1,
-        #'Javelin':6,
+        'Javelin':6,
         },
     }
 
@@ -10989,7 +10986,7 @@ metadict_chars['Warrior 5 lvl (враг) (демон-капитан)'] = {
         'Heavy Shield':1,
         'Battleaxe':1,
         'Long Spear':1,
-        #'Javelin':6,
+        'Javelin':6,
         },
     }
 
