@@ -5793,7 +5793,7 @@ metadict_chars['Sorcerer 2 lvl (otherworld wildfire-burner)'] = {
 metadict_chars['Sorcerer 3 lvl (otherworld wildfire-enchanter)'] = {
     'level':3,
     'fireball_AI':True,
-    'disengage_AI':True,
+    #'disengage_AI':True,
     'char_class':'Sorcerer',
     'hit_dice':'1d6',
     'behavior':'commander',
@@ -5839,7 +5839,7 @@ metadict_chars['Sorcerer 3 lvl (otherworld wildfire-enchanter)'] = {
 metadict_chars['Sorcerer 4 lvl (otherworld wildfire-paragon)'] = {
     'level':4,
     'fireball_AI':True,
-    'disengage_AI':True,
+    #'disengage_AI':True,
     'char_class':'Sorcerer',
     'hit_dice':'1d6',
     'behavior':'commander',
@@ -5890,7 +5890,7 @@ metadict_chars['Sorcerer 4 lvl (otherworld wildfire-paragon)'] = {
 metadict_chars['Sorcerer 5 lvl (otherworld wildfire-ravager)'] = {
     'level':5,
     'fireball_AI':True,
-    'disengage_AI':True,
+    #'disengage_AI':True,
     'char_class':'Sorcerer',
     'hit_dice':'1d6',
     'behavior':'commander',
