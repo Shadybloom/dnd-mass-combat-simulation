@@ -1377,7 +1377,7 @@ metadict_chars['Warrior 5 lvl (balear slinger-captain)'] = {
 metadict_chars['Warrior 1 lvl (cilician infantry)'] = {
     # Так-то стрелки, но склонны к ближнему бою. Пираты.
     'level':1,
-    'char_class':'Warrior-bowman',
+    'char_class':'Warrior-pirate',
     'hit_dice':'1d8',
     'behavior':'warrior',
     'race':'Human-common',
@@ -1397,7 +1397,7 @@ metadict_chars['Warrior 1 lvl (cilician infantry)'] = {
 metadict_chars['Warrior 2 lvl (cilician infantry-corporal)'] = {
     # Используют парное оружие. Своеобразные ребята.
     'level':2,
-    'char_class':'Warrior-bowman',
+    'char_class':'Warrior-pirate',
     'hit_dice':'1d8',
     'behavior':'elite_warrior',
     'class_features':{
@@ -1420,7 +1420,7 @@ metadict_chars['Warrior 2 lvl (cilician infantry-corporal)'] = {
 
 metadict_chars['Warrior 3 lvl (cilician infantry-sergeant)'] = {
     'level':3,
-    'char_class':'Warrior-bowman',
+    'char_class':'Warrior-pirate',
     'hit_dice':'1d8',
     'behavior':'commander',
     'class_features':{
@@ -1444,7 +1444,7 @@ metadict_chars['Warrior 3 lvl (cilician infantry-sergeant)'] = {
 
 metadict_chars['Warrior 4 lvl (cilician infantry-lieutenant)'] = {
     'level':4,
-    'char_class':'Warrior-officer',
+    'char_class':'Warrior-pirate',
     'hit_dice':'1d8',
     'behavior':'commander',
     'class_features':{
@@ -1474,7 +1474,7 @@ metadict_chars['Warrior 4 lvl (cilician infantry-lieutenant)'] = {
 
 metadict_chars['Warrior 5 lvl (cilician infantry-captain)'] = {
     'level':5,
-    'char_class':'Warrior-officer',
+    'char_class':'Warrior-pirate',
     'hit_dice':'1d8',
     'behavior':'commander',
     'class_features':{
