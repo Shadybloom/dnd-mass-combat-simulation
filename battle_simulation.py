@@ -1593,6 +1593,10 @@ class battle_simulation(battlescape):
                     break
         # Толпимся рядом с командиром, если боевого порядка нет:
         if not destination:
+            # Идём к командиру, который в наибольшей опасности:
+            commanders_danger_list = sorted(squad.commanders_list,key=lambda x: x.danger,
+                    reverse = True)
+            commander = self.metadict_soldiers[commanders_danger_list[0].uuid]
             if commander.near_zone:
                 destination = random.choice(commander.near_zone)
             else:
@@ -1603,6 +1607,10 @@ class battle_simulation(battlescape):
                 self.move_action(soldier, squad, destination)
             except KeyError:
                 #traceback.print_exc()
+                # Идём к командиру, который в наибольшей опасности:
+                commanders_danger_list = sorted(squad.commanders_list,key=lambda x: x.danger,
+                        reverse = True)
+                commander = self.metadict_soldiers[commanders_danger_list[0].uuid]
                 if commander.near_zone:
                     destination = random.choice(commander.near_zone)
                 else:
@@ -3742,8 +3750,8 @@ class battle_simulation(battlescape):
             else:
                 print('--------------------------------------------------------------------------------')
                 #print('{0} {1} {2} exp {3} hp {4}/{5} (dead {6}% disabled {7}% captured {8}%) fall {9}%, injured {10}%, light {11}%, escape {12}% lucky {13}%'.format(
-                print('{0} {1} {2} exp {3} hp {4}/{5} (temp_hp {n}/{b}) (dead {6}% disabled {7}% captured {8}%) fall {9}%, injured {10}%, light {11}%, escape {12}% lucky {13}%'.format(
-                        squad.ally_side, key.zone, key.type, squad.experience,
+                print('{0} {1} {2} {3} exp {4} hp {5}/{6} (temp_hp {n}/{b}) (dead {7}% disabled {8}% captured {9}%) fall {10}%, injured {11}%, light {12}%, escape {13}% lucky {14}%'.format(
+                        squad_combativity, squad.ally_side, key.zone, key.type, squad.experience,
                         squad_hitpoints_new, squad_hitpoints_max,
                         casualty['dead_percent'], casualty['disabled_percent'],
                         casualty['captured_percent'], casualty['fall_percent'],
