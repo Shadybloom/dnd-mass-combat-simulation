@@ -723,6 +723,7 @@ class battle_simulation(battlescape):
                 sides_dict = Counter(sides_list)
                 if len(sides_dict.keys()) == 1:
                     self.winner = list(sides_dict.keys())[0]
+                    self.release_captures(self.winner)
                     break
         # Уточняем потери по результатам боя:
         for squad in self.squads.values():
@@ -3645,6 +3646,19 @@ class battle_simulation(battlescape):
                         soldier.spells_generator.use_buff(spell_dict['spell_choice'],
                                 gen_spell = spell_dict, use_spell = False)
 
+    def release_captures(self, side):
+        """Пленные победившей стороны освобождаются после боя.
+
+        - Только если была команда -S --stop (namespace.stop)
+        """
+        if side:
+            for soldier in self.metadict_soldiers.values():
+                if soldier.ally_side == side and soldier.captured:
+                    soldier.captured = False
+                # Раненые получают перевязку:
+                if soldier.ally_side == side and not soldier.stable and not soldier.death:
+                    soldier.stable = True
+
     def print_battle_statistics(self, short = False):
         """Вывод статистики после боя. Убитые, раненые по отрядам."""
         # Сортируем отряды по номерам зон:
@@ -3951,6 +3965,7 @@ if __name__ == '__main__':
                 start = timeit.default_timer()
                 battle.start(max_rounds = namespace.rounds, commands = namespace.commands)
                 stop = timeit.default_timer()
+                # TODO: сделай временное сохранение отрядов BLUEFOR, чтобы испытывать в длительных боях:
                 # Смотрим сколько народу пострадало:
                 print('------------------------------------------------------------')
                 print('№', test, 'rounds:', battle.battle_round, 'time:', round(stop - start, 3))
