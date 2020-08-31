@@ -931,6 +931,7 @@ battle_map = (
         '.....!wwwwwwwwwwwwwwwwwwww!.....',
         '.....!wwwwwwwwwwwwwwwwwwww!.....',
         '.....!wwwwwwwwwwwwwwwwwwww!.....',
+        '.....!wwwwwwwwwwwwwwwwwwww!.....',
         '.....!eeeeeeeeeeeeeeeeeeee!.....',
         '.....!.................6.5!.....',
         '.....!--------------------!.....',
@@ -957,6 +958,43 @@ battle_map = (
         '.....!aaaaaaaaaaaaaaaaaaaa!.....',
         '.....!aaaaaaaaaaaaaaaaaaaa!.....',
         '.....!aaaaaaaaaaaaaaaaaaaa!.....',
+        )
+
+battle_map_along = (
+        # Тест поля боя (10x60):
+        # Та же карта, но с поворотом на 90 градусов
+        '....................................',
+        '....................................',
+        '....................................',
+        '....................................',
+        '....................................',
+        '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!',
+        'aaacwwwwwwe0!..........!5ewwwwwwcaaa',
+        'aaacwwwwwwe.!..........!.ewwwwwwcaaa',
+        'aaacwwwwwwe1!..........!6ewwwwwwcaaa',
+        'aaacwwwwwwe.!..........!.ewwwwwwcaaa',
+        'aaacwwwwwwe.!..........!.ewwwwwwcaaa',
+        'aaacwwwwwwe.!..........!.ewwwwwwcaaa',
+        'aaacwwwwwwe.!..........!.ewwwwwwcaaa',
+        'aaacwwwwwwe.!..........!.ewwwwwwcaaa',
+        'aaacwwwwwwe.!..........!.ewwwwwwcaaa',
+        'aaacwwwwwwe.!..........!.ewwwwwwcaaa',
+        'aaacwwwwwwe.!..........!.ewwwwwwcaaa',
+        'aaacwwwwwwe.!..........!.ewwwwwwcaaa',
+        'aaacwwwwwwe.!..........!.ewwwwwwcaaa',
+        'aaacwwwwwwe.!..........!.ewwwwwwcaaa',
+        'aaacwwwwwwe.!..........!.ewwwwwwcaaa',
+        'aaacwwwwwwe.!..........!.ewwwwwwcaaa',
+        'aaacwwwwwwe.!..........!.ewwwwwwcaaa',
+        'aaacwwwwwwe.!..........!.ewwwwwwcaaa',
+        'aaacwwwwwwe.!..........!.ewwwwwwcaaa',
+        'aaacwwwwwwe.!..........!.ewwwwwwcaaa',
+        '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!',
+        '....................................',
+        '....................................',
+        '....................................',
+        '....................................',
+        '....................................',
         )
 
 battle_map_test_commanders = (
