@@ -203,7 +203,8 @@ class battle_simulation(battlescape):
                     if not 'height' in self.dict_battlespace[point]:
                         self.dict_battlespace[point].append('height')
         # Вывод карты до начала боя:
-        #print_ascii_map(battle.gen_battlemap())
+        if not namespace.test:
+            print_ascii_map(battle.gen_battlemap())
 
     def create_squads(self, zones_squads_dict):
         """Создаём отряды.
