@@ -511,7 +511,7 @@ class soldier():
         dict_proficiency.update(self.metadict_class_proficiency[(char_class,level)])
         dict_proficiency['spellslots'] = copy.deepcopy(self.metadict_class_spells[('Any',level)])
         if self.metadict_class_spells.get((char_class,level)):
-            dict_proficiency.update(self.metadict_class_spells[(char_class,level)])
+            dict_proficiency['spellslots'].update(self.metadict_class_spells[(char_class,level)])
         return dict_proficiency
 
     def calculate_mods(self):
