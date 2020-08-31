@@ -725,6 +725,12 @@ class battle_simulation(battlescape):
                     self.winner = list(sides_dict.keys())[0]
                     self.release_captures(self.winner)
                     break
+                # Бывает, что с поля боя убегают все:
+                elif not sides_dict:
+                    self.release_captures('OPFOR')
+                    self.release_captures('BLUEFOR')
+                    self.winner = None
+                    break
         # Уточняем потери по результатам боя:
         for squad in self.squads.values():
             self.fall_to_death(squad)
@@ -1391,6 +1397,7 @@ class battle_simulation(battlescape):
         # Боец отступает, если таков приказ, или он в зоне опасного заклинания:
         if 'disengage' in soldier.commands and squad.__dict__.get('enemy_recon'):
             if enemy and enemy.distance <= squad.enemy_recon['move'] * 2\
+                    and squad.enemy_recon['enemy_strenght'] > squad.enemy_recon['ally_strenght'] / 2\
                     or 'danger' in soldier.commands\
                     and soldier.place in squad.enemy_recon.get('danger_places',[]):
                 if not 'spawn' in self.dict_battlespace[soldier.place]:
