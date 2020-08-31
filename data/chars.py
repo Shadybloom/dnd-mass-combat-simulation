@@ -8788,7 +8788,7 @@ metadict_chars['Ranger 7 lvl (Gogan) (Сакатр Ка-Ален)'] = {
 
 metadict_chars['Warrior 1 lvl (Gogan) (кимерийский пират)'] = {
     'level':1,
-    'char_class':'Warrior-bowman',
+    'char_class':'Warrior-pirate',
     'hit_dice':'1d8',
     'behavior':'warrior',
     'race':'Human-common',
@@ -8808,7 +8808,7 @@ metadict_chars['Warrior 1 lvl (Gogan) (кимерийский пират)'] = {
 
 metadict_chars['Warrior 2 lvl (Gogan) (кимерийский пират-ветеран)'] = {
     'level':2,
-    'char_class':'Warrior-bowman',
+    'char_class':'Warrior-pirate',
     'hit_dice':'1d8',
     'behavior':'elite_warrior',
     'class_features':{
@@ -8832,7 +8832,7 @@ metadict_chars['Warrior 2 lvl (Gogan) (кимерийский пират-вет�
 
 metadict_chars['Warrior 3 lvl (Gogan) (кимерийский пират-сержант)'] = {
     'level':3,
-    'char_class':'Warrior',
+    'char_class':'Warrior-pirate',
     'hit_dice':'1d8',
     'behavior':'commander',
     'class_features':{
@@ -8857,7 +8857,7 @@ metadict_chars['Warrior 3 lvl (Gogan) (кимерийский пират-сер�
 
 metadict_chars['Warrior 4 lvl (Gogan) (кимерийский пират-лейтенант)'] = {
     'level':4,
-    'char_class':'Warrior-officer',
+    'char_class':'Warrior-pirate',
     'hit_dice':'1d8',
     'behavior':'commander',
     'class_features':{
@@ -8889,7 +8889,7 @@ metadict_chars['Warrior 4 lvl (Gogan) (кимерийский пират-лей�
 metadict_chars['Warrior 5 lvl (Gogan) (кимерийский пират-капитан)'] = {
     'level':5,
     #'volley_AI':True,
-    'char_class':'Warrior-officer',
+    'char_class':'Warrior-pirate',
     'hit_dice':'1d8',
     'behavior':'commander',
     'class_features':{
