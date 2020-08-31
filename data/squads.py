@@ -11,31 +11,6 @@ metadict_squads = {}
 #----
 # Тестовые
 
-#metadict_squads['test 1000 warriors'] = {
-#    'Warrior 1 lvl (legionary infantry)':1000,
-#    'Warrior 3 lvl (legionary infantry-sergeant)':3,
-#    'Warrior 4 lvl (legionary infantry-lieutenant)':1,
-#    'Warrior 5 lvl (legionary infantry-captain)':1,
-#    }
-
-metadict_squads['Company-regular (test-recruits)'] = {
-    # От этого отряда остаётся только отборный лейтенант.
-    # Рекруты используются для отбора. Они покидают отряд.
-    'Commoner 1 lvl (recruit)':100,
-    'Warrior 4 lvl (achean hoplite-lieutenant)':1,
-    }
-
-metadict_squads['test 12 animals'] = {
-    #'Brown Bear (CR 1)':12,
-    'Giant Octopus (CR 1)':12,
-    #'Empyrean (CR 23)':1,
-    }
-
-metadict_squads['test squad'] = {
-    'Warrior 1 lvl (враг) (мирмидон)':10,
-    'Warrior 5 lvl (враг) (мирмидон-капитан)':1,
-    }
-
 metadict_squads['характеристики правителей'] = {
     # Влом делать отдельно, так рольнём:
         # 1 герой 5+ lvl на 16 героев 1 lvl
@@ -87,10 +62,14 @@ metadict_squads['характеристики героев'] = {
         # 1 герой 9+ lvl на 250 героев 1 lvl
     # Тетра Курио:
     # Bard 1 lvl (otherworld singer-follower) sum:85 STR:10 DEX:16 CON:15 INT:14 WIS:14 CHA:16
-    'Bard 1 lvl (otherworld singer-follower)':32,
+    #'Bard 1 lvl (otherworld singer-follower)':32,
     }
 
+#----
+# Тестовые (осадное вооружение)
+
 metadict_squads['10 onagers (siege)'] = {
+    # Онагры, катапульты
     'Warrior 2 lvl (siege engineer-apprentice) (onager-siege)':10,
     'Warrior 4 lvl (siege engineer-master)':1,
     }
@@ -100,132 +79,222 @@ metadict_squads['10 onagers (fire)'] = {
     'Warrior 4 lvl (siege engineer-master)':1,
     }
 
-metadict_squads['test (ogres)'] = {
-    'Ogre (CR 2)':4,
-    'Orog (CR 2)':1,
+metadict_squads['Company-regular (осадные инженеры)'] = {
+    # С двуручными кирками, Greataxe
+    'Warrior 1 lvl (legionary infantry-siege)':80 + dice_throw('1d12'),
+    'Warrior 2 lvl (legionary infantry-siege-corporal)':10,
+    'Warrior 3 lvl (legionary infantry-siege-sergeant)':3,
     }
 
-metadict_squads['test enemy (CR 1)'] = {
-    'Warrior 3 lvl (враг) (демон Кема\'Эша)':1,
+#----
+# Тестовые (ложные цели)
+
+metadict_squads['Company-dummy (куклы)'] = {
+    # Просто чучела на кораблях.
+    'Dummy (AC 17)':100,
     }
 
-metadict_squads['test enemy (druid)'] = {
+#----
+# Тестовые (герои из Monsters_Manual)
+
+metadict_squads['Single-hero (druid)'] = {
     'Druid (CR 2)':1,
     }
 
-metadict_squads['test enemy (mage)'] = {
+metadict_squads['Single-hero (mage)'] = {
     'Mage (CR 6)':1,
     }
 
-metadict_squads['test enemy (archmage)'] = {
+metadict_squads['Single-hero (archmage)'] = {
     'Archmage (CR 12)':1,
     }
 
-metadict_squads['test enemy (dragon)'] = {
+metadict_squads['Single-hero (dragon)'] = {
     # Дракон
     'Red Dragon, Young (CR 10)':1,
     }
 
-metadict_squads['test party (1 lvl)'] = {
+metadict_squads['Single-hero (storm giant)'] = {
+    'Storm Giant (CR 13)':1,
+    }
+
+metadict_squads['Single-hero (empyrean)'] = {
+    'Empyrean (CR 23)':1,
+    }
+
+#----
+# Тестовые (отряды из Monsters_Manual)
+
+metadict_squads['Squad-elite (veterans)'] = {
+    'Veteran (CR 3)':10,
+    }
+
+metadict_squads['Squad-elite (wights)'] = {
+    'Wight (CR 3)':10,
+    }
+
+metadict_squads['Squad-elite (hill giants)'] = {
+    # Холмовые великаны
+    'Hill Giant (CR 5)':6,
+    }
+
+metadict_squads['Squad-elite (stone giants)'] = {
+    # Каменные великаны
+    'Stone Giant (CR 7)':6,
+    }
+
+metadict_squads['Squad-elite (frost giants)'] = {
+    # Ледяные великаны
+    'Frost Giant (CR 8)':6,
+    }
+
+metadict_squads['Squad-elite (fire giants)'] = {
+    # Огненные великаны
+    'Fire Giant (CR 9)':6,
+    }
+
+metadict_squads['Squad-elite (storm giants)'] = {
+    # Штормовые великаны
+    'Storm Giant (CR 13)':6,
+    }
+
+#----
+# Тестовые (отряды из Monsters_Manual)
+
+metadict_squads['Company-regular (sentinels)'] = {
+    # Для тестов сравнительной силы отрядов.
+    # Считаются бесстрашными, fearless_AI
+    'Sentinel (CR 1/8)':100,
+    }
+
+metadict_squads['Company-regular (tribe warriors)'] = {
+    'Tribe Warrior (CR 1/8)':100,
+    }
+
+metadict_squads['Company-militia (zombies)'] = {
+    'Zombie (CR 1/4)':100,
+    }
+
+metadict_squads['Company-militia (bandits)'] = {
+    'Bandit (CR 1/8)':100,
+    }
+
+metadict_squads['Company-regular (thugs)'] = {
+    'Thug (CR 1/2)':100,
+    }
+
+metadict_squads['Company-elite (bugbears)'] = {
+    'Bugbear (CR 1)':100,
+    }
+
+metadict_squads['Company-militia (goblins)'] = {
+    'Goblin (CR 1/4)':80 + dice_throw('3d12'),
+    'Goblin Boss (CR 1)':3,
+    }
+
+metadict_squads['Company-regular (hobgoblins)'] = {
+    'Hobgoblin (CR 1/2)':80 + dice_throw('3d12'),
+    'Hobgoblin-captain (CR 3)':1,
+    }
+
+metadict_squads['Company-elite (orks)'] = {
+    'Ork (CR 1/2)':80 + dice_throw('3d12'),
+    'Orog (CR 2)':3,
+    'Ork war chief (CR 4)':1,
+    }
+
+#----
+# Тестовые (партии)
+
+metadict_squads['Band-hero (party 1 lvl)'] = {
+    # TODO: они должны быть бесстрашными.
     # Тестовая партия для оценки CR:
     # Воин, клирик, вор и маг:
         # Боец -- лучник с боевым стилем
         # Клерик -- "Воодушевляющий лидер" и командир, колдует "Bless"
         # Рога -- с ножом и арбалетом
         # Волшебник -- с "Волшебной стрелой"
-    #'Barbarian 1 lvl (thracian slayer-dogface)':1,
-    'Fighter 1 lvl (ArbitraryNickname) (снайпер)':1,
     'Cleric 1 lvl (war cleric)':1,
     'Rogue 1 lvl (city cat-nyamo)':1,
     'Wizard 1 lvl (otherworld mage-disciple)':1,
-    }
-
-metadict_squads['Company-dummy (куклы)'] = {
-    # Просто чучела на кораблях.
-    'Dummy (CR 0)':100,
-    'Dummy-officer (CR 0)':4,
+    'Barbarian 1 lvl (thracian slayer-dogface)':1,
+    #'Fighter 1 lvl (ArbitraryNickname) (снайпер)':1,
     }
 
 #----
-# Тесты отрядов:
-
-metadict_squads['Company-test (осадные инженеры) (Greataxe)'] = {
-    'Warrior 1 lvl (legionary infantry-siege)':80 + dice_throw('1d12'),
-    'Warrior 2 lvl (legionary infantry-siege-corporal)':10,
-    'Warrior 3 lvl (legionary infantry-siege-sergeant)':3,
-    }
+# Тестовые (отряды)
 
 metadict_squads['Company-test (standard) (shortbow)'] = {
     'Warrior 1 lvl (standard) (Shortbow)':100,
-    #'Trap (commander)':1,
     }
 
 metadict_squads['Company-test (standard) (shortbow) (archery)'] = {
     'Warrior 1 lvl (standard) (Shortbow) (archery)':100,
-    #'Trap (commander)':1,
     }
 
 metadict_squads['Company-test (standard) (greataxes)'] = {
     # Тесты типовых отрядов для Vened'а.
     'Warrior 1 lvl (standard) (Greataxe)':100,
-    #'Trap (commander)':1,
     }
 
 metadict_squads['Company-test (standard) (disadvantage) (greataxes)'] = {
     'Warrior 1 lvl (standard) (disadvantage) (Greataxe)':100,
-    #'Trap (commander)':1,
     }
 
 metadict_squads['Company-test (standard) (bless + disadvantage) (greataxes)'] = {
     'Warrior 1 lvl (standard) (bless + disadvantage) (Greataxe)':100,
-    #'Trap (commander)':1,
     }
 
 metadict_squads['Company-test (standard) (battleaxes)'] = {
     'Warrior 1 lvl (standard) (Battleaxe + Shield)':100,
-    #'Trap (commander)':1,
-    }
-
-metadict_squads['Company-regular (гоплиты-ветераны)'] = {
-    # Хм, ветеранский отряд и опытный сравнимы по боевой эффективности.
-    'Warrior 1 lvl (achean hoplite)':46 + dice_throw('1d12'),
-    'Warrior 2 lvl (achean hoplite-corporal)':46,
-    'Warrior 3 lvl (achean hoplite-sergeant)':3,
-    'Warrior 4 lvl (achean hoplite-lieutenant)':1,
-    'Warrior 5 lvl (achean hoplite-captain)':2,
-    }
-
-metadict_squads['Company-regular (гоплиты-опытные)'] = {
-    'Warrior 1 lvl (achean hoplite)':65 + dice_throw('1d12'),
-    'Warrior 2 lvl (achean hoplite-corporal)':20,
-    'Warrior 3 lvl (achean hoplite-sergeant)':6,
-    'Warrior 4 lvl (achean hoplite-lieutenant)':2,
-    'Warrior 5 lvl (achean hoplite-captain)':2,
     }
 
 #----
-# Погода:
+# Погода, глобальные заклинания
 
 metadict_squads['weather (lightning-storm)'] = {
     # Морской шторм
     'Weather (waves)':4,
     'Weather (lightning)':4,
-    'Weather (storm-god)':1,
+    #'Weather (storm-god)':1,
     }
 
 metadict_squads['weather (молнии Зевса)'] = {
     'Weather (lightning)':4,
-    'Weather (storm-god)':1,
+    #'Weather (storm-god)':1,
     }
 
 metadict_squads['weather (шторм Посейдона)'] = {
     'Weather (waves)':4,
-    'Weather (storm-god)':1,
+    #'Weather (storm-god)':1,
     }
 
+#----
+# Ловушки
+
+metadict_squads['traps (lightning)'] = {
+    # TODO: переделать, старый код.
+    # Защитные руны
+    'Trap (Glyph of Warding) (Lightning)':1,
+    #'Trap (commander)':1,
+    }
+
+metadict_squads['traps (fire) (octopus)'] = {
+    # Осьминожки со 100 lb. бочками алхимического огня.
+    # Восемь бочек алхимичесого огня на корабль.
+    'Trap (Alchemist\'s Fire)':8,
+    #'Trap (commander)':1,
+    }
+
+metadict_squads['traps (fire) (bombarding)'] = {
+    # 12 бочей на гигантских орлах.
+    # 1200 lb. алхимического огня.
+    'Trap (Alchemist\'s Fire)':12,
+    #'Trap (commander)':1,
+    }
 
 #----
-# Объекты, строения:
+# Укрепления, фортификации, строения
 
 metadict_squads['каменный мост'] = {
     # 50-футовый участок, ширина 20 футов (десять 10x10-футовых "пролётов", четыре опоры)
@@ -257,35 +326,6 @@ metadict_squads['крепостная стена (1200 hp)'] = {
     }
 
 #----
-# Осадная техника:
-
-metadict_squads['traps (lightning)'] = {
-    # Защитные руны
-    'Trap (Glyph of Warding) (Lightning)':1,
-    'Trap (commander)':1,
-    }
-
-metadict_squads['traps (boulders)'] = {
-    # Лавина
-    'Trap (Boulders)':1,
-    'Trap (commander)':1,
-    }
-
-metadict_squads['traps (fire) (octopus)'] = {
-    # Осьминожки со 100 lb. бочками алхимического огня.
-    # Восемь бочек алхимичесого огня на корабль.
-    'Trap (Alchemist\'s Fire)':8,
-    'Trap (commander)':1,
-    }
-
-metadict_squads['traps (fire) (bombarding)'] = {
-    # 12 бочей на гигантских орлах.
-    # 1200 lb. алхимического огня.
-    'Trap (Alchemist\'s Fire)':12,
-    'Trap (commander)':1,
-    }
-
-#----
 # Корабли:
 
 metadict_squads['Ship (trage)'] = {
@@ -309,7 +349,7 @@ metadict_squads['Ship (pentere)'] = {
     }
 
 #----
-# Нейтралы. Чудовища:
+# Чудовища, Homebrew:
 
 metadict_squads['Company-regular (дактили горы Ушур) (враг)'] = {
     'Дактиль-кусатель (CR 1/2)':50,
@@ -318,37 +358,49 @@ metadict_squads['Company-regular (дактили горы Ушур) (враг)']
     'Дактиль-сжиратель (CR 2)':3,
     }
 
-#----
-# Нейтралы. Призванные существа:
+metadict_squads['Company-hero (гневнорожки Сефо) (друг)'] = {
+    # Союзные отряды (армия Козы):
+    'Warlock 2 lvl (друг) (гневнорожка Козы)':80,
+    'Warlock 3 lvl (друг) (главнорожка Козы)':10,
+    'Warlock 3 lvl (друг) (Сефо Форонейская)':1,
+    }
 
-metadict_squads['Squad-regular (оживлённые вещи) (призванные)'] = {
+#----
+# Призванные существа:
+
+metadict_squads['Squad-summon (оживлённые вещи)'] = {
     # Заклинание 5 круга "Оживление вещей" (Animated_Objects)
     # Homebrew: Можно анимировать 36 предметов с CR 1 на 10 минут.
     'Animated swords (CR 1)':36,
-    #'Trap (commander)':1,
     }
 
-metadict_squads['Squad-regular (меч Морденкайнена) (призванные)'] = {
+metadict_squads['Squad-summon (меч Морденкайнена)'] = {
     'Mordenkainen Sword (CR 10)':1,
     }
 
-metadict_squads['Squad-regular (громовые птицы) (призванные)'] = {
-    'Громовая птица (Thunderbird) (CR 1)':10,
-    'Громовая птица-вожак (Thunderbird) (CR 1)':2,
+metadict_squads['Squad-summon (громовые птицы)'] = {
+    'Громовая птица (Thunderbird) (CR 1)':12,
     }
 
-metadict_squads['Squad-regular (воздушные элементали) (призванные)'] = {
+metadict_squads['Squad-summon (воздушные элементали)'] = {
     'Air Elemental (CR 5)':6,
     }
 
-metadict_squads['Squad-regular (земляные элементали) (призванные)'] = {
+metadict_squads['Squad-summon (земляные элементали)'] = {
     'Earth Elemental (CR 5)':6,
     }
 
-metadict_squads['Squad-regular (гигантские осьминоги) (призванные)'] = {
-    'Giant Octopus (CR 1)':10,
-    'Giant Octopus (commander) (CR 1)':2,
+metadict_squads['Squad-summon (гигантские осьминоги)'] = {
+    'Giant Octopus (CR 1)':12,
     }
+
+metadict_squads['Company-militia (мастиффы)'] = {
+    # Призванные собаки:
+    'Mastiff, dog (CR 1/8)':96,
+    }
+
+#-------------------------------------------------------------------------
+# Армии и герои
 
 #----
 # Свита Кироса:
@@ -407,12 +459,6 @@ metadict_squads['Company-hero (бронзовые гоплиты Менона) (
     'Warrior 5 lvl (нейтрал) (бронзовый гоплит-капитан Менона)':25,
     }
 
-metadict_squads['Squad-hero (упыри Менона) (нейтрал)'] = {
-    # TODO: лучше бы смешать их с зомбями.
-    'Ghoul (CR 1)':80 + dice_throw('1d12'),
-    'Ghast (CR 2)':8,
-    }
-
 metadict_squads['Squad-hero (зомби и гоплиты Менона) (нейтрал)'] = {
     'Warrior 4 lvl (нейтрал) (бронзовый гоплит Менона)':10,
     'Warrior 5 lvl (нейтрал) (бронзовый гоплит-капитан Менона)':4,
@@ -425,6 +471,196 @@ metadict_squads['Squad-hero (зомби Менона) (нейтрал)'] = {
     'Zombie (Danse_Macabre) (CR 1/2)':60,
     'Warrior 4 lvl (нейтрал) (бронзовый гоплит Менона)':3,
     'Warrior 5 lvl (нейтрал) (бронзовый гоплит-капитан Менона)':1,
+    }
+
+metadict_squads['Squad-hero (упыри Менона) (нейтрал)'] = {
+    # TODO: лучше бы смешать их с зомбями.
+    'Ghoul (CR 1)':80 + dice_throw('1d12'),
+    'Ghast (CR 2)':8,
+    }
+
+#----
+# Свита Карагоса:
+
+metadict_squads['Band-hero (лично Карагос) (нейтрал)'] = {
+    # Он потерял всю свою свиту.
+    'Barbarian 9 lvl (нейтрал) (Карагос «Мудрый»)':1,
+    }
+
+#----
+# Армия Карагоса:
+
+metadict_squads['Company-regular (пираты Карагоса) (нейтрал)'] = {
+    'Warrior 1 lvl (нейтрал) (пират Карагоса)':70 + dice_throw('1d12'),
+    'Warrior 2 lvl (нейтрал) (ветеран Карагоса)':20,
+    'Warrior 3 lvl (нейтрал) (сержант Карагоса)':6,
+    'Warrior 4 lvl (нейтрал) (лейтенант Карагоса)':2,
+    'Warrior 5 lvl (нейтрал) (капитан Карагоса)':1,
+    }
+
+metadict_squads['Company-regular (ветераны Карагоса) (нейтрал)'] = {
+    # Опытный отряд с двумя капитанами
+    'Warrior 2 lvl (нейтрал) (ветеран Карагоса)':85 + dice_throw('1d12'),
+    'Warrior 3 lvl (нейтрал) (сержант Карагоса)':6,
+    'Warrior 5 lvl (нейтрал) (капитан Карагоса)':2,
+    'Warrior 4 lvl (нейтрал) (лейтенант Карагоса)':2,
+    }
+
+#----
+# Свита Акхена Ваджета:
+
+metadict_squads['Squad-hero (варвары Радаманта) (враг)'] = {
+    'Barbarian 2 lvl (враг) (варвар Радаманта)':9,
+    'Barbarian 5 lvl (враг) (Радамант «Бдительный»)':1,
+    }
+
+#----
+# Армия Акхена Ваджета:
+
+metadict_squads['Company-regular (легионеры Акхена) (враг)'] = {
+    'Warrior 1 lvl (враг) (легионер Акхена)':80 + dice_throw('1d12'),
+    'Warrior 2 lvl (враг) (ветеран Акхена)':10,
+    'Warrior 3 lvl (враг) (сержант Акхена)':3,
+    'Warrior 5 lvl (враг) (капитан Акхена)':1,
+    'Warrior 4 lvl (враг) (лейтенант Акхена)':1,
+    }
+
+#----
+# Свита Чары:
+
+metadict_squads['Squad-hero (колдуны Чары) (враг)'] = {
+    'Warlock 3 lvl (враг) (колдун Чары)':16,
+    'Warlock 11 lvl (враг) (Чара Атенак)':1,
+    }
+
+metadict_squads['Squad-hero (колдун Чары) (враг)'] = {
+    'Warlock 3 lvl (враг) (колдун Чары)':1,
+    }
+
+metadict_squads['Squad-hero (лично Чара) (враг)'] = {
+    'Warlock 11 lvl (враг) (Чара Атенак)':1,
+    }
+
+#----
+# Армия Чары:
+
+metadict_squads['Company-regular (мирмидоны Чары) (враг)'] = {
+    'Warrior 1 lvl (враг) (мирмидон)':180 + dice_throw('1d12'),
+    'Warrior 2 lvl (враг) (мирмидон-ветеран)':10,
+    'Warrior 3 lvl (враг) (мирмидон-сержант)':3,
+    'Warrior 5 lvl (враг) (мирмидон-капитан)':1,
+    'Warrior 4 lvl (враг) (мирмидон-лейтенант)':1,
+    }
+
+metadict_squads['Company-regular (тяжёлые баллисты Чары) (друг)'] = {
+    'Warrior 2 lvl (siege engineer-apprentice) (ballista-siege)':10,
+    'Warrior 4 lvl (siege engineer-master)':1,
+    }
+
+#----
+# Армия Ашеры:
+
+metadict_squads['Company-regular (демоны Ашеры) (враг)'] = {
+    'Warrior 1 lvl (враг) (демон-рядовой)':180 + dice_throw('1d12'),
+    'Warrior 2 lvl (враг) (демон-ветеран)':10,
+    'Warrior 3 lvl (враг) (демон-сержант)':3,
+    'Warrior 5 lvl (враг) (демон-капитан)':1,
+    'Warrior 4 lvl (враг) (демон-лейтенант)':1,
+    }
+
+metadict_squads['Company-regular (карлы Ашеры) (враг)'] = {
+    'Commoner 1 lvl (враг) (карл)':180 + dice_throw('3d12'),
+    'Commoner 1 lvl (враг) (карл-ветеран)':4,
+    'Warrior 3 lvl (враг) (демон-сержант)':1,
+    }
+
+#----
+# Свита Тинв:
+
+metadict_squads['Squad-hero (кошки Тинв) (друг)'] = {
+    # TODO:
+    # Её телохранитель Ри всегда рядом.
+    # Половина свиты -- мистические ловкачи Ри.
+    'Wizard 3 lvl (друг) (кошка Тинв)':12,
+    'Wizard 9 lvl (друг) (Тинв)':1,
+    }
+
+metadict_squads['Squad-hero (кошки Тави) (друг)'] = {
+    'Wizard 2 lvl (друг) (кошка Тави)':10,
+    'Wizard 7 lvl (друг) (Тави)':1,
+    }
+
+#----
+# Армия Тинв:
+
+metadict_squads['Company-regular (ветераны Тави) (друг)'] = {
+    'Warrior 2 lvl (друг) (ветеран Тави)':60,
+    'Warrior 3 lvl (друг) (сержант Тави)':18,
+    'Warrior 4 lvl (друг) (лейтенант Тави)':6,
+    'Warrior 5 lvl (друг) (капитан Тави)':6,
+    'Commoner 1 lvl (recruit)':500,
+    }
+
+#----
+# Свита Крассиуса:
+
+#----
+# Армия Крассиуса:
+
+metadict_squads['Company-hero (арбалетчики Тетры) (друг)'] = {
+    # в отряде два капитана и +3 лейтенанта
+    'Warrior 1 lvl (друг) (арбалетчик Тетры)':80 + dice_throw('1d12'),
+    'Warrior 2 lvl (друг) (арбалетчик-ветеран Тетры)':10,
+    'Warrior 3 lvl (друг) (арбалетчик-сержант Тетры)':3,
+    'Warrior 4 lvl (друг) (арбалетчик-лейтенант Тетры)':4,
+    'Warrior 5 lvl (друг) (арбалетчик-капитан Тетры)':2,
+    }
+
+#----
+# Свита Кумара
+
+metadict_squads['Squad-hero (монахи Кумара) (друг)'] = {
+    # Свита из 13 монахов-теневиков. "Верные ученики".
+    'Monk 9 lvl (друг) (Кумар «Чугуннорукий»)':1,
+    'Monk 3 lvl (друг) (монах Кумара)':13,
+    }
+
+metadict_squads['Band-hero (лично Кумар) (друг)'] = {
+    'Monk 9 lvl (друг) (Кумар «Чугуннорукий»)':1,
+    }
+
+#----
+# Армия Кумара
+
+metadict_squads['Company-militia (пращники Илиона) (друг)'] = {
+    # Свинцовые снаряды
+    'Commoner 1 lvl (друг) (пращник Илиона)':80 + dice_throw('3d12'),
+    'Commoner 2 lvl (друг) (ветеран пращников Илиона)':5,
+    'Warrior 3 lvl (друг) (сержант пращников Илиона)':1,
+    }
+
+metadict_squads['Company-regular (легионеры Илиона) (друг)'] = {
+    # Огненные копья
+    'Warrior 1 lvl (друг) (легионер Илиона)':80 + dice_throw('1d12'),
+    'Warrior 2 lvl (друг) (ветеран Илиона)':10,
+    'Warrior 3 lvl (друг) (сержант Илиона)':3,
+    'Warrior 5 lvl (друг) (капитан Илиона)':1,
+    'Warrior 4 lvl (друг) (лейтенант Илиона)':1,
+    }
+
+metadict_squads['Company-regular (средние баллисты Илиона) (друг)'] = {
+    'Warrior 2 lvl (siege engineer-apprentice) (ballista-medium)':10,
+    'Warrior 4 lvl (siege engineer-master)':1,
+    }
+
+metadict_squads['Company-regular (тяжёлые требушеты Илиона) (друг)'] = {
+    'Warrior 2 lvl (siege engineer-apprentice) (trebuchet-heavy)':10,
+    'Warrior 4 lvl (siege engineer-master)':1,
+    }
+
+metadict_squads['Company-regular (лёгкие требушеты Илиона) (друг)'] = {
+    'Warrior 2 lvl (siege engineer-apprentice) (trebuchet-light)':10,
+    'Warrior 4 lvl (siege engineer-master)':1,
     }
 
 #----
@@ -456,6 +692,7 @@ metadict_squads['Company-regular (легионеры мостовика Отто
 # Враги (битва за Лемнос):
 
 metadict_squads['Band-hero (колдуны Кара\'Яма) (враг)'] = {
+    # Кара'Яма сожрали буреспрайты, отряд разбит и продан в рабство.
     'Warlock 5 lvl (враг) (Кара\'Ям)':1,
     'Warlock 1 lvl (враг) (колдун Кара\'Яма)':12,
     }
@@ -466,41 +703,40 @@ metadict_squads['Band-hero (колдуны Кара\'Яма) (враг)'] = {
 #    }
 
 metadict_squads['Band-hero (следопыты Энзифа) (враг)'] = {
+    # Захвачен Гаем Юлием
     'Ranger 5 lvl (враг) (Энзиф «Ходи-гора»)':1,
     'Ranger 1 lvl (враг) (следопыт Энзифа)':12,
     }
 
 metadict_squads['Band-hero (паладины Магора) (враг)'] = {
+    # Побеждён кентурией Марселлия и Патроклом
     'Paladin 5 lvl (враг) (Магор «Детоед»)':1,
     'Paladin 1 lvl (враг) (паладин Магора)':6,
     }
 
 metadict_squads['Band-hero (снайперы Хана-Вама) (враг)'] = {
+    # Взяты в плен Фарамом
     # "Верные ученики" и "Многочисленная свита"
     'Fighter 5 lvl (враг) (Хана\'Вам)':1,
     'Fighter 1 lvl (враг) (снайпер Хана\'Вама)':12,
     }
 
 metadict_squads['Band-hero (друиды Тик-Бо) (враг)'] = {
-    # Шесть друидов и Тик-Бо на осьминогах, пять осьминогов сопровождают:
+    # Сбежали. Сдались Сакатру.
     'Druid 5 lvl (враг) (Тик-Бо «Робкий»)':1,
     'Druid 1 lvl (враг) (друид Тик-Бо)':6,
     #'Giant Octopus (conjured) (CR 1)':12,
     }
 
-metadict_squads['Band-hero (мастиффы Тик-Бо) (враг)'] = {
-    # Призванные собаки:
-    'Mastiff, big-dog (CR 1/2)':4,
-    'Mastiff, dog (CR 1/8)':80,
-    }
-
 metadict_squads['Company-militia (демоны Кема\'Эша) (враг)'] = {
+    # Выбиты Агатой и отрядом Аксиотеи:
     'Commoner 1 lvl (враг) (карл)':80,
     'Commoner 1 lvl (враг) (карл-ветеран)':4,
     'Warrior 3 lvl (враг) (демон Кема\'Эша)':1,
     }
 
 metadict_squads['Company-regular (лучники Энзифа) (враг)'] = {
+    # Побеждены Гаем Юлием и сатирами Павсания.
     'Warrior 1 lvl (sqythian bowman)':185,
     'Warrior 2 lvl (sqythian bowman-corporal)':10,
     'Warrior 3 lvl (sqythian bowman-sergeant)':3,
@@ -508,6 +744,7 @@ metadict_squads['Company-regular (лучники Энзифа) (враг)'] = {
     }
 
 metadict_squads['Company-regular (сариссофоры Магора) (враг)'] = {
+    # Побеждены Патроклом и кентурией Марселлия
     'Warrior 1 lvl (city pikeman)':75,
     'Warrior 2 lvl (city pikeman-corporal)':20,
     'Warrior 3 lvl (city pikeman-sergeant)':6,
@@ -515,6 +752,7 @@ metadict_squads['Company-regular (сариссофоры Магора) (враг
     }
 
 metadict_squads['Company-regular (лучники Хана-Вама) (враг)'] = {
+    # Уничтожены Подводной стражей Психеи
     'Warrior 1 lvl (sqythian bowman)':75,
     'Warrior 2 lvl (sqythian bowman-corporal)':10,
     'Warrior 3 lvl (sqythian bowman-sergeant)':3,
@@ -523,6 +761,7 @@ metadict_squads['Company-regular (лучники Хана-Вама) (враг)']
     }
 
 metadict_squads['Company-regular (пираты Кара-Яма) (конные) (враг)'] = {
+    # Взяты в плен Фарамом
     'Warrior 1 lvl (cavalry archer)':6,
     'Warrior 2 lvl (cavalry archer-corporal)':10,
     'Warrior 3 lvl (cavalry archer-sergeant)':3,
@@ -530,12 +769,14 @@ metadict_squads['Company-regular (пираты Кара-Яма) (конные) (
     }
 
 metadict_squads['Company-regular (пираты Кара-Яма) (пешие) (враг)'] = {
+    # Взяты в плен Патроклом в битве за корабли.
     # Лучшие в конном отряде.
     'Warrior 1 lvl (cilician infantry)':70,
     'Warrior 3 lvl (cilician infantry-sergeant)':1,
     }
 
 metadict_squads['Company-regular (пираты Кема-Эша) (враг)'] = {
+    # Сбежали, пострадали от дактилей, сдались Сакатру.
     'Warrior 1 lvl (cilician infantry)':75,
     'Warrior 2 lvl (cilician infantry-corporal)':10,
     'Warrior 3 lvl (cilician infantry-sergeant)':3,
@@ -543,67 +784,11 @@ metadict_squads['Company-regular (пираты Кема-Эша) (враг)'] = {
     }
 
 metadict_squads['Company-regular (пращники Тик-Бо) (враг)'] = {
+    # Сбежали, пострадали от дактилей, сдались Сакатру.
     'Warrior 1 lvl (balear slinger)':75,
     'Warrior 2 lvl (balear slinger-corporal)':10,
     'Warrior 3 lvl (balear slinger-sergeant)':3,
     'Warrior 4 lvl (balear slinger-lieutenant)':1,
-    }
-
-#----
-# Армия Акхена Ваджета:
-
-metadict_squads['Squad-hero (варвары Радаманта) (враг)'] = {
-    'Barbarian 2 lvl (враг) (варвар Радаманта)':9,
-    'Barbarian 5 lvl (враг) (Радамант «Бдительный»)':1,
-    }
-
-metadict_squads['Company-regular (легионеры Акхена) (враг)'] = {
-    'Warrior 1 lvl (враг) (легионер Акхена)':80 + dice_throw('1d12'),
-    'Warrior 2 lvl (враг) (ветеран Акхена)':10,
-    'Warrior 3 lvl (враг) (сержант Акхена)':3,
-    'Warrior 5 lvl (враг) (капитан Акхена)':1,
-    'Warrior 4 lvl (враг) (лейтенант Акхена)':1,
-    }
-
-#----
-# Армия Чары:
-
-metadict_squads['Squad-hero (колдуны Чары) (враг)'] = {
-    'Warlock 3 lvl (враг) (колдун Чары)':16,
-    'Warlock 11 lvl (враг) (Чара Атенак)':1,
-    }
-
-metadict_squads['Squad-hero (колдун Чары) (враг)'] = {
-    'Warlock 3 lvl (враг) (колдун Чары)':1,
-    }
-
-metadict_squads['Squad-hero (лично Чара) (враг)'] = {
-    'Warlock 11 lvl (враг) (Чара Атенак)':1,
-    }
-
-metadict_squads['Company-regular (мирмидоны Чары) (враг)'] = {
-    'Warrior 1 lvl (враг) (мирмидон)':180 + dice_throw('1d12'),
-    'Warrior 2 lvl (враг) (мирмидон-ветеран)':10,
-    'Warrior 3 lvl (враг) (мирмидон-сержант)':3,
-    'Warrior 5 lvl (враг) (мирмидон-капитан)':1,
-    'Warrior 4 lvl (враг) (мирмидон-лейтенант)':1,
-    }
-
-#----
-# Армия Ашеры:
-
-metadict_squads['Company-regular (демоны Ашеры) (враг)'] = {
-    'Warrior 1 lvl (враг) (демон-рядовой)':180 + dice_throw('1d12'),
-    'Warrior 2 lvl (враг) (демон-ветеран)':10,
-    'Warrior 3 lvl (враг) (демон-сержант)':3,
-    'Warrior 5 lvl (враг) (демон-капитан)':1,
-    'Warrior 4 lvl (враг) (демон-лейтенант)':1,
-    }
-
-metadict_squads['Company-regular (карлы Ашеры) (враг)'] = {
-    'Commoner 1 lvl (враг) (карл)':180 + dice_throw('3d12'),
-    'Commoner 1 lvl (враг) (карл-ветеран)':4,
-    'Warrior 3 lvl (враг) (демон-сержант)':1,
     }
 
 #----
@@ -628,123 +813,22 @@ metadict_squads['Company-regular (гоплиты Клеомена) (враг)'] 
     'Commoner 1 lvl (recruit)':100,
     }
 
-#----
-# Герои (правители):
-
-metadict_squads['Band-hero (лично Карагос) (нейтрал)'] = {
-    # Он потерял всю свою свиту.
-    'Barbarian 9 lvl (нейтрал) (Карагос «Мудрый»)':1,
-    }
-
-metadict_squads['Company-regular (пираты Карагоса) (нейтрал)'] = {
-    'Warrior 1 lvl (нейтрал) (пират Карагоса)':70 + dice_throw('1d12'),
-    'Warrior 2 lvl (нейтрал) (ветеран Карагоса)':20,
-    'Warrior 3 lvl (нейтрал) (сержант Карагоса)':6,
-    'Warrior 4 lvl (нейтрал) (лейтенант Карагоса)':2,
-    'Warrior 5 lvl (нейтрал) (капитан Карагоса)':1,
-    }
-
-metadict_squads['Company-regular (ветераны Карагоса) (нейтрал)'] = {
-    # Опытный отряд с двумя капитанами
-    'Warrior 2 lvl (нейтрал) (ветеран Карагоса)':85 + dice_throw('1d12'),
-    'Warrior 3 lvl (нейтрал) (сержант Карагоса)':6,
-    'Warrior 5 lvl (нейтрал) (капитан Карагоса)':2,
-    'Warrior 4 lvl (нейтрал) (лейтенант Карагоса)':2,
-    }
+#-------------------------------------------------------------------------
+# Игроки
 
 #----
-# Герои (правители):
-
-metadict_squads['Squad-hero (кошки Тинв) (нейтрал)'] = {
-    # TODO:
-    # Её телохранитель Ри всегда рядом.
-    # Половина свиты -- мистические ловкачи Ри.
-    'Wizard 3 lvl (друг) (кошка Тинв)':12,
-    'Wizard 9 lvl (друг) (Тинв)':1,
-    }
-
-#----
-# Армия Кумара, армия Илиона:
-
-metadict_squads['Squad-hero (монахи Кумара) (друг)'] = {
-    # Свита из 13 монахов-теневиков. "Верные ученики".
-    'Monk 9 lvl (друг) (Кумар «Чугуннорукий»)':1,
-    'Monk 3 lvl (друг) (монах Кумара)':13,
-    }
-
-metadict_squads['Band-hero (лично Кумар) (друг)'] = {
-    'Monk 9 lvl (друг) (Кумар «Чугуннорукий»)':1,
-    }
-
-metadict_squads['Company-militia (пращники Илиона) (друг)'] = {
-    'Commoner 1 lvl (друг) (пращник Илиона)':80 + dice_throw('3d12'),
-    'Commoner 2 lvl (друг) (ветеран пращников Илиона)':5,
-    'Warrior 3 lvl (друг) (сержант пращников Илиона)':1,
-    }
-
-metadict_squads['Company-regular (легионеры Илиона) (друг)'] = {
-    'Warrior 1 lvl (друг) (легионер Илиона)':80 + dice_throw('1d12'),
-    'Warrior 2 lvl (друг) (ветеран Илиона)':10,
-    'Warrior 3 lvl (друг) (сержант Илиона)':3,
-    'Warrior 5 lvl (друг) (капитан Илиона)':1,
-    'Warrior 4 lvl (друг) (лейтенант Илиона)':1,
-    }
-
-metadict_squads['Company-regular (тяжёлые баллисты Чары) (друг)'] = {
-    'Warrior 2 lvl (siege engineer-apprentice) (ballista-siege)':10,
-    'Warrior 4 lvl (siege engineer-master)':1,
-    }
-
-metadict_squads['Company-regular (средние баллисты Илиона) (друг)'] = {
-    'Warrior 2 lvl (siege engineer-apprentice) (ballista-medium)':10,
-    'Warrior 4 lvl (siege engineer-master)':1,
-    }
-
-metadict_squads['Company-regular (тяжёлые требушеты Илиона) (друг)'] = {
-    'Warrior 2 lvl (siege engineer-apprentice) (trebuchet-heavy)':10,
-    'Warrior 4 lvl (siege engineer-master)':1,
-    }
-
-metadict_squads['Company-regular (лёгкие требушеты Илиона) (друг)'] = {
-    'Warrior 2 lvl (siege engineer-apprentice) (trebuchet-light)':10,
-    'Warrior 4 lvl (siege engineer-master)':1,
-    }
-
-#----
-# Союзные отряды (армия Крассиуса):
-
-metadict_squads['Squad-hero (барды Тетры) (друг)'] = {
-    'Bard 2 lvl (друг) (бард Тетры)':10,
-    'Bard 6 lvl (друг) (Тетра Курио)':1,
-    }
-
-metadict_squads['Company-hero (арбалетчики Тетры) (друг)'] = {
-    # в отряде два капитана и +3 лейтенанта
-    'Warrior 1 lvl (друг) (арбалетчик Тетры)':80 + dice_throw('1d12'),
-    'Warrior 2 lvl (друг) (арбалетчик-ветеран Тетры)':10,
-    'Warrior 3 lvl (друг) (арбалетчик-сержант Тетры)':3,
-    'Warrior 4 lvl (друг) (арбалетчик-лейтенант Тетры)':4,
-    'Warrior 5 lvl (друг) (арбалетчик-капитан Тетры)':2,
-    }
-
-#----
-# Союзные отряды (армия Козы):
-
-metadict_squads['Company-hero (гневнорожки Сефо) (друг)'] = {
-    'Warlock 2 lvl (друг) (гневнорожка Козы)':80,
-    'Warlock 3 lvl (друг) (главнорожка Козы)':10,
-    'Warlock 3 lvl (друг) (Сефо Форонейская)':1,
-    }
-
-#----
-# Геройские отряды (армия Сакатра):
+# Свита Сакатра
 
 metadict_squads['Squad-hero (следопыты Сакатра) (Gogan)'] = {
     'Ranger 7 lvl (Gogan) (Сакатр Ка-Ален)':1,
     'Ranger 2 lvl (Gogan) (следопыт Сакатра)':10,
     }
 
+#----
+# Армия Сакатра
+
 metadict_squads['Company-regular (пираты Сакатра) (Gogan)'] = {
+    # Многочисленные бойцы
     'Warrior 1 lvl (Gogan) (кимерийский пират)':185,
     'Warrior 2 lvl (Gogan) (кимерийский пират-ветеран)':10,
     'Warrior 3 lvl (Gogan) (кимерийский пират-сержант)':3,
@@ -752,16 +836,30 @@ metadict_squads['Company-regular (пираты Сакатра) (Gogan)'] = {
     'Warrior 4 lvl (Gogan) (кимерийский пират-лейтенант)':1,
     }
 
-#----
-# Геройские отряды (армия Гая Юлия):
-
-metadict_squads['Company-militia (гастаты Гая Юлия) (Katorjnik)'] = {
-    'Commoner 1 lvl (militia spearman)':95,
-    'Commoner 2 lvl (militia spearman-corporal)':5,
-    'Warrior 3 lvl (militia spearman-sergeant)':1,
+metadict_squads['Company-militia (пращники Сакатра) (Gogan)'] = {
+    'Commoner 1 lvl (militia slinger)':80 + dice_throw('3d12'),
+    'Commoner 2 lvl (militia slinger-corporal)':5,
+    'Warrior 3 lvl (militia slinger-sergeant)':1,
     }
 
+metadict_squads['Squad-hero (колдуны Кема\'Эша) (друг)'] = {
+    'Warlock 6 lvl (друг) (Кема\'Эш «Ловкач»)':1,
+    'Warlock 2 lvl (друг) (колдун Кема\'Эша)':10,
+    }
+
+#----
+# Свита Гая Юлия
+
+metadict_squads['Squad-hero (преторианцы Гая Юлия) (Katorjnik)'] = {
+    'Fighter 7 lvl (Katorjnik) (Гай Юлий)':1,
+    'Fighter 2 lvl (Katorjnik) (преторианец Гая Юлия)':10,
+    }
+
+#----
+# Армия Гая Юлия
+
 metadict_squads['Company-regular (легионеры Гая Юлия) (Katorjnik)'] = {
+    # Опытный отряд.
     'Warrior 1 lvl (Katorjnik) (манипуларий)':75,
     'Warrior 2 lvl (Katorjnik) (ветеран)':20,
     'Warrior 3 lvl (Katorjnik) (урагос)':6,
@@ -770,6 +868,7 @@ metadict_squads['Company-regular (легионеры Гая Юлия) (Katorjnik
     }
 
 metadict_squads['Company-regular (ветераны Гая Юлия) (Katorjnik)'] = {
+    # Два капитана, опытный отряд.
     'Warrior 2 lvl (Katorjnik) (ветеран) (кольчуга)':50,
     'Warrior 2 lvl (Katorjnik) (ветеран)':40,
     'Warrior 3 lvl (Katorjnik) (урагос)':6,
@@ -778,21 +877,42 @@ metadict_squads['Company-regular (ветераны Гая Юлия) (Katorjnik)'
     'Commoner 1 lvl (recruit)':100,
     }
 
-#metadict_squads['Company-regular (ветераны Гая Юлия) (смешанный) (Katorjnik)'] = {
-#    'Warrior 1 lvl (Katorjnik) (манипуларий)':46,
-#    'Warrior 2 lvl (Katorjnik) (ветеран)':44,
-#    'Warrior 3 lvl (Katorjnik) (урагос)':7,
-#    'Warrior 5 lvl (Katorjnik) (центурион)':2,
-#    'Warrior 4 lvl (Katorjnik) (опцион)':5,
-#    }
-
-metadict_squads['Band-hero (преторианцы Гая Юлия) (Katorjnik)'] = {
-    'Fighter 7 lvl (Katorjnik) (Гай Юлий)':1,
-    'Fighter 2 lvl (Katorjnik) (преторианец Гая Юлия)':10,
+metadict_squads['Company-militia (гастаты Гая Юлия) (Katorjnik)'] = {
+    'Commoner 1 lvl (militia spearman)':95,
+    'Commoner 2 lvl (militia spearman-corporal)':5,
+    'Warrior 3 lvl (militia spearman-sergeant)':1,
     }
 
 #----
-# Геройские отряды (армия Фарама):
+# Свита Фарама
+
+metadict_squads['Squad-hero (жрецы Фарама) (Mordodrukow)'] = {
+    'Cleric 7 lvl (Mordodrukow) (Фарам «Друг Богов»)':1,
+    'Fighter 7 lvl (Mordodrukow) (Лонгин)':1,
+    'Fighter 2 lvl (Mordodrukow) (снайпер Фарама)':2,
+    'Fighter 2 lvl (Mordodrukow) (темплар Фарама)':2,
+    'Cleric 2 lvl (Mordodrukow) (жрец Фарама) (лекарь)':2,
+    'Cleric 2 lvl (Mordodrukow) (жрец Фарама) (боевой)':3,
+    }
+
+metadict_squads['Band-hero (Фарам и Лонгин) (Mordodrukow)'] = {
+    # Отдельно от свиты
+    'Cleric 7 lvl (Mordodrukow) (Фарам «Друг Богов»)':1,
+    'Fighter 7 lvl (Mordodrukow) (Лонгин)':1,
+    }
+
+metadict_squads['Band-hero (снайпер Лонгин) (Mordodrukow)'] = {
+    # Отдельно от команды Фарама:
+    'Fighter 7 lvl (Mordodrukow) (Лонгин)':1,
+    }
+
+metadict_squads['Squad-hero (барды Тетры) (друг)'] = {
+    'Bard 2 lvl (друг) (бард Тетры)':10,
+    'Bard 6 lvl (друг) (Тетра Курио)':1,
+    }
+
+#----
+# Армия Фарама
 
 metadict_squads['Company-regular (лучники Фарама) (Mordodrukow)'] = {
     'Warrior 1 lvl (Mordodrukow) (лучник Фарама)':85,
@@ -802,22 +922,8 @@ metadict_squads['Company-regular (лучники Фарама) (Mordodrukow)'] =
     'Warrior 4 lvl (Mordodrukow) (лейтенант Фарама)':1,
     }
 
-metadict_squads['Band-hero (жрецы Фарама) (Mordodrukow)'] = {
-    'Cleric 7 lvl (Mordodrukow) (Фарам «Друг Богов»)':1,
-    'Fighter 7 lvl (Mordodrukow) (Лонгин)':1,
-    'Fighter 2 lvl (Mordodrukow) (снайпер Фарама)':2,
-    'Fighter 2 lvl (Mordodrukow) (темплар Фарама)':2,
-    'Cleric 2 lvl (Mordodrukow) (жрец Фарама) (лекарь)':2,
-    'Cleric 2 lvl (Mordodrukow) (жрец Фарама) (боевой)':3,
-    }
-
-metadict_squads['Band-hero (снайпер Лонгин) (Mordodrukow)'] = {
-    # Отдельно от команды Фарама:
-    'Fighter 7 lvl (Mordodrukow) (Лонгин)':1,
-    }
-
 #----
-# Геройские отряды (армия Патрокла):
+# Свита Патрокла
 
 metadict_squads['Squad-hero (жрецы Патрокла) (Vened)'] = {
     'Cleric 7 lvl (Vened) (Патрокл «Македонянин»)':1,
@@ -827,6 +933,26 @@ metadict_squads['Squad-hero (жрецы Патрокла) (Vened)'] = {
 metadict_squads['Squad-hero (друиды Патрокла) (Vened)'] = {
     'Druid 7 lvl (Vened) (Брат Патрокла)':1,
     'Druid 2 lvl (Vened) (друид Патрокла)':10,
+    }
+
+#----
+# Армия Патрокла
+
+metadict_squads['Company-regular (ветераны Патрокла) (Vened)'] = {
+    # Сводный отряд ветеранов:
+    'Warrior 2 lvl (Vened) (ветеран Патрокла)':60,
+    'Warrior 3 lvl (Vened) (сержант Патрокла)':18,
+    'Warrior 4 lvl (Vened) (лейтенант Патрокла)':6,
+    'Warrior 5 lvl (Vened) (капитан Патрокла)':6,
+    'Commoner 1 lvl (recruit)':500,
+    }
+
+metadict_squads['Company-regular (сариссофоры Патрокла) (Vened)'] = {
+    'Warrior 1 lvl (Vened) (сариссофор Патрокла)':80 + dice_throw('1d12'),
+    'Warrior 2 lvl (Vened) (ветеран Патрокла)':10,
+    'Warrior 3 lvl (Vened) (сержант Патрокла)':3,
+    'Warrior 4 lvl (Vened) (лейтенант Патрокла)':1,
+    'Warrior 5 lvl (Vened) (капитан Патрокла)':1,
     }
 
 metadict_squads['Company-regular (онагры Патрокла) (fire) (Vened)'] = {
@@ -840,71 +966,59 @@ metadict_squads['Company-regular (онагры Патрокла) (siege) (Vened)
     }
 
 metadict_squads['Company-militia (тяжёлые арбалетчики Патрокла) (Vened)'] = {
-    # TODO: переименуй в тяжёлых арбалетчиков для следующего боя.
     # Отряд ополчения с тяжёлыми арбалетами:
     'Commoner 1 lvl (militia heavy crossbowman)':80 + dice_throw('3d12'),
     'Commoner 2 lvl (militia heavy crossbowman-corporal)':5,
     'Warrior 3 lvl (militia heavy crossbowman-sergeant)':1,
-    #'Warrior 4 lvl (militia heavy crossbowman-lieutenant)':1,
     }
 
-metadict_squads['Company-regular (сариссофоры Патрокла) (Vened)'] = {
-    'Warrior 1 lvl (Vened) (сариссофор Патрокла)':80 + dice_throw('1d12'),
-    'Warrior 2 lvl (Vened) (ветеран Патрокла)':10,
-    'Warrior 3 lvl (Vened) (сержант Патрокла)':3,
-    'Warrior 4 lvl (Vened) (лейтенант Патрокла)':1,
-    'Warrior 5 lvl (Vened) (капитан Патрокла)':1,
+metadict_squads['Company-militia (арбалетчики Патрокла) (Vened)'] = {
+    'Commoner 1 lvl (militia crossbowman)':80 + dice_throw('3d12'),
+    'Commoner 2 lvl (militia crossbowman-corporal)':5,
+    'Warrior 3 lvl (militia crossbowman-sergeant)':1,
     }
 
-metadict_squads['Company-regular (ветераны Патрокла) (Vened)'] = {
-    'Warrior 2 lvl (Vened) (ветеран Патрокла)':60,
-    'Warrior 3 lvl (Vened) (сержант Патрокла)':18,
-    'Warrior 4 lvl (Vened) (лейтенант Патрокла)':6,
-    'Warrior 5 lvl (Vened) (капитан Патрокла)':6,
+#----
+# Свита Ианты
+
+metadict_squads['Squad-hero (друиды Ианты) (Vaarsuvius)'] = {
+    'Druid 7 lvl (Vaarsuvius) (Ианта «Дочь бури»)':1,
+    'Druid 2 lvl (Vaarsuvius) (друид Ианты) (Психея)':1,
+    'Druid 2 lvl (Vaarsuvius) (друид Ианты)':19,
+    }
+
+metadict_squads['Band-hero (дракон Ианты) (Агаталара Огненная) (Vaarsuvius)'] = {
+    'Brass Dragon, (Vaarsuvius) (Агаталара Огненная)':1,
+    }
+
+#----
+# Армия Ианты
+
+metadict_squads['Company-regular (ветераны Филлис) (Vaarsuvius)'] = {
+    'Warrior 2 lvl (Vaarsuvius) (ветеран Филлис)':60,
+    'Warrior 3 lvl (Vaarsuvius) (сержант Филлис)':18,
+    'Warrior 4 lvl (Vaarsuvius) (лейтенант Филлис)':6,
+    'Warrior 5 lvl (Vaarsuvius) (капитан Филлис)':6,
+    'Warrior 7 lvl (Vaarsuvius) (Филлис)':1,
     'Commoner 1 lvl (recruit)':500,
     }
 
-#----
-# Геройские отряды (армия Тави):
-
-metadict_squads['Company-regular (ветераны Тави) (друг)'] = {
-    'Warrior 2 lvl (друг) (ветеран Тави)':60,
-    'Warrior 3 lvl (друг) (сержант Тави)':18,
-    'Warrior 4 lvl (друг) (лейтенант Тави)':6,
-    'Warrior 5 lvl (друг) (капитан Тави)':6,
-    'Commoner 1 lvl (recruit)':500,
+metadict_squads['Company-regular (дочери медведицы Ианты) (Vaarsuvius)'] = {
+    'Warrior 1 lvl (Vaarsuvius) (дочерь медведицы Филлис)':85,
+    'Warrior 2 lvl (Vaarsuvius) (ветеран Филлис)':10,
+    'Warrior 3 lvl (Vaarsuvius) (сержант Филлис)':3,
+    'Warrior 4 lvl (Vaarsuvius) (лейтенант Филлис)':1,
+    'Warrior 5 lvl (Vaarsuvius) (капитан Филлис)':1,
+    'Warrior 7 lvl (Vaarsuvius) (Филлис)':1,
     }
 
-metadict_squads['Squad-hero (кошки Тави) (друг)'] = {
-    'Wizard 2 lvl (друг) (кошка Тави)':10,
-    'Wizard 7 lvl (друг) (Тави)':1,
+metadict_squads['Company-regular (лучники Ианты) (Vaarsuvius)'] = {
+    'Warrior 1 lvl (Vaarsuvius) (стрелок)':85,
+    'Warrior 2 lvl (Vaarsuvius) (стрелок-ветеран)':10,
+    'Warrior 3 lvl (Vaarsuvius) (меткий стрелок)':3,
+    'Warrior 4 lvl (Vaarsuvius) (стрелок-лейтенант)':1,
+    'Warrior 5 lvl (Vaarsuvius) (стрелок-капитан)':1,
     }
-
-#----
-# Геройские отряды (армия Кемы):
-
-metadict_squads['Squad-hero (колдуны Кема\'Эша) (друг)'] = {
-    'Warlock 6 lvl (друг) (Кема\'Эш «Ловкач»)':1,
-    'Warlock 2 lvl (друг) (колдун Кема\'Эша)':10,
-    }
-
-#----
-# Геройские отряды (армия Протесилая):
-
-metadict_squads['Company-regular (сариссофоры Протесилая) (Тзаангор)'] = {
-    'Warrior 1 lvl (Тзаангор) (гипасист)':75,
-    'Warrior 2 lvl (Тзаангор) (ветеран)':20,
-    'Warrior 3 lvl (Тзаангор) (ур-лодакос)':6,
-    'Warrior 4 lvl (Тзаангор) (лодакос)':2,
-    }
-
-metadict_squads['Band-hero (паладины Протесилая) (Тзаангор)'] = {
-    'Paladin 5 lvl (Тзаангор) (Протесилай II, «Держатель щита»)':1,
-    'Paladin 1 lvl (Тзаангор) (паладины)':6,
-    }
-
-#----
-# Геройские отряды (армия Ианты):
 
 metadict_squads['Company-militia (охотницы Ианты) (Vaarsuvius)'] = {
     'Commoner 1 lvl (Vaarsuvius) (охотница)':95,
@@ -919,48 +1033,24 @@ metadict_squads['Company-militia (дикарки Ианты) (Vaarsuvius)'] = {
     }
 
 metadict_squads['Company-militia (токсотаи Ианты) (Vaarsuvius)'] = {
-    # Ианта отправила лейтенанта в отряд Токсотаев. Стрелками командует сама.
     'Commoner 1 lvl (Vaarsuvius) (токсотай)':95,
     'Commoner 2 lvl (Vaarsuvius) (токсотай-ветеран)':5,
-    'Warrior 4 lvl (Vaarsuvius) (стрелок-лейтенант)':1,
     'Warrior 3 lvl (Vaarsuvius) (меткий стрелок-отставник)':1,
     }
 
-metadict_squads['Company-regular (лучники Ианты) (Vaarsuvius)'] = {
-    # Ианта отправила лейтенанта в отряд Токсотаев. Стрелками командует сама.
-    'Warrior 1 lvl (Vaarsuvius) (стрелок)':85,
-    'Warrior 2 lvl (Vaarsuvius) (стрелок-ветеран)':10,
-    'Warrior 3 lvl (Vaarsuvius) (меткий стрелок)':3,
-    'Warrior 4 lvl (Vaarsuvius) (стрелок-лейтенант)':1,
-    'Warrior 5 lvl (Vaarsuvius) (стрелок-капитан)':1,
+#----
+# Геройские отряды (армия Протесилая):
+
+metadict_squads['Band-hero (паладины Протесилая) (Тзаангор)'] = {
+    'Paladin 5 lvl (Тзаангор) (Протесилай II, «Держатель щита»)':1,
+    'Paladin 1 lvl (Тзаангор) (паладины)':6,
     }
 
-metadict_squads['Company-regular (дочери медведицы Ианты) (Vaarsuvius)'] = {
-    'Warrior 1 lvl (Vaarsuvius) (дочерь медведицы Филлис)':85,
-    'Warrior 2 lvl (Vaarsuvius) (ветеран Филлис)':10,
-    'Warrior 3 lvl (Vaarsuvius) (сержант Филлис)':3,
-    'Warrior 4 lvl (Vaarsuvius) (лейтенант Филлис)':1,
-    'Warrior 5 lvl (Vaarsuvius) (капитан Филлис)':1,
-    'Warrior 7 lvl (Vaarsuvius) (Филлис)':1,
-    }
-
-metadict_squads['Company-regular (ветераны Филлис) (Vaarsuvius)'] = {
-    'Warrior 2 lvl (Vaarsuvius) (ветеран Филлис)':60,
-    'Warrior 3 lvl (Vaarsuvius) (сержант Филлис)':18,
-    'Warrior 4 lvl (Vaarsuvius) (лейтенант Филлис)':6,
-    'Warrior 5 lvl (Vaarsuvius) (капитан Филлис)':6,
-    'Warrior 7 lvl (Vaarsuvius) (Филлис)':1,
-    'Commoner 1 lvl (recruit)':500,
-    }
-
-metadict_squads['Squad-hero (друиды Ианты) (Vaarsuvius)'] = {
-    'Druid 7 lvl (Vaarsuvius) (Ианта «Дочь бури»)':1,
-    'Druid 2 lvl (Vaarsuvius) (друид Ианты) (Психея)':1,
-    'Druid 2 lvl (Vaarsuvius) (друид Ианты)':19,
-    }
-
-metadict_squads['Band-hero (дракон Ианты) (Агаталара Огненная) (Vaarsuvius)'] = {
-    'Brass Dragon, (Vaarsuvius) (Агаталара Огненная)':1,
+metadict_squads['Company-regular (сариссофоры Протесилая) (Тзаангор)'] = {
+    'Warrior 1 lvl (Тзаангор) (гипасист)':75,
+    'Warrior 2 lvl (Тзаангор) (ветеран)':20,
+    'Warrior 3 lvl (Тзаангор) (ур-лодакос)':6,
+    'Warrior 4 lvl (Тзаангор) (лодакос)':2,
     }
 
 #----
@@ -970,6 +1060,9 @@ metadict_squads['Band-hero (снайперы Артаманаха) (ArbitraryNic
     'Fighter 5 lvl (ArbitraryNickname) (Артаманах Рыбник)':1,
     'Fighter 1 lvl (ArbitraryNickname) (снайпер)':6,
     }
+
+#-------------------------------------------------------------------------
+# Базовые отряды
 
 #----
 # Ополчение
@@ -1025,114 +1118,7 @@ metadict_squads['Company-militia (heavy crossbowmans)'] = {
     }
 
 #----
-# Отряды из Monsters_Manual:
-
-metadict_squads['Company-dummy (sentinels)'] = {
-    # Для тестов сравнительной силы отрядов.
-    'Sentinel (CR 1/8)':100,
-    }
-
-metadict_squads['Company-dummy (tribe warriors)'] = {
-    # Для тестов сравнительной силы отрядов.
-    'Tribe Warrior (CR 1/8)':100,
-    }
-
-metadict_squads['Company-dummy (veterans)'] = {
-    # Для тестов сравнительной силы отрядов.
-    'Veteran (CR 3)':100,
-    }
-
-metadict_squads['Company-dummy (zombies)'] = {
-    'Zombie (CR 1/4)':80 + dice_throw('1d12'),
-    'Wight (CR 3)':1,
-    }
-
-metadict_squads['Company-dummy (bandits)'] = {
-    'Bandit (CR 1/8)':80 + dice_throw('1d12'),
-    'Thug (CR 1/2)':4,
-    'Veteran (CR 3)':1,
-    }
-
-metadict_squads['Company-dummy (goblins)'] = {
-    'Goblin (CR 1/4)':80 + dice_throw('1d12'),
-    'Goblin Boss (CR 1)':3,
-    }
-
-metadict_squads['Company-dummy (hobgoblins)'] = {
-    'Hobgoblin (CR 1/2)':80 + dice_throw('1d12'),
-    'Bugbear (CR 1)':3,
-    'Hobgoblin-captain (CR 3)':1,
-    }
-
-metadict_squads['Company-dummy (orks)'] = {
-    'Ork (CR 1/2)':80 + dice_throw('1d12'),
-    'Orog (CR 2)':3,
-    'Ork war chief (CR 4)':1,
-    }
-
-metadict_squads['Squad-dummy (hill giants)'] = {
-    # Холмовые великаны
-    'Hill Giant (CR 5)':6,
-    }
-
-metadict_squads['Squad-dummy (stone giants)'] = {
-    # Каменные великаны
-    'Stone Giant (CR 7)':6,
-    }
-
-metadict_squads['Squad-dummy (frost giants)'] = {
-    # Ледяные великаны
-    'Frost Giant (CR 8)':6,
-    }
-
-metadict_squads['Squad-dummy (fire giants)'] = {
-    # Огненные великаны
-    'Fire Giant (CR 9)':6,
-    }
-
-metadict_squads['Squad-dummy (storm giants)'] = {
-    # Штормовые великаны
-    'Storm Giant (CR 13)':6,
-    }
-
-metadict_squads['Band-dummy (storm giant)'] = {
-    'Storm Giant (CR 13)':1,
-    }
-
-#----
-# Отряды:
-
-#metadict_squads['Squad-dummy (orks)'] = {
-#    'Ork (CR 1/2)':12,
-#    'Orog (CR 2)':1,
-#    }
-#
-#metadict_squads['Squad-dummy (hobgoblins)'] = {
-#    'Hobgoblin (CR 1/2)':12,
-#    'Hobgoblin-captain (CR 3)':1,
-#    }
-
-#----
-# Рекруты:
-
-#metadict_squads['Commander-dummy (wight)'] = {
-#    'Wight (CR 3)':1,
-#    }
-#
-#metadict_squads['Commander-dummy (Veteran)'] = {
-#    'Veteran (CR 3)':1,
-#    }
-#
-#metadict_squads['Commander-dummy (hobgoblin-captain)'] = {
-#    'Hobgoblin-captain (CR 3)':1,
-#    }
-
-metadict_squads['Commander-dummy (empyrean)'] = {
-    'Empyrean (CR 23)':1,
-    }
-
-#----
-# Рекруты:
+# Регулярная армия:
 
 metadict_squads['Company-regular (infantry-hoplites)'] = {
     # По "Тактике" Флавия Арриана:
@@ -1150,14 +1136,6 @@ metadict_squads['Company-regular (infantry-hoplites)'] = {
     'Warrior 5 lvl (achean hoplite-captain)':1,
     }
 
-metadict_squads['Company-regular (infantry-pikemans)'] = {
-    'Warrior 1 lvl (city pikeman)':80 + dice_throw('1d12'),
-    'Warrior 2 lvl (city pikeman-corporal)':10,
-    'Warrior 3 lvl (city pikeman-sergeant)':3,
-    'Warrior 4 lvl (city pikeman-lieutenant)':1,
-    'Warrior 5 lvl (city pikeman-captain)':1,
-    }
-
 metadict_squads['Company-regular (infantry-legionary)'] = {
     # Распределение опыта по уровням:
         # 2 lvl -- 300 * 10 = 3000
@@ -1172,38 +1150,12 @@ metadict_squads['Company-regular (infantry-legionary)'] = {
     'Warrior 5 lvl (legionary infantry-captain)':1,
     }
 
-metadict_squads['Company-regular (infantry-shekelesh)'] = {
-    'Warrior 1 lvl (shekelesh infantry)':80 + dice_throw('1d12'),
-    'Warrior 2 lvl (shekelesh infantry-corporal)':10,
-    'Warrior 3 lvl (shekelesh infantry-sergeant)':3,
-    'Warrior 4 lvl (shekelesh infantry-lieutenant)':1,
-    'Warrior 5 lvl (shekelesh infantry-captain)':1,
-    }
-
-metadict_squads['Company-regular (infantry-shekelesh-lvl-6)'] = {
-    'Warrior 1 lvl (shekelesh infantry)':160 + dice_throw('1d12'),
-    'Warrior 2 lvl (shekelesh infantry-corporal)':20,
-    'Warrior 3 lvl (shekelesh infantry-sergeant)':6,
-    'Warrior 4 lvl (shekelesh infantry-lieutenant)':2,
-    'Warrior 5 lvl (shekelesh infantry-captain)':1,
-    }
-
-metadict_squads['Company-regular (infantry-shekelesh-lvl-8)'] = {
-    'Warrior 2 lvl (shekelesh infantry-corporal)':160,
-    'Warrior 3 lvl (shekelesh infantry-sergeant)':10,
-    'Warrior 4 lvl (shekelesh infantry-lieutenant)':3,
-    'Warrior 5 lvl (shekelesh infantry-captain)':1,
-    'Empyrean (CR 23)':1,
-    'Warlock 2 lvl (otherworld seeker-adept)':12,
-    'Warlock 5 lvl (otherworld seeker-ascendant)':1,
-    }
-
-metadict_squads['Company-regular (infantry-celtian)'] = {
-    'Warrior 1 lvl (celtian infantry)':80 + dice_throw('1d12'),
-    'Warrior 2 lvl (celtian infantry-corporal)':10,
-    'Warrior 3 lvl (celtian infantry-sergeant)':3,
-    'Warrior 4 lvl (celtian infantry-lieutenant)':1,
-    'Warrior 5 lvl (celtian infantry-captain)':1,
+metadict_squads['Company-regular (infantry-pikemans)'] = {
+    'Warrior 1 lvl (city pikeman)':80 + dice_throw('1d12'),
+    'Warrior 2 lvl (city pikeman-corporal)':10,
+    'Warrior 3 lvl (city pikeman-sergeant)':3,
+    'Warrior 4 lvl (city pikeman-lieutenant)':1,
+    'Warrior 5 lvl (city pikeman-captain)':1,
     }
 
 metadict_squads['Company-regular (infantry-thracian)'] = {
@@ -1222,22 +1174,6 @@ metadict_squads['Company-regular (infantry-cilician)'] = {
     'Warrior 5 lvl (cilician infantry-captain)':1,
     }
 
-metadict_squads['Company-regular (infantry-polearms)'] = {
-    'Warrior 1 lvl (mercenary heavy-infantry)':80 + dice_throw('1d12'),
-    'Warrior 2 lvl (mercenary heavy-infantry-corporal)':10,
-    'Warrior 3 lvl (mercenary heavy-infantry-sergeant)':3,
-    'Warrior 4 lvl (mercenary heavy-infantry-lieutenant)':1,
-    'Warrior 5 lvl (mercenary heavy-infantry-captain)':1,
-    }
-
-metadict_squads['Company-regular (bowmans-persian)'] = {
-    'Warrior 1 lvl (persian bowman)':80 + dice_throw('1d12'),
-    'Warrior 2 lvl (persian bowman-corporal)':10,
-    'Warrior 3 lvl (persian bowman-sergeant)':3,
-    'Warrior 4 lvl (persian bowman-lieutenant)':1,
-    'Warrior 5 lvl (persian bowman-captain)':1,
-    }
-
 metadict_squads['Company-regular (bowmans-scythian)'] = {
     'Warrior 1 lvl (sqythian bowman)':80 + dice_throw('1d12'),
     'Warrior 2 lvl (sqythian bowman-corporal)':10,
@@ -1246,12 +1182,179 @@ metadict_squads['Company-regular (bowmans-scythian)'] = {
     'Warrior 5 lvl (sqythian bowman-captain)':1,
     }
 
-metadict_squads['Company-regular (slingers-balear)'] = {
-    'Warrior 1 lvl (balear slinger)':80 + dice_throw('1d12'),
-    'Warrior 2 lvl (balear slinger-corporal)':10,
-    'Warrior 3 lvl (balear slinger-sergeant)':3,
-    'Warrior 4 lvl (balear slinger-lieutenant)':1,
-    'Warrior 5 lvl (balear slinger-captain)':1,
+#metadict_squads['Company-regular (infantry-polearms)'] = {
+#    'Warrior 1 lvl (mercenary heavy-infantry)':80 + dice_throw('1d12'),
+#    'Warrior 2 lvl (mercenary heavy-infantry-corporal)':10,
+#    'Warrior 3 lvl (mercenary heavy-infantry-sergeant)':3,
+#    'Warrior 4 lvl (mercenary heavy-infantry-lieutenant)':1,
+#    'Warrior 5 lvl (mercenary heavy-infantry-captain)':1,
+#    }
+
+#metadict_squads['Company-regular (infantry-shekelesh)'] = {
+#    'Warrior 1 lvl (shekelesh infantry)':80 + dice_throw('1d12'),
+#    'Warrior 2 lvl (shekelesh infantry-corporal)':10,
+#    'Warrior 3 lvl (shekelesh infantry-sergeant)':3,
+#    'Warrior 4 lvl (shekelesh infantry-lieutenant)':1,
+#    'Warrior 5 lvl (shekelesh infantry-captain)':1,
+#    }
+#
+#metadict_squads['Company-regular (infantry-celtian)'] = {
+#    'Warrior 1 lvl (celtian infantry)':80 + dice_throw('1d12'),
+#    'Warrior 2 lvl (celtian infantry-corporal)':10,
+#    'Warrior 3 lvl (celtian infantry-sergeant)':3,
+#    'Warrior 4 lvl (celtian infantry-lieutenant)':1,
+#    'Warrior 5 lvl (celtian infantry-captain)':1,
+#    }
+#
+
+#metadict_squads['Company-regular (bowmans-persian)'] = {
+#    'Warrior 1 lvl (persian bowman)':80 + dice_throw('1d12'),
+#    'Warrior 2 lvl (persian bowman-corporal)':10,
+#    'Warrior 3 lvl (persian bowman-sergeant)':3,
+#    'Warrior 4 lvl (persian bowman-lieutenant)':1,
+#    'Warrior 5 lvl (persian bowman-captain)':1,
+#    }
+
+#metadict_squads['Company-regular (slingers-balear)'] = {
+#    'Warrior 1 lvl (balear slinger)':80 + dice_throw('1d12'),
+#    'Warrior 2 lvl (balear slinger-corporal)':10,
+#    'Warrior 3 lvl (balear slinger-sergeant)':3,
+#    'Warrior 4 lvl (balear slinger-lieutenant)':1,
+#    'Warrior 5 lvl (balear slinger-captain)':1,
+#    }
+
+#----
+# Ветеранские отряды:
+# Тесты боёв:
+    # | sqythian  | cilician  | pikemans  | thracian  | hoplites  | legionary | vs
+    # | --------- | --------- | --------- | --------- | --------- | --------- | ---------
+    # | -         |           |           |           |           |           | sqythian   
+    # |           | -         | 67/29     |           | 76/24     | 53/46     | cilician   
+    # |           | 29/67     | -         |           |           |           | pikemans   
+    # |           |           |           | -         |           |           | thracian
+    # |           | 24/76     |           |           | -         |           | hoplites   
+    # |           | 46/53     |           |           |           | -         | legionary  
+
+metadict_squads['Company-veteran (infantry-hoplites)'] = {
+    # Отряд героя 6 lvl
+        # Два капитана и 20 800 exp на отряд, +34 ветерана.
+        # Отборный отряд -- 200 рекрутов на 100 солдат
+    # Fighting_Style_Dueling
+    'Warrior 1 lvl (achean hoplite)':46 + dice_throw('1d12'),
+    'Warrior 2 lvl (achean hoplite-corporal)':44,
+    'Warrior 3 lvl (achean hoplite-sergeant)':3,
+    'Warrior 4 lvl (achean hoplite-lieutenant)':1,
+    'Warrior 5 lvl (achean hoplite-captain)':2,
+    'Commoner 1 lvl (recruit)':100,
+    }
+
+metadict_squads['Company-veteran (infantry-legionary)'] = {
+    # Тесты, battle_map, 10 боёв:
+    # Fighting_Style_Protection
+    'Warrior 1 lvl (legionary infantry)':46 + dice_throw('1d12'),
+    'Warrior 2 lvl (legionary infantry-corporal)':44,
+    'Warrior 3 lvl (legionary infantry-sergeant)':3,
+    'Warrior 4 lvl (legionary infantry-lieutenant)':1,
+    'Warrior 5 lvl (legionary infantry-captain)':2,
+    'Commoner 1 lvl (recruit)':100,
+    }
+
+metadict_squads['Company-veteran (infantry-pikemans)'] = {
+    # Тесты, battle_map, 10 боёв:
+    # Fighting_Style_Defence
+    'Warrior 1 lvl (city pikeman)':46 + dice_throw('1d12'),
+    'Warrior 2 lvl (city pikeman-corporal)':44,
+    'Warrior 3 lvl (city pikeman-sergeant)':3,
+    'Warrior 4 lvl (city pikeman-lieutenant)':1,
+    'Warrior 5 lvl (city pikeman-captain)':2,
+    'Commoner 1 lvl (recruit)':100,
+    }
+
+metadict_squads['Company-veteran (infantry-thracian)'] = {
+    # Тесты, battle_map, 10 боёв:
+    # Fighting_Style_Great_Weapon_Fighting
+    'Warrior 1 lvl (thracian infantry)':46 + dice_throw('1d12'),
+    'Warrior 2 lvl (thracian infantry-corporal)':44,
+    'Warrior 3 lvl (thracian infantry-sergeant)':3,
+    'Warrior 4 lvl (thracian infantry-lieutenant)':1,
+    'Warrior 5 lvl (thracian infantry-captain)':2,
+    'Commoner 1 lvl (recruit)':100,
+    }
+
+metadict_squads['Company-veteran (infantry-cilician)'] = {
+    # Тесты, battle_map, 10 боёв:
+    # Fighting_Style_Two_Weapon_Fighting
+    'Warrior 1 lvl (cilician infantry)':46 + dice_throw('1d12'),
+    'Warrior 2 lvl (cilician infantry-corporal)':44,
+    'Warrior 3 lvl (cilician infantry-sergeant)':3,
+    'Warrior 4 lvl (cilician infantry-lieutenant)':1,
+    'Warrior 5 lvl (cilician infantry-captain)':2,
+    'Commoner 1 lvl (recruit)':100,
+    }
+
+metadict_squads['Company-veteran (bowmans-scythian)'] = {
+    # Тесты, battle_map, 10 боёв:
+    # Fighting_Style_Archery
+    'Warrior 1 lvl (sqythian bowman)':46 + dice_throw('1d12'),
+    'Warrior 2 lvl (sqythian bowman-corporal)':44,
+    'Warrior 3 lvl (sqythian bowman-sergeant)':3,
+    'Warrior 4 lvl (sqythian bowman-lieutenant)':1,
+    'Warrior 5 lvl (sqythian bowman-captain)':2,
+    'Commoner 1 lvl (recruit)':100,
+    }
+
+#----
+# Элитные отряды:
+
+metadict_squads['Company-elite (infantry-hoplites)'] = {
+    # Отряд героя 7 lvl
+    # Шесть капитанов и 62 400 exp на отряд.
+    # Отборный отряд -- 200 рекрутов на 100 солдат
+    'Warrior 2 lvl (achean hoplite-corporal)':60,
+    'Warrior 3 lvl (achean hoplite-sergeant)':18,
+    'Warrior 4 lvl (achean hoplite-lieutenant)':6,
+    'Warrior 5 lvl (achean hoplite-captain)':6,
+    'Commoner 1 lvl (recruit)':500,
+    }
+
+metadict_squads['Company-elite (infantry-legionary)'] = {
+    'Warrior 2 lvl (legionary infantry-corporal)':60,
+    'Warrior 3 lvl (legionary infantry-sergeant)':18,
+    'Warrior 4 lvl (legionary infantry-lieutenant)':6,
+    'Warrior 5 lvl (legionary infantry-captain)':6,
+    'Commoner 1 lvl (recruit)':500,
+    }
+
+metadict_squads['Company-elite (infantry-pikemans)'] = {
+    'Warrior 2 lvl (city pikeman-corporal)':60,
+    'Warrior 3 lvl (city pikeman-sergeant)':18,
+    'Warrior 4 lvl (city pikeman-lieutenant)':6,
+    'Warrior 5 lvl (city pikeman-captain)':6,
+    'Commoner 1 lvl (recruit)':500,
+    }
+
+metadict_squads['Company-elite (infantry-thracian)'] = {
+    'Warrior 2 lvl (thracian infantry-corporal)':60,
+    'Warrior 3 lvl (thracian infantry-sergeant)':18,
+    'Warrior 4 lvl (thracian infantry-lieutenant)':6,
+    'Warrior 5 lvl (thracian infantry-captain)':6,
+    'Commoner 1 lvl (recruit)':500,
+    }
+
+metadict_squads['Company-elite (infantry-cilician)'] = {
+    'Warrior 2 lvl (cilician infantry-corporal)':60,
+    'Warrior 3 lvl (cilician infantry-sergeant)':18,
+    'Warrior 4 lvl (cilician infantry-lieutenant)':6,
+    'Warrior 5 lvl (cilician infantry-captain)':6,
+    'Commoner 1 lvl (recruit)':500,
+    }
+
+metadict_squads['Company-elite (bowmans-scythian)'] = {
+    'Warrior 2 lvl (sqythian bowman-corporal)':60,
+    'Warrior 3 lvl (sqythian bowman-sergeant)':18,
+    'Warrior 4 lvl (sqythian bowman-lieutenant)':6,
+    'Warrior 5 lvl (sqythian bowman-captain)':6,
+    'Commoner 1 lvl (recruit)':500,
     }
 
 #----
@@ -1527,206 +1630,46 @@ metadict_squads['Band-hero (paladins)'] = {
 #----
 # Герои (одиночки):
 
-#metadict_squads['Commander-hero (barbarians)'] = {
-#    'Barbarian 5 lvl (thracian slayer-lord)':1,
-#    }
-#
-#metadict_squads['Commander-hero (samurai)'] = {
-#    'Fighter 5 lvl (legionary slayer-captain)':1,
-#    }
-#
-#metadict_squads['Commander-hero (sentinels)'] = {
-#    'Fighter 5 lvl (legionary sentinel-captain)':1,
-#    }
-#
-#metadict_squads['Commander-hero (horsemans)'] = {
-#    'Fighter 5 lvl (legionary horseman-captain)':1,
-#    }
-#
-#metadict_squads['Commander-hero (rogues)'] = {
-#    'Rogue 5 lvl (mercenary phantom-captain)':1,
-#    }
-#
-#metadict_squads['Commander-hero (rangers)'] = {
-#    'Ranger 5 lvl (otherworld wanderer-captain)':1,
-#    }
-#
-#metadict_squads['Commander-hero (wizards)'] = {
-#    'Wizard 5 lvl (otherworld mage-seer)':1,
-#    }
-#
-#metadict_squads['Commander-hero (druids)'] = {
-#    'Druid 5 lvl (otherworld terian-loremaster)':1,
-#    }
-#
-#metadict_squads['Commander-hero (sorcerers)'] = {
-#    'Sorcerer 5 lvl (otherworld wildfire-ravager)':1,
-#    }
-#
-#metadict_squads['Commander-hero (warlocks)'] = {
-#    'Warlock 5 lvl (otherworld seeker-ascendant)':1,
-#    }
-#
-#metadict_squads['Commander-hero (monks)'] = {
-#    'Monk 5 lvl (city windsong-warmonger)':1,
-#    }
+metadict_squads['Single-hero (barbarians)'] = {
+    'Barbarian 5 lvl (thracian slayer-lord)':1,
+    }
 
-#----
-# Герои (роты):
+metadict_squads['Single-hero (samurai)'] = {
+    'Fighter 5 lvl (legionary slayer-captain)':1,
+    }
 
-#metadict_squads['Company-hero (hoplites-sentinels)'] = {
-#    'Warrior 1 lvl (achean hoplite)':80 + dice_throw('1d12'),
-#    'Warrior 2 lvl (achean hoplite-corporal)':10,
-#    'Warrior 3 lvl (achean hoplite-sergeant)':3,
-#    'Warrior 4 lvl (achean hoplite-lieutenant)':1,
-#    #'Warrior 5 lvl (achean hoplite-captain)':1,
-#    #'Cleric 1 lvl (city maatcarian-acolyte)':1,
-#    #'Fighter 1 lvl (legionary sentinel-battler)':12,
-#    'Fighter 2 lvl (legionary sentinel-shieldman)':12,
-#    'Fighter 5 lvl (legionary sentinel-captain)':1,
-#    }
-#
-#metadict_squads['Company-hero (hoplites-bards)'] = {
-#    'Warrior 1 lvl (achean hoplite)':80 + dice_throw('1d12'),
-#    'Warrior 2 lvl (achean hoplite-corporal)':10,
-#    'Warrior 3 lvl (achean hoplite-sergeant)':3,
-#    'Warrior 4 lvl (achean hoplite-lieutenant)':1,
-#    #'Warrior 5 lvl (achean hoplite-captain)':1,
-#    #'Cleric 1 lvl (city maatcarian-acolyte)':1,
-#    #'Bard 1 lvl (otherworld singer-follower)':12,
-#    'Bard 2 lvl (otherworld singer-stranger)':12,
-#    'Bard 5 lvl (otherworld singer-leader)':1,
-#    }
-#
-#metadict_squads['Company-hero (celtian-barbarians)'] = {
-#    'Warrior 1 lvl (celtian infantry)':80 + dice_throw('1d12'),
-#    'Warrior 2 lvl (celtian infantry-corporal)':10,
-#    'Warrior 3 lvl (celtian infantry-sergeant)':3,
-#    'Warrior 4 lvl (celtian infantry-lieutenant)':1,
-#    #'Warrior 5 lvl (celtian infantry-captain)':1,
-#    #'Cleric 1 lvl (city maatcarian-acolyte)':1,
-#    #'Barbarian 1 lvl (thracian slayer-dogface)':12,
-#    'Barbarian 2 lvl (thracian slayer-slasher)':12,
-#    'Barbarian 5 lvl (thracian slayer-lord)':1,
-#    }
-#
-#metadict_squads['Company-hero (legionary-samurai)'] = {
-#    'Warrior 1 lvl (legionary infantry)':80 + dice_throw('1d12'),
-#    'Warrior 2 lvl (legionary infantry-corporal)':10,
-#    'Warrior 3 lvl (legionary infantry-sergeant)':3,
-#    'Warrior 4 lvl (legionary infantry-lieutenant)':1,
-#    #'Warrior 5 lvl (legionary infantry-captain)':1,
-#    #'Cleric 1 lvl (city maatcarian-acolyte)':1,
-#    #'Fighter 1 lvl (legionary slayer-rookie)':12,
-#    'Fighter 2 lvl (legionary slayer-samurai)':12,
-#    'Fighter 5 lvl (legionary slayer-captain)':1,
-#    }
-#
-#metadict_squads['Company-hero (polearms-monks)'] = {
-#    'Warrior 1 lvl (mercenary heavy-infantry)':80 + dice_throw('1d12'),
-#    'Warrior 2 lvl (mercenary heavy-infantry-corporal)':10,
-#    'Warrior 3 lvl (mercenary heavy-infantry-sergeant)':3,
-#    'Warrior 4 lvl (mercenary heavy-infantry-lieutenant)':1,
-#    #'Warrior 5 lvl (mercenary heavy-infantry-captain)':1,
-#    #'Cleric 1 lvl (city maatcarian-acolyte)':1,
-#    #'Monk 1 lvl (city windsong-apprentice)':12,
-#    'Monk 2 lvl (city windsong-gatekeeper)':12,
-#    'Monk 5 lvl (city windsong-warmonger)':1,
-#    }
-#
-#metadict_squads['Company-hero (bowmans-wizards)'] = {
-#    'Warrior 1 lvl (persian bowman)':80 + dice_throw('1d12'),
-#    'Warrior 2 lvl (persian bowman-corporal)':10,
-#    'Warrior 3 lvl (persian bowman-sergeant)':3,
-#    'Warrior 4 lvl (persian bowman-lieutenant)':1,
-#    #'Warrior 5 lvl (persian bowman-captain)':1,
-#    #'Cleric 1 lvl (city maatcarian-acolyte)':1,
-#    #'Wizard 1 lvl (otherworld mage-disciple)':12,
-#    'Wizard 2 lvl (otherworld mage-weaver)':12,
-##    'Wizard 3 lvl (otherworld mage-annalist)':1,
-##    'Wizard 4 lvl (otherworld mage-savant)':1,
-#    'Wizard 5 lvl (otherworld mage-seer)':1,
-#    }
-#
-#metadict_squads['Company-hero (bowmans-druids)'] = {
-#    'Warrior 1 lvl (persian bowman)':80 + dice_throw('1d12'),
-#    'Warrior 2 lvl (persian bowman-corporal)':10,
-#    'Warrior 3 lvl (persian bowman-sergeant)':3,
-#    'Warrior 4 lvl (persian bowman-lieutenant)':1,
-#    #'Warrior 5 lvl (persian bowman-captain)':1,
-#    #'Cleric 1 lvl (city maatcarian-acolyte)':1,
-#    #'Druid 1 lvl (otherworld terian-forester)':12,
-#    'Druid 2 lvl (otherworld terian-changer)':12,
-#    #'Druid 3 lvl (otherworld terian-wiseman)':1,
-#    #'Druid 4 lvl (otherworld terian-wonderman)':1,
-#    'Druid 5 lvl (otherworld terian-loremaster)':1,
-#    }
-#
-#metadict_squads['Company-hero (bowmans-rogues)'] = {
-#    'Warrior 1 lvl (sqythian bowman)':80 + dice_throw('1d12'),
-#    'Warrior 2 lvl (sqythian bowman-corporal)':10,
-#    'Warrior 3 lvl (sqythian bowman-sergeant)':3,
-#    'Warrior 4 lvl (sqythian bowman-lieutenant)':1,
-#    #'Warrior 5 lvl (sqythian bowman-captain)':1,
-#    #'Cleric 1 lvl (city maatcarian-acolyte)':1,
-##    'Rogue 1 lvl (mercenary phantom-blackeye)':12,
-#    'Rogue 2 lvl (mercenary phantom-hawkeye)':12,
-##    'Rogue 3 lvl (mercenary phantom-deadeye)':1,
-##    'Rogue 4 lvl (mercenary phantom-lieutenant)':1,
-#    'Rogue 5 lvl (mercenary phantom-captain)':1,
-#    }
-#
-#metadict_squads['Company-hero (bowmans-rangers)'] = {
-#    'Warrior 1 lvl (sqythian bowman)':80 + dice_throw('1d12'),
-#    'Warrior 2 lvl (sqythian bowman-corporal)':10,
-#    'Warrior 3 lvl (sqythian bowman-sergeant)':3,
-#    'Warrior 4 lvl (sqythian bowman-lieutenant)':1,
-#    #'Warrior 5 lvl (sqythian bowman-captain)':1,
-#    #'Cleric 1 lvl (city maatcarian-acolyte)':1,
-#    #'Ranger 1 lvl (otherworld wanderer-scout)':12,
-#    'Ranger 2 lvl (otherworld wanderer-marksman)':12,
-#    #'Ranger 3 lvl (otherworld wanderer-hunter)':1,
-#    #'Ranger 4 lvl (otherworld wanderer-lieutenant)':1,
-#    'Ranger 5 lvl (otherworld wanderer-captain)':1,
-#    }
-#
-#metadict_squads['Company-hero (polearms-sorcerers)'] = {
-#    'Warrior 1 lvl (mercenary heavy-infantry)':80 + dice_throw('1d12'),
-#    'Warrior 2 lvl (mercenary heavy-infantry-corporal)':10,
-#    'Warrior 3 lvl (mercenary heavy-infantry-sergeant)':3,
-#    'Warrior 4 lvl (mercenary heavy-infantry-lieutenant)':1,
-#    #'Warrior 5 lvl (mercenary heavy-infantry-captain)':1,
-#    #'Cleric 1 lvl (city maatcarian-acolyte)':1,
-#    'Sorcerer 2 lvl (otherworld wildfire-burner)':12,
-#    #'Sorcerer 4 lvl (otherworld wildfire-paragon)':1,
-#    'Sorcerer 5 lvl (otherworld wildfire-ravager)':1,
-#    }
-#
-#metadict_squads['Company-hero (polearms-warlocks)'] = {
-#    'Warrior 1 lvl (mercenary heavy-infantry)':80 + dice_throw('1d12'),
-#    'Warrior 2 lvl (mercenary heavy-infantry-corporal)':10,
-#    'Warrior 3 lvl (mercenary heavy-infantry-sergeant)':3,
-#    'Warrior 4 lvl (mercenary heavy-infantry-lieutenant)':1,
-#    #'Warrior 5 lvl (mercenary heavy-infantry-captain)':1,
-#    #'Cleric 1 lvl (city maatcarian-acolyte)':1,
-#    #'Warlock 1 lvl (otherworld seeker-follower)':12,
-#    'Warlock 2 lvl (otherworld seeker-adept)':12,
-#    #'Warlock 3 lvl (otherworld seeker-emissary)':1,
-#    #'Warlock 4 lvl (otherworld seeker-envoy)':1,
-#    'Warlock 5 lvl (otherworld seeker-ascendant)':1,
-#    }
-#
-#metadict_squads['Company-hero (legionary-clerics-light)'] = {
-#    'Warrior 1 lvl (legionary infantry)':80 + dice_throw('1d12'),
-#    'Warrior 2 lvl (legionary infantry-corporal)':10,
-#    'Warrior 3 lvl (legionary infantry-sergeant)':3,
-#    'Warrior 4 lvl (legionary infantry-lieutenant)':1,
-#    #'Warrior 5 lvl (legionary infantry-captain)':1,
-#    #'Cleric 1 lvl (city maatcarian-acolyte)':1,
-#    #'Cleric 1 lvl (city luminary-acolyte)':12,
-#    'Cleric 2 lvl (city luminary-celebrant)':12,
-#    #'Cleric 3 lvl (city luminary-augur)':1,
-#    #'Cleric 4 lvl (city luminary-arbiter)':1,
-#    'Cleric 5 lvl (city luminary-reviver)':1,
-#    }
+metadict_squads['Single-hero (sentinels)'] = {
+    'Fighter 5 lvl (legionary sentinel-captain)':1,
+    }
 
+metadict_squads['Single-hero (horsemans)'] = {
+    'Fighter 5 lvl (legionary horseman-captain)':1,
+    }
+
+metadict_squads['Single-hero (rogues)'] = {
+    'Rogue 5 lvl (mercenary phantom-captain)':1,
+    }
+
+metadict_squads['Single-hero (rangers)'] = {
+    'Ranger 5 lvl (otherworld wanderer-captain)':1,
+    }
+
+metadict_squads['Single-hero (wizards)'] = {
+    'Wizard 5 lvl (otherworld mage-seer)':1,
+    }
+
+metadict_squads['Single-hero (druids)'] = {
+    'Druid 5 lvl (otherworld terian-loremaster)':1,
+    }
+
+metadict_squads['Single-hero (sorcerers)'] = {
+    'Sorcerer 5 lvl (otherworld wildfire-ravager)':1,
+    }
+
+metadict_squads['Single-hero (warlocks)'] = {
+    'Warlock 5 lvl (otherworld seeker-ascendant)':1,
+    }
+
+metadict_squads['Single-hero (monks)'] = {
+    'Monk 5 lvl (city windsong-warmonger)':1,
+    }
