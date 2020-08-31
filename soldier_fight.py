@@ -174,6 +174,8 @@ class soldier_in_battle(soldier):
         """
         # Отменяем подготовленное действие:
         self.ready_action = False
+        # Все начинают бой под Dodge_Action:
+        #self.dodge_action = True
         # Даём боевые действия и пул движения:
         self.battle_action = True
         self.bonus_action = True
