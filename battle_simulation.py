@@ -3759,7 +3759,7 @@ class battle_simulation(battlescape):
                 squad_combativity = '●'
             else:
                 squad_combativity = '○'
-            if short:
+            if short and hasattr(squad, 'battle_stat'):
                 print('{0} {1} {2} {3} exp {4} hp {hp}% hit_rate {hr} DPR {dpr}'.format(
                         squad_combativity, squad.ally_side, key.zone, key.type, squad.experience,
                         hp = round((squad_hitpoints_new / squad_hitpoints_max) * 100),
@@ -3773,6 +3773,11 @@ class battle_simulation(battlescape):
                         hpr = round(hit_sum / self.battle_round),
                         hr = round(hit_sum / (hit_sum + miss_sum), 2),
                         r = self.battle_round
+                        ))
+            elif short:
+                print('{0} {1} {2} {3} exp {4} hp {hp}%'.format(
+                        squad_combativity, squad.ally_side, key.zone, key.type, squad.experience,
+                        hp = round((squad_hitpoints_new / squad_hitpoints_max) * 100),
                         ))
             else:
                 print('--------------------------------------------------------------------------------')
@@ -3984,6 +3989,7 @@ if __name__ == '__main__':
                 print('№', test, 'rounds:', battle.battle_round, 'time:', round(stop - start, 3))
                 battle.print_battle_statistics(short = True)
                 winners_list.append(battle.winner)
+                battle.winner = None
                 # Сохраняем отряды в БД:
                 if namespace.save:
                     battle.save_soldiers_to_database()
