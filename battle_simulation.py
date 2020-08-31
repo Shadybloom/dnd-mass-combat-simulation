@@ -1190,12 +1190,14 @@ class battle_simulation(battlescape):
                 if commander.class_features.get('Feat_Sharpshooter'):
                     commands_list.append('volley')
                 if 'engage' in commands_list:
-                    commands_list.append('disengage')
                     commands_list.remove('engage')
-                if squad.enemies and squad.enemy_recon['distance'] <= save_distance * 2:
-                    commands_list.append('dodge')
+                if 'carefull' in commands_list and squad.enemies\
+                        and squad.enemy_recon['distance'] <= save_distance * 2\
+                        or 'very_carefull' in commands_list and squad.enemies\
+                        and squad.enemy_recon['distance'] <= save_distance * 4:
                     if 'lead' in commands_list:
                         commands_list.remove('lead')
+                        commands_list.append('disengage')
         if commands:
             # Ручной ввод команд отряду, если симуляция запущена с ключом --commands
             if not hasattr(squad, 'commands_manual') or not 'auto' in squad.commands_manual:
@@ -1311,7 +1313,6 @@ class battle_simulation(battlescape):
         # Командир ведёт бойцов автоматически, но не вырывается впереди строя:
         if 'lead' in soldier.commands\
                 and squad.commanders_list\
-                and soldier.behavior == 'commander'\
                 and soldier.uuid == squad.commander.uuid:
             if len(soldier.near_allies) >= 1\
                     or enemy and enemy.distance <= squad.enemy_recon['move'] * 2\
@@ -1396,8 +1397,12 @@ class battle_simulation(battlescape):
             self.volley_action(soldier, squad)
         # Боец отступает, если таков приказ, или он в зоне опасного заклинания:
         if 'disengage' in soldier.commands and squad.__dict__.get('enemy_recon'):
-            if enemy and enemy.distance <= squad.enemy_recon['move'] * 2\
+            if enemy and 'carefull' in soldier.commands\
+                    and enemy.distance <= squad.enemy_recon['move'] * 2\
                     and squad.enemy_recon['enemy_strenght'] > squad.enemy_recon['ally_strenght'] / 2\
+                    or 'very_carefull' in soldier.commands and enemy\
+                    and enemy.distance <= squad.enemy_recon['move'] * 4\
+                    and squad.enemy_recon['enemy_strenght'] > squad.enemy_recon['ally_strenght'] / 4\
                     or 'danger' in soldier.commands\
                     and soldier.place in squad.enemy_recon.get('danger_places',[]):
                 if not 'spawn' in self.dict_battlespace[soldier.place]:
