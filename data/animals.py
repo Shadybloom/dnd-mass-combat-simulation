@@ -852,6 +852,8 @@ metadict_animals['Mirror_Image (CR 0)'] = {
     'level':1,
     'mirror_image':True,
     'inactive_AI':True,
+    'mechanism':True,
+    'mechanism_construct':True,
     'armor_class_natural':10,
     'challenge_rating':'-',
     'char_class':'Commoner',
@@ -877,17 +879,18 @@ metadict_animals['Mirror_Image (CR 0)'] = {
     'equipment_supply':{},
     }
 
-metadict_animals['Dummy (CR 0)'] = {
+metadict_animals['Dummy (AC 17)'] = {
     # Просто чучело в броне.
     'level':1,
+    'inactive_AI':True,
+    'mechanism':True,
+    'mechanism_construct':True,
     'challenge_rating':'-',
     'char_class':'Commoner',
     'behavior':'warrior',
-    'inactive_AI':True,
-    'hitpoints_medial':True,
+    'hitpoints_base':10,
     'class_features':{
         'immunity':['poison','poisoned'],
-        'Undead_Fortitude':True,
         },
     'abilityes':{
         'strength':0,
@@ -902,39 +905,6 @@ metadict_animals['Dummy (CR 0)'] = {
     'weapon_skill':['simple','martial'],
     'armor_skill':['light','medium','heavy','shield'],
     'equipment_weapon':{
-        #'Ring Mail':1,
-        #'Heavy Shield':1,
-        },
-    'equipment_backpack':{},
-    'equipment_supply':{},
-    }
-
-metadict_animals['Dummy-officer (CR 0)'] = {
-    # Чучело офицера
-    'level':3,
-    'challenge_rating':'-',
-    'char_class':'Commoner',
-    'behavior':'commander',
-    'inactive_AI':True,
-    'hitpoints_medial':True,
-    'class_features':{
-        'immunity':['poison','poisoned'],
-        'Undead_Fortitude':True,
-        },
-    'abilityes':{
-        'strength':0,
-        'dexterity':0,
-        'constitution':10,
-        'intelligence':0,
-        'wisdom':0,
-        'charisma':0,
-        },
-    'hit_dice':'1d8',
-    'race':'Human-dummy',
-    'weapon_skill':['simple','martial'],
-    'armor_skill':['light','medium','heavy','shield'],
-    'equipment_weapon':{
-        #'Splint Armor':1,
         'Ring Mail':1,
         'Heavy Shield':1,
         },
@@ -949,150 +919,16 @@ metadict_animals['Giant Octopus (CR 1)'] = {
     # Осьминожки Психеи убивают врагов.
     # https://roll20.net/compendium/dnd5e/Giant%20Octopus
     'level':8,
-    'challenge_rating':'1',
-    'char_class':'Commoner',
-    'behavior':'elite_warrior',
-    'hitpoints_medial':True,
-    'water_walk':True,
-    #'seeker_AI':True,
-    #'killer_AI':True,
+    'seeker_AI':True,
+    'killer_AI':True,
     'hunter_AI':True,
     'grappler_AI':True,
     'fearless_AI':True,
-    'class_features':{
-        'Hold_Breath':True,
-        'Water_Breathing':True,
-        'Underwater_Camouflage':True,
-        'Ink_Cloud':True,
-        },
-    'abilityes':{
-        'strength':17,
-        'dexterity':13,
-        'constitution':13, 
-        'intelligence':4,
-        'wisdom':10,
-        'charisma':4,
-        },
-    'hit_dice':'1d10',
-    'attacks':{
-        ('close', 'tentacles'): {
-            'attack_mod':5,
-            'damage_mod':3,
-            'weapon': False,
-            'weapon_type':['simple', 'close', 'restained'],
-            'damage_type':'bludgeoning',
-            'damage_dice':'2d6',
-            'attack_range':5,
-            'attack_type':'close',
-            'restained_difficult':16,
-            'weapon_skills_use': ['simple'],
-            'attack_mod_type':'strength',
-            'weapon_of_choice':'tentacles'},
-        ('reach', 'tentacles'): {
-            # TODO: Досягаемость тентаклей 15 футов, дальше чем копья.
-            # Но цель на кораблей, тянемся по диагонали, поэтому 10 футов.
-            'attack_mod':5,
-            'damage_mod':3,
-            'weapon': False,
-            'weapon_type':['simple', 'reach', 'restained'],
-            'damage_type':'bludgeoning',
-            'damage_dice':'2d6',
-            'attack_range':10,
-            'attack_type':'close',
-            'restained_difficult':16,
-            'weapon_skills_use': ['simple'],
-            'attack_mod_type':'strength',
-            'weapon_of_choice':'tentacles'},
-        },
-    'race':'Giant_octopus',
-    'weapon_skill':[],
-    'armor_skill':[],
-    # TODO: Лучше сделай передачу руны от друида:
-    'equipment_weapon':{
-            'Rune of Armor':1,
-            },
-    'equipment_backpack':{},
-    'equipment_supply':{},
-    }
-
-metadict_animals['Giant Octopus (commander) (CR 1)'] = {
-    # Призванное существо.
-    'level':8,
     'challenge_rating':'1',
     'char_class':'Commoner',
     'behavior':'commander',
     'hitpoints_medial':True,
     'water_walk':True,
-    #'seeker_AI':True,
-    #'killer_AI':True,
-    'hunter_AI':True,
-    'grappler_AI':True,
-    'fearless_AI':True,
-    'class_features':{
-        'Hold_Breath':True,
-        'Water_Breathing':True,
-        'Underwater_Camouflage':True,
-        'Ink_Cloud':True,
-        },
-    'abilityes':{
-        'strength':17,
-        'dexterity':13,
-        'constitution':13, 
-        'intelligence':4,
-        'wisdom':10,
-        'charisma':4,
-        },
-    'hit_dice':'1d10',
-    'attacks':{
-        ('close', 'tentacles'): {
-            'attack_mod':5,
-            'damage_mod':3,
-            'weapon': False,
-            'weapon_type':['simple', 'close', 'restained'],
-            'damage_type':'bludgeoning',
-            'damage_dice':'2d6',
-            'attack_range':5,
-            'attack_type':'close',
-            'restained_difficult':16,
-            'weapon_skills_use': ['simple'],
-            'attack_mod_type':'strength',
-            'weapon_of_choice':'tentacles'},
-        ('reach', 'tentacles'): {
-            # TODO: Досягаемость тентаклей 15 футов, дальше чем копья.
-            # Но цель на кораблей, тянемся по диагонали, поэтому 10 футов.
-            'attack_mod':5,
-            'damage_mod':3,
-            'weapon': False,
-            'weapon_type':['simple', 'reach', 'restained'],
-            'damage_type':'bludgeoning',
-            'damage_dice':'2d6',
-            'attack_range':10,
-            'attack_type':'close',
-            'restained_difficult':16,
-            'weapon_skills_use': ['simple'],
-            'attack_mod_type':'strength',
-            'weapon_of_choice':'tentacles'},
-        },
-    'race':'Giant_octopus',
-    'weapon_skill':[],
-    'armor_skill':[],
-    'equipment_weapon':{},
-    'equipment_backpack':{},
-    'equipment_supply':{},
-    }
-
-metadict_animals['Giant Octopus (mount) (CR 1)'] = {
-    # Призванное существо
-    'level':8,
-    'challenge_rating':'1',
-    'char_class':'Commoner',
-    'behavior':'mount',
-    'hitpoints_medial':True,
-    'water_walk':True,
-    #'seeker_AI':True,
-    #'killer_AI':True,
-    #'grappler_AI':True,
-    #'fearless_AI':True,
     'class_features':{
         'Hold_Breath':True,
         'Water_Breathing':True,
@@ -1184,9 +1020,7 @@ metadict_animals['Giant Elk (CR 2)'] = {
     'race':'Horse',
     'weapon_skill':[],
     'armor_skill':[],
-    'equipment_weapon':{
-            'Rune of Armor':1,
-            },
+    'equipment_weapon':{},
     'equipment_backpack':{},
     'equipment_supply':{},
     }
@@ -1240,11 +1074,8 @@ metadict_animals['Brown Bear (CR 1)'] = {
         },
     'race':'Bear',
     'weapon_skill':[],
-    # Медведи в доспехах? Почему бы и нет:
     'armor_skill':['light','medium','heavy'],
-    'equipment_weapon':{
-            'Rune of Armor':1,
-            },
+    'equipment_weapon':{},
     'equipment_backpack':{},
     'equipment_supply':horse_supply,
     }
@@ -1253,14 +1084,14 @@ metadict_animals['Mastiff, dog (CR 1/8)'] = {
     # TODO: могут сбить с ног
     # https://roll20.net/compendium/dnd5e/Mastiff
     'level':1,
+    'seeker_AI':True,
+    'predator_AI':True,
+    'fearless_AI':True,
+    #'grappler_AI':True,
     'challenge_rating':'1/8',
     'char_class':'Commoner',
     'behavior':'warrior',
     'hitpoints_medial':True,
-    #'fearless_AI':True,
-    'grappler_AI':True,
-    'seeker_AI':True,
-    'predator_AI':True,
     'class_features':{
         'Keen_Smell':True,
         },
@@ -1290,54 +1121,7 @@ metadict_animals['Mastiff, dog (CR 1/8)'] = {
     'race':'Dog',
     'weapon_skill':[],
     'armor_skill':['light','medium','heavy'],
-    'equipment_weapon':{
-            },
-    'equipment_backpack':{},
-    'equipment_supply':{},
-    }
-
-metadict_animals['Mastiff, big-dog (CR 1/2)'] = {
-    # TODO: переделай в лютоволка.
-    'level':3,
-    'challenge_rating':'1/2',
-    'char_class':'Commoner',
-    'behavior':'commander',
-    'hitpoints_medial':True,
-    'fearless_AI':True,
-    'grappler_AI':True,
-    'seeker_AI':True,
-    'predator_AI':True,
-    'class_features':{
-        'Keen_Smell':True,
-        },
-    'abilityes':{
-        'strength':18,
-        'dexterity':18,
-        'constitution':18, 
-        'intelligence':3,
-        'wisdom':14,
-        'charisma':7,
-        },
-    'hit_dice':'1d10',
-    'attacks':{
-        ('close', 'bite'): {
-            'attack_mod':6,
-            'damage_mod':4,
-            'weapon': False,
-            'weapon_type':['simple'],
-            'damage_type':'piercing',
-            'damage_dice':'2d6',
-            'attack_range':5,
-            'attack_type':'close',
-            'weapon_skills_use': ['simple'],
-            'attack_mod_type':'strength',
-            'weapon_of_choice':'bite'},
-        },
-    'race':'Dog',
-    'weapon_skill':[],
-    'armor_skill':['light','medium','heavy'],
-    'equipment_weapon':{
-            },
+    'equipment_weapon':{},
     'equipment_backpack':{},
     'equipment_supply':{},
     }
@@ -2483,6 +2267,7 @@ metadict_animals['Ork war chief (CR 4)'] = {
     # Battle Cry (1/Day). Преимущество союзникам в радиусе 30 футов на один ход. Плюс бонусная атака.
     # ------------------------------------------------------------
     'level':11,
+    'fearless_AI':True,
     'challenge_rating':'4',
     'hitpoints_medial':True,
     'char_class':'Warrior',
@@ -3594,85 +3379,9 @@ metadict_animals['Дактиль-сжиратель (CR 2)'] = {
 
 metadict_animals['Громовая птица (Thunderbird) (CR 1)'] = {
     'level':4,
-    'air_walk':True,
-    'water_walk':True,
-    'behavior':'archer',
-    'challenge_rating':'1',
-    'char_class':'Warrior',
-    'hit_dice':'1d8',
-    'class_features':{
-        'resistance':['thunder','lightning'],
-        'Recharge':True,
-        'Recharge_dice':'1d6',
-        'Recharge_numbers':[6],
-        },
-    'abilityes':{
-        'strength':10,
-        'dexterity':16,
-        'constitution':12,
-        'intelligence':6,
-        'wisdom':12,
-        'charisma':7,
-        },
-    'attacks':{
-        ('close', 'beak'): {
-            'attack_mod':5,
-            'damage_mod':3,
-            'weapon': False,
-            'weapon_type':['simple', 'close'],
-            'damage_type':'piercing',
-            'damage_dice':'1d6',
-            'attack_range':5,
-            'attack_type':'close',
-            'weapon_skills_use': ['simple'],
-            'attack_mod_type':'dexterity',
-            'weapon_of_choice':'beak',
-            },
-        ('ranged', 'Arrow_Feather'): {
-            'attack_mod':5,
-            'damage_mod':3,
-            'weapon': False,
-            'direct_hit':False,
-            'weapon_type':['simple','ranged'],
-            'damage_type':'piercing',
-            'damage_dice':'1d6',
-            'ammo':100,
-            'ammo_type':'feather',
-            'attack_type':'ranged',
-            'attack_range':60,
-            'attack_range_max':300,
-            'weapon_skills_use': ['simple'],
-            'attack_mod_type':'dexterity',
-            'weapon_of_choice':'Arrow_Feather',
-            },
-        ('zone', 'Thunder_Feather'): {
-            'zone':True,
-            'zone_shape':'2x2',
-            'attack_range':300,
-            'direct_hit':True,
-            'savethrow':True,
-            'savethrow_all':True,
-            'savethrow_ability':'constitution',
-            'damage_type':'thunder',
-            'damage_dice':'1d10',
-            'spell_save_DC':13,
-            'recharge': True,
-            'ammo':1,
-            },
-        },
-    'race':'Bird-medium',
-    'weapon_skill':[],
-    'armor_skill':[],
-    'equipment_supply':{},
-    'equipment_backpack':{},
-    'equipment_weapon':{},
-    }
-
-metadict_animals['Громовая птица-вожак (Thunderbird) (CR 1)'] = {
-    'level':4,
     'archer_AI':True,
-    'disengage_AI':True,
-    'recharge_AI':True,
+    'fearless_AI':True,
+    'carefull_AI':True,
     'air_walk':True,
     'water_walk':True,
     'behavior':'commander',
@@ -3681,6 +3390,9 @@ metadict_animals['Громовая птица-вожак (Thunderbird) (CR 1)'] 
     'hit_dice':'1d8',
     'class_features':{
         'resistance':['thunder','lightning'],
+        'Recharge':True,
+        'Recharge_dice':'1d6',
+        'Recharge_numbers':[6],
         },
     'abilityes':{
         'strength':10,

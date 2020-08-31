@@ -2023,8 +2023,6 @@ metadict_chars['Warrior 5 lvl (shekelesh infantry-captain)'] = {
 metadict_chars['Warrior 1 lvl (legionary infantry-siege)'] = {
     # С двуручной киркой, чтобы разбивать укрепления. Чисто для тестов.
     'level':1,
-    'seeker_AI':True,
-    'fearless_AI':True,
     'char_class':'Warrior',
     'hit_dice':'1d8',
     'behavior':'warrior',
@@ -2041,8 +2039,6 @@ metadict_chars['Warrior 1 lvl (legionary infantry-siege)'] = {
 
 metadict_chars['Warrior 2 lvl (legionary infantry-siege-corporal)'] = {
     'level':2,
-    'seeker_AI':True,
-    'fearless_AI':True,
     'char_class':'Warrior',
     'hit_dice':'1d8',
     'behavior':'elite_warrior',
