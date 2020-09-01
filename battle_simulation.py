@@ -3753,6 +3753,8 @@ class battle_simulation(battlescape):
                 for attack, stat in battle_stat.items():
                     if attack[-1] == 'damage':
                         damage_sum += stat
+                    if attack[-1] == 'damage_temp_hp':
+                        damage_sum += stat
                     if attack[-1] == 'hit':
                         hit_sum += stat
                     if attack[-1] == 'miss':
