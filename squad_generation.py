@@ -603,10 +603,13 @@ if __name__ == '__main__':
         for soldier in reversed(list(squad.metadict_soldiers.values())):
             squad.database.soldier_to_database(soldier)
         squad.database.commit()
-    #print(squad.name, squad.name_translate)
-    print(squad.squad_overload)
-    print(squad.squad_cost)
-    print('Squad Number:', len(squad.metadict_soldiers))
+    print(squad.name, squad.name_translate)
+    print('cost: {cost} number: {number} weight: {w}/{w_max} overload: {over}'.format(
+        over = squad.squad_overload['overload_soldiers'],
+        w = squad.squad_overload['equipment_weight (lb)'],
+        w_max = squad.squad_overload['normal_load (lb)'],
+        number = len(squad.metadict_soldiers),
+        cost = squad.squad_cost['equipment_cost']))
     print('Medial attack_mod:', squad.attack_mod)
     print('Medial hp:', squad.hitpoints_medial,'Medial AC:', squad.armor_class)
     # TODO: перенеси эти расчёты куда-нибудь:
