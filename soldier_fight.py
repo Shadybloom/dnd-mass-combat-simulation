@@ -1074,6 +1074,34 @@ class soldier_in_battle(soldier):
             self.dodge_action = True
             return True
 
+    def use_help_action(self, soldier, enemy_soldier):
+        """Боец помогает союзнику
+        
+        """
+        advantage = False
+        if self.level < soldier.level or self.level == 1:
+        #if self.level < soldier.level or self.level == 1 and enemy_soldier.level > self.level:
+            if not self.uuid == soldier.uuid\
+                    and 'help' in self.commands\
+                    and not self.danger >= self.battle.engage_danger\
+                    and not 'dodge' in self.commands\
+                    and not self.hero\
+                    and not self.help_action:
+                self.help_action = True
+                advantage = True
+                self.drop_spell(('feature', 'Help_Action'))
+                #print('[+++] {s} {p} {b} HELP_ACTION --> {al_s} {al_p} {al_b} >> {en_s} {en_p} {en_b}'.format(
+                #    s = self.ally_side,
+                #    p = self.place,
+                #    b = self.behavior,
+                #    al_s = soldier.ally_side,
+                #    al_p = soldier.place,
+                #    al_b = soldier.behavior,
+                #    en_s = enemy_soldier.ally_side,
+                #    en_p = enemy_soldier.place,
+                #    en_b = enemy_soldier.behavior))
+                return advantage
+
     def use_dodge_action(self):
         """Боец защищается.
         

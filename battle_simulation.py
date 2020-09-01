@@ -1047,6 +1047,7 @@ class battle_simulation(battlescape):
                 commands_list = ['lead','follow']
                 commands_list.append('carefull')
                 commands_list.append('attack')
+                commands_list.append('help')
                 commands_list.append('spellcast')
                 commands_list.append('potions')
                 commands_list.append('runes')
@@ -1054,6 +1055,7 @@ class battle_simulation(battlescape):
                 commands_list = ['lead','follow','engage']
                 commands_list.append('carefull')
                 commands_list.append('attack')
+                commands_list.append('help')
                 commands_list.append('spellcast')
                 commands_list.append('potions')
                 commands_list.append('runes')
@@ -3304,34 +3306,26 @@ class battle_simulation(battlescape):
         if soldier.__dict__.get('squad_advantage'):
             advantage = True
             return advantage
-        # Подсвеченный уязвим:
-        if 'guiding_bolt' in enemy_soldier.debuffs:
-            enemy_soldier.debuffs.pop('guiding_bolt')
-            advantage = True
-            return advantage
         # Безрассудная атака варвара, преимущество своим, преимущество врагу:
-        if attack_choice[0] == 'close' or attack_choice[0] == 'reach'\
+        elif attack_choice[0] == 'close' or attack_choice[0] == 'reach'\
                 and soldier.class_features.get('Reckless_Attack'):
             advantage = soldier.set_reckless_attack()
             return advantage
-        # Финт за счёт help_action, боец просит помощи низкоуровнего союзника:
+        # Подсвеченный уязвим:
+        elif 'guiding_bolt' in enemy_soldier.debuffs:
+            enemy_soldier.debuffs.pop('guiding_bolt')
+            advantage = True
+            return advantage
+        # Финт за счёт help_action, боец просит помощи союзника:
         elif attack_choice[0] == 'close' or attack_choice[0] == 'reach' or attack_choice[0] == 'throw':
-            if len(enemy_soldier.near_enemies) > 1 and enemy_soldier.armor['armor_class']\
-                    > soldier.attacks[attack_choice]['attack_mod'] + 10:
-                for ally in enemy_soldier.near_enemies:
-                    ally_soldier = self.metadict_soldiers[ally.uuid]
-                    if ally_soldier.level < soldier.level or ally_soldier.level == 1:
-                        if ally_soldier.uuid != soldier.uuid\
-                                and ally_soldier.danger <= self.engage_danger\
-                                and not 'dodge' in soldier.commands\
-                                and not ally_soldier.hero\
-                                and not ally_soldier.class_features.get('Reckless_Attack')\
-                                and not ally_soldier.help_action:
-                            #print('help_action', ally_soldier.ally_side, ally_soldier.rank,
-                            #        '-->', soldier.rank)
-                            ally_soldier.help_action = True
-                            advantage = True
-                            return advantage
+            allies_list = [self.metadict_soldiers[ally_uuid] for ally_uuid, ally_tuple
+                    in self.recon(enemy_soldier.place, 1).items()
+                    if ally_tuple.side == soldier.ally_side
+                    and not ally_uuid == soldier.uuid]
+            if allies_list:
+                for ally_soldier in allies_list:
+                    advantage = ally_soldier.use_help_action(soldier, enemy_soldier)
+                    return advantage
 
     def find_enemy(self, soldier, squad):
         """Ищем врага в радиусе атаки.
