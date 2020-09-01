@@ -604,10 +604,11 @@ if __name__ == '__main__':
             squad.database.soldier_to_database(soldier)
         squad.database.commit()
     print(squad.name, squad.name_translate)
-    print('cost: {cost} number: {number} weight: {w}/{w_max} overload: {over}'.format(
+    print('cost: {cost} number: {number} weight: {w}/{w_max} (free: {w_free}) overload: {over}'.format(
         over = squad.squad_overload['overload_soldiers'],
         w = squad.squad_overload['equipment_weight (lb)'],
         w_max = squad.squad_overload['normal_load (lb)'],
+        w_free = round(squad.squad_overload['normal_load (lb)'] - squad.squad_overload['equipment_weight (lb)']),
         number = len(squad.metadict_soldiers),
         cost = squad.squad_cost['equipment_cost']))
     print('Medial attack_mod:', squad.attack_mod)
