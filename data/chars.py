@@ -235,7 +235,7 @@ metadict_chars['Commoner 1 lvl (militia bowman)'] = {
         'Leather Armor':1,
         'Dagger':1,
         'Hunting Bow':1,
-        'Hunting Arrow':60,
+        'Hunting Arrow':40,
         },
     }
 
@@ -254,7 +254,7 @@ metadict_chars['Commoner 2 lvl (militia bowman-corporal)'] = {
         'Shield':1,
         'Dagger':1,
         'Hunting Bow':1,
-        'Hunting Arrow':60,
+        'Hunting Arrow':40,
         },
     }
 
@@ -277,7 +277,7 @@ metadict_chars['Warrior 3 lvl (militia bowman-sergeant)'] = {
         'Shield':1,
         'Shortsword':1,
         'Shortbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     }
 
@@ -304,13 +304,11 @@ metadict_chars['Warrior 4 lvl (militia bowman-lieutenant)'] = {
         'Shield':1,
         'Shortsword':1,
         'Shortbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     #'mount_combat':False,
     #'mount_type':'Riding Horse',
-    #'equipment_mount':{
-    #    #'Arrow':60,
-    #    },
+    #'equipment_mount':{},
     }
 
 metadict_chars['Commoner 1 lvl (militia spearman)'] = {
@@ -508,7 +506,7 @@ metadict_chars['Commoner 1 lvl (militia crossbowman)'] = {
         'Padded Armor':1,
         'Dagger':1,
         'Crossbow, Light':1,
-        'Crossbow Bolt':60,
+        'Crossbow Bolt':40,
         },
     }
 
@@ -527,7 +525,7 @@ metadict_chars['Commoner 2 lvl (militia crossbowman-corporal)'] = {
         'Shield':1,
         'Dagger':1,
         'Crossbow, Light':1,
-        'Crossbow Bolt':60,
+        'Crossbow Bolt':40,
         },
     }
 
@@ -550,7 +548,7 @@ metadict_chars['Warrior 3 lvl (militia crossbowman-sergeant)'] = {
         'Shield':1,
         'Shortsword':1,
         'Crossbow, Light':1,
-        'Crossbow Bolt':60,
+        'Crossbow Bolt':40,
         },
     }
 
@@ -577,13 +575,11 @@ metadict_chars['Warrior 4 lvl (militia crossbowman-lieutenant)'] = {
         'Shield':1,
         'Shortsword':1,
         'Crossbow, Light':1,
-        'Crossbow Bolt':60,
+        'Crossbow Bolt':40,
         },
     #'mount_combat':False,
     #'mount_type':'Riding Horse',
-    #'equipment_mount':{
-    #    #'Arrow':60,
-    #    },
+    #'equipment_mount':{},
     }
 
 metadict_chars['Commoner 1 lvl (militia heavy crossbowman)'] = {
@@ -601,7 +597,7 @@ metadict_chars['Commoner 1 lvl (militia heavy crossbowman)'] = {
         'Padded Armor':1,
         'Dagger':1,
         'Crossbow, Heavy':1,
-        'Crossbow Bolt':60,
+        'Crossbow Bolt':40,
         },
     }
 
@@ -620,7 +616,7 @@ metadict_chars['Commoner 2 lvl (militia heavy crossbowman-corporal)'] = {
         'Shield':1,
         'Dagger':1,
         'Crossbow, Heavy':1,
-        'Crossbow Bolt':60,
+        'Crossbow Bolt':40,
         },
     }
 
@@ -643,7 +639,7 @@ metadict_chars['Warrior 3 lvl (militia heavy crossbowman-sergeant)'] = {
         'Shield':1,
         'Shortsword':1,
         'Crossbow, Heavy':1,
-        'Crossbow Bolt':60,
+        'Crossbow Bolt':40,
         },
     }
 
@@ -670,13 +666,11 @@ metadict_chars['Warrior 4 lvl (militia heavy crossbowman-lieutenant)'] = {
         'Shield':1,
         'Shortsword':1,
         'Crossbow, Heavy':1,
-        'Crossbow Bolt':60,
+        'Crossbow Bolt':40,
         },
     #'mount_combat':False,
     #'mount_type':'Riding Horse',
-    #'equipment_mount':{
-    #    #'Arrow':60,
-    #    },
+    #'equipment_mount':{},
     }
 
 
@@ -997,7 +991,7 @@ metadict_chars['Warrior 1 lvl (sqythian bowman)'] = {
         'Padded Armor':1,
         'Dagger':1,
         'Longbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     }
 
@@ -1018,7 +1012,7 @@ metadict_chars['Warrior 2 lvl (sqythian bowman-corporal)'] = {
         'Scale Mail':1,
         'Dagger':1,
         'Longbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     }
 
@@ -1040,7 +1034,7 @@ metadict_chars['Warrior 3 lvl (sqythian bowman-sergeant)'] = {
         'Breastplate':1,
         'Dagger':1,
         'Longbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     }
 
@@ -1067,13 +1061,11 @@ metadict_chars['Warrior 4 lvl (sqythian bowman-lieutenant)'] = {
         'Shield':1,
         'Shortsword':1,
         'Longbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     #'mount_combat':False,
     #'mount_type':'Riding Horse',
-    #'equipment_mount':{
-    #    #'Arrow':60,
-    #    },
+    #'equipment_mount':{},
     }
 
 metadict_chars['Warrior 5 lvl (sqythian bowman-captain)'] = {
@@ -1099,13 +1091,11 @@ metadict_chars['Warrior 5 lvl (sqythian bowman-captain)'] = {
         'Shield':1,
         'Shortsword':1,
         'Longbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
-    'mount_combat':False,
-    'mount_type':'Riding Horse',
-    'equipment_mount':{
-        #'Arrow':60,
-        },
+    #'mount_combat':False,
+    #'mount_type':'Riding Horse',
+    #'equipment_mount':{},
     }
 
 
@@ -1128,7 +1118,7 @@ metadict_chars['Warrior 1 lvl (persian bowman)'] = {
         'Shield':1,
         'Shortsword':1,
         'Shortbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     }
 
@@ -1151,7 +1141,7 @@ metadict_chars['Warrior 2 lvl (persian bowman-corporal)'] = {
         'Shield':1,
         'Shortsword':1,
         'Shortbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     }
 
@@ -1174,7 +1164,7 @@ metadict_chars['Warrior 3 lvl (persian bowman-sergeant)'] = {
         'Shield':1,
         'Shortsword':1,
         'Shortbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     }
 
@@ -1201,13 +1191,11 @@ metadict_chars['Warrior 4 lvl (persian bowman-lieutenant)'] = {
         'Shield':1,
         'Shortsword':1,
         'Shortbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     #'mount_combat':False,
     #'mount_type':'Riding Horse',
-    #'equipment_mount':{
-    #    #'Arrow':60,
-    #    },
+    #'equipment_mount':{},
     }
 
 metadict_chars['Warrior 5 lvl (persian bowman-captain)'] = {
@@ -1234,13 +1222,11 @@ metadict_chars['Warrior 5 lvl (persian bowman-captain)'] = {
         'Shield':1,
         'Shortsword':1,
         'Shortbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
-    'mount_combat':False,
-    'mount_type':'Riding Horse',
-    'equipment_mount':{
-        #'Arrow':60,
-        },
+    #'mount_combat':False,
+    #'mount_type':'Riding Horse',
+    #'equipment_mount':{},
     }
 
 #----
@@ -1390,7 +1376,7 @@ metadict_chars['Warrior 1 lvl (cilician infantry)'] = {
         'Shield':1,
         'Shortsword':1,
         'Shortbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     }
 
@@ -1414,7 +1400,7 @@ metadict_chars['Warrior 2 lvl (cilician infantry-corporal)'] = {
         'Rapier':1,
         'Dagger':1,
         'Shortbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     }
 
@@ -1438,7 +1424,7 @@ metadict_chars['Warrior 3 lvl (cilician infantry-sergeant)'] = {
         'Rapier':1,
         'Dagger':1,
         'Shortbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     }
 
@@ -1464,7 +1450,7 @@ metadict_chars['Warrior 4 lvl (cilician infantry-lieutenant)'] = {
         'Rapier':1,
         'Dagger':1,
         'Shortbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     #'mount_combat':False,
     #'mount_type':'Riding Horse',
@@ -1495,12 +1481,11 @@ metadict_chars['Warrior 5 lvl (cilician infantry-captain)'] = {
         'Rapier':1,
         'Dagger':1,
         'Shortbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
-    'mount_combat':False,
-    'mount_type':'Riding Horse',
-    'equipment_mount':{
-        },
+    #'mount_combat':False,
+    #'mount_type':'Riding Horse',
+    #'equipment_mount':{},
     }
 
 #----
@@ -1521,7 +1506,7 @@ metadict_chars['Warrior 1 lvl (cavalry archer)'] = {
         'Padded Armor':1,
         'Dagger':1,
         'Shortbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     'mount_combat':True,
     'mount_type':'Light Warhorse',
@@ -1546,7 +1531,7 @@ metadict_chars['Warrior 2 lvl (cavalry archer-corporal)'] = {
         'Studded Leather':1,
         'Shortsword':1,
         'Shortbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     'mount_combat':True,
     'mount_type':'Light Warhorse',
@@ -1572,7 +1557,7 @@ metadict_chars['Warrior 3 lvl (cavalry archer-sergeant)'] = {
         'Breastplate':1,
         'Shortsword':1,
         'Shortbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     'mount_combat':True,
     'mount_type':'Warhorse',
@@ -1600,7 +1585,7 @@ metadict_chars['Warrior 4 lvl (cavalry archer-lieutenant)'] = {
         'Breastplate':1,
         'Shortsword':1,
         'Shortbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     'mount_combat':True,
     'mount_type':'Warhorse',
@@ -1629,7 +1614,7 @@ metadict_chars['Warrior 5 lvl (cavalry archer-captain)'] = {
         'Rune of Armor':1,
         'Shortsword':1,
         'Shortbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     'mount_combat':True,
     'mount_type':'Warhorse',
@@ -1722,7 +1707,7 @@ metadict_chars['Warrior 4 lvl (thracian infantry-lieutenant)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':3,
+        'Infusion of Regeneration':1,
         'Half Plate':1,
         'Shield':1,
         'Shortsword':1,
@@ -1751,7 +1736,8 @@ metadict_chars['Warrior 5 lvl (thracian infantry-captain)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':3,
+        'Infusion of Regeneration':1,
+        'Infusion of Heroism':1,
         'Half Plate':1,
         'Shield':1,
         'Shortsword':1,
@@ -1908,7 +1894,7 @@ metadict_chars['Warrior 1 lvl (shekelesh infantry)'] = {
         'Shield':1,
         'Spear':1,
         'Shortbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     }
 
@@ -1930,7 +1916,7 @@ metadict_chars['Warrior 2 lvl (shekelesh infantry-corporal)'] = {
         'Shield':1,
         'Longsword':1,
         'Shortbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     }
 
@@ -1953,7 +1939,7 @@ metadict_chars['Warrior 3 lvl (shekelesh infantry-sergeant)'] = {
         'Shield':1,
         'Longsword':1,
         'Shortbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     }
 
@@ -1978,7 +1964,7 @@ metadict_chars['Warrior 4 lvl (shekelesh infantry-lieutenant)'] = {
         'Shield':1,
         'Longsword':1,
         'Shortbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     #'mount_combat':False,
     #'mount_type':'Riding Horse',
@@ -2009,12 +1995,12 @@ metadict_chars['Warrior 5 lvl (shekelesh infantry-captain)'] = {
         'Shield':1,
         'Longsword':1,
         'Shortbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
-    'mount_combat':False,
-    'mount_type':'Riding Horse',
-    'equipment_mount':{
-        },
+    #'mount_combat':False,
+    #'mount_type':'Riding Horse',
+    #'equipment_mount':{
+    #    },
     }
 
 #----
@@ -4031,7 +4017,7 @@ metadict_chars['Bard 1 lvl (otherworld singer-follower)'] = {
         'Shield':1,
         'Shortsword':1,
         'Shortbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     #'mount_combat':True,
     #'mount_type':'Light Warhorse',
@@ -4072,7 +4058,7 @@ metadict_chars['Bard 2 lvl (otherworld singer-stranger)'] = {
         'Shield':1,
         'Shortsword':1,
         'Shortbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     #'mount_combat':True,
     #'mount_type':'Light Warhorse',
@@ -4128,7 +4114,7 @@ metadict_chars['Bard 3 lvl (otherworld singer-explorer)'] = {
         'Shield':1,
         'Shortsword':1,
         'Shortbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     #'mount_combat':True,
     #'mount_type':'Light Warhorse',
@@ -4178,7 +4164,7 @@ metadict_chars['Bard 4 lvl (otherworld singer-pathfinder)'] = {
         'Shield':1,
         'Shortsword':1,
         'Shortbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     #'mount_combat':True,
     #'mount_type':'Light Warhorse',
@@ -4244,7 +4230,7 @@ metadict_chars['Bard 5 lvl (otherworld singer-leader)'] = {
         'Shield':1,
         'Shortsword':1,
         'Shortbow +1':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     #'mount_combat':True,
     #'mount_type':'Light Warhorse',
@@ -4870,7 +4856,7 @@ metadict_chars['Rogue 1 lvl (city cat-nyamo)'] = {
         'Infusion of Healing':1,
         'Rune of Armor':1,
         'Crossbow, Light':1,
-        'Crossbow Bolt':60,
+        'Crossbow Bolt':40,
         'Dagger':1,
         },
     }
@@ -5051,7 +5037,7 @@ metadict_chars['Rogue 1 lvl (mercenary phantom-blackeye)'] = {
         'Shield':1,
         'Shortsword':1,
         'Longbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     #'mount_combat':True,
     #'mount_type':'Light Warhorse',
@@ -5083,7 +5069,7 @@ metadict_chars['Rogue 2 lvl (mercenary phantom-hawkeye)'] = {
         'Shield':1,
         'Shortsword':1,
         'Longbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     #'mount_combat':True,
     #'mount_type':'Light Warhorse',
@@ -5118,7 +5104,7 @@ metadict_chars['Rogue 3 lvl (mercenary phantom-deadeye)'] = {
         'Shield':1,
         'Shortsword':1,
         'Longbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     #'mount_combat':True,
     #'mount_type':'Light Warhorse',
@@ -5154,7 +5140,7 @@ metadict_chars['Rogue 4 lvl (mercenary phantom-lieutenant)'] = {
         'Shield':1,
         'Shortsword':1,
         'Longbow +1':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     #'mount_combat':True,
     #'mount_type':'Light Warhorse',
@@ -5193,7 +5179,7 @@ metadict_chars['Rogue 5 lvl (mercenary phantom-captain)'] = {
         'Shield':1,
         'Shortsword':1,
         'Longbow +1':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     #'mount_combat':True,
     #'mount_type':'Light Warhorse',
@@ -5225,7 +5211,7 @@ metadict_chars['Ranger 1 lvl (otherworld wanderer-scout)'] = {
         'Shield':1,
         'Shortsword':1,
         'Longbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     #'mount_combat':True,
     #'mount_type':'Light Warhorse',
@@ -5269,7 +5255,7 @@ metadict_chars['Ranger 2 lvl (otherworld wanderer-marksman)'] = {
         'Shield':1,
         'Shortsword':1,
         'Longbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     #'mount_combat':True,
     #'mount_type':'Light Warhorse',
@@ -5309,7 +5295,7 @@ metadict_chars['Ranger 3 lvl (otherworld wanderer-hunter)'] = {
         'Shield':1,
         'Shortsword':1,
         'Longbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     #'mount_combat':True,
     #'mount_type':'Light Warhorse',
@@ -5350,7 +5336,7 @@ metadict_chars['Ranger 4 lvl (otherworld wanderer-lieutenant)'] = {
         'Shield':1,
         'Shortsword':1,
         'Longbow +1':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     #'mount_combat':True,
     #'mount_type':'Light Warhorse',
@@ -5406,7 +5392,7 @@ metadict_chars['Ranger 5 lvl (otherworld wanderer-captain)'] = {
         'Shield':1,
         'Shortsword':1,
         'Longbow +1':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     #'mount_combat':True,
     #'mount_type':'Light Warhorse',
@@ -6512,7 +6498,7 @@ metadict_chars['Warrior 2 lvl (Vaarsuvius) (ветеран Филлис)'] = {
         #'Glaive':1,
         'Pilum':12,
         'Long Spear':1,
-        'Poison Blade':60,
+        'Poison Blade':40,
         },
     }
 
@@ -6545,7 +6531,7 @@ metadict_chars['Warrior 3 lvl (Vaarsuvius) (сержант Филлис)'] = {
         #'Glaive':1,
         'Pilum':12,
         'Long Spear':1,
-        'Poison Blade':60,
+        'Poison Blade':40,
         },
     }
 
@@ -6580,7 +6566,7 @@ metadict_chars['Warrior 4 lvl (Vaarsuvius) (лейтенант Филлис)'] =
         #'Glaive':1,
         'Pilum':12,
         'Long Spear':1,
-        'Poison Blade':60,
+        'Poison Blade':40,
         },
     #'mount_combat':False,
     #'mount_type':'Riding Horse',
@@ -6620,7 +6606,7 @@ metadict_chars['Warrior 5 lvl (Vaarsuvius) (капитан Филлис)'] = {
         #'Glaive':1,
         'Pilum':12,
         'Long Spear':1,
-        'Poison Blade':60,
+        'Poison Blade':40,
         },
     #'mount_combat':False,
     #'mount_type':'Riding Horse',
@@ -6661,7 +6647,7 @@ metadict_chars['Warrior 7 lvl (Vaarsuvius) (Филлис)'] = {
         #'Glaive':1,
         'Pilum':12,
         'Long Spear':1,
-        'Poison Blade':60,
+        'Poison Blade':40,
         },
     #'mount_combat':False,
     #'mount_type':'Riding Horse',
@@ -6687,7 +6673,7 @@ metadict_chars['Commoner 1 lvl (Vaarsuvius) (охотница)'] = {
         'Shield':1,
         'Spear':1,
         'Hunting Bow':1,
-        'Hunting Arrow':60,
+        'Hunting Arrow':40,
         },
     }
 
@@ -6706,7 +6692,7 @@ metadict_chars['Commoner 2 lvl (Vaarsuvius) (охотница-ветеран)'] 
         'Shield':1,
         'Spear':1,
         'Hunting Bow':1,
-        'Hunting Arrow':60,
+        'Hunting Arrow':40,
         },
     }
 
@@ -6731,7 +6717,7 @@ metadict_chars['Warrior 3 lvl (Vaarsuvius) (меткий стрелок-отст
         'Dagger':1,
         'Shield':1,
         'Longbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     }
 
@@ -6758,7 +6744,7 @@ metadict_chars['Warrior 3 lvl (Vaarsuvius) (сержант Аксиотея)'] =
         'Dagger':1,
         'Shield':1,
         'Longbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     }
 
@@ -6815,7 +6801,7 @@ metadict_chars['Commoner 1 lvl (Vaarsuvius) (токсотай)'] = {
         'Shield':1,
         'Dagger':1,
         'Shortbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     }
 
@@ -6834,7 +6820,7 @@ metadict_chars['Commoner 2 lvl (Vaarsuvius) (токсотай-ветеран)'] 
         'Shield':1,
         'Dagger':1,
         'Shortbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     }
 
@@ -6857,7 +6843,7 @@ metadict_chars['Commoner 1 lvl (друг) (сатир-охотник)'] = {
         'Shield':1,
         'Spear':1,
         'Hunting Bow':1,
-        'Hunting Arrow':60,
+        'Hunting Arrow':40,
         },
     }
 
@@ -6876,7 +6862,7 @@ metadict_chars['Commoner 2 lvl (друг) (сатир-ветеран)'] = {
         'Shield':1,
         'Spear':1,
         'Hunting Bow':1,
-        'Hunting Arrow':60,
+        'Hunting Arrow':40,
         },
     }
 
@@ -6899,7 +6885,7 @@ metadict_chars['Warrior 3 lvl (друг) (сатир-сержант)'] = {
         'Shield':1,
         'Shortsword':1,
         'Longbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     }
 
@@ -6924,13 +6910,11 @@ metadict_chars['Warrior 4 lvl (друг) (сын Павсания)'] = {
         'Shield':1,
         'Shortsword':1,
         'Longbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     #'mount_combat':False,
     #'mount_type':'Riding Horse',
-    #'equipment_mount':{
-    #    #'Arrow':60,
-    #    },
+    #'equipment_mount':{},
     }
 
 #----
@@ -6953,7 +6937,7 @@ metadict_chars['Warrior 1 lvl (Vaarsuvius) (стрелок)'] = {
         'Leather Armor':1,
         'Dagger':1,
         'Longbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     }
 
@@ -6977,7 +6961,7 @@ metadict_chars['Warrior 2 lvl (Vaarsuvius) (стрелок-ветеран)'] = {
         'Dagger':1,
         'Shield':1,
         'Longbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     }
 
@@ -7002,7 +6986,7 @@ metadict_chars['Warrior 3 lvl (Vaarsuvius) (меткий стрелок)'] = {
         'Dagger':1,
         'Shield':1,
         'Longbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     }
 
@@ -7028,13 +7012,11 @@ metadict_chars['Warrior 4 lvl (Vaarsuvius) (стрелок-лейтенант)']
         'Shield':1,
         'Dagger':1,
         'Longbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     #'mount_combat':False,
     #'mount_type':'Riding Horse',
-    #'equipment_mount':{
-    #    #'Arrow':60,
-    #    },
+    #'equipment_mount':{},
     }
 
 metadict_chars['Warrior 5 lvl (Vaarsuvius) (стрелок-капитан)'] = {
@@ -7061,13 +7043,11 @@ metadict_chars['Warrior 5 lvl (Vaarsuvius) (стрелок-капитан)'] = {
         'Shield':1,
         'Dagger':1,
         'Longbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     'mount_combat':False,
     'mount_type':'Riding Horse',
-    'equipment_mount':{
-        #'Arrow':60,
-        },
+    'equipment_mount':{},
     }
 
 #----
@@ -7457,7 +7437,7 @@ metadict_chars['Druid 7 lvl (Vaarsuvius) (Ианта «Дочь бури»)'] = 
         'Breastplate':1,
         'Shield':1,
         'Longbow +1':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     #'mount_combat':True,
     #'mount_type':'Warhorse',
@@ -7493,7 +7473,7 @@ metadict_chars['Fighter 1 lvl (ArbitraryNickname) (снайпер)'] = {
         'Shield':1,
         'Shortsword':1,
         'Longbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     #'mount_combat':False,
     #'mount_type':'Riding Horse',
@@ -7548,7 +7528,7 @@ metadict_chars['Fighter 5 lvl (ArbitraryNickname) (Артаманах Рыбни
         'Longbow +1':1,
         'Scimitar':1,
         'Dagger':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     }
 
@@ -8104,7 +8084,7 @@ metadict_chars['Fighter 2 lvl (Mordodrukow) (снайпер Фарама)'] = {
         'Shield':1,
         'Scimitar':1,
         'Longbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     #'mount_combat':True,
     #'mount_type':'Riding Horse',
@@ -8280,7 +8260,7 @@ metadict_chars['Warrior 1 lvl (Mordodrukow) (лучник Фарама)'] = {
         'Studded Leather':1,
         'Dagger':1,
         'Longbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     }
 
@@ -8304,7 +8284,7 @@ metadict_chars['Warrior 2 lvl (Mordodrukow) (ветеран Фарама)'] = {
         'Dagger':1,
         'Shield':1,
         'Longbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     }
 
@@ -8328,7 +8308,7 @@ metadict_chars['Warrior 3 lvl (Mordodrukow) (сержант Фарама)'] = {
         'Scimitar':1,
         'Shield':1,
         'Longbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     }
 
@@ -8355,13 +8335,11 @@ metadict_chars['Warrior 4 lvl (Mordodrukow) (лейтенант Фарама)'] 
         'Shield':1,
         'Scimitar':1,
         'Longbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     #'mount_combat':False,
     #'mount_type':'Riding Horse',
-    #'equipment_mount':{
-    #    #'Arrow':60,
-    #    },
+    #'equipment_mount':{},
     }
 
 metadict_chars['Warrior 5 lvl (Mordodrukow) (капитан Фарама)'] = {
@@ -8388,13 +8366,11 @@ metadict_chars['Warrior 5 lvl (Mordodrukow) (капитан Фарама)'] = {
         'Shield':1,
         'Scimitar':1,
         'Longbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     #'mount_combat':False,
     #'mount_type':'Riding Horse',
-    #'equipment_mount':{
-    #    #'Arrow':60,
-    #    },
+    #'equipment_mount':{},
     }
 
 #----
@@ -8709,7 +8685,7 @@ metadict_chars['Ranger 2 lvl (Gogan) (следопыт Сакатра)'] = {
         'Shield':1,
         'Shortsword':1,
         'Longbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     #'mount_combat':True,
     #'mount_type':'Light Warhorse',
@@ -8771,7 +8747,7 @@ metadict_chars['Ranger 7 lvl (Gogan) (Сакатр Ка-Ален)'] = {
         'Shield':1,
         'Scimitar':1,
         'Longbow +1':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     #'mount_combat':True,
     #'mount_type':'Light Warhorse',
@@ -8798,7 +8774,7 @@ metadict_chars['Warrior 1 lvl (Gogan) (кимерийский пират)'] = {
         'Shield':1,
         'Shortsword':1,
         'Shortbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     }
 
@@ -8822,7 +8798,7 @@ metadict_chars['Warrior 2 lvl (Gogan) (кимерийский пират-вет�
         'Rapier':1,
         'Dagger':1,
         'Shortbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     }
 
@@ -8847,7 +8823,7 @@ metadict_chars['Warrior 3 lvl (Gogan) (кимерийский пират-сер�
         'Rapier':1,
         'Dagger':1,
         'Shortbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     }
 
@@ -8874,7 +8850,7 @@ metadict_chars['Warrior 4 lvl (Gogan) (кимерийский пират-лей�
         'Rapier':1,
         'Dagger':1,
         'Shortbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     #'mount_combat':False,
     #'mount_type':'Riding Horse',
@@ -8907,7 +8883,7 @@ metadict_chars['Warrior 5 lvl (Gogan) (кимерийский пират-кап�
         'Rapier':1,
         'Dagger':1,
         'Shortbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     #'mount_combat':False,
     #'mount_type':'Riding Horse',
@@ -8947,7 +8923,7 @@ metadict_chars['Warlock 1 lvl (враг) (колдун Кара\'Яма)'] = {
         'Rune of Armor':1,
         'Dagger':1,
         'Shortbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     'mount_combat':True,
     'mount_type':'Horseclaw',
@@ -9016,7 +8992,7 @@ metadict_chars['Warlock 5 lvl (враг) (Кара\'Ям)'] = {
         'Rune of Armor':1,
         'Shortsword +1':1,
         'Shortbow +1':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     'mount_combat':True,
     'mount_type':'Horseclaw',
@@ -9056,7 +9032,7 @@ metadict_chars['Warlock 1 lvl (враг) (колдун Кема\'Эша)'] = {
         'Rune of Armor':1,
         'Dagger':1,
         'Shortbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     'mount_combat':True,
     'mount_type':'Horseclaw',
@@ -9122,7 +9098,7 @@ metadict_chars['Warlock 5 lvl (враг) (Кема\'Эш)'] = {
         'Rune of Armor':1,
         'Dagger':1,
         'Shortbow +1':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     'mount_combat':True,
     'mount_type':'Horseclaw',
@@ -9154,7 +9130,7 @@ metadict_chars['Ranger 1 lvl (враг) (следопыт Энзифа)'] = {
         'Shield':1,
         'Shortsword':1,
         'Longbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     #'mount_combat':True,
     #'mount_type':'Light Warhorse',
@@ -9208,8 +9184,7 @@ metadict_chars['Ranger 5 lvl (враг) (Энзиф «Ходи-гора»)'] = {
         'Shield':1,
         'Shortsword':1,
         'Longbow +1':1,
-        'Arrow':60,
-        'Maul':1,
+        'Arrow':40,
         },
     #'mount_combat':True,
     #'mount_type':'Light Warhorse',
@@ -9347,7 +9322,7 @@ metadict_chars['Fighter 1 lvl (враг) (снайпер Хана\'Вама)'] =
         'Shield':1,
         'Shortsword':1,
         'Longbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     'mount_combat':True,
     'mount_type':'Riding Horse',
@@ -9394,7 +9369,7 @@ metadict_chars['Fighter 5 lvl (враг) (Хана\'Вам)'] = {
         'Shield':1,
         'Scimitar +1':1,
         'Longbow +1':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     'mount_combat':True,
     'mount_type':'Riding Horse',
@@ -10442,8 +10417,8 @@ metadict_chars['Warlock 3 lvl (враг) (колдун Чары)'] = {
         'Rune of Armor':1,
         'Shortsword':1,
         'Shortbow':1,
-        'Arrow':60,
-        'Poison Arrow':60,
+        'Arrow':40,
+        'Poison Arrow':40,
         'Poison Blade':10,
         },
     #'mount_combat':True,
@@ -10565,8 +10540,8 @@ metadict_chars['Warlock 11 lvl (враг) (Чара Атенак)'] = {
         'Mage_Armor':1,
         'Shortsword +1':1,
         'Shortbow +1':1,
-        'Arrow':60,
-        'Poison Arrow':60,
+        'Arrow':40,
+        'Poison Arrow':40,
         'Poison Blade':10,
         },
     # TODO: летучий зверь вместо когтеклюва:
@@ -11593,7 +11568,7 @@ metadict_chars['Bard 2 lvl (друг) (бард Тетры)'] = {
         'Rune of Armor':1,
         'Rapier':1,
         'Longbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     #'mount_combat':True,
     #'mount_type':'Light Warhorse',
@@ -11677,7 +11652,7 @@ metadict_chars['Bard 6 lvl (друг) (Тетра Курио)'] = {
         'Rune of Armor':1,
         'Rapier +1':1,
         'Longbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     #'mount_combat':True,
     #'mount_type':'Light Warhorse',
@@ -11705,7 +11680,7 @@ metadict_chars['Warrior 1 lvl (друг) (арбалетчик Тетры)'] = {
         'Shield':1,
         'Shortsword':1,
         'Crossbow, Heavy':1,
-        'Crossbow Bolt':60,
+        'Crossbow Bolt':40,
         },
     }
 
@@ -11729,7 +11704,7 @@ metadict_chars['Warrior 2 lvl (друг) (арбалетчик-ветеран Т
         'Shield':1,
         'Shortsword':1,
         'Crossbow, Heavy':1,
-        'Crossbow Bolt':60,
+        'Crossbow Bolt':40,
         },
     }
 
@@ -11755,7 +11730,7 @@ metadict_chars['Warrior 3 lvl (друг) (арбалетчик-сержант Т
         'Shield':1,
         'Shortsword':1,
         'Crossbow, Heavy':1,
-        'Crossbow Bolt':60,
+        'Crossbow Bolt':40,
         },
     }
 
@@ -11783,7 +11758,7 @@ metadict_chars['Warrior 4 lvl (друг) (арбалетчик-лейтенан�
         'Shield':1,
         'Shortsword':1,
         'Crossbow, Heavy':1,
-        'Crossbow Bolt':60,
+        'Crossbow Bolt':40,
         },
     #'mount_combat':False,
     #'mount_type':'Riding Horse',
@@ -11817,7 +11792,7 @@ metadict_chars['Warrior 5 lvl (друг) (арбалетчик-капитан Т
         'Shield':1,
         'Shortsword':1,
         'Crossbow, Heavy':1,
-        'Crossbow Bolt':60,
+        'Crossbow Bolt':40,
         },
     #'mount_combat':False,
     #'mount_type':'Riding Horse',
@@ -11981,7 +11956,7 @@ metadict_chars['Warlock 2 lvl (друг) (колдун Кема\'Эша)'] = {
         'Rune of Armor':1,
         'Shortsword':1,
         'Shortbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     #'mount_combat':True,
     #'mount_type':'Horseclaw',
@@ -12054,7 +12029,7 @@ metadict_chars['Warlock 6 lvl (друг) (Кема\'Эш «Ловкач»)'] = {
         'Rune of Armor':1,
         'Shortsword +1':1,
         'Shortbow':1,
-        'Arrow':60,
+        'Arrow':40,
         },
     #'mount_combat':True,
     #'mount_type':'Horseclaw',
@@ -12212,7 +12187,7 @@ metadict_chars['Warrior 2 lvl (друг) (ветеран Тави)'] = {
         'Heavy Shield':1,
         'Shortsword':1,
         'Pilum':12,
-        'Sleep Blade':60,
+        'Sleep Blade':40,
         },
     }
 
@@ -12240,7 +12215,7 @@ metadict_chars['Warrior 3 lvl (друг) (сержант Тави)'] = {
         'Heavy Shield':1,
         'Shortsword':1,
         'Pilum':12,
-        'Sleep Blade':60,
+        'Sleep Blade':40,
         },
     }
 
@@ -12269,7 +12244,7 @@ metadict_chars['Warrior 4 lvl (друг) (лейтенант Тави)'] = {
         'Heavy Shield':1,
         'Shortsword':1,
         'Pilum':12,
-        'Sleep Blade':60,
+        'Sleep Blade':40,
         },
     #'mount_combat':False,
     #'mount_type':'Riding Horse',
@@ -12304,7 +12279,7 @@ metadict_chars['Warrior 5 lvl (друг) (капитан Тави)'] = {
         'Heavy Shield':1,
         'Shortsword':1,
         'Pilum':12,
-        'Sleep Blade':60,
+        'Sleep Blade':40,
         },
     #'mount_combat':False,
     #'mount_type':'Riding Horse',
