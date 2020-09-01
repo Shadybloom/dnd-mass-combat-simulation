@@ -482,7 +482,7 @@ metadict_squads['Squad-hero (упыри Менона) (нейтрал)'] = {
 #----
 # Свита Карагоса:
 
-metadict_squads['Band-hero (лично Карагос) (нейтрал)'] = {
+metadict_squads['Single-hero (лично Карагос) (нейтрал)'] = {
     # Он потерял всю свою свиту.
     'Barbarian 9 lvl (нейтрал) (Карагос «Мудрый»)':1,
     }
@@ -625,7 +625,7 @@ metadict_squads['Squad-hero (монахи Кумара) (друг)'] = {
     'Monk 3 lvl (друг) (монах Кумара)':13,
     }
 
-metadict_squads['Band-hero (лично Кумар) (друг)'] = {
+metadict_squads['Single-hero (лично Кумар) (друг)'] = {
     'Monk 9 lvl (друг) (Кумар «Чугуннорукий»)':1,
     }
 
@@ -1226,19 +1226,20 @@ metadict_squads['Company-regular (bowmans-scythian)'] = {
 #----
 # Ветеранские отряды:
 # Тесты боёв:
-    # | sqythian  | cilician  | pikemans  | thracian  | hoplites  | legionary | vs
-    # | --------- | --------- | --------- | --------- | --------- | --------- | ---------
-    # | -         |           |           |           |           |           | sqythian   
-    # |           | -         | 67/29     |           | 76/24     | 53/46     | cilician   
-    # |           | 29/67     | -         |           |           |           | pikemans   
-    # |           |           |           | -         |           |           | thracian
-    # |           | 24/76     |           |           | -         |           | hoplites   
-    # |           | 46/53     |           |           |           | -         | legionary  
+    # 400 000 неписей сражалось ради этих тестов.
+    # №   | sqythian  | cilician  | pikemans  | thracian  | hoplites  | legionary | vs
+    # --- | --------- | --------- | --------- | --------- | --------- | --------- | ---------
+    # 1   | -         | -         | -         | -         | -         | -         | sqythian
+    # 2   | -         | -         | 67/29     | 55/45     | 76/24     | 53/46     | cilician
+    # 3   | -         | 29/67     | -         | 28/66     | 63/36     | 49/49     | pikemans
+    # 4   | -         | 45/55     | 66/28     | -         | 85/13     | 67/30     | thracian
+    # 5   | -         | 24/76     | 36/63     | 13/85     | -         | 63/36     | hoplites
+    # 6   | -         | 46/53     | 49/49     | 30/67     | 36/63     | -         | legionary
 
 metadict_squads['Company-veteran (infantry-hoplites)'] = {
     # Отряд героя 6 lvl
-        # Два капитана и 20 800 exp на отряд, +34 ветерана.
-        # Отборный отряд -- 200 рекрутов на 100 солдат
+    # Два капитана и 20 800 exp на отряд, +34 ветерана.
+    # Отборный отряд -- 200 рекрутов на 100 солдат
     # Fighting_Style_Dueling
     'Warrior 1 lvl (achean hoplite)':46 + dice_throw('1d12'),
     'Warrior 2 lvl (achean hoplite-corporal)':44,
@@ -1249,7 +1250,6 @@ metadict_squads['Company-veteran (infantry-hoplites)'] = {
     }
 
 metadict_squads['Company-veteran (infantry-legionary)'] = {
-    # Тесты, battle_map, 10 боёв:
     # Fighting_Style_Protection
     'Warrior 1 lvl (legionary infantry)':46 + dice_throw('1d12'),
     'Warrior 2 lvl (legionary infantry-corporal)':44,
@@ -1260,7 +1260,6 @@ metadict_squads['Company-veteran (infantry-legionary)'] = {
     }
 
 metadict_squads['Company-veteran (infantry-pikemans)'] = {
-    # Тесты, battle_map, 10 боёв:
     # Fighting_Style_Defence
     'Warrior 1 lvl (city pikeman)':46 + dice_throw('1d12'),
     'Warrior 2 lvl (city pikeman-corporal)':44,
@@ -1271,7 +1270,6 @@ metadict_squads['Company-veteran (infantry-pikemans)'] = {
     }
 
 metadict_squads['Company-veteran (infantry-thracian)'] = {
-    # Тесты, battle_map, 10 боёв:
     # Fighting_Style_Great_Weapon_Fighting
     'Warrior 1 lvl (thracian infantry)':46 + dice_throw('1d12'),
     'Warrior 2 lvl (thracian infantry-corporal)':44,
@@ -1282,7 +1280,6 @@ metadict_squads['Company-veteran (infantry-thracian)'] = {
     }
 
 metadict_squads['Company-veteran (infantry-cilician)'] = {
-    # Тесты, battle_map, 10 боёв:
     # Fighting_Style_Two_Weapon_Fighting
     'Warrior 1 lvl (cilician infantry)':46 + dice_throw('1d12'),
     'Warrior 2 lvl (cilician infantry-corporal)':44,
@@ -1293,7 +1290,6 @@ metadict_squads['Company-veteran (infantry-cilician)'] = {
     }
 
 metadict_squads['Company-veteran (bowmans-scythian)'] = {
-    # Тесты, battle_map, 10 боёв:
     # Fighting_Style_Archery
     'Warrior 1 lvl (sqythian bowman)':46 + dice_throw('1d12'),
     'Warrior 2 lvl (sqythian bowman-corporal)':44,
