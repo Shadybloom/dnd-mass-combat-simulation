@@ -1490,8 +1490,9 @@ class gen_spells():
                 soldier = self.mage
             else:
                 soldier = self.mage.metadict_soldiers[spell_dict['target_uuid']]
+            soldier.battle.recon_action(soldier, soldier.squad)
             if soldier.near_allies:
-                enemy = soldier.near_allies[0]
+                enemy = random.choice(soldier.near_allies)
                 enemy_soldier = soldier.battle.metadict_soldiers[enemy.uuid]
                 enemy = soldier.battle.get_enemy_tuple(soldier, enemy_soldier)
                 mage = soldier.metadict_soldiers[spell_dict['caster_uuid']]
