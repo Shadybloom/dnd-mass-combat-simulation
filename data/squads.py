@@ -179,12 +179,8 @@ metadict_squads['Company-militia (bandits)'] = {
     'Bandit (CR 1/8)':100,
     }
 
-metadict_squads['Company-regular (thugs)'] = {
+metadict_squads['Company-veteran (thugs)'] = {
     'Thug (CR 1/2)':100,
-    }
-
-metadict_squads['Company-elite (bugbears)'] = {
-    'Bugbear (CR 1)':100,
     }
 
 metadict_squads['Company-militia (goblins)'] = {
@@ -192,15 +188,19 @@ metadict_squads['Company-militia (goblins)'] = {
     'Goblin Boss (CR 1)':3,
     }
 
-metadict_squads['Company-regular (hobgoblins)'] = {
+metadict_squads['Company-veteran (hobgoblins)'] = {
     'Hobgoblin (CR 1/2)':80 + dice_throw('3d12'),
     'Hobgoblin-captain (CR 3)':1,
     }
 
-metadict_squads['Company-elite (orks)'] = {
+metadict_squads['Company-veteran (orks)'] = {
     'Ork (CR 1/2)':80 + dice_throw('3d12'),
     'Orog (CR 2)':3,
     'Ork war chief (CR 4)':1,
+    }
+
+metadict_squads['Company-elite (bugbears)'] = {
+    'Bugbear (CR 1)':100,
     }
 
 #----
@@ -498,7 +498,7 @@ metadict_squads['Company-regular (пираты Карагоса) (нейтрал
     'Warrior 5 lvl (нейтрал) (капитан Карагоса)':1,
     }
 
-metadict_squads['Company-regular (ветераны Карагоса) (нейтрал)'] = {
+metadict_squads['Company-veteran (ветераны Карагоса) (нейтрал)'] = {
     # Опытный отряд с двумя капитанами
     'Warrior 2 lvl (нейтрал) (ветеран Карагоса)':85 + dice_throw('1d12'),
     'Warrior 3 lvl (нейтрал) (сержант Карагоса)':6,
@@ -593,7 +593,7 @@ metadict_squads['Squad-hero (кошки Тави) (друг)'] = {
 #----
 # Армия Тинв:
 
-metadict_squads['Company-regular (ветераны Тави) (друг)'] = {
+metadict_squads['Company-elite (гвардия Тави) (друг)'] = {
     'Warrior 2 lvl (друг) (ветеран Тави)':60,
     'Warrior 3 lvl (друг) (сержант Тави)':18,
     'Warrior 4 lvl (друг) (лейтенант Тави)':6,
@@ -794,7 +794,7 @@ metadict_squads['Company-regular (пращники Тик-Бо) (враг)'] = {
 #----
 # Армия Нингиримы:
 
-metadict_squads['Company-regular (гоплиты Нингиримы) (враг)'] = {
+metadict_squads['Company-veteran (гоплиты Нингиримы) (враг)'] = {
     # Опытный отряд.
     'Warrior 1 lvl (враг) (гоплит Нингиримы)':46 + dice_throw('1d12'),
     'Warrior 2 lvl (враг) (гоплит-ветеран Нингиримы)':46,
@@ -804,7 +804,7 @@ metadict_squads['Company-regular (гоплиты Нингиримы) (враг)'
     'Commoner 1 lvl (recruit)':100,
     }
 
-metadict_squads['Company-regular (гоплиты Клеомена) (враг)'] = {
+metadict_squads['Company-veteran (гоплиты Клеомена) (враг)'] = {
     # Опытный отряд.
     'Warrior 2 lvl (враг) (гоплит-ветеран Нингиримы)':90,
     'Warrior 3 lvl (враг) (гоплит-сержант Нингиримы)':6,
@@ -867,7 +867,7 @@ metadict_squads['Company-regular (легионеры Гая Юлия) (Katorjnik
     'Warrior 5 lvl (Katorjnik) (центурион)':1,
     }
 
-metadict_squads['Company-regular (ветераны Гая Юлия) (Katorjnik)'] = {
+metadict_squads['Company-veteran (ветераны Гая Юлия) (Katorjnik)'] = {
     # Два капитана, опытный отряд.
     'Warrior 2 lvl (Katorjnik) (ветеран) (кольчуга)':50,
     'Warrior 2 lvl (Katorjnik) (ветеран)':40,
@@ -938,7 +938,7 @@ metadict_squads['Squad-hero (друиды Патрокла) (Vened)'] = {
 #----
 # Армия Патрокла
 
-metadict_squads['Company-regular (ветераны Патрокла) (Vened)'] = {
+metadict_squads['Company-elite (гвардия Патрокла) (Vened)'] = {
     # Сводный отряд ветеранов:
     'Warrior 2 lvl (Vened) (ветеран Патрокла)':60,
     'Warrior 3 lvl (Vened) (сержант Патрокла)':18,
@@ -994,7 +994,7 @@ metadict_squads['Band-hero (дракон Ианты) (Агаталара Огн�
 #----
 # Армия Ианты
 
-metadict_squads['Company-regular (ветераны Филлис) (Vaarsuvius)'] = {
+metadict_squads['Company-elite (гвардия Филлис) (Vaarsuvius)'] = {
     'Warrior 2 lvl (Vaarsuvius) (ветеран Филлис)':60,
     'Warrior 3 lvl (Vaarsuvius) (сержант Филлис)':18,
     'Warrior 4 lvl (Vaarsuvius) (лейтенант Филлис)':6,
@@ -1227,14 +1227,14 @@ metadict_squads['Company-regular (bowmans-scythian)'] = {
 # Ветеранские отряды:
 # Тесты боёв:
     # 400 000 неписей сражалось ради этих тестов.
-    # №   | sqythian  | cilician  | pikemans  | thracian  | hoplites  | legionary | vs
-    # --- | --------- | --------- | --------- | --------- | --------- | --------- | ---------
-    # 1   | -         | -         | -         | -         | -         | -         | sqythian
-    # 2   | -         | -         | 67/29     | 55/45     | 76/24     | 53/46     | cilician
-    # 3   | -         | 29/67     | -         | 28/66     | 63/36     | 49/49     | pikemans
-    # 4   | -         | 45/55     | 66/28     | -         | 85/13     | 67/30     | thracian
-    # 5   | -         | 24/76     | 36/63     | 13/85     | -         | 63/36     | hoplites
-    # 6   | -         | 46/53     | 49/49     | 30/67     | 36/63     | -         | legionary
+    # sqythian  | cilician  | pikemans  | thracian  | hoplites  | legionary | vs
+    # --------- | --------- | --------- | --------- | --------- | --------- | ---------
+    # -         | -         | -         | -         | -         | -         | sqythian
+    # -         | -         | 67/29     | 55/45     | 76/24     | 53/46     | cilician
+    # -         | 29/67     | -         | 28/66     | 63/36     | 49/49     | pikemans
+    # -         | 45/55     | 66/28     | -         | 85/13     | 67/30     | thracian
+    # -         | 24/76     | 36/63     | 13/85     | -         | 63/36     | hoplites
+    # -         | 46/53     | 49/49     | 30/67     | 36/63     | -         | legionary
 
 metadict_squads['Company-veteran (infantry-hoplites)'] = {
     # Отряд героя 6 lvl
