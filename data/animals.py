@@ -1132,14 +1132,14 @@ metadict_animals['Mastiff, dog (CR 1/8)'] = {
 metadict_animals['Zombie (CR 1/4)'] = {
     # Зомби.
     'level':3,
+    'killer_AI':True,
+    'seeker_AI':True,
     'fearless_AI':True,
+    #'grappler_AI':True,
     'challenge_rating':'1/4',
     'char_class':'Commoner',
     'behavior':'warrior',
     'hitpoints_medial':True,
-    #'grappler_AI':True,
-    #'predator_AI':True,
-    #'killer_AI':True,
     'class_features':{
         'immunity':['poison','poisoned'],
         'Undead_Fortitude':True,
@@ -2009,8 +2009,11 @@ metadict_animals['Storm Giant (CR 13)'] = {
 
 metadict_animals['Goblin (CR 1/4)'] = {
     # Гоблин
-    # TODO: расу подправь.
+    # ------------------------------------------------------------
+    # Nimble_Escape -- disengage или dash бонусным действием.
+    # ------------------------------------------------------------
     'level':2,
+    #'fearless_AI':True,
     'challenge_rating':'1/4',
     'hitpoints_medial':True,
     'char_class':'Rogue',
@@ -2027,7 +2030,7 @@ metadict_animals['Goblin (CR 1/4)'] = {
         },
     'hit_dice':'1d6',
     'behavior':'archer',
-    'race':'Human-common',
+    'race':'Humanoid-common',
     'weapon_skill':['simple','martial'],
     'armor_skill':['light','medium','heavy','shield'],
     'equipment_supply':soldier_supply,
@@ -2043,11 +2046,11 @@ metadict_animals['Goblin (CR 1/4)'] = {
 
 metadict_animals['Goblin Boss (CR 1)'] = {
     # Босс гоблинов
-    # TODO: расу подправь. Допили способности
     # ------------------------------------------------------------
     # Redirect_Attack меняется местами с соседом по строю. Реакции не требует?
     # ------------------------------------------------------------
     'level':6,
+    #'fearless_AI':True,
     'challenge_rating':'1',
     'hitpoints_medial':True,
     'char_class':'Rogue',
@@ -2065,7 +2068,7 @@ metadict_animals['Goblin Boss (CR 1)'] = {
         },
     'hit_dice':'1d6',
     'behavior':'commander',
-    'race':'Human-common',
+    'race':'Humanoid-common',
     'weapon_skill':['simple','martial'],
     'armor_skill':['light','medium','heavy','shield'],
     'equipment_supply':soldier_supply,
@@ -2082,11 +2085,11 @@ metadict_animals['Goblin Boss (CR 1)'] = {
 
 metadict_animals['Hobgoblin (CR 1/2)'] = {
     # Хобгоблин
-    # TODO: расу подправь. Допили способности
     # ------------------------------------------------------------
     # Martial_Advantage даёт +2d6 урона к удачной атаке, если рядом с врагом союзник.
     # ------------------------------------------------------------
     'level':2,
+    #'fearless_AI':True,
     'challenge_rating':'1/2',
     'hitpoints_medial':True,
     'char_class':'Rogue',
@@ -2104,7 +2107,7 @@ metadict_animals['Hobgoblin (CR 1/2)'] = {
         },
     'hit_dice':'1d8',
     'behavior':'warrior',
-    'race':'Human-common',
+    'race':'Humanoid-common',
     'weapon_skill':['simple','martial'],
     'armor_skill':['light','medium','heavy','shield'],
     'equipment_supply':soldier_supply,
@@ -2120,11 +2123,11 @@ metadict_animals['Hobgoblin (CR 1/2)'] = {
 
 metadict_animals['Hobgoblin-captain (CR 3)'] = {
     # Капитан хобгоблинов.
-    # TODO: расу подправь.
     # ------------------------------------------------------------
     # Martial_Advantage даёт +2d6 урона к удачной атаке, если рядом с врагом союзник.
     # ------------------------------------------------------------
     'level':6,
+    #'fearless_AI':True,
     'challenge_rating':'1/2',
     'hitpoints_medial':True,
     'char_class':'Rogue',
@@ -2144,7 +2147,7 @@ metadict_animals['Hobgoblin-captain (CR 3)'] = {
         },
     'hit_dice':'1d8',
     'behavior':'commander',
-    'race':'Human-common',
+    'race':'Humanoid-common',
     'weapon_skill':['simple','martial'],
     'armor_skill':['light','medium','heavy','shield'],
     'equipment_supply':soldier_supply,
@@ -2158,7 +2161,6 @@ metadict_animals['Hobgoblin-captain (CR 3)'] = {
 
 metadict_animals['Ork (CR 1/2)'] = {
     # Орк, обычный орк.
-    # TODO: расу подправь. Допили способности
     # ------------------------------------------------------------
     # Aggressive. Движение на 30 футов бонусным действием. В engage_action
     # ------------------------------------------------------------
@@ -2179,7 +2181,7 @@ metadict_animals['Ork (CR 1/2)'] = {
         },
     'hit_dice':'1d8',
     'behavior':'warrior',
-    'race':'Human-common',
+    'race':'Humanoid-common',
     'weapon_skill':['simple','martial'],
     'armor_skill':['light','medium','heavy','shield'],
     'equipment_supply':soldier_supply,
@@ -2194,11 +2196,11 @@ metadict_animals['Ork (CR 1/2)'] = {
 metadict_animals['Ogre (CR 2)'] = {
     # Огры
     'level':7,
+    #'fearless_AI':True,
     'challenge_rating':'2',
     'hitpoints_medial':True,
     'char_class':'Warrior',
     'behavior':'elite_warrior',
-    #'fearless_AI':True,
     'class_features':{
         },
     'abilityes':{
@@ -2224,7 +2226,6 @@ metadict_animals['Ogre (CR 2)'] = {
 
 metadict_animals['Orog (CR 2)'] = {
     # Орог. Умный орк.
-    # TODO: расу подправь. Допили способности
     # ------------------------------------------------------------
     # Aggressive. Движение на 30 футов бонусным действием. В engage_action
     # ------------------------------------------------------------
@@ -2246,7 +2247,7 @@ metadict_animals['Orog (CR 2)'] = {
         },
     'hit_dice':'1d8',
     'behavior':'commander',
-    'race':'Human-common',
+    'race':'Humanoid-common',
     'weapon_skill':['simple','martial'],
     'armor_skill':['light','medium','heavy','shield'],
     'equipment_supply':soldier_supply,
@@ -2260,7 +2261,6 @@ metadict_animals['Orog (CR 2)'] = {
 
 metadict_animals['Ork war chief (CR 4)'] = {
     # Боевой вождь орков.
-    # TODO: расу подправь. Допили способности
     # ------------------------------------------------------------
     # Aggressive. Движение на 30 футов бонусным действием. В engage_action
     # Gruumsh’s Fury. 1d8 дополнительного урона.
@@ -2285,7 +2285,7 @@ metadict_animals['Ork war chief (CR 4)'] = {
         },
     'hit_dice':'1d8',
     'behavior':'commander',
-    'race':'Human-common',
+    'race':'Humanoid-common',
     'weapon_skill':['simple','martial'],
     'armor_skill':['light','medium','heavy','shield'],
     'equipment_supply':soldier_supply,
@@ -2299,7 +2299,6 @@ metadict_animals['Ork war chief (CR 4)'] = {
 
 metadict_animals['Bugbear (CR 1)'] = {
     # Медвежатник, багбир
-    # TODO: расу подправь. Допили способности
     # Это большое существо 2x2 тайла.
     # ------------------------------------------------------------
     # Brute. дополнительная кость урона оружия.
@@ -2323,7 +2322,7 @@ metadict_animals['Bugbear (CR 1)'] = {
         },
     'hit_dice':'1d8',
     'behavior':'commander',
-    'race':'Human-common',
+    'race':'Humanoid-common',
     'weapon_skill':['simple','martial'],
     'armor_skill':['light','medium','heavy','shield'],
     'equipment_supply':soldier_supply,
