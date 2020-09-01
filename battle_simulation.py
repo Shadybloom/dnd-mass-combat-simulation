@@ -43,9 +43,10 @@ def create_parser():
                         help='Например: battle_map'
                         )
     parser.add_argument('-c', '--commands',
-                        action='store_true', dest='commands', default=False,
-                        help='Позволяет команды отрядам: dodge, fearless, retreat, move, т.д.\
-                                (-command -- отмена, auto -- автопилот)'
+                        action='store', dest='commands', type=str, nargs='*',
+                        help='Команды всем: dodge, help, rescue, fearless, т.д.\
+                                manual -- команды отряду (move, retreat, fireball, т.д.)\
+                                -command -- отмена, auto -- автопилот'
                         )
     parser.add_argument('-w', '--weather',
                         action='store', dest='weather', type=str,
@@ -160,7 +161,7 @@ class battle_simulation(battlescape):
                 soldier.set_actions(squad)
             # Командование отряда начинает свою работу:
             self.set_squad_command_and_control(squad)
-            squad.commands = self.squad_AI(squad, squad.commander, commands = False)
+            squad.commands = self.squad_AI(squad, squad.commander)
             for soldier in squad.metadict_soldiers.values():
                 if squad.commands:
                     soldier.commands.extend(squad.commands)
@@ -686,7 +687,7 @@ class battle_simulation(battlescape):
                     if namespace.visual:
                         time.sleep(0.2)
 
-    def start (self, max_rounds = 10, commands = False):
+    def start (self, max_rounds = 10):
         """Начинаем бой."""
         for battle_round in range(1, max_rounds +1):
             # Измеряем время раунда:
@@ -702,7 +703,7 @@ class battle_simulation(battlescape):
                 # Тяжелораненые могут погибнуть:
                 self.fall_to_death(squad)
                 # Отряд делает ход:
-                self.round_run_squad(squad, commands)
+                self.round_run_squad(squad)
                 # Выводим карту после хода каждого отряда:
                 if not namespace.test:
                     print_ascii_map(self.gen_battlemap())
@@ -737,13 +738,13 @@ class battle_simulation(battlescape):
             self.fall_to_death(squad)
             squad.casualty = self.calculate_casualty(squad)
 
-    def round_run_squad(self, squad, commands = False):
+    def round_run_squad(self, squad):
         """Ход отряда."""
         # Обновляем карту препятствий для поиска пути:
         self.matrix = self.map_to_matrix(self.battle_map, self.dict_battlespace)
         # Список команд на текущий ход:
         self.set_squad_command_and_control(squad)
-        squad.commands = self.squad_AI(squad, squad.commander, commands)
+        squad.commands = self.squad_AI(squad, squad.commander)
         # Зоны контроля сбрасываются перед ходом отряда:
         squad.dict_control_zones = {}
         for key in self.dict_battlespace.keys():
@@ -1038,7 +1039,7 @@ class battle_simulation(battlescape):
         enemy_recon['danger_places'] = danger_places
         return enemy_recon
 
-    def squad_AI(self, squad, commander, commands):
+    def squad_AI(self, squad, commander):
         """Создаёт список команд на ход."""
         commands_list = []
         if squad.commander and squad.enemies:
@@ -1203,7 +1204,15 @@ class battle_simulation(battlescape):
                     if 'lead' in commands_list:
                         commands_list.remove('lead')
                         commands_list.append('disengage')
-        if commands:
+        if namespace.commands and not 'manual' in namespace.commands:
+            for command in namespace.commands:
+                if command[0] == '-':
+                    command = command[1:]
+                    if command in commands_list:
+                        commands_list.remove(command)
+                elif command not in commands_list and not command == 'manual':
+                    commands_list.append(command)
+        elif namespace.commands and 'manual' in namespace.commands:
             # Ручной ввод команд отряду, если симуляция запущена с ключом --commands
             if not hasattr(squad, 'commands_manual') or not 'auto' in squad.commands_manual:
                 print(squad.ally_side, squad.squad_type, commands_list)
@@ -1216,7 +1225,7 @@ class battle_simulation(battlescape):
                         command = command[1:]
                         if command in commands_list:
                             commands_list.remove(command)
-                    elif command not in commands_list:
+                    elif command not in commands_list and not command == 'manual':
                         commands_list.append(command)
             print(squad.ally_side, squad.squad_type, commands_list)
         return commands_list
@@ -3964,7 +3973,7 @@ if __name__ == '__main__':
     if not namespace.test:
         battle.prepare_battlefield(selected_map, zones_squads_dict)
         try:
-            battle.start(max_rounds = namespace.rounds, commands = namespace.commands)
+            battle.start(max_rounds = namespace.rounds)
             # Смотрим сколько народу пострадало:
             battle.print_battle_statistics()
             # Сохраняем отряды в БД:
@@ -3979,7 +3988,7 @@ if __name__ == '__main__':
             battle.prepare_battlefield(selected_map, zones_squads_dict)
             try:
                 start = timeit.default_timer()
-                battle.start(max_rounds = namespace.rounds, commands = namespace.commands)
+                battle.start(max_rounds = namespace.rounds)
                 stop = timeit.default_timer()
                 # TODO: сделай временное сохранение отрядов BLUEFOR, чтобы испытывать в длительных боях:
                 # Смотрим сколько народу пострадало:
