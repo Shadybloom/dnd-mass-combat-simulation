@@ -3327,6 +3327,7 @@ class battle_simulation(battlescape):
             return advantage
         # Финт за счёт help_action, боец просит помощи союзника:
         elif attack_choice[0] == 'close' or attack_choice[0] == 'reach' or attack_choice[0] == 'throw':
+            # Cоюзника ищем в пределах 3x3 точек от местонахождения врага.
             allies_list = [self.metadict_soldiers[ally_uuid] for ally_uuid, ally_tuple
                     in self.recon(enemy_soldier.place, 1).items()
                     if ally_tuple.side == soldier.ally_side
