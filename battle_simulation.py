@@ -980,6 +980,7 @@ class battle_simulation(battlescape):
         danger_list = []
         ally_strenght_list = []
         danger_places = []
+        enemy_recon['attack_range'] = 0
         # Обозначаем опасные зоны на поле боя
         # TODO: учитывай только видимые командирам опасные точки.
         for place, elements in self.dict_battlespace.items():
@@ -1029,8 +1030,9 @@ class battle_simulation(battlescape):
         # Средняя скорость и длина хода врага:
         medial_speed = sum(speed_list) / len(enemies_dict)
         enemy_recon['move'] = round(medial_speed / self.tile_size)
-        enemy_recon['attack_range'] = round(max(attack_ranges) / self.tile_size)
         # Средняя дистанция до врага:
+        if attack_ranges:
+            enemy_recon['attack_range'] = round(max(attack_ranges) / self.tile_size)
         enemy_recon['distance_medial'] = round(sum(distance_list) / len(enemies_dict))
         enemy_recon['distance'] = min(distance_list)
         enemy_recon['danger_places'] = danger_places
