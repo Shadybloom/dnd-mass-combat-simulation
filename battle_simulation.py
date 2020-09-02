@@ -2022,7 +2022,6 @@ class battle_simulation(battlescape):
                         if attack_dict:
                             if enemy_soldier.class_features.get('Feat_Sentinel'):
                                 soldier.move_pool = 0
-                        #    # 15-20 провоцированных атак за минуту боя, 30-50 атак за бой.
                             #print('{side_1}, {c1} {s} PROVOKE >> {side_2} {c2} {e} act {a} dodge {d}'.format(
                             #    side_1 = enemy_soldier.ally_side,
                             #    c1 = enemy_soldier.place,
@@ -2117,6 +2116,7 @@ class battle_simulation(battlescape):
             danger_offence = self.check_danger_offence(soldier, enemy)
             if reaction and soldier.reaction:
                 # Атака реакцией может быть только одна:
+                soldier.drop_action(('reaction', 'Weapon_Attack'))
                 soldier.reaction = False
                 attacks_chain = [attacks_chain[0]]
             # Атака с заклинанием, вроде Green_Flame_Blade:
@@ -2125,10 +2125,12 @@ class battle_simulation(battlescape):
                         and len(attacks_chain) >= 2\
                         and soldier.bonus_action:
                     attacks_chain = attacks_chain[:2]
+                    soldier.drop_action(('bonus_action', 'War_Magic'))
                     soldier.bonus_action = False
                 else:
                     attacks_chain = [attacks_chain[0]]
             else:
+                soldier.drop_action(('action', 'Weapon_Attack'))
                 soldier.battle_action = False
                 # TODO: бонусы классов в отдельную функцию:
                 attacks_chain_bonus = []
@@ -2139,6 +2141,7 @@ class battle_simulation(battlescape):
                 # Жрецы домена войны могут получить атаку за счёт бонусного действия:
                 if soldier.class_features.get('War_Priest') and soldier.war_priest > 0:
                         attacks_chain_bonus += attack_choice
+                        soldier.drop_action(('feature', 'War_Priest'))
                         soldier.bonus_action = False
                         soldier.war_priest -= 1
                 # Монахи усиливают атаку за счёт Ки:
@@ -2252,6 +2255,7 @@ class battle_simulation(battlescape):
                     if not enemy_soldier.prone:
                         enemy_soldier.set_fall_prone(soldier)
                     else:
+                        enemy_soldier.drop_action(('reaction', 'Open_Hand_Technique'))
                         enemy_soldier.reaction = False
                 # Осьминоги могут оплести щупальцами и затащить в воду:
                 if attack_result['hit'] and 'restrained' in attack_result['weapon_type']\
@@ -2297,6 +2301,7 @@ class battle_simulation(battlescape):
                             and 'Feat_Great_Weapon_Master' in attack_dict['weapon_skills_use']\
                             and soldier.bonus_action:
                         attacks_chain.append(attack_choice)
+                        soldier.drop_action(('bonus_action', 'Feat_Great_Weapon_Master'))
                         soldier.bonus_action = False
                 # Победа приносит бойцу опыт:
                 if attack_result['fatal_hit']:
@@ -2425,6 +2430,7 @@ class battle_simulation(battlescape):
             return None
         # Сбитого с ног врага пытаемся схватить:
         if not enemy_soldier.grappled:
+            soldier.drop_action(('action', 'Grapple'))
             grappled = enemy_soldier.set_grappled(soldier)
             # Боец становится на место схваченного врага, а борцуха-монах выдирает его из строя:
             if grappled and not enemy_soldier.behavior == 'mount':
@@ -2437,15 +2443,18 @@ class battle_simulation(battlescape):
             return grappled
         # Пытаемся сбить врага с ног:
         elif not enemy_soldier.prone:
+            soldier.drop_action(('action', 'Prone_Enemy'))
             prone = enemy_soldier.set_fall_prone(soldier)
             return prone
         # У схваченного врага пытаемся вырвать щит:
         elif enemy_soldier.armor['shield_use'] and not enemy_soldier.class_features.get('Weapon_Bond'):
+            soldier.drop_action(('action', 'Disarm_Shield'))
             disarmed = enemy_soldier.set_disarm_shield(soldier)
             return disarmed
         # И наконец, отбираем у схваченного врага оружие и тащим его к нашим:
         elif len(enemy_soldier.get_weapon_list(close = True)) >= 1\
                 and not enemy_soldier.class_features.get('Weapon_Bond'):
+            soldier.drop_action(('action', 'Disarm_Weapon'))
             disarmed = enemy_soldier.set_disarm_weapon(soldier)
             if disarmed and len(soldier.near_allies) >= 1:
                 destination = self.find_spawn(soldier.place, soldier.ally_side)
@@ -2479,10 +2488,12 @@ class battle_simulation(battlescape):
             if soldier.concentration.get('effect') == 'hex':
                 soldier.concentration['target_uuid'] = enemy_soldier.uuid
                 enemy_soldier.debuffs[soldier.concentration['effect']] = soldier.concentration
+                soldier.drop_action(('bonus_action', 'Hex'))
                 soldier.bonus_action = False
             if soldier.concentration.get('effect') == 'minute_meteors':
                 self.fireball_action(soldier, squad, soldier.concentration)
                 self.fireball_action(soldier, squad, soldier.concentration)
+                soldier.drop_action(('bonus_action', 'Melf_Minute_Meteors'))
                 soldier.bonus_action = False
 
     def spellcast_action(self, soldier, squad, enemy,
@@ -3694,6 +3705,12 @@ class battle_simulation(battlescape):
             for soldier in squad.metadict_soldiers.values():
                 squad.drop_items_dict = dict(Counter(squad.drop_items_dict)\
                         + Counter(soldier.drop_items_dict))
+            # Использованные действия:
+            if not squad.__dict__.get('drop_actions_dict'):
+                squad.drop_actions_dict = {}
+            for soldier in squad.metadict_soldiers.values():
+                squad.drop_actions_dict = dict(Counter(squad.drop_actions_dict)\
+                        + Counter(soldier.drop_actions_dict))
             # Использованные заклинания:
             if not squad.__dict__.get('drop_spells_dict'):
                 squad.drop_spells_dict = {}
@@ -3841,6 +3858,11 @@ class battle_simulation(battlescape):
                         squad.traumas_dict.items(),key=lambda x: x[1]
                         ))))
                     print('traumas:', squad.traumas_dict)
+                if squad.drop_actions_dict:
+                    squad.drop_actions_dict = dict(OrderedDict(sorted(
+                        squad.drop_actions_dict.items(),key=lambda x: x[1]
+                        )))
+                    print('actions:', squad.drop_actions_dict)
 
     def save_soldiers_to_database(self):
         """Сохраняем солдат в базу данных."""

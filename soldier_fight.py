@@ -237,6 +237,9 @@ class soldier_in_battle(soldier):
         # Словарь использованных заклинаний:
         if not hasattr(self, 'drop_spells_dict'):
             self.drop_spells_dict = {}
+        # Словарь использованных способностей
+        if not hasattr(self, 'drop_actions_dict'):
+            self.drop_actions_dict = {}
         # Оружие в руках:
         if not hasattr(self, 'weapon_ready'):
             self.weapon_ready = None
@@ -639,14 +642,19 @@ class soldier_in_battle(soldier):
         if spell_dict.get('casting_time'):
             casting_time = spell_dict['casting_time']
             if casting_time == 'action':
+                self.drop_action(('action', 'Spellcast'))
                 self.battle_action = False
             elif casting_time == 'bonus_action':
+                self.drop_action(('bonus_action', 'Spellcast'))
                 self.bonus_action = False
             elif casting_time == 'reaction':
+                self.drop_action(('reaction', 'Spellcast'))
                 self.reaction = False
             else:
+                self.drop_action(('action', 'Spellcast'))
                 self.battle_action = False
         else:
+            self.drop_action(('action', 'Spellcast'))
             self.battle_action = False
 
     def set_concentration(self, spell_dict):
@@ -757,6 +765,7 @@ class soldier_in_battle(soldier):
             #    self.bonus_action = False
             #    self.dodge_action = True
             if self.bonus_action == True:
+                self.drop_action(('bonus_action', 'Dodge_Action_Monk'))
                 self.bonus_action = False
                 self.dodge_action = True
                 return True
@@ -770,6 +779,7 @@ class soldier_in_battle(soldier):
             #    self.bonus_action = False
             #    self.disengage_action = True
             if self.bonus_action == True:
+                self.drop_action(('bonus_action', 'Disengage_Action_Monk'))
                 self.bonus_action = False
                 self.disengage_action = True
                 return True
@@ -778,6 +788,7 @@ class soldier_in_battle(soldier):
         """Защитные приёмы вора."""
         if self.class_features.get('Cunning_Action'):
             if self.bonus_action == True:
+                self.drop_action(('bonus_action', 'Dodge_Action_Rogue'))
                 self.bonus_action = False
                 self.dodge_action = True
                 return True
@@ -786,6 +797,7 @@ class soldier_in_battle(soldier):
         """Уклонение вора."""
         if self.class_features.get('Cunning_Action'):
             if self.bonus_action == True:
+                self.drop_action(('bonus_action', 'Disengage_Action_Rogue'))
                 self.bonus_action = False
                 self.disengage_action = True
                 return True
@@ -794,6 +806,7 @@ class soldier_in_battle(soldier):
         """Ускорение вора."""
         if self.class_features.get('Cunning_Action'):
             if self.bonus_action == True:
+                self.drop_action(('bonus_action', 'Dash_Action_Rogue'))
                 self.bonus_action = False
                 self.dash_action = True
                 return True
@@ -1020,6 +1033,7 @@ class soldier_in_battle(soldier):
                 and self.armor['shield_use'] != None\
                 and self.shield_ready\
                 and self.reaction:
+            self.drop_action(('reaction', 'Fighting_Style_Protection'))
             self.reaction = False
             return True
         else:
@@ -1030,6 +1044,7 @@ class soldier_in_battle(soldier):
         
         Преимущество к атаке на один ход, помеха к защите от врагов."""
         if self.class_features.get('Reckless_Attack') == True:
+            self.drop_action(('feature', 'Reckless_Attack'))
             self.reckless_attack = True
             return True
         else:
@@ -1053,10 +1068,12 @@ class soldier_in_battle(soldier):
         """
         if self.bonus_action and self.class_features.get('Cunning_Action'):
             self.set_cunning_action_dash()
-        elif self.bonus_action and bonus_action:
+        elif bonus_action and self.bonus_action:
+            self.drop_action(('bonus_action', 'Dash_Action'))
             self.bonus_action = False
             self.dash_action = True
         elif self.battle_action:
+            self.drop_action(('action', 'Dash_Action'))
             self.battle_action = False
             self.dash_action = True
 
@@ -1070,8 +1087,9 @@ class soldier_in_battle(soldier):
         elif self.bonus_action and self.class_features.get('Step_of_the_Wind'):
             return self.set_step_of_the_wind_disengage()
         elif self.battle_action:
+            self.drop_action(('action', 'Disengage_Action'))
             self.battle_action = False
-            self.dodge_action = True
+            self.disengage_action = True
             return True
 
     def use_help_action(self, soldier, enemy_soldier):
@@ -1091,7 +1109,7 @@ class soldier_in_battle(soldier):
                     and not self.help_action:
                 self.help_action = True
                 advantage = True
-                self.drop_spell(('feature', 'Help_Action'))
+                self.drop_action(('action', 'Help_Action_Attack'))
                 #print('[+++] {s} {p} {b} HELP_ACTION --> {al_s} {al_p} {al_b} >> {en_s} {en_p} {en_b}'.format(
                 #    s = self.ally_side,
                 #    p = self.place,
@@ -1114,6 +1132,7 @@ class soldier_in_battle(soldier):
         elif self.bonus_action and self.class_features.get('Patient_Defense'):
             return self.set_patient_defence()
         elif self.battle_action:
+            self.drop_action(('action', 'Dodge_Action'))
             self.battle_action = False
             self.dodge_action = True
             return True
@@ -1187,6 +1206,7 @@ class soldier_in_battle(soldier):
 
         """
         self.help_action = True
+        self.drop_action(('action', 'Help_Action_First_Aid'))
         injured_ally.use_heal_potion(use_action = False, gen_spell = True)
         if not injured_ally.stable:
             return self.first_aid_bandage(injured_ally)
@@ -2203,6 +2223,16 @@ class soldier_in_battle(soldier):
             elif spell_choice in self.drop_spells_dict:
                 self.drop_spells_dict[spell_choice] += 1
             return True
+
+    def drop_action(self, action_choice):
+        """Запоминаем, что использовали способность.
+        
+        """
+        if not action_choice in self.drop_actions_dict:
+            self.drop_actions_dict[action_choice] = 1
+        elif action_choice in self.drop_actions_dict:
+            self.drop_actions_dict[action_choice] += 1
+        return True
 
     def use_item(self, spell, gen_spell = True, use_action = True, use_spell_slot = False):
         """Используется руна, свиток, предмет.
