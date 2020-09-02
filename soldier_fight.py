@@ -1079,7 +1079,9 @@ class soldier_in_battle(soldier):
         
         """
         advantage = False
-        if self.level < soldier.level or self.level == 1:
+        if self.level < soldier.level or self.level == 1\
+                or enemy_soldier.level > soldier.level\
+                and self.level <= soldier.level:
         #if self.level < soldier.level or self.level == 1 and enemy_soldier.level > self.level:
             if not self.uuid == soldier.uuid\
                     and 'help' in self.commands\
