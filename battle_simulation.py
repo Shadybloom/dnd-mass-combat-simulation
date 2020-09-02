@@ -1004,6 +1004,8 @@ class battle_simulation(battlescape):
             types_list.append(enemy_soldier.behavior)
             clases_list.append(enemy_soldier.char_class)
             danger_list.append(self.dict_danger[enemy_soldier.behavior])
+            if enemy_soldier.level > 5:
+                danger_list.append(enemy_soldier.level)
             attacks_types = set([key[0] for key in enemy_soldier.attacks.keys()])
             attacks_list.extend(attacks_types)
             attack_ranges = [value.get('attack_range',0)
