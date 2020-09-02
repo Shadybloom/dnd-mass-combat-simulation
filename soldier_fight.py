@@ -2625,9 +2625,21 @@ class soldier_in_battle(soldier):
                 damage = 0
             if ability == 'dexterity' and self.class_features.get('Evasion'):
                 damage = 0
+            if ability == 'dexterity' and self.behavior == 'mount'\
+                    and self.__dict__.get('master_uuid')\
+                    and self.metadict_soldiers[self.master_uuid].class_features.get('Feat_Mounted_Combatant')\
+                    and self.place == self.metadict_soldiers[self.master_uuid].place\
+                    and not self.metadict_soldiers[self.master_uuid].defeat:
+                damage = 0
         # Увёртливые воры и монахи всё равно уклоняются:
         else:
             if ability == 'dexterity' and self.class_features.get('Evasion'):
+                damage = round(damage / 2)
+            if ability == 'dexterity' and self.behavior == 'mount'\
+                    and self.__dict__.get('master_uuid')\
+                    and self.metadict_soldiers[self.master_uuid].class_features.get('Feat_Mounted_Combatant')\
+                    and self.place == self.metadict_soldiers[self.master_uuid].place\
+                    and not self.metadict_soldiers[self.master_uuid].defeat:
                 damage = round(damage / 2)
         return damage
 
