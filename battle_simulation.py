@@ -1092,6 +1092,12 @@ class battle_simulation(battlescape):
                         #        soldier.commands.append('disengage')
         elif squad.commander and not squad.enemies:
             commands_list = ['lead','follow']
+            commands_list.append('carefull')
+            commands_list.append('attack')
+            commands_list.append('help')
+            commands_list.append('spellcast')
+            commands_list.append('potions')
+            commands_list.append('runes')
         elif not squad.commander:
             # TODO: disengage использует squad.enemy_recon.
             # А разведка противника не обновляется без командира.
