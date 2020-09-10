@@ -78,6 +78,8 @@ class database():
             soldier.wild_shape_old_form['place'] = None
             soldier.wild_shape_old_form['place_in_order'] = None
             soldier.wild_shape_old_form['danger'] = 0
+            soldier.wild_shape_old_form['squad'] = None
+            soldier.wild_shape_old_form['battle'] = None
             soldier.wild_shape_old_form['metadict_soldiers'] = {}
             soldier.wild_shape_old_form['recon_near'] = []
             soldier.wild_shape_old_form['near_zone'] = []

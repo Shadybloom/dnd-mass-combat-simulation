@@ -518,15 +518,26 @@ class soldier_in_battle(soldier):
                     self.battle_action = False
                 # Сохраняем ссылку, чтобы восстановить:
                 # Сохраняем старую форму, чтобы восстановить:
+                squad = self.squad
                 battle = self.battle
                 metadict_soldiers = self.metadict_soldiers
+                self.squad = None
+                self.battle = None
                 self.metadict_soldiers = None
                 self.wild_shape = True
                 self.wild_shape_number -= 1
+                soldier.recon_near = []
+                soldier.near_zone = []
+                soldier.near_allies = []
+                soldier.near_enemies = []
                 old_form = copy.deepcopy(self.__dict__)
                 # Создаём новую форму:
                 animal_type = self.class_features['Wild_Shape_Form']
                 self.levelup(animal_type, regen_spells = False)
+                # Берём броню из старой формы, если это возможно:
+                self.equipment_weapon = old_form['equipment_weapon']
+                self.armor = self.takeoff_armor()
+                self.armor.update(self.get_armor())
                 # Сохранаяме старую форму:
                 self.wild_shape_old_form = old_form
                 # Хиты новой формы, это бонусные хиты:
@@ -540,6 +551,7 @@ class soldier_in_battle(soldier):
                 self.debuffs = self.wild_shape_old_form['debuffs']
                 self.spells_active = self.wild_shape_old_form['spells_active']
                 # Восстанавливаем ссылки:
+                self.squad = squad
                 self.battle = battle
                 self.metadict_soldiers = metadict_soldiers
                 self.spells_generator.mage = self
@@ -550,6 +562,7 @@ class soldier_in_battle(soldier):
         """Друид возвращает облик человека.
         
         """
+        squad = self.squad
         battle = self.battle
         metadict_soldiers = self.metadict_soldiers
         #hitpoints = self.wild_shape_old_form['hitpoints']
@@ -557,6 +570,7 @@ class soldier_in_battle(soldier):
         place = self.place
         self.__dict__ = copy.deepcopy(self.wild_shape_old_form)
         # Восстанавливаем ссылки:
+        self.squad = squad
         self.battle = battle
         self.metadict_soldiers = metadict_soldiers
         self.spells_generator.mage = self
