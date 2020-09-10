@@ -1332,6 +1332,7 @@ class battle_simulation(battlescape):
                 and soldier.uuid == squad.commander.uuid:
             if len(soldier.near_allies) >= 1\
                     or enemy and enemy.distance <= squad.enemy_recon['move'] * 2\
+                    or not 'very_carefull' in soldier.commands and soldier.hero\
                     or 'fearless' in soldier.commands:
                 # Командиры прорываются через зональные заклинания и атакуют магов:
                 if 'danger' in soldier.commands and 'fearless' in soldier.commands\
@@ -3488,9 +3489,10 @@ class battle_simulation(battlescape):
             for ally in soldier.near_allies:
                 ally_soldier = self.metadict_soldiers[ally.uuid]
                 if len(ally_soldier.near_enemies) <= 1\
+                        and not ally_soldier.escape\
                         and not ally_soldier.hitpoints <= 0\
                         and not ally_soldier.uuid == soldier.uuid\
-                        and not ally_soldier.escape\
+                        and not ally_soldier.level > soldier.level\
                         and not 'sleep' in ally_soldier.debuffs:
                     # Если рядом враги, раненого вытаскивают из боя:
                     if len(soldier.near_enemies) > 0:

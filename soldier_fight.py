@@ -2228,6 +2228,7 @@ class soldier_in_battle(soldier):
         """Запоминаем, что использовали способность.
         
         """
+        # TODO: В этой функции и обнуляй использованные действия.
         if not action_choice in self.drop_actions_dict:
             self.drop_actions_dict[action_choice] = 1
         elif action_choice in self.drop_actions_dict:
