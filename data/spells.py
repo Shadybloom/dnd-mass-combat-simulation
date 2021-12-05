@@ -3409,6 +3409,9 @@ class gen_spells():
         """
         if not spell_dict:
             spell_dict = {
+                    # TODO:
+                        # Это заклинание ужасающе сильное. Просто истребляет всех.
+                        # нужно сократить радиус до 10 футов, либо длительность до 1 минуты.
                     'safe':True,
                     'concentration':True,
                     'effect':'spirit_guardians',
