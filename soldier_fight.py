@@ -205,6 +205,7 @@ class soldier_in_battle(soldier):
         self.defeat = False
         self.escape = False
         self.prone = False
+        self.kneel = False
         self.stunned = False
         self.paralyzed = False
         self.grappled = False
@@ -1136,6 +1137,42 @@ class soldier_in_battle(soldier):
                 #    en_b = enemy_soldier.behavior))
                 return advantage
 
+    def use_reload_action(self, place_list = None):
+        """Боец перезаряжает оружие со свойством "reload".
+        
+        Оружие требует перезарядки действием или бонусным действием.
+        - Feat_Crossbow_Expert позволяет не тратя действия перезаряжать арбалеты.
+        """
+        if len(self.metadict_recharge) >= 1:
+            recharge_success = False
+            attack_choice = random.choice(list(self.metadict_recharge.keys()))
+            # Приседаем во время перезарядки, если возможно (это свободное действие):
+            if place_list and not 'kneel' in place_list and not self.kneel:
+                self.drop_action(('free_action', 'Reload_Action_Kneel'))
+                place_list.append('kneel')
+                self.kneel = True
+            # Бросок на вероятность перезарядки. Получилось/нет:
+            if 'Recharge_dice' in self.metadict_recharge[attack_choice]:
+                recharge_throw = dices.dice_throw(self.metadict_recharge[attack_choice]['Recharge_dice'])
+                if recharge_throw in self.metadict_recharge[attack_choice]['Recharge_numbers']:
+                    recharge_success = True
+                else:
+                    recharge_success = False
+            # Перезарядка за одно действие:
+            else:
+                recharge_success = True
+            # Если перезарядка успешна, восстанавливаем атаку:
+            if recharge_success:
+                self.battle_action = False
+                self.drop_action(('action', 'Reload_Action_Success'))
+                attack_dict = self.metadict_recharge.pop(attack_choice)
+                self.attacks[attack_choice] = attack_dict
+                return recharge_success
+            else:
+                self.battle_action = False
+                self.drop_action(('action', 'Reload_Action_False'))
+                return False
+
     def use_dodge_action(self):
         """Боец защищается.
         
@@ -1753,25 +1790,50 @@ class soldier_in_battle(soldier):
 # ----
 # Движения и атака:
 
-    def move(self, distance = 5, rough = False):
+    def move(self, distance = 5, rough = False, terrain = None):
         """Боец двигается. Обычно на 5 футов (один тайл карты).
         
         Возможности:
         - Dash_Action -- двухкратное ускорение.
         """
-        # TODO: добавь правило диагонального перемещения.
+        # TODO:
+        # Добавь правило диагонального перемещения.
         # А заодно и направление движения в стиле север/юг.
+        # -------------------------------------------------
+        # Прежде чем двигаться встаём:
+        if self.prone or self.kneel:
+            self.stand_up(terrain)
         # dash_action -- удвоенная скорость.
         if self.dash_action:
             distance = distance / 2
+        # Пересечённая местность -- удвоенные потери пула движения:
         if rough:
-            # Пересечённая местность -- удвоенные потери пуля движения:
             self.move_pool -= distance * 2
+        # Иначе нормальная скорость:
         else:
             self.move_pool -= distance
         if self.move_pool <= 0:
             self.move_action = False
         return True
+
+    def stand_up(self, terrain = None):
+        """Боец пытается встать.
+        
+        Если стоял на колене (перезарядка оружия) или был сбит с ног.
+        """
+        if not self.grappled and not self.paralyzed:
+            # Упавший встаёт на ноги (если он не схвачен):
+            if self.prone and self.move_pool >= 0:
+                self.move_pool = self.move_pool / 2
+                self.prone = False
+                if terrain and 'prone' in terrain:
+                    terrain.remove('prone')
+            # Стоящий на колене встаёт на ноги:
+            if self.kneel and self.move_pool >= 0:
+                self.move_pool = self.move_pool - 5
+                self.kneel = False
+                if terrain and 'kneel' in terrain:
+                    terrain.remove('kneel')
 
     def select_enemy(self, near_enemies, select_strongest = False, select_weaker = False):
         """Выбираем слабейшего/сильнейшего врага из списка целей.
@@ -1932,12 +1994,20 @@ class soldier_in_battle(soldier):
         А также типом повреждений (piercing, slashing, bludgeoning)
         """
         enemy_soldier = metadict_soldiers[enemy.uuid]
-        # Используется боеприпас (стрела, дротик, яд для меча), если указан:
-        if attack_dict.get('ammo'):
-            self.use_ammo(attack_dict, metadict_soldiers)
         # Оружие в руки:
         if attack_dict.get('weapon') and attack_dict.get('weapon_use'):
             self.weapon_ready = attack_dict.get('weapon_use')
+        # Используется боеприпас (стрела, дротик, яд для меча), если указан:
+        if attack_dict.get('ammo'):
+            self.use_ammo(attack_dict, metadict_soldiers)
+        # Атака убирается из списка доступных, если оружие нуждается в перезарядке:
+        if attack_dict.get('recharge')\
+                or attack_dict.get('weapon_type')\
+                and 'reload' in attack_dict['weapon_type']:
+            # TODO: здесь должна быть перезарядка оружия. Подобно recharge
+            # Сейчас оружие убирается, но перезарядка ещё не работает.
+            self.unset_weapon(attack_dict.get('weapon_of_choice'))
+            pass
         # Нельзя использовать два приёма баттлмастера за одну атаку:
         superiority_use = False
         # Боец с двуручным оружием не может использовать щит:
@@ -2127,9 +2197,10 @@ class soldier_in_battle(soldier):
                                 # Союзник передаёт боеприпасы бойцу:
                                 soldier.help_action = True
                                 for attack_choice, attack_dict in self.attacks.items():
-                                    if ammo_type == attack_dict.get('ammo_type')\
-                                            or ammo_type == attack_dict.get('weapon_of_choice'):
-                                        attack_dict['ammo'] += soldier.equipment_weapon[ammo_type]
+                                    if attack_dict.get('ammo') == 0:
+                                        if ammo_type == attack_dict.get('ammo_type')\
+                                                or ammo_type == attack_dict.get('weapon_of_choice'):
+                                            attack_dict['ammo'] += soldier.equipment_weapon[ammo_type]
                                 soldier.unset_weapon(attack_dict.get('weapon_of_choice'), ammo_type)
                                 break
                         else:
@@ -2156,7 +2227,9 @@ class soldier_in_battle(soldier):
             unset_list = list(set(unset_list))
             for attack in unset_list:
                 attack_dict = self.attacks.pop(attack)
-                if attack_dict.get('recharge'):
+                if attack_dict.get('recharge')\
+                        or attack_dict.get('weapon_type')\
+                        and 'reload' in attack_dict['weapon_type']:
                     self.metadict_recharge[attack] = attack_dict
             if ammo_type and ammo_type in self.equipment_weapon:
                 self.drop_item(ammo_type, drop_all = True)
@@ -2415,8 +2488,13 @@ class soldier_in_battle(soldier):
                 armor_dict['armor_class_shield_impact'] += 5
                 armor_dict['armor_class_armor_impact'] += 5
                 armor_dict['armor_class'] += 5
-                if attack_choice[-1] == 'Magic_Missile':
-                    attack_dict['direct_hit'] = False
+                if attack_dict.get('direct_hit'):
+                    # Защищает от волшебных стрел:
+                    if attack_choice[-1] == 'Magic_Missile':
+                        attack_dict['direct_hit'] = False
+                    # Защищает от бронебойных пуль, savethrow_all --> armor_class:
+                    if 'firearm' in attack_dict.get('weapon_type',[]):
+                        attack_dict['direct_hit'] = False
                 # Вывод результата:
                 # TODO: в отдельную функцию.
                 #if attack_dict.get('attack', 0) >= armor_class_before\
@@ -2660,8 +2738,9 @@ class soldier_in_battle(soldier):
         - Успешный спасбросок ловкости с Evasion = 0 урона
         - Неудачный спасбросок ловкости с Evasion = 50% урона
         """
+        # Если сложность заклинания не указана, тогда она равна атаке (d20 + мод.атаки)
         ability = attack_dict['savethrow_ability']
-        difficult = attack_dict.get('spell_save_DC', attack_dict.get('attack_throw'))
+        difficult = attack_dict.get('spell_save_DC', attack_dict.get('attack'))
         # Бонус укрытия к спасброскам ловкости:
         if ability == 'dexterity' and not attack_dict.get('ignore_cover'):
             savethrow_bonus += attack_dict['savethrow_bonus_cover']

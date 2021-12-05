@@ -586,7 +586,21 @@ class battlescape():
             elif coordinates != soldier_point and coordinates != enemy_point:
                 #print(coordinates, soldier_point, enemy_point)
                 if tuple in [type(el) for el in dict_battlespace[coordinates]]:
-                    cover_sum += 4
+                    # TODO: здесь нет никаких проверок, действительно ли боец лежит/сидит.
+                        # В soldier_tuple должно быть записано положение бойца:
+                        # 1) лёжа
+                        # 2) на колене (перезарядка, Recharge, Reload)
+                        # 3) стоя
+                        # К тому же может быть несколько бойцов на точке.
+                        # Но чем больше проверок, тем хреновей оптимизация.
+                    #for el in dict_battlespace[coordinates]:
+                    #    print(el)
+                    if 'prone' in dict_battlespace[coordinates]:
+                        cover_sum += 1
+                    elif 'kneel' in dict_battlespace[coordinates]:
+                        cover_sum += 2
+                    else:
+                        cover_sum += 4
             # Прерываем обход линии взгляда, если видимость нулевая:
             if cover_sum >= max_obstacle:
                 cover_sum = max_obstacle

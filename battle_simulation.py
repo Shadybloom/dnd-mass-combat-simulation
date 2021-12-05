@@ -1197,6 +1197,7 @@ class battle_simulation(battlescape):
             # Плуты сближаются и отступают:
             if squad.commander.__dict__.get('disengage_AI'):
                 commands_list.append('disengage')
+            # Не лезем вперёд, пока перезаряжаем мушкеты:
             if squad.commander.__dict__.get('recharge_AI'):
                 commands_list.append('recharge')
             # Лучники и метатели дротиков должны чуть что отступать:
@@ -1444,6 +1445,9 @@ class battle_simulation(battlescape):
         # Если не видно врагов, боец лечится добряникой:
         if not enemy and soldier.hitpoints < soldier.hitpoints_max:
             soldier.use_heal(use_minor_potion = True)
+        # Если необходима перезарядка оружия -- перезаряжаем:
+        if len(soldier.metadict_recharge) >= 1:
+            soldier.use_reload_action(self.dict_battlespace[soldier.place])
         # Если действия не использовались -- защищаемся:
         if soldier.battle_action or soldier.bonus_action:
             soldier.use_dodge_action()
@@ -1790,6 +1794,8 @@ class battle_simulation(battlescape):
             close_order = True
         if path:
             while path and soldier.move_pool > 0:
+                # Смотрим на местность под ногами:
+                terrain = self.dict_battlespace[soldier.place]
                 # Если ближайшая точка пути свободна, переходим на неё:
                 move = False
                 place = self.check_place(soldier, path[0])
@@ -1809,7 +1815,7 @@ class battle_simulation(battlescape):
                     # -------------------------------------------------
                     next_place = path.pop(0)
                     prev_place = soldier.place
-                    move = soldier.move(self.tile_size, place.rough)
+                    move = soldier.move(self.tile_size, place.rough, terrain)
                     self.change_place(prev_place, next_place, soldier.uuid)
                 # Если точка занята ездовым животным бойца, то можно двигаться:
                 elif not place.free and place.units\
@@ -1818,7 +1824,7 @@ class battle_simulation(battlescape):
                         and soldier.mount_uuid in place.units[0]:
                     next_place = path.pop(0)
                     prev_place = soldier.place
-                    move = soldier.move(self.tile_size, place.rough)
+                    move = soldier.move(self.tile_size, place.rough, terrain)
                     self.change_place(prev_place, next_place, soldier.uuid)
                 # Если размер существа маленький, то их может быть по 4 на точке:
                 elif not place.free and place.units\
@@ -1826,7 +1832,7 @@ class battle_simulation(battlescape):
                         and len(place.units) < 4:
                     next_place = path.pop(0)
                     prev_place = soldier.place
-                    move = soldier.move(self.tile_size, place.rough)
+                    move = soldier.move(self.tile_size, place.rough, terrain)
                     self.change_place(prev_place, next_place, soldier.uuid)
                 # Командой можно уплотнить строй:
                 elif not place.free and place.units\
@@ -1834,7 +1840,7 @@ class battle_simulation(battlescape):
                         and len(place.units) < 2:
                     next_place = path.pop(0)
                     prev_place = soldier.place
-                    move = soldier.move(self.tile_size, place.rough)
+                    move = soldier.move(self.tile_size, place.rough, terrain)
                     self.change_place(prev_place, next_place, soldier.uuid)
                 # Если точка занята союзником, можно поменяться с ним местами:
                 elif not place.free and allow_replace and place.units\
@@ -1842,7 +1848,7 @@ class battle_simulation(battlescape):
                     unit_uuid = place.units[0][-1]
                     next_place = path.pop(0)
                     prev_place = soldier.place
-                    move = soldier.move(self.tile_size, place.rough)
+                    move = soldier.move(self.tile_size, place.rough, terrain)
                     self.change_place(prev_place, next_place, soldier.uuid)
                     # Многотайловых лошадей не трогаем, мимо протискиваемся:
                     if not 'mount' in place.units[0]:
@@ -2116,6 +2122,10 @@ class battle_simulation(battlescape):
                         self.tile_size, namespace.weather)
                 if attack_choice == None:
                     return False
+            # Встаём, если возможно:
+            if soldier.prone or soldier.kneel:
+                terrain = self.dict_battlespace[soldier.place]
+                soldier.stand_up(terrain)
             # Готовим цепь атак:
             attacks_number = soldier.attacks_number
             attacks_chain = [attack_choice] * attacks_number
@@ -3238,8 +3248,8 @@ class battle_simulation(battlescape):
         # Опутанный уязвим:
         if enemy_soldier.restrained:
             advantage = True
-        # Упавшего легче поразить, но только вблизи:
-        if enemy_soldier.prone == True:
+        # Упавшего/стоящего на коленях легче поразить, но только вблизи:
+        if enemy_soldier.prone or enemy_soldier.kneel:
             if attack_choice[0] == 'close' or attack_choice[0] == 'reach':
                 advantage = True
             else:
@@ -3777,10 +3787,9 @@ class battle_simulation(battlescape):
             if hasattr(squad, 'battle_stat'):
                 battle_stat = squad.battle_stat
                 battle_stat = OrderedDict(sorted(battle_stat.items(),key=lambda x: x))
-                # TODO: единички, чтобы не было деления на ноль. Позже подправлю.
-                damage_sum = 1
-                miss_sum = 1
-                hit_sum = 1
+                damage_sum = 0
+                miss_sum = 0
+                hit_sum = 0
                 for attack, stat in battle_stat.items():
                     if attack[-1] == 'damage':
                         damage_sum += stat
@@ -3803,7 +3812,7 @@ class battle_simulation(battlescape):
                         # hits_per_round,
                         # hit_rate,
                         dmg = damage_sum,
-                        dph = round(damage_sum / hit_sum, 1),
+                        dph = round(damage_sum / hit_sum if hit_sum != 0 else 0, 1),
                         dpr = round(damage_sum / self.battle_round),
                         hpr = round(hit_sum / self.battle_round),
                         hr = round(hit_sum / (hit_sum + miss_sum), 2),
@@ -3841,7 +3850,7 @@ class battle_simulation(battlescape):
                     for attack, stat in battle_stat.items():
                         print(attack, stat)
                     print('damage_sum:', damage_sum,
-                            'damage_per_hit:', round(damage_sum / hit_sum, 1),
+                            'damage_per_hit:', round(damage_sum / hit_sum if hit_sum != 0 else 0, 1),
                             'hits_per_round:', round(hit_sum / self.battle_round),
                             'hit_per_attack:', round(hit_sum / (hit_sum + miss_sum), 2),
                             'damage_per_round:', round(damage_sum / self.battle_round))
