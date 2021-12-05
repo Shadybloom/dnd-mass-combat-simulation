@@ -2018,6 +2018,7 @@ class soldier_in_battle(soldier):
             elif enemy.distance > round(attack_dict['attack_range'] / self.tile_size):
                 disadvantage = True
         # Homebrew: урон огнестрела уменьшается, если дальность выше предельной:
+        # Также исчезает его свойство пробивать доспехи в modify_armor.
         if attack_dict.get('weapon_type') and 'firearm' in attack_dict.get('weapon_type')\
                 and enemy.distance * self.tile_size > attack_dict['shoot_range']\
                 and attack_choice[0] == 'volley':
@@ -2572,6 +2573,11 @@ class soldier_in_battle(soldier):
                 armor_dict['armor_class_armor_impact'] += 5
                 armor_dict['armor_class'] += 5
                 armor_dict['savethrow_bonus_cover'] = 5
+        # Огнестрел лишается свойства direct_hit на большой дистанции:
+        if attack_dict.get('weapon_type') and 'firearm' in attack_dict.get('weapon_type')\
+                and attack_dict['enemy_distance'] * self.tile_size > attack_dict['shoot_range']\
+                and attack_dict.get('direct_hit'):
+            attack_dict['direct_hit'] = False
         # Заклинание "Shield_of_Faith" даёт +2 AC:
         if 'shield_of_faith' in self.buffs:
             armor_dict['armor_class_no_impact'] += 2
