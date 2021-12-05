@@ -1218,7 +1218,9 @@ class battle_simulation(battlescape):
                         commands_list.remove('lead')
                         commands_list.append('disengage')
         if namespace.commands and not 'manual' in namespace.commands:
-            for command in namespace.commands:
+            # TODO: сделай фильтрацию команд по названию отряда
+            # Сейчас команды достаются обеим отрядам. И нашему, и врагу.
+            for command in namespace.commands[0].split():
                 if command[0] == '-':
                     command = command[1:]
                     if command in commands_list:
