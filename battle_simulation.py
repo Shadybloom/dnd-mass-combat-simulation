@@ -1149,7 +1149,6 @@ class battle_simulation(battlescape):
                     commands_list.append('volley_random')
             if squad.commander.__dict__.get('firearm_AI'):
                 commands_list.append('volley_random')
-                commands_list.append('volley')
                 commands_list.append('fire')
             # Пополняем боекомплект из большого запаса:
             if squad.commander.__dict__.get('rearm_AI'):
@@ -1423,8 +1422,10 @@ class battle_simulation(battlescape):
                     if soldier.set_action_surge():
                         self.round_run_soldier(soldier, squad)
         # Не видя врага, лучники стреляют навесом:
-        if 'volley' in soldier.commands and not enemy\
-                or 'fire' in soldier.commands:
+        if 'volley' in soldier.commands and not enemy:
+            self.volley_action(soldier, squad)
+        # Пехота с мушкетами стреляет залпом, видя врага:
+        if 'fire' in soldier.commands and enemy:
             self.volley_action(soldier, squad)
         # Боец отступает, если таков приказ, или он в зоне опасного заклинания:
         if 'disengage' in soldier.commands and squad.__dict__.get('enemy_recon'):
