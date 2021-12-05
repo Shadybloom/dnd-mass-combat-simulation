@@ -414,7 +414,7 @@ metadict_items['Halberd'] = {
     'damage_dice':'1d10',
     'weight (lb)':6,
     'cost (gp)':20,
-    'cost (grams_of_gold)':20,
+    'cost (grams_of_gold)':10,
     }
 
 metadict_items['Lance'] = {
@@ -446,7 +446,8 @@ metadict_items['Longsword'] = {
         # https://en.wikipedia.org/wiki/Sword_of_Goujian
         # https://lurkmore.so/images/7/79/Jian_true.jpg
         # https://upload.wikimedia.org/wikipedia/commons/0/01/Spadalongobarda.jpg
-    # Sword and Lance: About two pounds (32 gp)
+    # Sword and Lance: About two pounds -- 32 gp
+    # 17 century. A silver hilted sword. £5 -- 15 gp
     'weapon':True,
     'ammo_type':blade_poisons,
     'weapon_type':['martial','close','versatile'],
@@ -557,7 +558,8 @@ metadict_items['Longbow'] = {
     }
 
 #----
-# Martial Ranged Weapons, firearms, grenades
+# Martial Ranged Weapons (homebrew)
+# firearms, grenades
 
 metadict_items['Muskete'] = {
     # Мушкет -- 10 gp (сварное железо), 10 lb, 17.5-мм калибр, 60 калибров
@@ -652,6 +654,20 @@ metadict_items['Pick-axe'] = {
     'damage_dice':'1d6',
     'weight (lb)':2,
     'cost (gp)':5,
+    'cost (grams_of_gold)':1,
+    }
+
+metadict_items['Bayonet'] = {
+    # Используется вместе с мушкетом.
+    # Штыки начала 18 века вставлялись в ствол.
+    'weapon':True,
+    'ammo_type':blade_poisons,
+    'weapon_type':['simple','close','versatile'],
+    'damage_type':'piercing',
+    'damage_dice':'1d6',
+    'damage_dice_versatile':'1d8',
+    'weight (lb)':1,
+    'cost (gp)':1,
     'cost (grams_of_gold)':1,
     }
 
@@ -1024,6 +1040,48 @@ metadict_items['Draconic_Scales'] = {
     'cost (grams_of_gold)':1,
     }
 
+#-------------------------------------------------------------------------
+# Medium Armor (homebrew)
+
+metadict_items['Breastplate, 17 century'] = {
+    # Броня кирасира.
+    # Дешёвая кираса -- 1 фунт стерлингов (3 gp), отличная -- 6 фунтов (18 gp).
+    # https://upload.wikimedia.org/wikipedia/commons/b/b1/Indian_steel_cuirass_17th_to_18th_century.JPG
+    # https://upload.wikimedia.org/wikipedia/commons/3/30/Carabiniers_à_cheval.jpg
+    'armor':True,
+    'armor_type':'medium',
+    'armor_class_armor':14,
+    'weight (lb)':20,
+    'cost (gp)':400,
+    'cost (grams_of_gold)':30,
+    }
+
+metadict_items['Half Plate, 17 century'] = {
+    # Munition armour
+    'armor':True,
+    'armor_type':'medium',
+    'armor_class_armor':15,
+    'armor_stealth_disadvantage':True,
+    'weight (lb)':40,
+    'cost (gp)':750,
+    'cost (grams_of_gold)':60,
+    }
+
+#-------------------------------------------------------------------------
+# Heavy Armor (homebrew)
+
+metadict_items['Plate Armor, 17 century'] = {
+    # Генеральские латы конца 17 века -- 100 фунтов стерлингов.
+    'armor':True,
+    'armor_type':'heavy',
+    'armor_class_armor':18,
+    'armor_stealth_disadvantage':True,
+    #'armor_need_strenght':15,
+    'weight (lb)':65,
+    'cost (gp)':1500,
+    'cost (grams_of_gold)':300,
+    }
+
 #----
 # Броня для лошадей (homebrew):
 
@@ -1063,7 +1121,6 @@ metadict_items['Shield +1'] = {
 
 #----
 # Shield (homebrew)
-    # TODO: щит с AC 3, или щит с AC 5. Сложный вопрос.
     # ------------------------------------------------------------
     # Щиты AC 3; 150 лучников, 6000 стрел (400 gp), 4 минуты неприцельного обстрела:
     # - Расход стрел по гоплитам....(16.1 AC) 1300/100 урона (45 стрел/попадание)
@@ -1327,7 +1384,7 @@ metadict_items['Infusion of False Life'] = {
     'spell':'False_Life',
     'weight (lb)':0,
     'cost (gp)':60 * 2,
-    'cost (grams_of_gold)':60 * 2,
+    'cost (grams_of_gold)':60,
     }
 
 metadict_items['Infusion of Barkskin'] = {
@@ -1336,7 +1393,7 @@ metadict_items['Infusion of Barkskin'] = {
     'spell':'Barkskin',
     'weight (lb)':0,
     'cost (gp)':60 * 4,
-    'cost (grams_of_gold)':60 * 4,
+    'cost (grams_of_gold)':60,
     }
 
 metadict_items['Infusion of Regeneration'] = {
@@ -1350,7 +1407,7 @@ metadict_items['Infusion of Regeneration'] = {
     'healing_mod':2,
     'weight (lb)':0,
     'cost (gp)':50 * 4,
-    'cost (grams_of_gold)':60 * 4,
+    'cost (grams_of_gold)':60,
     }
 
 metadict_items['Infusion of Longstrider'] = {
@@ -1367,7 +1424,7 @@ metadict_items['Infusion of Heroism'] = {
     'spell':'Heroism',
     'weight (lb)':0,
     'cost (gp)':50,
-    'cost (grams_of_gold)':60 * 4,
+    'cost (grams_of_gold)':60,
     }
 
 metadict_items['Infusion of Claws'] = {
@@ -1380,7 +1437,7 @@ metadict_items['Infusion of Claws'] = {
     'damage_dice':'1d6',
     'weight (lb)':0,
     'cost (gp)':240,
-    'cost (grams_of_gold)':60 * 4,
+    'cost (grams_of_gold)':60,
     }
 
 metadict_items['Rune of Absorbtion'] = {
@@ -1389,7 +1446,7 @@ metadict_items['Rune of Absorbtion'] = {
     'spell':'Absorb_Elements',
     'weight (lb)':1/2,
     'cost (gp)':240,
-    'cost (grams_of_gold)':60 * 4,
+    'cost (grams_of_gold)':60,
     }
 
 metadict_items['Rune of Shielding'] = {
@@ -1397,7 +1454,7 @@ metadict_items['Rune of Shielding'] = {
     'spell':'Shield',
     'weight (lb)':1/2,
     'cost (gp)':240,
-    'cost (grams_of_gold)':60 * 4,
+    'cost (grams_of_gold)':60,
     }
 
 metadict_items['Rune of Armor'] = {
@@ -1406,7 +1463,7 @@ metadict_items['Rune of Armor'] = {
     'spell':'Mage_Armor',
     'weight (lb)':1/2,
     'cost (gp)':240,
-    'cost (grams_of_gold)':60 * 4,
+    'cost (grams_of_gold)':60,
     }
 
 metadict_items['Bracers of Defence'] = {
