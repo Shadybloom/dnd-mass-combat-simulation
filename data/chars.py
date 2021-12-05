@@ -1230,6 +1230,148 @@ metadict_chars['Warrior 5 lvl (persian bowman-captain)'] = {
     }
 
 #----
+# Стрелки с мушкетами, мушкетёры.
+
+metadict_chars['Warrior 1 lvl (french musketeer)'] = {
+    # Вооружены алебардой, шпагой/саблей и мушкетом.
+    # Кожаный жилет, перчатки, сапоги.
+    'level':1,
+    'char_class':'Warrior-bowman',
+    'hit_dice':'1d8',
+    'behavior':'warrior',
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Leather Armor':1,
+        'Halberd':1,
+        'Rapier':1,
+        'Muskete':1,
+        'Muskete Bullet':20,
+        },
+    }
+
+metadict_chars['Warrior 2 lvl (french musketeer-corporal)'] = {
+    'level':2,
+    'char_class':'Warrior-bowman',
+    'hit_dice':'1d8',
+    'behavior':'elite_warrior',
+    'class_features':{
+        'Fighting_Style_Archery':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Rune of Shielding':1,
+        'Leather Armor':1,
+        'Halberd':1,
+        'Rapier':1,
+        'Muskete':1,
+        'Muskete Bullet':20,
+        },
+    }
+
+metadict_chars['Warrior 3 lvl (french musketeer-sergeant)'] = {
+    'level':3,
+    'recharge_AI':True,
+    'carefull_AI':True,
+    'char_class':'Warrior-bowman',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Archery':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Rune of Shielding':1,
+        'Breastplate':1,
+        'Halberd':1,
+        'Rapier':1,
+        'Muskete':1,
+        'Muskete Bullet':20,
+        },
+    }
+
+metadict_chars['Warrior 4 lvl (french musketeer-lieutenant)'] = {
+    'level':4,
+    'recharge_AI':True,
+    'carefull_AI':True,
+    'char_class':'Warrior-bowman',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Archery':True,
+        'Feat_Defensive_Duelist':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Rune of Absorbtion':1,
+        'Rune of Shielding':1,
+        'Half Plate':1,
+        'Halberd':1,
+        'Rapier':1,
+        'Muskete':1,
+        'Muskete Bullet':20,
+        },
+    #'mount_combat':False,
+    #'mount_type':'Riding Horse',
+    #'equipment_mount':{},
+    }
+
+metadict_chars['Warrior 5 lvl (french musketeer-captain)'] = {
+    # Капитан роты мушкетёров.
+    'level':5,
+    'recharge_AI':True,
+    'carefull_AI':True,
+    'char_class':'Warrior-bowman',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Archery':True,
+        'Feat_Defensive_Duelist':True,
+        'Extra_Attack':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Rune of Absorbtion':1,
+        'Rune of Shielding':1,
+        'Half Plate':1,
+        'Halberd':1,
+        'Rapier':1,
+        'Muskete':1,
+        'Muskete Bullet':20,
+        },
+    #'mount_combat':False,
+    #'mount_type':'Riding Horse',
+    #'equipment_mount':{},
+    }
+
+#----
+# Стрелки с фузилями, фузилёры.
+# https://en.wikipedia.org/wiki/Fusilier
+
+
+#----
 # Вспомогательные войска, пращники.
 
 metadict_chars['Warrior 1 lvl (balear slinger)'] = {
@@ -2605,6 +2747,7 @@ metadict_chars['Fighter 3 lvl (legionary sentinel-mystic)'] = {
 
 metadict_chars['Fighter 4 lvl (legionary sentinel-lieutenant)'] = {
     'level':4,
+    'no_grappler_AI':True,
     'char_class':'Eldritch_Knight',
     'hit_dice':'1d10',
     'behavior':'commander',
@@ -2644,6 +2787,7 @@ metadict_chars['Fighter 4 lvl (legionary sentinel-lieutenant)'] = {
 
 metadict_chars['Fighter 5 lvl (legionary sentinel-captain)'] = {
     'level':5,
+    'no_grappler_AI':True,
     'char_class':'Eldritch_Knight',
     'hit_dice':'1d10',
     'behavior':'commander',
@@ -2771,6 +2915,7 @@ metadict_chars['Fighter 3 lvl (legionary slayer-champion)'] = {
 
 metadict_chars['Fighter 4 lvl (legionary slayer-lieutenant)'] = {
     'level':4,
+    'no_grappler_AI':True,
     'char_class':'Battlemaster',
     'hit_dice':'1d10',
     'behavior':'commander',
@@ -2808,6 +2953,7 @@ metadict_chars['Fighter 4 lvl (legionary slayer-lieutenant)'] = {
 metadict_chars['Fighter 5 lvl (legionary slayer-captain)'] = {
     # Samurai
     'level':5,
+    'no_grappler_AI':True,
     'char_class':'Battlemaster',
     'hit_dice':'1d10',
     'behavior':'commander',
@@ -2834,7 +2980,7 @@ metadict_chars['Fighter 5 lvl (legionary slayer-captain)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Regeneration':1,
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
         'Splint Armor':1,
@@ -3275,6 +3421,7 @@ metadict_chars['Barbarian 3 lvl (thracian slayer-juggernaught)'] = {
 
 metadict_chars['Barbarian 4 lvl (thracian slayer-thane)'] = {
     'level':4,
+    'no_grappler_AI':True,
     'char_class':'Barbarian',
     'hit_dice':'1d12',
     'behavior':'commander',
@@ -3296,7 +3443,9 @@ metadict_chars['Barbarian 4 lvl (thracian slayer-thane)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':3,
+        'Infusion of Regeneration':1,
+        'Infusion of Heroism':1,
+        'Rune of Absorbtion':1,
         'Half Plate':1,
         'Heavy Shield':1,
         'Greatsword':1,
@@ -3310,6 +3459,7 @@ metadict_chars['Barbarian 4 lvl (thracian slayer-thane)'] = {
 
 metadict_chars['Barbarian 5 lvl (thracian slayer-lord)'] = {
     'level':5,
+    'no_grappler_AI':True,
     'char_class':'Barbarian',
     'hit_dice':'1d12',
     'behavior':'commander',
@@ -3332,7 +3482,9 @@ metadict_chars['Barbarian 5 lvl (thracian slayer-lord)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':3,
+        'Infusion of Regeneration':1,
+        'Infusion of Heroism':1,
+        'Rune of Absorbtion':1,
         'Half Plate':1,
         'Heavy Shield':1,
         'Greatsword +1':1,
@@ -10827,6 +10979,48 @@ metadict_chars['Warrior 5 lvl (враг) (капитан Акхена)'] = {
     'mount_combat':False,
     'mount_type':'Riding Horse',
     'equipment_mount':{
+        },
+    }
+
+#----
+# Враги (свита) (чародеи Ашеры):
+
+metadict_chars['Sorcerer 3 lvl (otherworld wildfire-enchanter)'] = {
+    'level':3,
+    'fireball_AI':True,
+    'disengage_AI':True,
+    'char_class':'Sorcerer',
+    'hit_dice':'1d6',
+    'behavior':'commander',
+    'class_features':{
+        'Feat_Elemental_Adept':'fire',
+        'Spellcasting':True,
+        'Spells':[
+            ('cantrip', 'Prestidigitation'),
+            ('cantrip', 'Control_Flames'),
+            ('cantrip', 'Create_Bonfire'),
+            ('cantrip', 'Fire_Bolt'),
+            ('1_lvl', 'Shield'),
+            ('1_lvl', 'Burning_Hands'),
+            ('1_lvl', 'Absorb_Elements'),
+            ('2_lvl', 'Flaming_Sphere'),
+            ],
+        'Font_of_Magic':True,
+        'Metamagic':True,
+        #'Metamagic_Subtle_Spell':True,
+        'Metamagic_Extended_Spell':True,
+        'Metamagic_Distant_Spell':True,
+        },
+    'race':'Primevial-large',
+    'weapon_skill':['simple'],
+    'armor_skill':[],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Rune of Absorbtion':1,
+        'Rune of Shielding':1,
+        'Dagger':1,
         },
     }
 

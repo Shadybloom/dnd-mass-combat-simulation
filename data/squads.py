@@ -390,6 +390,14 @@ metadict_squads['Squad-summon (земляные элементали)'] = {
     'Earth Elemental (CR 5)':6,
     }
 
+metadict_squads['Single-summon (земляной элементаль)'] = {
+    'Earth Elemental (CR 5)':1,
+    }
+
+metadict_squads['Single-summon (воздушный элементаль)'] = {
+    'Air Elemental (CR 5)':1,
+    }
+
 metadict_squads['Squad-summon (гигантские осьминоги)'] = {
     'Giant Octopus (CR 1)':12,
     }
@@ -449,8 +457,8 @@ metadict_squads['Single-hero (симулякр Менона) (нейтрал)'] 
 # Армия Менона:
 
 metadict_squads['Squad-hero (бронзовые гоплиты Менона) (нейтрал)'] = {
-    'Warrior 4 lvl (нейтрал) (бронзовый гоплит Менона)':30,
-    'Warrior 5 lvl (нейтрал) (бронзовый гоплит-капитан Менона)':10,
+    'Warrior 4 lvl (нейтрал) (бронзовый гоплит Менона)':15,
+    'Warrior 5 lvl (нейтрал) (бронзовый гоплит-капитан Менона)':5,
     }
 
 metadict_squads['Company-hero (бронзовые гоплиты Менона) (нейтрал)'] = {
@@ -466,11 +474,17 @@ metadict_squads['Squad-hero (зомби и гоплиты Менона) (ней�
     'Zombie (Danse_Macabre) (CR 1/2)':60,
     }
 
-metadict_squads['Squad-hero (зомби Менона) (нейтрал)'] = {
+metadict_squads['Squad-hero (60 зомби Менона) (нейтрал)'] = {
     # Зомби под Danse_Macabre с +5 атаки и +9 урона.
     'Zombie (Danse_Macabre) (CR 1/2)':60,
     'Warrior 4 lvl (нейтрал) (бронзовый гоплит Менона)':3,
     'Warrior 5 lvl (нейтрал) (бронзовый гоплит-капитан Менона)':1,
+    }
+
+metadict_squads['Squad-hero (5 зомби Danse_Macabre) (нейтрал)'] = {
+    # Зомби под Danse_Macabre с +5 атаки и +9 урона (+5 заклинание +4 бонус мастерства некроманта)
+    # Также они получают +9 hp за счёт способности "Неживые рабы"
+    'Zombie (Danse_Macabre) (CR 1/2)':5,
     }
 
 metadict_squads['Squad-hero (упыри Менона) (нейтрал)'] = {
@@ -877,6 +891,15 @@ metadict_squads['Company-veteran (ветераны Гая Юлия) (Katorjnik)'
     'Commoner 1 lvl (recruit)':100,
     }
 
+metadict_squads['Company-veteran (гвардия Гая Юлия) (Katorjnik)'] = {
+    # Три опытных капитана, от каждого удвоенный опыт.
+    'Warrior 2 lvl (Katorjnik) (ветеран)':60,
+    'Warrior 3 lvl (Katorjnik) (урагос)':30,
+    'Warrior 5 lvl (Katorjnik) (центурион)':3,
+    'Warrior 4 lvl (Katorjnik) (опцион)':6,
+    'Commoner 1 lvl (recruit)':300,
+    }
+
 metadict_squads['Company-militia (гастаты Гая Юлия) (Katorjnik)'] = {
     'Commoner 1 lvl (militia spearman)':95,
     'Commoner 2 lvl (militia spearman-corporal)':5,
@@ -1181,6 +1204,20 @@ metadict_squads['Company-regular (bowmans-scythian)'] = {
     'Warrior 4 lvl (sqythian bowman-lieutenant)':1,
     'Warrior 5 lvl (sqythian bowman-captain)':1,
     }
+
+#----
+# Регулярная армия (огнестрел):
+
+metadict_squads['Company-regular (infantry-french-musketeers)'] = {
+    'Warrior 1 lvl (french musketeer)':80 + dice_throw('1d12'),
+    'Warrior 2 lvl (french musketeer-corporal)':10,
+    'Warrior 3 lvl (french musketeer-sergeant)':3,
+    'Warrior 4 lvl (french musketeer-lieutenant)':1,
+    'Warrior 5 lvl (french musketeer-captain)':1,
+    }
+
+#----
+# Регулярная армия:
 
 #metadict_squads['Company-regular (infantry-polearms)'] = {
 #    'Warrior 1 lvl (mercenary heavy-infantry)':80 + dice_throw('1d12'),
