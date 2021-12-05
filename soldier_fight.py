@@ -450,9 +450,8 @@ class soldier_in_battle(soldier):
             elif self.restrained:
                 self.set_restained_break()
         # Упавший встаёт на ноги (если он не схвачен):
-        elif self.prone == True and not self.grappled:
-            self.move_pool = self.move_pool / 2
-            self.prone = False
+        elif self.prone and not self.grappled:
+            self.stand_up()
         # Даём всадникам скорость их коней (но только если они в одной точке):
         if hasattr(self, 'mount_uuid') and self.mount_uuid in squad.metadict_soldiers:
             mount = squad.metadict_soldiers[self.mount_uuid]
