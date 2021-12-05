@@ -1124,7 +1124,7 @@ class battle_simulation(battlescape):
                 commands_list.append('potions')
                 commands_list.append('runes')
             # Оборонительная тактика:
-            if squad.commander.__dict__.get('defender_AI'):
+            if squad.commander.__dict__.get('defence_AI'):
                 commands_list = ['carefull','dodge']
                 commands_list.append('very_carefull')
                 commands_list.append('attack')
@@ -1147,6 +1147,10 @@ class battle_simulation(battlescape):
                 commands_list.append('volley')
                 if squad.commander.__dict__.get('volley_AI_random'):
                     commands_list.append('volley_random')
+            if squad.commander.__dict__.get('firearm_AI'):
+                commands_list.append('volley_random')
+                commands_list.append('volley')
+                commands_list.append('fire')
             # Пополняем боекомплект из большого запаса:
             if squad.commander.__dict__.get('rearm_AI'):
                 self.set_squad_rearm(squad)
@@ -1417,7 +1421,8 @@ class battle_simulation(battlescape):
                     if soldier.set_action_surge():
                         self.round_run_soldier(soldier, squad)
         # Не видя врага, лучники стреляют навесом:
-        if 'volley' in soldier.commands and not enemy:
+        if 'volley' in soldier.commands and not enemy\
+                or 'fire' in soldier.commands:
             self.volley_action(soldier, squad)
         # Боец отступает, если таков приказ, или он в зоне опасного заклинания:
         if 'disengage' in soldier.commands and squad.__dict__.get('enemy_recon'):
@@ -2091,11 +2096,12 @@ class battle_simulation(battlescape):
                         break
                 else:
                     # Стрелы расходуются, если летят совсем не туда:
-                    soldier.use_ammo(soldier.attacks[attack_choice], squad.metadict_soldiers)
-                    self.set_squad_battle_stat(soldier.attacks.get(attack_choice), squad, attack_choice)
+                    attack_dict = soldier.attacks[attack_choice]
+                    soldier.use_ammo(attack_dict, squad.metadict_soldiers)
+                    self.set_squad_battle_stat(attack_dict, squad, attack_choice)
                     # Артиллерия и заклинания в стрелах:
-                    if soldier.attacks[attack_choice].get('spell_dict'):
-                        spell_dict = soldier.attacks[attack_choice].get('spell_dict')
+                    if attack_dict.get('spell_dict'):
+                        spell_dict = attack_dict.get('spell_dict')
                         if spell_dict.get('ammo', 0) > 0 and enemy_soldier.behavior == 'commander'\
                                 or spell_dict.get('ammo') == None:
                             if spell_dict.get('zone') and not spell_dict.get('crit_only'):

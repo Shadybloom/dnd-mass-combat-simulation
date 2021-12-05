@@ -1103,6 +1103,9 @@ class soldier():
                     if dict_attack.get('shoot_range'):
                         dict_attack['attack_range'] = dict_attack['shoot_range']
                         dict_attack['attack_range_max'] = dict_attack['shoot_range_max']
+                        # Огнестрельное оружие x4 неприцельной дальности:
+                        if 'firearm' in dict_attack.get('weapon_type'):
+                            dict_attack['attack_range_max'] = dict_attack['shoot_range_volley']
                     elif dict_attack.get('throw_range'):
                         dict_attack['attack_range'] = dict_attack['throw_range']
                         dict_attack['attack_range_max'] = dict_attack['throw_range_max']

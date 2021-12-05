@@ -1993,20 +1993,14 @@ class soldier_in_battle(soldier):
         А также типом повреждений (piercing, slashing, bludgeoning)
         """
         enemy_soldier = metadict_soldiers[enemy.uuid]
+        # Берём кость урона, чтобы не изменить её в словаре:
+        damage_dice = attack_dict.get('damage_dice', None)
         # Оружие в руки:
         if attack_dict.get('weapon') and attack_dict.get('weapon_use'):
             self.weapon_ready = attack_dict.get('weapon_use')
         # Используется боеприпас (стрела, дротик, яд для меча), если указан:
         if attack_dict.get('ammo'):
             self.use_ammo(attack_dict, metadict_soldiers)
-        # Атака убирается из списка доступных, если оружие нуждается в перезарядке:
-        if attack_dict.get('recharge')\
-                or attack_dict.get('weapon_type')\
-                and 'reload' in attack_dict['weapon_type']:
-            # TODO: здесь должна быть перезарядка оружия. Подобно recharge
-            # Сейчас оружие убирается, но перезарядка ещё не работает.
-            self.unset_weapon(attack_dict.get('weapon_of_choice'))
-            pass
         # Нельзя использовать два приёма баттлмастера за одну атаку:
         superiority_use = False
         # Боец с двуручным оружием не может использовать щит:
@@ -2016,12 +2010,18 @@ class soldier_in_battle(soldier):
                 and 'two_handed' in attack_dict['weapon_type']\
                 and self.armor['shield_use']:
             self.unset_shield()
+        # Помеха к стрельбе на минимальной/максимальной дальности:
         if attack_dict.get('weapon_type') and attack_choice[0] == 'ranged'\
                 and not 'Sharpshooter' in attack_dict['weapon_skills_use']:
             if enemy.distance <= 2:
                 disadvantage = True
             elif enemy.distance > round(attack_dict['attack_range'] / self.tile_size):
                 disadvantage = True
+        # Homebrew: урон огнестрела уменьшается, если дальность выше предельной:
+        if attack_dict.get('weapon_type') and 'firearm' in attack_dict.get('weapon_type')\
+                and enemy.distance * self.tile_size > attack_dict['shoot_range']\
+                and attack_choice[0] == 'volley':
+            damage_dice = str(1) + damage_dice[1:]
         # Диапазон критического урона может увеличить Champion_Improved_Critical:
         crit_range = self.crit_range
         loss_range = self.loss_range
@@ -2066,7 +2066,7 @@ class soldier_in_battle(soldier):
             sharpness = True
         else:
             sharpness = False
-        damage_throw = dices.dice_throw_advantage(attack_dict['damage_dice'],
+        damage_throw = dices.dice_throw_advantage(damage_dice,
                 advantage = damage_throw_advantage, disadvantage = False, max_throw = sharpness)
         # Если атака критическая, бросаем кость урона дважды:
         # Если атака неудачная, то независимо от модификаторов результат нулевой:
@@ -2076,7 +2076,7 @@ class soldier_in_battle(soldier):
                 or attack_dict['attack_range'] <= 5 and enemy_soldier.paralyzed:
             damage_throw = 0
             for throw in range(0, self.crit_multiplier):
-                damage_throw += dices.dice_throw_advantage(attack_dict['damage_dice'],
+                damage_throw += dices.dice_throw_advantage(damage_dice,
                         advantage = damage_throw_advantage, disadvantage = False, max_throw = sharpness)
             attack_crit = True
             attack_loss = False
@@ -2172,6 +2172,7 @@ class soldier_in_battle(soldier):
         - Если боеприпас есть в отряде, союзный солдат передаёт его.
         - Если боеприпас закончился, ассциированные с ним атаки убираются.
         """
+        # Используем боеприпас:
         if attack_dict.get('ammo'):
             if attack_dict.get('ammo_type') and isinstance(attack_dict.get('ammo_type'), str):
                 ammo_type = attack_dict.get('ammo_type')
@@ -2184,6 +2185,7 @@ class soldier_in_battle(soldier):
                         or ammo_type == attack_dict.get('weapon_of_choice')\
                         and attack_dict.get('ammo'):
                     attack_dict['ammo'] -= 1
+                    # Если боеприпасы закончились, просим у другого бойца:
                     if attack_dict['ammo'] == 0:
                         for soldier in metadict_soldiers.values():
                             if ammo_type in soldier.equipment_weapon\
@@ -2205,6 +2207,11 @@ class soldier_in_battle(soldier):
                         else:
                             self.unset_weapon(attack_dict.get('weapon_of_choice'), ammo_type)
                             break
+            # Атака убирается из списка доступных, если нужна перезарядка:
+            if attack_dict.get('recharge')\
+                    or attack_dict.get('weapon_type')\
+                    and 'reload' in attack_dict['weapon_type']:
+                self.unset_weapon(attack_dict.get('weapon_of_choice'))
 
     def unset_weapon(self, weapon_type, ammo_type = None, disarm = False):
         """Убираем оружие, для которого закончились боеприпасы.

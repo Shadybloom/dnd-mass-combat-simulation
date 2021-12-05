@@ -576,13 +576,15 @@ metadict_items['Muskete'] = {
     'savethrow_all':True,
     'savethrow_ability':'dexterity',
     'ammo_type':muskete_bullets,
-    'weapon_type':['martial','ranged','two_handed','firearm','reload'],
+    'weapon_type':['martial','ranged','two_handed','firearm','volley','reload'],
     # Перезарядка за раунд с вероятностью 50%
     'recharge':True,
     'Recharge_dice':'1d6',
     'Recharge_numbers':[5,6],
     'shoot_range':50,
     'shoot_range_max':150,
+    # Множитель радиуса неприцельной стрельбы
+    'shoot_range_volley':600,
     'weight (lb)':10,
     'cost (gp)':10,
     'cost (grams_of_gold)':10,

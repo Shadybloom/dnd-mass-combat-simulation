@@ -1249,7 +1249,7 @@ metadict_chars['Warrior 1 lvl (musketeer line-infantry)'] = {
         'Halberd':1,
         'Rapier':1,
         'Muskete':1,
-        'Muskete Bullet':20,
+        'Muskete Bullet':60,
         },
     }
 
@@ -1272,12 +1272,13 @@ metadict_chars['Warrior 2 lvl (musketeer line-infantry-corporal)'] = {
         'Halberd':1,
         'Rapier':1,
         'Muskete':1,
-        'Muskete Bullet':20,
+        'Muskete Bullet':60,
         },
     }
 
 metadict_chars['Warrior 3 lvl (musketeer line-infantry-sergeant)'] = {
     'level':3,
+    'firearm_AI':True,
     'recharge_AI':True,
     'carefull_AI':True,
     'char_class':'Warrior-bowman',
@@ -1298,12 +1299,13 @@ metadict_chars['Warrior 3 lvl (musketeer line-infantry-sergeant)'] = {
         'Halberd':1,
         'Rapier':1,
         'Muskete':1,
-        'Muskete Bullet':20,
+        'Muskete Bullet':60,
         },
     }
 
 metadict_chars['Warrior 4 lvl (musketeer line-infantry-lieutenant)'] = {
     'level':4,
+    'firearm_AI':True,
     'recharge_AI':True,
     'carefull_AI':True,
     'char_class':'Warrior-bowman',
@@ -1326,7 +1328,7 @@ metadict_chars['Warrior 4 lvl (musketeer line-infantry-lieutenant)'] = {
         'Halberd':1,
         'Rapier':1,
         'Muskete':1,
-        'Muskete Bullet':20,
+        'Muskete Bullet':60,
         },
     #'mount_combat':False,
     #'mount_type':'Riding Horse',
@@ -1336,6 +1338,7 @@ metadict_chars['Warrior 4 lvl (musketeer line-infantry-lieutenant)'] = {
 metadict_chars['Warrior 5 lvl (musketeer line-infantry-captain)'] = {
     # Капитан роты мушкетёров.
     'level':5,
+    'firearm_AI':True,
     'recharge_AI':True,
     'carefull_AI':True,
     'char_class':'Warrior-bowman',
@@ -1359,7 +1362,7 @@ metadict_chars['Warrior 5 lvl (musketeer line-infantry-captain)'] = {
         'Halberd':1,
         'Rapier':1,
         'Muskete':1,
-        'Muskete Bullet':20,
+        'Muskete Bullet':60,
         },
     #'mount_combat':False,
     #'mount_type':'Riding Horse',
@@ -1385,7 +1388,7 @@ metadict_chars['Warrior 1 lvl (fusilier line-infantry)'] = {
         'Leather Armor':1,
         'Shortsword':1,
         'Muskete':1,
-        'Muskete Bullet':20,
+        'Muskete Bullet':60,
         },
     }
 
@@ -1407,12 +1410,13 @@ metadict_chars['Warrior 2 lvl (fusilier line-infantry-corporal)'] = {
         'Leather Armor':1,
         'Rapier':1,
         'Muskete':1,
-        'Muskete Bullet':20,
+        'Muskete Bullet':60,
         },
     }
 
 metadict_chars['Warrior 3 lvl (fusilier line-infantry-sergeant)'] = {
     'level':3,
+    'firearm_AI':True,
     'recharge_AI':True,
     'carefull_AI':True,
     'char_class':'Warrior-bowman',
@@ -1432,12 +1436,13 @@ metadict_chars['Warrior 3 lvl (fusilier line-infantry-sergeant)'] = {
         'Breastplate':1,
         'Rapier':1,
         'Muskete':1,
-        'Muskete Bullet':20,
+        'Muskete Bullet':60,
         },
     }
 
 metadict_chars['Warrior 4 lvl (fusilier line-infantry-lieutenant)'] = {
     'level':4,
+    'firearm_AI':True,
     'recharge_AI':True,
     'carefull_AI':True,
     'char_class':'Warrior-bowman',
@@ -1459,7 +1464,7 @@ metadict_chars['Warrior 4 lvl (fusilier line-infantry-lieutenant)'] = {
         'Half Plate':1,
         'Rapier':1,
         'Muskete':1,
-        'Muskete Bullet':20,
+        'Muskete Bullet':60,
         },
     #'mount_combat':False,
     #'mount_type':'Riding Horse',
@@ -1469,6 +1474,7 @@ metadict_chars['Warrior 4 lvl (fusilier line-infantry-lieutenant)'] = {
 metadict_chars['Warrior 5 lvl (fusilier line-infantry-captain)'] = {
     # Капитан роты мушкетёров.
     'level':5,
+    'firearm_AI':True,
     'recharge_AI':True,
     'carefull_AI':True,
     'char_class':'Warrior-bowman',
@@ -1491,7 +1497,7 @@ metadict_chars['Warrior 5 lvl (fusilier line-infantry-captain)'] = {
         'Half Plate':1,
         'Rapier':1,
         'Muskete':1,
-        'Muskete Bullet':20,
+        'Muskete Bullet':60,
         },
     #'mount_combat':False,
     #'mount_type':'Riding Horse',
@@ -11710,7 +11716,7 @@ metadict_chars['Warrior 3 lvl (друг) (сержант Илиона)'] = {
 metadict_chars['Warrior 4 lvl (друг) (лейтенант Илиона)'] = {
     'level':4,
     #'rearm_AI':True,
-    'defender_AI':True,
+    'defence_AI':True,
     'carefull_AI':True,
     'char_class':'Warrior-officer',
     'hit_dice':'1d8',
@@ -11744,7 +11750,7 @@ metadict_chars['Warrior 5 lvl (друг) (капитан Илиона)'] = {
     # Сидит на месте, обороняется. На врага не ведёт.
     'level':5,
     #'rearm_AI':True,
-    'defender_AI':True,
+    'defence_AI':True,
     'carefull_AI':True,
     'char_class':'Warrior-officer',
     'hit_dice':'1d8',
@@ -11823,7 +11829,7 @@ metadict_chars['Warrior 3 lvl (друг) (сержант пращников Ил
     'level':3,
     'rearm_AI':True,
     'volley_AI':True,
-    'defender_AI':True,
+    'defence_AI':True,
     'carefull_AI':True,
     'char_class':'Warrior-bowman',
     'hit_dice':'1d8',
@@ -12191,7 +12197,7 @@ metadict_chars['Warlock 3 lvl (друг) (главнорожка Козы)'] = {
 
 metadict_chars['Warlock 3 lvl (друг) (Сефо Форонейская)'] = {
     'level':3,
-    #'defender_AI':True,
+    #'defence_AI':True,
     'fireball_AI':True,
     'char_class':'Warlock',
     'hit_dice':'1d8',
