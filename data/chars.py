@@ -1232,7 +1232,7 @@ metadict_chars['Warrior 5 lvl (persian bowman-captain)'] = {
 #----
 # Стрелки с мушкетами, мушкетёры.
 
-metadict_chars['Warrior 1 lvl (french musketeer)'] = {
+metadict_chars['Warrior 1 lvl (musketeer line-infantry)'] = {
     # Вооружены алебардой, шпагой/саблей и мушкетом.
     # Кожаный жилет, перчатки, сапоги.
     'level':1,
@@ -1245,7 +1245,7 @@ metadict_chars['Warrior 1 lvl (french musketeer)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Leather Armor':1,
+        'Studded Leather':1,
         'Halberd':1,
         'Rapier':1,
         'Muskete':1,
@@ -1253,7 +1253,7 @@ metadict_chars['Warrior 1 lvl (french musketeer)'] = {
         },
     }
 
-metadict_chars['Warrior 2 lvl (french musketeer-corporal)'] = {
+metadict_chars['Warrior 2 lvl (musketeer line-infantry-corporal)'] = {
     'level':2,
     'char_class':'Warrior-bowman',
     'hit_dice':'1d8',
@@ -1268,7 +1268,7 @@ metadict_chars['Warrior 2 lvl (french musketeer-corporal)'] = {
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
         'Rune of Shielding':1,
-        'Leather Armor':1,
+        'Studded Leather':1,
         'Halberd':1,
         'Rapier':1,
         'Muskete':1,
@@ -1276,7 +1276,7 @@ metadict_chars['Warrior 2 lvl (french musketeer-corporal)'] = {
         },
     }
 
-metadict_chars['Warrior 3 lvl (french musketeer-sergeant)'] = {
+metadict_chars['Warrior 3 lvl (musketeer line-infantry-sergeant)'] = {
     'level':3,
     'recharge_AI':True,
     'carefull_AI':True,
@@ -1302,7 +1302,7 @@ metadict_chars['Warrior 3 lvl (french musketeer-sergeant)'] = {
         },
     }
 
-metadict_chars['Warrior 4 lvl (french musketeer-lieutenant)'] = {
+metadict_chars['Warrior 4 lvl (musketeer line-infantry-lieutenant)'] = {
     'level':4,
     'recharge_AI':True,
     'carefull_AI':True,
@@ -1333,7 +1333,7 @@ metadict_chars['Warrior 4 lvl (french musketeer-lieutenant)'] = {
     #'equipment_mount':{},
     }
 
-metadict_chars['Warrior 5 lvl (french musketeer-captain)'] = {
+metadict_chars['Warrior 5 lvl (musketeer line-infantry-captain)'] = {
     # Капитан роты мушкетёров.
     'level':5,
     'recharge_AI':True,
@@ -1370,6 +1370,133 @@ metadict_chars['Warrior 5 lvl (french musketeer-captain)'] = {
 # Стрелки с фузилями, фузилёры.
 # https://en.wikipedia.org/wiki/Fusilier
 
+metadict_chars['Warrior 1 lvl (fusilier line-infantry)'] = {
+    # Вооружены палашом, штыком и облегчённым мушкетом.
+    'level':1,
+    'char_class':'Warrior-bowman',
+    'hit_dice':'1d8',
+    'behavior':'warrior',
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Leather Armor':1,
+        'Shortsword':1,
+        'Muskete':1,
+        'Muskete Bullet':20,
+        },
+    }
+
+metadict_chars['Warrior 2 lvl (fusilier line-infantry-corporal)'] = {
+    'level':2,
+    'char_class':'Warrior-bowman',
+    'hit_dice':'1d8',
+    'behavior':'elite_warrior',
+    'class_features':{
+        'Fighting_Style_Archery':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Rune of Shielding':1,
+        'Leather Armor':1,
+        'Rapier':1,
+        'Muskete':1,
+        'Muskete Bullet':20,
+        },
+    }
+
+metadict_chars['Warrior 3 lvl (fusilier line-infantry-sergeant)'] = {
+    'level':3,
+    'recharge_AI':True,
+    'carefull_AI':True,
+    'char_class':'Warrior-bowman',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Archery':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Rune of Shielding':1,
+        'Breastplate':1,
+        'Rapier':1,
+        'Muskete':1,
+        'Muskete Bullet':20,
+        },
+    }
+
+metadict_chars['Warrior 4 lvl (fusilier line-infantry-lieutenant)'] = {
+    'level':4,
+    'recharge_AI':True,
+    'carefull_AI':True,
+    'char_class':'Warrior-bowman',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Archery':True,
+        'Feat_Defensive_Duelist':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Rune of Absorbtion':1,
+        'Rune of Shielding':1,
+        'Half Plate':1,
+        'Rapier':1,
+        'Muskete':1,
+        'Muskete Bullet':20,
+        },
+    #'mount_combat':False,
+    #'mount_type':'Riding Horse',
+    #'equipment_mount':{},
+    }
+
+metadict_chars['Warrior 5 lvl (fusilier line-infantry-captain)'] = {
+    # Капитан роты мушкетёров.
+    'level':5,
+    'recharge_AI':True,
+    'carefull_AI':True,
+    'char_class':'Warrior-bowman',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Archery':True,
+        'Feat_Defensive_Duelist':True,
+        'Extra_Attack':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Rune of Absorbtion':1,
+        'Rune of Shielding':1,
+        'Half Plate':1,
+        'Rapier':1,
+        'Muskete':1,
+        'Muskete Bullet':20,
+        },
+    #'mount_combat':False,
+    #'mount_type':'Riding Horse',
+    #'equipment_mount':{},
+    }
 
 #----
 # Вспомогательные войска, пращники.

@@ -1208,12 +1208,20 @@ metadict_squads['Company-regular (bowmans-scythian)'] = {
 #----
 # Регулярная армия (огнестрел):
 
-metadict_squads['Company-regular (infantry-french-musketeers)'] = {
-    'Warrior 1 lvl (french musketeer)':80 + dice_throw('1d12'),
-    'Warrior 2 lvl (french musketeer-corporal)':10,
-    'Warrior 3 lvl (french musketeer-sergeant)':3,
-    'Warrior 4 lvl (french musketeer-lieutenant)':1,
-    'Warrior 5 lvl (french musketeer-captain)':1,
+metadict_squads['Company-regular (line-infantry-musketeers)'] = {
+    'Warrior 1 lvl (musketeer line-infantry)':80 + dice_throw('1d12'),
+    'Warrior 2 lvl (musketeer line-infantry-corporal)':10,
+    'Warrior 3 lvl (musketeer line-infantry-sergeant)':3,
+    'Warrior 4 lvl (musketeer line-infantry-lieutenant)':1,
+    'Warrior 5 lvl (musketeer line-infantry-captain)':1,
+    }
+
+metadict_squads['Company-regular (line-infantry-fusiliers)'] = {
+    'Warrior 1 lvl (fusilier line-infantry)':80 + dice_throw('1d12'),
+    'Warrior 2 lvl (fusilier line-infantry-corporal)':10,
+    'Warrior 3 lvl (fusilier line-infantry-sergeant)':3,
+    'Warrior 4 lvl (fusilier line-infantry-lieutenant)':1,
+    'Warrior 5 lvl (fusilier line-infantry-captain)':1,
     }
 
 #----
