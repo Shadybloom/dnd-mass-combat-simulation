@@ -1136,7 +1136,7 @@ class soldier_in_battle(soldier):
                 #    en_b = enemy_soldier.behavior))
                 return advantage
 
-    def use_reload_action(self, place_list = None):
+    def use_reload_action(self):
         """Боец перезаряжает оружие со свойством "reload".
         
         Оружие требует перезарядки действием или бонусным действием.
@@ -1145,11 +1145,6 @@ class soldier_in_battle(soldier):
         if len(self.metadict_recharge) >= 1:
             recharge_success = False
             attack_choice = random.choice(list(self.metadict_recharge.keys()))
-            # Приседаем во время перезарядки, если возможно (это свободное действие):
-            if place_list and not 'kneel' in place_list and not self.kneel:
-                self.drop_action(('free_action', 'Reload_Action_Kneel'))
-                place_list.append('kneel')
-                self.kneel = True
             # Бросок на вероятность перезарядки. Получилось/нет:
             if 'Recharge_dice' in self.metadict_recharge[attack_choice]:
                 recharge_throw = dices.dice_throw(self.metadict_recharge[attack_choice]['Recharge_dice'])
@@ -1833,6 +1828,20 @@ class soldier_in_battle(soldier):
                 self.kneel = False
                 if terrain and 'kneel' in terrain:
                     terrain.remove('kneel')
+
+    def on_knee(self, terrain = None):
+        """Боец встаёт на колено.
+        
+        Homebrew: поза для перезарядки арбалетов/мушкетов.
+        Подобно prone, это даёт помеху к дальним атакам врага.
+        Но преимущество к ближним атакам. Так что применять осторожно.
+        """
+        # Приседаем во время перезарядки, если возможно (это свободное действие):
+        if terrain and not 'kneel' in terrain\
+                and not self.kneel and not self.prone:
+            self.drop_action(('free_action', 'On_Knee'))
+            terrain.append('kneel')
+            self.kneel = True
 
     def select_enemy(self, near_enemies, select_strongest = False, select_weaker = False):
         """Выбираем слабейшего/сильнейшего врага из списка целей.

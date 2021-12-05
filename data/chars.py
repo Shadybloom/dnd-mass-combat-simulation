@@ -1279,8 +1279,6 @@ metadict_chars['Warrior 2 lvl (musketeer line-infantry-corporal)'] = {
 metadict_chars['Warrior 3 lvl (musketeer line-infantry-sergeant)'] = {
     'level':3,
     'firearm_AI':True,
-    'recharge_AI':True,
-    'carefull_AI':True,
     'char_class':'Warrior-bowman',
     'hit_dice':'1d8',
     'behavior':'commander',
@@ -1306,8 +1304,6 @@ metadict_chars['Warrior 3 lvl (musketeer line-infantry-sergeant)'] = {
 metadict_chars['Warrior 4 lvl (musketeer line-infantry-lieutenant)'] = {
     'level':4,
     'firearm_AI':True,
-    'recharge_AI':True,
-    'carefull_AI':True,
     'char_class':'Warrior-bowman',
     'hit_dice':'1d8',
     'behavior':'commander',
@@ -1339,8 +1335,6 @@ metadict_chars['Warrior 5 lvl (musketeer line-infantry-captain)'] = {
     # Капитан роты мушкетёров.
     'level':5,
     'firearm_AI':True,
-    'recharge_AI':True,
-    'carefull_AI':True,
     'char_class':'Warrior-bowman',
     'hit_dice':'1d8',
     'behavior':'commander',
@@ -1417,7 +1411,6 @@ metadict_chars['Warrior 2 lvl (fusilier line-infantry-corporal)'] = {
 metadict_chars['Warrior 3 lvl (fusilier line-infantry-sergeant)'] = {
     'level':3,
     'firearm_AI':True,
-    'recharge_AI':True,
     'carefull_AI':True,
     'char_class':'Warrior-bowman',
     'hit_dice':'1d8',
@@ -1443,7 +1436,6 @@ metadict_chars['Warrior 3 lvl (fusilier line-infantry-sergeant)'] = {
 metadict_chars['Warrior 4 lvl (fusilier line-infantry-lieutenant)'] = {
     'level':4,
     'firearm_AI':True,
-    'recharge_AI':True,
     'carefull_AI':True,
     'char_class':'Warrior-bowman',
     'hit_dice':'1d8',
@@ -1475,7 +1467,6 @@ metadict_chars['Warrior 5 lvl (fusilier line-infantry-captain)'] = {
     # Капитан роты мушкетёров.
     'level':5,
     'firearm_AI':True,
-    'recharge_AI':True,
     'carefull_AI':True,
     'char_class':'Warrior-bowman',
     'hit_dice':'1d8',

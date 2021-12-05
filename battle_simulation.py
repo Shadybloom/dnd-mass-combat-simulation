@@ -1147,9 +1147,6 @@ class battle_simulation(battlescape):
                 commands_list.append('volley')
                 if squad.commander.__dict__.get('volley_AI_random'):
                     commands_list.append('volley_random')
-            if squad.commander.__dict__.get('firearm_AI'):
-                commands_list.append('volley_random')
-                commands_list.append('fire')
             # Пополняем боекомплект из большого запаса:
             if squad.commander.__dict__.get('rearm_AI'):
                 self.set_squad_rearm(squad)
@@ -1203,6 +1200,27 @@ class battle_simulation(battlescape):
             # Не лезем вперёд, пока перезаряжаем мушкеты:
             if squad.commander.__dict__.get('recharge_AI'):
                 commands_list.append('recharge')
+            # Линейная пехота наступает только когда враг вне дистанции стрельбы:
+            if squad.commander.__dict__.get('firearm_AI'):
+                commands_list.append('fire')
+                commands_list.append('kneel')
+                commands_list.append('recharge')
+                # Стреляем залпом, пока дистанция значительная:
+                if 'carefull' in commands_list and squad.enemies\
+                        and squad.enemy_recon['distance'] > save_distance * 3\
+                        or 'very_carefull' in commands_list and squad.enemies\
+                        and squad.enemy_recon['distance'] > save_distance * 6:
+                    commands_list.append('volley_random')
+                    commands_list.append('volley')
+                # Обороняемся/отступаем, если дистанция сокращается:
+                if 'carefull' in commands_list and squad.enemies\
+                        and squad.enemy_recon['distance'] <= save_distance * 3\
+                        or 'very_carefull' in commands_list and squad.enemies\
+                        and squad.enemy_recon['distance'] <= save_distance * 6:
+                    if 'lead' in commands_list:
+                        commands_list.remove('lead')
+                    if 'very_carefull' in commands_list:
+                        commands_list.append('disengage')
             # Лучники и метатели дротиков должны чуть что отступать:
             if squad.behavior == 'archer' or squad.commander.__dict__.get('archer_AI'):
                 if commander.class_features.get('Feat_Sharpshooter'):
@@ -1411,11 +1429,18 @@ class battle_simulation(battlescape):
             if enemy:
                 if soldier.danger <= 0 or 'fearless' in soldier.commands:
                     self.attack_action(soldier, squad, enemy)
+                    # На колено для перезарядки и удобства стрельбы следующих рядов:
+                    if 'recharge' in soldier.commands and 'kneel' in soldier.commands\
+                            and len(soldier.metadict_recharge) >= 1\
+                            and not soldier.near_enemies:
+                        terrain = self.dict_battlespace[soldier.place]
+                        soldier.on_knee(terrain)
+                    # Бросок к врагу после атаки, чтобы заблокировать:
                     if 'engage' in soldier.commands\
                             and not 'dodge' in soldier.commands\
                             and not 'disengage' in soldier.commands:
                         self.engage_action(soldier, squad, enemy.place)
-                # Удвоенный ход бойца:
+                # Удвоенный ход бойца, Action_Surge:
                 if len(soldier.near_enemies) >= 2\
                         or len(soldier.near_enemies) >= 1\
                         and max([enemy.level for enemy in soldier.near_enemies]) >= 5:
@@ -1425,7 +1450,7 @@ class battle_simulation(battlescape):
         if 'volley' in soldier.commands and not enemy:
             self.volley_action(soldier, squad)
         # Пехота с мушкетами стреляет залпом, видя врага:
-        if 'fire' in soldier.commands and enemy:
+        if 'fire' in soldier.commands and 'volley' in soldier.commands and enemy:
             self.volley_action(soldier, squad)
         # Боец отступает, если таков приказ, или он в зоне опасного заклинания:
         if 'disengage' in soldier.commands and squad.__dict__.get('enemy_recon'):
@@ -1454,8 +1479,8 @@ class battle_simulation(battlescape):
         if not enemy and soldier.hitpoints < soldier.hitpoints_max:
             soldier.use_heal(use_minor_potion = True)
         # Если необходима перезарядка оружия -- перезаряжаем:
-        if len(soldier.metadict_recharge) >= 1:
-            soldier.use_reload_action(self.dict_battlespace[soldier.place])
+        if 'recharge' in soldier.commands and len(soldier.metadict_recharge) >= 1:
+            soldier.use_reload_action()
         # Если действия не использовались -- защищаемся:
         if soldier.battle_action or soldier.bonus_action:
             soldier.use_dodge_action()
