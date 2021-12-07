@@ -7,8 +7,6 @@ import random
 import copy
 
 import dices
-from data import lang_sindar
-from data import lang_human
 from data import chars
 from data import animals
 from data import races
@@ -16,6 +14,7 @@ from data import classes
 from data import squads
 from data import items
 from data import spells
+import config
 
 #-------------------------------------------------------------------------
 # Функции:
@@ -45,6 +44,22 @@ def gen_name(dict_words, name_length = 2):
     wordlist = [x.capitalize() for x in wordlist]
     #name = tuple(wordlist + rnd_words)
     return tuple(wordlist), tuple(rnd_words)
+
+def gen_name_real():
+    """Создаёт реалистичное имя.
+
+    Словари настраиваются в config.py
+    Словари в формате: 'имя':'значение',
+    Формат вывода: (имя, фамилия), (значение_имени, значение_фамилии)
+    """
+    name = random.choice(list(config.NAMES_DICT.items()))
+    surname = random.choice(list(config.SURNAMES_DICT.items()))
+    if not surname[1]:
+        surname = (surname[0], 'Unknown')
+    name_and_surname = (name[0], surname[0])
+    name_and_surname = tuple((x.capitalize() for x in name_and_surname))
+    name_and_surname_translate = tuple((name[1], surname[1]))
+    return name_and_surname, name_and_surname_translate
 
 def gen_ability_throws(hero = True):
     """Характеристики героя по правилам D&D 3.5-5.0
@@ -157,10 +172,6 @@ class soldier():
     for key,value in newbie.__dict__.items():
         print(key,value)
     """
-    # Словарь для генерации имени
-    dict_words = {}
-    dict_words.update(lang_sindar.dict_words)
-    dict_words.update(lang_human.dict_words)
     # Словарь с расовыми чертами:
     race_base = 'Human-common'
     race_base_pet = 'Horse'
@@ -218,7 +229,10 @@ class soldier():
         Шаблон берём из chars. Все индивидуальные параметры случайны.
         """
         self.rank = rank
-        self.name, self.name_translate = gen_name(self.dict_words)
+        if config.__dict__.get('LANGUAGE_DICT_FANTASY'):
+            self.name, self.name_translate = gen_name(config.LANGUAGE_DICT_FANTASY)
+        else:
+            self.name, self.name_translate = gen_name_real()
         # ЗАМЕТКА:
         # ------------------------------------------------------------
         # Помни, анон, только UUID v4 -- случайные числа,
@@ -277,7 +291,10 @@ class soldier():
         # TODO: допилить, чтобы наравне с бойцами использовать.
         # А ещё лучше объединить.
         self.rank = animal_type
-        self.name, self.name_translate = gen_name(self.dict_words, name_length = 1)
+        if config.__dict__.get('LANGUAGE_DICT_FANTASY'):
+            self.name, self.name_translate = gen_name(config.LANGUAGE_DICT_FANTASY, name_length = 1)
+        else:
+            self.name, self.name_translate = gen_name(config.LANGUAGE_DICT_REAL, name_length = 1)
         self.uuid = uuid.uuid4()
         self.sex = sex
         # Берём шаблон:

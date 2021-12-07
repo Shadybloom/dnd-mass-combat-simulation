@@ -1,17 +1,17 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import collections
 import operator
 import dices
 import argparse
+import collections
+from collections import OrderedDict
+
 from soldier_fight import *
-from data import lang_sindar
-from data import lang_human
 from data import squads
 from data import database
 from data import spells
-from collections import OrderedDict
+import config
 
 #-------------------------------------------------------------------------
 # Аргументы командной строки:
@@ -39,10 +39,6 @@ class squad_generation():
     - Солдаты распределяются по должностям и уровням (лучшие -- командиры)
     """
     metadict_squads = squads.metadict_squads
-    # Для названий отрядов:
-    dict_words = {}
-    dict_words.update(lang_sindar.dict_words)
-    dict_words.update(lang_human.dict_words)
     # Подключаемся к базе данных солдат:
     database = database.database()
 
@@ -55,8 +51,6 @@ class squad_generation():
         # В том случае, если вместо squad_type указано его имя.
         self.squad_type = squad_type
         self.dict_squad = self.metadict_squads[self.squad_type].copy()
-        # У отряда тоже есть имя -- название:
-        self.name, self.name_translate = gen_name(self.dict_words, name_length = 3)
         reinforce_number = sum(self.dict_squad.values())
         # Изначально все бойцы отряда 1 уровня:
         self.metadict_soldiers = self.gen_soldiers(reinforce_number)
@@ -65,6 +59,18 @@ class squad_generation():
         # Здесь бойцы отряда получают levelup и распределяются по должностям:
         self.metadict_soldiers.update(self.set_ranks())
         #self.set_initiative()
+        # У отряда тоже есть имя -- название:
+        if config.__dict__.get('LANGUAGE_DICT_FANTASY'):
+            self.name, self.name_translate = gen_name(config.LANGUAGE_DICT_FANTASY, name_length = 3)
+        else:
+            # Название реального отряда по имени капитана.
+            self.name, self.name_translate = gen_name(config.LANGUAGE_DICT_REAL, name_length = 3)
+            commander_name = self.metadict_soldiers[self.find_best()].name
+            self.name_translate = (commander_name[0], commander_name[1], 'Company')
+        # Бойцы запоминают имя своего отряда:
+        for soldier in self.metadict_soldiers.values():
+            soldier.squad_name = self.name
+            soldier.squad_name_translate = self.name_translate
         # Отряд получает верховых животных:
         self.pet_types = self.find_pets(self.metadict_soldiers)
         for pet_type, number in self.pet_types.items():
@@ -387,13 +393,6 @@ class squad_generation():
         for n in range(squad_number):
             recruit = soldier_in_battle()
             recruit.create_soldier(common_soldier)
-            # TODO: допилить
-            # ------------------------------------------------------------
-            # Здесь даём рекруту название его отряда.
-            # Лучше бы сделать для этого сеттер (метод soldier)
-            # ------------------------------------------------------------
-            recruit.squad_name = self.name
-            recruit.squad_name_translate = self.name_translate
             metadict_soldiers[recruit.uuid] = recruit
         return metadict_soldiers
 
@@ -421,6 +420,7 @@ class squad_generation():
             if not dict_squad:
                 break
             # Находим самое малочисленное звание и лучшего бойца:
+            dict_squad = OrderedDict(reversed(sorted(dict_squad.items(),key=lambda x: x)))
             rank = min(dict_squad, key=lambda k: dict_squad[k])
             uuid = self.find_best()
             # Даём лучшему бойцу levelup до нового звания:
@@ -594,7 +594,11 @@ if __name__ == '__main__':
         # Запись бойцов в базу данных:
     if namespace.save:
         print('Отряд будет сохранён в БД: ', squad.database.database_path)
-        name_string = input('---Введите название отряда (пропуск -- случайное): ')
+        input_string = '---Введите название отряда (иначе это): "{name}" ({translate})'.format(
+                name = ' '.join(squad.name),
+                translate = ' '.join(squad.name_translate),
+                )
+        name_string = input(input_string)
         if name_string:
             squad.name = [name_string]
             squad.name_translate = squad.name
@@ -603,7 +607,6 @@ if __name__ == '__main__':
         for soldier in reversed(list(squad.metadict_soldiers.values())):
             squad.database.soldier_to_database(soldier)
         squad.database.commit()
-    print(squad.name, squad.name_translate)
     print('cost: {cost} number: {number} weight: {w}/{w_max} (free: {w_free}) overload: {over}'.format(
         over = squad.squad_overload['overload_soldiers'],
         w = squad.squad_overload['equipment_weight (lb)'],
