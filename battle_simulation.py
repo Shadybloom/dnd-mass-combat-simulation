@@ -3297,7 +3297,7 @@ class battle_simulation(battlescape):
         # Верховой боец атакует с преимуществом, если цель не всадник:
         if attack_choice[0] == 'close' or attack_choice[0] == 'reach':
             if soldier.class_features.get('Feat_Mounted_Combatant')\
-                    and soldier.mount_combat\
+                    and soldier.__dict__.get('mount_combat')\
                     and hasattr(soldier, 'mount_uuid')\
                     and self.metadict_soldiers.get(soldier.mount_uuid)\
                     and self.metadict_soldiers[soldier.mount_uuid].place == soldier.place:
