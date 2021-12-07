@@ -1236,7 +1236,7 @@ metadict_chars['Warrior 1 lvl (musketeer line-infantry)'] = {
     # Вооружены алебардой, шпагой/саблей и мушкетом.
     # Кожаный жилет, перчатки, сапоги.
     'level':1,
-    'char_class':'Warrior-bowman',
+    'char_class':'Warrior-pirate',
     'hit_dice':'1d8',
     'behavior':'warrior',
     'race':'Human-common',
@@ -1255,7 +1255,7 @@ metadict_chars['Warrior 1 lvl (musketeer line-infantry)'] = {
 
 metadict_chars['Warrior 2 lvl (musketeer line-infantry-corporal)'] = {
     'level':2,
-    'char_class':'Warrior-bowman',
+    'char_class':'Warrior-pirate',
     'hit_dice':'1d8',
     'behavior':'elite_warrior',
     'class_features':{
@@ -1279,7 +1279,7 @@ metadict_chars['Warrior 2 lvl (musketeer line-infantry-corporal)'] = {
 metadict_chars['Warrior 3 lvl (musketeer line-infantry-sergeant)'] = {
     'level':3,
     'firearm_AI':True,
-    'char_class':'Warrior-bowman',
+    'char_class':'Warrior-pirate',
     'hit_dice':'1d8',
     'behavior':'commander',
     'class_features':{
@@ -1304,7 +1304,7 @@ metadict_chars['Warrior 3 lvl (musketeer line-infantry-sergeant)'] = {
 metadict_chars['Warrior 4 lvl (musketeer line-infantry-lieutenant)'] = {
     'level':4,
     'firearm_AI':True,
-    'char_class':'Warrior-bowman',
+    'char_class':'Warrior-pirate',
     'hit_dice':'1d8',
     'behavior':'commander',
     'class_features':{
@@ -1335,7 +1335,7 @@ metadict_chars['Warrior 5 lvl (musketeer line-infantry-captain)'] = {
     # Капитан роты мушкетёров.
     'level':5,
     'firearm_AI':True,
-    'char_class':'Warrior-bowman',
+    'char_class':'Warrior-pirate',
     'hit_dice':'1d8',
     'behavior':'commander',
     'class_features':{
@@ -1370,7 +1370,7 @@ metadict_chars['Warrior 5 lvl (musketeer line-infantry-captain)'] = {
 metadict_chars['Warrior 1 lvl (fusilier line-infantry)'] = {
     # Вооружены палашом, штыком и облегчённым мушкетом.
     'level':1,
-    'char_class':'Warrior-bowman',
+    'char_class':'Warrior-pirate',
     'hit_dice':'1d8',
     'behavior':'warrior',
     'race':'Human-common',
@@ -1388,7 +1388,7 @@ metadict_chars['Warrior 1 lvl (fusilier line-infantry)'] = {
 
 metadict_chars['Warrior 2 lvl (fusilier line-infantry-corporal)'] = {
     'level':2,
-    'char_class':'Warrior-bowman',
+    'char_class':'Warrior-pirate',
     'hit_dice':'1d8',
     'behavior':'elite_warrior',
     'class_features':{
@@ -1412,7 +1412,7 @@ metadict_chars['Warrior 3 lvl (fusilier line-infantry-sergeant)'] = {
     'level':3,
     'firearm_AI':True,
     'carefull_AI':True,
-    'char_class':'Warrior-bowman',
+    'char_class':'Warrior-pirate',
     'hit_dice':'1d8',
     'behavior':'commander',
     'class_features':{
@@ -1437,7 +1437,7 @@ metadict_chars['Warrior 4 lvl (fusilier line-infantry-lieutenant)'] = {
     'level':4,
     'firearm_AI':True,
     'carefull_AI':True,
-    'char_class':'Warrior-bowman',
+    'char_class':'Warrior-pirate',
     'hit_dice':'1d8',
     'behavior':'commander',
     'class_features':{
@@ -1468,7 +1468,7 @@ metadict_chars['Warrior 5 lvl (fusilier line-infantry-captain)'] = {
     'level':5,
     'firearm_AI':True,
     'carefull_AI':True,
-    'char_class':'Warrior-bowman',
+    'char_class':'Warrior-pirate',
     'hit_dice':'1d8',
     'behavior':'commander',
     'class_features':{

@@ -1940,7 +1940,17 @@ class soldier_in_battle(soldier):
             else:
                 ranged_attack_list = [attack for attack in self.attacks if attack[0] == 'ranged']
                 ranged_attack = random.choice(ranged_attack_list)
-            if distance <= round(self.attacks[ranged_attack][attack_range_choice] / tile_size):
+            # Лучники и егеря работают с максимальной дистанции:
+            if self.behavior == 'archer'\
+                    and distance <= round(self.attacks[ranged_attack][attack_range_choice] / tile_size):
+                return ranged_attack
+            # Линейная пехота подпускает врага для прицельного залпа, если таков приказ:
+            elif 'aim' in self.commands\
+                    and distance <= round(self.attacks[ranged_attack]['attack_range'] / tile_size):
+                return ranged_attack
+            # Все остальные тоже стреляют с предельной дистанции:
+            elif self.behavior != 'archer'\
+                    and distance <= round(self.attacks[ranged_attack][attack_range_choice] / tile_size):
                 return ranged_attack
 
     def select_spell(self, squad, enemy, tile_size = 5):

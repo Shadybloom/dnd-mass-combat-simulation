@@ -1217,6 +1217,11 @@ class battle_simulation(battlescape):
                         and squad.enemy_recon['distance'] <= save_distance * 3\
                         or 'very_carefull' in commands_list and squad.enemies\
                         and squad.enemy_recon['distance'] <= save_distance * 6:
+                    # Стреляем прицельно, если перезарядка долгая, а враг близко.
+                    if squad.enemy_recon['distance'] <= save_distance:
+                        commands_list.append('accurate')
+                        commands_list.append('engage')
+                        commands_list.append('aim')
                     if 'lead' in commands_list:
                         commands_list.remove('lead')
                     if 'very_carefull' in commands_list:
