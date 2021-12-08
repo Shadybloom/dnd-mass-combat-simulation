@@ -723,9 +723,11 @@ class battle_simulation(battlescape):
                         if type(el) == tuple:
                             sides_list.append(el[0])
                 sides_dict = Counter(sides_list)
+                # Победитель освобождает своих и собирает трофеи:
                 if len(sides_dict.keys()) == 1:
                     self.winner = list(sides_dict.keys())[0]
                     self.release_captures(self.winner)
+                    self.collect_trophies(self.winner)
                     break
                 # Бывает, что с поля боя убегают все:
                 elif not sides_dict:
@@ -3738,7 +3740,7 @@ class battle_simulation(battlescape):
     def release_captures(self, side):
         """Пленные победившей стороны освобождаются после боя.
 
-        - Только если была команда -S --stop (namespace.stop)
+        Только если была команда -S --stop (namespace.stop)
         """
         if side:
             for soldier in self.metadict_soldiers.values():
@@ -3747,6 +3749,28 @@ class battle_simulation(battlescape):
                 # Раненые получают перевязку:
                 if soldier.ally_side == side and not soldier.stable and not soldier.death:
                     soldier.stable = True
+
+    def collect_trophies(self, side):
+        """Солдаты победившей стороны собирают трофеи.
+
+        Только если была команда -S --stop (namespace.stop)
+        1) В victories_dict солдата сохраняются uuid побеждённых врагов
+        2) Трофеи собираются, если враг остался на поле боя (метки: death или captured)
+        3) Только здоровые бойцы могут собирать трофеи (hp > 0)
+        """
+        if side:
+            for soldier in self.metadict_soldiers.values():
+                if soldier.ally_side == side and not soldier.defeat and not soldier.fall:
+                    # Значения словаря распаковываем в единый список uuid:
+                    victories_list = []
+                    for el in soldier.victories_dict.values():
+                        victories_list.extend(el)
+                    # Проверяем все uuid и если враг захвачен/мёрт, то собираем трофеи.
+                    if victories_list:
+                        for enemy_uuid in victories_list:
+                            enemy_soldier = self.metadict_soldiers[enemy_uuid]
+                            if enemy_soldier.captured or enemy_soldier.death:
+                                soldier.loot_enemy(enemy_soldier)
 
     def print_battle_statistics(self, short = False):
         """Вывод статистики после боя. Убитые, раненые по отрядам."""
@@ -3894,7 +3918,7 @@ class battle_simulation(battlescape):
                             'hit_per_attack:', round(hit_sum / (hit_sum + miss_sum), 2),
                             'damage_per_round:', round(damage_sum / self.battle_round))
                 # Потерянное снаряжение и трофеи:
-                if squad.trophy_items_dict and casualty['lucky_one_percent'] > casualty['escape_percent']:
+                if squad.trophy_items_dict and squad.ally_side == self.winner:
                     squad.trophy_items_dict = dict(OrderedDict(reversed(sorted(
                         squad.trophy_items_dict.items(),key=lambda x: x[1]
                         ))))

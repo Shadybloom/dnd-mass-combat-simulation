@@ -2392,6 +2392,17 @@ class soldier_in_battle(soldier):
         else:
             return False
 
+    def loot_enemy(self, enemy_soldier):
+        """Боец грабит поверженного врага.
+
+        Всё снаряжение врага переносится в трофеи бойца.
+        """
+        self.drop_action(('long_action', 'Loot_Enemy'))
+        for item, number in enemy_soldier.equipment_weapon.items():
+            if number > 0:
+                self.get_trophy(item, number)
+                enemy_soldier.drop_item(item, number)
+
     def get_trophy(self, item, number = 1):
         """Словарь трофеев пополняется предметом.
         
@@ -2850,24 +2861,19 @@ class soldier_in_battle(soldier):
     def set_victory_and_enemy_defeat(self, enemy_soldier):
         """Боец получает опыт за победу.
         
-        - Колдун с Dark_One\'s_Blessing получает бонусные хиты:
         """
-        # TODO: добавь трофеи бойца.
-        # ------------------------------------------------------------
-        # Вражеское снаряжение, если враг схвачен или убит.
-        # Или если враг не имеет рядом союзников, способных его вытащить.
-        # ------------------------------------------------------------
         # Учитывается только первая победа, а не добивание:
         if not enemy_soldier.defeat and not enemy_soldier.fall:
             self.victories += 1
             enemy_soldier.defeats += 1
             self.experience += enemy_soldier.get_experience()
-            # Список побед:
+            # Словарь побед (это списки uuid побеждённых врагов):
             key = enemy_soldier.rank
             if not key in self.victories_dict:
-                self.victories_dict[key] = 1
+                self.victories_dict[key] = [enemy_soldier.uuid,]
             elif key in self.victories_dict:
-                self.victories_dict[key] += 1
+                self.victories_dict[key].append(enemy_soldier.uuid)
+        # TODO: это оформи как wrapper.
         # Колдун с Dark_One\'s_Blessing получает бонусные хиты:
         if self.class_features.get('Dark_One\'s_Blessing'):
             bonus_hitpoints_bless = self.mods['charisma'] + self.level
@@ -2894,10 +2900,7 @@ class soldier_in_battle(soldier):
             enemy_soldier.set_concentration_break(autofail = True)
         # У схваченного трофеят всё снаряжение:
         if enemy_soldier.grappled or not enemy_soldier.near_allies and enemy_soldier.near_enemies:
-            for item, number in enemy_soldier.equipment_weapon.items():
-                if number > 0:
-                    self.get_trophy(item, number)
-                    enemy_soldier.drop_item(item, number)
+            self.loot_enemy(enemy_soldier)
         # Оружие и щит выпадают из рук:
         if enemy_soldier.shield_ready:
             enemy_soldier.unset_shield(disarm = True)
