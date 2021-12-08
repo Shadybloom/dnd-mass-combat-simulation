@@ -925,7 +925,7 @@ metadict_animals['Giant Octopus (CR 1)'] = {
     'grappler_AI':True,
     'fearless_AI':True,
     'challenge_rating':'1',
-    'char_class':'Commoner',
+    'char_class':'Animal',
     'behavior':'commander',
     'hitpoints_medial':True,
     'water_walk':True,
@@ -988,7 +988,7 @@ metadict_animals['Giant Elk (CR 2)'] = {
     'level':5,
     'challenge_rating':'2',
     'armor_class_natural':11,
-    'char_class':'Commoner',
+    'char_class':'Animal',
     'behavior':'elite_warrior',
     'hitpoints_medial':True,
     'class_features':{
@@ -1029,7 +1029,7 @@ metadict_animals['Brown Bear (CR 1)'] = {
     # https://roll20.net/compendium/dnd5e/Brown%20Bear
     'level':4,
     'challenge_rating':'1',
-    'char_class':'Commoner',
+    'char_class':'Animal',
     'behavior':'elite_warrior',
     'hitpoints_medial':True,
     #'fearless_AI':True,
@@ -1089,7 +1089,7 @@ metadict_animals['Mastiff, dog (CR 1/8)'] = {
     'fearless_AI':True,
     #'grappler_AI':True,
     'challenge_rating':'1/8',
-    'char_class':'Commoner',
+    'char_class':'Animal',
     'behavior':'warrior',
     'hitpoints_medial':True,
     'class_features':{
@@ -2942,7 +2942,7 @@ metadict_animals['Riding Horse'] = {
     # https://www.dandwiki.com/wiki/5e_SRD:Riding_Horse
     'level':2,
     'challenge_rating':'1/4',
-    'char_class':'Commoner',
+    'char_class':'Animal',
     'behavior':'mount',
     #'hitpoints_medial':True,
     'abilityes':{
@@ -2984,7 +2984,7 @@ metadict_animals['Light Warhorse'] = {
     # https://www.dandwiki.com/wiki/5e_SRD:Riding_Horse
     'level':2,
     'challenge_rating':'1/4',
-    'char_class':'Commoner',
+    'char_class':'Animal',
     'behavior':'mount',
     #'hitpoints_medial':True,
     'abilityes':{
@@ -3023,7 +3023,7 @@ metadict_animals['Warhorse'] = {
     # https://www.dandwiki.com/wiki/5e_SRD:Warhorse
     'level':3,
     'challenge_rating':'1/2',
-    'char_class':'Commoner',
+    'char_class':'Animal',
     'behavior':'mount',
     #'hitpoints_medial':True,
     'abilityes':{
@@ -3063,7 +3063,7 @@ metadict_animals['Horseclaw'] = {
     # https://www.dandwiki.com/wiki/Chocobo_(3.5e_Creature)
     'level':3,
     'challenge_rating':'1/2',
-    'char_class':'Commoner',
+    'char_class':'Animal',
     'behavior':'mount',
     #'hitpoints_medial':True,
     'abilityes':{

@@ -28,6 +28,7 @@ dict_class_abilityes = {
         'Warrior-officer':['charisma','strength','dexterity','constitution'],
         # Класс простолюдинов. Все параметры случайные.
         'Commoner':[],
+        'Animal':[],
         # Чудовища, параметры предопределены.
         'Empyrean':[],
         }
@@ -56,6 +57,7 @@ dict_class_saves = {
         'Warrior-officer':['strength','charisma'],
         # Класс простолюдинов. Бонусов к спасброскам нет.
         'Commoner':[],
+        'Animal':[],
         # Чудовища, параметры предопределены.
         'Empyrean':['strength','intelligence','wisdom','charisma'],
         }
@@ -573,6 +575,27 @@ metadict_class_proficiency = {
         ('Commoner',18):{},
         ('Commoner',19):{},
         ('Commoner',20):{},
+        # Всякие монстры:
+        ('Animal',1):{},
+        ('Animal',2):{},
+        ('Animal',3):{},
+        ('Animal',4):{},
+        ('Animal',5):{},
+        ('Animal',6):{},
+        ('Animal',7):{},
+        ('Animal',8):{},
+        ('Animal',9):{},
+        ('Animal',10):{},
+        ('Animal',11):{},
+        ('Animal',12):{},
+        ('Animal',13):{},
+        ('Animal',14):{},
+        ('Animal',15):{},
+        ('Animal',16):{},
+        ('Animal',17):{},
+        ('Animal',18):{},
+        ('Animal',19):{},
+        ('Animal',20):{},
         # Всякие монстры:
         ('Empyrean',1):{},
         ('Empyrean',2):{},
@@ -1144,6 +1167,27 @@ metadict_class_spells = {
         ('Commoner',18):{},
         ('Commoner',19):{},
         ('Commoner',20):{},
+        # Всякие монстры.
+        ('Animal',1):{},
+        ('Animal',2):{},
+        ('Animal',3):{},
+        ('Animal',4):{},
+        ('Animal',5):{},
+        ('Animal',6):{},
+        ('Animal',7):{},
+        ('Animal',8):{},
+        ('Animal',9):{},
+        ('Animal',10):{},
+        ('Animal',11):{},
+        ('Animal',12):{},
+        ('Animal',13):{},
+        ('Animal',14):{},
+        ('Animal',15):{},
+        ('Animal',16):{},
+        ('Animal',17):{},
+        ('Animal',18):{},
+        ('Animal',19):{},
+        ('Animal',20):{},
         # Эмпирей. Они у нас как жрецы.
         ('Empyrean',1):{'1_lvl':2,'2_lvl':0,'3_lvl':0,'4_lvl':0,'5_lvl':0,
                 '6_lvl':0,'7_lvl':0,'8_lvl':0,'9_lvl':0},
