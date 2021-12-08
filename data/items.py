@@ -1289,6 +1289,14 @@ metadict_items['Rations (1 day)'] = {
     'cost (grams_of_gold)':2 / 60,
     }
 
+metadict_items['Meat (1 lb)'] = {
+    # Мясо добытых на охоте животных.
+    'gear':True,
+    'weight (lb)':1,
+    'cost (sp)':2,
+    'cost (grams_of_gold)':1 / 60,
+    }
+
 metadict_items['Tinderbox'] = {
     'gear':True,
     'weight (lb)':1,

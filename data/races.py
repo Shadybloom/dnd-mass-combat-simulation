@@ -48,9 +48,9 @@ dict_races = {
             'hero':False,
             'size':'huge',
             'base_speed':40,
-            'height_base_inches':6 * 12 + 8,
+            'height_base_inches':16 * 12,
             'height_mod_dice':'2d10',
-            'weight_base_lb':210,
+            'weight_base_lb':4500,
             'weight_mod_dice':'2d4',
             },
         'Human-undead':{
@@ -137,49 +137,15 @@ dict_races = {
             'wisdom':+1,
             'charisma':+1,
             },
-        'Fourlegged-common':{
-            # Четвероногое
+        'Primevial-medium':{
             'hero':False,
+            'unholy':True,
             'size':'medium',
-            'base_speed':40,
-            'height_base_inches':12,
-            'height_mod_dice':'1d2',
-            'weight_base_lb':50,
-            'weight_mod_dice':'1d2',
-            },
-        'Dog':{
-            # Мастиффы.
-            'hero':False,
-            'size':'small',
-            'base_speed':40,
-            'height_base_inches':12,
-            'height_mod_dice':'1d2',
-            'weight_base_lb':50,
-            'weight_mod_dice':'1d2',
-            },
-        'Cat-hero':{
-            # Коттаямские котики.
-            'hero':True,
-            'size':'small',
-            'base_speed':40,
-            'height_base_inches':12,
-            'height_mod_dice':'1d2',
-            'weight_base_lb':4,
-            'weight_mod_dice':'1d2',
-            'dexterity':+2,
-            'intelligence':+1,
-            'wisdom':+1,
-            },
-        'Primevial-huge':{
-            # Эмпиреи, Empyrean
-            # TODO: настрой вес и рост.
-            'hero':True,
-            'size':'huge',
-            'base_speed':50,
-            'armor_class_natural':17,
-            'height_base_inches':6 * 12 + 8,
+            'base_speed':30,
+            'armor_class_natural':12,
+            'height_base_inches':4 * 12 + 8,
             'height_mod_dice':'2d10',
-            'weight_base_lb':210,
+            'weight_base_lb':110,
             'weight_mod_dice':'2d4',
             },
         'Primevial-large':{
@@ -190,26 +156,59 @@ dict_races = {
             'armor_class_natural':13,
             'height_base_inches':6 * 12 + 8,
             'height_mod_dice':'2d10',
-            'weight_base_lb':210,
+            'weight_base_lb':220,
             'weight_mod_dice':'2d4',
             },
-        'Primevial-medium':{
-            'hero':False,
-            'unholy':True,
-            'size':'medium',
-            'base_speed':30,
-            'armor_class_natural':12,
-            'height_base_inches':6 * 12 + 8,
+        'Primevial-huge':{
+            # Эмпиреи, Empyrean
+            'hero':True,
+            'size':'huge',
+            'base_speed':50,
+            'armor_class_natural':17,
+            'height_base_inches':16 * 12,
             'height_mod_dice':'2d10',
-            'weight_base_lb':210,
+            'weight_base_lb':4500,
             'weight_mod_dice':'2d4',
+            },
+        'Fourlegged-common':{
+            # Четвероногое
+            'hero':False,
+            'size':'medium',
+            'base_speed':40,
+            'height_base_inches':3 * 12,
+            'height_mod_dice':'1d2',
+            'weight_base_lb':110,
+            'weight_mod_dice':'1d2',
+            },
+        'Dog':{
+            # Мастиффы.
+            'hero':False,
+            'size':'small',
+            'base_speed':40,
+            'height_base_inches':3 * 12,
+            'height_mod_dice':'1d2',
+            'weight_base_lb':160,
+            'weight_mod_dice':'1d2',
+            },
+        'Cat-hero':{
+            # Коттаямские котики.
+            'hero':True,
+            'size':'small',
+            'base_speed':40,
+            'height_base_inches':2 * 12,
+            'height_mod_dice':'1d2',
+            'weight_base_lb':50,
+            'weight_mod_dice':'1d2',
+            'dexterity':+2,
+            'intelligence':+1,
+            'wisdom':+1,
             },
         'Horse':{
             # Верховые кони (высота в холке).
             'hero':False,
             'size':'large',
             'base_speed':60,
-            'height_base_inches':56,
+            'height_base_inches':6 * 12,
             'height_mod_dice':'2d4',
             'weight_base_lb':1000,
             'weight_mod_dice':'2d20',
@@ -217,15 +216,34 @@ dict_races = {
         'Horseclaw':{
             # Чокобо, когтеклюв:
             # https://www.dandwiki.com/wiki/Chocobo_(3.5e_Creature)
-            # У них прочные перья, природная броня -- 11.
             'hero':False,
             'size':'large',
             'base_speed':60,
             'armor_class_natural':11,
-            'height_base_inches':56,
+            'height_base_inches':8 * 12,
             'height_mod_dice':'2d4',
-            'weight_base_lb':1000,
+            'weight_base_lb':400,
             'weight_mod_dice':'2d20',
+            },
+        'Bear':{
+            'hero':False,
+            'size':'large',
+            'base_speed':40,
+            'armor_class_natural':11,
+            'height_base_inches':5 * 12,
+            'height_mod_dice':'2d4',
+            'weight_base_lb':500,
+            'weight_mod_dice':'2d20',
+            },
+        'Bird-medium':{
+            # Скорость полёта 150-300 футов.
+            'hero':False,
+            'size':'medium',
+            'base_speed':60,
+            'height_base_inches':2 * 12,
+            'height_mod_dice':'2d10',
+            'weight_base_lb':50,
+            'weight_mod_dice':'2d4',
             },
         'Dragon-big':{
             # Молодой дракон.
@@ -233,28 +251,6 @@ dict_races = {
             'size':'large',
             'base_speed':80,
             'armor_class_natural':18,
-            'height_base_inches':56,
-            'height_mod_dice':'2d4',
-            'weight_base_lb':1000,
-            'weight_mod_dice':'2d20',
-            },
-        'Bird-medium':{
-            # TODO: скорость 150-300 футов.
-            # Но пока disengage недопилен, пусть будет так.
-            'hero':False,
-            'size':'medium',
-            'base_speed':60,
-            'height_base_inches':4 * 12 + 8,
-            'height_mod_dice':'2d10',
-            'weight_base_lb':110,
-            'weight_mod_dice':'2d4',
-            },
-        'Bear':{
-            # TODO: рост/вес подправь.
-            'hero':False,
-            'size':'large',
-            'base_speed':40,
-            'armor_class_natural':11,
             'height_base_inches':56,
             'height_mod_dice':'2d4',
             'weight_base_lb':1000,

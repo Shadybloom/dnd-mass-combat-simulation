@@ -2398,12 +2398,21 @@ class soldier_in_battle(soldier):
         Снаряжение врага переносится в трофеи бойца.
         Если грабёж поспешный, то тратится действие и не снимается броня.
         """
-        # TODO: добавь разделку добытых на охоте животных при долгом грабеже.
         if use_action:
             self.drop_action(('action', 'Help_Action_Loot_Enemy'))
             self.help_action = True
         else:
             self.drop_action(('long_action', 'Loot_Enemy'))
+            # Охота. Бойцы разделывают добытую живность (или живность разделывает бойцов):
+            if enemy_soldier.char_class == 'Animal'\
+                    or self.char_class == 'Animal':
+                if enemy_soldier.death or enemy_soldier.disabled:
+                    carcass_weight_lb = enemy_soldier.body['weight_lb']
+                    meat_weight_lb = round(carcass_weight_lb * 0.5)
+                    #meat_dict_base = copy.deepcopy(self.metadict_items['Meat (1 lb)'])
+                    #meat_name = (enemy_soldier.rank, 'Meat (1 lb)')
+                    meat_name = ' '.join([enemy_soldier.rank, 'meat (lb)'])
+                    self.get_trophy(meat_name, meat_weight_lb)
         # Руны и эссенции не попадают в трофеи.
         # Также исключаем созданные магией предметы (вроде Mage_Armor).
         for item, number in enemy_soldier.equipment_weapon.items():
