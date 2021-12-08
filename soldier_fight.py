@@ -2395,11 +2395,17 @@ class soldier_in_battle(soldier):
     def loot_enemy(self, enemy_soldier):
         """Боец грабит поверженного врага.
 
-        Всё снаряжение врага переносится в трофеи бойца.
+        Снаряжение врага переносится в трофеи бойца.
         """
         self.drop_action(('long_action', 'Loot_Enemy'))
         for item, number in enemy_soldier.equipment_weapon.items():
-            if number > 0:
+            item_dict = self.metadict_items[item]
+            # Руны и эссенции не попадают в трофеи.
+            # Также исключаем созданные магией предметы (вроде Mage_Armor).
+            if number > 0\
+                    and not item_dict.get('rune') == True\
+                    and not item_dict.get('infusion') == True\
+                    and not item_dict.get('spell') == True:
                 self.get_trophy(item, number)
                 enemy_soldier.drop_item(item, number)
 

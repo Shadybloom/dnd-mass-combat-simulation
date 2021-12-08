@@ -1013,6 +1013,7 @@ metadict_items['Plate Armor'] = {
 metadict_items['Mage_Armor'] = {
     # Создаётся заклинанием Mage_Armor, действует 8 часов.
     'armor':True,
+    'spell':True,
     'armor_type':'Mage_Armor',
     'armor_class_armor':13,
     'weight (lb)':0,
@@ -1023,6 +1024,7 @@ metadict_items['Mage_Armor'] = {
 metadict_items['Barkskin'] = {
     # Создаётся заклинанием Barkskin, действует 1 час концентрации.
     'armor':True,
+    'spell':True,
     'armor_type':'Barkskin',
     'armor_class_armor':16,
     'weight (lb)':0,
@@ -1033,6 +1035,7 @@ metadict_items['Barkskin'] = {
 metadict_items['Draconic_Scales'] = {
     # От чародейского Draconic_Bloodline
     'armor':True,
+    'spell':True,
     'armor_type':'Mage_Armor',
     'armor_class_armor':13,
     'weight (lb)':0,
@@ -1371,8 +1374,13 @@ metadict_items['Potion of Antidote'] = {
     'cost (grams_of_gold)':6,
     }
 
+#----
+# Magic items (homebrew) (эссенции):
+
 metadict_items['Infusion of Healing'] = {
+    # Эссенции "перезаряжаются" друидами и жрецами.
     'potion':True,
+    'infusion':True,
     'spell':'Cure_Wounds',
     'weight (lb)':0,
     'cost (gp)':50,
@@ -1381,6 +1389,7 @@ metadict_items['Infusion of Healing'] = {
 
 metadict_items['Infusion of False Life'] = {
     'potion':True,
+    'infusion':True,
     'spell':'False_Life',
     'weight (lb)':0,
     'cost (gp)':60 * 2,
@@ -1389,6 +1398,7 @@ metadict_items['Infusion of False Life'] = {
 
 metadict_items['Infusion of Barkskin'] = {
     'potion':True,
+    'infusion':True,
     'concentration':False,
     'spell':'Barkskin',
     'weight (lb)':0,
@@ -1400,6 +1410,7 @@ metadict_items['Infusion of Regeneration'] = {
     # Действует 10 минут, ослабленная версия заклинания.
     # В первый раунд 2d4+2 хитов, в последующие 1 хит/раунд.
     'potion':True,
+    'infusion':True,
     'spell':'Regeneration',
     'effect_timer':100,
     'damage_type':'heal',
@@ -1412,6 +1423,7 @@ metadict_items['Infusion of Regeneration'] = {
 
 metadict_items['Infusion of Longstrider'] = {
     'potion':True,
+    'infusion':True,
     'spell':'Longstrider',
     'weight (lb)':0,
     'cost (gp)':60,
@@ -1420,6 +1432,7 @@ metadict_items['Infusion of Longstrider'] = {
 
 metadict_items['Infusion of Heroism'] = {
     'potion':True,
+    'infusion':True,
     'concentration':False,
     'spell':'Heroism',
     'weight (lb)':0,
@@ -1429,9 +1442,9 @@ metadict_items['Infusion of Heroism'] = {
 
 metadict_items['Infusion of Claws'] = {
     # TODO: переделай в заклинание. Пусть даёт дополнительную атаку.
-    # Эссенции "перезаряжаются" друидами и жрецами.
     'potion':True,
     'weapon':True,
+    'infusion':True,
     'weapon_type':['simple','close','finesse','magic','+1'],
     'damage_type':'piercing',
     'damage_dice':'1d6',
@@ -1440,9 +1453,13 @@ metadict_items['Infusion of Claws'] = {
     'cost (grams_of_gold)':60,
     }
 
+#----
+# Magic items (homebrew) (руны):
+
 metadict_items['Rune of Absorbtion'] = {
     # Руны перезаряжаются магами.
     'potion':True,
+    'rune':True,
     'spell':'Absorb_Elements',
     'weight (lb)':1/2,
     'cost (gp)':240,
@@ -1451,6 +1468,7 @@ metadict_items['Rune of Absorbtion'] = {
 
 metadict_items['Rune of Shielding'] = {
     'potion':True,
+    'rune':True,
     'spell':'Shield',
     'weight (lb)':1/2,
     'cost (gp)':240,
@@ -1460,6 +1478,7 @@ metadict_items['Rune of Shielding'] = {
 metadict_items['Rune of Armor'] = {
     # Стоит как полулаты, зато очень лёгкая.
     'potion':True,
+    'rune':True,
     'spell':'Mage_Armor',
     'weight (lb)':1/2,
     'cost (gp)':240,
