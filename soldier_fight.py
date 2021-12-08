@@ -2392,22 +2392,33 @@ class soldier_in_battle(soldier):
         else:
             return False
 
-    def loot_enemy(self, enemy_soldier):
+    def loot_enemy(self, enemy_soldier, use_action = False):
         """Боец грабит поверженного врага.
 
         Снаряжение врага переносится в трофеи бойца.
+        Если грабёж поспешный, то тратится действие и не снимается броня.
         """
-        self.drop_action(('long_action', 'Loot_Enemy'))
+        # TODO: добавь разделку добытых на охоте животных при долгом грабеже.
+        if use_action:
+            self.drop_action(('action', 'Help_Action_Loot_Enemy'))
+            self.help_action = True
+        else:
+            self.drop_action(('long_action', 'Loot_Enemy'))
+        # Руны и эссенции не попадают в трофеи.
+        # Также исключаем созданные магией предметы (вроде Mage_Armor).
         for item, number in enemy_soldier.equipment_weapon.items():
             item_dict = self.metadict_items[item]
-            # Руны и эссенции не попадают в трофеи.
-            # Также исключаем созданные магией предметы (вроде Mage_Armor).
             if number > 0\
                     and not item_dict.get('rune') == True\
                     and not item_dict.get('infusion') == True\
                     and not item_dict.get('spell') == True:
-                self.get_trophy(item, number)
-                enemy_soldier.drop_item(item, number)
+                if use_action\
+                        and not item_dict.get('armor') == True:
+                    self.get_trophy(item, number)
+                    enemy_soldier.drop_item(item, number)
+                else:
+                    self.get_trophy(item, number)
+                    enemy_soldier.drop_item(item, number)
 
     def get_trophy(self, item, number = 1):
         """Словарь трофеев пополняется предметом.
@@ -2904,9 +2915,9 @@ class soldier_in_battle(soldier):
         # Противник теряет концентрацию:
         if enemy_soldier.concentration:
             enemy_soldier.set_concentration_break(autofail = True)
-        # У схваченного трофеят всё снаряжение:
+        # У схваченного отбирают всё оружие, чтобы не натворил дел, если вдруг очнётся:
         if enemy_soldier.grappled or not enemy_soldier.near_allies and enemy_soldier.near_enemies:
-            self.loot_enemy(enemy_soldier)
+            self.loot_enemy(enemy_soldier, use_action = True)
         # Оружие и щит выпадают из рук:
         if enemy_soldier.shield_ready:
             enemy_soldier.unset_shield(disarm = True)
