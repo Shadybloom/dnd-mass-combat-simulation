@@ -59,13 +59,15 @@ class squad_generation():
         # Здесь бойцы отряда получают levelup и распределяются по должностям:
         self.metadict_soldiers.update(self.set_ranks())
         #self.set_initiative()
+        # Запоминаем командира отряда:
+        self.commander_uuid = self.find_best(self.metadict_soldiers)
         # У отряда тоже есть имя -- название:
         if config.__dict__.get('LANGUAGE_DICT_FANTASY'):
             self.name, self.name_translate = gen_name(config.LANGUAGE_DICT_FANTASY, name_length = 3)
         else:
             # Название реального отряда по имени капитана.
+            commander_name = self.metadict_soldiers[self.commander_uuid].name
             self.name, self.name_translate = gen_name(config.LANGUAGE_DICT_REAL, name_length = 3)
-            commander_name = self.metadict_soldiers[self.find_best()].name
             self.name_translate = (commander_name[0], commander_name[1], 'Company')
         # Бойцы запоминают имя своего отряда:
         for soldier in self.metadict_soldiers.values():
@@ -90,10 +92,8 @@ class squad_generation():
     def load_squad_from_DB(self, squad_name, get_injured = False, get_all = False):
         """Воссоздаём отряд из базы данных.
         
-        Там только список солдат.
+        Там только список солдат. Класс отряда воссоздаём.
         """
-        # TODO: пили вывод данных из БД.
-        # Придумай что-нибудь с типом отряда и переводом имени
         self.squad_type = squad_name
         self.name = squad_name
         self.name_translate = squad_name
@@ -101,6 +101,7 @@ class squad_generation():
         self.metadict_soldiers = self.load_soldiers_from_DB(soldiers_uuid_list, get_injured, get_all)
         self.squad_number = len(self.metadict_soldiers)
         self.soldiers_list = list(self.metadict_soldiers.keys())
+        self.commander_uuid = self.find_best(self.metadict_soldiers)
         # Кое-какая обобщённая статистика:
         self.behavior = self.find_base_behaviour()
         self.squad_overload = self.calculate_squad_overload()
@@ -213,7 +214,7 @@ class squad_generation():
         medial_ability_sum = sum(ability_sum_list) / len(ability_sum_list)
         return medial_ability_sum
 
-    def find_best(self):
+    def find_best(self, metadict_soldiers):
         """Находим лучшего в роте по сумме параметров.
         
         Используется для выбора офицеров. Крепкие получаются бычары:
@@ -221,7 +222,7 @@ class squad_generation():
         - В роте из простолюдинов среднее для командира -- 82
         """
         ability_sum_min = 0
-        for soldier in self.metadict_soldiers.values():
+        for soldier in metadict_soldiers.values():
             ability_sum = sum(soldier.abilityes.values())
             if ability_sum >= ability_sum_min:
                 ability_sum_min = ability_sum
@@ -422,7 +423,7 @@ class squad_generation():
             # Находим самое малочисленное звание и лучшего бойца:
             dict_squad = OrderedDict(reversed(sorted(dict_squad.items(),key=lambda x: x)))
             rank = min(dict_squad, key=lambda k: dict_squad[k])
-            uuid = self.find_best()
+            uuid = self.find_best(self.metadict_soldiers)
             # Даём лучшему бойцу levelup до нового звания:
             recruit = metadict_reqruits[uuid]
             recruit.levelup(rank)

@@ -199,7 +199,9 @@ class database_stat():
                     fall = sum(dict_fall.values()),
                     ))
             print('--------------------------------------------------------------------------------')
-            print('* Восполнение потерь (солдат): {re} эфес'.format(re = squad.reinforce_cost))
+            print('* Восполнение потерь (солдат): {re} эфес {heal} Lesser_Restoration'.format(
+                re = squad.reinforce_cost,
+                heal = sum(dict_disabled.values())))
             print('* Восполнение потерь (снаряжения): {ammo} эфес'.format(ammo = squad.drop_ammo_cost))
             print('* Трофеи солдат: {trophy} эфес'.format(trophy = squad.trophy_cost))
             for key, el in dict_dead.items():
