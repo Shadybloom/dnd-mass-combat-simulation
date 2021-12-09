@@ -236,8 +236,13 @@ class squad_generation():
         """
         types_list = [soldier.behavior for soldier in self.metadict_soldiers.values()\
                 if soldier.behavior != 'mount']
-        types_dict = collections.Counter(types_list)
-        max_type = max(types_dict.items(), key=operator.itemgetter(1))
+        if types_list:
+            types_dict = collections.Counter(types_list)
+            max_type = max(types_dict.items(), key=operator.itemgetter(1))
+        else:
+            types_list = [soldier.behavior for soldier in self.metadict_soldiers.values()]
+            types_dict = collections.Counter(types_list)
+            max_type = max(types_dict.items(), key=operator.itemgetter(1))
         return max_type[0]
 
     def calculate_squad_overload(self):

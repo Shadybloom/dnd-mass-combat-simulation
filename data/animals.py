@@ -2941,6 +2941,7 @@ metadict_animals['Riding Horse'] = {
     # Лошади античности маленькие. 5 век до н.э. -- 134 см. в холке. Считай пони, 200 килограмм.
     # https://www.dandwiki.com/wiki/5e_SRD:Riding_Horse
     'level':2,
+    'Animal_AI':True,
     'challenge_rating':'1/4',
     'char_class':'Animal',
     'behavior':'mount',
@@ -2983,6 +2984,7 @@ metadict_animals['Light Warhorse'] = {
     # Quality war horse and gear: At least ten pounds, up to fifty for a top of the line mount (160-800 gp)
     # https://www.dandwiki.com/wiki/5e_SRD:Riding_Horse
     'level':2,
+    'Animal_AI':True,
     'challenge_rating':'1/4',
     'char_class':'Animal',
     'behavior':'mount',
@@ -3022,6 +3024,7 @@ metadict_animals['Warhorse'] = {
     # Боевой конь.
     # https://www.dandwiki.com/wiki/5e_SRD:Warhorse
     'level':3,
+    'Animal_AI':True,
     'challenge_rating':'1/2',
     'char_class':'Animal',
     'behavior':'mount',
@@ -3062,6 +3065,7 @@ metadict_animals['Horseclaw'] = {
     # Когте-конь, когтеклюв, страус, чокобо.
     # https://www.dandwiki.com/wiki/Chocobo_(3.5e_Creature)
     'level':3,
+    'Animal_AI':True,
     'challenge_rating':'1/2',
     'char_class':'Animal',
     'behavior':'mount',

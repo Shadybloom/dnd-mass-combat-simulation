@@ -1165,10 +1165,6 @@ class battle_simulation(battlescape):
             # Обычный боец -- негодный командир:
             if squad.commander.level < 3:
                 commands_list.append('coward')
-            # Чучела, иллюзии и механизмы просто стоят:
-            if squad.commander.__dict__.get('inactive_AI'):
-                commands_list = []
-                commands_list.append('inactive')
             # Стремительный командир гонит своих вперёд:
             if squad.commander.__dict__.get('Dash_AI'):
                 commands_list.append('dash')
@@ -1241,6 +1237,24 @@ class battle_simulation(battlescape):
                     if 'lead' in commands_list:
                         commands_list.remove('lead')
                         commands_list.append('disengage')
+            # Чучела, иллюзии и механизмы просто стоят:
+            if squad.commander.__dict__.get('inactive_AI'):
+                commands_list = []
+                commands_list.append('inactive')
+            # Стадные животные чуть что убегают:
+            if squad.commander.__dict__.get('animal_AI'):
+                if squad.enemy_recon['distance'] > save_distance * 2:
+                    commands_list.append('coward')
+                    commands_list.append('close_order')
+                    commands_list.append('disengage')
+                    commands_list.append('dash')
+                # Если кто-то из стада получает урон, команда "retreat":
+                squad_hitpoints_max = sum([soldier.hitpoints_max for soldier\
+                    in squad.metadict_soldiers.values()])
+                squad_hitpoints_new = sum([soldier.hitpoints for soldier\
+                    in squad.metadict_soldiers.values()])
+                if squad_hitpoints_new < squad_hitpoints_max:
+                    commands_list.append('retreat')
         if namespace.commands and not 'manual' in namespace.commands:
             # TODO: сделай фильтрацию команд по названию отряда
             # Сейчас команды достаются обеим отрядам. И нашему, и врагу.

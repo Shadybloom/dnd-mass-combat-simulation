@@ -125,6 +125,10 @@ metadict_squads['Single-hero (empyrean)'] = {
 #----
 # Тестовые (отряды из Monsters_Manual)
 
+metadict_squads['Squad-animal-herd (horseclaws)'] = {
+    'Horseclaw':dice_throw('2d6'),
+    }
+
 metadict_squads['Squad-elite (veterans)'] = {
     'Veteran (CR 3)':10,
     }
