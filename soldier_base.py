@@ -529,6 +529,21 @@ class soldier():
         dict_proficiency['spellslots'] = copy.deepcopy(self.metadict_class_spells[('Any',level)])
         if self.metadict_class_spells.get((char_class,level)):
             dict_proficiency['spellslots'].update(self.metadict_class_spells[(char_class,level)])
+            print(dict_proficiency['spellslots'])
+        # Feat_Magic_Initiate: добавляет заклинание 1 круга и слот для него:
+        if self.class_features.get('Feat_Magic_Initiate'):
+            if dict_proficiency['spellslots'].get('1_lvl'):
+                dict_proficiency['spellslots']['1_lvl'] += 1
+            else:
+                dict_proficiency['spellslots']['1_lvl'] = 1
+        # Feat_Martial_Adept: даёт два приёма мастера боевых искусств, и одну кость превосходства 1d6.
+        if self.class_features.get('Feat_Martial_Adept'):
+            if not dict_proficiency.get('superiority_dice'):
+                dict_proficiency['superiority_dice'] = '1d6'
+            if dict_proficiency.get('superiority_dices'):
+                dict_proficiency['superiority_dices'] += 1
+            else:
+                dict_proficiency['superiority_dices'] = 1
         return dict_proficiency
 
     def calculate_mods(self):

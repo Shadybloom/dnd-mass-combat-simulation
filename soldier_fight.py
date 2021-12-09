@@ -157,7 +157,8 @@ class soldier_in_battle(soldier):
             self.inspiring_leader = True
         if self.proficiency.get('ki_points_max'):
             self.ki_points = self.proficiency['ki_points_max']
-        if self.class_features.get('Martial_Archetype_Battlemaster'):
+        if self.class_features.get('Martial_Archetype_Battlemaster')\
+                or self.class_features.get('Feat_Martial_Adept'):
             self.superiority_dices = self.proficiency['superiority_dices']
         # Восстанавливаются заклинания колдуна:
         if self.char_class == 'Warlock':
@@ -322,6 +323,8 @@ class soldier_in_battle(soldier):
             if self.class_features.get('Second_Wind') and not hasattr(self, 'second_wind'):
                 self.second_wind = True
             if self.class_features.get('Martial_Archetype_Battlemaster')\
+                    and not hasattr(self, 'superiority_dices')\
+                    or self.class_features.get('Feat_Martial_Adept')\
                     and not hasattr(self, 'superiority_dices'):
                 self.superiority_dice = self.proficiency['superiority_dice']
                 self.superiority_dices = self.proficiency['superiority_dices']
@@ -2074,6 +2077,7 @@ class soldier_in_battle(soldier):
                 attack_throw_mod += dices.dice_throw_advantage(self.superiority_dice)
                 self.superiority_dices -= 1
                 superiority_use = True
+                self.drop_spell(('feature', 'Battlemaster_Precision_Attack'))
         # Great_Weapon_Fighting даёт преимущество по урону (в среднем +2 для диапазона 2d6):
         if attack_dict.get('weapon_skills_use')\
                 and 'Fighting_Style_Great_Weapon_Fighting' in attack_dict['weapon_skills_use']:
@@ -2158,6 +2162,7 @@ class soldier_in_battle(soldier):
                 superiority_use = True
                 fear_difficult = 8 + max(self.mods.values()) + self.proficiency_bonus
                 fear = enemy_soldier.set_fear(self, fear_difficult)
+                self.drop_spell(('feature', 'Battlemaster_Menacing_Attack'))
                 #if fear:
                 #    print('[+++] {side_1}, {c1} {s} FEAR >> {side_2} {c2} {e}'.format(
                 #        side_1 = self.ally_side,
@@ -2324,7 +2329,7 @@ class soldier_in_battle(soldier):
         """Теряем слот заклинания. Запоминаем это."""
         spell_slot = spell_choice[0]
         spell_name = spell_choice[-1]
-        if spell_slot in self.metadict_class_spells[(self.char_class,self.level)]:
+        if spell_slot in self.metadict_class_spells.get((self.char_class,self.level),[]):
             if not spell_choice in self.drop_spells_dict:
                 self.drop_spells_dict[spell_choice] = 1
             elif spell_choice in self.drop_spells_dict:
@@ -2589,6 +2594,7 @@ class soldier_in_battle(soldier):
                     armor_dict['armor_class_shield_impact'] += self.proficiency_bonus
                     armor_dict['armor_class_armor_impact'] += self.proficiency_bonus
                     armor_dict['armor_class'] += self.proficiency_bonus
+                    self.drop_action(('reaction', 'Feat_Defensive_Duelist'))
                     self.reaction = False
                     # Всё работает, вывод можно убрать:
                     #if attack_dict['attack'] < armor_dict['armor_class']\
@@ -2793,6 +2799,7 @@ class soldier_in_battle(soldier):
                 damage -= damage_deflect
                 self.reaction = False
                 self.superiority_dices -= 1
+                self.drop_spell(('feature', 'Battlemaster_Parry'))
                 #print('[+++] {0} {1} {2} reaction Parry {3}/{4} << {5} atc {6} dmg {7}'.format(
                 #    self.ally_side, self.place, self.behavior,
                 #    damage_deflect, attack_dict['damage'],

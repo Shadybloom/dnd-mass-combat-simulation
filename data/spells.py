@@ -35,12 +35,6 @@ class gen_spells():
         for spell_slot, number in soldier.proficiency.get('spellslots').items():
             if number > 0:
                 self.spellslots[spell_slot] = number
-        # Feat_Magic_Initiate: добавляет заклинание 1 круга и слот для него:
-        if soldier.class_features.get('Feat_Magic_Initiate'):
-            if self.spellslots.get('1_lvl'):
-                self.spellslots['1_lvl'] +=1
-            else:
-                self.spellslots['1_lvl'] = 1
         # TODO: В отдельную функцию.
         # ------------------------------------------------------------
         # Нам нужен выбор случайных заклинаний, если в know_spells стоит random.
