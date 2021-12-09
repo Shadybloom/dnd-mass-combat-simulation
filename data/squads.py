@@ -253,6 +253,10 @@ metadict_squads['Company-test (standard) (battleaxes)'] = {
     'Warrior 1 lvl (standard) (Battleaxe + Shield)':100,
     }
 
+metadict_squads['band-test (musketeers)'] = {
+    'Warrior 5 lvl (musketeer line-infantry-captain)':4,
+    }
+
 #----
 # Погода, глобальные заклинания
 

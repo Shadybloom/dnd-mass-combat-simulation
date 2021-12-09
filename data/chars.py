@@ -1310,6 +1310,9 @@ metadict_chars['Warrior 4 lvl (musketeer line-infantry-lieutenant)'] = {
     'class_features':{
         'Fighting_Style_Archery':True,
         'Feat_Defensive_Duelist':True,
+        #'Feat_Martial_Adept':True,
+        #'Menacing_Attack':True,
+        #'Parry':True,
         },
     'race':'Human-common',
     'weapon_skill':['simple','martial'],
@@ -1341,6 +1344,9 @@ metadict_chars['Warrior 5 lvl (musketeer line-infantry-captain)'] = {
     'class_features':{
         'Fighting_Style_Archery':True,
         'Feat_Defensive_Duelist':True,
+        #'Feat_Martial_Adept':True,
+        #'Menacing_Attack':True,
+        #'Parry':True,
         'Extra_Attack':True,
         },
     'race':'Human-common',
