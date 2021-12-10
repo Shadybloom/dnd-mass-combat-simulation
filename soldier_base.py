@@ -529,7 +529,6 @@ class soldier():
         dict_proficiency['spellslots'] = copy.deepcopy(self.metadict_class_spells[('Any',level)])
         if self.metadict_class_spells.get((char_class,level)):
             dict_proficiency['spellslots'].update(self.metadict_class_spells[(char_class,level)])
-            print(dict_proficiency['spellslots'])
         # Feat_Magic_Initiate: добавляет заклинание 1 круга и слот для него:
         if self.class_features.get('Feat_Magic_Initiate'):
             if dict_proficiency['spellslots'].get('1_lvl'):
