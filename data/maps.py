@@ -22,6 +22,18 @@ duel_map = (
         'aaaaaaa',
         )
 
+duel_map_long = (
+        '||||||||||||||||||',
+        'awc0!........!5cwa',
+        'awce!........!ecwa',
+        'awce!........!ecwa',
+        'awce!........!ecwa',
+        'awce!........!ecwa',
+        'awce!........!ecwa',
+        'awce!........!ecwa',
+        '||||||||||||||||||',
+        )
+
 duel_map_big = (
         'aaaaaaaaaaaaaaa',
         'wwwwwwwwwwwwwww',
