@@ -253,6 +253,10 @@ metadict_squads['Company-test (standard) (battleaxes)'] = {
     'Warrior 1 lvl (standard) (Battleaxe + Shield)':100,
     }
 
+metadict_squads['Company-test (standard) (Feat_Heavy_Armor_Master)'] = {
+    'Warrior 4 lvl (standard) (Feat_Heavy_Armor_Master)':100,
+    }
+
 metadict_squads['Company-test (standard) (Feat_Polearm_Master)'] = {
     'Warrior 4 lvl (standard) (Feat_Polearm_Master)':100,
     }
@@ -271,6 +275,49 @@ metadict_squads['Company-test (standard) (Feat_Martial_Adept)'] = {
 
 metadict_squads['Company-test (standard) (Feat_Magic_Initiate)'] = {
     'Warrior 4 lvl (standard) (Feat_Magic_Initiate)':100,
+    }
+
+#----
+# Тестовые отряды
+
+metadict_squads['Band-test (standard) (Feat_Heavy_Armor_Master)'] = {
+    'Warrior 4 lvl (standard) (Feat_Heavy_Armor_Master)':10,
+    }
+
+metadict_squads['Band-test (standard) (Feat_Polearm_Master)'] = {
+    'Warrior 4 lvl (standard) (Feat_Polearm_Master)':10,
+    }
+
+metadict_squads['Band-test (standard) (Feat_Great_Weapon_Master)'] = {
+    'Warrior 4 lvl (standard) (Feat_Great_Weapon_Master)':10,
+    }
+
+metadict_squads['Band-test (standard) (Feat_Sentinel)'] = {
+    'Warrior 4 lvl (standard) (Feat_Sentinel)':10,
+    }
+
+metadict_squads['Band-test (standard) (Feat_Martial_Adept)'] = {
+    'Warrior 4 lvl (standard) (Feat_Martial_Adept)':10,
+    }
+
+metadict_squads['Band-test (standard) (Feat_Magic_Initiate)'] = {
+    'Warrior 4 lvl (standard) (Feat_Magic_Initiate)':10,
+    }
+
+metadict_squads['Band-test (standard) (Feat_Defensive_Duelist)'] = {
+    'Warrior 4 lvl (standard) (Feat_Defensive_Duelist)':10,
+    }
+
+metadict_squads['Band-test (standard) (Feat_Mounted_Combatant)'] = {
+    'Warrior 4 lvl (standard) (Feat_Mounted_Combatant)':10,
+    }
+
+metadict_squads['Band-test (standard) (Feat_Tough)'] = {
+    'Warrior 4 lvl (standard) (Feat_Tough)':10,
+    }
+
+metadict_squads['Band-test (standard) (Feat_Durable)'] = {
+    'Warrior 4 lvl (standard) (Feat_Durable)':10,
     }
 
 #----
