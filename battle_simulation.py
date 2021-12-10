@@ -1802,7 +1802,14 @@ class battle_simulation(battlescape):
                 enemies_near = squad.dict_control_zones[soldier.place]
                 enemies_next = squad.dict_control_zones[next_place]
                 # Подготовленная атака на приближение врага:
+                # TODO: допиливай ready_action, очень нужно для линейной пехоты с мушкетами
                 #ready_attacks_list = [enemy for enemy in enemies_next if enemy not in enemies_near]
+                # Провоцированная атака на вход в зону контроля (для Мастера древкового оружия):
+                provoke_attacks_list = [enemy for enemy in enemies_next
+                        if enemy not in enemies_near
+                        and self.metadict_soldiers[enemy[-1]].class_features.get('Feat_Polearm_Master')]
+                provoke_attacks_list = [enemy for enemy in provoke_attacks_list
+                        if self.metadict_soldiers[enemy[-1]].reaction]
                 # Провоцированная атака на выход из зоны контроля:
                 provoke_attacks_list = [enemy for enemy in enemies_near if enemy not in enemies_next]
                 provoke_attacks_list = [enemy for enemy in provoke_attacks_list
@@ -2058,7 +2065,7 @@ class battle_simulation(battlescape):
     def provoke_attack_chain(self, soldier, squad, provoke_attacks_list):
         """Боец провоцирует атаки и получает их.
         
-        - Если возможо, старается уклоняться с Disengage_Action
+        - Если возможно, старается уклоняться с Disengage_Action
         https://www.dandwiki.com/wiki/5e_SRD:Disengage_Action
         """
         if not soldier.disengage_action:
@@ -2210,6 +2217,12 @@ class battle_simulation(battlescape):
                 if soldier.class_features.get('Fighting_Style_Two_Weapon_Fighting'):
                     if attack_choice[0] == 'close' or attack_choice[0] == 'throw':
                         attacks_chain_bonus = soldier.set_two_weapon_fighting(attack_choice)
+                # Мастера полеармов получают бонусную атаку:
+                if soldier.class_features.get('Feat_Polearm_Master'):
+                    if attack_choice[0] == 'reach':
+                        attacks_chain_bonus += attack_choice
+                        soldier.drop_action(('feature', 'Feat_Polearm_Master_Bonus_Attack'))
+                        soldier.bonus_action = False
                 # Жрецы домена войны могут получить атаку за счёт бонусного действия:
                 if soldier.class_features.get('War_Priest') and soldier.war_priest > 0:
                         attacks_chain_bonus += attack_choice
