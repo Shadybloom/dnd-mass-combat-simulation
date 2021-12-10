@@ -2429,6 +2429,35 @@ metadict_animals['Warrior 4 lvl (standard) (Feat_Mounted_Combatant)'] = {
         },
     }
 
+metadict_animals['Warrior 4 lvl (standard) (Feat_Dual_Wielder)'] = {
+    'level':4,
+    'no_grappler_AI':True,
+    'char_class':'Warrior-officer',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Two_Weapon_Fighting':True,
+        'Feat_Dual_Wielder':True,
+        },
+    'abilityes':{
+        'strength':14,
+        'dexterity':16,
+        'constitution':10,
+        'intelligence':10,
+        'wisdom':10,
+        'charisma':10,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Half Plate':1,
+        'Rapier':2,
+        },
+    }
+
 metadict_animals['Warrior 4 lvl (standard) (Feat_Defensive_Duelist)'] = {
     'level':4,
     'no_grappler_AI':True,

@@ -1358,6 +1358,8 @@ class soldier():
             if dict_attack['attack_type'] == 'close' or dict_attack['attack_type'] == 'throw':
                 if 'light' in weapon_type_list or 'throw' in weapon_type_list:
                     weapon_skills_use.append('Fighting_Style_Two_Weapon_Fighting')
+                elif not 'heavy' in weapon_type_list and class_features.get('Feat_Dual_Wielder'):
+                    weapon_skills_use.append('Fighting_Style_Two_Weapon_Fighting')
         # Archery добавляет +2 к атаке оружию дальнего боя (но не метательному):
         if class_features.get('Fighting_Style_Archery') and dict_attack['attack_type'] == 'ranged':
             if 'ranged' in weapon_type_list:

@@ -320,6 +320,10 @@ metadict_squads['Band-test (standard) (Feat_Durable)'] = {
     'Warrior 4 lvl (standard) (Feat_Durable)':10,
     }
 
+metadict_squads['Band-test (standard) (Feat_Dual_Wielder)'] = {
+    'Warrior 4 lvl (standard) (Feat_Dual_Wielder)':10,
+    }
+
 #----
 # Погода, глобальные заклинания
 

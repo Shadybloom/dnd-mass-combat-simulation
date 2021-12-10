@@ -245,6 +245,9 @@ class soldier_in_battle(soldier):
         # Оружие в руках:
         if not hasattr(self, 'weapon_ready'):
             self.weapon_ready = None
+        # Парное оружие в защитной позиции:
+        if not hasattr(self, 'shield_ready_dual_wielder'):
+            self.shield_ready_dual_wielder = False
         # Щит в боевое положение:
         if not hasattr(self, 'shield_ready'):
             if self.armor['shield_use']:
@@ -416,6 +419,10 @@ class soldier_in_battle(soldier):
         # Щит возвращается в боевое положение (если в прошлом ходу использовалось двуручное оружие):
         if self.armor['shield_use'] and not self.shield_ready:
             self.set_shield()
+        # Оружие Feat_Dual_Wielder в защитное положение:
+        if not self.armor['shield_use'] and self.weapon_ready\
+                and not self.shield_ready_dual_wielder:
+            self.set_shield_dual_wielder()
         # Испуганный бросает спасброски против страха:
         if self.fear:
             self.fear = self.set_fear(self.fear_source, self.fear_difficult)
@@ -836,16 +843,17 @@ class soldier_in_battle(soldier):
         - Навык Fighting_Style_Two_Weapon_Fighting добавляет модификаторы урона к второму оружию.
         """
         attacks_chain_bonus = []
-        if self.class_features.get('Fighting_Style_Two_Weapon_Fighting')\
-                and not 'two_handed' in self.attacks[attack_choice]['weapon_type']\
-                and self.bonus_action == True:
-            attack_list_slice = [key for key in self.attacks\
-                    if 'Fighting_Style_Two_Weapon_Fighting' in self.attacks[key]['weapon_skills_use']\
-                    and attack_choice[0] in self.attacks[key]['weapon_type']]
-            if attack_list_slice:
-                self.unset_shield()
-                self.bonus_action = False
-                attacks_chain_bonus.append(attack_list_slice[-1])
+        if self.class_features.get('Fighting_Style_Two_Weapon_Fighting'):
+            if not 'two_handed' in self.attacks[attack_choice]['weapon_type']\
+                    and self.bonus_action == True:
+                attack_list_slice = [key for key in self.attacks\
+                        if 'Fighting_Style_Two_Weapon_Fighting' in self.attacks[key]['weapon_skills_use']\
+                        and attack_choice[0] in self.attacks[key]['weapon_type']]
+                if attack_list_slice:
+                    self.unset_shield()
+                    self.set_shield_dual_wielder()
+                    self.bonus_action = False
+                    attacks_chain_bonus.append(attack_list_slice[-1])
         return attacks_chain_bonus
 
     def set_martial_arts(self):
@@ -2300,7 +2308,20 @@ class soldier_in_battle(soldier):
             self.shield_ready = True
             return True
 
-    def unset_shield(self, disarm = False):
+    def set_shield_dual_wielder(self):
+        """Второе оружие в защитное положение.
+        
+        Feat_Dual_Wielder даёт +1 AC, когда оружие во второй руке.
+        """
+        if self.class_features.get('Feat_Dual_Wielder')\
+                and not self.shield_ready and not self.shield_ready_dual_wielder:
+            self.armor['armor_class'] += 1
+            self.armor['armor_class_armor_impact'] += 1
+            self.armor['armor_class_shield_impact'] += 1
+            self.shield_ready_dual_wielder = True
+            return True
+
+    def unset_shield(self, disarm = False, dual_wielder = False):
         """Отбрасываем щит на перевязь.
         
         Или отбираем у бойца щит вовсе.
@@ -2308,15 +2329,23 @@ class soldier_in_battle(soldier):
         if self.armor['shield_use']\
                 and self.shield_ready == True\
                 and self.armor['armor_class_shield'] > 0\
+                or self.shield_ready_dual_wielder == True\
                 or disarm == True:
-            self.armor['armor_class'] -= self.armor['armor_class_shield']
-            self.armor['armor_class_armor_impact'] -= self.armor['armor_class_shield']
-            self.armor['armor_class_shield_impact'] -= self.armor['armor_class_shield']
-            self.shield_ready = False
-            if disarm:
-                self.drop_item(self.armor['shield_use'])
-                self.armor['shield_use'] = None
-                self.armor['armor_class_shield'] = 0
+            if self.shield_ready:
+                self.armor['armor_class'] -= self.armor['armor_class_shield']
+                self.armor['armor_class_armor_impact'] -= self.armor['armor_class_shield']
+                self.armor['armor_class_shield_impact'] -= self.armor['armor_class_shield']
+                self.shield_ready = False
+                if disarm:
+                    self.drop_item(self.armor['shield_use'])
+                    self.armor['shield_use'] = None
+                    self.armor['armor_class_shield'] = 0
+            if self.shield_ready_dual_wielder and dual_wielder\
+                    or self.shield_ready_dual_wielder and disarm:
+                self.armor['armor_class'] -= 1
+                self.armor['armor_class_armor_impact'] -= 1
+                self.armor['armor_class_shield_impact'] -= 1
+                self.shield_ready_dual_wielder = False
             return True
 
     def set_shield_break(self):
