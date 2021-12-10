@@ -2338,6 +2338,37 @@ metadict_animals['Bugbear (CR 1)'] = {
 #----
 # Тестовые существа:
 
+metadict_animals['Warrior 4 lvl (standard) (Feat_Shield_Master)'] = {
+    # TODO: допиливай Feat_Shield_Master.
+    'level':4,
+    #'no_grappler_AI':True,
+    'char_class':'Warrior-officer',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Protection':True,
+        'Feat_Shield_Master':True,
+        },
+    'abilityes':{
+        'strength':16,
+        'dexterity':14,
+        'constitution':10,
+        'intelligence':10,
+        'wisdom':10,
+        'charisma':10,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Half Plate':1,
+        'Longsword':1,
+        'Shield':1,
+        },
+    }
+
 metadict_animals['Warrior 4 lvl (standard) (Feat_Durable)'] = {
     'level':4,
     'no_grappler_AI':True,
