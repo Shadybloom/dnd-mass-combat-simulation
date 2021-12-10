@@ -253,8 +253,24 @@ metadict_squads['Company-test (standard) (battleaxes)'] = {
     'Warrior 1 lvl (standard) (Battleaxe + Shield)':100,
     }
 
-metadict_squads['band-test (musketeers)'] = {
-    'Warrior 5 lvl (musketeer line-infantry-captain)':4,
+metadict_squads['Company-test (standard) (Feat_Polearm_Master)'] = {
+    'Warrior 4 lvl (standard) (Feat_Polearm_Master)':100,
+    }
+
+metadict_squads['Company-test (standard) (Feat_Great_Weapon_Master)'] = {
+    'Warrior 4 lvl (standard) (Feat_Great_Weapon_Master)':100,
+    }
+
+metadict_squads['Company-test (standard) (Feat_Sentinel)'] = {
+    'Warrior 4 lvl (standard) (Feat_Sentinel)':100,
+    }
+
+metadict_squads['Company-test (standard) (Feat_Martial_Adept)'] = {
+    'Warrior 4 lvl (standard) (Feat_Martial_Adept)':100,
+    }
+
+metadict_squads['Company-test (standard) (Feat_Magic_Initiate)'] = {
+    'Warrior 4 lvl (standard) (Feat_Magic_Initiate)':100,
     }
 
 #----

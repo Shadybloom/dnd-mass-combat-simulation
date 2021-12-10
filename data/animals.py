@@ -2338,6 +2338,161 @@ metadict_animals['Bugbear (CR 1)'] = {
 #----
 # Тестовые существа:
 
+metadict_animals['Warrior 4 lvl (standard) (Feat_Martial_Adept)'] = {
+    'level':4,
+    'no_grappler_AI':True,
+    'char_class':'Warrior-officer',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Defence':True,
+        'Feat_Martial_Adept':True,
+        #'Precision_Attack':True,
+        'Menacing_Attack':True,
+        'Parry':True,
+        },
+    'abilityes':{
+        'strength':16,
+        'dexterity':14,
+        'constitution':10,
+        'intelligence':10,
+        'wisdom':10,
+        'charisma':10,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Half Plate':1,
+        'Halberd':1,
+        },
+    }
+
+metadict_animals['Warrior 4 lvl (standard) (Feat_Magic_Initiate)'] = {
+    'level':4,
+    'no_grappler_AI':True,
+    'char_class':'Warrior-officer',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Defence':True,
+        'Feat_Magic_Initiate':True,
+        'Spellcasting':True,
+        'Spells':[
+            ('cantrip', 'Sword_Burst'),
+            ('cantrip', 'Mold_Earth'),
+            ('1_lvl', 'Fog_Cloud'),
+            ],
+        },
+    'abilityes':{
+        'strength':16,
+        'dexterity':10,
+        'constitution':10,
+        'intelligence':14,
+        'wisdom':10,
+        'charisma':10,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Splint Armor':1,
+        'Halberd':1,
+        },
+    }
+
+metadict_animals['Warrior 4 lvl (standard) (Feat_Sentinel)'] = {
+    'level':4,
+    'no_grappler_AI':True,
+    'char_class':'Warrior-officer',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Defence':True,
+        'Feat_Sentinel':True,
+        },
+    'abilityes':{
+        'strength':16,
+        'dexterity':14,
+        'constitution':10,
+        'intelligence':10,
+        'wisdom':10,
+        'charisma':10,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Half Plate':1,
+        'Halberd':1,
+        },
+    }
+
+metadict_animals['Warrior 4 lvl (standard) (Feat_Polearm_Master)'] = {
+    'level':4,
+    'no_grappler_AI':True,
+    'char_class':'Warrior-officer',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Defence':True,
+        'Feat_Polearm_Master':True,
+        },
+    'abilityes':{
+        'strength':16,
+        'dexterity':14,
+        'constitution':10,
+        'intelligence':10,
+        'wisdom':10,
+        'charisma':10,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Half Plate':1,
+        'Halberd':1,
+        },
+    }
+
+metadict_animals['Warrior 4 lvl (standard) (Feat_Great_Weapon_Master)'] = {
+    'level':4,
+    'no_grappler_AI':True,
+    'char_class':'Warrior-officer',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Defence':True,
+        'Feat_Great_Weapon_Master':True,
+        },
+    'abilityes':{
+        'strength':16,
+        'dexterity':14,
+        'constitution':10,
+        'intelligence':10,
+        'wisdom':10,
+        'charisma':10,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Half Plate':1,
+        #'Greatsword':1,
+        'Halberd':1,
+        },
+    }
+
 metadict_animals['Warrior 1 lvl (standard) (Shortbow) (archery)'] = {
     'level':1,
     'seeker_AI':True,

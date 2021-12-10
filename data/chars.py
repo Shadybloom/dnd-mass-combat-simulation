@@ -1309,7 +1309,7 @@ metadict_chars['Warrior 4 lvl (musketeer line-infantry-lieutenant)'] = {
     'behavior':'commander',
     'class_features':{
         'Fighting_Style_Archery':True,
-        'Feat_Defensive_Duelist':True,
+        'Feat_Inspiring_Leader':True,
         #'Feat_Martial_Adept':True,
         #'Menacing_Attack':True,
         #'Parry':True,
@@ -1343,7 +1343,7 @@ metadict_chars['Warrior 5 lvl (musketeer line-infantry-captain)'] = {
     'behavior':'commander',
     'class_features':{
         'Fighting_Style_Archery':True,
-        'Feat_Defensive_Duelist':True,
+        'Feat_Inspiring_Leader':True,
         #'Feat_Martial_Adept':True,
         #'Menacing_Attack':True,
         #'Parry':True,
