@@ -1311,6 +1311,10 @@ class soldier_in_battle(soldier):
         """
         # TODO: должно быть владение навыком атлетика.
         # Сделай таблицы навыков в classes.
+        if enemy_soldier.size == 'tiny' and self.size in ['medium', 'large', 'huge']\
+                or enemy_soldier.size == 'small' and self.size in ['large', 'huge']\
+                or enemy_soldier.size == 'medium' and self.size in ['huge']:
+            return False
         if not difficult:
             if enemy_soldier.mods['strength'] >= enemy_soldier.mods['dexterity']:
                 difficult = dices.dice_throw_advantage('1d20', advantage, disadvantage)\
@@ -1698,6 +1702,10 @@ class soldier_in_battle(soldier):
         if self.class_features.get('Remarkable_Athlete'):
             if ability not in self.dict_class_saves[self.char_class]:
                 bonus += round(self.proficiency_bonus / 2)
+        # Мастер щитов получает бонус AC щита к спасброскам ловкости:
+        if self.class_features.get('Feat_Shield_Master') and ability == 'dexterity'\
+                and self.shield_ready:
+            bonus += self.armor['armor_class_shield']
         # Заклинание Bless усиливает спасброски:
         if 'bless' in self.buffs:
             bonus += dices.dice_throw_advantage('1d4')
@@ -2871,6 +2879,12 @@ class soldier_in_battle(soldier):
                 damage = 0
             if ability == 'dexterity' and self.class_features.get('Evasion'):
                 damage = 0
+            # Мастер щитов может уклониться за счёт реакции:
+            if ability == 'dexterity' and self.class_features.get('Feat_Shield_Master'):
+                if damage > round(self.hitpoints * 0.2) and self.reaction:
+                    self.drop_action(('reaction', 'Feat_Shield_Master_Evasion'))
+                    self.reaction = False
+                    damage = 0
             if ability == 'dexterity' and self.behavior == 'mount'\
                     and self.__dict__.get('master_uuid')\
                     and self.metadict_soldiers[self.master_uuid].class_features.get('Feat_Mounted_Combatant')\

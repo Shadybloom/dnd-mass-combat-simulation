@@ -2227,6 +2227,16 @@ class battle_simulation(battlescape):
                         attacks_chain_bonus += attack_choice
                         soldier.drop_action(('feature', 'Feat_Polearm_Master_Bonus_Attack'))
                         soldier.bonus_action = False
+                # Мастера щитов бонусным действием пытаются сбить врага:
+                # TODO: здесь нет проверки wrestling_check, вместо этого проверка в set_fall_prone.
+                if soldier.class_features.get('Feat_Shield_Master'):
+                    if attack_choice[0] == 'close' and soldier.shield_ready\
+                            and not enemy_soldier.prone:
+                        advantage, disadvantage = self.test_enemy_defence(soldier,
+                                enemy_soldier, attack_choice)
+                        prone = enemy_soldier.set_fall_prone(soldier, advantage, disadvantage)
+                        soldier.drop_action(('feature', 'Feat_Shield_Master_Prone_Enemy'))
+                        soldier.bonus_action = False
                 # Жрецы домена войны могут получить атаку за счёт бонусного действия:
                 if soldier.class_features.get('War_Priest') and soldier.war_priest > 0:
                         attacks_chain_bonus += attack_choice
