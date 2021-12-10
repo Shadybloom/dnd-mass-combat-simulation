@@ -517,6 +517,7 @@ class battle_simulation(battlescape):
                         'False_Life',
                         'Mage_Armor',
                         'Barkskin',
+                        'Heroism',
                         'Blink',
                         'Mirror_Image',
                         ]
@@ -528,6 +529,9 @@ class battle_simulation(battlescape):
                         if not soldier.armor['armor_use'] and spell == 'Mage_Armor':
                             soldier.try_spellcast(spell, gen_spell = True, use_action = False)
                         if soldier.armor['armor_class'] < 16 and spell == 'Barkskin'\
+                                and not soldier.concentration:
+                            soldier.try_spellcast(spell, gen_spell = True, use_action = False)
+                        if not soldier.bonus_hitpoints and spell == 'Heroism'\
                                 and not soldier.concentration:
                             soldier.try_spellcast(spell, gen_spell = True, use_action = False)
                         if not soldier.bonus_hitpoints and spell == 'False_Life':

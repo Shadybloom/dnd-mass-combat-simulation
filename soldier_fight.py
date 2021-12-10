@@ -769,7 +769,7 @@ class soldier_in_battle(soldier):
                 attacks_chain_bonus.append(attack_choice)
         return attacks_chain_bonus
 
-    def set_patient_defence(self):
+    def set_patient_defense(self):
         """Защитные приёмы монахов.
         
         Homebrew: Dodge_Action без расхода Ки, подобно cunning_action вора.
@@ -789,6 +789,7 @@ class soldier_in_battle(soldier):
 
     def set_step_of_the_wind_disengage(self):
         """Уклонение монаха."""
+        # TODO: использование Ки пока что отключено. Нужно протестировать.
         if self.class_features.get('Step_of_the_Wind'):
             #if hasattr(self, 'ki_points') and self.ki_points > 0 and self.bonus_action == True:
             #    self.ki_points -= 1
@@ -1175,15 +1176,28 @@ class soldier_in_battle(soldier):
         
         https://www.dandwiki.com/wiki/5e_SRD:Dodge_Action
         """
+        dodge = False
+        # Защитные приёмы плута и монаха за счёт бонусного действия:
         if self.bonus_action and self.class_features.get('Cunning_Action'):
-            return self.set_cunning_action_defence()
+            dodge = self.set_cunning_action_defence()
         elif self.bonus_action and self.class_features.get('Patient_Defense'):
-            return self.set_patient_defence()
+            dodge = self.set_patient_defense()
         elif self.battle_action:
             self.drop_action(('action', 'Dodge_Action'))
             self.battle_action = False
             self.dodge_action = True
-            return True
+            dodge = True
+        # homebrew, Feat_Durable превращает кость хитов в бонусные хиты:
+        if dodge and self.class_features.get('Feat_Durable')\
+                and self.bonus_hitpoints <= 0\
+                and self.hit_dices_use < self.level:
+            bonus_hitpoints = dices.dice_throw_advantage(self.hit_dice) + self.mods['constitution']
+            if bonus_hitpoints <= self.mods['constitution'] * 2:
+                bonus_hitpoints = self.mods['constitution'] * 2
+            self.set_hitpoints(bonus_hitpoints = bonus_hitpoints)
+            self.hit_dices_use += 1
+        if dodge:
+            return dodge
 
     def use_heal(self, use_minor_potion = False, use_action = True, gen_spell = True):
         """Боец лечит себя, если способен."""
@@ -2140,7 +2154,9 @@ class soldier_in_battle(soldier):
                         and enemy_soldier.hitpoints > damage_throw_mod\
                         and advantage and not disadvantage\
                         or enemy_soldier.__dict__.get('mechanism')\
-                        and enemy_soldier.__dict__.get('ignore_damage'):
+                        and enemy_soldier.__dict__.get('ignore_damage')\
+                        or 'kill' in self.commands\
+                        and not disadvantage:
                     damage_throw_mod += 10
                     attack_throw_mod -=5
             # Снайпер тоже способен усилить урон за счёт точности:
