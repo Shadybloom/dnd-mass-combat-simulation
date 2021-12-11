@@ -2221,6 +2221,19 @@ class battle_simulation(battlescape):
                 if soldier.class_features.get('Fighting_Style_Two_Weapon_Fighting'):
                     if attack_choice[0] == 'close' or attack_choice[0] == 'throw':
                         attacks_chain_bonus = soldier.set_two_weapon_fighting(attack_choice)
+                # Мастера огнестрела стреляют из пистолета бонусной атакой, если атакуют в ближнем бою:
+                if soldier.class_features.get('Feat_Firearms_Expert'):
+                    if attack_choice[0] == 'close' or attack_choice[0] == 'ranged':
+                        pistol_attacks = {key:attack_dict for key, attack_dict in soldier.attacks.items()
+                                if 'ranged' in key[0]
+                                and 'light' in attack_dict.get('weapon_type',[])
+                                and 'firearm' in attack_dict.get('weapon_type',[])}
+                        if pistol_attacks:
+                            # Выбираем случайный пистолет, если их несколько:
+                            attacks_chain_bonus += random.choice(list(pistol_attacks.keys()))
+                            soldier.drop_action(('feature', 'Feat_Firearms_Expert_Bonus_Attack'))
+                            soldier.bonus_action = False
+                            soldier.unset_shield()
                 # Мастера полеармов получают бонусную атаку:
                 if soldier.class_features.get('Feat_Polearm_Master'):
                     if attack_choice[0] == 'reach':

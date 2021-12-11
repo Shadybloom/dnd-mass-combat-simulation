@@ -265,6 +265,21 @@ metadict_items['Spear'] = {
 #----
 # Simple Ranged Weapons
 
+metadict_items['Crossbow, Hand'] = {
+    # Арбалет, ручной
+    'weapon':True,
+    'loading':True,
+    'ammo_type':crossbow_bolts,
+    'weapon_type':['simple','light','ranged','volley'],
+    'damage_type':'piercing',
+    'damage_dice':'1d6',
+    'shoot_range':30,
+    'shoot_range_max':120,
+    'weight (lb)':3,
+    'cost (gp)':75,
+    'cost (grams_of_gold)':75,
+    }
+
 metadict_items['Crossbow, Light'] = {
     # Гастрафет, аркубаллиста
     'weapon':True,
@@ -588,6 +603,29 @@ metadict_items['Muskete'] = {
     # Множитель радиуса неприцельной стрельбы
     'shoot_range_volley':600,
     'weight (lb)':10,
+    'cost (gp)':10,
+    'cost (grams_of_gold)':10,
+    }
+
+metadict_items['Pistol'] = {
+    # Пистоль
+    'weapon':True,
+    # Спасброски ловкости вместо брони:
+    'direct_hit':True,
+    'savethrow':True,
+    'savethrow_all':True,
+    'savethrow_ability':'dexterity',
+    'ammo_type':muskete_bullets,
+    'weapon_type':['martial','ranged','light','firearm','volley','reload'],
+    # Перезарядка за раунд с вероятностью 50%
+    'recharge':True,
+    'Recharge_dice':'1d6',
+    'Recharge_numbers':[5,6],
+    'shoot_range':30,
+    'shoot_range_max':90,
+    # Множитель радиуса неприцельной стрельбы
+    'shoot_range_volley':300,
+    'weight (lb)':3,
     'cost (gp)':10,
     'cost (grams_of_gold)':10,
     }

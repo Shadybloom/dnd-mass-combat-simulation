@@ -1385,6 +1385,10 @@ class soldier():
             if 'ranged' in weapon_type_list:
                 dict_attack['ignore_cover'] = True
                 weapon_skills_use.append('Sharpshooter')
+        # Feat_Firearms_Expert позволяет стрелять в упор без помехи:
+        if class_features.get('Feat_Firearms_Expert') and dict_attack['attack_type'] == 'ranged':
+            if 'ranged' in weapon_type_list and 'firearm' in weapon_type_list:
+                weapon_skills_use.append('Firearms_Expert')
         attack_mod_dict = {
                 'weapon_skills_use':weapon_skills_use,
                 'attack_mod_type':attack_mod_type,

@@ -2063,12 +2063,13 @@ class soldier_in_battle(soldier):
                 and self.armor['shield_use']:
             self.unset_shield()
         # Помеха к стрельбе на минимальной/максимальной дальности:
-        if attack_dict.get('weapon_type') and attack_choice[0] == 'ranged'\
-                and not 'Sharpshooter' in attack_dict['weapon_skills_use']:
-            if enemy.distance <= 2:
-                disadvantage = True
-            elif enemy.distance > round(attack_dict['attack_range'] / self.tile_size):
-                disadvantage = True
+        if attack_dict.get('weapon_type') and attack_choice[0] == 'ranged':
+            if not 'Sharpshooter' in attack_dict['weapon_skills_use']\
+                    or not 'Firearms_Expert' in attack_dict['weapon_skills_use'] and distance <= 2:
+                if enemy.distance <= 2:
+                    disadvantage = True
+                elif enemy.distance > round(attack_dict['attack_range'] / self.tile_size):
+                    disadvantage = True
         # Homebrew: урон огнестрела уменьшается, если дальность выше предельной:
         # Также исчезает его свойство пробивать доспехи в modify_armor.
         if attack_dict.get('weapon_type') and 'firearm' in attack_dict.get('weapon_type')\
@@ -2268,7 +2269,12 @@ class soldier_in_battle(soldier):
             if attack_dict.get('recharge')\
                     or attack_dict.get('weapon_type')\
                     and 'reload' in attack_dict['weapon_type']:
-                self.unset_weapon(attack_dict.get('weapon_of_choice'))
+                # Эксперты огнестрела мгновенно перезаряжают оружие.
+                if self.class_features.get('Feat_Firearms_Expert')\
+                        and 'firearm' in attack_dict.get('weapon_type',[]):
+                    pass
+                else:
+                    self.unset_weapon(attack_dict.get('weapon_of_choice'))
 
     def unset_weapon(self, weapon_type, ammo_type = None, disarm = False):
         """Убираем оружие, для которого закончились боеприпасы.
