@@ -3370,7 +3370,8 @@ class battle_simulation(battlescape):
         if 'blur' in enemy_soldier.buffs:
             disadvantage = True
         # В темноте/тумане сложно атаковать:
-        if 'obscure_terrain' in self.dict_battlespace[enemy_soldier.place]:
+        if 'obscure_terrain' in self.dict_battlespace[enemy_soldier.place]\
+                and not soldier.class_features.get('Fighting_Style_Blind_Fighting'):
             disadvantage = True
         # Два наших бойца на одной точке. Сложно целиться:
         # "Книга игрока", "Протискивание в меньшее пространство"

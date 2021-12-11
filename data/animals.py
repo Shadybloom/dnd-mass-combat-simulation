@@ -2588,7 +2588,7 @@ metadict_animals['Warrior 4 lvl (standard) (Feat_Magic_Initiate)'] = {
     'hit_dice':'1d8',
     'behavior':'commander',
     'class_features':{
-        'Fighting_Style_Defence':True,
+        'Fighting_Style_Blind_Fighting':True,
         'Feat_Magic_Initiate':True,
         'Spellcasting':True,
         'Spells':[
