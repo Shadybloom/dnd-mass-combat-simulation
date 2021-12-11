@@ -2351,7 +2351,7 @@ metadict_animals['Warrior 4 lvl (standard) (Feat_Firearms_Expert)'] = {
         },
     'abilityes':{
         'strength':14,
-        'dexterity':18,
+        'dexterity':16,
         'constitution':10,
         'intelligence':10,
         'wisdom':10,
@@ -2625,6 +2625,7 @@ metadict_animals['Warrior 4 lvl (standard) (Feat_Magic_Initiate)'] = {
         'Spellcasting':True,
         'Spells':[
             ('cantrip', 'Sword_Burst'),
+            ('cantrip', 'Create_Bonfire'),
             #('cantrip', 'Green_Flame_Blade'),
             #('1_lvl', 'Shield'),
             ('1_lvl', 'Fog_Cloud'),
