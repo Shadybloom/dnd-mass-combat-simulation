@@ -100,12 +100,6 @@ class gen_spells():
                     ignore_resistance = soldier.class_features['Feat_Elemental_Adept']
                     if spell_dict['damage_type'] == ignore_resistance:
                         spell_dict['ignore_resistance'] = ignore_resistance
-                # TODO: не срабатывает для копий заклинаний в soldier.spells:
-                if soldier.class_features.get('Feat_Spellsniper')\
-                        and spell_dict.get('damage_type')\
-                        and spell_dict.get('direct_hit'):
-                    spell_dict['ignore_cover'] = True
-                    spell_dict['attack_range'] *= 2
                 # Магическая защита восстанавливается или создаётся:
                 if soldier.class_features.get('Arcane_Ward')\
                         and spell_dict.get('school') == 'abjuration':
@@ -116,6 +110,11 @@ class gen_spells():
                         soldier.arcane_ward = True
                 return spell_dict
             elif spell_dict and not use_spell:
+                if soldier.class_features.get('Feat_Spellsniper')\
+                        and not spell_dict.get('direct_hit')\
+                        and spell_dict.get('damage_type'):
+                    spell_dict['ignore_cover'] = True
+                    spell_dict['attack_range'] *= 2
                 return spell_dict
             else:
                 # - Absorb_Elements не срабатывает, если урон не в absorb_damage_type.
@@ -984,7 +983,7 @@ class gen_spells():
         if self.mage.class_features.get('Invocation_Agonizing_Blast'):
             spell_dict['damage_mod'] = self.mage.mods['charisma']
         if self.mage.class_features.get('Invocation_Eldritch_Spear'):
-            spell_dict['attack_range'] += 120
+            spell_dict['attack_range'] = 300
         if self.mage.level >= 5:
             spell_dict['attacks_number'] = 2
         if self.mage.level >= 11:
@@ -2690,6 +2689,7 @@ class gen_spells():
         https://www.dnd-spells.com/spell/melfs-acid-arrow
         """
         # TODO: 2d4 урона в следующий раунд.
+        # TODO: сделай homebrew: коррозия неволшебных доспехов, щитов и оружия на -1
         if not spell_dict:
             spell_dict = {
                     'effect':'acid_arrow',
@@ -3480,6 +3480,7 @@ class gen_spells():
         https://www.dnd-spells.com/spell/stoneskin
         """
         if not spell_dict:
+            # TODO: сделай homebrew, 17 AC брони в стиле Barkskin.
             spell_dict = {
                     'buff':True,
                     'repeat':True,
