@@ -271,6 +271,7 @@ class battlescape():
             '^':['small_house','roof','cover_terrain'],
             '$':['big_house','height','roof','cover_terrain'],
             '=':['barrikade','cover_terrain'],
+            '+':['barrikade','cover_terrain'],
             # Недоступная местность (total_cover):
             '#':['dungeon_wall','total_cover_terrain','stop_terrain','zone_border'],
             'T':['big_tree','total_cover_terrain','stop_terrain','zone_border'],
@@ -280,6 +281,7 @@ class battlescape():
             'P':['pond','water','stop_terrain','zone_border'],
             'R':['river','water','stop_terrain','zone_border'],
             '_':['ditch','stop_terrain','zone_border'],
+            'O':['column','stop_terrain','zone_border'],
             'o':['pit','stop_terrain','zone_border'],
             # Ловушки на карте:
             '*':['caltrops','good_terrain'],

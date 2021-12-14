@@ -3635,7 +3635,8 @@ metadict_chars['Warlock 1 lvl (otherworld seeker-follower)'] = {
     'hit_dice':'1d8',
     'behavior':'elite_warrior',
     'class_features':{
-        'Feat_Elemental_Adept':'fire',
+        #'Feat_Elemental_Adept':'fire',
+        'Feat_Spellsniper':True,
         'Otherworldly_Patron':True,
         'Otherworldly_Patron_The_Fiend':True,
         'Pact_Magic':True,
@@ -3679,7 +3680,8 @@ metadict_chars['Warlock 2 lvl (otherworld seeker-adept)'] = {
     'hit_dice':'1d8',
     'behavior':'elite_warrior',
     'class_features':{
-        'Feat_Elemental_Adept':'fire',
+        #'Feat_Elemental_Adept':'fire',
+        'Feat_Spellsniper':True,
         'Otherworldly_Patron':True,
         'Otherworldly_Patron_The_Fiend':True,
         'Pact_Magic':True,
@@ -3721,7 +3723,8 @@ metadict_chars['Warlock 3 lvl (otherworld seeker-emissary)'] = {
     'hit_dice':'1d8',
     'behavior':'commander',
     'class_features':{
-        'Feat_Elemental_Adept':'fire',
+        #'Feat_Elemental_Adept':'fire',
+        'Feat_Spellsniper':True,
         'Otherworldly_Patron':True,
         'Otherworldly_Patron_The_Fiend':True,
         'Pact_Magic':True,
@@ -3775,7 +3778,8 @@ metadict_chars['Warlock 4 lvl (otherworld seeker-envoy)'] = {
     'hit_dice':'1d8',
     'behavior':'commander',
     'class_features':{
-        'Feat_Elemental_Adept':'fire',
+        #'Feat_Elemental_Adept':'fire',
+        'Feat_Spellsniper':True,
         'Otherworldly_Patron':True,
         'Otherworldly_Patron_The_Fiend':True,
         'Pact_Magic':True,
