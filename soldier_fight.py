@@ -2066,7 +2066,7 @@ class soldier_in_battle(soldier):
         # Помеха к стрельбе на минимальной/максимальной дальности:
         if attack_dict.get('weapon_type') and attack_choice[0] == 'ranged':
             if not 'Sharpshooter' in attack_dict['weapon_skills_use']\
-                    or not 'Firearms_Expert' in attack_dict['weapon_skills_use'] and distance <= 2:
+                    or not 'Firearms_Expert' in attack_dict['weapon_skills_use'] and enemy.distance <= 2:
                 if enemy.distance <= 2:
                     disadvantage = True
                 elif enemy.distance > round(attack_dict['attack_range'] / self.tile_size):
