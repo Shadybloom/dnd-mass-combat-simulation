@@ -212,6 +212,18 @@ if __name__ == '__main__':
         result = dice_range(1, dice, throws)
     print(result)
 
+    # Быстрые расчёты атаки:
+    #target_AC = 8
+    #attack_test_dict = dice_throw_number('1d20',
+    #        advantage = False, disadvantage = True,
+    #        number = 10000, mod = 0)
+    #percent_sum = 0
+    #for key, el in attack_test_dict.items():
+    #    if key >= target_AC or key == 20:
+    #        print('attack: {0} -- {1}%'.format(key, el))
+    #        percent_sum += el
+    #print('chance: {0}%'.format(round(percent_sum, 1)))
+
     # Средняя численность племени:
     #numbers_list = []
     #for n in range (0,1000):

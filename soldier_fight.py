@@ -2050,6 +2050,7 @@ class soldier_in_battle(soldier):
         # Оружие в руки:
         if attack_dict.get('weapon') and attack_dict.get('weapon_use'):
             self.weapon_ready = attack_dict.get('weapon_use')
+        # TODO: перенеси в самый конец функции, чтобы работали бесконечные стрелы.
         # Используется боеприпас (стрела, дротик, яд для меча), если указан:
         if attack_dict.get('ammo'):
             self.use_ammo(attack_dict, metadict_soldiers)

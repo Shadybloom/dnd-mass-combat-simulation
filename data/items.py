@@ -1112,7 +1112,7 @@ metadict_items['Half Plate, 17 century'] = {
 # Heavy Armor (homebrew)
 
 metadict_items['Plate Armor, 17 century'] = {
-    # Генеральские латы конца 17 века -- 100 фунтов стерлингов.
+    # Генеральские латы конца 17 века -- 100 фунтов стерлингов (300 gp).
     'armor':True,
     'armor_type':'heavy',
     'armor_class_armor':18,
@@ -2021,7 +2021,7 @@ metadict_items['Sling Bullets (x10)'] = {
             },
     'damage_type':'bludgeoning',
     'damage_dice':'0d0',
-    'weight (lb)':25,
+    'weight (lb)':10,
     'cost (gp)':10/60,
     'cost (grams_of_gold)':10/60,
     }
@@ -2042,8 +2042,8 @@ metadict_items['Sling Bullets (x25)'] = {
     'damage_type':'bludgeoning',
     'damage_dice':'0d0',
     'weight (lb)':25,
-    'cost (gp)':10/60,
-    'cost (grams_of_gold)':10/60,
+    'cost (gp)':25/60,
+    'cost (grams_of_gold)':25/60,
     }
 
 metadict_items['Ballista Bolt (25 lb)'] = {
