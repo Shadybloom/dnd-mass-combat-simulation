@@ -1530,7 +1530,12 @@ class battle_simulation(battlescape):
         
         - осьминожки прячутся в "Чернильном облаке"
         """
-        # Чернильное облако осьминожек:
+        # TODO: здесь нет проверки по дальности.
+        # -------------------------------------------------
+        # Боец должен проверить, есть ли линия взгляда до врага.
+        # Если линия взгляда есть, достаёт ли Fog_Cloud до врага.
+        # Если не достаёт, кастовать в точку между отрядами на пределе дальности.
+        # -------------------------------------------------
         if 'spellcast' in soldier.commands:
             if soldier.spells_generator.find_spell('Fog_Cloud')\
                 and not 'obscure_terrain' in self.dict_battlespace[soldier.place]:
@@ -1540,6 +1545,7 @@ class battle_simulation(battlescape):
                 and not 'obscure_terrain' in self.dict_battlespace[soldier.place]:
                 spell_choice = soldier.spells_generator.find_spell('Darkness')
                 self.spellcast_action(soldier, squad, enemy, spell_choice)
+        # Чернильное облако осьминожек:
         if soldier.__dict__.get('ink_cloud') and soldier.near_enemies:
             zone_radius = round(soldier.ink_cloud_radius / self.tile_size)
             zone_list = self.point_to_field(soldier.place, zone_radius)
