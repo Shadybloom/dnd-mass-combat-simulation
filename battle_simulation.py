@@ -2316,6 +2316,34 @@ class battle_simulation(battlescape):
                             and master.hitpoints > master.hitpoints_max / 2:
                         enemy_soldier = master
                         enemy = self.get_enemy_tuple(soldier, enemy_soldier)
+                # Homebrew: Перенаправление атаки: командир --> телохранитель:
+                if enemy_soldier.level >= 4 and len(enemy_soldier.near_allies) >= 1 \
+                        or enemy_soldier.level <=3 and len(enemy_soldier.near_allies) >= 1 \
+                        and 'rescue' in enemy_soldier.commands\
+                        and enemy_soldier.hitpoints < enemy_soldier.hitpoints_max * 0.5:
+                    for soldier_tuple in enemy_soldier.near_allies:
+                        enemy_ally = self.metadict_soldiers[soldier_tuple.uuid]
+                        if enemy_ally.level >= 3\
+                                and enemy_ally.hitpoints >= enemy_ally.hitpoints_max * 0.8\
+                                and enemy_ally.reaction == True\
+                                and len(enemy_ally.near_enemies) <= 1\
+                                and enemy_ally.uuid != enemy_soldier.uuid:
+                            # Отмечаем действие;
+                            if enemy_soldier.level >= 4:
+                                enemy_ally.drop_action(('reaction', 'Protect_Commander'))
+                            elif enemy_soldier.level <= 3:
+                                enemy_ally.drop_action(('reaction', 'Protect_Injured'))
+                            # Оттаскивает раненого на свою позицию, меняется с ним местами:
+                            if enemy_soldier.hitpoints < enemy_soldier.hitpoints_max * 0.5\
+                                    and not enemy_soldier.grappled:
+                                self.move_action(enemy_ally, enemy_squad, enemy_soldier.place,
+                                        save_path = False, close_order = True)
+                                self.change_place(enemy_soldier.place, enemy_ally.place, enemy_soldier.uuid)
+                            # Перенаправление атаки:
+                            enemy_ally.reaction = False
+                            enemy_soldier = enemy_ally
+                            enemy = self.get_enemy_tuple(soldier, enemy_soldier)
+                            break
                 # Перенаправление атаки: маг --> Mirror_Image:
                 # Иллюзии остаются, но попадание распознаёт их.
                 if 'mirror_image' in enemy_soldier.buffs:
