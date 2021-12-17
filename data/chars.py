@@ -1378,7 +1378,7 @@ metadict_chars['Warrior 1 lvl (fusilier line-infantry)'] = {
     'level':1,
     'char_class':'Warrior-pirate',
     'hit_dice':'1d8',
-    'behavior':'warrior',
+    'behavior':'archer',
     'race':'Human-common',
     'weapon_skill':['simple','martial'],
     'armor_skill':['light','medium','shield'],
@@ -1388,7 +1388,7 @@ metadict_chars['Warrior 1 lvl (fusilier line-infantry)'] = {
         'Leather Armor':1,
         'Bayonet':1,
         'Muskete':1,
-        'Muskete Bullet':60,
+        'Muskete Bullet':30,
         },
     }
 
@@ -1396,7 +1396,7 @@ metadict_chars['Warrior 2 lvl (fusilier line-infantry-corporal)'] = {
     'level':2,
     'char_class':'Warrior-pirate',
     'hit_dice':'1d8',
-    'behavior':'elite_warrior',
+    'behavior':'archer',
     'class_features':{
         'Fighting_Style_Archery':True,
         },
@@ -1410,7 +1410,7 @@ metadict_chars['Warrior 2 lvl (fusilier line-infantry-corporal)'] = {
         'Leather Armor':1,
         'Bayonet':1,
         'Muskete':1,
-        'Muskete Bullet':60,
+        'Muskete Bullet':30,
         },
     }
 
@@ -1432,10 +1432,10 @@ metadict_chars['Warrior 3 lvl (fusilier line-infantry-sergeant)'] = {
     'equipment_weapon':{
         'Infusion of Healing':1,
         'Rune of Shielding':1,
-        'Breastplate, 17 century':1,
+        'Leather Armor':1,
         'Rapier':1,
         'Muskete':1,
-        'Muskete Bullet':60,
+        'Muskete Bullet':30,
         },
     }
 
@@ -1448,7 +1448,7 @@ metadict_chars['Warrior 4 lvl (fusilier line-infantry-lieutenant)'] = {
     'behavior':'commander',
     'class_features':{
         'Fighting_Style_Archery':True,
-        'Feat_Defensive_Duelist':True,
+        'Feat_Inspiring_Leader':True,
         },
     'race':'Human-common',
     'weapon_skill':['simple','martial'],
@@ -1457,12 +1457,11 @@ metadict_chars['Warrior 4 lvl (fusilier line-infantry-lieutenant)'] = {
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
         'Infusion of Healing':1,
-        'Rune of Absorbtion':1,
         'Rune of Shielding':1,
-        'Breastplate, 17 century':1,
+        'Rune of Armor':1,
         'Rapier':1,
         'Muskete':1,
-        'Muskete Bullet':60,
+        'Muskete Bullet':30,
         },
     #'mount_combat':False,
     #'mount_type':'Riding Horse',
@@ -1479,7 +1478,7 @@ metadict_chars['Warrior 5 lvl (fusilier line-infantry-captain)'] = {
     'behavior':'commander',
     'class_features':{
         'Fighting_Style_Archery':True,
-        'Feat_Defensive_Duelist':True,
+        'Feat_Inspiring_Leader':True,
         'Extra_Attack':True,
         },
     'race':'Human-common',
@@ -1489,12 +1488,11 @@ metadict_chars['Warrior 5 lvl (fusilier line-infantry-captain)'] = {
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
         'Infusion of Healing':1,
-        'Rune of Absorbtion':1,
         'Rune of Shielding':1,
-        'Breastplate, 17 century':1,
+        'Rune of Armor':1,
         'Rapier':1,
         'Muskete':1,
-        'Muskete Bullet':60,
+        'Muskete Bullet':30,
         },
     #'mount_combat':False,
     #'mount_type':'Riding Horse',

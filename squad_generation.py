@@ -613,7 +613,8 @@ if __name__ == '__main__':
         for soldier in reversed(list(squad.metadict_soldiers.values())):
             squad.database.soldier_to_database(soldier)
         squad.database.commit()
-    print('cost: {cost} number: {number} weight: {w}/{w_max} (free: {w_free}) overload: {over}'.format(
+    print('cost: {cost} number: {number} weight: {w}/{w_max} (free: {w_free}) overload: {over} lightload: {light}'.format(
+        light = squad.squad_overload['lightload_soldiers'],
         over = squad.squad_overload['overload_soldiers'],
         w = squad.squad_overload['equipment_weight (lb)'],
         w_max = squad.squad_overload['normal_load (lb)'],
@@ -626,7 +627,7 @@ if __name__ == '__main__':
     # Быстрые расчёты атаки:
     target_AC = 20
     attack_test_dict = dices.dice_throw_number('1d20',
-            advantage = True, disadvantage = True,
+            advantage = False, disadvantage = True,
             number = 10000, mod = round(squad.attack_mod[1]))
     percent_sum = 0
     for key, el in attack_test_dict.items():

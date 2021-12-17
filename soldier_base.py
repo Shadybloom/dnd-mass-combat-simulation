@@ -635,10 +635,12 @@ class soldier():
         if equipment_weight > normal_load:
             battle_overload = True
             base_speed += -10
-        # Если нагрузка очень лёгкая, то добавляем скорости:
-        #elif equipment_weight <= light_load:
-        #    battle_lightload = True
-        #    base_speed += 5
+        # Homebrew: Если нагрузка очень лёгкая, то добавляем скорости:
+        # - Нормальный строевой шаг, 120 шагов/минуту при длине шага 0.75 метров (30 футов)
+        # - Ускоренный строевой шаг, 135 шагов/минуту при длине шага 0.8 метров (35 футов)
+        elif equipment_weight <= light_load:
+            battle_lightload = True
+            base_speed += 5
         # В походе пеший боец тащит ещё и рюкзак (спальник, вода, сухари, инструменты):
         travel_overload = False
         if equipment_weight + backpack_weight > maximum_load:
