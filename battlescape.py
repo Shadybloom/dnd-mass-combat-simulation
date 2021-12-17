@@ -1209,6 +1209,10 @@ class battlescape():
                     #    symbol_colored = '\x1b[48;5;52m' + symbol_colored
                 if soldiers_in_place > 1:
                     symbol_colored = '\x1b[4m' + symbol_colored
+                if 'kneel' in self.dict_battlespace[key] or 'prone' in self.dict_battlespace[key]:
+                    symbol_colored = '\x1b[3m' + symbol_colored
+                    if 'prone' in self.dict_battlespace[key]:
+                        symbol_colored = '\x1b[48;5;23m' + symbol_colored
                 # TODO: сделай курсив для раненых и белый для отступающих.
                 # ------------------------------------------------------------
                 # И, если будет угодно, мигание для делающего ход бойца.
