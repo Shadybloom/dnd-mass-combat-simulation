@@ -1454,13 +1454,16 @@ class battle_simulation(battlescape):
             if soldier.class_features.get('Wild_Shape'):
                 if soldier.near_enemies or 'change' in soldier.commands:
                     soldier.set_change_form(squad)
-        # Осьминожки прячутся в чернильном облаке, остальные в "Fog_Cloud".
-        # Но только в том случае, если у врага есть дальнобойное оружие.
+        # Бойцы прячутся за Fog_Cloud:
         if 'sneak' in soldier.commands and enemy and squad.__dict__.get('enemy_recon'):
             if self.metadict_soldiers[enemy.uuid].hero\
-                    or 'throw' in squad.enemy_recon['attacks']\
                     or 'ranged' in squad.enemy_recon['attacks']\
-                    or squad.enemy_recon['enemy_strenght'] > squad.enemy_recon['ally_strenght']:
+                    or 'throw' in squad.enemy_recon['attacks']\
+                    and squad.enemy_recon['distance'] <= squad.enemy_recon['move'] * 4\
+                    or squad.enemy_recon['enemy_strenght'] > squad.enemy_recon['ally_strenght']\
+                    and squad.enemy_recon['distance'] <= squad.enemy_recon['move'] * 2\
+                    or soldier.class_features.get('Fighting_Style_Blind_Fighting')\
+                    and squad.enemy_recon['distance'] <= squad.enemy_recon['move'] * 2:
                 self.sneak_action(soldier, squad, enemy)
         # Атака следует за 'engage', поэтому осматриваемся снова:
         if 'attack' in soldier.commands:

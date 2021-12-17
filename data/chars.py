@@ -10154,7 +10154,7 @@ metadict_chars['Warrior 4 lvl (нейтрал) (бронзовый гоплит 
     'behavior':'elite_warrior',
     'class_features':{
         'immunity':['poison','poisoned'],
-        'Fighting_Style_Defence':True,
+        'Fighting_Style_Blind_Fighting':True,
         'Feat_Magic_Initiate':True,
         'Spellcasting':True,
         'Spells':[
@@ -10176,8 +10176,8 @@ metadict_chars['Warrior 4 lvl (нейтрал) (бронзовый гоплит 
         # Нежить не может использовать эссенции:
         #'Infusion of Healing':1,
         'Infusion of False Life':1,
-        'Rune of Absorbtion':2,
-        #'Rune of Shielding':1,
+        'Rune of Absorbtion':1,
+        'Rune of Shielding':1,
         'Plate Armor':1,
         'Heavy Shield':1,
         'Long Spear':1,
@@ -10204,7 +10204,7 @@ metadict_chars['Warrior 5 lvl (нейтрал) (бронзовый гоплит-
     'behavior':'commander',
     'class_features':{
         'immunity':['poison','poisoned'],
-        'Fighting_Style_Defence':True,
+        'Fighting_Style_Blind_Fighting':True,
         'Feat_Magic_Initiate':True,
         'Spellcasting':True,
         'Spells':[
@@ -10228,8 +10228,8 @@ metadict_chars['Warrior 5 lvl (нейтрал) (бронзовый гоплит-
         # Нежить не может использовать эссенции:
         #'Infusion of Healing':1,
         'Infusion of False Life':1,
-        'Rune of Absorbtion':2,
-        #'Rune of Shielding':1,
+        'Rune of Absorbtion':1,
+        'Rune of Shielding':1,
         'Plate Armor':1,
         'Heavy Shield':1,
         'Long Spear':1,
