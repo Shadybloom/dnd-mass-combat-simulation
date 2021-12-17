@@ -1217,17 +1217,29 @@ class battle_simulation(battlescape):
                 # Обороняемся/отступаем, если дистанция сокращается:
                 if 'carefull' in commands_list and squad.enemies\
                         and squad.enemy_recon['distance'] <= save_distance * 3\
+                        or 'carefull' in commands_list and squad.enemies\
+                        and squad.enemy_recon['distance'] <= save_distance * 6\
+                        and squad.enemy_recon['enemy_strenght'] > squad.enemy_recon['ally_strenght']\
                         or 'very_carefull' in commands_list and squad.enemies\
-                        and squad.enemy_recon['distance'] <= save_distance * 6:
+                        and squad.enemy_recon['distance'] <= save_distance * 6\
+                        or 'very_carefull' in commands_list and squad.enemies\
+                        and squad.enemy_recon['distance'] <= save_distance * 9\
+                        and squad.enemy_recon['enemy_strenght'] > squad.enemy_recon['ally_strenght']:
+                    # Не лезем вперёд, или отходим;
+                    if 'lead' in commands_list:
+                        commands_list.remove('lead')
+                    if 'very_carefull' in commands_list:
+                        commands_list.append('disengage')
                     # Стреляем прицельно, если перезарядка долгая, а враг близко.
                     if squad.enemy_recon['distance'] <= save_distance:
                         commands_list.append('accurate')
                         commands_list.append('engage')
                         commands_list.append('aim')
-                    if 'lead' in commands_list:
-                        commands_list.remove('lead')
-                    if 'very_carefull' in commands_list:
-                        commands_list.append('disengage')
+                        # В оборону, чтобы алебардами не зарубили:
+                        # Бойцы всё равно остаются на колене, чтобы ряды дальше могли стрелять.
+                        # Получается помеха врагу от dodge_action и преимущество от soldier.kneel
+                        if 'kneel' in commands_list and 'reach' in squad.enemy_recon['attacks']:
+                            commands_list.append('dodge')
             # Лучники и метатели дротиков должны чуть что отступать:
             if squad.behavior == 'archer' or squad.commander.__dict__.get('archer_AI'):
                 if commander.class_features.get('Feat_Sharpshooter'):
@@ -1251,7 +1263,6 @@ class battle_simulation(battlescape):
                     commands_list.append('coward')
                     commands_list.append('close_order')
                     commands_list.append('disengage')
-                    commands_list.append('dash')
                 # Если кто-то из стада получает урон, команда "retreat":
                 squad_hitpoints_max = sum([soldier.hitpoints_max for soldier\
                     in squad.metadict_soldiers.values()])
@@ -1297,6 +1308,7 @@ class battle_simulation(battlescape):
         # Команды отряду считаются личными:
         if squad.commands:
             soldier.commands.extend(squad.commands)
+            # Лучники не бросаются в ближний бой:
             if soldier.__dict__.get('archer_AI') or soldier.behavior == 'archer':
                 if 'engage' in soldier.commands:
                     soldier.commands.remove('engage')
@@ -1367,7 +1379,10 @@ class battle_simulation(battlescape):
                 destination = self.find_spawn(soldier.place, soldier.ally_side)
                 destination = random.choice(self.point_to_field(destination))
             self.move_action(soldier, squad, destination, close_order = True)
-            if 'exit' in self.dict_battlespace[soldier.place]:
+            # Выход с карты, если точка выхода в 1-2 тайлах от бойца:
+            self.recon_action(soldier, squad, distance = 2)
+            exit_places = [place for place in soldier.near_zone if 'exit' in self.dict_battlespace[place]]
+            if exit_places:
                 self.clear_battlemap()
         # Отряд может ускориться с dash_action, если таков приказ (и врагов нет рядом):
         if 'dash' in soldier.commands:
