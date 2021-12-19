@@ -1364,121 +1364,141 @@ metadict_squads['Company-regular (line-infantry-fusiliers)'] = {
     # -         | 24/76     | 36/63     | 13/85     | -         | 63/36     | hoplites
     # -         | 46/53     | 49/49     | 30/67     | 36/63     | -         | legionary
 
+#metadict_squads['Company-veteran (infantry-hoplites)'] = {
+#    # Отряд героя 6 lvl
+#    # Два капитана и 20 800 exp на отряд, +34 ветерана.
+#    # Отборный отряд -- 200 рекрутов на 100 солдат
+#    # Fighting_Style_Dueling
+#    'Warrior 1 lvl (achean hoplite)':46 + dice_throw('1d12'),
+#    'Warrior 2 lvl (achean hoplite-corporal)':44,
+#    'Warrior 3 lvl (achean hoplite-sergeant)':3,
+#    'Warrior 4 lvl (achean hoplite-lieutenant)':1,
+#    'Warrior 5 lvl (achean hoplite-captain)':2,
+#    'Commoner 1 lvl (recruit)':100,
+#    }
+#
+#metadict_squads['Company-veteran (infantry-legionary)'] = {
+#    # Fighting_Style_Protection
+#    'Warrior 1 lvl (legionary infantry)':46 + dice_throw('1d12'),
+#    'Warrior 2 lvl (legionary infantry-corporal)':44,
+#    'Warrior 3 lvl (legionary infantry-sergeant)':3,
+#    'Warrior 4 lvl (legionary infantry-lieutenant)':1,
+#    'Warrior 5 lvl (legionary infantry-captain)':2,
+#    'Commoner 1 lvl (recruit)':100,
+#    }
+#
+#metadict_squads['Company-veteran (infantry-pikemans)'] = {
+#    # Fighting_Style_Defence
+#    'Warrior 1 lvl (city pikeman)':46 + dice_throw('1d12'),
+#    'Warrior 2 lvl (city pikeman-corporal)':44,
+#    'Warrior 3 lvl (city pikeman-sergeant)':3,
+#    'Warrior 4 lvl (city pikeman-lieutenant)':1,
+#    'Warrior 5 lvl (city pikeman-captain)':2,
+#    'Commoner 1 lvl (recruit)':100,
+#    }
+#
+#metadict_squads['Company-veteran (infantry-thracian)'] = {
+#    # Fighting_Style_Great_Weapon_Fighting
+#    'Warrior 1 lvl (thracian infantry)':46 + dice_throw('1d12'),
+#    'Warrior 2 lvl (thracian infantry-corporal)':44,
+#    'Warrior 3 lvl (thracian infantry-sergeant)':3,
+#    'Warrior 4 lvl (thracian infantry-lieutenant)':1,
+#    'Warrior 5 lvl (thracian infantry-captain)':2,
+#    'Commoner 1 lvl (recruit)':100,
+#    }
+#
+#metadict_squads['Company-veteran (infantry-cilician)'] = {
+#    # Fighting_Style_Two_Weapon_Fighting
+#    'Warrior 1 lvl (cilician infantry)':46 + dice_throw('1d12'),
+#    'Warrior 2 lvl (cilician infantry-corporal)':44,
+#    'Warrior 3 lvl (cilician infantry-sergeant)':3,
+#    'Warrior 4 lvl (cilician infantry-lieutenant)':1,
+#    'Warrior 5 lvl (cilician infantry-captain)':2,
+#    'Commoner 1 lvl (recruit)':100,
+#    }
+#
+#metadict_squads['Company-veteran (bowmans-scythian)'] = {
+#    # Fighting_Style_Archery
+#    'Warrior 1 lvl (sqythian bowman)':46 + dice_throw('1d12'),
+#    'Warrior 2 lvl (sqythian bowman-corporal)':44,
+#    'Warrior 3 lvl (sqythian bowman-sergeant)':3,
+#    'Warrior 4 lvl (sqythian bowman-lieutenant)':1,
+#    'Warrior 5 lvl (sqythian bowman-captain)':2,
+#    'Commoner 1 lvl (recruit)':100,
+#    }
+
+#----
+# Ветеранские отряды:
+
 metadict_squads['Company-veteran (infantry-hoplites)'] = {
-    # Отряд героя 6 lvl
-    # Два капитана и 20 800 exp на отряд, +34 ветерана.
-    # Отборный отряд -- 200 рекрутов на 100 солдат
-    # Fighting_Style_Dueling
-    'Warrior 1 lvl (achean hoplite)':46 + dice_throw('1d12'),
-    'Warrior 2 lvl (achean hoplite-corporal)':44,
-    'Warrior 3 lvl (achean hoplite-sergeant)':3,
-    'Warrior 4 lvl (achean hoplite-lieutenant)':1,
-    'Warrior 5 lvl (achean hoplite-captain)':2,
+    # Отряд героя 7 lvl
+    # Шесть капитанов и 62 400 exp на отряд.
+    # Отборный отряд (сумма параметров 63+) -- 200 рекрутов на 100 солдат
+    'Warrior 2 lvl (achean hoplite-corporal)':60,
+    'Warrior 3 lvl (achean hoplite-sergeant)':18,
+    'Warrior 4 lvl (achean hoplite-lieutenant)':6,
+    'Warrior 5 lvl (achean hoplite-captain)':6,
     'Commoner 1 lvl (recruit)':100,
     }
 
 metadict_squads['Company-veteran (infantry-legionary)'] = {
-    # Fighting_Style_Protection
-    'Warrior 1 lvl (legionary infantry)':46 + dice_throw('1d12'),
-    'Warrior 2 lvl (legionary infantry-corporal)':44,
-    'Warrior 3 lvl (legionary infantry-sergeant)':3,
-    'Warrior 4 lvl (legionary infantry-lieutenant)':1,
-    'Warrior 5 lvl (legionary infantry-captain)':2,
+    'Warrior 2 lvl (legionary infantry-corporal)':60,
+    'Warrior 3 lvl (legionary infantry-sergeant)':18,
+    'Warrior 4 lvl (legionary infantry-lieutenant)':6,
+    'Warrior 5 lvl (legionary infantry-captain)':6,
     'Commoner 1 lvl (recruit)':100,
     }
 
 metadict_squads['Company-veteran (infantry-pikemans)'] = {
-    # Fighting_Style_Defence
-    'Warrior 1 lvl (city pikeman)':46 + dice_throw('1d12'),
-    'Warrior 2 lvl (city pikeman-corporal)':44,
-    'Warrior 3 lvl (city pikeman-sergeant)':3,
-    'Warrior 4 lvl (city pikeman-lieutenant)':1,
-    'Warrior 5 lvl (city pikeman-captain)':2,
+    'Warrior 2 lvl (city pikeman-corporal)':60,
+    'Warrior 3 lvl (city pikeman-sergeant)':18,
+    'Warrior 4 lvl (city pikeman-lieutenant)':6,
+    'Warrior 5 lvl (city pikeman-captain)':6,
     'Commoner 1 lvl (recruit)':100,
     }
 
 metadict_squads['Company-veteran (infantry-thracian)'] = {
-    # Fighting_Style_Great_Weapon_Fighting
-    'Warrior 1 lvl (thracian infantry)':46 + dice_throw('1d12'),
-    'Warrior 2 lvl (thracian infantry-corporal)':44,
-    'Warrior 3 lvl (thracian infantry-sergeant)':3,
-    'Warrior 4 lvl (thracian infantry-lieutenant)':1,
-    'Warrior 5 lvl (thracian infantry-captain)':2,
+    'Warrior 2 lvl (thracian infantry-corporal)':60,
+    'Warrior 3 lvl (thracian infantry-sergeant)':18,
+    'Warrior 4 lvl (thracian infantry-lieutenant)':6,
+    'Warrior 5 lvl (thracian infantry-captain)':6,
     'Commoner 1 lvl (recruit)':100,
     }
 
 metadict_squads['Company-veteran (infantry-cilician)'] = {
-    # Fighting_Style_Two_Weapon_Fighting
-    'Warrior 1 lvl (cilician infantry)':46 + dice_throw('1d12'),
-    'Warrior 2 lvl (cilician infantry-corporal)':44,
-    'Warrior 3 lvl (cilician infantry-sergeant)':3,
-    'Warrior 4 lvl (cilician infantry-lieutenant)':1,
-    'Warrior 5 lvl (cilician infantry-captain)':2,
+    'Warrior 2 lvl (cilician infantry-corporal)':60,
+    'Warrior 3 lvl (cilician infantry-sergeant)':18,
+    'Warrior 4 lvl (cilician infantry-lieutenant)':6,
+    'Warrior 5 lvl (cilician infantry-captain)':6,
     'Commoner 1 lvl (recruit)':100,
     }
 
 metadict_squads['Company-veteran (bowmans-scythian)'] = {
-    # Fighting_Style_Archery
-    'Warrior 1 lvl (sqythian bowman)':46 + dice_throw('1d12'),
-    'Warrior 2 lvl (sqythian bowman-corporal)':44,
-    'Warrior 3 lvl (sqythian bowman-sergeant)':3,
-    'Warrior 4 lvl (sqythian bowman-lieutenant)':1,
-    'Warrior 5 lvl (sqythian bowman-captain)':2,
+    'Warrior 2 lvl (sqythian bowman-corporal)':60,
+    'Warrior 3 lvl (sqythian bowman-sergeant)':18,
+    'Warrior 4 lvl (sqythian bowman-lieutenant)':6,
+    'Warrior 5 lvl (sqythian bowman-captain)':6,
+    'Commoner 1 lvl (recruit)':100,
+    }
+
+metadict_squads['Company-veteran (line-infantry-musketeers)'] = {
+    'Warrior 2 lvl (musketeer line-infantry-corporal)':60,
+    'Warrior 3 lvl (musketeer line-infantry-sergeant)':18,
+    'Warrior 4 lvl (musketeer line-infantry-lieutenant)':6,
+    'Warrior 5 lvl (musketeer line-infantry-captain)':6,
     'Commoner 1 lvl (recruit)':100,
     }
 
 #----
 # Элитные отряды:
 
-metadict_squads['Company-elite (infantry-hoplites)'] = {
-    # Отряд героя 7 lvl
-    # Шесть капитанов и 62 400 exp на отряд.
-    # Отборный отряд -- 200 рекрутов на 100 солдат
-    'Warrior 2 lvl (achean hoplite-corporal)':60,
-    'Warrior 3 lvl (achean hoplite-sergeant)':18,
-    'Warrior 4 lvl (achean hoplite-lieutenant)':6,
-    'Warrior 5 lvl (achean hoplite-captain)':6,
-    'Commoner 1 lvl (recruit)':500,
-    }
-
-metadict_squads['Company-elite (infantry-legionary)'] = {
-    'Warrior 2 lvl (legionary infantry-corporal)':60,
-    'Warrior 3 lvl (legionary infantry-sergeant)':18,
-    'Warrior 4 lvl (legionary infantry-lieutenant)':6,
-    'Warrior 5 lvl (legionary infantry-captain)':6,
-    'Commoner 1 lvl (recruit)':500,
-    }
-
-metadict_squads['Company-elite (infantry-pikemans)'] = {
-    'Warrior 2 lvl (city pikeman-corporal)':60,
-    'Warrior 3 lvl (city pikeman-sergeant)':18,
-    'Warrior 4 lvl (city pikeman-lieutenant)':6,
-    'Warrior 5 lvl (city pikeman-captain)':6,
-    'Commoner 1 lvl (recruit)':500,
-    }
-
-metadict_squads['Company-elite (infantry-thracian)'] = {
-    'Warrior 2 lvl (thracian infantry-corporal)':60,
-    'Warrior 3 lvl (thracian infantry-sergeant)':18,
-    'Warrior 4 lvl (thracian infantry-lieutenant)':6,
-    'Warrior 5 lvl (thracian infantry-captain)':6,
-    'Commoner 1 lvl (recruit)':500,
-    }
-
-metadict_squads['Company-elite (infantry-cilician)'] = {
-    'Warrior 2 lvl (cilician infantry-corporal)':60,
-    'Warrior 3 lvl (cilician infantry-sergeant)':18,
-    'Warrior 4 lvl (cilician infantry-lieutenant)':6,
-    'Warrior 5 lvl (cilician infantry-captain)':6,
-    'Commoner 1 lvl (recruit)':500,
-    }
-
-metadict_squads['Company-elite (bowmans-scythian)'] = {
-    'Warrior 2 lvl (sqythian bowman-corporal)':60,
-    'Warrior 3 lvl (sqythian bowman-sergeant)':18,
-    'Warrior 4 lvl (sqythian bowman-lieutenant)':6,
-    'Warrior 5 lvl (sqythian bowman-captain)':6,
-    'Commoner 1 lvl (recruit)':500,
+metadict_squads['Company-elite (line-infantry-musketeers)'] = {
+    # Гвардия героев 11+ lvl
+    # 25 капитанов и 260 000 exp на отряд.
+    # Отличный отряд (сумма параметров 69+) -- 400 рекрутов на 100 солдат
+    'Warrior 4 lvl (musketeer line-infantry-lieutenant)':67,
+    'Warrior 5 lvl (musketeer line-infantry-captain)':25,
+    'Commoner 1 lvl (recruit)':300,
     }
 
 #----
