@@ -1242,6 +1242,7 @@ class battle_simulation(battlescape):
                             commands_list.append('dodge')
             # Лучники и метатели дротиков должны чуть что отступать:
             if squad.behavior == 'archer' or squad.commander.__dict__.get('archer_AI'):
+                commands_list.append('recharge')
                 if commander.class_features.get('Feat_Sharpshooter'):
                     commands_list.append('volley')
                 if 'engage' in commands_list:

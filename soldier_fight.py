@@ -1154,6 +1154,11 @@ class soldier_in_battle(soldier):
         Оружие требует перезарядки действием или бонусным действием.
         - Feat_Crossbow_Expert позволяет не тратя действия перезаряжать арбалеты.
         """
+        # TODO: сейчас Feat_Firearms_Expert просто отменяет перезарядку. Это убери.
+        # -------------------------------------------------
+        # Добавь правило боекомплекта для ружей Лоренцони.
+        # Перезарядка только когда закончился магазин.
+        # -------------------------------------------------
         if len(self.metadict_recharge) >= 1:
             recharge_success = False
             attack_choice = random.choice(list(self.metadict_recharge.keys()))
@@ -1167,16 +1172,25 @@ class soldier_in_battle(soldier):
             # Перезарядка за одно действие:
             else:
                 recharge_success = True
+            # Опытные стрелки всегда перезаряжают успешно.
+            if self.class_features.get('Feat_Firearms_Expert') and self.bonus_action:
+                self.bonus_action = False
+                self.drop_action(('bonus_action', 'Reload_Action_Success'))
+                attack_dict = self.metadict_recharge.pop(attack_choice)
+                self.attacks[attack_choice] = attack_dict
+                return recharge_success
             # Если перезарядка успешна, восстанавливаем атаку:
-            if recharge_success:
+            elif recharge_success and self.battle_action:
                 self.battle_action = False
                 self.drop_action(('action', 'Reload_Action_Success'))
                 attack_dict = self.metadict_recharge.pop(attack_choice)
                 self.attacks[attack_choice] = attack_dict
                 return recharge_success
-            else:
+            elif not recharge_success and self.battle_action:
                 self.battle_action = False
                 self.drop_action(('action', 'Reload_Action_False'))
+                return False
+            else:
                 return False
 
     def use_dodge_action(self):

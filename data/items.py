@@ -268,7 +268,7 @@ metadict_items['Spear'] = {
 metadict_items['Crossbow, Hand'] = {
     # Арбалет, ручной
     'weapon':True,
-    'loading':True,
+    'recharge':True,
     'ammo_type':crossbow_bolts,
     'weapon_type':['simple','light','ranged','volley'],
     'damage_type':'piercing',
@@ -283,7 +283,7 @@ metadict_items['Crossbow, Hand'] = {
 metadict_items['Crossbow, Light'] = {
     # Гастрафет, аркубаллиста
     'weapon':True,
-    'loading':True,
+    'recharge':True,
     'ammo_type':crossbow_bolts,
     'weapon_type':['simple','ranged','volley','two_handed'],
     'damage_type':'piercing',
@@ -298,7 +298,7 @@ metadict_items['Crossbow, Light'] = {
 metadict_items['Crossbow, Heavy'] = {
     # Скорпион. Считается простым оружием.
     'weapon':True,
-    'loading':True,
+    'recharge':True,
     'ammo_type':crossbow_bolts,
     'weapon_type':['simple','ranged','volley','two_handed','heavy'],
     'damage_type':'piercing',
@@ -597,7 +597,7 @@ metadict_items['Muskete'] = {
     # Перезарядка за раунд с вероятностью 50%
     'recharge':True,
     'Recharge_dice':'1d6',
-    'Recharge_numbers':[5,6],
+    'Recharge_numbers':[4,5,6],
     'shoot_range':50,
     'shoot_range_max':150,
     # Множитель радиуса неприцельной стрельбы
@@ -620,7 +620,7 @@ metadict_items['Pistol'] = {
     # Перезарядка за раунд с вероятностью 50%
     'recharge':True,
     'Recharge_dice':'1d6',
-    'Recharge_numbers':[5,6],
+    'Recharge_numbers':[4,5,6],
     'shoot_range':30,
     'shoot_range_max':90,
     # Множитель радиуса неприцельной стрельбы
