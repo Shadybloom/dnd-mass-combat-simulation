@@ -498,12 +498,10 @@ class squad_generation():
                 commander_moral += 1
             elif result < morale_throw_DC:
                 commander_moral += 0
-            if commander.level <= 3:
+            if commander.level == 4:
                 squad_moral += commander_moral
-            elif commander.level == 4:
-                squad_moral += commander_moral * 2
             elif commander.level > 4:
-                squad_moral += commander_moral * 3
+                squad_moral += commander_moral * 2
         #print(self.ally_side, enemy_recon, morale_throw_DC, squad_moral)
         return squad_moral
 
