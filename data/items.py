@@ -580,7 +580,6 @@ metadict_items['Muskete'] = {
     # Мушкет -- 10 gp (сварное железо), 10 lb, 17.5-мм калибр, 60 калибров
     # Фузея российской армии 1715 -- 5.5 кг, 19.8-мм, 33 г.пуля, 12.8 г.пороха (39% веса пули)
     # * Скорострельность -- 3 выстрела/минуту
-    #     * Ружье Микеле Лоренцони -- 10 выстрелов/минуту
     # * Точность -- 50/150 (залповый огонь на 600 футов -- 0.5% попаданий)
     #     - 270 футов -- 30% попаданий (мишень 60x120 см)
     #     - 140 футов -- разброс 0.5 метра
@@ -605,6 +604,28 @@ metadict_items['Muskete'] = {
     'weight (lb)':10,
     'cost (gp)':10,
     'cost (grams_of_gold)':10,
+    }
+
+metadict_items['Muskete, Lorenzony'] = {
+    # * Ружье Микеле Лоренцони -- 10 выстрелов/минуту
+    'weapon':True,
+    'direct_hit':True,
+    'savethrow':True,
+    'savethrow_all':True,
+    'savethrow_ability':'dexterity',
+    'ammo_type':muskete_bullets,
+    'weapon_type':['martial','ranged','two_handed','firearm','volley','reload'],
+    'recharge':True,
+    'Recharge_magazine_max':8,
+    'Recharge_magazine':8,
+    'Recharge_dice':'1d6',
+    'Recharge_numbers':[5,6],
+    'shoot_range':50,
+    'shoot_range_max':150,
+    'shoot_range_volley':600,
+    'weight (lb)':10,
+    'cost (gp)':120,
+    'cost (grams_of_gold)':120,
     }
 
 metadict_items['Pistol'] = {

@@ -1172,11 +1172,16 @@ class soldier_in_battle(soldier):
             # Перезарядка за одно действие:
             else:
                 recharge_success = True
-            # Опытные стрелки всегда перезаряжают успешно.
-            if self.class_features.get('Feat_Firearms_Expert') and self.bonus_action:
+            # Опытные стрелки всегда перезаряжают успешно:
+            if self.class_features.get('Feat_Firearms_Expert'):
+                recharge_success = True
+            # Опытные стрелки перезаряжают за счёт бонусного действия:
+            if recharge_success and self.class_features.get('Feat_Firearms_Expert') and self.bonus_action:
                 self.bonus_action = False
                 self.drop_action(('bonus_action', 'Reload_Action_Success'))
                 attack_dict = self.metadict_recharge.pop(attack_choice)
+                if attack_dict.get('Recharge_magazine') and attack_dict.get('Recharge_magazine_max'):
+                    attack_dict['Recharge_magazine'] = attack_dict['Recharge_magazine_max']
                 self.attacks[attack_choice] = attack_dict
                 return recharge_success
             # Если перезарядка успешна, восстанавливаем атаку:
@@ -1184,6 +1189,8 @@ class soldier_in_battle(soldier):
                 self.battle_action = False
                 self.drop_action(('action', 'Reload_Action_Success'))
                 attack_dict = self.metadict_recharge.pop(attack_choice)
+                if attack_dict.get('Recharge_magazine') and attack_dict.get('Recharge_magazine_max'):
+                    attack_dict['Recharge_magazine'] = attack_dict['Recharge_magazine_max']
                 self.attacks[attack_choice] = attack_dict
                 return recharge_success
             elif not recharge_success and self.battle_action:
@@ -2295,6 +2302,10 @@ class soldier_in_battle(soldier):
                 if self.class_features.get('Feat_Firearms_Expert')\
                         and 'firearm' in attack_dict.get('weapon_type',[]):
                     pass
+                # Магазинные винтовки:
+                elif attack_dict.get('Recharge_magazine')\
+                        and attack_dict.get('Recharge_magazine') > 0:
+                    attack_dict['Recharge_magazine'] -= 1
                 else:
                     self.unset_weapon(attack_dict.get('weapon_of_choice'))
 
