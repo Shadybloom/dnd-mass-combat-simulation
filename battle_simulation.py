@@ -898,12 +898,17 @@ class battle_simulation(battlescape):
         """Командиры отряда находят видимых врагов."""
         dict_enemies = {}
         for commander_tuple in squad.commanders_list:
+            commanders_number = len(squad.commanders_list)
+            max_number = 30 / commanders_number
+            max_try = 60 / commanders_number
+            if max_number <= 0: max_number == 1
+            if max_try <= 0: max_try == 1
             commander = squad.metadict_soldiers[commander_tuple.uuid]
             # На случай, если враг зачаровал командира:
             if commander.ally_side == squad.ally_side:
                 dict_enemies.update(self.find_visible_soldiers(
                         commander.place, commander.enemy_side,
-                        max_number = 30, max_try = 60))
+                        max_number = max_number, max_try = max_try))
         dict_enemies = OrderedDict(sorted(dict_enemies.items(),key=lambda x: x[1].distance))
         return dict_enemies
 
