@@ -419,6 +419,7 @@ metadict_chars['Commoner 1 lvl (militia swordsman)'] = {
         'Shortsword':1,
         'Javelin':2,
         #'Potion of Bravery':1,
+        #'Potion of Rage':1,
         },
     }
 

@@ -763,6 +763,36 @@ class gen_spells():
                 soldier = self.mage.metadict_soldiers[spell_dict['target_uuid']]
         return spell_dict
 
+    @modify_spell
+    @update_spell_dict
+    def Rage(self, spell_level, gen_spell = False, spell_dict = False):
+        """Ярость. 50% сопротивляемость обычному оружию.
+        
+        Что это даёт:
+        - Сопротивляемость к урону обычного оружия.
+        - Дополнительный урон, что зависит от уровня варвара, либо +1.
+        """
+        # TODO: Перенести сюда способность варвара из set_rage.
+        # 1) Сделай отмену бонусов, когда таймер заканчивается.
+        if not spell_dict:
+            spell_dict = {
+                    'buff':True,
+                    'effect':'rage',
+                    'effect_timer':10,
+                    'casting_time':'free_action',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
+        if gen_spell:
+            if not spell_dict.get('target_uuid'):
+                soldier = self.mage
+            else:
+                soldier = self.mage.metadict_soldiers[spell_dict['target_uuid']]
+            soldier.rage = True
+            soldier.resistance.append('slashing')
+            soldier.resistance.append('piercing')
+            soldier.resistance.append('bludgeoning')
+        return spell_dict
+
 #------------------------------------------------------------
 # Способности
 

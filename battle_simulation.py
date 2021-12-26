@@ -504,12 +504,15 @@ class battle_simulation(battlescape):
                 spells_list = [
                         'False_Life',
                         'Antidote',
+                        'Rage',
                         ]
                 for spell in spells_list:
                     if not soldier.bonus_hitpoints and spell == 'False_Life':
                         soldier.use_item('False_Life', gen_spell = True, use_action = False)
                     if not 'antidote' in soldier.buffs and spell == 'Antidote':
                         soldier.use_item('Antidote', gen_spell = True, use_action = False)
+                    if not 'rage' in soldier.buffs and spell == 'Rage':
+                        soldier.use_item('Rage', gen_spell = True, use_action = False)
             # Тратим слоты заклинаний:
             if 'spellcast' in soldier.commands and soldier.spells:
                 spells_list = [
@@ -1333,6 +1336,16 @@ class battle_simulation(battlescape):
                 soldier.commands.append('spellcast')
                 soldier.commands.append('fearless')
                 squad = enemy_squad
+            # Солдат дуреет от ярости (вызванной дебафом зелья):
+            if 'death_rage' in soldier.buffs and soldier.rage:
+                soldier.commands.append('kill')
+                soldier.commands.append('fearless')
+                if 'dodge' in soldier.commands: soldier.commands.remove('dodge')
+                if 'disengage' in soldier.commands: soldier.commands.remove('disengage')
+                if 'very_carefull' in soldier.commands: soldier.commands.remove('very_carefull')
+                if 'carefull' in soldier.commands: soldier.commands.remove('carefull')
+                if 'rescue' in soldier.commands: soldier.commands.remove('rescue')
+                if 'help' in soldier.commands: soldier.commands.remove('help')
         # Осматриваем зону врагов, находим противника:
         self.recon_action(soldier, squad)
         enemy = self.find_enemy(soldier, squad)

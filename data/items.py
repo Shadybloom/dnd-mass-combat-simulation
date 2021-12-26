@@ -1409,6 +1409,20 @@ metadict_items['Potion of Bravery'] = {
     'cost (grams_of_gold)':0.06,
     }
 
+metadict_items['Potion of Rage'] = {
+    # Настойка доктора Кхорна.
+    # Смерть при нуле хитов.
+    'spell':'Rage',
+    'potion':True,
+    'debuff':True,
+    'effect':'death_rage',
+    'effect_timer':600,
+    'spell_save_DC':15,
+    'weight (lb)':0.5,
+    'cost (gp)':30,
+    'cost (grams_of_gold)':30,
+    }
+
 metadict_items['Potion of Antidote'] = {
     # Антидот. Даёт преимущество к спасброскам от ядов.
     'spell':'Antidote',

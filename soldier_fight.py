@@ -996,12 +996,12 @@ class soldier_in_battle(soldier):
         # Герои храбрее обычных бойцов:
         if hasattr(self, 'hero') and self.hero == True:
             self.danger = danger - ((squad.moral + 1) * 6)
-            # Варварам в ярости на всё чихать (кроме магии):
-            # TODO: просто добавь им команду 'fearless'.
-            if hasattr(self, 'rage') and self.rage and not self.fear:
-                self.danger = 0
-                self.escape = False
-                return True
+        # Варварам в ярости на всё чихать (кроме магии):
+        # TODO: просто добавь им команду 'fearless'.
+        if hasattr(self, 'rage') and self.rage and not self.fear:
+            self.danger = 0
+            self.escape = False
+            return True
         # Страх может быть вызван магией:
         if self.fear:
             fear_danger = self.fear_difficult - 10
@@ -1617,9 +1617,16 @@ class soldier_in_battle(soldier):
             self.stable = True
             return False
         # Иначе борьба за жизнь, где всё в руках судьбя:
+        advantage = False
+        disadvantage = False
+        # Homebrew: Помеха на спасброски от смерти от зелья с death_rage
+        if 'death_rage' in self.buffs:
+            disadvantage = True
+        else:
+            disadvantage = False
         if not self.stable == True and not self.death == True:
             # Играем в рулетку с мрачным жнецом:
-            reaper_throw = dices.dice_throw('1d20')
+            reaper_throw = dices.dice_throw_advantage('1d20', advantage, disadvantage)
             if reaper_throw == 20:
                 self.death_save_success += 2
             elif reaper_throw >= 10:
@@ -2176,7 +2183,7 @@ class soldier_in_battle(soldier):
         if damage_throw_mod < 0:
             damage_throw_mod = 0
         # Бонус урона от ярости варвара:
-        if hasattr(self, 'rage') and self.rage == True:
+        if self.class_features.get('Rage') and self.rage:
             if attack_choice[0] == 'close' or attack_choice[0] == 'reach':
                 damage_throw_mod += self.rage_damage
         # Мастер тяжёлого оружия усиливает удар за счёт точности (если защита врага слаба):
