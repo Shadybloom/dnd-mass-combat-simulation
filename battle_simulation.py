@@ -502,11 +502,14 @@ class battle_simulation(battlescape):
             # TODO: Вообще, зелья дублируют руны по сути и содержимому.
             if 'potions' in soldier.commands:
                 spells_list = [
+                        'Heroism',
                         'False_Life',
                         'Antidote',
                         'Rage',
                         ]
                 for spell in spells_list:
+                    if not soldier.bonus_hitpoints and spell == 'Heroism':
+                        soldier.use_item('Heroism', gen_spell = True, use_action = False)
                     if not soldier.bonus_hitpoints and spell == 'False_Life':
                         soldier.use_item('False_Life', gen_spell = True, use_action = False)
                     if not 'antidote' in soldier.buffs and spell == 'Antidote':

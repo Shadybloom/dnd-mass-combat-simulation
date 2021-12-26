@@ -1416,11 +1416,24 @@ metadict_items['Potion of Rage'] = {
     'potion':True,
     'debuff':True,
     'effect':'death_rage',
-    'effect_timer':600,
+    'effect_timer':100,
     'spell_save_DC':15,
     'weight (lb)':0.5,
     'cost (gp)':30,
     'cost (grams_of_gold)':30,
+    }
+
+metadict_items['Potion of Heroism'] = {
+    # Вытяжка бодрого Коки
+    'potion':True,
+    'spell':'Heroism',
+    'concentration':False,
+    'damage_mod':1,
+    'effect_timer':100,
+    'spell_save_DC':15,
+    'weight (lb)':0.5,
+    'cost (gp)':15,
+    'cost (grams_of_gold)':15,
     }
 
 metadict_items['Potion of Antidote'] = {
