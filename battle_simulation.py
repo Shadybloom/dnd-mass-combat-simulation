@@ -1218,6 +1218,11 @@ class battle_simulation(battlescape):
                 commands_list.append('recharge')
                 commands_list.append('volley')
                 commands_list.append('volley_random')
+                # Гренадеры ставят дым, если у врага стрелки:
+                if squad.enemies and 'ranged' in squad.enemy_recon['attacks']\
+                        and squad.enemy_recon['distance'] > save_distance:
+                    commands_list.append('sneak')
+                # Пехоту закидываем гратами, стрелков атакуем:
                 if 'verry_carefull' in commands_list and squad.enemies\
                         and squad.enemy_recon['distance'] < save_distance\
                         or 'carefull' in commands_list and squad.enemies\
@@ -1488,7 +1493,6 @@ class battle_simulation(battlescape):
             if soldier.class_features.get('Wild_Shape'):
                 if soldier.near_enemies or 'change' in soldier.commands:
                     soldier.set_change_form(squad)
-        # Бойцы прячутся за Fog_Cloud:
         if 'sneak' in soldier.commands and enemy and squad.__dict__.get('enemy_recon'):
             if self.metadict_soldiers[enemy.uuid].hero\
                     or 'ranged' in squad.enemy_recon['attacks']\
@@ -1567,13 +1571,31 @@ class battle_simulation(battlescape):
         
         - осьминожки прячутся в "Чернильном облаке"
         """
+        # Используются дымовые гранаты (Smoke Grenade), если таковые есть:
+        fog_dict = soldier.use_item('Fog_Cloud', gen_spell = True, use_action = False)
+        if fog_dict and fog_dict.get('effect') == 'fog':
+            #self.spellcast_action(soldier, squad, enemy, spell_choice = fog_dict)
+            distance = round(distance_measure(soldier.place, enemy.place))
+            throw_range = round(fog_dict['attack_range'] / self.tile_size)
+            places_list = sight_line_to_list(soldier.place, enemy.place)
+            if distance > throw_range and throw_range < len(places_list):
+                place = places_list[throw_range]
+            else:
+                place = enemy.place
+            zone_radius = round(fog_dict['radius'] / self.tile_size)
+            zone_list = self.find_points_in_zone(place, zone_radius)
+            zone_list_circle = [point for point in zone_list\
+                    if inside_circle(point, place, zone_radius)]
+            for point in zone_list_circle:
+                self.dict_battlespace[point].append('obscure_terrain')
         # TODO: здесь нет проверки по дальности.
         # -------------------------------------------------
+        # Сделай как и с дымовыми гранатами в самом заклинании.
         # Боец должен проверить, есть ли линия взгляда до врага.
         # Если линия взгляда есть, достаёт ли Fog_Cloud до врага.
         # Если не достаёт, кастовать в точку между отрядами на пределе дальности.
         # -------------------------------------------------
-        if 'spellcast' in soldier.commands:
+        elif 'spellcast' in soldier.commands:
             if soldier.spells_generator.find_spell('Fog_Cloud')\
                 and not 'obscure_terrain' in self.dict_battlespace[soldier.place]:
                 spell_choice = soldier.spells_generator.find_spell('Fog_Cloud')
@@ -1583,7 +1605,7 @@ class battle_simulation(battlescape):
                 spell_choice = soldier.spells_generator.find_spell('Darkness')
                 self.spellcast_action(soldier, squad, enemy, spell_choice)
         # Чернильное облако осьминожек:
-        if soldier.__dict__.get('ink_cloud') and soldier.near_enemies:
+        elif soldier.__dict__.get('ink_cloud') and soldier.near_enemies:
             zone_radius = round(soldier.ink_cloud_radius / self.tile_size)
             zone_list = self.point_to_field(soldier.place, zone_radius)
             zone_list_circle = [point for point in zone_list\
@@ -2712,13 +2734,16 @@ class battle_simulation(battlescape):
             soldier.battle_action = True
             soldier.reaction = False
         if hasattr(soldier, 'spells') and soldier.spells and soldier.battle_action\
-                or spell_choice and subspell:
+                or spell_choice and subspell\
+                or type(spell_choice) == dict:
             # Смотрим, возможно ли атаковать:
             if not spell_choice:
                 spell_choice = soldier.select_spell(squad, enemy, self.tile_size)
                 if spell_choice == None:
                     return False
-            if use_spell:
+            if type(spell_choice) == dict:
+                spell_dict = spell_choice
+            elif use_spell:
                 spell_dict = soldier.try_spellcast(spell_choice)
             else:
                 spell_dict = soldier.spells[spell_choice]
@@ -2726,7 +2751,10 @@ class battle_simulation(battlescape):
             spell_chain = [spell_choice] * attacks_number
             while spell_chain:
                 spell_choice = spell_chain.pop(0)
-                advantage, disadvantage = self.test_enemy_defence(soldier, enemy_soldier, spell_choice)
+                if type(spell_choice) == dict:
+                    spell_choice == spell_dict['spell_choice']
+                if spell_dict.get('attack_mod'):
+                    advantage, disadvantage = self.test_enemy_defence(soldier, enemy_soldier, spell_choice)
                 # Заклинание Green_Flame_Blade, сочетающееся с атакой оружием:
                 # Срабатывает, только если атака прошла:
                 if spell_dict.get('weapon_attack'):

@@ -730,6 +730,19 @@ metadict_items['Hand Grenade'] = {
     'cost (grams_of_gold)':1.8,
     }
 
+metadict_items['Smoke Grenade'] = {
+    # Для дымовых завес, считается зельем:
+    'weapon':False,
+    'spell':'Fog_Cloud',
+    'concentration':False,
+    'radius':10,
+    'attack_range':60,
+    'effect_timer':10,
+    'weight (lb)':2,
+    'cost (gp)':1.8,
+    'cost (grams_of_gold)':1.8,
+    }
+
 metadict_items['Fire Spear'] = {
     # Огненное копьё, заряд чёрного пороха и металлическая картечь.
     # [b]Илионские огненные копья[/b]:

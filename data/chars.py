@@ -1394,6 +1394,7 @@ metadict_chars['Warrior 1 lvl (grenadier line-infantry)'] = {
         'Pistol':1,
         'Muskete Bullet':30,
         'Hand Grenade':5,
+        'Smoke Grenade':1,
         },
     }
 
@@ -1403,7 +1404,7 @@ metadict_chars['Warrior 2 lvl (grenadier line-infantry-corporal)'] = {
     'hit_dice':'1d8',
     'behavior':'elite_warrior',
     'class_features':{
-        'Fighting_Style_Protection':True,
+        'Fighting_Style_Blind_Fighting':True,
         },
     'race':'Human-common',
     'weapon_skill':['simple','martial'],
@@ -1419,6 +1420,7 @@ metadict_chars['Warrior 2 lvl (grenadier line-infantry-corporal)'] = {
         'Pistol':1,
         'Muskete Bullet':30,
         'Hand Grenade':5,
+        'Smoke Grenade':1,
         },
     }
 
@@ -1429,7 +1431,7 @@ metadict_chars['Warrior 3 lvl (grenadier line-infantry-sergeant)'] = {
     'hit_dice':'1d8',
     'behavior':'commander',
     'class_features':{
-        'Fighting_Style_Protection':True,
+        'Fighting_Style_Blind_Fighting':True,
         },
     'race':'Human-common',
     'weapon_skill':['simple','martial'],
@@ -1446,6 +1448,7 @@ metadict_chars['Warrior 3 lvl (grenadier line-infantry-sergeant)'] = {
         'Pistol, Lorenzony':1,
         'Muskete Bullet':30,
         'Hand Grenade':5,
+        'Smoke Grenade':1,
         },
     }
 
@@ -1457,7 +1460,7 @@ metadict_chars['Warrior 4 lvl (grenadier line-infantry-lieutenant)'] = {
     'hit_dice':'1d8',
     'behavior':'commander',
     'class_features':{
-        'Fighting_Style_Protection':True,
+        'Fighting_Style_Blind_Fighting':True,
         'Feat_Inspiring_Leader':True,
         },
     'race':'Human-common',
@@ -1476,6 +1479,7 @@ metadict_chars['Warrior 4 lvl (grenadier line-infantry-lieutenant)'] = {
         'Pistol, Lorenzony':1,
         'Muskete Bullet':30,
         'Hand Grenade':5,
+        'Smoke Grenade':1,
         },
     #'mount_combat':False,
     #'mount_type':'Riding Horse',
@@ -1491,7 +1495,7 @@ metadict_chars['Warrior 5 lvl (grenadier line-infantry-captain)'] = {
     'hit_dice':'1d8',
     'behavior':'commander',
     'class_features':{
-        'Fighting_Style_Protection':True,
+        'Fighting_Style_Blind_Fighting':True,
         'Feat_Inspiring_Leader':True,
         'Extra_Attack':True,
         },
@@ -1511,6 +1515,7 @@ metadict_chars['Warrior 5 lvl (grenadier line-infantry-captain)'] = {
         'Pistol, Lorenzony':1,
         'Muskete Bullet':30,
         'Hand Grenade':5,
+        'Smoke Grenade':1,
         },
     #'mount_combat':False,
     #'mount_type':'Riding Horse',
