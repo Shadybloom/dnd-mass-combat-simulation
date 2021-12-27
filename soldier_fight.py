@@ -1154,11 +1154,6 @@ class soldier_in_battle(soldier):
         Оружие требует перезарядки действием или бонусным действием.
         - Feat_Crossbow_Expert позволяет не тратя действия перезаряжать арбалеты.
         """
-        # TODO: сейчас Feat_Firearms_Expert просто отменяет перезарядку. Это убери.
-        # -------------------------------------------------
-        # Добавь правило боекомплекта для ружей Лоренцони.
-        # Перезарядка только когда закончился магазин.
-        # -------------------------------------------------
         if len(self.metadict_recharge) >= 1:
             recharge_success = False
             attack_choice = random.choice(list(self.metadict_recharge.keys()))
@@ -2298,12 +2293,8 @@ class soldier_in_battle(soldier):
             if attack_dict.get('recharge')\
                     or attack_dict.get('weapon_type')\
                     and 'reload' in attack_dict['weapon_type']:
-                # Эксперты огнестрела мгновенно перезаряжают оружие.
-                if self.class_features.get('Feat_Firearms_Expert')\
-                        and 'firearm' in attack_dict.get('weapon_type',[]):
-                    pass
                 # Магазинные винтовки:
-                elif attack_dict.get('Recharge_magazine')\
+                if attack_dict.get('Recharge_magazine')\
                         and attack_dict.get('Recharge_magazine') > 0:
                     attack_dict['Recharge_magazine'] -= 1
                 else:
