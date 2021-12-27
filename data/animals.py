@@ -2366,7 +2366,7 @@ metadict_animals['Warrior 4 lvl (standard) (Feat_Firearms_Expert)'] = {
         'Half Plate':1,
         'Rapier':1,
         'Shield':1,
-        'Pistol':1,
+        'Pistol, Lorenzony':1,
         'Muskete Bullet':60,
         },
     }

@@ -670,10 +670,31 @@ metadict_items['Pistol'] = {
     'shoot_range':30,
     'shoot_range_max':90,
     # Множитель радиуса неприцельной стрельбы
-    'shoot_range_volley':300,
+    'shoot_range_volley':150,
     'weight (lb)':3,
     'cost (gp)':10,
     'cost (grams_of_gold)':10,
+    }
+
+metadict_items['Pistol, Lorenzony'] = {
+    'weapon':True,
+    'direct_hit':True,
+    'savethrow':True,
+    'savethrow_all':True,
+    'savethrow_ability':'dexterity',
+    'ammo_type':muskete_bullets,
+    'weapon_type':['martial','ranged','light','firearm','volley','reload'],
+    'recharge':True,
+    'Recharge_magazine_max':8,
+    'Recharge_magazine':8,
+    'Recharge_dice':'1d6',
+    'Recharge_numbers':[5,6],
+    'shoot_range':30,
+    'shoot_range_max':90,
+    'shoot_range_volley':150,
+    'weight (lb)':3,
+    'cost (gp)':120,
+    'cost (grams_of_gold)':120,
     }
 
 metadict_items['Fire Spear'] = {
