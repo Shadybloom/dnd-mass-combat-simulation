@@ -1174,12 +1174,10 @@ class soldier():
                                 metadict_attacks['volley',name] = {}
                                 metadict_attacks['volley',name].update(dict_attack)
                     # Если оружие метательное, то боеприпас, это оно само:
-                    # TODO: здесь криво сделано. Лучше бы подправить, или вовсе убрать.
-                    # Яды не подключаются.
                     elif not ammo_type and 'throw' in dict_attack['weapon_type']:
                         dict_attack['ammo_type'] = item
                         dict_attack['ammo'] = self.equipment_weapon[item]
-                        dict_attack.update(self.modify_attack_ammo(dict_attack, ammo))
+                        dict_attack.update(self.modify_attack_ammo(dict_attack, item))
                         dict_attack.update(self.select_attack_mod(dict_attack))
                         dict_attack['weapon_skills_use'] = []
                         if dict_attack['damage_mod'] > 0:
