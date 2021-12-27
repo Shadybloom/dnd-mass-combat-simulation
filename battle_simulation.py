@@ -2276,7 +2276,7 @@ class battle_simulation(battlescape):
                                 and 'firearm' in attack_dict.get('weapon_type',[])}
                         if pistol_attacks:
                             # Выбираем случайный пистолет, если их несколько:
-                            attacks_chain_bonus += random.choice(list(pistol_attacks.keys()))
+                            attacks_chain_bonus.append(random.choice(list(pistol_attacks.keys())))
                             soldier.drop_action(('feature', 'Feat_Firearms_Expert_Bonus_Attack'))
                             soldier.bonus_action = False
                             soldier.unset_shield()
@@ -2292,8 +2292,8 @@ class battle_simulation(battlescape):
                         attacks_chain_bonus.append(volley_choice)
                 # Мастера полеармов получают бонусную атаку:
                 if soldier.class_features.get('Feat_Polearm_Master'):
-                    if attack_choice[0] == 'reach':
-                        attacks_chain_bonus += attack_choice
+                    if attack_choice[0] == 'close' or attack_choice[0] == 'reach':
+                        attacks_chain_bonus.append(attack_choice)
                         soldier.drop_action(('feature', 'Feat_Polearm_Master_Bonus_Attack'))
                         soldier.bonus_action = False
                 # Мастера щитов бонусным действием пытаются сбить врага:
@@ -2308,7 +2308,7 @@ class battle_simulation(battlescape):
                         soldier.bonus_action = False
                 # Жрецы домена войны могут получить атаку за счёт бонусного действия:
                 if soldier.class_features.get('War_Priest') and soldier.war_priest > 0:
-                        attacks_chain_bonus += attack_choice
+                        attacks_chain_bonus.append(attack_choice)
                         soldier.drop_action(('feature', 'War_Priest'))
                         soldier.bonus_action = False
                         soldier.war_priest -= 1
