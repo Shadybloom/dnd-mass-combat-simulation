@@ -1127,6 +1127,10 @@ class battle_simulation(battlescape):
             # Осторожный командир позволяет раненым отступать:
             if squad.commander.__dict__.get('carefull_AI'):
                 commands_list.append('very_carefull')
+                # И не лезет вперёд, когда не видит врага:
+                if not squad.enemies:
+                    if 'lead' in commands_list: commands_list.remove('lead')
+                    if 'engage' in commands_list: commands_list.remove('engage')
             # Скрытные командиры прячутся за "Fog_Cloud":
             if squad.commander.__dict__.get('sneak_AI'):
                 commands_list.append('sneak')

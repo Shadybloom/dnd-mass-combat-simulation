@@ -1426,6 +1426,7 @@ metadict_chars['Warrior 2 lvl (grenadier line-infantry-corporal)'] = {
 
 metadict_chars['Warrior 3 lvl (grenadier line-infantry-sergeant)'] = {
     'level':3,
+    'carefull_AI':True,
     'grenadier_AI':True,
     'char_class':'Warrior-heavy',
     'hit_dice':'1d8',
@@ -1454,8 +1455,8 @@ metadict_chars['Warrior 3 lvl (grenadier line-infantry-sergeant)'] = {
 
 metadict_chars['Warrior 4 lvl (grenadier line-infantry-lieutenant)'] = {
     'level':4,
+    'carefull_AI':True,
     'grenadier_AI':True,
-    'volley_AI_random':True,
     'char_class':'Warrior-officer',
     'hit_dice':'1d8',
     'behavior':'commander',
@@ -1489,8 +1490,8 @@ metadict_chars['Warrior 4 lvl (grenadier line-infantry-lieutenant)'] = {
 metadict_chars['Warrior 5 lvl (grenadier line-infantry-captain)'] = {
     # Капитан роты гренадеров.
     'level':5,
+    'carefull_AI':True,
     'grenadier_AI':True,
-    'volley_AI_random':True,
     'char_class':'Warrior-officer',
     'hit_dice':'1d8',
     'behavior':'commander',
