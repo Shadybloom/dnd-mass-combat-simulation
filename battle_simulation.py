@@ -2203,11 +2203,14 @@ class battle_simulation(battlescape):
             distance = round(distance_measure(soldier.place, target))
             if distance >= 2 and 'volley' in [attack[0] for attack in soldier.attacks]:
                 volley_attack = [attack for attack in soldier.attacks if attack[0] == 'volley'\
-                        and attack[1] == soldier.attacks[attack]['weapon_of_choice']][0]
-                volley_range = round(soldier.attacks[volley_attack]['attack_range_max'] / self.tile_size)
-                if volley_range >= distance:
-                    attack_choice = volley_attack
-                    break
+                        and attack[1] == soldier.attacks[attack]['weapon_of_choice']]
+                if len(volley_attack) > 0:
+                    volley_attack = random.choice(volley_attack)
+                    volley_range = round(soldier.attacks[volley_attack]['attack_range_max']
+                            / self.tile_size)
+                    if volley_range >= distance:
+                        attack_choice = volley_attack
+                        break
         # Рассчитываем зону обстрела (зависит от положения бойца в строю и рассеивания стрел):
         if attack_choice:
             if 'volley_random' in soldier.commands:
