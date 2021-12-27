@@ -707,6 +707,7 @@ metadict_items['Hand Grenade'] = {
     # Эта фигня добавляется в get_weapon после if 'throw'. Но откуда берётся?
     # --------------------------------------------------------------------------
     'weapon':True,
+    'ammo_type':'Hand Grenade',
     'weapon_type':['martial','throw','volley'],
     'damage_type':'bludgeoning',
     'damage_dice':'1d4',
