@@ -1524,6 +1524,155 @@ metadict_chars['Warrior 5 lvl (grenadier line-infantry-captain)'] = {
     }
 
 #----
+# Гренадеры с ручными мортирками
+
+metadict_chars['Warrior 1 lvl (bombardier line-infantry)'] = {
+    # Вооружены алебардой и ручной мортиркой.
+    'level':1,
+    'char_class':'Warrior-heavy',
+    'hit_dice':'1d8',
+    'behavior':'warrior',
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Studded Leather':1,
+        'Halberd':1,
+        'Pistol':1,
+        'Muskete Bullet':30,
+        'Hand Mortar':1,
+        '2lb Bomb':10,
+        'Smoke Grenade':1,
+        },
+    }
+
+metadict_chars['Warrior 2 lvl (bombardier line-infantry-corporal)'] = {
+    'level':2,
+    'char_class':'Warrior-heavy',
+    'hit_dice':'1d8',
+    'behavior':'elite_warrior',
+    'class_features':{
+        'Fighting_Style_Blind_Fighting':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Rune of Shielding':1,
+        'Breastplate, 17 century':1,
+        'Halberd':1,
+        'Pistol':1,
+        'Muskete Bullet':30,
+        'Hand Mortar':1,
+        '2lb Bomb':10,
+        'Smoke Grenade':1,
+        },
+    }
+
+metadict_chars['Warrior 3 lvl (bombardier line-infantry-sergeant)'] = {
+    'level':3,
+    'firearm_AI':True,
+    'grenadier_AI':True,
+    'defence_AI':True,
+    'char_class':'Warrior-heavy',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Blind_Fighting':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Rune of Shielding':1,
+        'Breastplate, 17 century':1,
+        'Halberd':1,
+        'Pistol, Lorenzony':1,
+        'Muskete Bullet':30,
+        'Hand Mortar':1,
+        '2lb Bomb':10,
+        'Smoke Grenade':1,
+        },
+    }
+
+metadict_chars['Warrior 4 lvl (bombardier line-infantry-lieutenant)'] = {
+    'level':4,
+    'firearm_AI':True,
+    'grenadier_AI':True,
+    'defence_AI':True,
+    'char_class':'Warrior-officer',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Blind_Fighting':True,
+        'Feat_Inspiring_Leader':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Rune of Absorbtion':1,
+        'Rune of Shielding':1,
+        'Breastplate, 17 century':1,
+        'Halberd':1,
+        'Pistol, Lorenzony':1,
+        'Muskete Bullet':30,
+        'Hand Mortar':1,
+        '2lb Bomb':10,
+        'Smoke Grenade':1,
+        },
+    #'mount_combat':False,
+    #'mount_type':'Riding Horse',
+    #'equipment_mount':{},
+    }
+
+metadict_chars['Warrior 5 lvl (bombardier line-infantry-captain)'] = {
+    # Капитан роты гренадеров.
+    'level':5,
+    'firearm_AI':True,
+    'grenadier_AI':True,
+    'defence_AI':True,
+    'char_class':'Warrior-officer',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Blind_Fighting':True,
+        'Feat_Inspiring_Leader':True,
+        'Extra_Attack':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Rune of Absorbtion':1,
+        'Rune of Shielding':1,
+        'Breastplate, 17 century':1,
+        'Halberd':1,
+        'Pistol, Lorenzony':1,
+        'Muskete Bullet':30,
+        'Hand Mortar':1,
+        '2lb Bomb':10,
+        'Smoke Grenade':1,
+        },
+    #'mount_combat':False,
+    #'mount_type':'Riding Horse',
+    #'equipment_mount':{},
+    }
+
+#----
 # Стрелки с фузилями, фузилёры.
 # https://en.wikipedia.org/wiki/Fusilier
 

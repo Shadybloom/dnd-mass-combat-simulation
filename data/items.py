@@ -84,6 +84,10 @@ muskete_bullets = [
         'Muskete Bullet +1',
         ]
 
+grenades = [
+        '2lb Bomb',
+        ]
+
 #-------------------------------------------------------------------------
 # Наборы снаряжения:
 
@@ -677,6 +681,7 @@ metadict_items['Pistol'] = {
     }
 
 metadict_items['Pistol, Lorenzony'] = {
+    # Пистолет Лоренцони
     'weapon':True,
     'direct_hit':True,
     'savethrow':True,
@@ -697,17 +702,31 @@ metadict_items['Pistol, Lorenzony'] = {
     'cost (grams_of_gold)':120,
     }
 
+metadict_items['Hand Mortar'] = {
+    # Ручная мортирка
+    'weapon':True,
+    'direct_hit':True,
+    'savethrow':True,
+    'savethrow_all':True,
+    'savethrow_ability':'dexterity',
+    'ammo_type':grenades,
+    'weapon_type':['martial','ranged','two_handed','firearm','volley','reload'],
+    'recharge':True,
+    'Recharge_dice':'1d6',
+    'Recharge_numbers':[5,6],
+    'shoot_range':20,
+    'shoot_range_max':60,
+    'shoot_range_volley':300,
+    'weight (lb)':10,
+    'cost (gp)':60,
+    'cost (grams_of_gold)':60,
+    }
+
 metadict_items['Hand Grenade'] = {
     # Фитильная пороховая бомба.
     # 1b пороха, 1 lb корпус, менее 30 осколков.
-    # TODO: странная ошибка в soldier_base
-    # --------------------------------------------------------------------------
-    # Появляется куча '+1' и 'magic' в weapon_type, если там стоит 'throw','volley'.
-    # При этом отмена attack_modify_magic в soldier_base эту ошибку не убирает. Очень странно.
-    # Эта фигня добавляется в get_weapon после if 'throw'. Но откуда берётся?
-    # --------------------------------------------------------------------------
     'weapon':True,
-    'ammo_type':'Hand Grenade',
+    #'ammo_type':'Hand Grenade',
     'weapon_type':['martial','throw','volley'],
     'damage_type':'bludgeoning',
     'damage_dice':'1d4',
@@ -719,7 +738,7 @@ metadict_items['Hand Grenade'] = {
             'zone_shape':'2x2',
             'direct_hit':True,
             'savethrow':True,
-            'savethrow_all':True,
+            #'savethrow_all':True,
             'savethrow_ability':'dexterity',
             'damage_type':'piercing',
             'damage_dice':'1d6',
@@ -732,7 +751,7 @@ metadict_items['Hand Grenade'] = {
     }
 
 metadict_items['Smoke Grenade'] = {
-    # Для дымовых завес, считается зельем:
+    # Для дымовых завес:
     'weapon':False,
     'spell':'Fog_Cloud',
     'concentration':False,
@@ -2336,6 +2355,31 @@ metadict_items['Muskete Bullet +1'] = {
     'weight (lb)':0.1,
     'cost (sp)':1 / 20,
     'cost (grams_of_gold)':60 * 2,
+    }
+
+#-------------------------------------------------------------------------
+# Боеприпасы (для гранатомёта), grenades
+
+metadict_items['2lb Bomb'] = {
+    'ammo':True,
+    'damage_dice':'1d4',
+    'damage_type':'bludgeoning',
+    'spell_dict':{
+            'zone':True,
+            'safe':False,
+            'zone_shape':'2x2',
+            'direct_hit':True,
+            'savethrow':True,
+            #'savethrow_all':True,
+            'savethrow_ability':'dexterity',
+            'damage_type':'piercing',
+            'damage_dice':'1d6',
+            'spell_save_DC':12,
+            'spell_choice':('2lb Bomb','Explosion'),
+            },
+    'weight (lb)':2,
+    'cost (gp)':1.8,
+    'cost (grams_of_gold)':1.8,
     }
 
 #-------------------------------------------------------------------------

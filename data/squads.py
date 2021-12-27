@@ -1307,6 +1307,14 @@ metadict_squads['Company-regular (line-infantry-grenadiers)'] = {
     'Warrior 5 lvl (grenadier line-infantry-captain)':1,
     }
 
+metadict_squads['Company-regular (line-infantry-bombardiers)'] = {
+    'Warrior 1 lvl (bombardier line-infantry)':80 + dice_throw('1d12'),
+    'Warrior 2 lvl (bombardier line-infantry-corporal)':10,
+    'Warrior 3 lvl (bombardier line-infantry-sergeant)':3,
+    'Warrior 4 lvl (bombardier line-infantry-lieutenant)':1,
+    'Warrior 5 lvl (bombardier line-infantry-captain)':1,
+    }
+
 metadict_squads['Company-regular (line-infantry-fusiliers)'] = {
     'Warrior 1 lvl (fusilier line-infantry)':80 + dice_throw('1d12'),
     'Warrior 2 lvl (fusilier line-infantry-corporal)':10,
@@ -1505,6 +1513,14 @@ metadict_squads['Company-veteran (line-infantry-grenadiers)'] = {
     'Commoner 1 lvl (recruit)':100,
     }
 
+metadict_squads['Company-veteran (line-infantry-bombardiers)'] = {
+    'Warrior 2 lvl (bombardier line-infantry-corporal)':60,
+    'Warrior 3 lvl (bombardier line-infantry-sergeant)':18,
+    'Warrior 4 lvl (bombardier line-infantry-lieutenant)':6,
+    'Warrior 5 lvl (bombardier line-infantry-captain)':6,
+    'Commoner 1 lvl (recruit)':100,
+    }
+
 #----
 # Элитные отряды:
 
@@ -1520,6 +1536,12 @@ metadict_squads['Company-elite (line-infantry-musketeers)'] = {
 metadict_squads['Company-elite (line-infantry-grenadiers)'] = {
     'Warrior 4 lvl (grenadier line-infantry-lieutenant)':67,
     'Warrior 5 lvl (grenadier line-infantry-captain)':25,
+    'Commoner 1 lvl (recruit)':300,
+    }
+
+metadict_squads['Company-elite (line-infantry-bombardier)'] = {
+    'Warrior 4 lvl (bombardier line-infantry-lieutenant)':67,
+    'Warrior 5 lvl (bombardier line-infantry-captain)':25,
     'Commoner 1 lvl (recruit)':300,
     }
 
