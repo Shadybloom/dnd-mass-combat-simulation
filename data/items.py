@@ -607,7 +607,7 @@ metadict_items['Muskete'] = {
     }
 
 metadict_items['Muskete, Lorenzony'] = {
-    # * Ружье Микеле Лоренцони -- 10 выстрелов/минуту
+    # Ружье Микеле Лоренцони -- 10 выстрелов/минуту
     'weapon':True,
     'direct_hit':True,
     'savethrow':True,
@@ -626,6 +626,31 @@ metadict_items['Muskete, Lorenzony'] = {
     'weight (lb)':10,
     'cost (gp)':120,
     'cost (grams_of_gold)':120,
+    }
+
+metadict_items['Muskete, van Graf'] = {
+    # Мушкетонище ван Графа.
+    # Шестистольник с залповым огнём.
+    # Залповый огонь, это volley-атаки после прицельных.
+    'weapon':True,
+    'direct_hit':True,
+    'savethrow':True,
+    'savethrow_all':True,
+    'savethrow_ability':'dexterity',
+    'ammo_type':muskete_bullets,
+    'weapon_type':['martial','ranged','two_handed','firearm','automatic','volley','reload'],
+    'recharge':True,
+    'automatic_fire':6,
+    'Recharge_magazine_max':6,
+    'Recharge_magazine':6,
+    'Recharge_dice':'1d6',
+    'Recharge_numbers':[5,6],
+    'shoot_range':30,
+    'shoot_range_max':90,
+    'shoot_range_volley':150,
+    'weight (lb)':20,
+    'cost (gp)':60 * 30,
+    'cost (grams_of_gold)':60 * 30,
     }
 
 metadict_items['Pistol'] = {

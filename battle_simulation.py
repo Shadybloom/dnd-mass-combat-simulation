@@ -2280,6 +2280,16 @@ class battle_simulation(battlescape):
                             soldier.drop_action(('feature', 'Feat_Firearms_Expert_Bonus_Attack'))
                             soldier.bonus_action = False
                             soldier.unset_shield()
+                # Автоматический огонь огнестрела добавляет неприцельные атаки;
+                volley_dict = {attack_key:attack_dict for attack_key,attack_dict in soldier.attacks.items()
+                    if 'volley' == attack_key[0]
+                    and attack_key[1] == attack_choice[1]
+                    and 'automatic_fire' in attack_dict}
+                if volley_dict:
+                    volley_choice = random.choice(list(volley_dict.keys()))
+                    volley_number = volley_dict[volley_choice]['automatic_fire'] - len(attacks_chain)
+                    for n in range(1,volley_number):
+                        attacks_chain_bonus.append(volley_choice)
                 # Мастера полеармов получают бонусную атаку:
                 if soldier.class_features.get('Feat_Polearm_Master'):
                     if attack_choice[0] == 'reach':
