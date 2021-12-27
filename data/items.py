@@ -697,6 +697,39 @@ metadict_items['Pistol, Lorenzony'] = {
     'cost (grams_of_gold)':120,
     }
 
+metadict_items['Hand Grenade'] = {
+    # Фитильная пороховая бомба.
+    # 1b пороха, 1 lb корпус, менее 30 осколков.
+    # TODO: странная ошибка в soldier_base
+    # --------------------------------------------------------------------------
+    # Появляется куча '+1' и 'magic' в weapon_type, если там стоит 'throw','volley'.
+    # При этом отмена attack_modify_magic в soldier_base эту ошибку не убирает. Очень странно.
+    # Эта фигня добавляется в get_weapon после if 'throw'. Но откуда берётся?
+    # --------------------------------------------------------------------------
+    'weapon':True,
+    'weapon_type':['martial','throw','volley'],
+    'damage_type':'bludgeoning',
+    'damage_dice':'1d4',
+    'throw_range':20,
+    'throw_range_max':60,
+    'spell_dict':{
+            'zone':True,
+            'safe':False,
+            'zone_shape':'2x2',
+            'direct_hit':True,
+            'savethrow':True,
+            'savethrow_all':True,
+            'savethrow_ability':'dexterity',
+            'damage_type':'piercing',
+            'damage_dice':'1d6',
+            'spell_save_DC':12,
+            'spell_choice':('Grenade','Explosion'),
+            },
+    'weight (lb)':2,
+    'cost (gp)':1.8,
+    'cost (grams_of_gold)':1.8,
+    }
+
 metadict_items['Fire Spear'] = {
     # Огненное копьё, заряд чёрного пороха и металлическая картечь.
     # [b]Илионские огненные копья[/b]:

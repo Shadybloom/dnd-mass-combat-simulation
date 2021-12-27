@@ -1372,11 +1372,157 @@ metadict_chars['Warrior 5 lvl (musketeer line-infantry-captain)'] = {
     }
 
 #----
+# Метатели гранат, гренадёры.
+# https://en.wikipedia.org/wiki/Grenadier
+
+metadict_chars['Warrior 1 lvl (grenadier line-infantry)'] = {
+    # Вооружены палашом, щитом, алебардой и сумкой гранат.
+    'level':1,
+    'char_class':'Warrior-heavy',
+    'hit_dice':'1d8',
+    'behavior':'warrior',
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Studded Leather':1,
+        'Halberd':1,
+        'Shortsword':1,
+        'Shield':1,
+        'Pistol':1,
+        'Muskete Bullet':30,
+        'Hand Grenade':5,
+        },
+    }
+
+metadict_chars['Warrior 2 lvl (grenadier line-infantry-corporal)'] = {
+    'level':2,
+    'char_class':'Warrior-heavy',
+    'hit_dice':'1d8',
+    'behavior':'elite_warrior',
+    'class_features':{
+        'Fighting_Style_Protection':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Rune of Shielding':1,
+        'Breastplate, 17 century':1,
+        'Halberd':1,
+        'Shortsword':1,
+        'Shield':1,
+        'Pistol':1,
+        'Muskete Bullet':30,
+        'Hand Grenade':5,
+        },
+    }
+
+metadict_chars['Warrior 3 lvl (grenadier line-infantry-sergeant)'] = {
+    'level':3,
+    'grenadier_AI':True,
+    'char_class':'Warrior-heavy',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Protection':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Rune of Shielding':1,
+        'Breastplate, 17 century':1,
+        'Halberd':1,
+        'Shortsword':1,
+        'Shield':1,
+        'Pistol, Lorenzony':1,
+        'Muskete Bullet':30,
+        'Hand Grenade':5,
+        },
+    }
+
+metadict_chars['Warrior 4 lvl (grenadier line-infantry-lieutenant)'] = {
+    'level':4,
+    'grenadier_AI':True,
+    'volley_AI_random':True,
+    'char_class':'Warrior-officer',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Protection':True,
+        'Feat_Inspiring_Leader':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Rune of Absorbtion':1,
+        'Rune of Shielding':1,
+        'Breastplate, 17 century':1,
+        'Halberd':1,
+        'Shortsword':1,
+        'Shield':1,
+        'Pistol, Lorenzony':1,
+        'Muskete Bullet':30,
+        'Hand Grenade':5,
+        },
+    #'mount_combat':False,
+    #'mount_type':'Riding Horse',
+    #'equipment_mount':{},
+    }
+
+metadict_chars['Warrior 5 lvl (grenadier line-infantry-captain)'] = {
+    # Капитан роты гренадеров.
+    'level':5,
+    'grenadier_AI':True,
+    'volley_AI_random':True,
+    'char_class':'Warrior-officer',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Protection':True,
+        'Feat_Inspiring_Leader':True,
+        'Extra_Attack':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Infusion of Healing':1,
+        'Rune of Absorbtion':1,
+        'Rune of Shielding':1,
+        'Breastplate, 17 century':1,
+        'Halberd':1,
+        'Shortsword':1,
+        'Shield':1,
+        'Pistol, Lorenzony':1,
+        'Muskete Bullet':30,
+        'Hand Grenade':5,
+        },
+    #'mount_combat':False,
+    #'mount_type':'Riding Horse',
+    #'equipment_mount':{},
+    }
+
+#----
 # Стрелки с фузилями, фузилёры.
 # https://en.wikipedia.org/wiki/Fusilier
 
 metadict_chars['Warrior 1 lvl (fusilier line-infantry)'] = {
-    # Вооружены палашом, штыком и облегчённым мушкетом.
+    # Вооружены штыком и мушкетом.
     'level':1,
     'char_class':'Warrior-pirate',
     'hit_dice':'1d8',

@@ -1465,6 +1465,9 @@ class soldier():
                 if attack_type == 'volley'\
                         and attack_dict.get('cost_ammo (grams_of_gold)',0) <= test_ammo_cost_min:
                     weapon_of_choice = attack_name[1]
+                if attack_type == 'volley'\
+                        and attack_dict.get('spell_dict'):
+                    weapon_of_choice = attack_name[1]
                 if len(attack_dict['weapon_skills_use']) >= test_weapon_skills:
                     test_weapon_skills = len(attack_dict['weapon_skills_use'])
                     weapon_of_choice_skills = attack_name[1]

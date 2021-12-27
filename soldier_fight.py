@@ -1927,7 +1927,7 @@ class soldier_in_battle(soldier):
                 if target.type == enemy_type:
                     return target    
 
-    def select_attack(self, squad, enemy, tile_size = 5, weather = None):
+    def select_attack(self, squad, enemy, enemy_soldier, tile_size = 5, weather = None):
         """Боец выбирает атаку, уже зная врага.
         
         Смотрит по дистанции. Сначала выбирает ближние атаки, после дальние.
@@ -1976,8 +1976,16 @@ class soldier_in_battle(soldier):
             else:
                 throw_attack_list = [attack for attack in self.attacks if attack[0] == 'throw']
                 throw_attack = random.choice(throw_attack_list)
+            # Если союзники рядом с точкой взрыва гранаты, выбираем другое оружие.
+            throw_attack_dict = self.attacks[throw_attack]
+            if 'spell_dict' in throw_attack_dict\
+                    and throw_attack_dict['spell_dict'].get('zone')\
+                    and not throw_attack_dict['spell_dict'].get('safe')\
+                    and not len(enemy_soldier.near_enemies) == 0\
+                    and 'carefull' in self.commands:
+                pass
             # Метатли дротиков работают с максимальной дистанции:
-            if self.behavior == 'archer'\
+            elif self.behavior == 'archer'\
                     and distance <= round(self.attacks[throw_attack][attack_range_choice] / tile_size):
                 return throw_attack
             # Застрельщики с пилумами тоже могут метать издалека по команде:

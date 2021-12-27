@@ -1213,6 +1213,18 @@ class battle_simulation(battlescape):
             # Не лезем вперёд, пока перезаряжаем мушкеты:
             if squad.commander.__dict__.get('recharge_AI'):
                 commands_list.append('recharge')
+            # Гренадеры закидывают всё гранатами и рубят врага:
+            if squad.commander.__dict__.get('grenadier_AI'):
+                commands_list.append('recharge')
+                commands_list.append('volley')
+                commands_list.append('volley_random')
+                if 'verry_carefull' in commands_list and squad.enemies\
+                        and squad.enemy_recon['distance'] < save_distance\
+                        or 'carefull' in commands_list and squad.enemies\
+                        and squad.enemy_recon['distance'] < save_distance\
+                        and 'ranged' not in squad.enemy_recon['attacks']:
+                    if 'engage' in commands_list: commands_list.remove('engage')
+                    commands_list.append('disengage')
             # Линейная пехота наступает только когда враг вне дистанции стрельбы:
             if squad.commander.__dict__.get('firearm_AI'):
                 commands_list.append('fire')
@@ -2230,7 +2242,7 @@ class battle_simulation(battlescape):
         if soldier.battle_action or reaction and soldier.reaction or spell_action:
             # Смотрим, возможно ли атаковать:
             if not attack_choice:
-                attack_choice = soldier.select_attack(squad, enemy,
+                attack_choice = soldier.select_attack(squad, enemy, enemy_soldier,
                         self.tile_size, namespace.weather)
                 if attack_choice == None:
                     return False

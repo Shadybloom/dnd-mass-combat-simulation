@@ -887,7 +887,7 @@ class battlescape():
         """
         dict_battlespace = self.dict_battlespace
         # Зона может быть задана списком координат:
-        if len(zone_center) > 2:
+        if len(zone_center) > 2 or type(zone_center) == list and len(zone_center) >= 2:
             coord_list = zone_center
             zone_center = coord_list[0]
             distance = round(distance_measure(zone_center, coord_list[-1]))
