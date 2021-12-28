@@ -86,6 +86,7 @@ muskete_bullets = [
 
 grenades = [
         '2lb Bomb',
+        '2lb Fire-Bomb',
         ]
 
 #-------------------------------------------------------------------------
@@ -702,7 +703,7 @@ metadict_items['Pistol, Lorenzony'] = {
     }
 
 metadict_items['Hand Mortar'] = {
-    # Ручная мортирка
+    # Ручная мортирка, hand bombard
     'weapon':True,
     'direct_hit':True,
     'savethrow':True,
@@ -715,10 +716,32 @@ metadict_items['Hand Mortar'] = {
     'Recharge_numbers':[5,6],
     'shoot_range':20,
     'shoot_range_max':60,
-    'shoot_range_volley':300,
+    'shoot_range_volley':600,
     'weight (lb)':10,
     'cost (gp)':60,
     'cost (grams_of_gold)':60,
+    }
+
+metadict_items['King Bomba-san'] = {
+    # Царь Бомба-сан, станковый автоматический гранатомёт.
+    'weapon':True,
+    'direct_hit':True,
+    'savethrow':True,
+    'savethrow_all':True,
+    'savethrow_ability':'dexterity',
+    'ammo_type':grenades,
+    'weapon_type':['martial','ranged','two_handed','firearm','volley','reload'],
+    'recharge':True,
+    'Recharge_magazine_max':4,
+    'Recharge_magazine':4,
+    'Recharge_dice':'1d6',
+    'Recharge_numbers':[4,5,6],
+    'shoot_range':20,
+    'shoot_range_max':60,
+    'shoot_range_volley':600,
+    'weight (lb)':20,
+    'cost (gp)':60 * 15,
+    'cost (grams_of_gold)':60 * 15,
     }
 
 metadict_items['Hand Grenade'] = {
@@ -2373,7 +2396,7 @@ metadict_items['Muskete Bullet +1'] = {
 
 metadict_items['2lb Bomb'] = {
     'ammo':True,
-    'damage_dice':'1d4',
+    'damage_dice':'1d6',
     'damage_type':'bludgeoning',
     'spell_dict':{
             'zone':True,
@@ -2391,6 +2414,28 @@ metadict_items['2lb Bomb'] = {
     'weight (lb)':2,
     'cost (gp)':1.8,
     'cost (grams_of_gold)':1.8,
+    }
+
+metadict_items['2lb Fire-Bomb'] = {
+    'ammo':True,
+    'damage_dice':'1d6',
+    'damage_type':'bludgeoning',
+    'spell_dict':{
+            'zone':True,
+            'safe':False,
+            'zone_shape':'2x2',
+            'direct_hit':True,
+            'savethrow':True,
+            #'savethrow_all':True,
+            'savethrow_ability':'dexterity',
+            'damage_type':'fire',
+            'damage_dice':'2d6',
+            'spell_save_DC':12,
+            'spell_choice':('2lb Fire-Bomb','Explosion'),
+            },
+    'weight (lb)':2,
+    'cost (gp)':12,
+    'cost (grams_of_gold)':12,
     }
 
 #-------------------------------------------------------------------------
