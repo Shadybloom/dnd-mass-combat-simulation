@@ -1239,7 +1239,14 @@ class battle_simulation(battlescape):
                 commands_list.append('fire')
                 commands_list.append('kneel')
                 commands_list.append('recharge')
-                if not squad.enemies:
+                # Стрелки прикрываются дымовой завесой от лучников:
+                if 'carefull' in commands_list and squad.enemies\
+                        and 'ranged' in squad.enemy_recon['attacks']\
+                        and squad.enemy_recon['distance'] > save_distance:
+                    commands_list.append('sneak')
+                # Стрелки стреляют по дымовой завесе:
+                if 'verry_carefull' in commands_list and not squad.enemies:
+                    if 'lead' in commands_list: commands_list.remove('lead')
                     commands_list.append('volley')
                 # Стреляем залпом, пока дистанция значительная:
                 if 'carefull' in commands_list and squad.enemies\
