@@ -1239,12 +1239,13 @@ class battle_simulation(battlescape):
                 commands_list.append('fire')
                 commands_list.append('kneel')
                 commands_list.append('recharge')
+                if not squad.enemies:
+                    commands_list.append('volley')
                 # Стреляем залпом, пока дистанция значительная:
                 if 'carefull' in commands_list and squad.enemies\
                         and squad.enemy_recon['distance'] > save_distance * 3\
                         or 'very_carefull' in commands_list and squad.enemies\
                         and squad.enemy_recon['distance'] > save_distance * 6:
-                    commands_list.append('volley_random')
                     commands_list.append('volley')
                 # Обороняемся/отступаем, если дистанция сокращается:
                 if 'carefull' in commands_list and squad.enemies\
@@ -1258,10 +1259,8 @@ class battle_simulation(battlescape):
                         and squad.enemy_recon['distance'] <= save_distance * 9\
                         and squad.enemy_recon['enemy_strenght'] > squad.enemy_recon['ally_strenght']:
                     # Не лезем вперёд, или отходим;
-                    if 'lead' in commands_list:
-                        commands_list.remove('lead')
-                    if 'very_carefull' in commands_list:
-                        commands_list.append('disengage')
+                    if 'lead' in commands_list: commands_list.remove('lead')
+                    if 'very_carefull' in commands_list: commands_list.append('disengage')
                     # Стреляем прицельно, если перезарядка долгая, а враг близко.
                     if squad.enemy_recon['distance'] <= save_distance:
                         commands_list.append('accurate')
