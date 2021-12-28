@@ -466,7 +466,6 @@ metadict_items['Longsword'] = {
         # https://lurkmore.so/images/7/79/Jian_true.jpg
         # https://upload.wikimedia.org/wikipedia/commons/0/01/Spadalongobarda.jpg
     # Sword and Lance: About two pounds -- 32 gp
-    # 17 century. A silver hilted sword. £5 -- 15 gp
     'weapon':True,
     'ammo_type':blade_poisons,
     'weapon_type':['martial','close','versatile'],
@@ -534,7 +533,7 @@ metadict_items['Scimitar'] = {
     'damage_type':'slashing',
     'damage_dice':'1d6',
     'weight (lb)':3,
-    'cost (gp)':25,
+    'cost (gp)':15,
     'cost (grams_of_gold)':25,
     }
 
@@ -944,6 +943,18 @@ metadict_items['Long Spear'] = {
     'weight (lb)':6,
     'cost (gp)':5,
     'cost (grams_of_gold)':5,
+    }
+
+metadict_items['Sabre'] = {
+    # 17 century. A silver hilted sword. £5 -- 15 gp
+    'weapon':True,
+    'ammo_type':blade_poisons,
+    'weapon_type':['martial','close','finesse'],
+    'damage_type':'slashing',
+    'damage_dice':'1d8',
+    'weight (lb)':3,
+    'cost (gp)':15,
+    'cost (grams_of_gold)':25,
     }
 
 #-------------------------------------------------------------------------
