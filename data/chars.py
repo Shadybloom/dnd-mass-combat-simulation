@@ -1251,7 +1251,8 @@ metadict_chars['Warrior 1 lvl (musketeer line-infantry)'] = {
         'Halberd':1,
         'Shortsword':1,
         'Muskete':1,
-        'Muskete Bullet':60,
+        'Muskete Bullet':40,
+        'Smoke Grenade':1,
         },
     }
 
@@ -1274,7 +1275,8 @@ metadict_chars['Warrior 2 lvl (musketeer line-infantry-corporal)'] = {
         'Halberd':1,
         'Rapier':1,
         'Muskete':1,
-        'Muskete Bullet':60,
+        'Muskete Bullet':40,
+        'Smoke Grenade':1,
         },
     }
 
@@ -1299,7 +1301,8 @@ metadict_chars['Warrior 3 lvl (musketeer line-infantry-sergeant)'] = {
         'Halberd':1,
         'Rapier':1,
         'Muskete, Lorenzony':1,
-        'Muskete Bullet':60,
+        'Muskete Bullet':40,
+        'Smoke Grenade':1,
         },
     }
 
@@ -1329,7 +1332,8 @@ metadict_chars['Warrior 4 lvl (musketeer line-infantry-lieutenant)'] = {
         'Halberd':1,
         'Rapier':1,
         'Muskete, Lorenzony':1,
-        'Muskete Bullet':60,
+        'Muskete Bullet':40,
+        'Smoke Grenade':1,
         },
     #'mount_combat':False,
     #'mount_type':'Riding Horse',
@@ -1364,7 +1368,8 @@ metadict_chars['Warrior 5 lvl (musketeer line-infantry-captain)'] = {
         'Halberd':1,
         'Rapier':1,
         'Muskete, Lorenzony':1,
-        'Muskete Bullet':60,
+        'Muskete Bullet':40,
+        'Smoke Grenade':1,
         },
     #'mount_combat':False,
     #'mount_type':'Riding Horse',
@@ -1689,7 +1694,8 @@ metadict_chars['Warrior 1 lvl (fusilier line-infantry)'] = {
         'Leather Armor':1,
         'Bayonet':1,
         'Muskete':1,
-        'Muskete Bullet':30,
+        'Muskete Bullet':40,
+        'Smoke Grenade':1,
         },
     }
 
@@ -1711,7 +1717,8 @@ metadict_chars['Warrior 2 lvl (fusilier line-infantry-corporal)'] = {
         'Leather Armor':1,
         'Bayonet':1,
         'Muskete':1,
-        'Muskete Bullet':30,
+        'Muskete Bullet':40,
+        'Smoke Grenade':1,
         },
     }
 
@@ -1736,7 +1743,8 @@ metadict_chars['Warrior 3 lvl (fusilier line-infantry-sergeant)'] = {
         'Leather Armor':1,
         'Rapier':1,
         'Muskete, Lorenzony':1,
-        'Muskete Bullet':30,
+        'Muskete Bullet':40,
+        'Smoke Grenade':1,
         },
     }
 
@@ -1762,7 +1770,8 @@ metadict_chars['Warrior 4 lvl (fusilier line-infantry-lieutenant)'] = {
         'Rune of Armor':1,
         'Rapier':1,
         'Muskete, Lorenzony':1,
-        'Muskete Bullet':30,
+        'Muskete Bullet':40,
+        'Smoke Grenade':1,
         },
     #'mount_combat':False,
     #'mount_type':'Riding Horse',
@@ -1793,7 +1802,8 @@ metadict_chars['Warrior 5 lvl (fusilier line-infantry-captain)'] = {
         'Rune of Armor':1,
         'Rapier':1,
         'Muskete, Lorenzony':1,
-        'Muskete Bullet':30,
+        'Muskete Bullet':40,
+        'Smoke Grenade':1,
         },
     #'mount_combat':False,
     #'mount_type':'Riding Horse',
