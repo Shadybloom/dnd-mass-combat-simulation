@@ -2204,8 +2204,9 @@ class battle_simulation(battlescape):
     def volley_action(self, soldier, squad):
         """Лучник обстреливает зону градом стрел."""
         # Выбираем подходящее оружие:
+        # TODO: здесь нужна команда для экономии боеприпасов, если danger < 5.
         attack_choice = None
-        for target in squad.danger_points:
+        for target, danger in squad.danger_points.items():
             distance = round(distance_measure(soldier.place, target))
             if distance >= 2 and 'volley' in [attack[0] for attack in soldier.attacks]:
                 volley_attack = [attack for attack in soldier.attacks if attack[0] == 'volley'\
