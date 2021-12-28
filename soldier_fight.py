@@ -2292,7 +2292,9 @@ class soldier_in_battle(soldier):
                                         if ammo_type == attack_dict.get('ammo_type')\
                                                 or ammo_type == attack_dict.get('weapon_of_choice'):
                                             attack_dict['ammo'] += soldier.equipment_weapon[ammo_type]
+                                self.equipment_weapon[ammo_type] += soldier.equipment_weapon[ammo_type]
                                 soldier.unset_weapon(attack_dict.get('weapon_of_choice'), ammo_type)
+                                soldier.drop_item(ammo_type, transfet_item = True)
                                 break
                         else:
                             self.unset_weapon(attack_dict.get('weapon_of_choice'), ammo_type)
@@ -2467,7 +2469,7 @@ class soldier_in_battle(soldier):
                         self.drop_item(item)
                         return spell_dict
 
-    def drop_item(self, item, number = 1, drop_all = False):
+    def drop_item(self, item, number = 1, drop_all = False, transfet_item = False):
         """Теряем предмет. Запоминаем потерю.
         
         - Пересчитывается скорость и нагрузка.
@@ -2480,10 +2482,11 @@ class soldier_in_battle(soldier):
             self.overload = self.calculate_overload()
             self.base_speed = self.overload['base_speed']
             # Запоминаем израсходованный предмет:
-            if not item in self.drop_items_dict:
-                self.drop_items_dict[item] = 1
-            elif item in self.drop_items_dict:
-                self.drop_items_dict[item] += 1
+            if not transfet_item:
+                if not item in self.drop_items_dict:
+                    self.drop_items_dict[item] = 1
+                elif item in self.drop_items_dict:
+                    self.drop_items_dict[item] += 1
             return True
         else:
             return False
