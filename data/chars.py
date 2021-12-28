@@ -1575,6 +1575,7 @@ metadict_chars['Warrior 2 lvl (bombardier line-infantry-corporal)'] = {
         'Hand Mortar':1,
         '2lb Bomb':10,
         'Smoke Grenade':1,
+        '20lb Fire-Rocket':1,
         },
     }
 
@@ -1603,6 +1604,7 @@ metadict_chars['Warrior 3 lvl (bombardier line-infantry-sergeant)'] = {
         'Hand Mortar':1,
         '2lb Bomb':10,
         'Smoke Grenade':1,
+        '20lb Fire-Rocket':1,
         },
     }
 
@@ -1616,7 +1618,7 @@ metadict_chars['Warrior 4 lvl (bombardier line-infantry-lieutenant)'] = {
     'behavior':'commander',
     'class_features':{
         'Fighting_Style_Blind_Fighting':True,
-        'Feat_Inspiring_Leader':True,
+        'Feat_Firearms_Expert':True,
         },
     'race':'Human-common',
     'weapon_skill':['simple','martial'],
@@ -1630,8 +1632,8 @@ metadict_chars['Warrior 4 lvl (bombardier line-infantry-lieutenant)'] = {
         'Halberd':1,
         'Pistol, Lorenzony':1,
         'Muskete Bullet':30,
-        'Hand Mortar':1,
-        '2lb Bomb':10,
+        'Akbar Shaitan-tube':1,
+        '20lb Fire-Rocket':1,
         'Smoke Grenade':1,
         },
     #'mount_combat':False,
@@ -1650,7 +1652,7 @@ metadict_chars['Warrior 5 lvl (bombardier line-infantry-captain)'] = {
     'behavior':'commander',
     'class_features':{
         'Fighting_Style_Blind_Fighting':True,
-        'Feat_Inspiring_Leader':True,
+        'Feat_Firearms_Expert':True,
         'Extra_Attack':True,
         },
     'race':'Human-common',

@@ -89,6 +89,10 @@ grenades = [
         '2lb Fire-Bomb',
         ]
 
+rockets = [
+        '20lb Fire-Rocket',
+        ]
+
 #-------------------------------------------------------------------------
 # Наборы снаряжения:
 
@@ -742,6 +746,26 @@ metadict_items['King Bomba-san'] = {
     'weight (lb)':20,
     'cost (gp)':60 * 15,
     'cost (grams_of_gold)':60 * 15,
+    }
+
+metadict_items['Akbar Shaitan-tube'] = {
+    # Акбарова шайтан-труба, реактивный гранатомёт.
+    'weapon':True,
+    'direct_hit':True,
+    'savethrow':True,
+    'savethrow_all':True,
+    'savethrow_ability':'dexterity',
+    'ammo_type':rockets,
+    'weapon_type':['martial','ranged','two_handed','firearm','volley','reload'],
+    'recharge':True,
+    'Recharge_dice':'1d6',
+    'Recharge_numbers':[5,6],
+    'shoot_range':150,
+    'shoot_range_max':600,
+    'shoot_range_volley':1200,
+    'weight (lb)':20,
+    'cost (gp)':60 * 30,
+    'cost (grams_of_gold)':60 * 30,
     }
 
 metadict_items['Hand Grenade'] = {
@@ -2436,6 +2460,28 @@ metadict_items['2lb Fire-Bomb'] = {
     'weight (lb)':2,
     'cost (gp)':12,
     'cost (grams_of_gold)':12,
+    }
+
+metadict_items['20lb Fire-Rocket'] = {
+    'ammo':True,
+    'damage_dice':'4d6',
+    'damage_type':'bludgeoning',
+    'spell_dict':{
+            'zone':True,
+            'safe':False,
+            'radius':10,
+            'direct_hit':True,
+            'savethrow':True,
+            #'savethrow_all':True,
+            'savethrow_ability':'dexterity',
+            'damage_type':'fire',
+            'damage_dice':'2d6',
+            'spell_save_DC':15,
+            'spell_choice':('20lb Fire-Rocket','Explosion'),
+            },
+    'weight (lb)':20,
+    'cost (gp)':90,
+    'cost (grams_of_gold)':90,
     }
 
 #-------------------------------------------------------------------------
