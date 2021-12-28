@@ -2321,7 +2321,8 @@ class battle_simulation(battlescape):
                         pistol_attacks = {key:attack_dict for key, attack_dict in soldier.attacks.items()
                                 if 'ranged' in key[0]
                                 and 'light' in attack_dict.get('weapon_type',[])
-                                and 'firearm' in attack_dict.get('weapon_type',[])}
+                                and 'firearm' in attack_dict.get('weapon_type',[])
+                                and enemy.distance < attack_dict['shoot_range_max'] / self.tile_size}
                         if pistol_attacks:
                             # Выбираем случайный пистолет, если их несколько:
                             attacks_chain_bonus.append(random.choice(list(pistol_attacks.keys())))
