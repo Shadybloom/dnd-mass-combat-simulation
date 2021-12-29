@@ -1154,9 +1154,7 @@ class battle_simulation(battlescape):
                 and squad.enemy_recon['enemy_strenght'] * 1.2 > squad.enemy_recon['ally_strenght']\
                 or squad.enemy_recon['enemy_strenght'] > squad.enemy_recon['ally_strenght']\
                 and squad.enemy_recon['distance'] <= squad.enemy_recon['move'] * 2\
-                and squad.enemy_recon['distance'] > save_distance\
-                or squad.commander.class_features.get('Fighting_Style_Blind_Fighting')\
-                and squad.enemy_recon['distance'] <= squad.enemy_recon['move'] * 2:
+                and squad.enemy_recon['distance'] > save_distance:
                     commands_list.append('sneak')
             # Обычный боец -- негодный командир:
             if squad.commander.level < 3:
@@ -1246,9 +1244,6 @@ class battle_simulation(battlescape):
                 commands_list.append('recharge')
                 commands_list.append('volley')
                 commands_list.append('volley_random')
-                # Закидываем гранатами видимых врагов над головами своих:
-                #if squad.enemies and squad.enemy_recon['distance'] > save_distance:
-                #    commands_list.append('fire')
                 # Пехоту закидываем гратами, стрелков атакуем:
                 if 'verry_carefull' in commands_list and squad.enemies\
                         and squad.enemy_recon['distance'] < save_distance\
@@ -1256,7 +1251,8 @@ class battle_simulation(battlescape):
                         and squad.enemy_recon['distance'] < save_distance\
                         and 'ranged' not in squad.enemy_recon['attacks']:
                     if 'engage' in commands_list: commands_list.remove('engage')
-                    commands_list.append('disengage')
+                    if squad.enemy_recon['enemy_strenght'] * 1.2 > squad.enemy_recon['ally_strenght']:
+                        commands_list.append('disengage')
             # Линейная пехота наступает только когда враг вне дистанции стрельбы:
             if squad.commander.__dict__.get('firearm_AI'):
                 commands_list.append('fire')
@@ -3923,8 +3919,10 @@ class battle_simulation(battlescape):
                                 place = spell_dict['zone_center']
                             else: 
                                 place = soldier.place
-                            self.change_place_effect(spell_dict['effect'], place, zone_radius = radius)
-                            self.change_place_effect('obscure_terrain', place, zone_radius = radius)
+                            self.change_place_effect(spell_dict['effect'],
+                                    old_place = place, zone_radius = radius + 1)
+                            self.change_place_effect('obscure_terrain',
+                                    old_place = place, zone_radius = radius + 1)
 
     def create_end_spells_list(self, metadict_spells):
         """Список uuid закончившихся заклинаний.
