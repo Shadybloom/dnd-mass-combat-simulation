@@ -3770,6 +3770,8 @@ class battle_simulation(battlescape):
                     else:
                         if not soldier.stable:
                             ally_soldier.first_aid(soldier)
+                            if soldier.stable and 'fall_place' in self.dict_battlespace[soldier.place]:
+                                self.dict_battlespace[soldier.place].remove('fall_place')
                         elif soldier.stable and soldier.hitpoints <= 0:
                             ally_soldier.first_aid(soldier)
                         if not soldier.stable\
