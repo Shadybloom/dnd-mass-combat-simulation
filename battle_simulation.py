@@ -1148,8 +1148,16 @@ class battle_simulation(battlescape):
                     if 'lead' in commands_list: commands_list.remove('lead')
                     if 'engage' in commands_list: commands_list.remove('engage')
             # Скрытные командиры прячутся за "Fog_Cloud":
-            if squad.commander.__dict__.get('sneak_AI'):
-                commands_list.append('sneak')
+            if squad.commander.__dict__.get('sneak_AI') and squad.enemy_recon:
+                if 'ranged' in squad.enemy_recon['attacks']\
+                and squad.enemy_recon['attack_range'] * 1.1 >= squad.enemy_recon['distance']\
+                and squad.enemy_recon['enemy_strenght'] * 1.2 > squad.enemy_recon['ally_strenght']\
+                or squad.enemy_recon['enemy_strenght'] > squad.enemy_recon['ally_strenght']\
+                and squad.enemy_recon['distance'] <= squad.enemy_recon['move'] * 2\
+                and squad.enemy_recon['distance'] > save_distance\
+                or squad.commander.class_features.get('Fighting_Style_Blind_Fighting')\
+                and squad.enemy_recon['distance'] <= squad.enemy_recon['move'] * 2:
+                    commands_list.append('sneak')
             # Обычный боец -- негодный командир:
             if squad.commander.level < 3:
                 commands_list = ['lead','follow']
@@ -1241,11 +1249,6 @@ class battle_simulation(battlescape):
                 # Закидываем гранатами видимых врагов над головами своих:
                 #if squad.enemies and squad.enemy_recon['distance'] > save_distance:
                 #    commands_list.append('fire')
-                # Гренадеры ставят дым, если у врага стрелки:
-                if squad.enemies and 'ranged' in squad.enemy_recon['attacks']\
-                        and squad.enemy_recon['attack_range'] * 1.1 >= squad.enemy_recon['distance']\
-                        and squad.enemy_recon['distance'] > save_distance:
-                    commands_list.append('sneak')
                 # Пехоту закидываем гратами, стрелков атакуем:
                 if 'verry_carefull' in commands_list and squad.enemies\
                         and squad.enemy_recon['distance'] < save_distance\
@@ -1259,13 +1262,7 @@ class battle_simulation(battlescape):
                 commands_list.append('fire')
                 commands_list.append('kneel')
                 commands_list.append('recharge')
-                # Стрелки прикрываются дымовой завесой от лучников:
-                if 'carefull' in commands_list and squad.enemies\
-                        and 'ranged' in squad.enemy_recon['attacks']\
-                        and squad.enemy_recon['attack_range'] * 1.1 >= squad.enemy_recon['distance']\
-                        and squad.enemy_recon['distance'] > save_distance:
-                    commands_list.append('sneak')
-                # Стрелки стреляют по дымовой завесе:
+                # Стрелки стреляют залпом по дымовой завесе:
                 if 'verry_carefull' in commands_list and not squad.enemies:
                     if 'lead' in commands_list: commands_list.remove('lead')
                     commands_list.append('volley')
@@ -1525,16 +1522,9 @@ class battle_simulation(battlescape):
             if soldier.class_features.get('Wild_Shape'):
                 if soldier.near_enemies or 'change' in soldier.commands:
                     soldier.set_change_form(squad)
-        if 'sneak' in soldier.commands and enemy and squad.__dict__.get('enemy_recon'):
-            if self.metadict_soldiers[enemy.uuid].hero\
-                    or 'ranged' in squad.enemy_recon['attacks']\
-                    or 'throw' in squad.enemy_recon['attacks']\
-                    and squad.enemy_recon['distance'] <= squad.enemy_recon['move'] * 4\
-                    or squad.enemy_recon['enemy_strenght'] > squad.enemy_recon['ally_strenght']\
-                    and squad.enemy_recon['distance'] <= squad.enemy_recon['move'] * 2\
-                    or soldier.class_features.get('Fighting_Style_Blind_Fighting')\
-                    and squad.enemy_recon['distance'] <= squad.enemy_recon['move'] * 2:
-                self.sneak_action(soldier, squad, enemy)
+        # Солдаты прячутся за дымовой завесой, если таков приказ:
+        if 'sneak' in soldier.commands and enemy:
+            self.sneak_action(soldier, squad, enemy)
         # Атака следует за 'engage', поэтому осматриваемся снова:
         if 'attack' in soldier.commands:
             self.recon_action(soldier, squad)
