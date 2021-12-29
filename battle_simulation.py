@@ -994,6 +994,7 @@ class battle_simulation(battlescape):
         - распространённые атаки (ranged, throw, reach)
         - зональные заклинания, например: Spirit_Guardians
         """
+        commander = self.metadict_soldiers[commanders_list[0].uuid]
         enemy_recon = {}
         speed_list = []
         types_list = []
@@ -1025,20 +1026,28 @@ class battle_simulation(battlescape):
             distance_list.append(enemy_tuple.distance)
             types_list.append(enemy_soldier.behavior)
             clases_list.append(enemy_soldier.char_class)
-            # Враг считается угрозой, если не бежит:
-            if not enemy_soldier.__dict__.get('escape'):
-                danger_list.append(self.dict_danger[enemy_soldier.behavior])
-                if enemy_soldier.level > 5:
-                    danger_list.append(enemy_soldier.level)
             attacks_types = set([key[0] for key in enemy_soldier.attacks.keys()])
             attacks_list.extend(attacks_types)
             attack_ranges = [value.get('attack_range',0)
                     for value in enemy_soldier.attacks.values()]
             attack_ranges.extend([value.get('attack_range_max',0)
                     for value in enemy_soldier.attacks.values()])
-        for uuid, ally_tuple in allies_dict.items():
-            ally_soldier = self.metadict_soldiers[uuid]
-            ally_strenght_list.append(self.dict_danger[ally_soldier.behavior])
+        # Оценка соотношения сил по общему числу союзников/врагов, а не по видимым командиром:
+        for soldier in self.metadict_soldiers.values():
+            if soldier.ally_side == commander.ally_side\
+                    and soldier.__dict__.get('place')\
+                    and not soldier.__dict__.get('fall')\
+                    and not soldier.__dict__.get('escape'):
+                ally_strenght_list.append(self.dict_danger[enemy_soldier.behavior])
+                if soldier.level > 5:
+                    ally_strenght_list.append(enemy_soldier.level)
+            elif soldier.ally_side != commander.ally_side\
+                    and soldier.__dict__.get('place')\
+                    and not soldier.__dict__.get('fall')\
+                    and not soldier.__dict__.get('escape'):
+                danger_list.append(self.dict_danger[enemy_soldier.behavior])
+                if soldier.level > 5:
+                    danger_list.append(enemy_soldier.level)
         # Словари. Число вражеских бойцов по типам и классам персонажей, их атаки:
         enemy_types_dict = collections.Counter(types_list)
         enemy_classes_dict = collections.Counter(clases_list)
@@ -1274,7 +1283,7 @@ class battle_simulation(battlescape):
                         and squad.enemy_recon['enemy_strenght'] > squad.enemy_recon['ally_strenght']\
                         or 'very_carefull' in commands_list and squad.enemies\
                         and squad.enemy_recon['distance'] <= save_distance * 6\
-                        and squad.enemy_recon['enemy_strenght'] * 2 > squad.enemy_recon['ally_strenght']\
+                        and squad.enemy_recon['enemy_strenght'] * 1.5 > squad.enemy_recon['ally_strenght']\
                         or 'very_carefull' in commands_list and squad.enemies\
                         and squad.enemy_recon['distance'] <= save_distance * 9\
                         and squad.enemy_recon['enemy_strenght'] > squad.enemy_recon['ally_strenght']:
@@ -1560,10 +1569,10 @@ class battle_simulation(battlescape):
         if 'disengage' in soldier.commands and squad.__dict__.get('enemy_recon'):
             if enemy and 'carefull' in soldier.commands\
                     and enemy.distance <= squad.enemy_recon['move'] * 2\
-                    and squad.enemy_recon['enemy_strenght'] > squad.enemy_recon['ally_strenght'] / 2\
+                    and squad.enemy_recon['enemy_strenght'] * 1.2 > squad.enemy_recon['ally_strenght']\
                     or 'very_carefull' in soldier.commands and enemy\
                     and enemy.distance <= squad.enemy_recon['move'] * 4\
-                    and squad.enemy_recon['enemy_strenght'] > squad.enemy_recon['ally_strenght'] / 4\
+                    and squad.enemy_recon['enemy_strenght'] * 2 > squad.enemy_recon['ally_strenght']\
                     or 'danger' in soldier.commands\
                     and soldier.place in squad.enemy_recon.get('danger_places',[]):
                 if not 'spawn' in self.dict_battlespace[soldier.place]:
