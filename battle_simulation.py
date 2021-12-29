@@ -1227,6 +1227,9 @@ class battle_simulation(battlescape):
                 commands_list.append('recharge')
                 commands_list.append('volley')
                 commands_list.append('volley_random')
+                # Закидываем гранатами видимых врагов над головами своих:
+                #if squad.enemies and squad.enemy_recon['distance'] > save_distance:
+                #    commands_list.append('fire')
                 # Гренадеры ставят дым, если у врага стрелки:
                 if squad.enemies and 'ranged' in squad.enemy_recon['attacks']\
                         and squad.enemy_recon['attack_range'] * 1.1 >= squad.enemy_recon['distance']\
