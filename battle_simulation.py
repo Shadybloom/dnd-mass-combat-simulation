@@ -3399,7 +3399,10 @@ class battle_simulation(battlescape):
                 # Полезные заклинания пропускаем:
                 elif spell_dict.get('buff'):
                     continue
+                # Если враг слишком далеко, пропускаем заклинание (оптимизация):
                 attack_range = round(spell_dict['attack_range'] / self.tile_size)
+                if squad.enemies and attack_range < squad.enemy_recon['distance']:
+                    continue
                 for zone_center, danger in squad.danger_points.items():
                     distance = round(distance_measure(soldier.place, zone_center))
                     # На себя не наводим:
