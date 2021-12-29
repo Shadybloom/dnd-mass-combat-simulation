@@ -2104,23 +2104,26 @@ class battle_simulation(battlescape):
             print_ascii_map(self.gen_battlemap())
             time.sleep(0.02)
 
-    def change_place_effect(self, effect, old_place, new_place, zone_radius, zone_shape = False):
+    def change_place_effect(self, effect, old_place = None, new_place = None,
+            zone_radius = 10, zone_shape = False):
         """Передвигаем эффект зоны.
         
         Например: Spirit_Guardians, Darkness, Crusaders_Mantle.
         """
         # Развеиваем по старым координатам:
-        zone_list = [point for point in self.find_points_in_zone(old_place, zone_radius)\
-                if inside_circle(point, old_place, zone_radius)]
-        for point in zone_list:
-            if effect in self.dict_battlespace[point]:
-                self.dict_battlespace[point].remove(effect)
+        if old_place:
+            zone_list = [point for point in self.find_points_in_zone(old_place, zone_radius)\
+                    if inside_circle(point, old_place, zone_radius)]
+            for point in zone_list:
+                if effect in self.dict_battlespace[point]:
+                    self.dict_battlespace[point].remove(effect)
         # Создаём по новым координатам:
-        zone_list = [point for point in self.find_points_in_zone(new_place, zone_radius)\
-                if inside_circle(point, new_place, zone_radius)]
-        for point in zone_list:
-            if not effect in self.dict_battlespace[point]:
-                self.dict_battlespace[point].append(effect)
+        if new_place:
+            zone_list = [point for point in self.find_points_in_zone(new_place, zone_radius)\
+                    if inside_circle(point, new_place, zone_radius)]
+            for point in zone_list:
+                if not effect in self.dict_battlespace[point]:
+                    self.dict_battlespace[point].append(effect)
 
     def change_place_mount(self, coordinates, destination, soldier):
         """Перемещаем мультитайловое ездовое животное вместе с наездником."""
@@ -3899,7 +3902,14 @@ class battle_simulation(battlescape):
                     # ------------------------------------------------------------
                     if spell_uuid in soldier.spells_active:
                         spell_dict = soldier.spells_active.pop(spell_uuid)
-                        #print('NYA', spell_dict['spell_choice'])
+                        # TODO: снимаем Fog_Cloud
+                        # ------------------------------------------------------------
+                        # В словаре нет центра заклинания. Унифицируй и сделай.
+                        # Пока что снимаем на всём поле боя. Всё равно кастуют группами.
+                        # ------------------------------------------------------------
+                        if spell_dict.get('effect') == 'fog' or spell_dict.get('effect') == 'darkness':
+                            self.change_place_effect(spell_dict['effect'], soldier.place, zone_radius = 100)
+                            self.change_place_effect('obscure_terrain', soldier.place, zone_radius = 100)
 
     def create_end_spells_list(self, metadict_spells):
         """Список uuid закончившихся заклинаний.
