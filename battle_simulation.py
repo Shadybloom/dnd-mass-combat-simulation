@@ -2780,7 +2780,7 @@ class battle_simulation(battlescape):
                 spell_choice = spell_chain.pop(0)
                 if type(spell_choice) == dict:
                     spell_choice == spell_dict['spell_choice']
-                if spell_dict.get('attack_mod'):
+                if spell_dict.get('attack_mod') or spell_dict.get('direct_hit'):
                     advantage, disadvantage = self.test_enemy_defence(soldier, enemy_soldier, spell_choice)
                 # Заклинание Green_Flame_Blade, сочетающееся с атакой оружием:
                 # Срабатывает, только если атака прошла:
