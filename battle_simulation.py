@@ -1026,7 +1026,7 @@ class battle_simulation(battlescape):
             types_list.append(enemy_soldier.behavior)
             clases_list.append(enemy_soldier.char_class)
             # Враг считается угрозой, если не бежит:
-            if enemy_soldier.__dict__.get('escape') and not enemy_soldier.escape:
+            if not enemy_soldier.__dict__.get('escape'):
                 danger_list.append(self.dict_danger[enemy_soldier.behavior])
                 if enemy_soldier.level > 5:
                     danger_list.append(enemy_soldier.level)
