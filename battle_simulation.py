@@ -1605,6 +1605,7 @@ class battle_simulation(battlescape):
                 place = places_list[throw_range]
             else:
                 place = enemy.place
+            fog_dict['zone_center'] = enemy.place
             zone_radius = round(fog_dict['radius'] / self.tile_size)
             zone_list = self.find_points_in_zone(place, zone_radius)
             zone_list_circle = [point for point in zone_list\
@@ -2850,6 +2851,7 @@ class battle_simulation(battlescape):
                     enemy_soldier.darkness_dict = spell_dict
                     continue
                 elif spell_dict.get('effect') == 'fog':
+                    spell_dict['zone_center'] = enemy_soldier.place
                     zone_radius = round(spell_dict['radius'] / self.tile_size)
                     zone_list = self.find_points_in_zone(enemy_soldier.place, zone_radius)
                     zone_list_circle = [point for point in zone_list\
@@ -3915,14 +3917,15 @@ class battle_simulation(battlescape):
                     # ------------------------------------------------------------
                     if spell_uuid in soldier.spells_active:
                         spell_dict = soldier.spells_active.pop(spell_uuid)
-                        # TODO: снимаем Fog_Cloud
-                        # ------------------------------------------------------------
-                        # В словаре нет центра заклинания. Унифицируй и сделай.
-                        # Пока что снимаем на всём поле боя. Всё равно кастуют группами.
-                        # ------------------------------------------------------------
+                        # Снимаем туман от Fog_Cloud и Darkness
                         if spell_dict.get('effect') == 'fog' or spell_dict.get('effect') == 'darkness':
-                            self.change_place_effect(spell_dict['effect'], soldier.place, zone_radius = 100)
-                            self.change_place_effect('obscure_terrain', soldier.place, zone_radius = 100)
+                            radius = round(spell_dict.get('radius', 10) / self.tile_size)
+                            if spell_dict.get('zone_center'):
+                                place = spell_dict['zone_center']
+                            else: 
+                                place = soldier.place
+                            self.change_place_effect(spell_dict['effect'], place, zone_radius = radius)
+                            self.change_place_effect('obscure_terrain', place, zone_radius = radius)
 
     def create_end_spells_list(self, metadict_spells):
         """Список uuid закончившихся заклинаний.
