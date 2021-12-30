@@ -789,7 +789,7 @@ class battlescape():
         # TODO: Допили проверку пересечённой местности. Или выведи в move_action.
         unit_tuples = []
         for el in self.dict_battlespace[place]:
-            if type(el).__name__ == 'soldier':
+            if type(el).__name__ == 'soldier' and not el.behavior == 'mount':
                 unit_tuples.append(el)
             if soldier.__dict__.get('water_walk') and el == 'water':
                 free_place = True

@@ -465,10 +465,12 @@ class soldier_in_battle(soldier):
         # Даём всадникам скорость их коней (но только если они в одной точке):
         if hasattr(self, 'mount_uuid') and self.mount_uuid in squad.metadict_soldiers:
             mount = squad.metadict_soldiers[self.mount_uuid]
-            if hasattr(mount, 'place') and mount.place == self.place:
-                # TODO: дай коняшкам нормальный dash_action.
-                # Кони используют dash_action, поэтому удваиваем скорость:
-                self.move_pool = mount.base_speed * 2
+            if hasattr(mount, 'place') and mount.place == self.place and not mount.__dict__.get('fall'):
+                if mount.__dict__.get('dash_action', False):
+                    self.move_pool = mount.base_speed
+                    self.dash_action = True
+                else:
+                    self.move_pool = mount.base_speed
         # Забираем у лошадок право свободно бегать, пока ими управляет всадник:
         if hasattr(self, 'master_uuid') and self.master_uuid in squad.metadict_soldiers:
             master = squad.metadict_soldiers[self.master_uuid]

@@ -2416,6 +2416,7 @@ class battle_simulation(battlescape):
                                 and enemy_ally.hitpoints >= enemy_ally.hitpoints_max * 0.8\
                                 and enemy_ally.reaction == True\
                                 and len(enemy_ally.near_enemies) <= 1\
+                                and not enemy_ally.behavior == 'mount'\
                                 and enemy_ally.uuid != enemy_soldier.uuid:
                             # Отмечаем действие;
                             if enemy_soldier.level >= 4:
