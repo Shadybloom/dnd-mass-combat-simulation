@@ -1133,6 +1133,24 @@ class battle_simulation(battlescape):
             #commands_list = ['disengage','dodge','attack']
             commands_list = ['retreat', 'rescue']
         if squad.commander:
+            # Обычный боец -- негодный командир:
+            if squad.commander.level < 3:
+                commands_list = ['lead','follow']
+                commands_list.append('dodge')
+                commands_list.append('disengage')
+                commands_list.append('carefull')
+                commands_list.append('attack')
+                commands_list.append('spellcast')
+                commands_list.append('potions')
+                commands_list.append('runes')
+            # Оборонительная тактика:
+            if squad.commander.__dict__.get('defence_AI'):
+                commands_list = ['carefull','dodge']
+                commands_list.append('very_carefull')
+                commands_list.append('attack')
+                commands_list.append('spellcast')
+                commands_list.append('runes')
+                commands_list.append('volley')
             # Командир уплотняет строй до 2 солдат на тайл:
             if squad.commander.__dict__.get('close_order_AI'):
                 commands_list.append('close_order')
@@ -1152,24 +1170,6 @@ class battle_simulation(battlescape):
                 and squad.enemy_recon['distance'] <= squad.enemy_recon['move'] * 2\
                 and squad.enemy_recon['distance'] > save_distance:
                     commands_list.append('sneak')
-            # Обычный боец -- негодный командир:
-            if squad.commander.level < 3:
-                commands_list = ['lead','follow']
-                commands_list.append('dodge')
-                commands_list.append('disengage')
-                commands_list.append('carefull')
-                commands_list.append('attack')
-                commands_list.append('spellcast')
-                commands_list.append('potions')
-                commands_list.append('runes')
-            # Оборонительная тактика:
-            if squad.commander.__dict__.get('defence_AI'):
-                commands_list = ['carefull','dodge']
-                commands_list.append('very_carefull')
-                commands_list.append('attack')
-                commands_list.append('spellcast')
-                commands_list.append('runes')
-                commands_list.append('volley')
             # Поиск и атака всех:
             if squad.commander.__dict__.get('seeker_AI'):
                 commands_list = ['engage','attack']
