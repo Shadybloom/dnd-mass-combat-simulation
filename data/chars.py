@@ -53,7 +53,7 @@ metadict_chars['Commoner 1 lvl (militia javeliner)'] = {
         },
     }
 
-metadict_chars['Commoner 2 lvl (militia javeliner-corporal)'] = {
+metadict_chars['Commoner 2 lvl (militia javeliner-veteran)'] = {
     # Авторитетный горожанин, или вожак сельского ополчения.
         # Чтобы получить 2 lvl ему нужно 300 xp (12 побед в бою)
         # Броня -- усиленный бронзовыми бляхами линоторакс (его делали из кожи, а не изо льна).
@@ -74,12 +74,12 @@ metadict_chars['Commoner 2 lvl (militia javeliner-corporal)'] = {
         },
     }
 
-metadict_chars['Warrior 3 lvl (militia javeliner-sergeant)'] = {
+metadict_chars['Warrior 3 lvl (militia javeliner-corporal)'] = {
     # Обычно это старики-ветераны из профессиональной армии.
     'level':3,
     'char_class':'Warrior',
     'hit_dice':'1d8',
-    'behavior':'commander',
+    'behavior':'elite_warrior',
     'class_features':{
         #'Fighting_Style_Defence':True,
         },
@@ -97,7 +97,7 @@ metadict_chars['Warrior 3 lvl (militia javeliner-sergeant)'] = {
         },
     }
 
-metadict_chars['Warrior 4 lvl (militia javeliner-lieutenant)'] = {
+metadict_chars['Warrior 4 lvl (militia javeliner-sergeant)'] = {
     # Офицеры-отставники.
     'level':4,
     'char_class':'Warrior',
@@ -148,7 +148,7 @@ metadict_chars['Commoner 1 lvl (militia slinger)'] = {
         },
     }
 
-metadict_chars['Commoner 2 lvl (militia slinger-corporal)'] = {
+metadict_chars['Commoner 2 lvl (militia slinger-veteran)'] = {
     'level':2,
     'char_class':'Commoner',
     'behavior':'archer',
@@ -167,11 +167,11 @@ metadict_chars['Commoner 2 lvl (militia slinger-corporal)'] = {
         },
     }
 
-metadict_chars['Warrior 3 lvl (militia slinger-sergeant)'] = {
+metadict_chars['Warrior 3 lvl (militia slinger-corporal)'] = {
     'level':3,
     'char_class':'Warrior-bowman',
     'hit_dice':'1d8',
-    'behavior':'commander',
+    'behavior':'elite_warrior',
     'class_features':{
         #'Fighting_Style_Archery':True,
         },
@@ -190,7 +190,7 @@ metadict_chars['Warrior 3 lvl (militia slinger-sergeant)'] = {
         },
     }
 
-metadict_chars['Warrior 4 lvl (militia slinger-lieutenant)'] = {
+metadict_chars['Warrior 4 lvl (militia slinger-sergeant)'] = {
     'level':4,
     'char_class':'Warrior-bowman',
     'hit_dice':'1d8',
@@ -239,7 +239,7 @@ metadict_chars['Commoner 1 lvl (militia bowman)'] = {
         },
     }
 
-metadict_chars['Commoner 2 lvl (militia bowman-corporal)'] = {
+metadict_chars['Commoner 2 lvl (militia bowman-veteran)'] = {
     'level':2,
     'char_class':'Commoner',
     'behavior':'archer',
@@ -258,11 +258,11 @@ metadict_chars['Commoner 2 lvl (militia bowman-corporal)'] = {
         },
     }
 
-metadict_chars['Warrior 3 lvl (militia bowman-sergeant)'] = {
+metadict_chars['Warrior 3 lvl (militia bowman-corporal)'] = {
     'level':3,
     'char_class':'Warrior-bowman',
     'hit_dice':'1d8',
-    'behavior':'commander',
+    'behavior':'elite_warrior',
     'class_features':{
         #'Fighting_Style_Archery':True,
         },
@@ -281,7 +281,7 @@ metadict_chars['Warrior 3 lvl (militia bowman-sergeant)'] = {
         },
     }
 
-metadict_chars['Warrior 4 lvl (militia bowman-lieutenant)'] = {
+metadict_chars['Warrior 4 lvl (militia bowman-sergeant)'] = {
     # Лучший стрелок. Командует бойцами, направляя град стрел.
     # Азимут такой-то, угол стрельбы такой-то. Всё на личном примере.
     'level':4,
@@ -331,7 +331,7 @@ metadict_chars['Commoner 1 lvl (militia spearman)'] = {
         },
     }
 
-metadict_chars['Commoner 2 lvl (militia spearman-corporal)'] = {
+metadict_chars['Commoner 2 lvl (militia spearman-veteran)'] = {
     # Принцип ранней республики.
     'level':2,
     'char_class':'Commoner',
@@ -350,12 +350,12 @@ metadict_chars['Commoner 2 lvl (militia spearman-corporal)'] = {
         },
     }
 
-metadict_chars['Warrior 3 lvl (militia spearman-sergeant)'] = {
+metadict_chars['Warrior 3 lvl (militia spearman-corporal)'] = {
     'level':3,
     'close_order_AI':True,
     'char_class':'Warrior',
     'hit_dice':'1d8',
-    'behavior':'commander',
+    'behavior':'elite_warrior',
     'class_features':{
         #'Fighting_Style_Defence':True,
         },
@@ -373,7 +373,7 @@ metadict_chars['Warrior 3 lvl (militia spearman-sergeant)'] = {
         },
     }
 
-metadict_chars['Warrior 4 lvl (militia spearman-lieutenant)'] = {
+metadict_chars['Warrior 4 lvl (militia spearman-sergeant)'] = {
     'level':4,
     'close_order_AI':True,
     'char_class':'Warrior-officer',
@@ -424,7 +424,7 @@ metadict_chars['Commoner 1 lvl (militia swordsman)'] = {
         },
     }
 
-metadict_chars['Commoner 2 lvl (militia swordsman-corporal)'] = {
+metadict_chars['Commoner 2 lvl (militia swordsman-veteran)'] = {
     'level':2,
     'char_class':'Commoner',
     'behavior':'warrior',
@@ -442,12 +442,12 @@ metadict_chars['Commoner 2 lvl (militia swordsman-corporal)'] = {
         },
     }
 
-metadict_chars['Warrior 3 lvl (militia swordsman-sergeant)'] = {
+metadict_chars['Warrior 3 lvl (militia swordsman-corporal)'] = {
     'level':3,
     'close_order_AI':True,
     'char_class':'Warrior',
     'hit_dice':'1d8',
-    'behavior':'commander',
+    'behavior':'elite_warrior',
     'class_features':{
         #'Fighting_Style_Dueling':True,
         },
@@ -465,7 +465,7 @@ metadict_chars['Warrior 3 lvl (militia swordsman-sergeant)'] = {
         },
     }
 
-metadict_chars['Warrior 4 lvl (militia swordsman-lieutenant)'] = {
+metadict_chars['Warrior 4 lvl (militia swordsman-sergeant)'] = {
     'level':4,
     'close_order_AI':True,
     'char_class':'Warrior-officer',
@@ -512,7 +512,7 @@ metadict_chars['Commoner 1 lvl (militia crossbowman)'] = {
         },
     }
 
-metadict_chars['Commoner 2 lvl (militia crossbowman-corporal)'] = {
+metadict_chars['Commoner 2 lvl (militia crossbowman-veteran)'] = {
     'level':2,
     'char_class':'Commoner',
     'behavior':'archer',
@@ -531,11 +531,11 @@ metadict_chars['Commoner 2 lvl (militia crossbowman-corporal)'] = {
         },
     }
 
-metadict_chars['Warrior 3 lvl (militia crossbowman-sergeant)'] = {
+metadict_chars['Warrior 3 lvl (militia crossbowman-corporal)'] = {
     'level':3,
     'char_class':'Warrior-bowman',
     'hit_dice':'1d8',
-    'behavior':'commander',
+    'behavior':'elite_warrior',
     'class_features':{
         #'Fighting_Style_Archery':True,
         },
@@ -554,7 +554,7 @@ metadict_chars['Warrior 3 lvl (militia crossbowman-sergeant)'] = {
         },
     }
 
-metadict_chars['Warrior 4 lvl (militia crossbowman-lieutenant)'] = {
+metadict_chars['Warrior 4 lvl (militia crossbowman-sergeant)'] = {
     # Лучший стрелок. Командует бойцами, направляя град стрел.
     # Азимут такой-то, угол стрельбы такой-то. Всё на личном примере.
     'level':4,
@@ -603,7 +603,7 @@ metadict_chars['Commoner 1 lvl (militia heavy crossbowman)'] = {
         },
     }
 
-metadict_chars['Commoner 2 lvl (militia heavy crossbowman-corporal)'] = {
+metadict_chars['Commoner 2 lvl (militia heavy crossbowman-veteran)'] = {
     'level':2,
     'char_class':'Commoner',
     'behavior':'archer',
@@ -622,11 +622,11 @@ metadict_chars['Commoner 2 lvl (militia heavy crossbowman-corporal)'] = {
         },
     }
 
-metadict_chars['Warrior 3 lvl (militia heavy crossbowman-sergeant)'] = {
+metadict_chars['Warrior 3 lvl (militia heavy crossbowman-corporal)'] = {
     'level':3,
     'char_class':'Warrior-bowman',
     'hit_dice':'1d8',
-    'behavior':'commander',
+    'behavior':'elite_warrior',
     'class_features':{
         #'Fighting_Style_Archery':True,
         },
@@ -645,7 +645,7 @@ metadict_chars['Warrior 3 lvl (militia heavy crossbowman-sergeant)'] = {
         },
     }
 
-metadict_chars['Warrior 4 lvl (militia heavy crossbowman-lieutenant)'] = {
+metadict_chars['Warrior 4 lvl (militia heavy crossbowman-sergeant)'] = {
     # Лучший стрелок. Командует бойцами, направляя град стрел.
     # Азимут такой-то, угол стрельбы такой-то. Всё на личном примере.
     'level':4,
@@ -731,7 +731,7 @@ metadict_chars['Warrior 1 lvl (achean hoplite)'] = {
         },
     }
 
-metadict_chars['Warrior 2 lvl (achean hoplite-corporal)'] = {
+metadict_chars['Warrior 2 lvl (achean hoplite-veteran)'] = {
     # "Прослуживший" 10 лет гоплит. Такие нередко уходят в наёмники.
         # Чтобы получить 2 lvl ему нужно 300 xp (12 побед в бою)
         # Броня -- чешуйчатая (бронзовые пластины на кожаной основе)
@@ -757,14 +757,14 @@ metadict_chars['Warrior 2 lvl (achean hoplite-corporal)'] = {
         },
     }
 
-metadict_chars['Warrior 3 lvl (achean hoplite-sergeant)'] = {
+metadict_chars['Warrior 3 lvl (achean hoplite-corporal)'] = {
     # Состоятельный горожанин и авторитетный командир.
         # Чтобы получит 3 lvl нужно 300+900=1200 exp (24-48 побед в бою)
         # Броня -- бронзовый панцирь, поножи, шлем.
     'level':3,
     'char_class':'Warrior',
     'hit_dice':'1d8',
-    'behavior':'commander',
+    'behavior':'elite_warrior',
     'class_features':{
         #'Fighting_Style_Protection':True,
         'Fighting_Style_Dueling':True,
@@ -783,7 +783,7 @@ metadict_chars['Warrior 3 lvl (achean hoplite-sergeant)'] = {
         },
     }
 
-metadict_chars['Warrior 4 lvl (achean hoplite-lieutenant)'] = {
+metadict_chars['Warrior 4 lvl (achean hoplite-sergeant)'] = {
     # Командир 30 бойцов.
         # Чтобы получит 4 lvl нужно 300+900+2700 xp (78-156 побед в бою)
     'level':4,
@@ -814,7 +814,7 @@ metadict_chars['Warrior 4 lvl (achean hoplite-lieutenant)'] = {
     #    },
     }
 
-metadict_chars['Warrior 5 lvl (achean hoplite-captain)'] = {
+metadict_chars['Warrior 5 lvl (achean hoplite-lieutenant)'] = {
     # Сотник гоплитов
         # Бронзовый панцирь с рельефом, поножи с набедренниками, закрытый шлем.
         # Чтобы получить 5 lvl нужно 300+900+2700+6500 xp (208-416 побед в бою)
@@ -872,7 +872,7 @@ metadict_chars['Warrior 1 lvl (city pikeman)'] = {
         },
     }
 
-metadict_chars['Warrior 2 lvl (city pikeman-corporal)'] = {
+metadict_chars['Warrior 2 lvl (city pikeman-veteran)'] = {
     'level':2,
     'char_class':'Warrior-heavy',
     'behavior':'elite_warrior',
@@ -893,12 +893,12 @@ metadict_chars['Warrior 2 lvl (city pikeman-corporal)'] = {
         },
     }
 
-metadict_chars['Warrior 3 lvl (city pikeman-sergeant)'] = {
+metadict_chars['Warrior 3 lvl (city pikeman-corporal)'] = {
     'level':3,
     'char_class':'Warrior-heavy',
     'behavior':'elite_warrior',
     'hit_dice':'1d8',
-    'behavior':'commander',
+    'behavior':'elite_warrior',
     'class_features':{
         'Fighting_Style_Defence':True,
         },
@@ -916,7 +916,7 @@ metadict_chars['Warrior 3 lvl (city pikeman-sergeant)'] = {
         },
     }
 
-metadict_chars['Warrior 4 lvl (city pikeman-lieutenant)'] = {
+metadict_chars['Warrior 4 lvl (city pikeman-sergeant)'] = {
     'level':4,
     'char_class':'Warrior-officer',
     'hit_dice':'1d8',
@@ -944,7 +944,7 @@ metadict_chars['Warrior 4 lvl (city pikeman-lieutenant)'] = {
     #    },
     }
 
-metadict_chars['Warrior 5 lvl (city pikeman-captain)'] = {
+metadict_chars['Warrior 5 lvl (city pikeman-lieutenant)'] = {
     'level':5,
     #'close_order_AI':True,
     'char_class':'Warrior-officer',
@@ -997,7 +997,7 @@ metadict_chars['Warrior 1 lvl (sqythian bowman)'] = {
         },
     }
 
-metadict_chars['Warrior 2 lvl (sqythian bowman-corporal)'] = {
+metadict_chars['Warrior 2 lvl (sqythian bowman-veteran)'] = {
     'level':2,
     'char_class':'Warrior-bowman',
     'hit_dice':'1d8',
@@ -1018,11 +1018,11 @@ metadict_chars['Warrior 2 lvl (sqythian bowman-corporal)'] = {
         },
     }
 
-metadict_chars['Warrior 3 lvl (sqythian bowman-sergeant)'] = {
+metadict_chars['Warrior 3 lvl (sqythian bowman-corporal)'] = {
     'level':3,
     'char_class':'Warrior-bowman',
     'hit_dice':'1d8',
-    'behavior':'commander',
+    'behavior':'elite_warrior',
     'class_features':{
         'Fighting_Style_Archery':True,
         },
@@ -1040,7 +1040,7 @@ metadict_chars['Warrior 3 lvl (sqythian bowman-sergeant)'] = {
         },
     }
 
-metadict_chars['Warrior 4 lvl (sqythian bowman-lieutenant)'] = {
+metadict_chars['Warrior 4 lvl (sqythian bowman-sergeant)'] = {
     # Лучший стрелок. Командует сотней бойцов, направляя град стрел.
     # Азимут такой-то, угол стрельбы такой-то. Всё на личном примере.
     'level':4,
@@ -1070,7 +1070,7 @@ metadict_chars['Warrior 4 lvl (sqythian bowman-lieutenant)'] = {
     #'equipment_mount':{},
     }
 
-metadict_chars['Warrior 5 lvl (sqythian bowman-captain)'] = {
+metadict_chars['Warrior 5 lvl (sqythian bowman-lieutenant)'] = {
     'level':5,
     'char_class':'Warrior-bowman',
     'hit_dice':'1d8',
@@ -1124,7 +1124,7 @@ metadict_chars['Warrior 1 lvl (persian bowman)'] = {
         },
     }
 
-metadict_chars['Warrior 2 lvl (persian bowman-corporal)'] = {
+metadict_chars['Warrior 2 lvl (persian bowman-veteran)'] = {
     # Ветераны после 10 лет службы. Мастерски стреляют. Умело сражаются и в ближнем бою.
     'level':2,
     'char_class':'Warrior-bowman',
@@ -1147,11 +1147,11 @@ metadict_chars['Warrior 2 lvl (persian bowman-corporal)'] = {
         },
     }
 
-metadict_chars['Warrior 3 lvl (persian bowman-sergeant)'] = {
+metadict_chars['Warrior 3 lvl (persian bowman-corporal)'] = {
     'level':3,
     'char_class':'Warrior-bowman',
     'hit_dice':'1d8',
-    'behavior':'commander',
+    'behavior':'elite_warrior',
     'class_features':{
         'Fighting_Style_Archery':True,
         },
@@ -1170,7 +1170,7 @@ metadict_chars['Warrior 3 lvl (persian bowman-sergeant)'] = {
         },
     }
 
-metadict_chars['Warrior 4 lvl (persian bowman-lieutenant)'] = {
+metadict_chars['Warrior 4 lvl (persian bowman-sergeant)'] = {
     # Лучший стрелок. Командует 30 бойцами, направляя град стрел.
     # Азимут такой-то, угол стрельбы такой-то. Всё на личном примере.
     'level':4,
@@ -1200,7 +1200,7 @@ metadict_chars['Warrior 4 lvl (persian bowman-lieutenant)'] = {
     #'equipment_mount':{},
     }
 
-metadict_chars['Warrior 5 lvl (persian bowman-captain)'] = {
+metadict_chars['Warrior 5 lvl (persian bowman-lieutenant)'] = {
     # Командир сотни наёмных лучников.
     'level':5,
     'char_class':'Warrior-bowman',
@@ -1256,7 +1256,7 @@ metadict_chars['Warrior 1 lvl (musketeer line-infantry)'] = {
         },
     }
 
-metadict_chars['Warrior 2 lvl (musketeer line-infantry-corporal)'] = {
+metadict_chars['Warrior 2 lvl (musketeer line-infantry-veteran)'] = {
     'level':2,
     'char_class':'Warrior-pirate',
     'hit_dice':'1d8',
@@ -1280,13 +1280,13 @@ metadict_chars['Warrior 2 lvl (musketeer line-infantry-corporal)'] = {
         },
     }
 
-metadict_chars['Warrior 3 lvl (musketeer line-infantry-sergeant)'] = {
+metadict_chars['Warrior 3 lvl (musketeer line-infantry-corporal)'] = {
     'level':3,
     'firearm_AI':True,
     'sneak_AI':True,
     'char_class':'Warrior-pirate',
     'hit_dice':'1d8',
-    'behavior':'commander',
+    'behavior':'elite_warrior',
     'class_features':{
         'Fighting_Style_Archery':True,
         },
@@ -1307,7 +1307,7 @@ metadict_chars['Warrior 3 lvl (musketeer line-infantry-sergeant)'] = {
         },
     }
 
-metadict_chars['Warrior 4 lvl (musketeer line-infantry-lieutenant)'] = {
+metadict_chars['Warrior 4 lvl (musketeer line-infantry-sergeant)'] = {
     'level':4,
     'firearm_AI':True,
     'sneak_AI':True,
@@ -1342,7 +1342,7 @@ metadict_chars['Warrior 4 lvl (musketeer line-infantry-lieutenant)'] = {
     #'equipment_mount':{},
     }
 
-metadict_chars['Warrior 5 lvl (musketeer line-infantry-captain)'] = {
+metadict_chars['Warrior 5 lvl (musketeer line-infantry-lieutenant)'] = {
     # Капитан роты мушкетёров.
     'level':5,
     'firearm_AI':True,
@@ -1406,7 +1406,7 @@ metadict_chars['Warrior 1 lvl (grenadier line-infantry)'] = {
         },
     }
 
-metadict_chars['Warrior 2 lvl (grenadier line-infantry-corporal)'] = {
+metadict_chars['Warrior 2 lvl (grenadier line-infantry-veteran)'] = {
     'level':2,
     'char_class':'Warrior-heavy',
     'hit_dice':'1d8',
@@ -1432,14 +1432,14 @@ metadict_chars['Warrior 2 lvl (grenadier line-infantry-corporal)'] = {
         },
     }
 
-metadict_chars['Warrior 3 lvl (grenadier line-infantry-sergeant)'] = {
+metadict_chars['Warrior 3 lvl (grenadier line-infantry-corporal)'] = {
     'level':3,
     'carefull_AI':True,
     'grenadier_AI':True,
     'sneak_AI':True,
     'char_class':'Warrior-heavy',
     'hit_dice':'1d8',
-    'behavior':'commander',
+    'behavior':'elite_warrior',
     'class_features':{
         'Fighting_Style_Blind_Fighting':True,
         },
@@ -1462,7 +1462,7 @@ metadict_chars['Warrior 3 lvl (grenadier line-infantry-sergeant)'] = {
         },
     }
 
-metadict_chars['Warrior 4 lvl (grenadier line-infantry-lieutenant)'] = {
+metadict_chars['Warrior 4 lvl (grenadier line-infantry-sergeant)'] = {
     'level':4,
     'carefull_AI':True,
     'grenadier_AI':True,
@@ -1497,7 +1497,7 @@ metadict_chars['Warrior 4 lvl (grenadier line-infantry-lieutenant)'] = {
     #'equipment_mount':{},
     }
 
-metadict_chars['Warrior 5 lvl (grenadier line-infantry-captain)'] = {
+metadict_chars['Warrior 5 lvl (grenadier line-infantry-lieutenant)'] = {
     # Капитан роты гренадеров.
     'level':5,
     'carefull_AI':True,
@@ -1559,7 +1559,7 @@ metadict_chars['Warrior 1 lvl (bombardier line-infantry)'] = {
         },
     }
 
-metadict_chars['Warrior 2 lvl (bombardier line-infantry-corporal)'] = {
+metadict_chars['Warrior 2 lvl (bombardier line-infantry-veteran)'] = {
     'level':2,
     'char_class':'Warrior-heavy',
     'hit_dice':'1d8',
@@ -1584,7 +1584,7 @@ metadict_chars['Warrior 2 lvl (bombardier line-infantry-corporal)'] = {
         },
     }
 
-metadict_chars['Warrior 3 lvl (bombardier line-infantry-sergeant)'] = {
+metadict_chars['Warrior 3 lvl (bombardier line-infantry-corporal)'] = {
     'level':3,
     'firearm_AI':True,
     'grenadier_AI':True,
@@ -1592,7 +1592,7 @@ metadict_chars['Warrior 3 lvl (bombardier line-infantry-sergeant)'] = {
     'sneak_AI':True,
     'char_class':'Warrior-heavy',
     'hit_dice':'1d8',
-    'behavior':'commander',
+    'behavior':'elite_warrior',
     'class_features':{
         'Fighting_Style_Blind_Fighting':True,
         },
@@ -1613,7 +1613,7 @@ metadict_chars['Warrior 3 lvl (bombardier line-infantry-sergeant)'] = {
         },
     }
 
-metadict_chars['Warrior 4 lvl (bombardier line-infantry-lieutenant)'] = {
+metadict_chars['Warrior 4 lvl (bombardier line-infantry-sergeant)'] = {
     'level':4,
     'firearm_AI':True,
     'grenadier_AI':True,
@@ -1655,7 +1655,7 @@ metadict_chars['Warrior 4 lvl (bombardier line-infantry-lieutenant)'] = {
         },
     }
 
-metadict_chars['Warrior 5 lvl (bombardier line-infantry-captain)'] = {
+metadict_chars['Warrior 5 lvl (bombardier line-infantry-lieutenant)'] = {
     # Капитан роты гренадеров.
     'level':5,
     'firearm_AI':True,
@@ -1718,7 +1718,7 @@ metadict_chars['Warrior 1 lvl (fusilier line-infantry)'] = {
         },
     }
 
-metadict_chars['Warrior 2 lvl (fusilier line-infantry-corporal)'] = {
+metadict_chars['Warrior 2 lvl (fusilier line-infantry-veteran)'] = {
     'level':2,
     'char_class':'Warrior-pirate',
     'hit_dice':'1d8',
@@ -1741,14 +1741,14 @@ metadict_chars['Warrior 2 lvl (fusilier line-infantry-corporal)'] = {
         },
     }
 
-metadict_chars['Warrior 3 lvl (fusilier line-infantry-sergeant)'] = {
+metadict_chars['Warrior 3 lvl (fusilier line-infantry-corporal)'] = {
     'level':3,
     'firearm_AI':True,
     'carefull_AI':True,
     'sneak_AI':True,
     'char_class':'Warrior-pirate',
     'hit_dice':'1d8',
-    'behavior':'commander',
+    'behavior':'elite_warrior',
     'class_features':{
         'Fighting_Style_Archery':True,
         },
@@ -1768,7 +1768,7 @@ metadict_chars['Warrior 3 lvl (fusilier line-infantry-sergeant)'] = {
         },
     }
 
-metadict_chars['Warrior 4 lvl (fusilier line-infantry-lieutenant)'] = {
+metadict_chars['Warrior 4 lvl (fusilier line-infantry-sergeant)'] = {
     'level':4,
     'firearm_AI':True,
     'carefull_AI':True,
@@ -1799,7 +1799,7 @@ metadict_chars['Warrior 4 lvl (fusilier line-infantry-lieutenant)'] = {
     #'equipment_mount':{},
     }
 
-metadict_chars['Warrior 5 lvl (fusilier line-infantry-captain)'] = {
+metadict_chars['Warrior 5 lvl (fusilier line-infantry-lieutenant)'] = {
     # Капитан роты мушкетёров.
     'level':5,
     'firearm_AI':True,
@@ -1854,7 +1854,7 @@ metadict_chars['Warrior 1 lvl (balear slinger)'] = {
         },
     }
 
-metadict_chars['Warrior 2 lvl (balear slinger-corporal)'] = {
+metadict_chars['Warrior 2 lvl (balear slinger-veteran)'] = {
     'level':2,
     'char_class':'Warrior-bowman',
     'behavior':'elite_warrior',
@@ -1877,11 +1877,11 @@ metadict_chars['Warrior 2 lvl (balear slinger-corporal)'] = {
         },
     }
 
-metadict_chars['Warrior 3 lvl (balear slinger-sergeant)'] = {
+metadict_chars['Warrior 3 lvl (balear slinger-corporal)'] = {
     'level':3,
     'char_class':'Warrior-bowman',
     'hit_dice':'1d8',
-    'behavior':'commander',
+    'behavior':'elite_warrior',
     'class_features':{
         'Fighting_Style_Protection':True,
         },
@@ -1900,7 +1900,7 @@ metadict_chars['Warrior 3 lvl (balear slinger-sergeant)'] = {
         },
     }
 
-metadict_chars['Warrior 4 lvl (balear slinger-lieutenant)'] = {
+metadict_chars['Warrior 4 lvl (balear slinger-sergeant)'] = {
     'level':4,
     'char_class':'Warrior-bowman',
     'hit_dice':'1d8',
@@ -1929,7 +1929,7 @@ metadict_chars['Warrior 4 lvl (balear slinger-lieutenant)'] = {
     #    },
     }
 
-metadict_chars['Warrior 5 lvl (balear slinger-captain)'] = {
+metadict_chars['Warrior 5 lvl (balear slinger-lieutenant)'] = {
     'level':5,
     'char_class':'Warrior-bowman',
     'hit_dice':'1d8',
@@ -1983,7 +1983,7 @@ metadict_chars['Warrior 1 lvl (cilician infantry)'] = {
         },
     }
 
-metadict_chars['Warrior 2 lvl (cilician infantry-corporal)'] = {
+metadict_chars['Warrior 2 lvl (cilician infantry-veteran)'] = {
     # Используют парное оружие. Своеобразные ребята.
     'level':2,
     'char_class':'Warrior-pirate',
@@ -2007,11 +2007,11 @@ metadict_chars['Warrior 2 lvl (cilician infantry-corporal)'] = {
         },
     }
 
-metadict_chars['Warrior 3 lvl (cilician infantry-sergeant)'] = {
+metadict_chars['Warrior 3 lvl (cilician infantry-corporal)'] = {
     'level':3,
     'char_class':'Warrior-pirate',
     'hit_dice':'1d8',
-    'behavior':'commander',
+    'behavior':'elite_warrior',
     'class_features':{
         'Fighting_Style_Two_Weapon_Fighting':True,
         },
@@ -2031,7 +2031,7 @@ metadict_chars['Warrior 3 lvl (cilician infantry-sergeant)'] = {
         },
     }
 
-metadict_chars['Warrior 4 lvl (cilician infantry-lieutenant)'] = {
+metadict_chars['Warrior 4 lvl (cilician infantry-sergeant)'] = {
     'level':4,
     'char_class':'Warrior-pirate',
     'hit_dice':'1d8',
@@ -2061,7 +2061,7 @@ metadict_chars['Warrior 4 lvl (cilician infantry-lieutenant)'] = {
     #    },
     }
 
-metadict_chars['Warrior 5 lvl (cilician infantry-captain)'] = {
+metadict_chars['Warrior 5 lvl (cilician infantry-lieutenant)'] = {
     'level':5,
     'char_class':'Warrior-pirate',
     'hit_dice':'1d8',
@@ -2117,7 +2117,7 @@ metadict_chars['Warrior 1 lvl (cavalry archer)'] = {
         },
     }
 
-metadict_chars['Warrior 2 lvl (cavalry archer-corporal)'] = {
+metadict_chars['Warrior 2 lvl (cavalry archer-veteran)'] = {
     'level':2,
     'char_class':'Warrior-bowman',
     'hit_dice':'1d8',
@@ -2142,11 +2142,11 @@ metadict_chars['Warrior 2 lvl (cavalry archer-corporal)'] = {
         },
     }
 
-metadict_chars['Warrior 3 lvl (cavalry archer-sergeant)'] = {
+metadict_chars['Warrior 3 lvl (cavalry archer-corporal)'] = {
     'level':3,
     'char_class':'Warrior-bowman',
     'hit_dice':'1d8',
-    'behavior':'commander',
+    'behavior':'elite_warrior',
     'class_features':{
         'Fighting_Style_Archery':True,
         },
@@ -2168,7 +2168,7 @@ metadict_chars['Warrior 3 lvl (cavalry archer-sergeant)'] = {
         },
     }
 
-metadict_chars['Warrior 4 lvl (cavalry archer-lieutenant)'] = {
+metadict_chars['Warrior 4 lvl (cavalry archer-sergeant)'] = {
     'level':4,
     'char_class':'Warrior-bowman',
     'hit_dice':'1d8',
@@ -2196,7 +2196,7 @@ metadict_chars['Warrior 4 lvl (cavalry archer-lieutenant)'] = {
         },
     }
 
-metadict_chars['Warrior 5 lvl (cavalry archer-captain)'] = {
+metadict_chars['Warrior 5 lvl (cavalry archer-lieutenant)'] = {
     'level':5,
     'char_class':'Warrior-officer',
     'hit_dice':'1d8',
@@ -2249,7 +2249,7 @@ metadict_chars['Warrior 1 lvl (thracian infantry)'] = {
         },
     }
 
-metadict_chars['Warrior 2 lvl (thracian infantry-corporal)'] = {
+metadict_chars['Warrior 2 lvl (thracian infantry-veteran)'] = {
     'level':2,
     'char_class':'Warrior',
     'hit_dice':'1d8',
@@ -2272,11 +2272,11 @@ metadict_chars['Warrior 2 lvl (thracian infantry-corporal)'] = {
         },
     }
 
-metadict_chars['Warrior 3 lvl (thracian infantry-sergeant)'] = {
+metadict_chars['Warrior 3 lvl (thracian infantry-corporal)'] = {
     'level':3,
     'char_class':'Warrior',
     'hit_dice':'1d8',
-    'behavior':'commander',
+    'behavior':'elite_warrior',
     'class_features':{
         'Fighting_Style_Great_Weapon_Fighting':True,
         },
@@ -2295,7 +2295,7 @@ metadict_chars['Warrior 3 lvl (thracian infantry-sergeant)'] = {
         },
     }
 
-metadict_chars['Warrior 4 lvl (thracian infantry-lieutenant)'] = {
+metadict_chars['Warrior 4 lvl (thracian infantry-sergeant)'] = {
     'level':4,
     'char_class':'Warrior-officer',
     'hit_dice':'1d8',
@@ -2323,7 +2323,7 @@ metadict_chars['Warrior 4 lvl (thracian infantry-lieutenant)'] = {
         },
     }
 
-metadict_chars['Warrior 5 lvl (thracian infantry-captain)'] = {
+metadict_chars['Warrior 5 lvl (thracian infantry-lieutenant)'] = {
     'level':5,
     'char_class':'Warrior-officer',
     'hit_dice':'1d8',
@@ -2379,7 +2379,7 @@ metadict_chars['Warrior 1 lvl (celtian infantry)'] = {
         },
     }
 
-metadict_chars['Warrior 2 lvl (celtian infantry-corporal)'] = {
+metadict_chars['Warrior 2 lvl (celtian infantry-veteran)'] = {
     'level':2,
     'char_class':'Warrior',
     'hit_dice':'1d8',
@@ -2401,11 +2401,11 @@ metadict_chars['Warrior 2 lvl (celtian infantry-corporal)'] = {
         },
     }
 
-metadict_chars['Warrior 3 lvl (celtian infantry-sergeant)'] = {
+metadict_chars['Warrior 3 lvl (celtian infantry-corporal)'] = {
     'level':3,
     'char_class':'Warrior',
     'hit_dice':'1d8',
-    'behavior':'commander',
+    'behavior':'elite_warrior',
     'class_features':{
         'Fighting_Style_Dueling':True,
         },
@@ -2423,7 +2423,7 @@ metadict_chars['Warrior 3 lvl (celtian infantry-sergeant)'] = {
         },
     }
 
-metadict_chars['Warrior 4 lvl (celtian infantry-lieutenant)'] = {
+metadict_chars['Warrior 4 lvl (celtian infantry-sergeant)'] = {
     'level':4,
     'char_class':'Warrior-officer',
     'hit_dice':'1d8',
@@ -2450,7 +2450,7 @@ metadict_chars['Warrior 4 lvl (celtian infantry-lieutenant)'] = {
     #    },
     }
 
-metadict_chars['Warrior 5 lvl (celtian infantry-captain)'] = {
+metadict_chars['Warrior 5 lvl (celtian infantry-lieutenant)'] = {
     'level':5,
     'char_class':'Warrior-officer',
     'hit_dice':'1d8',
@@ -2501,7 +2501,7 @@ metadict_chars['Warrior 1 lvl (shekelesh infantry)'] = {
         },
     }
 
-metadict_chars['Warrior 2 lvl (shekelesh infantry-corporal)'] = {
+metadict_chars['Warrior 2 lvl (shekelesh infantry-veteran)'] = {
     'level':2,
     'char_class':'Warrior',
     'hit_dice':'1d8',
@@ -2523,11 +2523,11 @@ metadict_chars['Warrior 2 lvl (shekelesh infantry-corporal)'] = {
         },
     }
 
-metadict_chars['Warrior 3 lvl (shekelesh infantry-sergeant)'] = {
+metadict_chars['Warrior 3 lvl (shekelesh infantry-corporal)'] = {
     'level':3,
     'char_class':'Warrior',
     'hit_dice':'1d8',
-    'behavior':'commander',
+    'behavior':'elite_warrior',
     'class_features':{
         'Fighting_Style_Defence':True,
         },
@@ -2546,7 +2546,7 @@ metadict_chars['Warrior 3 lvl (shekelesh infantry-sergeant)'] = {
         },
     }
 
-metadict_chars['Warrior 4 lvl (shekelesh infantry-lieutenant)'] = {
+metadict_chars['Warrior 4 lvl (shekelesh infantry-sergeant)'] = {
     'level':4,
     'char_class':'Warrior-officer',
     'hit_dice':'1d8',
@@ -2575,7 +2575,7 @@ metadict_chars['Warrior 4 lvl (shekelesh infantry-lieutenant)'] = {
     #    },
     }
 
-metadict_chars['Warrior 5 lvl (shekelesh infantry-captain)'] = {
+metadict_chars['Warrior 5 lvl (shekelesh infantry-lieutenant)'] = {
     'level':5,
     'char_class':'Warrior-officer',
     'hit_dice':'1d8',
@@ -2626,7 +2626,7 @@ metadict_chars['Warrior 1 lvl (legionary infantry-siege)'] = {
         },
     }
 
-metadict_chars['Warrior 2 lvl (legionary infantry-siege-corporal)'] = {
+metadict_chars['Warrior 2 lvl (legionary infantry-siege-veteran)'] = {
     'level':2,
     'char_class':'Warrior',
     'hit_dice':'1d8',
@@ -2645,14 +2645,14 @@ metadict_chars['Warrior 2 lvl (legionary infantry-siege-corporal)'] = {
         },
     }
 
-metadict_chars['Warrior 3 lvl (legionary infantry-siege-sergeant)'] = {
+metadict_chars['Warrior 3 lvl (legionary infantry-siege-corporal)'] = {
     # Десятник (декан, урагос)
     'level':3,
     'seeker_AI':True,
     'fearless_AI':True,
     'char_class':'Warrior',
     'hit_dice':'1d8',
-    'behavior':'commander',
+    'behavior':'elite_warrior',
     'class_features':{
         'Fighting_Style_Great_Weapon_Fighting':True,
         },
@@ -2690,7 +2690,7 @@ metadict_chars['Warrior 1 lvl (legionary infantry)'] = {
         },
     }
 
-metadict_chars['Warrior 2 lvl (legionary infantry-corporal)'] = {
+metadict_chars['Warrior 2 lvl (legionary infantry-veteran)'] = {
     'level':2,
     'char_class':'Warrior',
     'hit_dice':'1d8',
@@ -2711,12 +2711,12 @@ metadict_chars['Warrior 2 lvl (legionary infantry-corporal)'] = {
         },
     }
 
-metadict_chars['Warrior 3 lvl (legionary infantry-sergeant)'] = {
+metadict_chars['Warrior 3 lvl (legionary infantry-corporal)'] = {
     # Десятник (декан, урагос)
     'level':3,
     'char_class':'Warrior',
     'hit_dice':'1d8',
-    'behavior':'commander',
+    'behavior':'elite_warrior',
     'class_features':{
         'Fighting_Style_Protection':True,
         },
@@ -2734,7 +2734,7 @@ metadict_chars['Warrior 3 lvl (legionary infantry-sergeant)'] = {
         },
     }
 
-metadict_chars['Warrior 4 lvl (legionary infantry-lieutenant)'] = {
+metadict_chars['Warrior 4 lvl (legionary infantry-sergeant)'] = {
     # Командир 30 легионеров, старший сержант (опцион, тессерарий)
     'level':4,
     'char_class':'Warrior-officer',
@@ -2763,7 +2763,7 @@ metadict_chars['Warrior 4 lvl (legionary infantry-lieutenant)'] = {
     #    },
     }
 
-metadict_chars['Warrior 5 lvl (legionary infantry-captain)'] = {
+metadict_chars['Warrior 5 lvl (legionary infantry-lieutenant)'] = {
     # Командир сотни легионеров, центурион (кентурион).
     'level':5,
     'char_class':'Warrior-officer',
@@ -2815,7 +2815,7 @@ metadict_chars['Warrior 1 lvl (mercenary heavy-infantry)'] = {
         },
     }
 
-metadict_chars['Warrior 2 lvl (mercenary heavy-infantry-corporal)'] = {
+metadict_chars['Warrior 2 lvl (mercenary heavy-infantry-veteran)'] = {
     'level':2,
     'char_class':'Warrior-heavy',
     'hit_dice':'1d8',
@@ -2836,11 +2836,11 @@ metadict_chars['Warrior 2 lvl (mercenary heavy-infantry-corporal)'] = {
         },
     }
 
-metadict_chars['Warrior 3 lvl (mercenary heavy-infantry-sergeant)'] = {
+metadict_chars['Warrior 3 lvl (mercenary heavy-infantry-corporal)'] = {
     'level':3,
     'char_class':'Warrior-heavy',
     'hit_dice':'1d8',
-    'behavior':'commander',
+    'behavior':'elite_warrior',
     'class_features':{
         'Fighting_Style_Great_Weapon_Fighting':True,
         },
@@ -2857,7 +2857,7 @@ metadict_chars['Warrior 3 lvl (mercenary heavy-infantry-sergeant)'] = {
         },
     }
 
-metadict_chars['Warrior 4 lvl (mercenary heavy-infantry-lieutenant)'] = {
+metadict_chars['Warrior 4 lvl (mercenary heavy-infantry-sergeant)'] = {
     'level':4,
     'char_class':'Warrior-officer',
     'hit_dice':'1d8',
@@ -2884,7 +2884,7 @@ metadict_chars['Warrior 4 lvl (mercenary heavy-infantry-lieutenant)'] = {
         },
     }
 
-metadict_chars['Warrior 5 lvl (mercenary heavy-infantry-captain)'] = {
+metadict_chars['Warrior 5 lvl (mercenary heavy-infantry-lieutenant)'] = {
     'level':5,
     'char_class':'Warrior-officer',
     'hit_dice':'1d8',
@@ -3206,7 +3206,7 @@ metadict_chars['Fighter 3 lvl (legionary sentinel-mystic)'] = {
         },
     }
 
-metadict_chars['Fighter 4 lvl (legionary sentinel-lieutenant)'] = {
+metadict_chars['Fighter 4 lvl (legionary sentinel-sergeant)'] = {
     'level':4,
     'no_grappler_AI':True,
     'char_class':'Eldritch_Knight',
@@ -3246,7 +3246,7 @@ metadict_chars['Fighter 4 lvl (legionary sentinel-lieutenant)'] = {
         },
     }
 
-metadict_chars['Fighter 5 lvl (legionary sentinel-captain)'] = {
+metadict_chars['Fighter 5 lvl (legionary sentinel-lieutenant)'] = {
     'level':5,
     'no_grappler_AI':True,
     'char_class':'Eldritch_Knight',
@@ -3374,7 +3374,7 @@ metadict_chars['Fighter 3 lvl (legionary slayer-champion)'] = {
         },
     }
 
-metadict_chars['Fighter 4 lvl (legionary slayer-lieutenant)'] = {
+metadict_chars['Fighter 4 lvl (legionary slayer-sergeant)'] = {
     'level':4,
     'no_grappler_AI':True,
     'char_class':'Battlemaster',
@@ -3411,7 +3411,7 @@ metadict_chars['Fighter 4 lvl (legionary slayer-lieutenant)'] = {
         },
     }
 
-metadict_chars['Fighter 5 lvl (legionary slayer-captain)'] = {
+metadict_chars['Fighter 5 lvl (legionary slayer-lieutenant)'] = {
     # Samurai
     'level':5,
     'no_grappler_AI':True,
@@ -3482,7 +3482,7 @@ metadict_chars['Fighter 1 lvl (legionary horseman)'] = {
         },
     }
 
-metadict_chars['Fighter 2 lvl (legionary horseman-corporal)'] = {
+metadict_chars['Fighter 2 lvl (legionary horseman-veteran)'] = {
     # Катафракты.
     'level':2,
     'char_class':'Fighter',
@@ -3513,7 +3513,7 @@ metadict_chars['Fighter 2 lvl (legionary horseman-corporal)'] = {
         },
     }
 
-metadict_chars['Fighter 3 lvl (legionary horseman-sergeant)'] = {
+metadict_chars['Fighter 3 lvl (legionary horseman-corporal)'] = {
     'level':3,
     'char_class':'Fighter',
     'hit_dice':'1d10',
@@ -3547,7 +3547,7 @@ metadict_chars['Fighter 3 lvl (legionary horseman-sergeant)'] = {
         },
     }
 
-metadict_chars['Fighter 4 lvl (legionary horseman-lieutenant)'] = {
+metadict_chars['Fighter 4 lvl (legionary horseman-sergeant)'] = {
     'level':4,
     'char_class':'Fighter',
     'hit_dice':'1d10',
@@ -3586,7 +3586,7 @@ metadict_chars['Fighter 4 lvl (legionary horseman-lieutenant)'] = {
         },
     }
 
-metadict_chars['Fighter 5 lvl (legionary horseman-captain)'] = {
+metadict_chars['Fighter 5 lvl (legionary horseman-lieutenant)'] = {
     'level':5,
     'char_class':'Fighter',
     'hit_dice':'1d10',
@@ -5729,7 +5729,7 @@ metadict_chars['Rogue 3 lvl (mercenary phantom-deadeye)'] = {
     #    },
     }
 
-metadict_chars['Rogue 4 lvl (mercenary phantom-lieutenant)'] = {
+metadict_chars['Rogue 4 lvl (mercenary phantom-sergeant)'] = {
     'level':4,
     'char_class':'Rogue',
     'hit_dice':'1d8',
@@ -5765,7 +5765,7 @@ metadict_chars['Rogue 4 lvl (mercenary phantom-lieutenant)'] = {
     #    },
     }
 
-metadict_chars['Rogue 5 lvl (mercenary phantom-captain)'] = {
+metadict_chars['Rogue 5 lvl (mercenary phantom-lieutenant)'] = {
     'level':5,
     'fireball_AI':True,
     'char_class':'Rogue',
@@ -5920,7 +5920,7 @@ metadict_chars['Ranger 3 lvl (otherworld wanderer-hunter)'] = {
     #    },
     }
 
-metadict_chars['Ranger 4 lvl (otherworld wanderer-lieutenant)'] = {
+metadict_chars['Ranger 4 lvl (otherworld wanderer-sergeant)'] = {
     'level':4,
     'char_class':'Ranger',
     'hit_dice':'1d10',
@@ -5961,7 +5961,7 @@ metadict_chars['Ranger 4 lvl (otherworld wanderer-lieutenant)'] = {
     #    },
     }
 
-metadict_chars['Ranger 5 lvl (otherworld wanderer-captain)'] = {
+metadict_chars['Ranger 5 lvl (otherworld wanderer-lieutenant)'] = {
     'level':5,
     'char_class':'Ranger',
     'hit_dice':'1d10',
@@ -6660,7 +6660,7 @@ metadict_chars['Paladin 3 lvl (city sentry-imeyer)'] = {
         },
     }
 
-metadict_chars['Paladin 4 lvl (city sentry-lieutenant)'] = {
+metadict_chars['Paladin 4 lvl (city sentry-sergeant)'] = {
     'level':4,
     'char_class':'Paladin',
     'hit_dice':'1d10',
@@ -6713,7 +6713,7 @@ metadict_chars['Paladin 4 lvl (city sentry-lieutenant)'] = {
         },
     }
 
-metadict_chars['Paladin 5 lvl (city sentry-captain)'] = {
+metadict_chars['Paladin 5 lvl (city sentry-lieutenant)'] = {
     # Да уж, паладины могучи. +12-15 мод. атаки с Bless и Sacred_Weapon. 40+ урона/раунд.
     'level':5,
     'char_class':'Paladin',

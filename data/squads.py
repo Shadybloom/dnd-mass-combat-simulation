@@ -82,8 +82,8 @@ metadict_squads['10 onagers (fire)'] = {
 metadict_squads['Company-regular (осадные инженеры)'] = {
     # С двуручными кирками, Greataxe
     'Warrior 1 lvl (legionary infantry-siege)':80 + dice_throw('1d12'),
-    'Warrior 2 lvl (legionary infantry-siege-corporal)':10,
-    'Warrior 3 lvl (legionary infantry-siege-sergeant)':3,
+    'Warrior 2 lvl (legionary infantry-siege-veteran)':10,
+    'Warrior 3 lvl (legionary infantry-siege-corporal)':3,
     }
 
 #----
@@ -779,10 +779,10 @@ metadict_squads['Company-militia (сатиры Павсания, сына Пав
 metadict_squads['Company-regular (легионеры мостовика Отто) (друг)'] = {
     # Сам Отто бежал с Фарамом, отряд остался оборонять мост.
     'Warrior 1 lvl (legionary infantry)':80 + dice_throw('1d12'),
-    'Warrior 2 lvl (legionary infantry-corporal)':10,
-    'Warrior 3 lvl (legionary infantry-sergeant)':3,
-    'Warrior 4 lvl (legionary infantry-lieutenant)':1,
-    #'Warrior 5 lvl (legionary infantry-captain)':1,
+    'Warrior 2 lvl (legionary infantry-veteran)':10,
+    'Warrior 3 lvl (legionary infantry-corporal)':3,
+    'Warrior 4 lvl (legionary infantry-sergeant)':1,
+    #'Warrior 5 lvl (legionary infantry-lieutenant)':1,
     }
 
 #----
@@ -835,57 +835,57 @@ metadict_squads['Company-militia (демоны Кема\'Эша) (враг)'] = 
 metadict_squads['Company-regular (лучники Энзифа) (враг)'] = {
     # Побеждены Гаем Юлием и сатирами Павсания.
     'Warrior 1 lvl (sqythian bowman)':185,
-    'Warrior 2 lvl (sqythian bowman-corporal)':10,
-    'Warrior 3 lvl (sqythian bowman-sergeant)':3,
-    'Warrior 4 lvl (sqythian bowman-lieutenant)':1,
+    'Warrior 2 lvl (sqythian bowman-veteran)':10,
+    'Warrior 3 lvl (sqythian bowman-corporal)':3,
+    'Warrior 4 lvl (sqythian bowman-sergeant)':1,
     }
 
 metadict_squads['Company-regular (сариссофоры Магора) (враг)'] = {
     # Побеждены Патроклом и кентурией Марселлия
     'Warrior 1 lvl (city pikeman)':75,
-    'Warrior 2 lvl (city pikeman-corporal)':20,
-    'Warrior 3 lvl (city pikeman-sergeant)':6,
-    'Warrior 4 lvl (city pikeman-lieutenant)':2,
+    'Warrior 2 lvl (city pikeman-veteran)':20,
+    'Warrior 3 lvl (city pikeman-corporal)':6,
+    'Warrior 4 lvl (city pikeman-sergeant)':2,
     }
 
 metadict_squads['Company-regular (лучники Хана-Вама) (враг)'] = {
     # Уничтожены Подводной стражей Психеи
     'Warrior 1 lvl (sqythian bowman)':75,
-    'Warrior 2 lvl (sqythian bowman-corporal)':10,
-    'Warrior 3 lvl (sqythian bowman-sergeant)':3,
-    'Warrior 4 lvl (sqythian bowman-lieutenant)':1,
-    'Warrior 5 lvl (sqythian bowman-captain)':1,
+    'Warrior 2 lvl (sqythian bowman-veteran)':10,
+    'Warrior 3 lvl (sqythian bowman-corporal)':3,
+    'Warrior 4 lvl (sqythian bowman-sergeant)':1,
+    'Warrior 5 lvl (sqythian bowman-lieutenant)':1,
     }
 
 metadict_squads['Company-regular (пираты Кара-Яма) (конные) (враг)'] = {
     # Взяты в плен Фарамом
     'Warrior 1 lvl (cavalry archer)':6,
-    'Warrior 2 lvl (cavalry archer-corporal)':10,
-    'Warrior 3 lvl (cavalry archer-sergeant)':3,
-    'Warrior 4 lvl (cavalry archer-lieutenant)':1,
+    'Warrior 2 lvl (cavalry archer-veteran)':10,
+    'Warrior 3 lvl (cavalry archer-corporal)':3,
+    'Warrior 4 lvl (cavalry archer-sergeant)':1,
     }
 
 metadict_squads['Company-regular (пираты Кара-Яма) (пешие) (враг)'] = {
     # Взяты в плен Патроклом в битве за корабли.
     # Лучшие в конном отряде.
     'Warrior 1 lvl (cilician infantry)':70,
-    'Warrior 3 lvl (cilician infantry-sergeant)':1,
+    'Warrior 3 lvl (cilician infantry-corporal)':1,
     }
 
 metadict_squads['Company-regular (пираты Кема-Эша) (враг)'] = {
     # Сбежали, пострадали от дактилей, сдались Сакатру.
     'Warrior 1 lvl (cilician infantry)':75,
-    'Warrior 2 lvl (cilician infantry-corporal)':10,
-    'Warrior 3 lvl (cilician infantry-sergeant)':3,
-    'Warrior 4 lvl (cilician infantry-lieutenant)':1,
+    'Warrior 2 lvl (cilician infantry-veteran)':10,
+    'Warrior 3 lvl (cilician infantry-corporal)':3,
+    'Warrior 4 lvl (cilician infantry-sergeant)':1,
     }
 
 metadict_squads['Company-regular (пращники Тик-Бо) (враг)'] = {
     # Сбежали, пострадали от дактилей, сдались Сакатру.
     'Warrior 1 lvl (balear slinger)':75,
-    'Warrior 2 lvl (balear slinger-corporal)':10,
-    'Warrior 3 lvl (balear slinger-sergeant)':3,
-    'Warrior 4 lvl (balear slinger-lieutenant)':1,
+    'Warrior 2 lvl (balear slinger-veteran)':10,
+    'Warrior 3 lvl (balear slinger-corporal)':3,
+    'Warrior 4 lvl (balear slinger-sergeant)':1,
     }
 
 #----
@@ -935,8 +935,8 @@ metadict_squads['Company-regular (пираты Сакатра) (Gogan)'] = {
 
 metadict_squads['Company-militia (пращники Сакатра) (Gogan)'] = {
     'Commoner 1 lvl (militia slinger)':80 + dice_throw('3d12'),
-    'Commoner 2 lvl (militia slinger-corporal)':5,
-    'Warrior 3 lvl (militia slinger-sergeant)':1,
+    'Commoner 2 lvl (militia slinger-veteran)':5,
+    'Warrior 3 lvl (militia slinger-corporal)':1,
     }
 
 metadict_squads['Squad-hero (колдуны Кема\'Эша) (друг)'] = {
@@ -985,8 +985,8 @@ metadict_squads['Company-veteran (гвардия Гая Юлия) (Katorjnik)'] 
 
 metadict_squads['Company-militia (гастаты Гая Юлия) (Katorjnik)'] = {
     'Commoner 1 lvl (militia spearman)':95,
-    'Commoner 2 lvl (militia spearman-corporal)':5,
-    'Warrior 3 lvl (militia spearman-sergeant)':1,
+    'Commoner 2 lvl (militia spearman-veteran)':5,
+    'Warrior 3 lvl (militia spearman-corporal)':1,
     }
 
 #----
@@ -1074,14 +1074,14 @@ metadict_squads['Company-regular (онагры Патрокла) (siege) (Vened)
 metadict_squads['Company-militia (тяжёлые арбалетчики Патрокла) (Vened)'] = {
     # Отряд ополчения с тяжёлыми арбалетами:
     'Commoner 1 lvl (militia heavy crossbowman)':80 + dice_throw('3d12'),
-    'Commoner 2 lvl (militia heavy crossbowman-corporal)':5,
-    'Warrior 3 lvl (militia heavy crossbowman-sergeant)':1,
+    'Commoner 2 lvl (militia heavy crossbowman-veteran)':5,
+    'Warrior 3 lvl (militia heavy crossbowman-corporal)':1,
     }
 
 metadict_squads['Company-militia (арбалетчики Патрокла) (Vened)'] = {
     'Commoner 1 lvl (militia crossbowman)':80 + dice_throw('3d12'),
-    'Commoner 2 lvl (militia crossbowman-corporal)':5,
-    'Warrior 3 lvl (militia crossbowman-sergeant)':1,
+    'Commoner 2 lvl (militia crossbowman-veteran)':5,
+    'Warrior 3 lvl (militia crossbowman-corporal)':1,
     }
 
 #----
@@ -1176,51 +1176,51 @@ metadict_squads['Band-hero (снайперы Артаманаха) (ArbitraryNic
 metadict_squads['Company-militia (skirmisher-peltasts)'] = {
     # У нас не хватит лейтенантов на все отряды ополчения, да и сержантов тоже мало.
     'Commoner 1 lvl (militia javeliner)':80 + dice_throw('3d12'),
-    'Commoner 2 lvl (militia javeliner-corporal)':5,
-    'Warrior 3 lvl (militia javeliner-sergeant)':1,
-    #'Warrior 4 lvl (militia javeliner-lieutenant)':1,
+    'Commoner 2 lvl (militia javeliner-veteran)':5,
+    'Warrior 3 lvl (militia javeliner-corporal)':2,
+    'Warrior 4 lvl (militia javeliner-sergeant)':1,
     }
 
 metadict_squads['Company-militia (infantry-spearmans)'] = {
     'Commoner 1 lvl (militia spearman)':80 + dice_throw('3d12'),
-    'Commoner 2 lvl (militia spearman-corporal)':5,
-    'Warrior 3 lvl (militia spearman-sergeant)':1,
-    #'Warrior 4 lvl (militia spearman-lieutenant)':1,
+    'Commoner 2 lvl (militia spearman-veteran)':5,
+    'Warrior 3 lvl (militia spearman-corporal)':2,
+    'Warrior 4 lvl (militia spearman-sergeant)':1,
     }
 
 metadict_squads['Company-militia (infantry-swordsmans)'] = {
     'Commoner 1 lvl (militia swordsman)':80 + dice_throw('3d12'),
-    'Commoner 2 lvl (militia swordsman-corporal)':5,
-    'Warrior 3 lvl (militia swordsman-sergeant)':1,
-    #'Warrior 4 lvl (militia swordsman-lieutenant)':1,
+    'Commoner 2 lvl (militia swordsman-veteran)':5,
+    'Warrior 3 lvl (militia swordsman-corporal)':2,
+    'Warrior 4 lvl (militia swordsman-sergeant)':1,
     }
 
 metadict_squads['Company-militia (skirmisher-slingers)'] = {
     'Commoner 1 lvl (militia slinger)':80 + dice_throw('3d12'),
-    'Commoner 2 lvl (militia slinger-corporal)':5,
-    'Warrior 3 lvl (militia slinger-sergeant)':1,
-    #'Warrior 4 lvl (militia slinger-lieutenant)':1,
+    'Commoner 2 lvl (militia slinger-veteran)':5,
+    'Warrior 3 lvl (militia slinger-corporal)':2,
+    'Warrior 4 lvl (militia slinger-sergeant)':1,
     }
 
 metadict_squads['Company-militia (bowmans-hunters)'] = {
     'Commoner 1 lvl (militia bowman)':80 + dice_throw('3d12'),
-    'Commoner 2 lvl (militia bowman-corporal)':5,
-    'Warrior 3 lvl (militia bowman-sergeant)':1,
-    #'Warrior 4 lvl (militia bowman-lieutenant)':1,
+    'Commoner 2 lvl (militia bowman-veteran)':5,
+    'Warrior 3 lvl (militia bowman-corporal)':2,
+    'Warrior 4 lvl (militia bowman-sergeant)':1,
     }
 
 metadict_squads['Company-militia (crossbowmans)'] = {
     'Commoner 1 lvl (militia crossbowman)':80 + dice_throw('3d12'),
-    'Commoner 2 lvl (militia crossbowman-corporal)':5,
-    'Warrior 3 lvl (militia crossbowman-sergeant)':1,
-    #'Warrior 4 lvl (militia crossbowman-lieutenant)':1,
+    'Commoner 2 lvl (militia crossbowman-veteran)':5,
+    'Warrior 3 lvl (militia crossbowman-corporal)':2,
+    'Warrior 4 lvl (militia crossbowman-sergeant)':1,
     }
 
 metadict_squads['Company-militia (heavy crossbowmans)'] = {
     'Commoner 1 lvl (militia heavy crossbowman)':80 + dice_throw('3d12'),
-    'Commoner 2 lvl (militia heavy crossbowman-corporal)':5,
-    'Warrior 3 lvl (militia heavy crossbowman-sergeant)':1,
-    #'Warrior 4 lvl (militia heavy crossbowman-lieutenant)':1,
+    'Commoner 2 lvl (militia heavy crossbowman-veteran)':5,
+    'Warrior 3 lvl (militia heavy crossbowman-corporal)':2,
+    'Warrior 4 lvl (militia heavy crossbowman-sergeant)':1,
     }
 
 #----
@@ -1236,10 +1236,10 @@ metadict_squads['Company-regular (infantry-hoplites)'] = {
     # - Две тетрархии – таксис, лохов же восемь, а мужей сто двадцать восемь, и их командир – таксиарх;
     # - Когда подразделение состоит из сотни, ее командир называется сотник (гекатонтарх).
     'Warrior 1 lvl (achean hoplite)':80 + dice_throw('1d12'),
-    'Warrior 2 lvl (achean hoplite-corporal)':10,
-    'Warrior 3 lvl (achean hoplite-sergeant)':3,
-    'Warrior 4 lvl (achean hoplite-lieutenant)':1,
-    'Warrior 5 lvl (achean hoplite-captain)':1,
+    'Warrior 2 lvl (achean hoplite-veteran)':10,
+    'Warrior 3 lvl (achean hoplite-corporal)':3,
+    'Warrior 4 lvl (achean hoplite-sergeant)':1,
+    'Warrior 5 lvl (achean hoplite-lieutenant)':1,
     }
 
 metadict_squads['Company-regular (infantry-legionary)'] = {
@@ -1250,42 +1250,42 @@ metadict_squads['Company-regular (infantry-legionary)'] = {
     # Всего около 10 500 опыта (как у героя 5 lvl)
         # 5 lvl -- 10400 * 1 = 10 400
     'Warrior 1 lvl (legionary infantry)':80 + dice_throw('1d12'),
-    'Warrior 2 lvl (legionary infantry-corporal)':10,
-    'Warrior 3 lvl (legionary infantry-sergeant)':3,
-    'Warrior 4 lvl (legionary infantry-lieutenant)':1,
-    'Warrior 5 lvl (legionary infantry-captain)':1,
+    'Warrior 2 lvl (legionary infantry-veteran)':10,
+    'Warrior 3 lvl (legionary infantry-corporal)':3,
+    'Warrior 4 lvl (legionary infantry-sergeant)':1,
+    'Warrior 5 lvl (legionary infantry-lieutenant)':1,
     }
 
 metadict_squads['Company-regular (infantry-pikemans)'] = {
     'Warrior 1 lvl (city pikeman)':80 + dice_throw('1d12'),
-    'Warrior 2 lvl (city pikeman-corporal)':10,
-    'Warrior 3 lvl (city pikeman-sergeant)':3,
-    'Warrior 4 lvl (city pikeman-lieutenant)':1,
-    'Warrior 5 lvl (city pikeman-captain)':1,
+    'Warrior 2 lvl (city pikeman-veteran)':10,
+    'Warrior 3 lvl (city pikeman-corporal)':3,
+    'Warrior 4 lvl (city pikeman-sergeant)':1,
+    'Warrior 5 lvl (city pikeman-lieutenant)':1,
     }
 
 metadict_squads['Company-regular (infantry-thracian)'] = {
     'Warrior 1 lvl (thracian infantry)':80 + dice_throw('1d12'),
-    'Warrior 2 lvl (thracian infantry-corporal)':10,
-    'Warrior 3 lvl (thracian infantry-sergeant)':3,
-    'Warrior 4 lvl (thracian infantry-lieutenant)':1,
-    'Warrior 5 lvl (thracian infantry-captain)':1,
+    'Warrior 2 lvl (thracian infantry-veteran)':10,
+    'Warrior 3 lvl (thracian infantry-corporal)':3,
+    'Warrior 4 lvl (thracian infantry-sergeant)':1,
+    'Warrior 5 lvl (thracian infantry-lieutenant)':1,
     }
 
 metadict_squads['Company-regular (infantry-cilician)'] = {
     'Warrior 1 lvl (cilician infantry)':80 + dice_throw('1d12'),
-    'Warrior 2 lvl (cilician infantry-corporal)':10,
-    'Warrior 3 lvl (cilician infantry-sergeant)':3,
-    'Warrior 4 lvl (cilician infantry-lieutenant)':1,
-    'Warrior 5 lvl (cilician infantry-captain)':1,
+    'Warrior 2 lvl (cilician infantry-veteran)':10,
+    'Warrior 3 lvl (cilician infantry-corporal)':3,
+    'Warrior 4 lvl (cilician infantry-sergeant)':1,
+    'Warrior 5 lvl (cilician infantry-lieutenant)':1,
     }
 
 metadict_squads['Company-regular (bowmans-scythian)'] = {
     'Warrior 1 lvl (sqythian bowman)':80 + dice_throw('1d12'),
-    'Warrior 2 lvl (sqythian bowman-corporal)':10,
-    'Warrior 3 lvl (sqythian bowman-sergeant)':3,
-    'Warrior 4 lvl (sqythian bowman-lieutenant)':1,
-    'Warrior 5 lvl (sqythian bowman-captain)':1,
+    'Warrior 2 lvl (sqythian bowman-veteran)':10,
+    'Warrior 3 lvl (sqythian bowman-corporal)':3,
+    'Warrior 4 lvl (sqythian bowman-sergeant)':1,
+    'Warrior 5 lvl (sqythian bowman-lieutenant)':1,
     }
 
 #----
@@ -1293,34 +1293,34 @@ metadict_squads['Company-regular (bowmans-scythian)'] = {
 
 metadict_squads['Company-regular (line-infantry-musketeers)'] = {
     'Warrior 1 lvl (musketeer line-infantry)':80 + dice_throw('1d12'),
-    'Warrior 2 lvl (musketeer line-infantry-corporal)':10,
-    'Warrior 3 lvl (musketeer line-infantry-sergeant)':3,
-    'Warrior 4 lvl (musketeer line-infantry-lieutenant)':1,
-    'Warrior 5 lvl (musketeer line-infantry-captain)':1,
+    'Warrior 2 lvl (musketeer line-infantry-veteran)':10,
+    'Warrior 3 lvl (musketeer line-infantry-corporal)':3,
+    'Warrior 4 lvl (musketeer line-infantry-sergeant)':1,
+    'Warrior 5 lvl (musketeer line-infantry-lieutenant)':1,
     }
 
 metadict_squads['Company-regular (line-infantry-grenadiers)'] = {
     'Warrior 1 lvl (grenadier line-infantry)':80 + dice_throw('1d12'),
-    'Warrior 2 lvl (grenadier line-infantry-corporal)':10,
-    'Warrior 3 lvl (grenadier line-infantry-sergeant)':3,
-    'Warrior 4 lvl (grenadier line-infantry-lieutenant)':1,
-    'Warrior 5 lvl (grenadier line-infantry-captain)':1,
+    'Warrior 2 lvl (grenadier line-infantry-veteran)':10,
+    'Warrior 3 lvl (grenadier line-infantry-corporal)':3,
+    'Warrior 4 lvl (grenadier line-infantry-sergeant)':1,
+    'Warrior 5 lvl (grenadier line-infantry-lieutenant)':1,
     }
 
 metadict_squads['Company-regular (line-infantry-bombardiers)'] = {
     'Warrior 1 lvl (bombardier line-infantry)':80 + dice_throw('1d12'),
-    'Warrior 2 lvl (bombardier line-infantry-corporal)':10,
-    'Warrior 3 lvl (bombardier line-infantry-sergeant)':3,
-    'Warrior 4 lvl (bombardier line-infantry-lieutenant)':1,
-    'Warrior 5 lvl (bombardier line-infantry-captain)':1,
+    'Warrior 2 lvl (bombardier line-infantry-veteran)':10,
+    'Warrior 3 lvl (bombardier line-infantry-corporal)':3,
+    'Warrior 4 lvl (bombardier line-infantry-sergeant)':1,
+    'Warrior 5 lvl (bombardier line-infantry-lieutenant)':1,
     }
 
 metadict_squads['Company-regular (line-infantry-fusiliers)'] = {
     'Warrior 1 lvl (fusilier line-infantry)':80 + dice_throw('1d12'),
-    'Warrior 2 lvl (fusilier line-infantry-corporal)':10,
-    'Warrior 3 lvl (fusilier line-infantry-sergeant)':3,
-    'Warrior 4 lvl (fusilier line-infantry-lieutenant)':1,
-    'Warrior 5 lvl (fusilier line-infantry-captain)':1,
+    'Warrior 2 lvl (fusilier line-infantry-veteran)':10,
+    'Warrior 3 lvl (fusilier line-infantry-corporal)':3,
+    'Warrior 4 lvl (fusilier line-infantry-sergeant)':1,
+    'Warrior 5 lvl (fusilier line-infantry-lieutenant)':1,
     }
 
 #----
@@ -1328,43 +1328,43 @@ metadict_squads['Company-regular (line-infantry-fusiliers)'] = {
 
 #metadict_squads['Company-regular (infantry-polearms)'] = {
 #    'Warrior 1 lvl (mercenary heavy-infantry)':80 + dice_throw('1d12'),
-#    'Warrior 2 lvl (mercenary heavy-infantry-corporal)':10,
-#    'Warrior 3 lvl (mercenary heavy-infantry-sergeant)':3,
-#    'Warrior 4 lvl (mercenary heavy-infantry-lieutenant)':1,
-#    'Warrior 5 lvl (mercenary heavy-infantry-captain)':1,
+#    'Warrior 2 lvl (mercenary heavy-infantry-veteran)':10,
+#    'Warrior 3 lvl (mercenary heavy-infantry-corporal)':3,
+#    'Warrior 4 lvl (mercenary heavy-infantry-sergeant)':1,
+#    'Warrior 5 lvl (mercenary heavy-infantry-lieutenant)':1,
 #    }
 
 #metadict_squads['Company-regular (infantry-shekelesh)'] = {
 #    'Warrior 1 lvl (shekelesh infantry)':80 + dice_throw('1d12'),
-#    'Warrior 2 lvl (shekelesh infantry-corporal)':10,
-#    'Warrior 3 lvl (shekelesh infantry-sergeant)':3,
-#    'Warrior 4 lvl (shekelesh infantry-lieutenant)':1,
-#    'Warrior 5 lvl (shekelesh infantry-captain)':1,
+#    'Warrior 2 lvl (shekelesh infantry-veteran)':10,
+#    'Warrior 3 lvl (shekelesh infantry-corporal)':3,
+#    'Warrior 4 lvl (shekelesh infantry-sergeant)':1,
+#    'Warrior 5 lvl (shekelesh infantry-lieutenant)':1,
 #    }
 #
 #metadict_squads['Company-regular (infantry-celtian)'] = {
 #    'Warrior 1 lvl (celtian infantry)':80 + dice_throw('1d12'),
-#    'Warrior 2 lvl (celtian infantry-corporal)':10,
-#    'Warrior 3 lvl (celtian infantry-sergeant)':3,
-#    'Warrior 4 lvl (celtian infantry-lieutenant)':1,
-#    'Warrior 5 lvl (celtian infantry-captain)':1,
+#    'Warrior 2 lvl (celtian infantry-veteran)':10,
+#    'Warrior 3 lvl (celtian infantry-corporal)':3,
+#    'Warrior 4 lvl (celtian infantry-sergeant)':1,
+#    'Warrior 5 lvl (celtian infantry-lieutenant)':1,
 #    }
 #
 
 #metadict_squads['Company-regular (bowmans-persian)'] = {
 #    'Warrior 1 lvl (persian bowman)':80 + dice_throw('1d12'),
-#    'Warrior 2 lvl (persian bowman-corporal)':10,
-#    'Warrior 3 lvl (persian bowman-sergeant)':3,
-#    'Warrior 4 lvl (persian bowman-lieutenant)':1,
-#    'Warrior 5 lvl (persian bowman-captain)':1,
+#    'Warrior 2 lvl (persian bowman-veteran)':10,
+#    'Warrior 3 lvl (persian bowman-corporal)':3,
+#    'Warrior 4 lvl (persian bowman-sergeant)':1,
+#    'Warrior 5 lvl (persian bowman-lieutenant)':1,
 #    }
 
 #metadict_squads['Company-regular (slingers-balear)'] = {
 #    'Warrior 1 lvl (balear slinger)':80 + dice_throw('1d12'),
-#    'Warrior 2 lvl (balear slinger-corporal)':10,
-#    'Warrior 3 lvl (balear slinger-sergeant)':3,
-#    'Warrior 4 lvl (balear slinger-lieutenant)':1,
-#    'Warrior 5 lvl (balear slinger-captain)':1,
+#    'Warrior 2 lvl (balear slinger-veteran)':10,
+#    'Warrior 3 lvl (balear slinger-corporal)':3,
+#    'Warrior 4 lvl (balear slinger-sergeant)':1,
+#    'Warrior 5 lvl (balear slinger-lieutenant)':1,
 #    }
 
 #----
@@ -1386,60 +1386,60 @@ metadict_squads['Company-regular (line-infantry-fusiliers)'] = {
 #    # Отборный отряд -- 200 рекрутов на 100 солдат
 #    # Fighting_Style_Dueling
 #    'Warrior 1 lvl (achean hoplite)':46 + dice_throw('1d12'),
-#    'Warrior 2 lvl (achean hoplite-corporal)':44,
-#    'Warrior 3 lvl (achean hoplite-sergeant)':3,
-#    'Warrior 4 lvl (achean hoplite-lieutenant)':1,
-#    'Warrior 5 lvl (achean hoplite-captain)':2,
+#    'Warrior 2 lvl (achean hoplite-veteran)':44,
+#    'Warrior 3 lvl (achean hoplite-corporal)':3,
+#    'Warrior 4 lvl (achean hoplite-sergeant)':1,
+#    'Warrior 5 lvl (achean hoplite-lieutenant)':2,
 #    'Commoner 1 lvl (recruit)':100,
 #    }
 #
 #metadict_squads['Company-veteran (infantry-legionary)'] = {
 #    # Fighting_Style_Protection
 #    'Warrior 1 lvl (legionary infantry)':46 + dice_throw('1d12'),
-#    'Warrior 2 lvl (legionary infantry-corporal)':44,
-#    'Warrior 3 lvl (legionary infantry-sergeant)':3,
-#    'Warrior 4 lvl (legionary infantry-lieutenant)':1,
-#    'Warrior 5 lvl (legionary infantry-captain)':2,
+#    'Warrior 2 lvl (legionary infantry-veteran)':44,
+#    'Warrior 3 lvl (legionary infantry-corporal)':3,
+#    'Warrior 4 lvl (legionary infantry-sergeant)':1,
+#    'Warrior 5 lvl (legionary infantry-lieutenant)':2,
 #    'Commoner 1 lvl (recruit)':100,
 #    }
 #
 #metadict_squads['Company-veteran (infantry-pikemans)'] = {
 #    # Fighting_Style_Defence
 #    'Warrior 1 lvl (city pikeman)':46 + dice_throw('1d12'),
-#    'Warrior 2 lvl (city pikeman-corporal)':44,
-#    'Warrior 3 lvl (city pikeman-sergeant)':3,
-#    'Warrior 4 lvl (city pikeman-lieutenant)':1,
-#    'Warrior 5 lvl (city pikeman-captain)':2,
+#    'Warrior 2 lvl (city pikeman-veteran)':44,
+#    'Warrior 3 lvl (city pikeman-corporal)':3,
+#    'Warrior 4 lvl (city pikeman-sergeant)':1,
+#    'Warrior 5 lvl (city pikeman-lieutenant)':2,
 #    'Commoner 1 lvl (recruit)':100,
 #    }
 #
 #metadict_squads['Company-veteran (infantry-thracian)'] = {
 #    # Fighting_Style_Great_Weapon_Fighting
 #    'Warrior 1 lvl (thracian infantry)':46 + dice_throw('1d12'),
-#    'Warrior 2 lvl (thracian infantry-corporal)':44,
-#    'Warrior 3 lvl (thracian infantry-sergeant)':3,
-#    'Warrior 4 lvl (thracian infantry-lieutenant)':1,
-#    'Warrior 5 lvl (thracian infantry-captain)':2,
+#    'Warrior 2 lvl (thracian infantry-veteran)':44,
+#    'Warrior 3 lvl (thracian infantry-corporal)':3,
+#    'Warrior 4 lvl (thracian infantry-sergeant)':1,
+#    'Warrior 5 lvl (thracian infantry-lieutenant)':2,
 #    'Commoner 1 lvl (recruit)':100,
 #    }
 #
 #metadict_squads['Company-veteran (infantry-cilician)'] = {
 #    # Fighting_Style_Two_Weapon_Fighting
 #    'Warrior 1 lvl (cilician infantry)':46 + dice_throw('1d12'),
-#    'Warrior 2 lvl (cilician infantry-corporal)':44,
-#    'Warrior 3 lvl (cilician infantry-sergeant)':3,
-#    'Warrior 4 lvl (cilician infantry-lieutenant)':1,
-#    'Warrior 5 lvl (cilician infantry-captain)':2,
+#    'Warrior 2 lvl (cilician infantry-veteran)':44,
+#    'Warrior 3 lvl (cilician infantry-corporal)':3,
+#    'Warrior 4 lvl (cilician infantry-sergeant)':1,
+#    'Warrior 5 lvl (cilician infantry-lieutenant)':2,
 #    'Commoner 1 lvl (recruit)':100,
 #    }
 #
 #metadict_squads['Company-veteran (bowmans-scythian)'] = {
 #    # Fighting_Style_Archery
 #    'Warrior 1 lvl (sqythian bowman)':46 + dice_throw('1d12'),
-#    'Warrior 2 lvl (sqythian bowman-corporal)':44,
-#    'Warrior 3 lvl (sqythian bowman-sergeant)':3,
-#    'Warrior 4 lvl (sqythian bowman-lieutenant)':1,
-#    'Warrior 5 lvl (sqythian bowman-captain)':2,
+#    'Warrior 2 lvl (sqythian bowman-veteran)':44,
+#    'Warrior 3 lvl (sqythian bowman-corporal)':3,
+#    'Warrior 4 lvl (sqythian bowman-sergeant)':1,
+#    'Warrior 5 lvl (sqythian bowman-lieutenant)':2,
 #    'Commoner 1 lvl (recruit)':100,
 #    }
 
@@ -1450,74 +1450,74 @@ metadict_squads['Company-veteran (infantry-hoplites)'] = {
     # Отряд героя 7 lvl
     # Шесть капитанов и 62 400 exp на отряд.
     # Отборный отряд (сумма параметров 63+) -- 200 рекрутов на 100 солдат
-    'Warrior 2 lvl (achean hoplite-corporal)':60,
-    'Warrior 3 lvl (achean hoplite-sergeant)':18,
-    'Warrior 4 lvl (achean hoplite-lieutenant)':6,
-    'Warrior 5 lvl (achean hoplite-captain)':6,
+    'Warrior 2 lvl (achean hoplite-veteran)':60,
+    'Warrior 3 lvl (achean hoplite-corporal)':18,
+    'Warrior 4 lvl (achean hoplite-sergeant)':6,
+    'Warrior 5 lvl (achean hoplite-lieutenant)':6,
     'Commoner 1 lvl (recruit)':100,
     }
 
 metadict_squads['Company-veteran (infantry-legionary)'] = {
-    'Warrior 2 lvl (legionary infantry-corporal)':60,
-    'Warrior 3 lvl (legionary infantry-sergeant)':18,
-    'Warrior 4 lvl (legionary infantry-lieutenant)':6,
-    'Warrior 5 lvl (legionary infantry-captain)':6,
+    'Warrior 2 lvl (legionary infantry-veteran)':60,
+    'Warrior 3 lvl (legionary infantry-corporal)':18,
+    'Warrior 4 lvl (legionary infantry-sergeant)':6,
+    'Warrior 5 lvl (legionary infantry-lieutenant)':6,
     'Commoner 1 lvl (recruit)':100,
     }
 
 metadict_squads['Company-veteran (infantry-pikemans)'] = {
-    'Warrior 2 lvl (city pikeman-corporal)':60,
-    'Warrior 3 lvl (city pikeman-sergeant)':18,
-    'Warrior 4 lvl (city pikeman-lieutenant)':6,
-    'Warrior 5 lvl (city pikeman-captain)':6,
+    'Warrior 2 lvl (city pikeman-veteran)':60,
+    'Warrior 3 lvl (city pikeman-corporal)':18,
+    'Warrior 4 lvl (city pikeman-sergeant)':6,
+    'Warrior 5 lvl (city pikeman-lieutenant)':6,
     'Commoner 1 lvl (recruit)':100,
     }
 
 metadict_squads['Company-veteran (infantry-thracian)'] = {
-    'Warrior 2 lvl (thracian infantry-corporal)':60,
-    'Warrior 3 lvl (thracian infantry-sergeant)':18,
-    'Warrior 4 lvl (thracian infantry-lieutenant)':6,
-    'Warrior 5 lvl (thracian infantry-captain)':6,
+    'Warrior 2 lvl (thracian infantry-veteran)':60,
+    'Warrior 3 lvl (thracian infantry-corporal)':18,
+    'Warrior 4 lvl (thracian infantry-sergeant)':6,
+    'Warrior 5 lvl (thracian infantry-lieutenant)':6,
     'Commoner 1 lvl (recruit)':100,
     }
 
 metadict_squads['Company-veteran (infantry-cilician)'] = {
-    'Warrior 2 lvl (cilician infantry-corporal)':60,
-    'Warrior 3 lvl (cilician infantry-sergeant)':18,
-    'Warrior 4 lvl (cilician infantry-lieutenant)':6,
-    'Warrior 5 lvl (cilician infantry-captain)':6,
+    'Warrior 2 lvl (cilician infantry-veteran)':60,
+    'Warrior 3 lvl (cilician infantry-corporal)':18,
+    'Warrior 4 lvl (cilician infantry-sergeant)':6,
+    'Warrior 5 lvl (cilician infantry-lieutenant)':6,
     'Commoner 1 lvl (recruit)':100,
     }
 
 metadict_squads['Company-veteran (bowmans-scythian)'] = {
-    'Warrior 2 lvl (sqythian bowman-corporal)':60,
-    'Warrior 3 lvl (sqythian bowman-sergeant)':18,
-    'Warrior 4 lvl (sqythian bowman-lieutenant)':6,
-    'Warrior 5 lvl (sqythian bowman-captain)':6,
+    'Warrior 2 lvl (sqythian bowman-veteran)':60,
+    'Warrior 3 lvl (sqythian bowman-corporal)':18,
+    'Warrior 4 lvl (sqythian bowman-sergeant)':6,
+    'Warrior 5 lvl (sqythian bowman-lieutenant)':6,
     'Commoner 1 lvl (recruit)':100,
     }
 
 metadict_squads['Company-veteran (line-infantry-musketeers)'] = {
-    'Warrior 2 lvl (musketeer line-infantry-corporal)':60,
-    'Warrior 3 lvl (musketeer line-infantry-sergeant)':18,
-    'Warrior 4 lvl (musketeer line-infantry-lieutenant)':6,
-    'Warrior 5 lvl (musketeer line-infantry-captain)':6,
+    'Warrior 2 lvl (musketeer line-infantry-veteran)':60,
+    'Warrior 3 lvl (musketeer line-infantry-corporal)':18,
+    'Warrior 4 lvl (musketeer line-infantry-sergeant)':6,
+    'Warrior 5 lvl (musketeer line-infantry-lieutenant)':6,
     'Commoner 1 lvl (recruit)':100,
     }
 
 metadict_squads['Company-veteran (line-infantry-grenadiers)'] = {
-    'Warrior 2 lvl (grenadier line-infantry-corporal)':60,
-    'Warrior 3 lvl (grenadier line-infantry-sergeant)':18,
-    'Warrior 4 lvl (grenadier line-infantry-lieutenant)':6,
-    'Warrior 5 lvl (grenadier line-infantry-captain)':6,
+    'Warrior 2 lvl (grenadier line-infantry-veteran)':60,
+    'Warrior 3 lvl (grenadier line-infantry-corporal)':18,
+    'Warrior 4 lvl (grenadier line-infantry-sergeant)':6,
+    'Warrior 5 lvl (grenadier line-infantry-lieutenant)':6,
     'Commoner 1 lvl (recruit)':100,
     }
 
 metadict_squads['Company-veteran (line-infantry-bombardiers)'] = {
-    'Warrior 2 lvl (bombardier line-infantry-corporal)':60,
-    'Warrior 3 lvl (bombardier line-infantry-sergeant)':18,
-    'Warrior 4 lvl (bombardier line-infantry-lieutenant)':6,
-    'Warrior 5 lvl (bombardier line-infantry-captain)':6,
+    'Warrior 2 lvl (bombardier line-infantry-veteran)':60,
+    'Warrior 3 lvl (bombardier line-infantry-corporal)':18,
+    'Warrior 4 lvl (bombardier line-infantry-sergeant)':6,
+    'Warrior 5 lvl (bombardier line-infantry-lieutenant)':6,
     'Commoner 1 lvl (recruit)':100,
     }
 
@@ -1528,20 +1528,20 @@ metadict_squads['Company-elite (line-infantry-musketeers)'] = {
     # Гвардия героев 11+ lvl
     # 25 капитанов и 260 000 exp на отряд.
     # Отличный отряд (сумма параметров 69+) -- 400 рекрутов на 100 солдат
-    'Warrior 4 lvl (musketeer line-infantry-lieutenant)':67,
-    'Warrior 5 lvl (musketeer line-infantry-captain)':25,
+    'Warrior 4 lvl (musketeer line-infantry-sergeant)':67,
+    'Warrior 5 lvl (musketeer line-infantry-lieutenant)':25,
     'Commoner 1 lvl (recruit)':300,
     }
 
 metadict_squads['Company-elite (line-infantry-grenadiers)'] = {
-    'Warrior 4 lvl (grenadier line-infantry-lieutenant)':67,
-    'Warrior 5 lvl (grenadier line-infantry-captain)':25,
+    'Warrior 4 lvl (grenadier line-infantry-sergeant)':67,
+    'Warrior 5 lvl (grenadier line-infantry-lieutenant)':25,
     'Commoner 1 lvl (recruit)':300,
     }
 
 metadict_squads['Company-elite (line-infantry-bombardier)'] = {
-    'Warrior 4 lvl (bombardier line-infantry-lieutenant)':67,
-    'Warrior 5 lvl (bombardier line-infantry-captain)':25,
+    'Warrior 4 lvl (bombardier line-infantry-sergeant)':67,
+    'Warrior 5 lvl (bombardier line-infantry-lieutenant)':25,
     'Commoner 1 lvl (recruit)':300,
     }
 
@@ -1557,32 +1557,32 @@ metadict_squads['Squad-hero (barbarians)'] = {
     }
 
 metadict_squads['Squad-hero (fighters-horsemans)'] = {
-    'Fighter 5 lvl (legionary horseman-captain)':1,
-    #'Fighter 4 lvl (legionary horseman-lieutenant)':1,
-    #'Fighter 3 lvl (legionary horseman-sergeant)':12,
-    'Fighter 2 lvl (legionary horseman-corporal)':12,
+    'Fighter 5 lvl (legionary horseman-lieutenant)':1,
+    #'Fighter 4 lvl (legionary horseman-sergeant)':1,
+    #'Fighter 3 lvl (legionary horseman-corporal)':12,
+    'Fighter 2 lvl (legionary horseman-veteran)':12,
     #'Fighter 1 lvl (legionary horseman)':12,
     }
 
 metadict_squads['Squad-hero (fighters-samurai)'] = {
-    'Fighter 5 lvl (legionary slayer-captain)':1,
-    #'Fighter 4 lvl (legionary slayer-lieutenant)':1,
+    'Fighter 5 lvl (legionary slayer-lieutenant)':1,
+    #'Fighter 4 lvl (legionary slayer-sergeant)':1,
     #'Fighter 3 lvl (legionary slayer-champion)':12,
     'Fighter 2 lvl (legionary slayer-flanker)':12,
     #'Fighter 1 lvl (legionary slayer-rookie)':12,
     }
 
 metadict_squads['Squad-hero (fighters-shieldmans)'] = {
-    'Fighter 5 lvl (legionary sentinel-captain)':1,
-    #'Fighter 4 lvl (legionary sentinel-lieutenant)':1,
+    'Fighter 5 lvl (legionary sentinel-lieutenant)':1,
+    #'Fighter 4 lvl (legionary sentinel-sergeant)':1,
     #'Fighter 3 lvl (legionary sentinel-mystic)':12,
     'Fighter 2 lvl (legionary sentinel-shieldman)':12,
     #'Fighter 1 lvl (legionary sentinel-battler)':12,
     }
 
 metadict_squads['Squad-hero (rogues)'] = {
-    'Rogue 5 lvl (mercenary phantom-captain)':1,
-    #'Rogue 4 lvl (mercenary phantom-lieutenant)':1,
+    'Rogue 5 lvl (mercenary phantom-lieutenant)':1,
+    #'Rogue 4 lvl (mercenary phantom-sergeant)':1,
     #'Rogue 3 lvl (mercenary phantom-deadeye)':12,
     'Rogue 2 lvl (mercenary phantom-hawkeye)':12,
     #'Rogue 1 lvl (mercenary phantom-blackeye)':12,
@@ -1607,8 +1607,8 @@ metadict_squads['Squad-hero (cats-wizards)'] = {
     }
 
 metadict_squads['Squad-hero (rangers)'] = {
-    'Ranger 5 lvl (otherworld wanderer-captain)':1,
-    #'Ranger 4 lvl (otherworld wanderer-lieutenant)':1,
+    'Ranger 5 lvl (otherworld wanderer-lieutenant)':1,
+    #'Ranger 4 lvl (otherworld wanderer-sergeant)':1,
     #'Ranger 3 lvl (otherworld wanderer-hunter)':12,
     'Ranger 2 lvl (otherworld wanderer-marksman)':12,
     #'Ranger 1 lvl (otherworld wanderer-scout)':12,
@@ -1679,8 +1679,8 @@ metadict_squads['Squad-hero (monks)'] = {
     }
 
 metadict_squads['Squad-hero (paladins)'] = {
-    'Paladin 5 lvl (city sentry-captain)':1,
-    #'Paladin 4 lvl (city sentry-lieutenant)':1,
+    'Paladin 5 lvl (city sentry-lieutenant)':1,
+    #'Paladin 4 lvl (city sentry-sergeant)':1,
     #'Paladin 3 lvl (city sentry-imeyer)':12,
     'Paladin 2 lvl (city sentry-weresefet)':12,
     #'Paladin 1 lvl (city sentry-sefet)':12,
@@ -1699,32 +1699,32 @@ metadict_squads['Band-hero (barbarians)'] = {
     }
 
 metadict_squads['Band-hero (fighters-horsemans)'] = {
-    #'Fighter 5 lvl (legionary horseman-captain)':1,
-    'Fighter 4 lvl (legionary horseman-lieutenant)':1,
-    #'Fighter 3 lvl (legionary horseman-sergeant)':6,
-    #'Fighter 2 lvl (legionary horseman-corporal)':6,
+    #'Fighter 5 lvl (legionary horseman-lieutenant)':1,
+    'Fighter 4 lvl (legionary horseman-sergeant)':1,
+    #'Fighter 3 lvl (legionary horseman-corporal)':6,
+    #'Fighter 2 lvl (legionary horseman-veteran)':6,
     'Fighter 1 lvl (legionary horseman)':6,
     }
 
 metadict_squads['Band-hero (fighters-samurai)'] = {
-    #'Fighter 5 lvl (legionary slayer-captain)':1,
-    'Fighter 4 lvl (legionary slayer-lieutenant)':1,
+    #'Fighter 5 lvl (legionary slayer-lieutenant)':1,
+    'Fighter 4 lvl (legionary slayer-sergeant)':1,
     #'Fighter 3 lvl (legionary slayer-champion)':6,
     #'Fighter 2 lvl (legionary slayer-flanker)':6,
     'Fighter 1 lvl (legionary slayer-rookie)':6,
     }
 
 metadict_squads['Band-hero (fighters-shieldmans)'] = {
-    #'Fighter 5 lvl (legionary sentinel-captain)':1,
-    'Fighter 4 lvl (legionary sentinel-lieutenant)':1,
+    #'Fighter 5 lvl (legionary sentinel-lieutenant)':1,
+    'Fighter 4 lvl (legionary sentinel-sergeant)':1,
     #'Fighter 3 lvl (legionary sentinel-mystic)':6,
     #'Fighter 2 lvl (legionary sentinel-shieldman)':6,
     'Fighter 1 lvl (legionary sentinel-battler)':6,
     }
 
 metadict_squads['Band-hero (rogues)'] = {
-    #'Rogue 5 lvl (mercenary phantom-captain)':1,
-    'Rogue 4 lvl (mercenary phantom-lieutenant)':1,
+    #'Rogue 5 lvl (mercenary phantom-lieutenant)':1,
+    'Rogue 4 lvl (mercenary phantom-sergeant)':1,
     #'Rogue 3 lvl (mercenary phantom-deadeye)':6,
     #'Rogue 2 lvl (mercenary phantom-hawkeye)':6,
     'Rogue 1 lvl (mercenary phantom-blackeye)':6,
@@ -1736,8 +1736,8 @@ metadict_squads['Band-hero (rogues-arcane)'] = {
     }
 
 metadict_squads['Band-hero (rangers)'] = {
-    #'Ranger 5 lvl (otherworld wanderer-captain)':1,
-    'Ranger 4 lvl (otherworld wanderer-lieutenant)':1,
+    #'Ranger 5 lvl (otherworld wanderer-lieutenant)':1,
+    'Ranger 4 lvl (otherworld wanderer-sergeant)':1,
     #'Ranger 3 lvl (otherworld wanderer-hunter)':6,
     #'Ranger 2 lvl (otherworld wanderer-marksman)':6,
     'Ranger 1 lvl (otherworld wanderer-scout)':6,
@@ -1808,8 +1808,8 @@ metadict_squads['Band-hero (monks)'] = {
     }
 
 metadict_squads['Band-hero (paladins)'] = {
-    #'Paladin 5 lvl (city sentry-captain)':1,
-    'Paladin 4 lvl (city sentry-lieutenant)':1,
+    #'Paladin 5 lvl (city sentry-lieutenant)':1,
+    'Paladin 4 lvl (city sentry-sergeant)':1,
     #'Paladin 3 lvl (city sentry-imeyer)':6,
     #'Paladin 2 lvl (city sentry-weresefet)':6,
     'Paladin 1 lvl (city sentry-sefet)':6,
@@ -1823,23 +1823,23 @@ metadict_squads['Single-hero (barbarians)'] = {
     }
 
 metadict_squads['Single-hero (samurai)'] = {
-    'Fighter 5 lvl (legionary slayer-captain)':1,
+    'Fighter 5 lvl (legionary slayer-lieutenant)':1,
     }
 
 metadict_squads['Single-hero (sentinels)'] = {
-    'Fighter 5 lvl (legionary sentinel-captain)':1,
+    'Fighter 5 lvl (legionary sentinel-lieutenant)':1,
     }
 
 metadict_squads['Single-hero (horsemans)'] = {
-    'Fighter 5 lvl (legionary horseman-captain)':1,
+    'Fighter 5 lvl (legionary horseman-lieutenant)':1,
     }
 
 metadict_squads['Single-hero (rogues)'] = {
-    'Rogue 5 lvl (mercenary phantom-captain)':1,
+    'Rogue 5 lvl (mercenary phantom-lieutenant)':1,
     }
 
 metadict_squads['Single-hero (rangers)'] = {
-    'Ranger 5 lvl (otherworld wanderer-captain)':1,
+    'Ranger 5 lvl (otherworld wanderer-lieutenant)':1,
     }
 
 metadict_squads['Single-hero (wizards)'] = {
