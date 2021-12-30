@@ -254,6 +254,11 @@ class soldier_in_battle(soldier):
                 self.shield_ready = True
             else:
                 self.shield_ready = False
+        # Лошадь несёт снаряжение всадника (и может передавать боекомплект):
+        if hasattr(self, 'master_uuid') and self.master_uuid in squad.metadict_soldiers:
+            master = squad.metadict_soldiers[self.master_uuid]
+            self.equipment_weapon = master.equipment_mount
+            self.overload = self.calculate_overload
         # Правим изменившиеся параметры в человеческой форме друида:
         if self.__dict__.get('wild_shape_old_form'):
             self.wild_shape_old_form['ally_side'] = self.ally_side

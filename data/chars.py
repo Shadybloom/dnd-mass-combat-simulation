@@ -1581,7 +1581,6 @@ metadict_chars['Warrior 2 lvl (bombardier line-infantry-corporal)'] = {
         'Hand Mortar':1,
         '2lb Bomb':10,
         'Smoke Grenade':1,
-        '20lb Fire-Rocket':1,
         },
     }
 
@@ -1611,7 +1610,6 @@ metadict_chars['Warrior 3 lvl (bombardier line-infantry-sergeant)'] = {
         'Hand Mortar':1,
         '2lb Bomb':10,
         'Smoke Grenade':1,
-        '20lb Fire-Rocket':1,
         },
     }
 
@@ -1626,7 +1624,13 @@ metadict_chars['Warrior 4 lvl (bombardier line-infantry-lieutenant)'] = {
     'behavior':'commander',
     'class_features':{
         'Fighting_Style_Blind_Fighting':True,
-        'Feat_Firearms_Expert':True,
+        'Feat_Magic_Initiate':True,
+        'Spellcasting':True,
+        'Spells':[
+            ('cantrip', 'Mold_Earth'),
+            ('cantrip', 'Sword_Burst'),
+            ('ritual', 'Floating_Disk'),
+            ],
         },
     'race':'Human-common',
     'weapon_skill':['simple','martial'],
@@ -1644,9 +1648,11 @@ metadict_chars['Warrior 4 lvl (bombardier line-infantry-lieutenant)'] = {
         '20lb Fire-Rocket':1,
         'Smoke Grenade':1,
         },
-    #'mount_combat':False,
-    #'mount_type':'Riding Horse',
-    #'equipment_mount':{},
+    'mount_combat':False,
+    'mount_type':'Tensers Floating Disk',
+    'equipment_mount':{
+        '20lb Fire-Rocket':25,
+        },
     }
 
 metadict_chars['Warrior 5 lvl (bombardier line-infantry-captain)'] = {
@@ -1681,9 +1687,11 @@ metadict_chars['Warrior 5 lvl (bombardier line-infantry-captain)'] = {
         '2lb Fire-Bomb':10,
         'Smoke Grenade':1,
         },
-    #'mount_combat':False,
-    #'mount_type':'Riding Horse',
-    #'equipment_mount':{},
+    'mount_combat':False,
+    'mount_type':'Tensers Floating Disk',
+    'equipment_mount':{
+        '2lb Fire-Bomb':250,
+        },
     }
 
 #----

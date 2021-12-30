@@ -3865,6 +3865,39 @@ metadict_animals['Громовая птица (Thunderbird) (CR 1)'] = {
 #----
 # Homebrew: Оживлённые вещи.
 
+metadict_animals['Tensers Floating Disk'] = {
+    # Заклинание 1 круга "Тензеров парящий диск" (Tensers_Floating_Disk)
+    'level':1,
+    'savethrow_autofail':True,
+    'inactive_AI':True,
+    'air_walk':True,
+    'water_walk':True,
+    'mechanism':True,
+    'mechanism_construct':True,
+    'challenge_rating':'-',
+    'behavior':'mount',
+    'char_class':'Animal',
+    'class_features':{
+        'immunity':['slashing','piercing','bludgeoning','poison','poisoned'],
+        'cargo':500,
+        },
+    'abilityes':{
+        'strength':10,
+        'dexterity':10,
+        'constitution':10,
+        'intelligence':1,
+        'wisdom':1,
+        'charisma':1,
+        },
+    'hit_dice':'1d12',
+    'race':'Object-force-big',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{},
+    }
+
 metadict_animals['Animated swords (CR 1)'] = {
     # Заклинание 5 круга "Оживление вещей" (Animated_Objects)
     # Blindvision великолепно сочетается с "Тьмой" (Darkness).

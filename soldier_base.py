@@ -619,6 +619,11 @@ class soldier():
         light_load = self.abilityes['strength'] * 2.5
         normal_load = self.abilityes['strength'] * 5
         maximum_load = self.abilityes['strength'] * 10
+        # Тензеров парящий диск всегда перевозит 500 фунтов:
+        if self.class_features.get('cargo'):
+            light_load += self.class_features.get('cargo', 0)
+            normal_load += self.class_features.get('cargo', 0)
+            maximum_load += self.class_features.get('cargo', 0)
         # Великаны переносят вчетверо больше средних существ:
         if self.size == 'huge':
             light_load *= 4
