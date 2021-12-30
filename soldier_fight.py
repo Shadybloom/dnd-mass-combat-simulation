@@ -213,6 +213,7 @@ class soldier_in_battle(soldier):
         self.restrained = False
         self.help_action = False
         self.killer_mark = False
+        self.shield_evasion = False
         self.reckless_attack = False
         self.dodge_action = False
         # Убираем окружение:
@@ -419,8 +420,8 @@ class soldier_in_battle(soldier):
         self.disengage_action = False # это защита от провоцированных атак.
         self.dash_action = False # это ускорение до x2 скорости
         self.dodge_action = False # это disadvantage на атаки врагов и преимущество ловксоти
-        # Тактика варвара, преимущество и себе, и врагам:
-        self.reckless_attack = False
+        self.reckless_attack = False # Тактика варвара, преимущество и себе, и врагам
+        self.shield_evasion = False # Уклонение реакцией от Feat_Shield_Master
         # Щит возвращается в боевое положение (если в прошлом ходу использовалось двуручное оружие):
         if self.armor['shield_use'] and not self.shield_ready:
             self.set_shield()
@@ -1455,6 +1456,9 @@ class soldier_in_battle(soldier):
         if not self.near_enemies:
             self.grappled = False
             self.enemy_grappler = None
+        # Герою проще прибить врага, чем пытаться вырваться:
+        elif self.hero:
+            return False
         elif self.near_enemies:
             enemy_uuids = [enemy.uuid for enemy in self.near_enemies]
             if not self.enemy_grappler.uuid in enemy_uuids:
@@ -1468,9 +1472,11 @@ class soldier_in_battle(soldier):
                 else:
                     ability = 'dexterity'
                 if not self.get_savethrow(difficult, ability, advantage, disadvantage):
+                    self.drop_action(('action', 'Break_Grapple_False'))
                     self.battle_action = False
                     return False
                 else:
+                    self.drop_action(('action', 'Break_Grapple_Success'))
                     self.battle_action = False
                     self.enemy_grappler = None
                     self.grappled = False
@@ -1490,9 +1496,11 @@ class soldier_in_battle(soldier):
         else:
             ability = 'dexterity'
         if not self.get_savethrow(difficult, ability, advantage, disadvantage):
+            self.drop_action(('action', 'Break_Grapple_False'))
             self.battle_action = False
             return False
         else:
+            self.drop_action(('action', 'Break_Grapple_Success'))
             self.battle_action = False
             self.restained_difficult = None
             self.enemy_grappler = None
@@ -1930,6 +1938,10 @@ class soldier_in_battle(soldier):
         else:
             danger_list = (list(self.dict_danger.keys()))
             random.shuffle(danger_list)
+        # Если боец схвачен, то схвативший всегда первый враг:
+        if self.grappled and self.enemy_grappler.uuid in [target.uuid for target in near_enemies]:
+            return [target for target in near_enemies
+                    if target.uuid == self.enemy_grappler.uuid][0]
         # Сортировка врагов по уровню:
         near_enemies = list(reversed(sorted(near_enemies,key=lambda x: x.level)))
         # Выбор первого врага, который сильнейший/слабейший из списка угроз:
@@ -2944,9 +2956,14 @@ class soldier_in_battle(soldier):
                 damage = 0
             # Мастер щитов может уклониться за счёт реакции:
             if ability == 'dexterity' and self.class_features.get('Feat_Shield_Master'):
-                if damage > round(self.hitpoints * 0.2) and self.reaction:
+                if self.reaction and self.shield_ready:
                     self.drop_action(('reaction', 'Feat_Shield_Master_Evasion'))
+                    self.shield_evasion = True
                     self.reaction = False
+                    damage = 0
+                # Homebrew: уклонение, если урон незначительный:
+                elif self.shield_evasion and damage < self.hitpoints_max * 0.1 and self.shield_ready:
+                    self.drop_action(('free_action', 'Feat_Shield_Master_Evasion'))
                     damage = 0
             if ability == 'dexterity' and self.behavior == 'mount'\
                     and self.__dict__.get('master_uuid')\

@@ -10825,6 +10825,8 @@ metadict_chars['Fighter 13 lvl (нейтрал) (Кирос «Симарх»)'] 
     # Использует "Обнаружение мыслей" (Detect_Thoughts), чтобы читать мысли других.
     'level':13,
     'fearless_AI':True,
+    #'predator_AI':True,
+    'hunter_AI':True,
     'no_grappler_AI':True,
     'char_class':'Eldritch_Knight',
     'hit_dice':'1d10',
@@ -10844,7 +10846,7 @@ metadict_chars['Fighter 13 lvl (нейтрал) (Кирос «Симарх»)'] 
         'Feat_Mounted_Combatant':True,
         'Feat_War_Caster':True,
         #'Feat_Sentinel':True,
-        #'Feat_Shield_Master':True,
+        'Feat_Shield_Master':True,
         'Feat_Heavy_Armor_Master':True,
         'Ability_Score_Improvement':{
             'strength':+1,
