@@ -3054,7 +3054,8 @@ class soldier_in_battle(soldier):
         if enemy_soldier.concentration:
             enemy_soldier.set_concentration_break(autofail = True)
         # У схваченного отбирают всё оружие, чтобы не натворил дел, если вдруг очнётся:
-        if enemy_soldier.grappled or not enemy_soldier.near_allies and enemy_soldier.near_enemies:
+        if enemy_soldier.grappled\
+                or not enemy_soldier.near_allies and enemy_soldier.near_enemies and not self.hero:
             self.loot_enemy(enemy_soldier, use_action = True)
         # Оружие и щит выпадают из рук:
         if enemy_soldier.shield_ready:

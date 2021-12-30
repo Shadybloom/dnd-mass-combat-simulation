@@ -2171,7 +2171,10 @@ class battle_simulation(battlescape):
         https://www.dandwiki.com/wiki/5e_SRD:Disengage_Action
         """
         if not soldier.disengage_action:
-            disengage = soldier.use_disengage_action()
+            if soldier.hero and soldier.danger > self.engage_danger:
+                disengage = soldier.use_disengage_action()
+            elif not soldier.hero:
+                disengage = soldier.use_disengage_action()
             for enemy in provoke_attacks_list:
                 enemy_soldier = self.metadict_soldiers[enemy[-1]]
                 enemy_squad = [enemy_squad for enemy_squad in self.squads.values()
