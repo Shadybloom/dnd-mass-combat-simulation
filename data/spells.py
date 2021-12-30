@@ -1526,6 +1526,46 @@ class gen_spells():
                         spell_dict, enemy.place, single_target = enemy)
         return spell_dict
 
+    @modify_spell
+    @update_spell_dict
+    def Blade_Ward(self, spell_level, gen_spell = False, spell_dict = False):
+        """Защита от оружия.
+
+        Level: Cantrip
+        Casting time: 1 Action
+        Range: Self
+        Components: V, S
+        Duration: Instantaneous
+        https://www.dnd-spells.com/spell/blade-ward
+        """
+        # TODO: пока что каст бонусным действием.
+        if not spell_dict:
+            spell_dict = {
+                    'buff':True,
+                    'effect':'blade_ward',
+                    'effect_timer':1,
+                    'attack_range':0,
+                    'absorb_damage_type':['bludgeoning','slashing','piercing'],
+                    'components':['verbal','somatic'],
+                    'casting_time':'bonus_action',
+                    'spell_level':spell_level,
+                    'spell_of_choice':'Blade_Ward',
+                    'school':'abjuration',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
+        if gen_spell:
+            if not spell_dict.get('target_uuid'):
+                soldier = self.mage
+            else:
+                soldier = self.mage.metadict_soldiers[spell_dict['target_uuid']]
+            # Добавляем метку, чтобы убрать сопротивляемости в начале хода:
+            # Лучше бы они убирались в самом заклинании, когда таймер отсчитает ход.
+            soldier.blade_ward = True
+            for el in spell_dict['absorb_damage_type']:
+                if el not in soldier.resistance:
+                    soldier.resistance.append(el)
+        return spell_dict    
+
 #----
 # Subspells
 

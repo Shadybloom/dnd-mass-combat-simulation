@@ -10844,6 +10844,7 @@ metadict_chars['Fighter 13 lvl (нейтрал) (Кирос «Симарх»)'] 
         'Feat_Mounted_Combatant':True,
         'Feat_War_Caster':True,
         #'Feat_Sentinel':True,
+        #'Feat_Shield_Master':True,
         'Feat_Heavy_Armor_Master':True,
         'Ability_Score_Improvement':{
             'strength':+1,
@@ -10859,7 +10860,8 @@ metadict_chars['Fighter 13 lvl (нейтрал) (Кирос «Симарх»)'] 
             # 9 заклинаний на 13 lvl (2 заклинания вне школ evocation и abjuration)
             ('cantrip', 'Message'),
             ('cantrip', 'Green_Flame_Blade'),
-            ('cantrip', 'Prestidigitation'),
+            ('cantrip', 'Blade_Ward'),
+            #('cantrip', 'Prestidigitation'),
             ('ritual', 'Alarm'),
             ('1_lvl', 'Shield'),
             #('2_lvl', 'Shield'),

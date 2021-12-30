@@ -2355,7 +2355,8 @@ class battle_simulation(battlescape):
                         soldier.bonus_action = False
                 # Мастера щитов бонусным действием пытаются сбить врага:
                 # TODO: здесь нет проверки wrestling_check, вместо этого проверка в set_fall_prone.
-                if soldier.class_features.get('Feat_Shield_Master'):
+                if soldier.class_features.get('Feat_Shield_Master')\
+                        and not soldier.class_features.get('War_Magic'):
                     if attack_choice[0] == 'close' and soldier.shield_ready\
                             and not enemy_soldier.prone:
                         advantage, disadvantage = self.test_enemy_defence(soldier,
@@ -2734,6 +2735,13 @@ class battle_simulation(battlescape):
                     'Spirit_Guardians',
                     'Crusaders_Mantle',
                     'Blur',
+                    ]
+            for spell in spells_list:
+                soldier.try_spellcast(spell, gen_spell = True)
+        # Защитные кантрипы:
+        if soldier.danger >= self.engage_danger:
+            spells_list = [
+                    'Blade_Ward',
                     ]
             for spell in spells_list:
                 soldier.try_spellcast(spell, gen_spell = True)

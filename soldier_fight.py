@@ -512,6 +512,10 @@ class soldier_in_battle(soldier):
                 self.resistance = []
                 self.frenzy = False
                 self.rage = False
+        # Защита Blade_Ward. Лучше бы отменялась в самом заклинании.
+        if self.__dict__.get('blade_ward'):
+            self.blade_ward = False
+            self.resistance = []
         # TODO: Потихоньку переделывай функции:
         # Channel_Sacred_Weapon
         if self.sacred_weapon:
