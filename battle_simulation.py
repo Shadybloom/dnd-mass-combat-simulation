@@ -110,6 +110,7 @@ class battle_simulation(battlescape):
     danger_percent = 0.1
     # Размер тайла -- 5 футов (1.5 метра):
     tile_size = 5
+    namedtuple_soldier = namedtuple('soldier',['side','behavior','level','uuid'])
     namedtuple_squad = namedtuple('squad',['zone','type','initiative'])
     namedtuple_commander = namedtuple('commander',['place','danger','uuid'])
     # Слоу-поиск пути, AStarFinder (100 бойцов на отряд):
@@ -281,13 +282,10 @@ class battle_simulation(battlescape):
         
         Каждая метка, это кортеж со стороной юнита, его типом и uuid.
         """
-        # TODO: Сделай нормальный поиск по namedtuple.
-        # ------------------------------------------------------------
-        # Сейчас бойцы на карте ищутся перебором type(tuple), это неэффективно.
-        # Проблема в том, что namedtuple не определяется как обычный кортеж
-        # ------------------------------------------------------------
-        #soldier_tuple = self.namedtuple_soldier(side,behavior,uuid)
-        soldier_tuple = (soldier.ally_side, soldier.behavior, soldier.level, soldier.uuid)
+        soldier_tuple = self.namedtuple_soldier(
+                soldier.ally_side, soldier.behavior, soldier.level, soldier.uuid)
+        #if type(namedtuple_soldier).__name__ == 'soldier':
+        #    print(namedtuple_soldier)
         # Дополняем словарь поля боя и вырубаем цикл, так как спавн занят:
         if soldier.size == 'medium'\
                 or soldier.size == 'small'\
@@ -730,7 +728,7 @@ class battle_simulation(battlescape):
                 sides_list = []
                 for place, content in self.dict_battlespace.items():
                     for el in content:
-                        if type(el) == tuple:
+                        if type(el).__name__ == 'soldier':
                             sides_list.append(el[0])
                 sides_dict = Counter(sides_list)
                 # Победитель освобождает своих и собирает трофеи:
@@ -2053,7 +2051,7 @@ class battle_simulation(battlescape):
         Вызывается по одной клетке в move_action.
         """
         for el in self.dict_battlespace[coordinates]:
-            if type(el) == tuple and el[-1] == uuid:
+            if type(el).__name__ == 'soldier' and el.uuid == uuid:
                 soldier_tuple = el
                 soldier_uuid = el[-1]
                 soldier = self.metadict_soldiers[soldier_uuid]
@@ -2141,9 +2139,9 @@ class battle_simulation(battlescape):
         # Проверяем, есть ли рядом с бойцом его ездовое животное:
         for point in mount_place_field:
             for el in self.dict_battlespace[point]:
-                if type(el) == tuple\
-                        and el[1] == 'mount'\
-                        and el[-1] == soldier.mount_uuid:
+                if type(el).__name__ == 'soldier'\
+                        and el.behavior == 'mount'\
+                        and el.uuid == soldier.mount_uuid:
                     mount_tuple = el
                     mount_uuid = el[-1]
                     mount = self.metadict_soldiers[mount_uuid]
@@ -2251,13 +2249,13 @@ class battle_simulation(battlescape):
             if target in self.dict_battlespace.keys():
                 if not 'volley' in self.dict_battlespace[target]:
                     self.dict_battlespace[target].append('volley')
-                for value in self.dict_battlespace[target]:
-                    if type(value) == tuple:
-                        uuid = value[-1]
+                for el in self.dict_battlespace[target]:
+                    if type(el).__name__ == 'soldier':
                         cover = self.calculate_enemy_cover(target, target).cover
                         distance = round(distance_measure(soldier.place, target))
-                        enemy = self.namedtuple_target(value[0],value[1],value[2],
-                                target,distance,cover,uuid)
+                        enemy = self.namedtuple_target(
+                                el.side, el.behavior, el.level,
+                                target, distance, cover, el.uuid)
                         self.attack_action(soldier, squad, enemy, attack_choice = attack_choice)
                         break
                 else:
@@ -3486,7 +3484,9 @@ class battle_simulation(battlescape):
         # Две цели на одной точке. Легче попасть.
         # "Книга игрока", "Протискивание в меньшее пространство"
         if len([el for el in self.dict_battlespace[enemy_soldier.place]
-            if type(el) == tuple and not el[1] == 'mount' and not el[-1] == soldier.uuid]) >= 2:
+            if type(el).__name__ == 'soldier'\
+                    and not el.behavior == 'mount'\
+                    and not el.uuid == soldier.uuid]) >= 2:
             if not enemy_soldier.size == 'tiny':
                 advantage = True
         # Ошеломлённый уязвим:
@@ -3544,7 +3544,9 @@ class battle_simulation(battlescape):
         # Два наших бойца на одной точке. Сложно целиться:
         # "Книга игрока", "Протискивание в меньшее пространство"
         if len([el for el in self.dict_battlespace[soldier.place]
-            if type(el) == tuple and not el[1] == 'mount' and not el[-1] == enemy_soldier.uuid]) >= 2:
+            if type(el).__name__ == 'soldier'\
+                    and not el.behavior == 'mount'\
+                    and not el.uuid == soldier.uuid]) >= 2:
             if not enemy_soldier.size == 'tiny':
                 disadvantage = True
         # Влияние погоды:
@@ -3824,8 +3826,8 @@ class battle_simulation(battlescape):
         """
         for place, content in self.dict_battlespace.items():
             for el in content:
-                if type(el) == tuple:
-                    uuid = el[-1]
+                if type(el).__name__ == 'soldier':
+                    uuid = el.uuid
                     soldier = self.metadict_soldiers[uuid]
                     if soldier.defeat\
                             and not soldier.__dict__.get('mechanism')\
@@ -3854,9 +3856,9 @@ class battle_simulation(battlescape):
                             mount = self.metadict_soldiers[soldier.mount_uuid]
                             for point in mount_place_field:
                                 for el in self.dict_battlespace[point]:
-                                    if type(el) == tuple\
-                                            and el[1] == 'mount'\
-                                            and el[-1] == soldier.mount_uuid:
+                                    if type(el).__name__ == 'soldier'\
+                                            and el.behavior == 'mount'\
+                                            and el.uuid == soldier.mount_uuid:
                                         self.dict_battlespace[point].remove(el)
                                         mount.escape = True
                                         mount.defeat = True

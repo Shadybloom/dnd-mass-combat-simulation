@@ -639,7 +639,7 @@ class battlescape():
         dict_soldiers = {}
         for place, descript in self.dict_battlespace.items():
             for el in descript:
-                if type(el) == tuple:
+                if type(el).__name__ == 'soldier':
                     soldier_tuple = el
                     soldier_side, soldier_type, soldier_level, soldier_uuid = soldier_tuple
                     soldier_place = place
@@ -679,11 +679,11 @@ class battlescape():
         dict_soldiers = {}
         for key, value in self.dict_battlespace.items():
             for el in value:
-                if type(el) == tuple:
+                if type(el).__name__ == 'soldier':
                     soldier_tuple = el
                     if side == None:
                         dict_soldiers[key] = soldier_tuple
-                    elif soldier_tuple[0] == side:
+                    elif soldier_tuple.side == side:
                         dict_soldiers[key] = soldier_tuple
         return dict_soldiers
 
@@ -788,17 +788,13 @@ class battlescape():
         """Проверка, не занята ли точка на пути бойца."""
         # TODO: Допили проверку пересечённой местности. Или выведи в move_action.
         unit_tuples = []
-        for value in self.dict_battlespace[place]:
-            #if 'danger' in soldier.commands and value == 'danger_terrain':
-            #    free_place = False
-            #    rough_place = True
-            #    break
-            if type(value) == tuple:
-                unit_tuples.append(value)
-            if soldier.__dict__.get('water_walk') and value == 'water':
+        for el in self.dict_battlespace[place]:
+            if type(el).__name__ == 'soldier':
+                unit_tuples.append(el)
+            if soldier.__dict__.get('water_walk') and el == 'water':
                 free_place = True
                 rough_place = False
-            elif value == 'stop_terrain':
+            elif el == 'stop_terrain':
                 free_place = False
                 rough_place = True
                 break
@@ -906,8 +902,8 @@ class battlescape():
         dict_recon = {}
         for place in coord_list:
             if dict_battlespace.get(place):
-                for value in dict_battlespace.get(place):
-                    if type(value) == tuple:
+                for el in dict_battlespace.get(place):
+                    if type(el).__name__ == 'soldier':
                         if soldier_coordinates == False:
                             # Взгляд мастера (дистанция нулевая, помех нет, видны все):
                             vision_tuple = self.namedtuple_visibility(
@@ -918,14 +914,14 @@ class battlescape():
                         else:
                             # Взгляд из центра зоны (если боец в центре):
                             vision_tuple = self.calculate_enemy_cover(zone_center, place)
-                        if vision_tuple[-1] == True or view_all:
-                            distance = vision_tuple[0]
-                            cover = vision_tuple[1]
-                            uuid = value[-1]
-                            #Сторона, тип_юнита, кординаты, дистанция, прикрытие (от взгляда), uuid.
-                            target = self.namedtuple_target(value[0],value[1],value[2],
-                                    place,distance,cover,uuid)
-                            dict_recon[uuid] = target
+                        if vision_tuple.visibility or view_all:
+                            # Сторона, тип_юнита, уровень,
+                            # Кординаты, дистанция, прикрытие (от взгляда), uuid.
+                            target = self.namedtuple_target(
+                                    el.side, el.behavior, el.level,
+                                    place, vision_tuple.distance, vision_tuple.cover,
+                                    el.uuid)
+                            dict_recon[el.uuid] = target
         # Сортировка целей по дистанции:
         dict_recon = OrderedDict(sorted(dict_recon.items(),key=lambda x: x[1].distance))
         return dict_recon
@@ -1183,7 +1179,7 @@ class battlescape():
         for el in self.dict_battlespace[key]:
             #if 'danger_terrain' in self.dict_battlespace[key]:
             #    symbol_colored = '\x1b[48;5;23m' + symbol_colored
-            if type(el) == tuple:
+            if type(el).__name__ == 'soldier':
                 soldiers_in_place += 1
                 if el[0] == self.ally_side:
                     symbol_colored = '\x1b[32m' + symbol_colored
@@ -1228,10 +1224,10 @@ class battlescape():
             if 'volley' in self.dict_battlespace[key]\
                     or 'danger_terrain' in self.dict_battlespace[key]:
                 #symbol_colored = '\x1b[48;5;23m' + symbol_colored
-                if type(el) == tuple:
-                    if el[0] == self.ally_side:
+                if type(el).__name__ == 'soldier':
+                    if el.side == self.ally_side:
                         symbol_colored = '\x1b[48;5;22m' + symbol_colored
-                    elif el[0] == self.enemy_side:
+                    elif el.side == self.enemy_side:
                         symbol_colored = '\x1b[48;5;52m' + symbol_colored
         # Сброс параметров после обработки символа:
         symbol_colored = symbol_colored + '\x1b[0m'
