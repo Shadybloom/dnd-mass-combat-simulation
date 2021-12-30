@@ -284,8 +284,6 @@ class battle_simulation(battlescape):
         """
         soldier_tuple = self.namedtuple_soldier(
                 soldier.ally_side, soldier.behavior, soldier.level, soldier.uuid)
-        #if type(namedtuple_soldier).__name__ == 'soldier':
-        #    print(namedtuple_soldier)
         # Дополняем словарь поля боя и вырубаем цикл, так как спавн занят:
         if soldier.size == 'medium'\
                 or soldier.size == 'small'\
@@ -3918,6 +3916,12 @@ class battle_simulation(battlescape):
                     if spell_uuid in soldier.spells_active:
                         spell_dict = soldier.spells_active.pop(spell_uuid)
                         # Снимаем туман от Fog_Cloud и Darkness
+                        # TODO: сделай namedtuple для зональных эффектов
+                        # ------------------------------------------------------------
+                        # Должно выглядеть так:
+                        # if type(el).__name__ == 'spell'
+                        # А дальше uuid заклинания, радиус, центр.
+                        # ------------------------------------------------------------
                         if spell_dict.get('effect') == 'fog' or spell_dict.get('effect') == 'darkness':
                             radius = round(spell_dict.get('radius', 10) / self.tile_size)
                             if spell_dict.get('zone_center'):
