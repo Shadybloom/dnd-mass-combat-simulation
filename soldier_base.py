@@ -778,6 +778,8 @@ class soldier():
         # Базовые параметры
         armor_use = None
         shield_use = None
+        armor_unbreakable = False
+        shield_unbreakable = False
         armor_class_shield = 0
         Unarmored_Defense = False
         armor_stealth_disadvantage = False
@@ -805,7 +807,9 @@ class soldier():
                 'armor_class_shield':armor_class_shield,
                 'armor_class_armor':armor_class_armor,
                 'armor_use':armor_use,
+                'armor_unbreakable':armor_unbreakable,
                 'shield_use':shield_use,
+                'shield_unbreakable':shield_unbreakable,
                 }
         return dict_armor_class
 
@@ -866,6 +870,8 @@ class soldier():
         armor_class_dodge = self.armor['armor_class_no_impact']
         armor_use = self.armor['armor_use']
         shield_use = self.armor['shield_use']
+        armor_unbreakable = self.armor['armor_unbreakable']
+        shield_unbreakable = self.armor['shield_unbreakable']
         for item in self.equipment_weapon:
             if metadict_items[item].get('armor') == True:
                 if metadict_items[item]['armor_type'] in self.armor_skill\
@@ -882,12 +888,16 @@ class soldier():
                         armor_class_dodge = armor_class_base + dexterity_mod
                         armor_stealth_disadvantage = armor_choice.get(
                                 'armor_stealth_disadvantage', False)
+                        armor_unbreakable = armor_choice.get(
+                                'unbreakable', False)
                         armor_use = item
             elif metadict_items[item].get('shield') == True:
                 if 'shield' in self.armor_skill:
                     item_shield_ac = metadict_items[item].get('armor_class_shield', 0)
                     if item_shield_ac > armor_class_shield:
                         armor_class_shield = item_shield_ac
+                        shield_unbreakable = metadict_items[item].get(
+                                'unbreakable', False)
                         shield_use = item
         # Наручи защиты, даются +2 AC тем, кто не носит доспехи и щиты:
         if 'Bracers of Defence' in self.equipment_weapon:
@@ -904,7 +914,9 @@ class soldier():
                 'armor_class_shield':armor_class_shield,
                 'armor_class_armor':armor_class_armor,
                 'armor_use':armor_use,
+                'armor_unbreakable':armor_unbreakable,
                 'shield_use':shield_use,
+                'shield_unbreakable':shield_unbreakable,
                 }
         return dict_armor_class
 

@@ -1243,6 +1243,7 @@ metadict_items['Mage_Armor'] = {
     # Создаётся заклинанием Mage_Armor, действует 8 часов.
     'armor':True,
     'spell':True,
+    'unbreakable':True,
     'armor_type':'Mage_Armor',
     'armor_class_armor':13,
     'weight (lb)':0,
@@ -1254,6 +1255,7 @@ metadict_items['Barkskin'] = {
     # Создаётся заклинанием Barkskin, действует 1 час концентрации.
     'armor':True,
     'spell':True,
+    'unbreakable':True,
     'armor_type':'Barkskin',
     'armor_class_armor':16,
     'weight (lb)':0,
@@ -1265,6 +1267,7 @@ metadict_items['Draconic_Scales'] = {
     # От чародейского Draconic_Bloodline
     'armor':True,
     'spell':True,
+    'unbreakable':True,
     'armor_type':'Mage_Armor',
     'armor_class_armor':13,
     'weight (lb)':0,
@@ -1312,6 +1315,18 @@ metadict_items['Plate Armor, 17 century'] = {
     'weight (lb)':65,
     'cost (gp)':1500,
     'cost (grams_of_gold)':300,
+    }
+
+metadict_items['Plate Armor +1'] = {
+    'armor':True,
+    'unbreakable':True,
+    'armor_type':'heavy',
+    'armor_class_armor':19,
+    'armor_stealth_disadvantage':True,
+    #'armor_need_strenght':15,
+    'weight (lb)':65,
+    'cost (gp)':1500,
+    'cost (grams_of_gold)':60 * 10,
     }
 
 #----

@@ -10879,7 +10879,7 @@ metadict_chars['Fighter 13 lvl (нейтрал) (Кирос «Симарх»)'] 
         'Infusion of Heroism':1,
         'Infusion of Regeneration':1,
         'Rune of Absorbtion':1,
-        'Plate Armor':1,
+        'Plate Armor +1':1,
         'Heavy Shield +1':1,
         #'Sword of Flame Tongue':1,
         'Longsword +2':1,

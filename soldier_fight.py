@@ -2403,8 +2403,7 @@ class soldier_in_battle(soldier):
         Каждое попадание пилума в щит, это -1 к его классу защиты.
         Бой сотня на сотню, 12-24 попаданий в щиты, это весомо.
         """
-        if self.armor['shield_use']\
-                and not self.metadict_items[self.armor['shield_use']].get('unbreakable'):
+        if self.armor['shield_use'] and not self.armor['shield_unbreakable']:
             self.armor['armor_class'] -= 1
             self.armor['armor_class_armor_impact'] -= 1
             self.armor['armor_class_shield_impact'] -= 1
@@ -2732,6 +2731,18 @@ class soldier_in_battle(soldier):
         # Огнестрел лишается свойства direct_hit на большой дистанции:
         if attack_dict.get('weapon_type') and 'firearm' in attack_dict.get('weapon_type')\
                 and attack_dict['enemy_distance'] * self.tile_size > attack_dict['shoot_range']\
+                and attack_dict.get('direct_hit'):
+            attack_dict['direct_hit'] = False
+        # Огнестрел не пробивает волшебные доспехи/щиты:
+        # ------------------------------------------------------------
+        # С волшебными доспехами это обычная проверка AC,
+        # Без волшебных доспехов спасбросок ловкости.
+        # ------------------------------------------------------------
+        if attack_dict.get('weapon_type') and 'firearm' in attack_dict.get('weapon_type')\
+                and armor_dict.get('armor_unbreakable', False)\
+                and attack_dict.get('direct_hit')\
+                or attack_dict.get('weapon_type') and 'firearm' in attack_dict.get('weapon_type')\
+                and armor_dict.get('shield_unbreakable', False)\
                 and attack_dict.get('direct_hit'):
             attack_dict['direct_hit'] = False
         # Заклинание "Shield_of_Faith" даёт +2 AC:
