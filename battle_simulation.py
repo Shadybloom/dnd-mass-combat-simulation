@@ -1166,6 +1166,7 @@ class battle_simulation(battlescape):
                 if 'ranged' in squad.enemy_recon['attacks']\
                 and squad.enemy_recon['attack_range'] * 1.1 >= squad.enemy_recon['distance']\
                 and squad.enemy_recon['enemy_strenght'] * 1.2 > squad.enemy_recon['ally_strenght']\
+                and squad.enemy_recon['distance'] > save_distance\
                 or squad.enemy_recon['enemy_strenght'] > squad.enemy_recon['ally_strenght']\
                 and squad.enemy_recon['distance'] <= squad.enemy_recon['move'] * 2\
                 and squad.enemy_recon['distance'] > save_distance:
