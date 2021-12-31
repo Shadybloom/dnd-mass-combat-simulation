@@ -1566,6 +1566,38 @@ class gen_spells():
                     soldier.resistance.append(el)
         return spell_dict    
 
+    @modify_spell
+    @update_spell_dict
+    def Mold_Earth(self, spell_level, gen_spell = False, spell_dict = False):
+        """Лепка земли.
+
+        Level: Cantrip
+        Casting time: 1 Action
+        Range: 30 feet
+        Components: S
+        Duration: Instantaneous
+        https://www.dnd-spells.com/spell/mold-earth
+        """
+        # Создаёт траншею и насыпь, укрытие на 3/4.
+        if not spell_dict:
+            spell_dict = {
+                    'buff':True,
+                    'effect':'mold_earth',
+                    'attack_range':30,
+                    'components':['somatic'],
+                    'casting_time':'action',
+                    'spell_level':spell_level,
+                    'spell_of_choice':'Blade_Ward',
+                    'school':'transmutation',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
+        if gen_spell:
+            if not spell_dict.get('target_uuid'):
+                soldier = self.mage
+            else:
+                soldier = self.mage.metadict_soldiers[spell_dict['target_uuid']]
+        return spell_dict    
+
 #----
 # Subspells
 

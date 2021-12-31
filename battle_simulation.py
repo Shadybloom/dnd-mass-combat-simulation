@@ -2742,12 +2742,24 @@ class battle_simulation(battlescape):
             for spell in spells_list:
                 soldier.try_spellcast(spell, gen_spell = True)
         # Защитные кантрипы:
-        if soldier.danger >= self.engage_danger:
+        if soldier.danger >= self.engage_danger\
+                or soldier.hitpoints < soldier.hitpoints_max * 0.8\
+                or 'very_carefull' in squad.commands:
             spells_list = [
+                    'Mold_Earth',
                     'Blade_Ward',
                     ]
             for spell in spells_list:
-                soldier.try_spellcast(spell, gen_spell = True)
+                if spell == 'Mold_Earth' and not 'cover_terrain' in self.dict_battlespace[soldier.place]:
+                    spell_dict = soldier.try_spellcast(spell, gen_spell = True)
+                    if spell_dict:
+                        for n, el in enumerate(self.dict_battlespace[soldier.place]):
+                            if el == 'good_terrain':
+                                self.dict_battlespace[soldier.place].remove('good_terrain')
+                                self.dict_battlespace[soldier.place].append('cover_terrain')
+                                break
+                else:
+                    soldier.try_spellcast(spell, gen_spell = True)
         if soldier.concentration and soldier.bonus_action:
             # Hex перенацеливается за счёт бонусного действия:
             if soldier.concentration.get('effect') == 'hex':
