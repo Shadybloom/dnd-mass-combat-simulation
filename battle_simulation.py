@@ -948,6 +948,7 @@ class battle_simulation(battlescape):
                 'injured':0,
                 'light_injured':0,
                 'escape':0,
+                'ready_one':0,
                 'lucky_one':0,
                 }
         for soldier in squad.metadict_soldiers.values():
@@ -965,8 +966,10 @@ class battle_simulation(battlescape):
                 dict_casualty['injured'] += 1
             elif soldier.hitpoints < soldier.hitpoints_max:
                 dict_casualty['light_injured'] += 1
+                dict_casualty['ready_one'] += 1
             else:
                 dict_casualty['lucky_one'] += 1
+                dict_casualty['ready_one'] += 1
         soldiers_number = len(squad.metadict_soldiers)
         dict_casualty['fall_percent'] = round(dict_casualty['fall'] / soldiers_number * 100)
         dict_casualty['dead_percent'] = round(dict_casualty['dead'] / soldiers_number * 100)
@@ -976,6 +979,7 @@ class battle_simulation(battlescape):
         dict_casualty['light_injured_percent'] = round(dict_casualty['light_injured'] / soldiers_number * 100)
         dict_casualty['escape_percent'] = round(dict_casualty['escape'] / soldiers_number * 100)
         dict_casualty['lucky_one_percent'] = round(dict_casualty['lucky_one'] / soldiers_number * 100)
+        dict_casualty['ready_one_percent'] = round(dict_casualty['ready_one'] / soldiers_number * 100)
         # Потери отряда, это павшие в бою и бежавшие с поля боя (это учитывается в soldier.set_danger):
         dict_casualty['casualty_percent'] = dict_casualty['fall_percent'] + dict_casualty['escape_percent']
         return dict_casualty
@@ -1073,6 +1077,10 @@ class battle_simulation(battlescape):
     def squad_AI(self, squad, commander):
         """Создаёт список команд на ход."""
         commands_list = []
+        squad_hitpoints_max = sum([soldier.hitpoints_max for soldier\
+            in squad.metadict_soldiers.values()])
+        squad_hitpoints = sum([soldier.hitpoints for soldier\
+            in squad.metadict_soldiers.values()])
         if squad.commander and squad.enemies:
             save_distance = squad.enemy_recon['move']
             if squad.enemy_recon['distance'] > save_distance:
@@ -1151,6 +1159,23 @@ class battle_simulation(battlescape):
                 commands_list.append('spellcast')
                 commands_list.append('runes')
                 commands_list.append('volley')
+            # Поиск и атака всех:
+            if squad.commander.__dict__.get('seeker_AI'):
+                commands_list = ['engage','attack']
+                commands_list.append('spellcast')
+                commands_list.append('seek')
+                #commands_list.append('carefull')
+            # Бесстрашные создания бесстрашны, зато трусоватые спасают своих:
+            if squad.commander.__dict__.get('brave_AI'):
+                commands_list.append('brave')
+            if squad.commander.__dict__.get('fearless_AI'):
+                commands_list.append('fearless')
+            else:
+                commands_list.append('rescue')
+            # Если потери больше 50%, то все отступают:
+            if not 'fearless' in commands_list\
+                    and squad.casualty['casualty_percent'] > squad.casualty['ready_one_percent']:
+                commands_list.append('retreat')
             # Командир уплотняет строй до 2 солдат на тайл:
             if squad.commander.__dict__.get('close_order_AI'):
                 commands_list.append('close_order')
@@ -1171,12 +1196,6 @@ class battle_simulation(battlescape):
                 and squad.enemy_recon['distance'] <= squad.enemy_recon['move'] * 2\
                 and squad.enemy_recon['distance'] > save_distance:
                     commands_list.append('sneak')
-            # Поиск и атака всех:
-            if squad.commander.__dict__.get('seeker_AI'):
-                commands_list = ['engage','attack']
-                commands_list.append('spellcast')
-                commands_list.append('seek')
-                #commands_list.append('carefull')
             # Захват пленных:
             if squad.commander.__dict__.get('enslave_AI'):
                 commands_list.append('enslave')
@@ -1206,13 +1225,6 @@ class battle_simulation(battlescape):
             # Стремительный командир гонит своих вперёд:
             if squad.commander.__dict__.get('Dash_AI'):
                 commands_list.append('dash')
-            # Бесстрашные создания бесстрашны, зато трусоватые спасают своих:
-            if squad.commander.__dict__.get('brave_AI'):
-                commands_list.append('brave')
-            if squad.commander.__dict__.get('fearless_AI'):
-                commands_list.append('fearless')
-            else:
-                commands_list.append('rescue')
             if squad.commander.__dict__.get('predator_AI'):
                 commands_list.append('select_weaker')
             elif squad.commander.__dict__.get('hunter_AI'):
@@ -1304,10 +1316,6 @@ class battle_simulation(battlescape):
                     if 'lead' in commands_list:
                         commands_list.remove('lead')
                         commands_list.append('disengage')
-            # Чучела, иллюзии и механизмы просто стоят:
-            if squad.commander.__dict__.get('inactive_AI'):
-                commands_list = []
-                commands_list.append('inactive')
             # Стадные животные чуть что убегают:
             if squad.commander.__dict__.get('animal_AI'):
                 if squad.enemy_recon['distance'] > save_distance * 2:
@@ -1315,12 +1323,12 @@ class battle_simulation(battlescape):
                     commands_list.append('close_order')
                     commands_list.append('disengage')
                 # Если кто-то из стада получает урон, команда "retreat":
-                squad_hitpoints_max = sum([soldier.hitpoints_max for soldier\
-                    in squad.metadict_soldiers.values()])
-                squad_hitpoints_new = sum([soldier.hitpoints for soldier\
-                    in squad.metadict_soldiers.values()])
-                if squad_hitpoints_new < squad_hitpoints_max:
+                if squad_hitpoints < squad_hitpoints_max:
                     commands_list.append('retreat')
+            # Чучела, иллюзии и механизмы просто стоят:
+            if squad.commander.__dict__.get('inactive_AI'):
+                commands_list = []
+                commands_list.append('inactive')
         if namespace.commands and not 'manual' in namespace.commands:
             # TODO: сделай фильтрацию команд по названию отряда
             # Сейчас команды достаются обеим отрядам. И нашему, и врагу.
