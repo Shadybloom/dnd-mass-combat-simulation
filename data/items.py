@@ -792,8 +792,8 @@ metadict_items['Hand Grenade'] = {
             'spell_choice':('Grenade','Explosion'),
             },
     'weight (lb)':2,
-    'cost (gp)':1.8,
-    'cost (grams_of_gold)':1.8,
+    'cost (gp)':3.6,
+    'cost (grams_of_gold)':3.6,
     }
 
 metadict_items['Smoke Grenade'] = {
@@ -805,8 +805,8 @@ metadict_items['Smoke Grenade'] = {
     'attack_range':60,
     'effect_timer':10,
     'weight (lb)':2,
-    'cost (gp)':1.8,
-    'cost (grams_of_gold)':1.8,
+    'cost (gp)':3.6,
+    'cost (grams_of_gold)':3.6,
     }
 
 metadict_items['Fire Spear'] = {

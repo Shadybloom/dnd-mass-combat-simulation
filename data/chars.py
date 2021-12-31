@@ -1624,13 +1624,7 @@ metadict_chars['Warrior 4 lvl (bombardier line-infantry-sergeant)'] = {
     'behavior':'commander',
     'class_features':{
         'Fighting_Style_Blind_Fighting':True,
-        'Feat_Magic_Initiate':True,
-        'Spellcasting':True,
-        'Spells':[
-            ('cantrip', 'Mold_Earth'),
-            ('cantrip', 'Sword_Burst'),
-            ('ritual', 'Floating_Disk'),
-            ],
+        'Feat_Inspiring_Leader':True,
         },
     'race':'Human-common',
     'weapon_skill':['simple','martial'],
@@ -1644,15 +1638,13 @@ metadict_chars['Warrior 4 lvl (bombardier line-infantry-sergeant)'] = {
         'Halberd':1,
         'Pistol, Lorenzony':1,
         'Muskete Bullet':30,
-        'Akbar Shaitan-tube':1,
-        '20lb Fire-Rocket':1,
+        'Hand Mortar':1,
+        '2lb Bomb':10,
         'Smoke Grenade':1,
         },
-    'mount_combat':False,
-    'mount_type':'Tensers Floating Disk',
-    'equipment_mount':{
-        '20lb Fire-Rocket':25,
-        },
+    #'mount_combat':False,
+    #'mount_type':'Riding Horse',
+    #'equipment_mount':{},
     }
 
 metadict_chars['Warrior 5 lvl (bombardier line-infantry-lieutenant)'] = {
@@ -1683,6 +1675,38 @@ metadict_chars['Warrior 5 lvl (bombardier line-infantry-lieutenant)'] = {
         'Halberd':1,
         'Pistol, Lorenzony':1,
         'Muskete Bullet':30,
+        'Hand Mortar':1,
+        '2lb Bomb':10,
+        'Smoke Grenade':1,
+        },
+    #'mount_combat':False,
+    #'mount_type':'Riding Horse',
+    #'equipment_mount':{},
+    }
+
+metadict_chars['Warrior 5 lvl (bombardier line-infantry-lieutenant-variant-bomba-san)'] = {
+    # Дикая боевая оптимизация. Латы и щит, максимум AC, станковый гранатомёт на летучем диске.
+    'base_unit':'Warrior 5 lvl (bombardier line-infantry-lieutenant)',
+    'class_features':{
+        'Extra_Attack':True,
+        'Fighting_Style_Blind_Fighting':True,
+        'Feat_Magic_Initiate':True,
+        'Spellcasting':True,
+        'Spells':[
+            ('cantrip', 'Mold_Earth'),
+            ('cantrip', 'Sword_Burst'),
+            ('ritual', 'Floating_Disk'),
+            ],
+        },
+    'equipment_weapon':{
+        'Infusion of Longstrider':1,
+        'Rune of Absorbtion':1,
+        'Rune of Shielding':1,
+        'Plate Armor, 17 century':1,
+        'Shield':1,
+        'Sabre':1,
+        'Pistol, Lorenzony':1,
+        'Muskete Bullet':30,
         'King Bomba-san':1,
         '2lb Fire-Bomb':10,
         'Smoke Grenade':1,
@@ -1691,6 +1715,39 @@ metadict_chars['Warrior 5 lvl (bombardier line-infantry-lieutenant)'] = {
     'mount_type':'Tensers Floating Disk',
     'equipment_mount':{
         '2lb Fire-Bomb':250,
+        },
+    }
+
+metadict_chars['Warrior 5 lvl (bombardier line-infantry-lieutenant-variant-shaitan)'] = {
+    'base_unit':'Warrior 5 lvl (bombardier line-infantry-lieutenant)',
+    'class_features':{
+        'Extra_Attack':True,
+        'Fighting_Style_Blind_Fighting':True,
+        'Feat_Magic_Initiate':True,
+        'Spellcasting':True,
+        'Spells':[
+            ('cantrip', 'Mold_Earth'),
+            ('cantrip', 'Sword_Burst'),
+            ('ritual', 'Floating_Disk'),
+            ],
+        },
+    'equipment_weapon':{
+        'Infusion of Longstrider':1,
+        'Rune of Absorbtion':1,
+        'Rune of Shielding':1,
+        'Plate Armor, 17 century':1,
+        'Shield':1,
+        'Sabre':1,
+        'Pistol, Lorenzony':1,
+        'Muskete Bullet':30,
+        'Akbar Shaitan-tube':1,
+        '20lb Fire-Rocket':1,
+        'Smoke Grenade':1,
+        },
+    'mount_combat':False,
+    'mount_type':'Tensers Floating Disk',
+    'equipment_mount':{
+        '20lb Fire-Rocket':25,
         },
     }
 

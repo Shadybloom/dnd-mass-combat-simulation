@@ -241,12 +241,9 @@ class soldier():
         self.uuid = uuid.uuid4()
         self.sex = sex
         # Берём шаблон солдата:
-        # TODO: много дублирования в словарях солдат.
-        # ------------------------------------------------------------
-        # Сделай ссылку base_rank и обновления для неё.
-        # Так будет гораздо проще менять комплекты снаряжения.
-        # В новых словарях будут только изменения и ссылка на базовый.
-        # ------------------------------------------------------------
+        if self.metadict_chars[rank].get('base_unit'):
+            base_unit = self.metadict_chars[rank].get('base_unit')
+            self.__dict__.update(copy.deepcopy(self.metadict_chars[base_unit]))
         self.__dict__.update(copy.deepcopy(self.metadict_chars[rank]))
         # Проверяем, есть ли особенные черты:
         if not hasattr(self, 'class_features'):
@@ -368,7 +365,11 @@ class soldier():
         # Так можно делать солдат офицерами, поднимая харизму за счёт телосложения. Стареют ведь.
         # ------------------------------------------------------------
         old_char_class = self.char_class
-        new_char_class = self.metadict_chars[self.rank]['char_class']
+        if self.metadict_chars[rank].get('base_unit'):
+            base_unit = self.metadict_chars[rank].get('base_unit')
+            new_char_class = self.metadict_chars[base_unit]['char_class']
+        else:
+            new_char_class = self.metadict_chars[self.rank]['char_class']
         if not old_char_class == new_char_class:
             self.char_class = new_char_class
             ability_list = self.abilityes.values()
@@ -378,6 +379,9 @@ class soldier():
         # TODO: маленькая проблема. Старые параметры в шаблоне сохраняются.
         # Если у нас в старом шаблоне mount_combat True, то это перейдёт и в новый шаблон.
         # Нельзя просто закомментировать #mount_combat у паладина 5 lvl. Нужно ставить False.
+        if self.metadict_chars[rank].get('base_unit'):
+            base_unit = self.metadict_chars[rank].get('base_unit')
+            self.__dict__.update(copy.deepcopy(self.metadict_chars[base_unit]))
         self.__dict__.update(copy.deepcopy(self.metadict_chars[rank]))
         if not hasattr(self, 'class_features'):
             self.class_features = {}

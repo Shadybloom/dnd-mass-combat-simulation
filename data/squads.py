@@ -1517,7 +1517,8 @@ metadict_squads['Company-veteran (line-infantry-bombardiers)'] = {
     'Warrior 2 lvl (bombardier line-infantry-veteran)':60,
     'Warrior 3 lvl (bombardier line-infantry-corporal)':18,
     'Warrior 4 lvl (bombardier line-infantry-sergeant)':6,
-    'Warrior 5 lvl (bombardier line-infantry-lieutenant)':6,
+    'Warrior 5 lvl (bombardier line-infantry-lieutenant-variant-bomba-san)':5,
+    'Warrior 5 lvl (bombardier line-infantry-lieutenant-variant-shaitan)':1,
     'Commoner 1 lvl (recruit)':100,
     }
 
@@ -1541,7 +1542,8 @@ metadict_squads['Company-elite (line-infantry-grenadiers)'] = {
 
 metadict_squads['Company-elite (line-infantry-bombardier)'] = {
     'Warrior 4 lvl (bombardier line-infantry-sergeant)':67,
-    'Warrior 5 lvl (bombardier line-infantry-lieutenant)':25,
+    'Warrior 5 lvl (bombardier line-infantry-lieutenant-variant-bomba-san)':20,
+    'Warrior 5 lvl (bombardier line-infantry-lieutenant-variant-shaitan)':5,
     'Commoner 1 lvl (recruit)':300,
     }
 
