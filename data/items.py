@@ -365,7 +365,7 @@ metadict_items['Sling'] = {
 # Martial Melee Weapons
 
 metadict_items['Battleaxe'] = {
-    # Секира. Вес лезвия -- 450 грамм
+    # Боевой топор. Вес лезвия -- 450 грамм
     'weapon':True,
     'ammo_type':blade_poisons,
     'weapon_type':['martial','close','versatile'],
@@ -374,7 +374,7 @@ metadict_items['Battleaxe'] = {
     'damage_dice_versatile':'1d10',
     'weight (lb)':4,
     'cost (gp)':10,
-    'cost (grams_of_gold)':10,
+    'cost (grams_of_gold)':5,
     }
 
 metadict_items['Flait'] = {
@@ -414,10 +414,11 @@ metadict_items['Greataxe'] = {
     'damage_dice':'1d12',
     'weight (lb)':7,
     'cost (gp)':30,
-    'cost (grams_of_gold)':30,
+    'cost (grams_of_gold)':9,
     }
 
 metadict_items['Greatsword'] = {
+    # Двуручный меч
     'weapon':True,
     'ammo_type':blade_poisons,
     #'shield_breaker':True,
@@ -426,10 +427,11 @@ metadict_items['Greatsword'] = {
     'damage_dice':'2d6',
     'weight (lb)':6,
     'cost (gp)':50,
-    'cost (grams_of_gold)':50,
+    'cost (grams_of_gold)':18,
     }
 
 metadict_items['Halberd'] = {
+    # Алебарда
     'weapon':True,
     'ammo_type':blade_poisons,
     #'shield_breaker':True,
@@ -479,7 +481,7 @@ metadict_items['Longsword'] = {
     'damage_dice_versatile':'1d10',
     'weight (lb)':3,
     'cost (gp)':15,
-    'cost (grams_of_gold)':25,
+    'cost (grams_of_gold)':10,
     }
 
 metadict_items['Maul'] = {
@@ -525,10 +527,11 @@ metadict_items['Rapier'] = {
     'damage_dice':'1d8',
     'weight (lb)':2,
     'cost (gp)':25,
-    'cost (grams_of_gold)':30,
+    'cost (grams_of_gold)':15,
     }
 
 metadict_items['Scimitar'] = {
+    # Скимитар
     # Копис (буквально -- "рубило"), сика, махайра ("маха, махиа" -- бой), фальката (ensis falcatus)
     # Копис -- клинок с обратным изгибом, утяжелённое к концу лезвие в ~65 см.
     # https://en.wikipedia.org/wiki/Sica
@@ -539,10 +542,11 @@ metadict_items['Scimitar'] = {
     'damage_dice':'1d6',
     'weight (lb)':3,
     'cost (gp)':15,
-    'cost (grams_of_gold)':25,
+    'cost (grams_of_gold)':10,
     }
 
 metadict_items['Shortsword'] = {
+    # Тесак
     # От дня до недели работы мастера (50-200 мечей/год, 5 gp/клинок)
     # Акинак (акинакос), ксифос (греческий), гладиус, гладия (стебель), семи-спата (полу-меч).
     # Гладия (кладес -- ущерб/рана, от "келлад", прото-индоевропейский "кел" -- ударять/бить)
@@ -556,7 +560,7 @@ metadict_items['Shortsword'] = {
     'damage_dice':'1d6',
     'weight (lb)':2,
     'cost (gp)':10,
-    'cost (grams_of_gold)':10,
+    'cost (grams_of_gold)':5,
     }
 
 #----
@@ -2451,8 +2455,8 @@ metadict_items['2lb Bomb'] = {
             'spell_choice':('2lb Bomb','Explosion'),
             },
     'weight (lb)':2,
-    'cost (gp)':1.8,
-    'cost (grams_of_gold)':1.8,
+    'cost (gp)':3.6,
+    'cost (grams_of_gold)':3.6,
     }
 
 metadict_items['2lb Fire-Bomb'] = {

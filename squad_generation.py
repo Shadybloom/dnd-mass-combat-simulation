@@ -623,7 +623,7 @@ if __name__ == '__main__':
     print('Medial hp:', squad.hitpoints_medial,'Medial AC:', squad.armor_class)
     # TODO: перенеси эти расчёты куда-нибудь:
     # Быстрые расчёты атаки:
-    target_AC = 20
+    target_AC = round(squad.armor_class)
     attack_test_dict = dices.dice_throw_number('1d20',
             advantage = False, disadvantage = True,
             number = 10000, mod = round(squad.attack_mod[1]))
