@@ -2273,6 +2273,9 @@ class battle_simulation(battlescape):
                     attack_dict = soldier.attacks[attack_choice]
                     soldier.use_ammo(attack_dict, squad.metadict_soldiers)
                     self.set_squad_battle_stat(attack_dict, squad, attack_choice)
+                    # Действие тоже расходуется:
+                    soldier.battle_action = False
+                    soldier.drop_action(('action', 'Weapon_Attack'))
                     # Артиллерия и заклинания в стрелах:
                     if attack_dict.get('spell_dict'):
                         spell_dict = attack_dict.get('spell_dict')
