@@ -1156,9 +1156,10 @@ class battle_simulation(battlescape):
                 commands_list = ['carefull','dodge']
                 commands_list.append('very_carefull')
                 commands_list.append('attack')
+                commands_list.append('help')
                 commands_list.append('spellcast')
+                commands_list.append('potions')
                 commands_list.append('runes')
-                commands_list.append('volley')
             # Поиск и атака всех:
             if squad.commander.__dict__.get('seeker_AI'):
                 commands_list = ['engage','attack']
@@ -1581,7 +1582,10 @@ class battle_simulation(battlescape):
             soldier.use_heal(use_minor_potion = True)
         # Если необходима перезарядка оружия -- перезаряжаем:
         if 'recharge' in soldier.commands and len(soldier.metadict_recharge) >= 1:
-            soldier.use_reload_action()
+            # Ищем союзников для перезарядки оружия:
+            if 'help' in soldier.commands and soldier.level >= 4:
+                self.recon_action(soldier, squad, distance = 2)
+            soldier.use_reload_action(squad)
         # Если действия не использовались -- защищаемся:
         if soldier.battle_action or soldier.bonus_action:
             soldier.use_dodge_action()

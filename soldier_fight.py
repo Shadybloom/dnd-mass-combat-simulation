@@ -1160,7 +1160,7 @@ class soldier_in_battle(soldier):
                 #    en_b = enemy_soldier.behavior))
                 return advantage
 
-    def use_reload_action(self):
+    def use_reload_action(self, squad):
         """Боец перезаряжает оружие со свойством "reload".
         
         Оружие требует перезарядки действием или бонусным действием.
@@ -1169,8 +1169,34 @@ class soldier_in_battle(soldier):
         if len(self.metadict_recharge) >= 1:
             recharge_success = False
             attack_choice = random.choice(list(self.metadict_recharge.keys()))
+            # Перезарядка с помощью Help_Action союзников:
+            if 'Recharge_help' in self.metadict_recharge[attack_choice]:
+                if not squad.enemy_recon\
+                        or 'carefull' in squad.commands and squad.enemy_recon\
+                        and squad.enemy_recon['distance'] > squad.enemy_recon['move'] * 2\
+                        or 'very_carefull' in squad.commands and squad.enemy_recon\
+                        and squad.enemy_recon['distance'] > squad.enemy_recon['move'] * 4:
+                    # Помощники должны быть меньшего уровня, чем канонир, сам он не перезаряжает:
+                    helpers_list = [squad.metadict_soldiers[ally.uuid] for ally in self.near_allies
+                            if ally.uuid in squad.metadict_soldiers
+                            and not ally.type == 'mount'
+                            and not ally.level >= self.level]
+                    if helpers_list and 'help' in squad.commands:
+                        #print('NYA', len(helpers_list))
+                        for soldier in helpers_list:
+                            if not soldier.help_action:
+                                soldier.help_action = True
+                                soldier.drop_action(('action', 'Help_Action_Reload'))
+                                attack_dict = self.metadict_recharge[attack_choice]
+                                attack_dict['Recharge_actions_use'] += 1
+                                # Когда перезарядка закончена, обнуляем счётчик действий:
+                                if attack_dict['Recharge_actions_use']\
+                                        >= attack_dict['Recharge_actions_need']:
+                                        attack_dict['Recharge_actions_use'] = 0
+                                        recharge_success = True
+                                        break
             # Бросок на вероятность перезарядки. Получилось/нет:
-            if 'Recharge_dice' in self.metadict_recharge[attack_choice]:
+            elif 'Recharge_dice' in self.metadict_recharge[attack_choice]:
                 recharge_throw = dices.dice_throw(self.metadict_recharge[attack_choice]['Recharge_dice'])
                 if recharge_throw in self.metadict_recharge[attack_choice]['Recharge_numbers']:
                     recharge_success = True
@@ -1192,7 +1218,8 @@ class soldier_in_battle(soldier):
                 self.attacks[attack_choice] = attack_dict
                 return recharge_success
             # Если перезарядка успешна, восстанавливаем атаку:
-            elif recharge_success and self.battle_action:
+            elif recharge_success and self.battle_action\
+                    or recharge_success and 'Recharge_help' in self.metadict_recharge[attack_choice]:
                 self.battle_action = False
                 self.drop_action(('action', 'Reload_Action_Success'))
                 attack_dict = self.metadict_recharge.pop(attack_choice)

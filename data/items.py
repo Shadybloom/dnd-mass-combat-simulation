@@ -2149,11 +2149,12 @@ metadict_items['12lb Bombard'] = {
     'savethrow_ability':'dexterity',
     'ammo_type':gun_ammunition,
     'weapon_type':['martial','two_handed','firearm','volley','reload'],
-    # Перезарядка за раунд с вероятностью 50%.
-    # Это с полевым станком и расчётом в 12 бойцов.
+    # Перезарядка за 30 действий.
+    # Это полевое орудие и расчётом в 10 бойцов.
     'recharge':True,
-    'Recharge_dice':'1d6',
-    'Recharge_numbers':[5,6],
+    'Recharge_help':True,
+    'Recharge_actions_need':30,
+    'Recharge_actions_use':0,
     'shoot_range':150,
     'shoot_range_max':1800,
     'shoot_range_volley':2400,
@@ -2175,11 +2176,12 @@ metadict_items['6lb Gannon'] = {
     'savethrow_ability':'dexterity',
     'ammo_type':gun_ammunition,
     'weapon_type':['martial','ranged','two_handed','firearm','volley','reload'],
-    # Перезарядка за раунд с вероятностью 50%.
-    # Это с полевым станком и расчётом в 12 бойцов.
+    # Перезарядка за 20 действий.
+    # Это полевое орудие и расчётом в 10 бойцов.
     'recharge':True,
-    'Recharge_dice':'1d6',
-    'Recharge_numbers':[4,5,6],
+    'Recharge_help':True,
+    'Recharge_actions_need':20,
+    'Recharge_actions_use':0,
     'shoot_range':600,
     'shoot_range_max':1800,
     'shoot_range_volley':2400,
