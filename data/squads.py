@@ -1517,8 +1517,30 @@ metadict_squads['Company-veteran (line-infantry-bombardiers)'] = {
     'Warrior 2 lvl (bombardier line-infantry-veteran)':60,
     'Warrior 3 lvl (bombardier line-infantry-corporal)':18,
     'Warrior 4 lvl (bombardier line-infantry-sergeant)':6,
-    'Warrior 5 lvl (bombardier line-infantry-lieutenant-variant-bomba-san)':5,
-    'Warrior 5 lvl (bombardier line-infantry-lieutenant-variant-shaitan)':1,
+    'Warrior 5 lvl (bombardier line-infantry-lieutenant) (bomba-san)':5,
+    'Warrior 5 lvl (bombardier line-infantry-lieutenant) (shaitan-tube)':1,
+    'Commoner 1 lvl (recruit)':100,
+    }
+
+#----
+# Ветеранские отряды (артиллерия):
+
+metadict_squads['Company-veteran (cannoneer artillery-battery) (6-lb Gannons)'] = {
+    # Полковая батарея, 8 орудий, 96 бойцов в расчётах.
+    'Warrior 1 lvl (cannoneer artillery)':30,
+    'Warrior 2 lvl (cannoneer artillery-veteran)':60,
+    'Warrior 3 lvl (cannoneer artillery-corporal)':10,
+    'Warrior 4 lvl (cannoneer artillery-sergeant) (6lb Gannon)':8,
+    'Warrior 5 lvl (cannoneer artillery-lieutenant)':6,
+    'Commoner 1 lvl (recruit)':100,
+    }
+
+metadict_squads['Company-veteran (cannoneer artillery-battery) (12-lb Bombards)'] = {
+    'Warrior 1 lvl (cannoneer artillery)':30,
+    'Warrior 2 lvl (cannoneer artillery-veteran)':60,
+    'Warrior 3 lvl (cannoneer artillery-corporal)':10,
+    'Warrior 4 lvl (cannoneer artillery-sergeant) (12lb Bombard)':8,
+    'Warrior 5 lvl (cannoneer artillery-lieutenant)':6,
     'Commoner 1 lvl (recruit)':100,
     }
 

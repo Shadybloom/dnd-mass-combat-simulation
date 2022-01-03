@@ -89,6 +89,12 @@ grenades = [
         '2lb Fire-Bomb',
         ]
 
+gun_ammunition = [
+        '12lb Bomb',
+        '6lb Bomb',
+        '6lb Ball',
+        ]
+
 rockets = [
         '20lb Fire-Rocket',
         ]
@@ -674,15 +680,13 @@ metadict_items['Pistol'] = {
     'savethrow_all':True,
     'savethrow_ability':'dexterity',
     'ammo_type':muskete_bullets,
-    'weapon_type':['martial','ranged','light','firearm','volley','reload'],
+    'weapon_type':['martial','ranged','light','firearm','reload'],
     # Перезарядка за раунд с вероятностью 50%
     'recharge':True,
     'Recharge_dice':'1d6',
     'Recharge_numbers':[4,5,6],
     'shoot_range':30,
     'shoot_range_max':90,
-    # Множитель радиуса неприцельной стрельбы
-    'shoot_range_volley':150,
     'weight (lb)':3,
     'cost (gp)':10,
     'cost (grams_of_gold)':10,
@@ -696,7 +700,7 @@ metadict_items['Pistol, Lorenzony'] = {
     'savethrow_all':True,
     'savethrow_ability':'dexterity',
     'ammo_type':muskete_bullets,
-    'weapon_type':['martial','ranged','light','firearm','volley','reload'],
+    'weapon_type':['martial','ranged','light','firearm','reload'],
     'recharge':True,
     'Recharge_magazine_max':8,
     'Recharge_magazine':8,
@@ -704,7 +708,6 @@ metadict_items['Pistol, Lorenzony'] = {
     'Recharge_numbers':[5,6],
     'shoot_range':30,
     'shoot_range_max':90,
-    'shoot_range_volley':150,
     'weight (lb)':3,
     'cost (gp)':120,
     'cost (grams_of_gold)':120,
@@ -2134,6 +2137,57 @@ metadict_items['Onager'] = {
     'cost (grams_of_gold)':16 * 60,
     }
 
+metadict_items['12lb Bombard'] = {
+    # Гаубицы -- 7-10 фунтов по бомбе, 800 фунтов/орудие (80 весов снаряда)
+    # * 3 выстрела/минуту. Бомбой 230 м/с, 1800 футов выстрел
+    # * Бомбарды стреляют только навесом.
+    'weapon':True,
+    # Спасброски ловкости вместо брони:
+    'direct_hit':True,
+    'savethrow':True,
+    'savethrow_all':True,
+    'savethrow_ability':'dexterity',
+    'ammo_type':gun_ammunition,
+    'weapon_type':['martial','two_handed','firearm','volley','reload'],
+    # Перезарядка за раунд с вероятностью 50%.
+    # Это с полевым станком и расчётом в 12 бойцов.
+    'recharge':True,
+    'Recharge_dice':'1d6',
+    'Recharge_numbers':[5,6],
+    'shoot_range':150,
+    'shoot_range_max':1800,
+    'shoot_range_volley':2400,
+    'weight (lb)':1000,
+    'cost (gp)':8 * 60,
+    'cost (grams_of_gold)':8 * 60,
+    }
+
+metadict_items['6lb Gannon'] = {
+    # Полковые -- 2-4 штук/полк 6-фунтовых пушек, 12 калибров, 1800 lb (300 весов снаряда)
+    # * 3 выстрела/минуту. Ядром -- 1800 футов. Картечью -- 900 футов.
+    # Стоимость бронзовых -- 8 эфес/тонна (4 эфеса/1000 lb)
+    # Станок -- 20% массы орудия.
+    'weapon':True,
+    # Спасброски ловкости вместо брони:
+    'direct_hit':True,
+    'savethrow':True,
+    'savethrow_all':True,
+    'savethrow_ability':'dexterity',
+    'ammo_type':gun_ammunition,
+    'weapon_type':['martial','ranged','two_handed','firearm','volley','reload'],
+    # Перезарядка за раунд с вероятностью 50%.
+    # Это с полевым станком и расчётом в 12 бойцов.
+    'recharge':True,
+    'Recharge_dice':'1d6',
+    'Recharge_numbers':[4,5,6],
+    'shoot_range':600,
+    'shoot_range_max':1800,
+    'shoot_range_volley':2400,
+    'weight (lb)':1800,
+    'cost (gp)':8 * 60,
+    'cost (grams_of_gold)':8 * 60,
+    }
+
 metadict_items['Ballista, Heavy'] = {
     # Тяжёлая баллиста
     'weapon':True,
@@ -2481,6 +2535,9 @@ metadict_items['2lb Fire-Bomb'] = {
     'cost (grams_of_gold)':12,
     }
 
+#-------------------------------------------------------------------------
+# Боеприпасы (для реактивного гранатомёта), rockets
+
 metadict_items['20lb Fire-Rocket'] = {
     'ammo':True,
     'damage_dice':'4d6',
@@ -2501,6 +2558,65 @@ metadict_items['20lb Fire-Rocket'] = {
     'weight (lb)':20,
     'cost (gp)':90,
     'cost (grams_of_gold)':90,
+    }
+
+#-------------------------------------------------------------------------
+# Боеприпасы (для пушек), gun_ammunition
+
+metadict_items['12lb Bomb'] = {
+    # Снаряд бомбарды
+    'ammo':True,
+    'damage_dice':'3d10',
+    'damage_type':'bludgeoning',
+    'spell_dict':{
+            'zone':True,
+            'safe':False,
+            'radius':10,
+            'direct_hit':True,
+            'savethrow':True,
+            #'savethrow_all':True,
+            'savethrow_ability':'dexterity',
+            'damage_type':'piercing',
+            'damage_dice':'2d6',
+            'spell_save_DC':12,
+            'spell_choice':('12lb Bomb','Explosion'),
+            },
+    'weight (lb)':12 + 3,
+    'cost (gp)':12 + 3,
+    'cost (grams_of_gold)':12 + 3,
+    }
+
+metadict_items['6lb Bomb'] = {
+    # Снаряд полковой пушки
+    'ammo':True,
+    'damage_dice':'2d10',
+    'damage_type':'bludgeoning',
+    'spell_dict':{
+            'zone':True,
+            'safe':False,
+            'radius':5,
+            'direct_hit':True,
+            'savethrow':True,
+            #'savethrow_all':True,
+            'savethrow_ability':'dexterity',
+            'damage_type':'piercing',
+            'damage_dice':'2d6',
+            'spell_save_DC':12,
+            'spell_choice':('6lb Bomb','Explosion'),
+            },
+    'weight (lb)':6 + 3,
+    'cost (gp)':7 + 3,
+    'cost (grams_of_gold)':7 + 3,
+    }
+
+metadict_items['6lb Ball'] = {
+    # Чугунное пушечное ядро
+    'ammo':True,
+    'damage_dice':'6d10',
+    'damage_type':'bludgeoning',
+    'weight (lb)':6 + 3,
+    'cost (gp)':1 + 3,
+    'cost (grams_of_gold)':1 + 3,
     }
 
 #-------------------------------------------------------------------------

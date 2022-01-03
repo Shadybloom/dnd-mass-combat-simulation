@@ -38,6 +38,56 @@ metadict_animals['Onager'] = {
     'equipment_supply':{},
     }
 
+metadict_animals['6lb Gannon, chassis'] = {
+    # 6-фунтовая пушка.
+    'level':5,
+    'mechanism':True,
+    'challenge_rating':'-',
+    'char_class':'Commoner',
+    'behavior':'mount',
+    'hitpoints_medial':True,
+    'abilityes':{
+        'strength':10,
+        'dexterity':10,
+        'constitution':10, 
+        'intelligence':10,
+        'wisdom':10,
+        'charisma':10,
+        },
+    'hit_dice':'1d12',
+    'race':'Object-wood-big',
+    'weapon_skill':[],
+    'armor_skill':[],
+    'equipment_weapon':{},
+    'equipment_backpack':{},
+    'equipment_supply':{},
+    }
+
+metadict_animals['12lb Bombard, chassis'] = {
+    # 12-фунтовая бомбарда
+    'level':5,
+    'mechanism':True,
+    'challenge_rating':'-',
+    'char_class':'Commoner',
+    'behavior':'mount',
+    'hitpoints_medial':True,
+    'abilityes':{
+        'strength':10,
+        'dexterity':10,
+        'constitution':10, 
+        'intelligence':10,
+        'wisdom':10,
+        'charisma':10,
+        },
+    'hit_dice':'1d12',
+    'race':'Object-wood-big',
+    'weapon_skill':[],
+    'armor_skill':[],
+    'equipment_weapon':{},
+    'equipment_backpack':{},
+    'equipment_supply':{},
+    }
+
 #----
 # Объекты.
 

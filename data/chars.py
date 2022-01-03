@@ -1535,7 +1535,7 @@ metadict_chars['Warrior 5 lvl (grenadier line-infantry-lieutenant)'] = {
     }
 
 #----
-# Гренадеры с ручными мортирками
+# Вспомогательные войска (бомбардиры с ручными мортирками)
 
 metadict_chars['Warrior 1 lvl (bombardier line-infantry)'] = {
     # Вооружены алебардой и ручной мортиркой.
@@ -1684,7 +1684,7 @@ metadict_chars['Warrior 5 lvl (bombardier line-infantry-lieutenant)'] = {
     #'equipment_mount':{},
     }
 
-metadict_chars['Warrior 5 lvl (bombardier line-infantry-lieutenant-variant-bomba-san)'] = {
+metadict_chars['Warrior 5 lvl (bombardier line-infantry-lieutenant) (bomba-san)'] = {
     # Дикая боевая оптимизация. Латы и щит, максимум AC, станковый гранатомёт на летучем диске.
     'base_unit':'Warrior 5 lvl (bombardier line-infantry-lieutenant)',
     'class_features':{
@@ -1718,7 +1718,7 @@ metadict_chars['Warrior 5 lvl (bombardier line-infantry-lieutenant-variant-bomba
         },
     }
 
-metadict_chars['Warrior 5 lvl (bombardier line-infantry-lieutenant-variant-shaitan)'] = {
+metadict_chars['Warrior 5 lvl (bombardier line-infantry-lieutenant) (shaitan-tube)'] = {
     'base_unit':'Warrior 5 lvl (bombardier line-infantry-lieutenant)',
     'class_features':{
         'Extra_Attack':True,
@@ -1750,6 +1750,250 @@ metadict_chars['Warrior 5 lvl (bombardier line-infantry-lieutenant-variant-shait
         '20lb Fire-Rocket':25,
         },
     }
+
+#----
+# Вспомогательные войска (артиллеристы с орудиями)
+
+metadict_chars['Warrior 1 lvl (cannoneer artillery)'] = {
+    # Вооружены алебардами и пистолетами. Обслуживают орудия.
+    'level':1,
+    'char_class':'Warrior-bowman',
+    'hit_dice':'1d8',
+    'behavior':'archer',
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Leather Armor':1,
+        'Shortsword':1,
+        'Pistol':1,
+        'Muskete Bullet':30,
+        'Smoke Grenade':1,
+        },
+    }
+
+metadict_chars['Warrior 2 lvl (cannoneer artillery-veteran)'] = {
+    'level':2,
+    'char_class':'Warrior-bowman',
+    'hit_dice':'1d8',
+    'behavior':'archer',
+    'class_features':{
+        'Fighting_Style_Archery':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Leather Armor':1,
+        'Shortsword':1,
+        'Pistol':1,
+        'Muskete Bullet':30,
+        'Smoke Grenade':1,
+        },
+    }
+
+metadict_chars['Warrior 3 lvl (cannoneer artillery-corporal)'] = {
+    'level':3,
+    'char_class':'Warrior-bowman',
+    'hit_dice':'1d8',
+    'behavior':'archer',
+    'class_features':{
+        'Fighting_Style_Archery':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Rune of Armor':1,
+        'Shortsword':1,
+        'Pistol, Lorenzony':1,
+        'Muskete Bullet':30,
+        'Smoke Grenade':1,
+        },
+    }
+
+metadict_chars['Warrior 4 lvl (cannoneer artillery-sergeant)'] = {
+    'level':4,
+    'volley_AI':True,
+    'firearm_AI':True,
+    'defence_AI':True,
+    'sneak_AI':True,
+    'char_class':'Warrior-bowman',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Archery':True,
+        'Feat_Sharpshooter':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Rune of Armor':1,
+        'Shortsword':1,
+        'Pistol, Lorenzony':1,
+        'Muskete Bullet':30,
+        'Smoke Grenade':1,
+        },
+    #'mount_combat':False,
+    #'mount_type':'Riding Horse',
+    #'equipment_mount':{},
+    }
+
+metadict_chars['Warrior 4 lvl (cannoneer artillery-sergeant) (6lb Gannon)'] = {
+    'base_unit':'Warrior 4 lvl (cannoneer artillery-sergeant)',
+    'equipment_weapon':{
+        'Rune of Absorbtion':1,
+        'Rune of Armor':1,
+        '6lb Gannon':1,
+        '6lb Bomb':100,
+        #'6lb Ball':100,
+        },
+    'mount_combat':True,
+    'mount_type':'6lb Gannon, chassis',
+    'equipment_mount':{},
+    }
+
+metadict_chars['Warrior 4 lvl (cannoneer artillery-sergeant) (12lb Bombard)'] = {
+    'base_unit':'Warrior 4 lvl (cannoneer artillery-sergeant)',
+    'equipment_weapon':{
+        'Rune of Absorbtion':1,
+        'Rune of Armor':1,
+        '12lb Bombard':1,
+        '12lb Bomb':100,
+        },
+    'mount_combat':True,
+    'mount_type':'12lb Bombard, chassis',
+    'equipment_mount':{},
+    }
+
+metadict_chars['Warrior 5 lvl (cannoneer artillery-lieutenant)'] = {
+    # Командир артиллерийской батареи.
+    'level':5,
+    'volley_AI':True,
+    'firearm_AI':True,
+    'defence_AI':True,
+    'sneak_AI':True,
+    'char_class':'Warrior-officer',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Archery':True,
+        'Feat_Sharpshooter':True,
+        'Extra_Attack':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Rune of Shielding':1,
+        'Rune of Absorbtion':1,
+        'Rune of Armor':1,
+        'Shortsword':1,
+        'Pistol, Lorenzony':1,
+        'Muskete Bullet':30,
+        'Smoke Grenade':1,
+        },
+    #'mount_combat':False,
+    #'mount_type':'Riding Horse',
+    #'equipment_mount':{},
+    }
+
+#----
+# Вспомогательные войска, артиллеристы.
+
+metadict_chars['Warrior 2 lvl (cannoneer-sergeant)'] = {
+    # Расчёты орудий.
+    'level':3,
+    'char_class':'Warrior-bowman',
+    'hit_dice':'1d8',
+    'behavior':'archer',
+    'class_features':{
+        'Fighting_Style_Archery':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Rune of Absorbtion':1,
+        'Breastplate, 17 century':1,
+        'Shield':1,
+        'Shortsword':1,
+        '6lb Gannon':1,
+        '6lb Bomb':100,
+        #'6lb Ball':100,
+        },
+    'mount_combat':True,
+    'mount_type':'6-lb Gannon',
+    'equipment_mount':{
+        },
+    }
+
+metadict_chars['Warrior 3 lvl (cannoneer-corporal) (6-lb Gannon)'] = {
+    'level':3,
+    'char_class':'Warrior-bowman',
+    'hit_dice':'1d8',
+    'behavior':'archer',
+    'class_features':{
+        'Fighting_Style_Archery':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Rune of Absorbtion':1,
+        'Breastplate, 17 century':1,
+        'Shield':1,
+        'Shortsword':1,
+        '6lb Gannon':1,
+        '6lb Bomb':100,
+        #'6lb Ball':100,
+        },
+    'mount_combat':True,
+    'mount_type':'6-lb Gannon',
+    'equipment_mount':{
+        },
+    }
+
+metadict_chars['Warrior 4 lvl (cannoneer-sergeant)'] = {
+    'level':4,
+    'volley_AI':True,
+    'firearm_AI':True,
+    'sneak_AI':True,
+    'char_class':'Warrior-bowman',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Archery':True,
+        'Feat_Sharpshooter':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Rune of Absorbtion':1,
+        'Breastplate, 17 century':1,
+        'Shield':1,
+        'Shortsword':1,
+        },
+    }
+
 
 #----
 # Стрелки с фузилями, фузилёры.
