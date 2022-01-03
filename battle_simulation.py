@@ -1311,11 +1311,12 @@ class battle_simulation(battlescape):
                     commands_list.remove('engage')
                 if 'carefull' in commands_list and squad.enemies\
                         and squad.enemy_recon['distance'] <= save_distance * 2\
+                        and squad.enemy_recon['enemy_strenght'] > squad.enemy_recon['ally_strenght']\
                         or 'very_carefull' in commands_list and squad.enemies\
-                        and squad.enemy_recon['distance'] <= save_distance * 4:
-                    if 'lead' in commands_list:
-                        commands_list.remove('lead')
-                        commands_list.append('disengage')
+                        and squad.enemy_recon['distance'] <= save_distance * 4\
+                        and squad.enemy_recon['enemy_strenght'] * 1.5 > squad.enemy_recon['ally_strenght']:
+                    if 'lead' in commands_list: commands_list.remove('lead')
+                    commands_list.append('disengage')
             # Стадные животные чуть что убегают:
             if squad.commander.__dict__.get('animal_AI'):
                 if squad.enemy_recon['distance'] > save_distance * 2:
@@ -1558,7 +1559,7 @@ class battle_simulation(battlescape):
             self.volley_action(soldier, squad)
         # Боец отступает, если таков приказ, или он в зоне опасного заклинания:
         if 'disengage' in soldier.commands and squad.__dict__.get('enemy_recon'):
-            if enemy and 'carefull' in soldier.commands\
+            if 'carefull' in soldier.commands and enemy\
                     and enemy.distance <= squad.enemy_recon['move'] * 2\
                     and squad.enemy_recon['enemy_strenght'] * 1.2 > squad.enemy_recon['ally_strenght']\
                     or 'very_carefull' in soldier.commands and enemy\
@@ -1571,14 +1572,10 @@ class battle_simulation(battlescape):
                 elif 'spawn' in self.dict_battlespace[soldier.place]:
                     if len(squad.exit_points) > 0:
                         destination = random.choice(squad.exit_points)
-                        soldier.use_dash_action(bonus_action = True)
-                        soldier.escape = True
                     else:
                         destination = self.find_spawn(soldier.place, soldier.ally_side)
                 self.move_action(soldier, squad, destination,
                         close_order = True, save_path = False, danger_path = True)
-                if 'exit' in self.dict_battlespace[soldier.place]:
-                    self.clear_battlemap()
         # Если не видно врагов, боец лечится добряникой:
         if not enemy and soldier.hitpoints < soldier.hitpoints_max:
             soldier.use_heal(use_minor_potion = True)
