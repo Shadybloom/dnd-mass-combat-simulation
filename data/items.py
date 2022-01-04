@@ -82,6 +82,8 @@ sling_bullets = [
 muskete_bullets = [
         'Muskete Bullet',
         'Muskete Bullet +1',
+        'Muskete Bullet, big',
+        'Muskete Bullet, birdshot',
         ]
 
 grenades = [
@@ -624,6 +626,27 @@ metadict_items['Muskete'] = {
     'cost (grams_of_gold)':10,
     }
 
+metadict_items['Muskete, big'] = {
+    'weapon':True,
+    'direct_hit':True,
+    'savethrow':True,
+    'savethrow_all':True,
+    'savethrow_ability':'dexterity',
+    'ammo_type':muskete_bullets,
+    'weapon_type':['martial','ranged','two_handed','firearm','volley','reload'],
+    # Перезарядка за раунд с вероятностью 30%
+    'recharge':True,
+    'Recharge_dice':'1d6',
+    'Recharge_numbers':[5,6],
+    'shoot_range':100,
+    'shoot_range_max':200,
+    # Множитель радиуса неприцельной стрельбы
+    'shoot_range_volley':600,
+    'weight (lb)':15,
+    'cost (gp)':20,
+    'cost (grams_of_gold)':20,
+    }
+
 metadict_items['Muskete, Lorenzony'] = {
     # Ружье Микеле Лоренцони -- 10 выстрелов/минуту
     'weapon':True,
@@ -642,8 +665,8 @@ metadict_items['Muskete, Lorenzony'] = {
     'shoot_range_max':150,
     'shoot_range_volley':600,
     'weight (lb)':10,
-    'cost (gp)':120,
-    'cost (grams_of_gold)':120,
+    'cost (gp)':60 * 2,
+    'cost (grams_of_gold)':60 * 2,
     }
 
 metadict_items['Muskete, van Graf'] = {
@@ -1003,9 +1026,10 @@ metadict_items['Sabre'] = {
     # 17 century. A silver hilted sword. £5 -- 15 gp
     'weapon':True,
     'ammo_type':blade_poisons,
-    'weapon_type':['martial','close','finesse'],
+    'weapon_type':['martial','close','versatile','finesse'],
     'damage_type':'slashing',
     'damage_dice':'1d8',
+    'damage_dice_versatile':'1d10',
     'weight (lb)':3,
     'cost (gp)':15,
     'cost (grams_of_gold)':25,
@@ -2456,12 +2480,12 @@ metadict_items['Alchemist\'s Fire (10/25 lb)'] = {
 # Боеприпасы (мушкетные пули), muskete_bullets
 
 metadict_items['Muskete Bullet'] = {
-    # Свинцовые. 
+    # Свинцовые, калибр 17.5 мм
     # * Патрон -- 0.1 lb (с обёрткой)
     #     - Масса пули -- 32 грамма свинца (2.8 см³)
     #     - Масса заряда -- 10 грамм пороха (1/3 пули)
     #     - Дымный порох -- 1.4 кДж/грамм (0.33 TNT, 0.28 газов пироксилина)
-    # * Урон (3d6 колющего, залпом 1d6 дробящего):
+    # * Урон (2d6 колющего, залпом 1d6 дробящего):
     #     - 600 футов -- 100 метров/секунду (160 Дж)
     #     - 450 футов -- 150 метров/секунду (360 Дж)
     #     - 300 футов -- 300 метров/секунду (1440 Дж)
@@ -2478,6 +2502,30 @@ metadict_items['Muskete Bullet'] = {
     'weight (lb)':0.1,
     'cost (sp)':1 / 20,
     'cost (grams_of_gold)':4 / 60,
+    }
+
+metadict_items['Muskete Bullet, big'] = {
+    # Свинцовые, калибр 22.8 мм
+    # * Патрон -- 0.3 lb (с обёрткой)
+    #     - Масса пули -- 70 грамма свинца (6.0 см³)
+    #     - Масса заряда -- 25 грамм пороха (1/3 пули)
+    'ammo':True,
+    'damage_dice':'2d8',
+    'damage_type':'piercing',
+    'weight (lb)':0.3,
+    'cost (sp)':3 / 20,
+    'cost (grams_of_gold)':12 / 60,
+    }
+
+metadict_items['Muskete Bullet, birdshot'] = {
+    # Дробь, калибр 22.8, 50 дробинок по 2 грамм.
+    'ammo':True,
+    'savethrow_all':False,
+    'damage_dice':'1d6',
+    'damage_type':'piercing',
+    'weight (lb)':0.3,
+    'cost (sp)':3 / 20,
+    'cost (grams_of_gold)':12 / 60,
     }
 
 metadict_items['Muskete Bullet +1'] = {
@@ -2583,9 +2631,9 @@ metadict_items['12lb Bomb'] = {
             'spell_save_DC':12,
             'spell_choice':('12lb Bomb','Explosion'),
             },
-    'weight (lb)':12 + 3,
-    'cost (gp)':12 + 3,
-    'cost (grams_of_gold)':12 + 3,
+    'weight (lb)':12 + 6,
+    'cost (gp)':12 + 6,
+    'cost (grams_of_gold)':12 + 6,
     }
 
 metadict_items['6lb Bomb'] = {
