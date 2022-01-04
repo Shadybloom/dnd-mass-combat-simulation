@@ -1505,6 +1505,14 @@ metadict_squads['Company-veteran (line-infantry-musketeers)'] = {
     'Commoner 1 lvl (recruit)':100,
     }
 
+metadict_squads['Company-veteran (line-infantry-fusiliers)'] = {
+    'Warrior 2 lvl (fusilier line-infantry-veteran)':60,
+    'Warrior 3 lvl (fusilier line-infantry-corporal)':18,
+    'Warrior 4 lvl (fusilier line-infantry-sergeant)':6,
+    'Warrior 5 lvl (fusilier line-infantry-lieutenant)':6,
+    'Commoner 1 lvl (recruit)':100,
+    }
+
 metadict_squads['Company-veteran (line-infantry-grenadiers)'] = {
     'Warrior 2 lvl (grenadier line-infantry-veteran)':60,
     'Warrior 3 lvl (grenadier line-infantry-corporal)':18,
@@ -1553,6 +1561,12 @@ metadict_squads['Company-elite (line-infantry-musketeers)'] = {
     # Отличный отряд (сумма параметров 69+) -- 400 рекрутов на 100 солдат
     'Warrior 4 lvl (musketeer line-infantry-sergeant)':67,
     'Warrior 5 lvl (musketeer line-infantry-lieutenant)':25,
+    'Commoner 1 lvl (recruit)':300,
+    }
+
+metadict_squads['Company-elite (line-infantry-fusiliers)'] = {
+    'Warrior 4 lvl (fusilier line-infantry-sergeant)':67,
+    'Warrior 5 lvl (fusilier line-infantry-lieutenant) (Schwartz Mark)':25,
     'Commoner 1 lvl (recruit)':300,
     }
 

@@ -1993,7 +1993,7 @@ metadict_chars['Warrior 4 lvl (cannoneer-sergeant)'] = {
 # https://en.wikipedia.org/wiki/Fusilier
 
 metadict_chars['Warrior 1 lvl (fusilier line-infantry)'] = {
-    # Вооружены штыком и мушкетом.
+    # Вооружены штыком и мушкетом. Основная линейная пехота.
     'level':1,
     'char_class':'Warrior-pirate',
     'hit_dice':'1d8',
@@ -2007,12 +2007,13 @@ metadict_chars['Warrior 1 lvl (fusilier line-infantry)'] = {
         'Leather Armor':1,
         'Bayonet':1,
         'Muskete':1,
-        'Muskete Bullet':40,
-        'Smoke Grenade':1,
+        'Muskete Bullet':30,
+        #'Smoke Grenade':1,
         },
     }
 
 metadict_chars['Warrior 2 lvl (fusilier line-infantry-veteran)'] = {
+    # Егеря. Вооружены нарезными штуцерами.
     'level':2,
     'char_class':'Warrior-pirate',
     'hit_dice':'1d8',
@@ -2026,11 +2027,11 @@ metadict_chars['Warrior 2 lvl (fusilier line-infantry-veteran)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Rune of Shielding':1,
         'Leather Armor':1,
         'Bayonet':1,
-        'Muskete':1,
-        'Muskete Bullet':40,
+        'Rifle':1,
+        'Pistol':1,
+        'Muskete Bullet':30,
         'Smoke Grenade':1,
         },
     }
@@ -2042,7 +2043,7 @@ metadict_chars['Warrior 3 lvl (fusilier line-infantry-corporal)'] = {
     'sneak_AI':True,
     'char_class':'Warrior-pirate',
     'hit_dice':'1d8',
-    'behavior':'elite_warrior',
+    'behavior':'archer',
     'class_features':{
         'Fighting_Style_Archery':True,
         },
@@ -2052,12 +2053,12 @@ metadict_chars['Warrior 3 lvl (fusilier line-infantry-corporal)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
-        'Rune of Shielding':1,
+        'Rune of Armor':1,
         'Leather Armor':1,
-        'Rapier':1,
-        'Muskete, Lorenzony':1,
-        'Muskete Bullet':40,
+        'Bayonet':1,
+        'Rifle, rapid':1,
+        'Pistol, Lorenzony':1,
+        'Muskete Bullet':60,
         'Smoke Grenade':1,
         },
     }
@@ -2080,12 +2081,13 @@ metadict_chars['Warrior 4 lvl (fusilier line-infantry-sergeant)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
         'Rune of Shielding':1,
         'Rune of Armor':1,
+        'Leather Armor':1,
         'Rapier':1,
-        'Muskete, Lorenzony':1,
-        'Muskete Bullet':40,
+        'Rifle, rapid':1,
+        'Pistol, Lorenzony':1,
+        'Muskete Bullet':60,
         'Smoke Grenade':1,
         },
     #'mount_combat':False,
@@ -2094,7 +2096,7 @@ metadict_chars['Warrior 4 lvl (fusilier line-infantry-sergeant)'] = {
     }
 
 metadict_chars['Warrior 5 lvl (fusilier line-infantry-lieutenant)'] = {
-    # Капитан роты мушкетёров.
+    # Капитан роты фузилеров.
     'level':5,
     'firearm_AI':True,
     'carefull_AI':True,
@@ -2113,17 +2115,34 @@ metadict_chars['Warrior 5 lvl (fusilier line-infantry-lieutenant)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Rune of Absorbtion':1,
         'Rune of Shielding':1,
         'Rune of Armor':1,
+        'Leather Armor':1,
         'Rapier':1,
-        'Muskete, Lorenzony':1,
-        'Muskete Bullet':40,
+        'Rifle, rapid':1,
+        'Pistol, Lorenzony':1,
+        'Muskete Bullet':60,
         'Smoke Grenade':1,
         },
     #'mount_combat':False,
     #'mount_type':'Riding Horse',
     #'equipment_mount':{},
+    }
+
+metadict_chars['Warrior 5 lvl (fusilier line-infantry-lieutenant) (Schwartz Mark)'] = {
+    # Капитан роты фузилеров. Вооружён штуцером Шварц Марка.
+    'base_unit':'Warrior 5 lvl (fusilier line-infantry-lieutenant)',
+    'equipment_weapon':{
+        'Rune of Absorbtion':1,
+        'Rune of Shielding':1,
+        'Rune of Armor':1,
+        'Leather Armor':1,
+        'Rapier':1,
+        'Rifle, Schwartz Mark':1,
+        'Muskete Bullet':60,
+        'Smoke Grenade':1,
+        },
     }
 
 #----

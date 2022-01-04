@@ -694,6 +694,72 @@ metadict_items['Muskete, van Graf'] = {
     'cost (grams_of_gold)':60 * 30,
     }
 
+metadict_items['Rifle'] = {
+    # Штуцер, дульнозарядная винтовка.
+    # Очень медленно перезаряжается, пулю забивают в ствол.
+    'weapon':True,
+    'direct_hit':True,
+    'savethrow':True,
+    'savethrow_all':True,
+    'savethrow_ability':'dexterity',
+    'ammo_type':muskete_bullets,
+    'weapon_type':['martial','ranged','two_handed','firearm','volley','reload'],
+    # Перезарядка за раунд с вероятностью 15%
+    'recharge':True,
+    'Recharge_dice':'1d6',
+    'Recharge_numbers':[6],
+    'shoot_range':150,
+    'shoot_range_max':600,
+    'shoot_range_volley':1200,
+    'weight (lb)':10,
+    'cost (gp)':30,
+    'cost (grams_of_gold)':30,
+    }
+
+metadict_items['Rifle, rapid'] = {
+    # Казнозарядная винтовка.
+    'weapon':True,
+    'direct_hit':True,
+    'savethrow':True,
+    'savethrow_all':True,
+    'savethrow_ability':'dexterity',
+    'ammo_type':muskete_bullets,
+    'weapon_type':['martial','ranged','two_handed','firearm','volley','reload'],
+    # Перезарядка за раунд с вероятностью 50%
+    'recharge':True,
+    'Recharge_dice':'1d6',
+    'Recharge_numbers':[4,5,6],
+    'shoot_range':150,
+    'shoot_range_max':600,
+    'shoot_range_volley':1200,
+    'weight (lb)':10,
+    'cost (gp)':60 * 2,
+    'cost (grams_of_gold)':60 * 2,
+    }
+
+metadict_items['Rifle, Schwartz Mark'] = {
+    # Штуцер Шварц Марка. Магазинная винтовка.
+    'weapon':True,
+    'direct_hit':True,
+    'savethrow':True,
+    'savethrow_all':True,
+    'savethrow_ability':'dexterity',
+    'ammo_type':muskete_bullets,
+    'weapon_type':['martial','ranged','two_handed','firearm','volley','reload'],
+    # Перезарядка за раунд с вероятностью 30%
+    'recharge':True,
+    'Recharge_magazine_max':8,
+    'Recharge_magazine':8,
+    'Recharge_dice':'1d6',
+    'Recharge_numbers':[5,6],
+    'shoot_range':150,
+    'shoot_range_max':600,
+    'shoot_range_volley':1200,
+    'weight (lb)':10,
+    'cost (gp)':60 * 30,
+    'cost (grams_of_gold)':60 * 30,
+    }
+
 metadict_items['Pistol'] = {
     # Пистоль
     'weapon':True,
