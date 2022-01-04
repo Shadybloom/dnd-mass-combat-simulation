@@ -2153,9 +2153,8 @@ class soldier_in_battle(soldier):
                 elif enemy.distance > round(attack_dict['attack_range'] / self.tile_size):
                     disadvantage = True
         # Homebrew: урон огнестрела уменьшается, если дальность выше предельной:
-        # Также исчезает его свойство пробивать доспехи в modify_armor.
         if attack_dict.get('weapon_type') and 'firearm' in attack_dict.get('weapon_type')\
-                and enemy.distance * self.tile_size > attack_dict['shoot_range']\
+                and enemy.distance * self.tile_size > attack_dict['shoot_range_max']\
                 and attack_choice[0] == 'volley':
             damage_dice = str(1) + damage_dice[1:]
         # Диапазон критического урона может увеличить Champion_Improved_Critical:
@@ -2703,7 +2702,7 @@ class soldier_in_battle(soldier):
                     # Защищает от волшебных стрел:
                     if attack_choice[-1] == 'Magic_Missile':
                         attack_dict['direct_hit'] = False
-                    # Защищает от бронебойных пуль, savethrow_all --> armor_class:
+                    # Защищает от бронебойных пуль, вместо savethrow_all проверка armor_class:
                     if 'firearm' in attack_dict.get('weapon_type',[]):
                         attack_dict['direct_hit'] = False
                 # Вывод результата:

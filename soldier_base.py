@@ -1259,6 +1259,14 @@ class soldier():
                 and dict_attack['shoot_range_max'] > dict_ammo['shoot_range_max']:
             dict_attack['shoot_range_max'] = dict_ammo['shoot_range_max']
             dict_attack['attack_range_max'] = dict_attack['shoot_range_max']
+        if dict_ammo.get('shoot_range_volley')\
+                and dict_attack.get('shoot_range_volley')\
+                and dict_attack['shoot_range_volley'] > dict_ammo['shoot_range_volley']:
+            dict_attack['shoot_range_volley'] = dict_ammo['shoot_range_volley']
+            dict_attack['attack_range_volley'] = dict_attack['shoot_range_volley']
+        # Боеприпас огнестрела может быть особенно точным:
+        if dict_ammo.get('savethrow_all') == False and dict_attack['savethrow_all']:
+            dict_attack['savethrow_all'] = dict_ammo['savethrow_all']
         # К стоимости оружия прибавляется стоимость единичного боеприпаса:
         if dict_ammo.get('cost (grams_of_gold)'):
             dict_attack['cost_ammo (grams_of_gold)'] = dict_ammo['cost (grams_of_gold)']

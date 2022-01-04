@@ -614,7 +614,7 @@ if __name__ == '__main__':
     print('cost: {cost} number: {number} weight: {w}/{w_max} (free: {w_free}) overload: {over} lightload: {light}'.format(
         light = squad.squad_overload['lightload_soldiers'],
         over = squad.squad_overload['overload_soldiers'],
-        w = squad.squad_overload['equipment_weight (lb)'],
+        w = round(squad.squad_overload['equipment_weight (lb)']),
         w_max = squad.squad_overload['normal_load (lb)'],
         w_free = round(squad.squad_overload['normal_load (lb)'] - squad.squad_overload['equipment_weight (lb)']),
         number = len(squad.metadict_soldiers),
