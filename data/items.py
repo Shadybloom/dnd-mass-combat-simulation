@@ -865,10 +865,11 @@ metadict_items['Akbar Shaitan-tube'] = {
     }
 
 metadict_items['Hand Grenade'] = {
-    # Фитильная пороховая бомба.
-    # 1b пороха, 1 lb корпус, менее 30 осколков.
+    # Фитильная пороховая бомба 50-мм калибра.
+    # 0.5 lb корпус (3-мм, 80 см²),
+    # 0.25 lb пороха (1.6 г/см³, 65 см³),
+    # 0.75 lb дробь (168 дробинок по 2 грамм)
     'weapon':True,
-    #'ammo_type':'Hand Grenade',
     'weapon_type':['martial','throw','volley'],
     'damage_type':'bludgeoning',
     'damage_dice':'1d4',
@@ -893,7 +894,9 @@ metadict_items['Hand Grenade'] = {
     }
 
 metadict_items['Smoke Grenade'] = {
-    # Для дымовых завес:
+    # Дымовые гранаты, это просто запасной порох из рюкзака бойца.
+    # Одна граната делает столько же дыма, сколько залп 50 стрелков.
+    # Дымный порох -- 1 gp/lb
     'weapon':False,
     'spell':'Fog_Cloud',
     'concentration':False,
@@ -901,8 +904,8 @@ metadict_items['Smoke Grenade'] = {
     'attack_range':60,
     'effect_timer':10,
     'weight (lb)':2,
-    'cost (gp)':3.6,
-    'cost (grams_of_gold)':3.6,
+    'cost (gp)':1.8,
+    'cost (grams_of_gold)':1.8,
     }
 
 metadict_items['Fire Spear'] = {
@@ -2625,8 +2628,8 @@ metadict_items['2lb Bomb'] = {
             'spell_choice':('2lb Bomb','Explosion'),
             },
     'weight (lb)':2,
-    'cost (gp)':3.6,
-    'cost (grams_of_gold)':3.6,
+    'cost (gp)':1.8,
+    'cost (grams_of_gold)':1.8,
     }
 
 metadict_items['2lb Fire-Bomb'] = {
@@ -2643,7 +2646,7 @@ metadict_items['2lb Fire-Bomb'] = {
             'savethrow_ability':'dexterity',
             'damage_type':'fire',
             'damage_dice':'2d6',
-            'spell_save_DC':12,
+            'spell_save_DC':15,
             'spell_choice':('2lb Fire-Bomb','Explosion'),
             },
     'weight (lb)':2,
