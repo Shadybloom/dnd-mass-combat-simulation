@@ -895,8 +895,8 @@ class battle_simulation(battlescape):
         dict_enemies = {}
         for commander_tuple in squad.commanders_list:
             commanders_number = len(squad.commanders_list)
-            max_number = 30 / commanders_number
-            max_try = 60 / commanders_number
+            max_number = 300 / commanders_number
+            max_try = 600 / commanders_number
             if max_number <= 0: max_number == 1
             if max_try <= 0: max_try == 1
             commander = squad.metadict_soldiers[commander_tuple.uuid]
@@ -1293,6 +1293,11 @@ class battle_simulation(battlescape):
                     # Не лезем вперёд, или отходим;
                     if 'lead' in commands_list: commands_list.remove('lead')
                     if 'very_carefull' in commands_list: commands_list.append('disengage')
+                    # Отступаем, если враг слишком близко
+                    if 'very_carefull' in commands_list\
+                            and squad.enemy_recon['enemy_strenght'] > squad.enemy_recon['ally_strenght']\
+                            and squad.enemy_recon['distance'] <= save_distance * 2:
+                        commands_list.append('retreat')
                     # Стреляем прицельно, если перезарядка долгая, а враг близко.
                     if squad.enemy_recon['distance'] <= save_distance:
                         commands_list.append('accurate')
@@ -2227,18 +2232,19 @@ class battle_simulation(battlescape):
         # Выбираем подходящее оружие:
         # TODO: здесь нужна команда для экономии боеприпасов, если danger < 5.
         attack_choice = None
-        for target, danger in squad.danger_points.items():
-            distance = round(distance_measure(soldier.place, target))
-            if distance >= 2 and 'volley' in [attack[0] for attack in soldier.attacks]:
-                volley_attack = [attack for attack in soldier.attacks if attack[0] == 'volley'\
-                        and attack[1] == soldier.attacks[attack]['weapon_of_choice']]
-                if len(volley_attack) > 0:
-                    volley_attack = random.choice(volley_attack)
-                    volley_range = round(soldier.attacks[volley_attack]['attack_range_max']
-                            / self.tile_size)
-                    if volley_range >= distance:
-                        attack_choice = volley_attack
-                        break
+        if soldier.battle_action:
+            for target, danger in squad.danger_points.items():
+                distance = round(distance_measure(soldier.place, target))
+                if distance >= 2 and 'volley' in [attack[0] for attack in soldier.attacks]:
+                    volley_attack = [attack for attack in soldier.attacks if attack[0] == 'volley'\
+                            and attack[1] == soldier.attacks[attack]['weapon_of_choice']]
+                    if len(volley_attack) > 0:
+                        volley_attack = random.choice(volley_attack)
+                        volley_range = round(soldier.attacks[volley_attack]['attack_range_max']
+                                / self.tile_size)
+                        if volley_range >= distance:
+                            attack_choice = volley_attack
+                            break
         # Рассчитываем зону обстрела (зависит от положения бойца в строю и рассеивания стрел):
         if attack_choice:
             if 'volley_random' in soldier.commands:
