@@ -2143,6 +2143,12 @@ metadict_chars['Warrior 5 lvl (fusilier line-infantry-lieutenant) (Schwartz Mark
         },
     }
 
+metadict_chars['Warrior 5 lvl (fusilier line-infantry-lieutenant) (sniper)'] = {
+    # Командир команды снайперов
+    'base_unit':'Warrior 5 lvl (fusilier line-infantry-lieutenant)',
+    'hunter_AI':True,
+    }
+
 #----
 # Вспомогательные войска, пращники.
 

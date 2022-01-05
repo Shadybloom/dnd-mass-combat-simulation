@@ -292,6 +292,11 @@ metadict_squads['Band-test (real) (grenadiers, 10)'] = {
     'Warrior 5 lvl (grenadier line-infantry-lieutenant)':1,
     }
 
+metadict_squads['Band-test (real) (fusiliers, 4)'] = {
+    'Warrior 4 lvl (fusilier line-infantry-sergeant)':3,
+    'Warrior 5 lvl (fusilier line-infantry-lieutenant) (sniper)':1,
+    }
+
 metadict_squads['Band-test (standard) (Feat_Heavy_Armor_Master)'] = {
     'Warrior 4 lvl (standard) (Feat_Heavy_Armor_Master)':10,
     }
