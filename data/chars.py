@@ -2135,10 +2135,10 @@ metadict_chars['Warrior 5 lvl (fusilier line-infantry-lieutenant) (Schwartz Mark
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
         'Rune of Armor':1,
-        'Leather Armor':1,
-        'Bayonet':1,
+        'Clothes, Fine':1,
+        'Rapier':1,
         'Rifle, Schwartz Mark':1,
-        'Muskete Bullet':30,
+        'Muskete Bullet':50,
         'Smoke Grenade':1,
         },
     }

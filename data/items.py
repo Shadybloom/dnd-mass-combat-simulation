@@ -1101,7 +1101,7 @@ metadict_items['Sabre'] = {
     'damage_dice_versatile':'1d10',
     'weight (lb)':3,
     'cost (gp)':15,
-    'cost (grams_of_gold)':25,
+    'cost (grams_of_gold)':15,
     }
 
 #-------------------------------------------------------------------------

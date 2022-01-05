@@ -285,16 +285,19 @@ metadict_squads['Band-test (real) (grenadiers, 8)'] = {
     'Warrior 3 lvl (grenadier line-infantry-corporal)':6,
     'Warrior 4 lvl (grenadier line-infantry-sergeant)':1,
     'Warrior 5 lvl (grenadier line-infantry-lieutenant)':1,
+    'Commoner 1 lvl (recruit)':8 * 3,
     }
 
 metadict_squads['Band-test (real) (grenadiers, 10)'] = {
     'Warrior 3 lvl (grenadier line-infantry-corporal)':9,
     'Warrior 5 lvl (grenadier line-infantry-lieutenant)':1,
+    'Commoner 1 lvl (recruit)':10 * 3,
     }
 
 metadict_squads['Band-test (real) (fusiliers, 4)'] = {
     'Warrior 4 lvl (fusilier line-infantry-sergeant)':3,
     'Warrior 5 lvl (fusilier line-infantry-lieutenant) (sniper)':1,
+    'Commoner 1 lvl (recruit)':4 * 6,
     }
 
 metadict_squads['Band-test (standard) (Feat_Heavy_Armor_Master)'] = {
