@@ -114,7 +114,7 @@ class battle_simulation(battlescape):
     namedtuple_squad = namedtuple('squad',['zone','type','initiative'])
     namedtuple_commander = namedtuple('commander',['place','danger','uuid'])
     # Слоу-поиск пути, AStarFinder (100 бойцов на отряд):
-    slow_path_max = 100
+    slow_path_max = 20
     # Подключаемся к базе данных солдат:
     database = database.database()
     ally_zones = ['zone_0','zone_1','zone_2','zone_3','zone_4']
