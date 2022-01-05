@@ -2777,7 +2777,7 @@ class battle_simulation(battlescape):
                                 self.dict_battlespace[soldier.place].remove('good_terrain')
                                 self.dict_battlespace[soldier.place].append('cover_terrain')
                                 break
-                else:
+                elif spell == 'Blade_Ward':
                     soldier.try_spellcast(spell, gen_spell = True)
         if soldier.concentration and soldier.bonus_action:
             # Hex перенацеливается за счёт бонусного действия:
