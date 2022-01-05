@@ -1442,7 +1442,6 @@ metadict_chars['Warrior 3 lvl (grenadier line-infantry-corporal)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
         'Rune of Shielding':1,
         'Breastplate, 17 century':1,
         'Halberd':1,
@@ -1473,7 +1472,6 @@ metadict_chars['Warrior 4 lvl (grenadier line-infantry-sergeant)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
         'Breastplate, 17 century':1,
@@ -1510,7 +1508,7 @@ metadict_chars['Warrior 5 lvl (grenadier line-infantry-lieutenant)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Heroism':1,
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
         'Breastplate, 17 century':1,
@@ -2054,8 +2052,8 @@ metadict_chars['Warrior 3 lvl (fusilier line-infantry-corporal)'] = {
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
         'Rune of Armor':1,
-        'Leather Armor':1,
-        'Bayonet':1,
+        'Clothes, Fine':1,
+        'Rapier':1,
         'Rifle, rapid':1,
         'Pistol, Lorenzony':1,
         'Muskete Bullet':60,
@@ -2083,16 +2081,16 @@ metadict_chars['Warrior 4 lvl (fusilier line-infantry-sergeant)'] = {
     'equipment_weapon':{
         'Rune of Shielding':1,
         'Rune of Armor':1,
-        'Leather Armor':1,
+        'Clothes, Fine':1,
         'Rapier':1,
         'Rifle, rapid':1,
         'Pistol, Lorenzony':1,
-        'Muskete Bullet':60,
+        'Muskete Bullet':50,
         'Smoke Grenade':1,
         },
-    #'mount_combat':False,
-    #'mount_type':'Riding Horse',
-    #'equipment_mount':{},
+    'mount_combat':False,
+    'mount_type':'Riding Horse',
+    'equipment_mount':{},
     }
 
 metadict_chars['Warrior 5 lvl (fusilier line-infantry-lieutenant)'] = {
@@ -2118,16 +2116,16 @@ metadict_chars['Warrior 5 lvl (fusilier line-infantry-lieutenant)'] = {
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
         'Rune of Armor':1,
-        'Leather Armor':1,
+        'Clothes, Fine':1,
         'Rapier':1,
         'Rifle, rapid':1,
         'Pistol, Lorenzony':1,
-        'Muskete Bullet':60,
+        'Muskete Bullet':50,
         'Smoke Grenade':1,
         },
-    #'mount_combat':False,
-    #'mount_type':'Riding Horse',
-    #'equipment_mount':{},
+    'mount_combat':False,
+    'mount_type':'Riding Horse',
+    'equipment_mount':{},
     }
 
 metadict_chars['Warrior 5 lvl (fusilier line-infantry-lieutenant) (Schwartz Mark)'] = {
@@ -2138,9 +2136,9 @@ metadict_chars['Warrior 5 lvl (fusilier line-infantry-lieutenant) (Schwartz Mark
         'Rune of Shielding':1,
         'Rune of Armor':1,
         'Leather Armor':1,
-        'Rapier':1,
+        'Bayonet':1,
         'Rifle, Schwartz Mark':1,
-        'Muskete Bullet':60,
+        'Muskete Bullet':30,
         'Smoke Grenade':1,
         },
     }

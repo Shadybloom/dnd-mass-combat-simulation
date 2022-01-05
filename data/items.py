@@ -1128,6 +1128,39 @@ metadict_items['Chakram'] = {
 # https://www.dandwiki.com/wiki/5e_SRD:Armor
 
 #----
+# Clothes
+
+metadict_items['Clothes, Common'] = {
+    # Одежда, обычная
+    'armor':True,
+    'armor_type':'light',
+    'armor_class_armor':10,
+    'weight (lb)':4,
+    'cost (gp)':1/2,
+    'cost (grams_of_gold)':1/2,
+    }
+
+metadict_items['Clothes, Travelers'] = {
+    # Одежда, путешественника
+    'armor':True,
+    'armor_type':'light',
+    'armor_class_armor':10,
+    'weight (lb)':4,
+    'cost (gp)':2,
+    'cost (grams_of_gold)':2,
+    }
+
+metadict_items['Clothes, Fine'] = {
+    # Одежда, отличная
+    'armor':True,
+    'armor_type':'light',
+    'armor_class_armor':10,
+    'weight (lb)':6,
+    'cost (gp)':15,
+    'cost (grams_of_gold)':15,
+    }
+
+#----
 # Light Armor
 
 metadict_items['Padded Armor'] = {
