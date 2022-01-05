@@ -587,7 +587,7 @@ class battlescape():
             # ------------------------------------------------------------
             elif coordinates != soldier_point and coordinates != enemy_point:
                 #print(coordinates, soldier_point, enemy_point)
-                if tuple in [type(el) for el in dict_battlespace[coordinates]]:
+                if 'soldier' in [type(el).__name__ for el in dict_battlespace[coordinates]]:
                     # TODO: здесь нет никаких проверок, действительно ли боец лежит/сидит.
                         # В soldier_tuple должно быть записано положение бойца:
                         # 1) лёжа
