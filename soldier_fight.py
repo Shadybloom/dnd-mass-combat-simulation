@@ -1672,7 +1672,7 @@ class soldier_in_battle(soldier):
             disadvantage = True
         else:
             disadvantage = False
-        if not self.stable == True and not self.death == True:
+        if not self.stable and not self.death:
             # Играем в рулетку с мрачным жнецом:
             reaper_throw = dices.dice_throw_advantage('1d20', advantage, disadvantage)
             if reaper_throw == 20:
@@ -1689,8 +1689,10 @@ class soldier_in_battle(soldier):
                 self.death = True
         if self.stable:
             self.killer_mark = False
+            return False
         if self.death:
             self.killer_mark = False
+            return True
             #print('{0} {1} {2} {3} hp {4}/{5} throw {6} result {7}:{8} stable {9} dead {10}'.format(
             #    self.ally_side, self.place, self.behavior, self.name,
             #    self.hitpoints, self.hitpoints_max,

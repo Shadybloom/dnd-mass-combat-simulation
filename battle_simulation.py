@@ -3763,6 +3763,8 @@ class battle_simulation(battlescape):
             # Тяжелораненые играют в рулетку с мрачным жнецом:
             if soldier.hitpoints <= 0 and not soldier.death and not soldier.stable:
                 soldier.set_death()
+                if soldier.stable and 'fall_place' in self.dict_battlespace[soldier.place]:
+                    self.dict_battlespace[soldier.place].remove('fall_place')
             if soldier.hitpoints <= 0 and not soldier.death and not soldier.stable:
                 if hasattr(squad, 'commands') and 'rescue' in squad.commands:
                     self.rescue(soldier, squad)
