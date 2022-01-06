@@ -1526,6 +1526,76 @@ metadict_chars['Warrior 5 lvl (grenadier line-infantry-lieutenant)'] = {
     }
 
 #----
+# Вспомогательные войска (штурмовики)
+
+metadict_chars['Warrior 4 lvl (grenadier line-infantry-sergeant) (stormtrooper)'] = {
+    'base_unit':'Warrior 4 lvl (grenadier line-infantry-sergeant)',
+    'carefull_AI':False,
+    'grenadier_AI':False,
+    'no_grappler_AI':True,
+    #'fearless_AI':True,
+    'class_features':{
+        'Fighting_Style_Defence':True,
+        'Feat_Magic_Initiate':True,
+        'Spellcasting':True,
+        'Spells':[
+            ('cantrip', 'Mold_Earth'),
+            ('cantrip', 'Thunderclap'),
+            ('ritual', 'Floating_Disk'),
+            ],
+        },
+    'equipment_weapon':{
+        'Infusion of Longstrider':1,
+        'Rune of Absorbtion':1,
+        'Plate Armor, 17 century':1,
+        'Sabre':1,
+        'Heavy Shield':1,
+        'Pistol, Lorenzony':1,
+        'Muskete Bullet':30,
+        'Smoke Grenade':1,
+        },
+    #'mount_combat':False,
+    #'mount_type':'Tensers Floating Disk',
+    #'equipment_mount':{
+    #    'Hand Grenade':250,
+    #    },
+    }
+
+metadict_chars['Warrior 5 lvl (grenadier line-infantry-lieutenant) (stormtrooper)'] = {
+    'base_unit':'Warrior 5 lvl (grenadier line-infantry-lieutenant)',
+    'carefull_AI':False,
+    'grenadier_AI':False,
+    'no_grappler_AI':True,
+    #'fearless_AI':True,
+    'class_features':{
+        'Fighting_Style_Defence':True,
+        'Feat_Magic_Initiate':True,
+        'Spellcasting':True,
+        'Spells':[
+            ('cantrip', 'Mold_Earth'),
+            ('cantrip', 'Thunderclap'),
+            ('ritual', 'Floating_Disk'),
+            ],
+        },
+    'equipment_weapon':{
+        'Infusion of Longstrider':1,
+        'Rune of Absorbtion':1,
+        'Rune of Shielding':1,
+        'Plate Armor, 17 century':1,
+        'Sabre':1,
+        'Heavy Shield':1,
+        'Pistol, Lorenzony':1,
+        'Muskete Bullet':30,
+        'Smoke Grenade':1,
+        },
+    #'mount_combat':False,
+    #'mount_type':'Tensers Floating Disk',
+    #'equipment_mount':{
+    #    'Hand Grenade':250,
+    #    },
+    }
+
+#----
 # Вспомогательные войска (бомбардиры с ручными мортирками)
 
 metadict_chars['Warrior 1 lvl (bombardier line-infantry)'] = {
