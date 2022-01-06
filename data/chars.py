@@ -1530,6 +1530,8 @@ metadict_chars['Warrior 5 lvl (grenadier line-infantry-lieutenant)'] = {
 
 metadict_chars['Warrior 4 lvl (grenadier line-infantry-sergeant) (stormtrooper)'] = {
     'base_unit':'Warrior 4 lvl (grenadier line-infantry-sergeant)',
+    'grenadier_AI':False,
+    'char_class':'Warrior-heavy',
     'class_features':{
         'Fighting_Style_Defence':True,
         'Feat_Magic_Initiate':True,
@@ -1560,6 +1562,8 @@ metadict_chars['Warrior 4 lvl (grenadier line-infantry-sergeant) (stormtrooper)'
 
 metadict_chars['Warrior 5 lvl (grenadier line-infantry-lieutenant) (stormtrooper)'] = {
     'base_unit':'Warrior 5 lvl (grenadier line-infantry-lieutenant)',
+    'grenadier_AI':False,
+    'char_class':'Warrior-heavy',
     'class_features':{
         'Fighting_Style_Defence':True,
         'Feat_Magic_Initiate':True,
@@ -2207,9 +2211,21 @@ metadict_chars['Warrior 5 lvl (fusilier line-infantry-lieutenant) (Schwartz Mark
         },
     }
 
+#----
+# Стрелки с фузилями, фузилёры.
+# https://en.wikipedia.org/wiki/Fusilier
+
+metadict_chars['Warrior 4 lvl (fusilier line-infantry-sergeant) (sniper)'] = {
+    # Снайпер
+    'base_unit':'Warrior 4 lvl (fusilier line-infantry-sergeant)',
+    'char_class':'Warrior-bowman',
+    'hunter_AI':True,
+    }
+
 metadict_chars['Warrior 5 lvl (fusilier line-infantry-lieutenant) (sniper)'] = {
     # Командир команды снайперов
     'base_unit':'Warrior 5 lvl (fusilier line-infantry-lieutenant)',
+    'char_class':'Warrior-bowman',
     'hunter_AI':True,
     }
 
