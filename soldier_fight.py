@@ -2319,37 +2319,21 @@ class soldier_in_battle(soldier):
                 ammo_type = attack_dict.get('ammo_type')
             else:
                 ammo_type = attack_dict.get('weapon_of_choice')
-            if ammo_type in self.equipment_weapon:
-                self.drop_item(ammo_type)
+            # Уменьшаем число боеприпасов в списке атак:
             for attack_choice, attack_dict in self.attacks.items():
                 if ammo_type and ammo_type == attack_dict.get('ammo_type')\
                         or ammo_type == attack_dict.get('weapon_of_choice')\
                         and attack_dict.get('ammo'):
                     attack_dict['ammo'] -= 1
-                    # Если боеприпасы закончились, просим у другого бойца:
-                    if attack_dict['ammo'] == 0:
-                        for soldier in metadict_soldiers.values():
-                            if ammo_type in soldier.equipment_weapon\
-                                    and not soldier.defeat\
-                                    and not soldier.near_enemies\
-                                    and not soldier.help_action\
-                                    and soldier.uuid != self.uuid\
-                                    and soldier.ally_side == self.ally_side\
-                                    and soldier.equipment_weapon[ammo_type] > 0:
-                                # Союзник передаёт боеприпасы бойцу:
-                                soldier.help_action = True
-                                for attack_choice, attack_dict in self.attacks.items():
-                                    if attack_dict.get('ammo') == 0:
-                                        if ammo_type == attack_dict.get('ammo_type')\
-                                                or ammo_type == attack_dict.get('weapon_of_choice'):
-                                            attack_dict['ammo'] += soldier.equipment_weapon[ammo_type]
-                                self.equipment_weapon[ammo_type] += soldier.equipment_weapon[ammo_type]
-                                soldier.unset_weapon(attack_dict.get('weapon_of_choice'), ammo_type)
-                                soldier.drop_item(ammo_type, transfet_item = True)
-                                break
-                        else:
-                            self.unset_weapon(attack_dict.get('weapon_of_choice'), ammo_type)
-                            break
+            # Убираем один боеприпас из экипировки:
+            if ammo_type in self.equipment_weapon:
+                self.drop_item(ammo_type)
+                # Если боеприпасы закончились, просим у другого бойца:
+                if self.equipment_weapon[ammo_type] <= 0:
+                    self.get_ammo_from_squad(ammo_type, metadict_soldiers)
+                # Если получить не удалось, убираем атаку;
+                if self.equipment_weapon[ammo_type] <= 0:
+                    self.unset_weapon(attack_dict.get('weapon_of_choice'), ammo_type)
             # Атака убирается из списка доступных, если нужна перезарядка:
             if attack_dict.get('recharge')\
                     or attack_dict.get('weapon_type')\
@@ -2360,6 +2344,42 @@ class soldier_in_battle(soldier):
                     attack_dict['Recharge_magazine'] -= 1
                 else:
                     self.unset_weapon(attack_dict.get('weapon_of_choice'))
+
+    def get_ammo_from_squad(self, ammo_type, metadict_soldiers):
+        """Боец просит боеприпасы у союзников.
+
+        При этом все атаки обновляются, а вес снаряги пересчитывается.
+        """
+        # TODO: здесь нет ограничения по дистанции.
+        # ------------------------------------------------------------
+        # Союзнику даже не обязательно быть на поле боя.
+        # Нужен сортированный словарь союзников, чтобы сначала опрашивать ближайших.
+        # У нас есть ссылка на soldier.battle, используй refind_soldiers_distance
+        # ------------------------------------------------------------
+        for soldier in metadict_soldiers.values():
+            if ammo_type in soldier.equipment_weapon\
+                    and not soldier.defeat\
+                    and not soldier.near_enemies\
+                    and not soldier.help_action\
+                    and soldier.uuid != self.uuid\
+                    and soldier.ally_side == self.ally_side\
+                    and soldier.equipment_weapon[ammo_type] > 1:
+                # Из седельных сумок берём собственным действием:
+                if soldier.behavior == 'mount':
+                    self.help_action = True
+                    self.drop_action(('action', 'Transfer_Ammo'))
+                # Союзник передаёт боеприпасы бойцу с помощью Help_Action:
+                else:
+                    soldier.help_action = True
+                    soldier.drop_action(('action', 'Help_Action_Transfer_Ammo'))
+                ammo_number = self.metadict_chars[self.rank]['equipment_weapon'].get(ammo_type, 1)
+                ammo_number_ally = soldier.equipment_weapon[ammo_type]
+                # Союзник передаёт половину своих боеприпасов:
+                if ammo_number >= ammo_number_ally:
+                    ammo_number = round(ammo_number_ally / 2)
+                self.get_trophy(ammo_type, ammo_number)
+                soldier.drop_item(ammo_type, ammo_number, transfer_item = True)
+                return True
 
     def unset_weapon(self, weapon_type, ammo_type = None, disarm = False):
         """Убираем оружие, для которого закончились боеприпасы.
@@ -2519,7 +2539,7 @@ class soldier_in_battle(soldier):
                         self.drop_item(item)
                         return spell_dict
 
-    def drop_item(self, item, number = 1, drop_all = False, transfet_item = False):
+    def drop_item(self, item, number = 1, drop_all = False, transfer_item = False):
         """Теряем предмет. Запоминаем потерю.
         
         - Пересчитывается скорость и нагрузка.
@@ -2532,7 +2552,7 @@ class soldier_in_battle(soldier):
             self.overload = self.calculate_overload()
             self.base_speed = self.overload['base_speed']
             # Запоминаем израсходованный предмет:
-            if not transfet_item:
+            if not transfer_item:
                 if not item in self.drop_items_dict:
                     self.drop_items_dict[item] = 1
                 elif item in self.drop_items_dict:
