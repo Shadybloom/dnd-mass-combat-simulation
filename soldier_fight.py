@@ -1200,14 +1200,15 @@ class soldier_in_battle(soldier):
                 recharge_throw = dices.dice_throw(self.metadict_recharge[attack_choice]['Recharge_dice'])
                 if recharge_throw in self.metadict_recharge[attack_choice]['Recharge_numbers']:
                     recharge_success = True
+                # Умелые стрелки всегда перезаряжают успешно:
+                elif self.class_features.get('Feat_Firearms_Expert'):
+                    recharge_success = True
                 else:
                     recharge_success = False
             # Перезарядка за одно действие:
             else:
                 recharge_success = True
-            # Опытные стрелки всегда перезаряжают успешно:
-            if self.class_features.get('Feat_Firearms_Expert'):
-                recharge_success = True
+            # Приступаем к самой перезарядке:
             # Опытные стрелки перезаряжают за счёт бонусного действия:
             if recharge_success and self.class_features.get('Feat_Firearms_Expert') and self.bonus_action:
                 self.bonus_action = False
