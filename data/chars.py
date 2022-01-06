@@ -1530,17 +1530,13 @@ metadict_chars['Warrior 5 lvl (grenadier line-infantry-lieutenant)'] = {
 
 metadict_chars['Warrior 4 lvl (grenadier line-infantry-sergeant) (stormtrooper)'] = {
     'base_unit':'Warrior 4 lvl (grenadier line-infantry-sergeant)',
-    'carefull_AI':False,
-    'grenadier_AI':False,
-    'no_grappler_AI':True,
-    #'fearless_AI':True,
     'class_features':{
         'Fighting_Style_Defence':True,
         'Feat_Magic_Initiate':True,
         'Spellcasting':True,
         'Spells':[
             ('cantrip', 'Mold_Earth'),
-            ('cantrip', 'Thunderclap'),
+            ('cantrip', 'Mage_Hand'),
             ('ritual', 'Floating_Disk'),
             ],
         },
@@ -1552,28 +1548,25 @@ metadict_chars['Warrior 4 lvl (grenadier line-infantry-sergeant) (stormtrooper)'
         'Heavy Shield':1,
         'Pistol, Lorenzony':1,
         'Muskete Bullet':30,
+        '10lb Bomb, mine':1,
         'Smoke Grenade':1,
         },
-    #'mount_combat':False,
-    #'mount_type':'Tensers Floating Disk',
-    #'equipment_mount':{
-    #    'Hand Grenade':250,
-    #    },
+    'mount_combat':False,
+    'mount_type':'Tensers Floating Disk',
+    'equipment_mount':{
+        '10lb Bomb, mine':50,
+        },
     }
 
 metadict_chars['Warrior 5 lvl (grenadier line-infantry-lieutenant) (stormtrooper)'] = {
     'base_unit':'Warrior 5 lvl (grenadier line-infantry-lieutenant)',
-    'carefull_AI':False,
-    'grenadier_AI':False,
-    'no_grappler_AI':True,
-    #'fearless_AI':True,
     'class_features':{
         'Fighting_Style_Defence':True,
         'Feat_Magic_Initiate':True,
         'Spellcasting':True,
         'Spells':[
             ('cantrip', 'Mold_Earth'),
-            ('cantrip', 'Thunderclap'),
+            ('cantrip', 'Mage_Hand'),
             ('ritual', 'Floating_Disk'),
             ],
         },
@@ -1586,13 +1579,14 @@ metadict_chars['Warrior 5 lvl (grenadier line-infantry-lieutenant) (stormtrooper
         'Heavy Shield':1,
         'Pistol, Lorenzony':1,
         'Muskete Bullet':30,
+        '10lb Bomb, mine':1,
         'Smoke Grenade':1,
         },
-    #'mount_combat':False,
-    #'mount_type':'Tensers Floating Disk',
-    #'equipment_mount':{
-    #    'Hand Grenade':250,
-    #    },
+    'mount_combat':False,
+    'mount_type':'Tensers Floating Disk',
+    'equipment_mount':{
+        '10lb Bomb, mine':50,
+        },
     }
 
 #----

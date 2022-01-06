@@ -1596,7 +1596,71 @@ class gen_spells():
                 soldier = self.mage
             else:
                 soldier = self.mage.metadict_soldiers[spell_dict['target_uuid']]
+        if self.mage.class_features.get('Metamagic_Distant_Spell'):
+            spell_dict['attack_range'] *= 2
         return spell_dict    
+
+    @modify_spell
+    @update_spell_dict
+    def Mage_Hand(self, spell_level, gen_spell = False, spell_dict = False):
+        """Волшебная рука.
+
+        Level: Cantrip
+        Casting time: 1 Action
+        Range: 30 feet
+        Components: V, S
+        Duration: 1 minute
+        https://www.dnd-spells.com/spell/mage-hand
+
+        - Поджигает 10-lb бомбы и доставляет их на 30 футов.
+        - Боеприпас берётся из экипировки, подобно гранатам.
+        - Данные spell_dict дополняются данными боеприпаса.
+        """
+        if not spell_dict:
+            spell_dict = {
+                    'zone':True,
+                    'attacks_number':1,
+                    'attack_range':30,
+                    'components':['verbal','somatic'],
+                    'casting_time':'action',
+                    'max_weight':10,
+                    'damage_mod':0,
+                    'spell_level':spell_level,
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    'spell_of_choice':'Sword_Burst',
+                    'school':'conjuration',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
+        if gen_spell:
+            if not spell_dict.get('target_uuid'):
+                soldier = self.mage
+            else:
+                soldier = self.mage.metadict_soldiers[spell_dict['target_uuid']]
+            # Поиск боеприпасов в экипировке, бомбы массой менее 10 lb.
+            metadict_ammo = {}
+            for item, number in soldier.equipment_weapon.items():
+                item_spell_dict = soldier.metadict_items[item].get('spell_dict')
+                if item_spell_dict\
+                        and 'zone' in item_spell_dict\
+                        and 'damage_dice' in item_spell_dict\
+                        and 'ammo' in soldier.metadict_items[item]\
+                        and soldier.metadict_items[item].get('weight', 0) <= spell_dict['max_weight']:
+                    metadict_ammo[item] = soldier.metadict_items[item]
+            # Выбор боеприпаса и обновление словаря заклинания данными боеприпаса:
+            if metadict_ammo:
+                ammo, ammo_dict = random.choice(list(metadict_ammo.items()))
+                spell_dict.update(ammo_dict['spell_dict'])
+                attack_dict = copy.deepcopy(spell_dict)
+                if soldier.equipment_weapon[ammo] > 0:
+                    attack_dict['ammo_type'] = ammo
+                    attack_dict['ammo'] = soldier.equipment_weapon[ammo]
+                    soldier.use_ammo(attack_dict, soldier.squad.metadict_soldiers)
+                    return spell_dict    
+                else:
+                    return False
+            else:
+                return False
+        return spell_dict
 
 #----
 # Subspells

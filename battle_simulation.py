@@ -3108,18 +3108,23 @@ class battle_simulation(battlescape):
                     spell_dict = soldier.attacks[spell_choice]
                     spell_dict['spell_choice'] = spell_choice
                     soldier.use_ammo(soldier.attacks[spell_choice], squad.metadict_soldiers)
+                # Используем кантрип:
+                elif 'cantrip' in spell_choice[0]:
+                    spell_dict = soldier.try_spellcast(spell_choice,
+                            gen_spell = True, use_spell_slot = False)
                 # Используется слот заклинания:
                 else:
                     spell_dict = soldier.try_spellcast(spell_choice)
             # Зона заклинания превращается в список кортежей с целями:
-            targets = self.find_targets_in_zone(
-                    zone_center = zone_center,
-                    zone_shape = spell_dict.get('zone_shape'),
-                    zone_radius = round(spell_dict.get('radius', 0) / self.tile_size),
-                    distance = round(spell_dict.get('attack_range', 0) / self.tile_size),
-                    point_of_view = soldier.place
-                    )
-            if targets:
+            if spell_dict:
+                targets = self.find_targets_in_zone(
+                        zone_center = zone_center,
+                        zone_shape = spell_dict.get('zone_shape'),
+                        zone_radius = round(spell_dict.get('radius', 0) / self.tile_size),
+                        distance = round(spell_dict.get('attack_range', 0) / self.tile_size),
+                        point_of_view = soldier.place
+                        )
+            if spell_dict and targets:
                 # Вражеское контрзаклинание, если наше заклинание 3+ круга:
                 if spell_choice[0][0].isnumeric() and int(spell_choice[0][0]) >= 3:
                     counterspell = self.counterspell_action(spell_dict, soldier, targets)
@@ -3409,15 +3414,24 @@ class battle_simulation(battlescape):
                 and 'zone' in soldier.concentration\
                 and soldier.concentration.get('spell_choice'):
             spell_choice_list.append(soldier.concentration.get('spell_choice'))
+        # Выбор зональных атак (дракона и т.д.):
         for attack_choice, attack_dict in soldier.attacks.items():
             if attack_choice[0] == 'zone' and 'zone' in attack_dict:
                 spell_choice_list.append(attack_choice)
+        # Выбор заклинаний, использующих ячейки:
         for spell_slot in soldier.spellslots:
             # Без приказа только заклинания 1 круга:
             if int(spell_slot[0]) < 2 or 'fireball' in soldier.commands:
-                slot_spells_list = [attack for attack in soldier.spells if attack[0] == spell_slot
+                slot_spells_list = [attack for attack in soldier.spells
+                        if attack[0] == spell_slot
                         and soldier.spells[attack].get('zone')]
                 spell_choice_list.extend(slot_spells_list)
+        # Выбор зональных кантрипов:
+        if hasattr(soldier, 'spells') and soldier.spells:
+            zone_cantrip_list = [attack for attack in soldier.spells
+                    if attack[0] == 'cantrip'
+                    and soldier.spells[attack].get('zone')]
+            spell_choice_list.extend(zone_cantrip_list)
         if spell_choice_list or spell_choice_once:
             if spell_choice_once:
                 spell_choice_list = [spell_choice_once]
