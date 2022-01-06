@@ -367,7 +367,10 @@ class soldier():
         old_char_class = self.char_class
         if self.metadict_chars[rank].get('base_unit'):
             base_unit = self.metadict_chars[rank].get('base_unit')
-            new_char_class = self.metadict_chars[base_unit]['char_class']
+            if not self.metadict_chars[rank].get('char_class'):
+                new_char_class = self.metadict_chars[base_unit]['char_class']
+            else:
+                new_char_class = self.metadict_chars[rank].get('char_class')
         else:
             new_char_class = self.metadict_chars[self.rank]['char_class']
         if not old_char_class == new_char_class:
