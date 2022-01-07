@@ -89,7 +89,7 @@ metadict_chars['Warrior 3 lvl (militia javeliner-corporal)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Breastplate':1,
         'Heavy Shield':1,
         'Shortsword':1,
@@ -113,7 +113,7 @@ metadict_chars['Warrior 4 lvl (militia javeliner-sergeant)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Shielding':1,
         'Breastplate':1,
         'Heavy Shield':1,
@@ -181,7 +181,7 @@ metadict_chars['Warrior 3 lvl (militia slinger-corporal)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Breastplate':1,
         'Shield':1,
         'Shortsword':1,
@@ -205,7 +205,7 @@ metadict_chars['Warrior 4 lvl (militia slinger-sergeant)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Shielding':1,
         'Breastplate':1,
         'Shield':1,
@@ -272,7 +272,7 @@ metadict_chars['Warrior 3 lvl (militia bowman-corporal)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Breastplate':1,
         'Shield':1,
         'Shortsword':1,
@@ -298,7 +298,7 @@ metadict_chars['Warrior 4 lvl (militia bowman-sergeant)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Breastplate':1,
         'Shield':1,
@@ -365,7 +365,7 @@ metadict_chars['Warrior 3 lvl (militia spearman-corporal)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Breastplate':1,
         'Heavy Shield':1,
         'Shortsword':1,
@@ -389,7 +389,7 @@ metadict_chars['Warrior 4 lvl (militia spearman-sergeant)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Shielding':1,
         'Breastplate':1,
         'Heavy Shield':1,
@@ -457,7 +457,7 @@ metadict_chars['Warrior 3 lvl (militia swordsman-corporal)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':2,
+        'Infusion of Vitality':2,
         'Scale Mail':1,
         'Heavy Shield':1,
         'Longsword':1,
@@ -481,7 +481,7 @@ metadict_chars['Warrior 4 lvl (militia swordsman-sergeant)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':3,
+        'Infusion of Vitality':3,
         'Half Plate':1,
         'Heavy Shield':1,
         'Longsword':1,
@@ -545,7 +545,7 @@ metadict_chars['Warrior 3 lvl (militia crossbowman-corporal)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Breastplate':1,
         'Shield':1,
         'Shortsword':1,
@@ -571,7 +571,7 @@ metadict_chars['Warrior 4 lvl (militia crossbowman-sergeant)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Breastplate':1,
         'Shield':1,
@@ -636,7 +636,7 @@ metadict_chars['Warrior 3 lvl (militia heavy crossbowman-corporal)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Breastplate':1,
         'Shield':1,
         'Shortsword':1,
@@ -662,7 +662,7 @@ metadict_chars['Warrior 4 lvl (militia heavy crossbowman-sergeant)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Breastplate':1,
         'Shield':1,
@@ -775,7 +775,7 @@ metadict_chars['Warrior 3 lvl (achean hoplite-corporal)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Breastplate':1,
         'Heavy Shield':1,
         'Shortsword':1,
@@ -801,7 +801,7 @@ metadict_chars['Warrior 4 lvl (achean hoplite-sergeant)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Breastplate':1,
         'Heavy Shield':1,
@@ -834,7 +834,7 @@ metadict_chars['Warrior 5 lvl (achean hoplite-lieutenant)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
         'Half Plate':1,
@@ -908,7 +908,7 @@ metadict_chars['Warrior 3 lvl (city pikeman-corporal)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Chain Mail':1,
         'Shortsword':1,
         'Shield':1,
@@ -931,7 +931,7 @@ metadict_chars['Warrior 4 lvl (city pikeman-sergeant)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Half Plate':1,
         'Shortsword':1,
@@ -961,7 +961,7 @@ metadict_chars['Warrior 5 lvl (city pikeman-lieutenant)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
         'Half Plate':1,
@@ -1032,7 +1032,7 @@ metadict_chars['Warrior 3 lvl (sqythian bowman-corporal)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Breastplate':1,
         'Dagger':1,
         'Longbow':1,
@@ -1057,7 +1057,7 @@ metadict_chars['Warrior 4 lvl (sqythian bowman-sergeant)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Shielding':1,
         'Breastplate':1,
         'Shield':1,
@@ -1086,7 +1086,7 @@ metadict_chars['Warrior 5 lvl (sqythian bowman-lieutenant)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
         'Half Plate':1,
@@ -1161,7 +1161,7 @@ metadict_chars['Warrior 3 lvl (persian bowman-corporal)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Breastplate':1,
         'Shield':1,
         'Shortsword':1,
@@ -1187,7 +1187,7 @@ metadict_chars['Warrior 4 lvl (persian bowman-sergeant)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Shielding':1,
         'Breastplate':1,
         'Shield':1,
@@ -1217,7 +1217,7 @@ metadict_chars['Warrior 5 lvl (persian bowman-lieutenant)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
         'Half Plate':1,
@@ -1526,7 +1526,61 @@ metadict_chars['Warrior 5 lvl (grenadier line-infantry-lieutenant)'] = {
     }
 
 #----
-# Вспомогательные войска (штурмовики)
+# Вспомогательные войска (абордажники)
+
+metadict_chars['Warrior 3 lvl (grenadier line-infantry-corporal) (assault)'] = {
+    'base_unit':'Warrior 3 lvl (grenadier line-infantry-corporal)',
+    'char_class':'Warrior-heavy',
+    'equipment_weapon':{
+        'Infusion of Vitality':1,
+        'Breastplate, 17 century':1,
+        'Halberd':1,
+        'Sabre':1,
+        'Shield':1,
+        'Pistol, Lorenzony':1,
+        'Muskete Bullet':30,
+        'Hand Grenade':10,
+        'Smoke Grenade':2,
+        },
+    }
+
+metadict_chars['Warrior 4 lvl (grenadier line-infantry-sergeant) (assault)'] = {
+    'base_unit':'Warrior 4 lvl (grenadier line-infantry-sergeant)',
+    'char_class':'Warrior-officer',
+    'equipment_weapon':{
+        'Infusion of Vitality':1,
+        'Rune of Absorbtion':1,
+        'Breastplate, 17 century':1,
+        'Halberd':1,
+        'Sabre':1,
+        'Shield':1,
+        'Pistol, Lorenzony':1,
+        'Muskete Bullet':30,
+        'Hand Grenade':10,
+        'Smoke Grenade':1,
+        },
+    }
+
+metadict_chars['Warrior 5 lvl (grenadier line-infantry-lieutenant) (assault)'] = {
+    'base_unit':'Warrior 5 lvl (grenadier line-infantry-lieutenant)',
+    'char_class':'Warrior-officer',
+    'equipment_weapon':{
+        'Infusion of Vitality':1,
+        'Rune of Absorbtion':1,
+        'Rune of Message':1,
+        'Breastplate, 17 century':1,
+        'Halberd':1,
+        'Sabre':1,
+        'Shield':1,
+        'Pistol, Lorenzony':1,
+        'Muskete Bullet':30,
+        'Hand Grenade':10,
+        'Smoke Grenade':1,
+        },
+    }
+
+#----
+# Вспомогательные войска (сапёры, штурмовики)
 
 metadict_chars['Warrior 4 lvl (grenadier line-infantry-sergeant) (stormtrooper)'] = {
     'base_unit':'Warrior 4 lvl (grenadier line-infantry-sergeant)',
@@ -1727,7 +1781,7 @@ metadict_chars['Warrior 5 lvl (bombardier line-infantry-lieutenant)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
         'Breastplate, 17 century':1,
@@ -2139,7 +2193,7 @@ metadict_chars['Warrior 4 lvl (fusilier line-infantry-sergeant)'] = {
     'behavior':'commander',
     'class_features':{
         'Fighting_Style_Archery':True,
-        'Feat_Inspiring_Leader':True,
+        'Feat_Sharpshooter':True,
         },
     'race':'Human-common',
     'weapon_skill':['simple','martial'],
@@ -2156,9 +2210,9 @@ metadict_chars['Warrior 4 lvl (fusilier line-infantry-sergeant)'] = {
         'Muskete Bullet':50,
         'Smoke Grenade':1,
         },
-    'mount_combat':False,
-    'mount_type':'Riding Horse',
-    'equipment_mount':{},
+    #'mount_combat':False,
+    #'mount_type':'Riding Horse',
+    #'equipment_mount':{},
     }
 
 metadict_chars['Warrior 5 lvl (fusilier line-infantry-lieutenant)'] = {
@@ -2172,7 +2226,7 @@ metadict_chars['Warrior 5 lvl (fusilier line-infantry-lieutenant)'] = {
     'behavior':'commander',
     'class_features':{
         'Fighting_Style_Archery':True,
-        'Feat_Inspiring_Leader':True,
+        'Feat_Sharpshooter':True,
         'Extra_Attack':True,
         },
     'race':'Human-common',
@@ -2191,9 +2245,9 @@ metadict_chars['Warrior 5 lvl (fusilier line-infantry-lieutenant)'] = {
         'Muskete Bullet':50,
         'Smoke Grenade':1,
         },
-    'mount_combat':False,
-    'mount_type':'Riding Horse',
-    'equipment_mount':{},
+    #'mount_combat':False,
+    #'mount_type':'Riding Horse',
+    #'equipment_mount':{},
     }
 
 metadict_chars['Warrior 5 lvl (fusilier line-infantry-lieutenant) (Schwartz Mark)'] = {
@@ -2212,21 +2266,39 @@ metadict_chars['Warrior 5 lvl (fusilier line-infantry-lieutenant) (Schwartz Mark
     }
 
 #----
-# Стрелки с фузилями, фузилёры.
-# https://en.wikipedia.org/wiki/Fusilier
+# Вспомогательные войска (снайпера)
 
 metadict_chars['Warrior 4 lvl (fusilier line-infantry-sergeant) (sniper)'] = {
     # Снайпер
+    'hunter_AI':True,
     'base_unit':'Warrior 4 lvl (fusilier line-infantry-sergeant)',
     'char_class':'Warrior-bowman',
-    'hunter_AI':True,
+    'equipment_weapon':{
+        'Infusion of Longstrider':1,
+        'Infusion of Climbing':1,
+        'Studded Leather':1,
+        'Dagger':1,
+        'Longbow':1,
+        'Arrow':60,
+        'Smoke Grenade':2,
+        },
     }
 
 metadict_chars['Warrior 5 lvl (fusilier line-infantry-lieutenant) (sniper)'] = {
     # Командир команды снайперов
+    'hunter_AI':True,
     'base_unit':'Warrior 5 lvl (fusilier line-infantry-lieutenant)',
     'char_class':'Warrior-bowman',
-    'hunter_AI':True,
+    'equipment_weapon':{
+        'Infusion of Longstrider':1,
+        'Infusion of Climbing':1,
+        'Rune of Message':1,
+        'Studded Leather':1,
+        'Dagger':1,
+        'Longbow':1,
+        'Arrow':60,
+        'Smoke Grenade':2,
+        },
     }
 
 #----
@@ -2265,7 +2337,7 @@ metadict_chars['Warrior 2 lvl (balear slinger-veteran)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Hide Armor':1,
         'Heavy Shield':1,
         'Mace':1,
@@ -2288,7 +2360,7 @@ metadict_chars['Warrior 3 lvl (balear slinger-corporal)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Breastplate':1,
         'Heavy Shield':1,
         'Mace':1,
@@ -2312,7 +2384,7 @@ metadict_chars['Warrior 4 lvl (balear slinger-sergeant)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Shielding':1,
         'Breastplate':1,
         'Heavy Shield':1,
@@ -2342,7 +2414,7 @@ metadict_chars['Warrior 5 lvl (balear slinger-lieutenant)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
         'Half Plate':1,
@@ -2418,7 +2490,7 @@ metadict_chars['Warrior 3 lvl (cilician infantry-corporal)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Breastplate':1,
         'Shield':1,
         'Rapier':1,
@@ -2443,7 +2515,7 @@ metadict_chars['Warrior 4 lvl (cilician infantry-sergeant)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Shielding':1,
         'Breastplate':1,
         'Shield':1,
@@ -2474,7 +2546,7 @@ metadict_chars['Warrior 5 lvl (cilician infantry-lieutenant)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Shielding':1,
         'Rune of Armor':1,
         'Shield':1,
@@ -2553,7 +2625,7 @@ metadict_chars['Warrior 3 lvl (cavalry archer-corporal)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Breastplate':1,
         'Shortsword':1,
         'Shortbow':1,
@@ -2580,7 +2652,7 @@ metadict_chars['Warrior 4 lvl (cavalry archer-sergeant)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Shielding':1,
         'Breastplate':1,
         'Shortsword':1,
@@ -2609,7 +2681,7 @@ metadict_chars['Warrior 5 lvl (cavalry archer-lieutenant)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Shielding':1,
         'Rune of Armor':1,
         'Shortsword':1,
@@ -2660,7 +2732,7 @@ metadict_chars['Warrior 2 lvl (thracian infantry-veteran)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Hide Armor':1,
         'Shield':1,
         'Shortsword':1,
@@ -2683,7 +2755,7 @@ metadict_chars['Warrior 3 lvl (thracian infantry-corporal)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Breastplate':1,
         'Shield':1,
         'Shortsword':1,
@@ -2790,7 +2862,7 @@ metadict_chars['Warrior 2 lvl (celtian infantry-veteran)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Hide Armor':1,
         'Heavy Shield':1,
         'Longsword':1,
@@ -2812,7 +2884,7 @@ metadict_chars['Warrior 3 lvl (celtian infantry-corporal)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':2,
+        'Infusion of Vitality':2,
         'Scale Mail':1,
         'Heavy Shield':1,
         'Longsword':1,
@@ -2835,7 +2907,7 @@ metadict_chars['Warrior 4 lvl (celtian infantry-sergeant)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':3,
+        'Infusion of Vitality':3,
         'Half Plate':1,
         'Heavy Shield':1,
         'Longsword':1,
@@ -2863,7 +2935,7 @@ metadict_chars['Warrior 5 lvl (celtian infantry-lieutenant)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':3,
+        'Infusion of Vitality':3,
         'Half Plate':1,
         'Heavy Shield':1,
         'Longsword':1,
@@ -2934,7 +3006,7 @@ metadict_chars['Warrior 3 lvl (shekelesh infantry-corporal)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Breastplate':1,
         'Shield':1,
         'Longsword':1,
@@ -2958,7 +3030,7 @@ metadict_chars['Warrior 4 lvl (shekelesh infantry-sergeant)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Shielding':1,
         'Breastplate':1,
         'Shield':1,
@@ -2988,7 +3060,7 @@ metadict_chars['Warrior 5 lvl (shekelesh infantry-lieutenant)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
         'Half Plate':1,
@@ -3059,7 +3131,7 @@ metadict_chars['Warrior 3 lvl (legionary infantry-siege-corporal)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Breastplate':1,
         'Greataxe':1,
         },
@@ -3123,7 +3195,7 @@ metadict_chars['Warrior 3 lvl (legionary infantry-corporal)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Breastplate':1,
         'Heavy Shield':1,
         'Shortsword':1,
@@ -3147,7 +3219,7 @@ metadict_chars['Warrior 4 lvl (legionary infantry-sergeant)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Shielding':1,
         'Breastplate':1,
         'Heavy Shield':1,
@@ -3177,7 +3249,7 @@ metadict_chars['Warrior 5 lvl (legionary infantry-lieutenant)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
         'Half Plate':1,
@@ -3226,7 +3298,7 @@ metadict_chars['Warrior 2 lvl (mercenary heavy-infantry-veteran)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Ring Mail':1,
         'Shield':1,
         'Glaive':1,
@@ -3247,7 +3319,7 @@ metadict_chars['Warrior 3 lvl (mercenary heavy-infantry-corporal)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Chain Mail':1,
         'Shield':1,
         'Glaive':1,
@@ -3269,7 +3341,7 @@ metadict_chars['Warrior 4 lvl (mercenary heavy-infantry-sergeant)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Chain Mail':1,
         'Shield':1,
@@ -3297,7 +3369,7 @@ metadict_chars['Warrior 5 lvl (mercenary heavy-infantry-lieutenant)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
         'Splint Armor':1,
@@ -3491,7 +3563,7 @@ metadict_chars['Warrior 4 lvl (siege engineer-master)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Shielding':1,
         'Breastplate':1,
         'Shield':1,
@@ -3554,7 +3626,7 @@ metadict_chars['Fighter 2 lvl (legionary sentinel-shieldman)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Chain Mail':1,
         'Heavy Shield':1,
         'Long Spear':1,
@@ -3596,7 +3668,7 @@ metadict_chars['Fighter 3 lvl (legionary sentinel-mystic)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':3,
+        'Infusion of Vitality':3,
         'Splint Armor':1,
         'Heavy Shield':1,
         'Longsword':1,
@@ -3636,7 +3708,7 @@ metadict_chars['Fighter 4 lvl (legionary sentinel-sergeant)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':3,
+        'Infusion of Vitality':3,
         'Splint Armor':1,
         'Heavy Shield':1,
         'Longsword +1':1,
@@ -3677,7 +3749,7 @@ metadict_chars['Fighter 5 lvl (legionary sentinel-lieutenant)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':3,
+        'Infusion of Vitality':3,
         'Splint Armor':1,
         'Heavy Shield':1,
         'Longsword +1':1,
@@ -3731,7 +3803,7 @@ metadict_chars['Fighter 2 lvl (legionary slayer-flanker)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Chain Mail':1,
         'Shield':1,
         'Greatsword':1,
@@ -3763,7 +3835,7 @@ metadict_chars['Fighter 3 lvl (legionary slayer-champion)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Chain Mail':1,
         'Shield':1,
@@ -3799,7 +3871,7 @@ metadict_chars['Fighter 4 lvl (legionary slayer-sergeant)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
         'Splint Armor':1,
@@ -3897,7 +3969,7 @@ metadict_chars['Fighter 2 lvl (legionary horseman-veteran)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Chain Mail':1,
         'Shield':1,
         'Lance':1,
@@ -3929,7 +4001,7 @@ metadict_chars['Fighter 3 lvl (legionary horseman-corporal)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Chain Mail':1,
         'Shield':1,
@@ -3967,7 +4039,7 @@ metadict_chars['Fighter 4 lvl (legionary horseman-sergeant)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
         'Splint Armor':1,
@@ -4007,7 +4079,7 @@ metadict_chars['Fighter 5 lvl (legionary horseman-lieutenant)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
         'Splint Armor':1,
@@ -4042,7 +4114,7 @@ metadict_chars['Monk 1 lvl (city windsong-apprentice)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Armor':1,
         'Shortsword':1,
         #'Bolas':6,
@@ -4069,7 +4141,7 @@ metadict_chars['Monk 2 lvl (city windsong-gatekeeper)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Armor':1,
         'Shortsword':1,
         #'Bolas':6,
@@ -4100,7 +4172,7 @@ metadict_chars['Monk 3 lvl (city windsong-lorekeeper)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Rune of Armor':1,
         'Shortsword':1,
@@ -4135,7 +4207,7 @@ metadict_chars['Monk 4 lvl (city windsong-oathkeeper)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
         'Shortsword':1,
@@ -4176,7 +4248,7 @@ metadict_chars['Monk 5 lvl (city windsong-warmonger)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
         'Shortsword +1':1,
@@ -4233,7 +4305,7 @@ metadict_chars['Barbarian 2 lvl (thracian slayer-slasher)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':2,
+        'Infusion of Vitality':2,
         'Scale Mail':1,
         'Heavy Shield':1,
         'Greatsword':1,
@@ -4265,7 +4337,7 @@ metadict_chars['Barbarian 3 lvl (thracian slayer-juggernaught)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':3,
+        'Infusion of Vitality':3,
         'Scale Mail':1,
         'Heavy Shield':1,
         'Greatsword':1,
@@ -4392,7 +4464,7 @@ metadict_chars['Warlock 1 lvl (otherworld seeker-follower)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Armor':1,
         'Dagger':1,
         },
@@ -4434,7 +4506,7 @@ metadict_chars['Warlock 2 lvl (otherworld seeker-adept)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Armor':1,
         'Dagger':1,
         },
@@ -4488,7 +4560,7 @@ metadict_chars['Warlock 3 lvl (otherworld seeker-emissary)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Rune of Armor':1,
         'Dagger':1,
@@ -4541,7 +4613,7 @@ metadict_chars['Warlock 4 lvl (otherworld seeker-envoy)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
         'Rune of Armor':1,
@@ -4600,7 +4672,7 @@ metadict_chars['Warlock 5 lvl (otherworld seeker-ascendant)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
         'Rune of Armor':1,
@@ -4645,7 +4717,7 @@ metadict_chars['Wizard 2 lvl (city cat-weaver)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Armor':1,
         },
     #'mount_combat':True,
@@ -4694,7 +4766,7 @@ metadict_chars['Wizard 5 lvl (city cat-seer)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
         'Rune of Armor':1,
@@ -4751,7 +4823,7 @@ metadict_chars['Wizard 1 lvl (otherworld mage-disciple)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Armor':1,
         'Dagger':1,
         },
@@ -4790,7 +4862,7 @@ metadict_chars['Wizard 2 lvl (otherworld mage-weaver)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Armor':1,
         'Dagger':1,
         },
@@ -4858,7 +4930,7 @@ metadict_chars['Wizard 3 lvl (otherworld mage-annalist)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Shielding':1,
         'Rune of Armor':1,
         'Dagger':1,
@@ -4907,7 +4979,7 @@ metadict_chars['Wizard 4 lvl (otherworld mage-savant)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
         'Rune of Armor':1,
@@ -4974,7 +5046,7 @@ metadict_chars['Wizard 5 lvl (otherworld mage-seer)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
         'Rune of Armor':1,
@@ -5026,7 +5098,7 @@ metadict_chars['Bard 1 lvl (otherworld singer-follower)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Armor':1,
         'Shield':1,
         'Shortsword':1,
@@ -5067,7 +5139,7 @@ metadict_chars['Bard 2 lvl (otherworld singer-stranger)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Armor':1,
         'Shield':1,
         'Shortsword':1,
@@ -5122,7 +5194,7 @@ metadict_chars['Bard 3 lvl (otherworld singer-explorer)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Shielding':1,
         'Half Plate':1,
         'Shield':1,
@@ -5171,7 +5243,7 @@ metadict_chars['Bard 4 lvl (otherworld singer-pathfinder)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
         'Half Plate':1,
@@ -5237,7 +5309,7 @@ metadict_chars['Bard 5 lvl (otherworld singer-leader)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
         'Half Plate':1,
@@ -5290,7 +5362,7 @@ metadict_chars['Cleric 1 lvl (war cleric)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Splint Armor':1,
         'Shield':1,
         'Mace':1,
@@ -5339,7 +5411,7 @@ metadict_chars['Cleric 1 lvl (city maatcarian-acolyte)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Armor':1,
         'Healer Kit':1,
         'Shortsword':1,
@@ -5381,7 +5453,7 @@ metadict_chars['Cleric 2 lvl (city maatcarian-celebrant)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Armor':1,
         'Healer Kit':1,
         'Shortsword':1,
@@ -5433,7 +5505,7 @@ metadict_chars['Cleric 3 lvl (city maatcarian-augur)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Shielding':1,
         'Rune of Armor':1,
         'Shortsword':1,
@@ -5484,7 +5556,7 @@ metadict_chars['Cleric 4 lvl (city maatcarian-arbiter)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
         'Healer Kit':1,
@@ -5551,7 +5623,7 @@ metadict_chars['Cleric 5 lvl (city maatcarian-reviver)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
         'Healer Kit':1,
@@ -5648,7 +5720,7 @@ metadict_chars['Cleric 2 lvl (city luminary-celebrant)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Breastplate':1,
         'Heavy Shield':1,
         'Shortsword':1,
@@ -5705,7 +5777,7 @@ metadict_chars['Cleric 3 lvl (city luminary-augur)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Breastplate':1,
         'Heavy Shield':1,
@@ -5761,7 +5833,7 @@ metadict_chars['Cleric 4 lvl (city luminary-arbiter)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
         'Half Plate':1,
@@ -5834,7 +5906,7 @@ metadict_chars['Cleric 5 lvl (city luminary-reviver)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
         'Half Plate':1,
@@ -5867,7 +5939,7 @@ metadict_chars['Rogue 1 lvl (city cat-nyamo)'] = {
     'equipment_supply':{},
     'equipment_backpack':{},
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Armor':1,
         'Crossbow, Light':1,
         'Crossbow Bolt':40,
@@ -5893,7 +5965,7 @@ metadict_chars['Rogue 2 lvl (city cat-meow)'] = {
     'equipment_supply':{},
     'equipment_backpack':{},
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Armor':1,
         },
     }
@@ -5931,7 +6003,7 @@ metadict_chars['Rogue 3 lvl (city cat-dodger)'] = {
     'equipment_supply':{},
     'equipment_backpack':{},
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Shielding':1,
         'Rune of Armor':1,
         },
@@ -5972,7 +6044,7 @@ metadict_chars['Rogue 4 lvl (city cat-runner)'] = {
     'equipment_supply':{},
     'equipment_backpack':{},
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Infusion of Claws':1,
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
@@ -6017,7 +6089,7 @@ metadict_chars['Rogue 5 lvl (city cat-mastermind)'] = {
     'equipment_supply':{},
     'equipment_backpack':{},
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Infusion of Claws':1,
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
@@ -6046,7 +6118,7 @@ metadict_chars['Rogue 1 lvl (mercenary phantom-blackeye)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Studded Leather':1,
         'Shield':1,
         'Shortsword':1,
@@ -6077,7 +6149,7 @@ metadict_chars['Rogue 2 lvl (mercenary phantom-hawkeye)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Studded Leather':1,
         'Shield':1,
@@ -6111,7 +6183,7 @@ metadict_chars['Rogue 3 lvl (mercenary phantom-deadeye)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
         'Studded Leather':1,
@@ -6147,7 +6219,7 @@ metadict_chars['Rogue 4 lvl (mercenary phantom-sergeant)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
         'Studded Leather':1,
@@ -6187,7 +6259,7 @@ metadict_chars['Rogue 5 lvl (mercenary phantom-lieutenant)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Shielding':1,
         'Rune of Armor':1,
         'Shield':1,
@@ -6220,7 +6292,7 @@ metadict_chars['Ranger 1 lvl (otherworld wanderer-scout)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Studded Leather':1,
         'Shield':1,
         'Shortsword':1,
@@ -6264,7 +6336,7 @@ metadict_chars['Ranger 2 lvl (otherworld wanderer-marksman)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Breastplate':1,
         'Shield':1,
         'Shortsword':1,
@@ -6303,7 +6375,7 @@ metadict_chars['Ranger 3 lvl (otherworld wanderer-hunter)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Shielding':1,
         'Breastplate':1,
         'Shield':1,
@@ -6344,7 +6416,7 @@ metadict_chars['Ranger 4 lvl (otherworld wanderer-sergeant)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Shielding':1,
         'Rune of Armor':1,
         'Shield':1,
@@ -6400,7 +6472,7 @@ metadict_chars['Ranger 5 lvl (otherworld wanderer-lieutenant)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Shielding':1,
         'Rune of Armor':1,
         'Shield':1,
@@ -6458,7 +6530,7 @@ metadict_chars['Druid 1 lvl (otherworld terian-forester)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Hide Armor':1,
         'Heavy Shield':1,
         'Scimitar':1,
@@ -6507,7 +6579,7 @@ metadict_chars['Druid 2 lvl (otherworld terian-changer)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':3,
+        'Infusion of Vitality':3,
         'Hide Armor':1,
         'Heavy Shield':1,
         'Scimitar':1,
@@ -6566,7 +6638,7 @@ metadict_chars['Druid 3 lvl (otherworld terian-wiseman)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Shielding':1,
         'Hide Armor':1,
         'Heavy Shield':1,
@@ -6619,7 +6691,7 @@ metadict_chars['Druid 4 lvl (otherworld terian-wonderman)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Shielding':1,
         'Rune of Armor':1,
         'Heavy Shield':1,
@@ -6681,7 +6753,7 @@ metadict_chars['Druid 5 lvl (otherworld terian-loremaster)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Shielding':1,
         'Rune of Armor':1,
         'Heavy Shield':1,
@@ -6731,7 +6803,7 @@ metadict_chars['Sorcerer 1 lvl (otherworld wildfire-novice)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Draconic_Scales':1,
         'Dagger':1,
@@ -6771,7 +6843,7 @@ metadict_chars['Sorcerer 2 lvl (otherworld wildfire-burner)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Draconic_Scales':1,
         'Dagger':1,
@@ -6816,7 +6888,7 @@ metadict_chars['Sorcerer 3 lvl (otherworld wildfire-enchanter)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
         'Draconic_Scales':1,
@@ -6867,7 +6939,7 @@ metadict_chars['Sorcerer 4 lvl (otherworld wildfire-paragon)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
         'Draconic_Scales':1,
@@ -6919,7 +6991,7 @@ metadict_chars['Sorcerer 5 lvl (otherworld wildfire-ravager)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
         'Draconic_Scales':1,
@@ -6994,7 +7066,7 @@ metadict_chars['Paladin 2 lvl (city sentry-weresefet)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Chain Mail':1,
         'Shield':1,
         'Lance':1,
@@ -7042,7 +7114,7 @@ metadict_chars['Paladin 3 lvl (city sentry-imeyer)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Chain Mail':1,
         'Shield':1,
@@ -7094,7 +7166,7 @@ metadict_chars['Paladin 4 lvl (city sentry-sergeant)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
         'Splint Armor':1,
@@ -7157,7 +7229,7 @@ metadict_chars['Paladin 5 lvl (city sentry-lieutenant)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
         'Splint Armor':1,
@@ -7238,7 +7310,7 @@ metadict_chars['Warrior 3 lvl (Тзаангор) (ур-лодакос)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Breastplate':1,
         'Heavy Shield':1,
         'Longsword':1,
@@ -7270,7 +7342,7 @@ metadict_chars['Warrior 4 lvl (Тзаангор) (лодакос)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Shielding':1,
         'Breastplate':1,
         'Heavy Shield':1,
@@ -7308,7 +7380,7 @@ metadict_chars['Warrior 5 lvl (Тзаангор) (капитан)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
         'Half Plate':1,
@@ -7348,7 +7420,7 @@ metadict_chars['Paladin 1 lvl (Тзаангор) (паладины)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Splint Armor':1,
         'Heavy Shield':1,
         'Battleaxe':1,
@@ -7439,7 +7511,7 @@ metadict_chars['Paladin 5 lvl (Тзаангор) (Протесилай II, «Д�
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':2,
         #'Rune of Shielding':1,
         'Splint Armor':1,
@@ -7504,7 +7576,7 @@ metadict_chars['Warrior 2 lvl (Vaarsuvius) (ветеран Филлис)'] = {
         'Potion of Antidote':1,
         'Infusion of Longstrider':1,
         'Infusion of False Life':1,
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         #'Scale Mail':1,
         'Mage_Armor':1,
         'Heavy Shield':1,
@@ -7726,7 +7798,7 @@ metadict_chars['Warrior 3 lvl (Vaarsuvius) (меткий стрелок-отст
     'equipment_weapon':{
         'Goodberry':5,
         'Potion of Antidote':1,
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Breastplate':1,
         'Dagger':1,
         'Shield':1,
@@ -7753,7 +7825,7 @@ metadict_chars['Warrior 3 lvl (Vaarsuvius) (сержант Аксиотея)'] =
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
         'Goodberry':30,
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Breastplate':1,
         'Dagger':1,
         'Shield':1,
@@ -7894,7 +7966,7 @@ metadict_chars['Warrior 3 lvl (друг) (сатир-сержант)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Breastplate':1,
         'Shield':1,
         'Shortsword':1,
@@ -7918,7 +7990,7 @@ metadict_chars['Warrior 4 lvl (друг) (сын Павсания)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Shielding':1,
         'Breastplate':1,
         'Shield':1,
@@ -7995,7 +8067,7 @@ metadict_chars['Warrior 3 lvl (Vaarsuvius) (меткий стрелок)'] = {
     'equipment_weapon':{
         'Goodberry':5,
         'Potion of Antidote':1,
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Breastplate':1,
         'Dagger':1,
         'Shield':1,
@@ -8020,7 +8092,7 @@ metadict_chars['Warrior 4 lvl (Vaarsuvius) (стрелок-лейтенант)']
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
         'Potion of Antidote':1,
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Shielding':1,
         'Breastplate':1,
         'Shield':1,
@@ -8050,7 +8122,7 @@ metadict_chars['Warrior 5 lvl (Vaarsuvius) (стрелок-капитан)'] = {
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
         'Potion of Antidote':1,
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
         'Half Plate':1,
@@ -8109,7 +8181,7 @@ metadict_chars['Druid 2 lvl (Vaarsuvius) (друид Ианты)'] = {
     'equipment_weapon':{
         'Goodberry':20,
         'Potion of Antidote':1,
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Rune of Armor':1,
         },
@@ -8173,7 +8245,7 @@ metadict_chars['Druid 2 lvl (Vaarsuvius) (друид Ианты) (Агата)'] 
     'equipment_weapon':{
         'Goodberry':20,
         'Potion of Antidote':1,
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Rune of Armor':1,
         },
@@ -8363,7 +8435,7 @@ metadict_chars['Druid 2 lvl (Vaarsuvius) (друид Ианты) (Психея)'
     'equipment_weapon':{
         'Goodberry':20,
         'Potion of Antidote':1,
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Rune of Armor':1,
         },
@@ -8445,7 +8517,7 @@ metadict_chars['Druid 7 lvl (Vaarsuvius) (Ианта «Дочь бури»)'] = 
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
         'Potion of Antidote':1,
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
         'Breastplate':1,
@@ -8535,7 +8607,7 @@ metadict_chars['Fighter 5 lvl (ArbitraryNickname) (Артаманах Рыбни
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Shielding':1,
         'Rune of Armor':1,
         'Shield':1,
@@ -8587,7 +8659,7 @@ metadict_chars['Cleric 2 lvl (Vened) (жрец Патрокла)'] = {
     'equipment_weapon':{
         'Goodberry':10,
         'Potion of Antidote':1,
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Plate Armor':1,
         'Heavy Shield':1,
@@ -8659,7 +8731,7 @@ metadict_chars['Cleric 7 lvl (Vened) (Патрокл «Македонянин»)
     'equipment_weapon':{
         'Goodberry':10,
         'Potion of Antidote':1,
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
         'Plate Armor':1,
@@ -8711,7 +8783,7 @@ metadict_chars['Druid 2 lvl (Vened) (друид Патрокла)'] = {
     'equipment_weapon':{
         'Goodberry':10,
         'Potion of Antidote':1,
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Plate Armor':1,
         'Heavy Shield':1,
@@ -8780,7 +8852,7 @@ metadict_chars['Druid 7 lvl (Vened) (Брат Патрокла)'] = {
     'equipment_weapon':{
         'Goodberry':10,
         'Potion of Antidote':1,
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Shielding':1,
         'Rune of Absorbtion':1,
         'Plate Armor':1,
@@ -8837,7 +8909,7 @@ metadict_chars['Warrior 2 lvl (Vened) (ветеран Патрокла)'] = {
         'Goodberry':4,
         'Potion of Antidote':1,
         'Infusion of False Life':1,
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Scale Mail':1,
         'Shortsword':1,
         'Heavy Shield':1,
@@ -8863,7 +8935,7 @@ metadict_chars['Warrior 3 lvl (Vened) (сержант Патрокла)'] = {
         'Goodberry':4,
         'Potion of Antidote':1,
         'Infusion of False Life':1,
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Half Plate':1,
         'Shortsword':1,
         'Heavy Shield':1,
@@ -8890,7 +8962,7 @@ metadict_chars['Warrior 4 lvl (Vened) (лейтенант Патрокла)'] = 
         'Goodberry':4,
         'Potion of Antidote':1,
         'Infusion of False Life':1,
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Half Plate':1,
         'Shortsword':1,
@@ -8922,7 +8994,7 @@ metadict_chars['Warrior 5 lvl (Vened) (капитан Патрокла)'] = {
     'equipment_weapon':{
         'Goodberry':4,
         'Potion of Antidote':1,
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
         'Half Plate':1,
@@ -8977,7 +9049,7 @@ metadict_chars['Cleric 2 lvl (Mordodrukow) (жрец Фарама) (боевой
     'equipment_weapon':{
         'Potion of Antidote':1,
         'Infusion of Longstrider':1,
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Plate Armor':1,
         'Heavy Shield':1,
@@ -9022,7 +9094,7 @@ metadict_chars['Cleric 2 lvl (Mordodrukow) (жрец Фарама) (лекарь
     'equipment_weapon':{
         'Potion of Antidote':1,
         'Infusion of Longstrider':1,
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Plate Armor':1,
         'Heavy Shield':1,
@@ -9056,7 +9128,7 @@ metadict_chars['Fighter 2 lvl (Mordodrukow) (темплар Фарама)'] = {
     'equipment_weapon':{
         'Potion of Antidote':1,
         'Infusion of Longstrider':1,
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Plate Armor':1,
         'Heavy Shield':1,
@@ -9092,7 +9164,7 @@ metadict_chars['Fighter 2 lvl (Mordodrukow) (снайпер Фарама)'] = {
     'equipment_weapon':{
         'Potion of Antidote':1,
         'Infusion of Longstrider':1,
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Half Plate':1,
         'Shield':1,
@@ -9241,7 +9313,7 @@ metadict_chars['Cleric 7 lvl (Mordodrukow) (Фарам «Друг Богов»)'
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
         # TODO: жезл +1, увеличивает сложность спасброска заклинаний.
-        #'Infusion of Healing':1,
+        #'Infusion of Vitality':1,
         'Potion of Antidote':1,
         'Infusion of Heroism':1,
         'Rune of Absorbtion':1,
@@ -9293,7 +9365,7 @@ metadict_chars['Warrior 2 lvl (Mordodrukow) (ветеран Фарама)'] = {
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
         'Potion of Antidote':1,
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Studded Leather':1,
         'Dagger':1,
         'Shield':1,
@@ -9317,7 +9389,7 @@ metadict_chars['Warrior 3 lvl (Mordodrukow) (сержант Фарама)'] = {
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
         'Potion of Antidote':1,
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Breastplate':1,
         'Scimitar':1,
         'Shield':1,
@@ -9342,7 +9414,7 @@ metadict_chars['Warrior 4 lvl (Mordodrukow) (лейтенант Фарама)'] 
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
         'Potion of Antidote':1,
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Shielding':1,
         'Rune of Absorbtion':1,
         'Half Plate':1,
@@ -9373,7 +9445,7 @@ metadict_chars['Warrior 5 lvl (Mordodrukow) (капитан Фарама)'] = {
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
         'Potion of Antidote':1,
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
         'Half Plate':1,
@@ -9411,7 +9483,7 @@ metadict_chars['Fighter 1 lvl (Katorjnik) (преторианец Гая Юли�
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
         'Potion of Antidote':1,
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Splint Armor':1,
         'Shield':1,
         'Longsword':1,
@@ -9447,7 +9519,7 @@ metadict_chars['Fighter 2 lvl (Katorjnik) (преторианец Гая Юли�
     'equipment_weapon':{
         'Potion of Antidote':1,
         'Infusion of Longstrider':1,
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Plate Armor':1,
         'Heavy Shield':1,
@@ -9496,7 +9568,7 @@ metadict_chars['Fighter 7 lvl (Katorjnik) (Гай Юлий)'] = {
     'equipment_weapon':{
         #'Infusion of Regeneration':1,
         'Potion of Antidote':1,
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
         'Plate Armor':1,
@@ -9596,7 +9668,7 @@ metadict_chars['Warrior 3 lvl (Katorjnik) (урагос)'] = {
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
         'Potion of Antidote':1,
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Breastplate':1,
         'Heavy Shield':1,
         'Shortsword':1,
@@ -9620,7 +9692,7 @@ metadict_chars['Warrior 4 lvl (Katorjnik) (опцион)'] = {
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
         'Potion of Antidote':1,
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Shielding':1,
         'Breastplate':1,
         'Heavy Shield':1,
@@ -9651,7 +9723,7 @@ metadict_chars['Warrior 5 lvl (Katorjnik) (центурион)'] = {
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
         'Potion of Antidote':1,
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
         'Half Plate':1,
@@ -9692,7 +9764,7 @@ metadict_chars['Ranger 2 lvl (Gogan) (следопыт Сакатра)'] = {
     'equipment_weapon':{
         'Goodberry':5,
         'Potion of Antidote':1,
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Infusion of Longstrider':1,
         'Rune of Absorbtion':1,
         'Breastplate':1,
@@ -9754,7 +9826,7 @@ metadict_chars['Ranger 7 lvl (Gogan) (Сакатр Ка-Ален)'] = {
     'equipment_weapon':{
         'Goodberry':15,
         'Potion of Antidote':1,
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Infusion of Longstrider':1,
         'Rune of Shielding':1,
         'Studded Leather':1,
@@ -9831,7 +9903,7 @@ metadict_chars['Warrior 3 lvl (Gogan) (кимерийский пират-сер�
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
         'Potion of Antidote':1,
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Breastplate':1,
         'Shield':1,
         'Rapier':1,
@@ -9857,7 +9929,7 @@ metadict_chars['Warrior 4 lvl (Gogan) (кимерийский пират-лей�
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
         'Potion of Antidote':1,
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Shielding':1,
         'Breastplate':1,
         'Shield':1,
@@ -9890,7 +9962,7 @@ metadict_chars['Warrior 5 lvl (Gogan) (кимерийский пират-кап�
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
         'Potion of Antidote':1,
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Shielding':1,
         'Breastplate':1,
         'Shield':1,
@@ -9933,7 +10005,7 @@ metadict_chars['Warlock 1 lvl (враг) (колдун Кара\'Яма)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Armor':1,
         'Dagger':1,
         'Shortbow':1,
@@ -10042,7 +10114,7 @@ metadict_chars['Warlock 1 lvl (враг) (колдун Кема\'Эша)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Armor':1,
         'Dagger':1,
         'Shortbow':1,
@@ -10139,7 +10211,7 @@ metadict_chars['Ranger 1 lvl (враг) (следопыт Энзифа)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Studded Leather':1,
         'Shield':1,
         'Shortsword':1,
@@ -10191,7 +10263,7 @@ metadict_chars['Ranger 5 lvl (враг) (Энзиф «Ходи-гора»)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
         'Studded Leather':1,
@@ -10229,7 +10301,7 @@ metadict_chars['Paladin 1 lvl (враг) (паладин Магора)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Splint Armor':1,
         'Heavy Shield':1,
         'Flait':1,
@@ -10295,7 +10367,7 @@ metadict_chars['Paladin 5 lvl (враг) (Магор «Детоед»)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':2,
+        'Infusion of Vitality':2,
         'Rune of Absorbtion':1,
         'Splint Armor':1,
         'Heavy Shield':1,
@@ -10377,7 +10449,7 @@ metadict_chars['Fighter 5 lvl (враг) (Хана\'Вам)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Shielding':1,
         'Rune of Armor':1,
         'Shield':1,
@@ -10424,7 +10496,7 @@ metadict_chars['Druid 1 lvl (враг) (друид Тик-Бо)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Armor':1,
         'Heavy Shield':1,
         'Club':1,
@@ -10489,7 +10561,7 @@ metadict_chars['Druid 5 lvl (враг) (Тик-Бо «Робкий»)'] = {
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
         'Goodberry':30,
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Shielding':1,
         'Rune of Armor':1,
         'Heavy Shield':1,
@@ -10904,7 +10976,7 @@ metadict_chars['Warrior 4 lvl (нейтрал) (бронзовый гоплит 
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
         # Нежить не может использовать эссенции:
-        #'Infusion of Healing':1,
+        #'Infusion of Vitality':1,
         'Infusion of False Life':1,
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
@@ -10956,7 +11028,7 @@ metadict_chars['Warrior 5 lvl (нейтрал) (бронзовый гоплит-
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
         # Нежить не может использовать эссенции:
-        #'Infusion of Healing':1,
+        #'Infusion of Vitality':1,
         'Infusion of False Life':1,
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
@@ -11010,7 +11082,7 @@ metadict_chars['Warrior 2 lvl (нейтрал) (ветеран Карагоса)
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Hide Armor':1,
         'Shield':1,
         'Shortsword':1,
@@ -11033,7 +11105,7 @@ metadict_chars['Warrior 3 lvl (нейтрал) (сержант Карагоса)
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Breastplate':1,
         'Heavy Shield':1,
         'Shortsword':1,
@@ -11057,7 +11129,7 @@ metadict_chars['Warrior 4 lvl (нейтрал) (лейтенант Караго�
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':3,
+        'Infusion of Vitality':3,
         'Half Plate':1,
         'Heavy Shield':1,
         'Shortsword':1,
@@ -11085,7 +11157,7 @@ metadict_chars['Warrior 5 lvl (нейтрал) (капитан Карагоса)
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
         'Half Plate':1,
@@ -11325,7 +11397,7 @@ metadict_chars['Barbarian 2 lvl (враг) (варвар Радаманта)'] =
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':2,
+        'Infusion of Vitality':2,
         'Scale Mail':1,
         'Shield':1,
         'Longsword':1,
@@ -11370,7 +11442,7 @@ metadict_chars['Barbarian 5 lvl (враг) (Радамант «Бдительн�
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':3,
+        'Infusion of Vitality':3,
         'Half Plate':1,
         'Shield':1,
         'Longsword +1':1,
@@ -11611,7 +11683,7 @@ metadict_chars['Warrior 2 lvl (враг) (мирмидон-ветеран)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Breastplate':1,
         'Heavy Shield':1,
         'Shortsword':1,
@@ -11637,7 +11709,7 @@ metadict_chars['Warrior 3 lvl (враг) (мирмидон-сержант)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Shielding':1,
         'Breastplate':1,
         'Heavy Shield':1,
@@ -11731,7 +11803,7 @@ metadict_chars['Warrior 1 lvl (враг) (легионер Акхена)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Studded Leather':1,
         'Heavy Shield':1,
         'Shortsword':1,
@@ -11754,7 +11826,7 @@ metadict_chars['Warrior 2 lvl (враг) (ветеран Акхена)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Breastplate':1,
         'Heavy Shield':1,
         'Shortsword':1,
@@ -11777,7 +11849,7 @@ metadict_chars['Warrior 3 lvl (враг) (сержант Акхена)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Infusion of Heroism':1,
         'Breastplate':1,
         'Heavy Shield':1,
@@ -11802,7 +11874,7 @@ metadict_chars['Warrior 4 lvl (враг) (лейтенант Акхена)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Infusion of Heroism':1,
         'Rune of Shielding':1,
         'Half Plate':1,
@@ -11833,7 +11905,7 @@ metadict_chars['Warrior 5 lvl (враг) (капитан Акхена)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Infusion of Heroism':1,
         'Rune of Shielding':1,
         'Half Plate':1,
@@ -11883,7 +11955,7 @@ metadict_chars['Sorcerer 3 lvl (otherworld wildfire-enchanter)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
         'Dagger':1,
@@ -12085,7 +12157,7 @@ metadict_chars['Warrior 3 lvl (враг) (гоплит-сержант Нинги
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
         'Potion of Antidote':1,
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Breastplate':1,
         'Heavy Shield':1,
         'Shortsword':1,
@@ -12112,7 +12184,7 @@ metadict_chars['Warrior 4 lvl (враг) (гоплит-лейтенант Нин
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
         'Potion of Antidote':1,
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Breastplate':1,
         'Heavy Shield':1,
@@ -12141,7 +12213,7 @@ metadict_chars['Warrior 5 lvl (враг) (гоплит-капитан Нинги
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
         'Potion of Antidote':1,
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
         'Half Plate':1,
@@ -12187,7 +12259,7 @@ metadict_chars['Monk 3 lvl (друг) (монах Кумара)'] = {
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
         'Potion of Antidote':1,
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Rune of Armor':1,
         'Shortsword +1':1,
@@ -12258,7 +12330,7 @@ metadict_chars['Monk 9 lvl (друг) (Кумар «Чугуннорукий»)'
             # 3. Руны 3-4 круга.
         # Посох ударов продан за 4000 эфесов на оборону Илиона
         'Potion of Antidote':1,
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Infusion of Heroism':1,
         'Bracers of Defence':1,
         'Rune of Shielding':1,
@@ -12301,7 +12373,7 @@ metadict_chars['Wizard 3 lvl (друг) (кошка Тинв)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Shielding':1,
         'Rune of Armor':1,
         },
@@ -12369,7 +12441,7 @@ metadict_chars['Wizard 9 lvl (друг) (Тинв)'] = {
     'equipment_weapon':{
         # TODO: добавить руны 3-4 круга.
         # Добавить кошачьи волшебные вещи.
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
         'Rune of Armor':1,
@@ -12437,7 +12509,7 @@ metadict_chars['Warrior 3 lvl (друг) (сержант Илиона)'] = {
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
         'Potion of Antidote':1,
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Breastplate':1,
         'Heavy Shield':1,
         'Shortsword':1,
@@ -12465,7 +12537,7 @@ metadict_chars['Warrior 4 lvl (друг) (лейтенант Илиона)'] = {
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
         'Potion of Antidote':1,
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Shielding':1,
         'Breastplate':1,
         'Heavy Shield':1,
@@ -12500,7 +12572,7 @@ metadict_chars['Warrior 5 lvl (друг) (капитан Илиона)'] = {
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
         'Potion of Antidote':1,
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
         'Half Plate':1,
@@ -12577,7 +12649,7 @@ metadict_chars['Warrior 3 lvl (друг) (сержант пращников Ил
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
         'Potion of Antidote':1,
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Breastplate':1,
         'Shield':1,
         'Shortsword':1,
@@ -12623,7 +12695,7 @@ metadict_chars['Bard 2 lvl (друг) (бард Тетры)'] = {
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
         'Potion of Antidote':1,
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Shielding':1,
         'Rune of Armor':1,
         'Rapier':1,
@@ -12785,7 +12857,7 @@ metadict_chars['Warrior 3 lvl (друг) (арбалетчик-сержант Т
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
         'Potion of Antidote':1,
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Breastplate':1,
         'Shield':1,
         'Shortsword':1,
@@ -12812,7 +12884,7 @@ metadict_chars['Warrior 4 lvl (друг) (арбалетчик-лейтенан�
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
         'Potion of Antidote':1,
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Shielding':1,
         'Breastplate':1,
         'Shield':1,
@@ -12845,7 +12917,7 @@ metadict_chars['Warrior 5 lvl (друг) (арбалетчик-капитан Т
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
         'Potion of Antidote':1,
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
         'Breastplate':1,
@@ -13241,7 +13313,7 @@ metadict_chars['Warrior 2 lvl (друг) (ветеран Тави)'] = {
         'Potion of Antidote':1,
         'Infusion of Longstrider':1,
         'Infusion of False Life':1,
-        'Infusion of Healing':1,
+        'Infusion of Vitality':1,
         #'Scale Mail':1,
         'Mage_Armor':1,
         'Heavy Shield':1,

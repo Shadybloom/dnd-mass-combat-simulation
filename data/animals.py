@@ -3380,7 +3380,7 @@ metadict_animals['Empyrean (CR 23)'] = {
     'equipment_backpack':{},
     'equipment_weapon':{
         'Empyrean_Maul':1,
-        #'Infusion of Healing':1,
+        #'Infusion of Vitality':1,
         #'Rune of Absorbtion':1,
         #'Rune of Shielding':1,
         },

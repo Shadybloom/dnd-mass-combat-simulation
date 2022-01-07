@@ -717,7 +717,7 @@ metadict_items['Rifle'] = {
     }
 
 metadict_items['Rifle, rapid'] = {
-    # Казнозарядная винтовка.
+    # Казнозарядная винтовка, скорострельный штуцер
     'weapon':True,
     'direct_hit':True,
     'savethrow':True,
@@ -1789,7 +1789,7 @@ metadict_items['Potion of Antidote'] = {
 #----
 # Magic items (homebrew) (эссенции):
 
-metadict_items['Infusion of Healing'] = {
+metadict_items['Infusion of Vitality'] = {
     # Эссенции "перезаряжаются" друидами и жрецами.
     'potion':True,
     'infusion':True,
@@ -1815,6 +1815,16 @@ metadict_items['Infusion of Barkskin'] = {
     'spell':'Barkskin',
     'weight (lb)':0,
     'cost (gp)':60 * 4,
+    'cost (grams_of_gold)':60,
+    }
+
+metadict_items['Infusion of Climbing'] = {
+    # TODO: допилить, эффект Spider_Climb
+    'potion':True,
+    'infusion':True,
+    #'spell':'Spider_Climb',
+    'weight (lb)':0,
+    'cost (gp)':60,
     'cost (grams_of_gold)':60,
     }
 
@@ -1892,6 +1902,16 @@ metadict_items['Rune of Armor'] = {
     'potion':True,
     'rune':True,
     'spell':'Mage_Armor',
+    'weight (lb)':1/2,
+    'cost (gp)':240,
+    'cost (grams_of_gold)':60,
+    }
+
+metadict_items['Rune of Message'] = {
+    # Кантрип "Сообщение", для отыгрыша.
+    'potion':True,
+    'rune':True,
+    'spell':'Message',
     'weight (lb)':1/2,
     'cost (gp)':240,
     'cost (grams_of_gold)':60,
