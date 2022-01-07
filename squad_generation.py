@@ -272,14 +272,18 @@ class squad_generation():
 
     def calculate_squad_armor_class(self):
         """Усреднённая защита отряда."""
-        sum_armor_class = sum([soldier.armor['armor_class'] for soldier in self.metadict_soldiers.values()])
-        squad_number = len(self.metadict_soldiers)
+        sum_armor_class = sum([soldier.armor['armor_class'] for soldier in self.metadict_soldiers.values()
+            if not soldier.behavior == 'mount'])
+        squad_number = len([soldier for soldier in self.metadict_soldiers.values()
+            if not soldier.behavior == 'mount'])
         return round(sum_armor_class / squad_number, 1)
 
     def calculate_squad_hitpoints_medial(self):
         """Усреднённые хиты по отряду."""
-        sum_hitpoints = sum([soldier.hitpoints_max for soldier in self.metadict_soldiers.values()])
-        squad_number = len(self.metadict_soldiers)
+        sum_hitpoints = sum([soldier.hitpoints_max for soldier in self.metadict_soldiers.values()
+            if not soldier.behavior == 'mount'])
+        squad_number = len([soldier for soldier in self.metadict_soldiers.values()
+            if not soldier.behavior == 'mount'])
         return round(sum_hitpoints / squad_number, 1)
 
     def calculate_squad_attack_mod(self):
@@ -294,32 +298,27 @@ class squad_generation():
         attack_mods_dict_sum = {}
         attack_mods_dict_max = {}
         for soldier in self.metadict_soldiers.values():
-            attacks_mods_list = [attack['attack_mod'] for key, attack in soldier.attacks.items()
-                    if not 'volley' in key]
-            if attacks_mods_list:
-                attack_mod_max = max(attacks_mods_list)
-                attack_mod_medial = sum(attacks_mods_list) / len(attacks_mods_list)
-                if not soldier.rank in attack_mods_dict_sum:
-                    attack_mods_dict_max[soldier.rank] = attack_mod_max
-                    attack_mods_dict_sum[soldier.rank] = attack_mod_medial
-                else:
-                    attack_mods_dict_max[soldier.rank] += attack_mod_max
-                    attack_mods_dict_sum[soldier.rank] += attack_mod_medial
-                #if attack_mod_max > attack_mod_best:
-                #    attack_mod_best = attack_mod_max
-                # Дуэлятся с героями у нас только командиры 4+ lvl:
-                if attack_mod_max > attack_mod_best\
-                        and soldier.behavior == 'commander' and soldier.level >= 4:
-                    attack_mod_best = attack_mod_max
-        attack_mod_medial = round(sum(attack_mods_dict_sum.values()) / len(self.metadict_soldiers), 1)
-        attack_mod_max = round(sum(attack_mods_dict_max.values()) / len(self.metadict_soldiers), 1)
-        #attack_mods_dict = {}
-        #for key, attack_mod_sum in attack_mods_dict_sum.items():
-        #    rank_list = [soldier for soldier in self.metadict_soldiers.values()\
-        #            if soldier.rank == key]
-        #    rank_number = len(rank_list)
-        #    attack_mods_dict[key] = round(attack_mod_sum / rank_number, 1)
-        #return attack_mods_dict
+            if not soldier.behavior == 'mount':
+                attacks_mods_list = [attack['attack_mod'] for key, attack in soldier.attacks.items()
+                        if not 'volley' in key]
+                if attacks_mods_list:
+                    attack_mod_max = max(attacks_mods_list)
+                    attack_mod_medial = sum(attacks_mods_list) / len(attacks_mods_list)
+                    if not soldier.rank in attack_mods_dict_sum:
+                        attack_mods_dict_max[soldier.rank] = attack_mod_max
+                        attack_mods_dict_sum[soldier.rank] = attack_mod_medial
+                    else:
+                        attack_mods_dict_max[soldier.rank] += attack_mod_max
+                        attack_mods_dict_sum[soldier.rank] += attack_mod_medial
+                    # Дуэлятся с героями у нас только командиры 4+ lvl:
+                    if attack_mod_max > attack_mod_best\
+                            and soldier.behavior == 'commander' and soldier.level >= 4:
+                        attack_mod_best = attack_mod_max
+        # Считаем средние показатели:
+        squad_number = len([soldier for soldier in self.metadict_soldiers.values()
+            if not soldier.behavior == 'mount'])
+        attack_mod_medial = round(sum(attack_mods_dict_sum.values()) / squad_number, 1)
+        attack_mod_max = round(sum(attack_mods_dict_max.values()) / squad_number, 1)
         return attack_mod_best, attack_mod_max, attack_mod_medial
     
     def calculate_squad_cost(self):
