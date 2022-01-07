@@ -1208,32 +1208,46 @@ class soldier_in_battle(soldier):
             # Перезарядка за одно действие:
             else:
                 recharge_success = True
-            # Приступаем к самой перезарядке:
-            # Опытные стрелки перезаряжают за счёт бонусного действия:
+            # Умелые стрелки перезаряжают за счёт бонусного действия:
             if recharge_success and self.class_features.get('Feat_Firearms_Expert') and self.bonus_action:
                 self.bonus_action = False
                 self.drop_action(('bonus_action', 'Reload_Action_Success'))
-                attack_dict = self.metadict_recharge.pop(attack_choice)
-                if attack_dict.get('Recharge_magazine') and attack_dict.get('Recharge_magazine_max'):
-                    attack_dict['Recharge_magazine'] = attack_dict['Recharge_magazine_max']
-                self.attacks[attack_choice] = attack_dict
-                return recharge_success
-            # Если перезарядка успешна, восстанавливаем атаку:
+                return self.reload_weapon()
+            # Обычные стрелки перезаряжают за счёт действия:
             elif recharge_success and self.battle_action\
                     or recharge_success and 'Recharge_help' in self.metadict_recharge[attack_choice]:
                 self.battle_action = False
                 self.drop_action(('action', 'Reload_Action_Success'))
-                attack_dict = self.metadict_recharge.pop(attack_choice)
-                if attack_dict.get('Recharge_magazine') and attack_dict.get('Recharge_magazine_max'):
-                    attack_dict['Recharge_magazine'] = attack_dict['Recharge_magazine_max']
-                self.attacks[attack_choice] = attack_dict
-                return recharge_success
+                return self.reload_weapon()
+            # Иногда перезарядка не удаётся и действие тратится впустую:
             elif not recharge_success and self.battle_action:
                 self.battle_action = False
                 self.drop_action(('action', 'Reload_Action_False'))
                 return False
             else:
                 return False
+
+    def reload_weapon(self, weapon = None):
+        """Выбранное оружие перезаряжается.
+        
+        Восстанавливаются все атаки с этим оружием.
+        """
+        recharge_success = False
+        recharge_list = (list(self.metadict_recharge.keys()))
+        # Если оружие не выбрано, выбирается случайное:
+        if not weapon:
+            attack_choice = random.choice(recharge_list)
+            weapon = self.metadict_recharge[attack_choice]['weapon_use']
+        # Все атаки с этим оружием восстанавливаются:
+        for attack_choice in recharge_list:
+            if weapon == self.metadict_recharge[attack_choice]['weapon_use']:
+                attack_dict = self.metadict_recharge.pop(attack_choice)
+                # Восполняется магазин винтовки:
+                if attack_dict.get('Recharge_magazine_max'):
+                    attack_dict['Recharge_magazine'] = attack_dict['Recharge_magazine_max']
+                self.attacks[attack_choice] = attack_dict
+                recharge_success = True
+        return recharge_success
 
     def use_dodge_action(self):
         """Боец защищается.
@@ -2051,7 +2065,7 @@ class soldier_in_battle(soldier):
                 return throw_attack
         if distance >= 2 and 'ranged' in [attack[0] for attack in self.attacks]:
             ranged_attack_list = [attack for attack in self.attacks if attack[0] == 'ranged'
-                    and distance <= self.attacks[attack]['shoot_range_max'] / tile_size]
+                    and distance <= self.attacks[attack]['attack_range_max'] / tile_size]
             if ranged_attack_list:
                 ranged_attack = random.choice(ranged_attack_list)
             else:
@@ -2319,13 +2333,13 @@ class soldier_in_battle(soldier):
             if attack_dict.get('ammo_type') and isinstance(attack_dict.get('ammo_type'), str):
                 ammo_type = attack_dict.get('ammo_type')
             else:
-                ammo_type = attack_dict.get('weapon_of_choice')
+                ammo_type = attack_dict.get('weapon_choice')
             # Уменьшаем число боеприпасов в списке атак:
-            for attack_choice, attack_dict in self.attacks.items():
-                if ammo_type and ammo_type == attack_dict.get('ammo_type')\
-                        or ammo_type == attack_dict.get('weapon_of_choice')\
-                        and attack_dict.get('ammo'):
-                    attack_dict['ammo'] -= 1
+            for attack_choice, dict_attack in self.attacks.items():
+                if ammo_type and ammo_type == dict_attack.get('ammo_type')\
+                        or ammo_type == dict_attack.get('weapon_choice')\
+                        and dict_attack.get('ammo'):
+                    dict_attack['ammo'] -= 1
             # Убираем один боеприпас из экипировки:
             if ammo_type in self.equipment_weapon:
                 self.drop_item(ammo_type)
@@ -2334,7 +2348,7 @@ class soldier_in_battle(soldier):
                     self.get_ammo_from_squad(ammo_type, metadict_soldiers)
                 # Если получить не удалось, убираем атаку;
                 if self.equipment_weapon[ammo_type] <= 0:
-                    self.unset_weapon(attack_dict.get('weapon_of_choice'), ammo_type)
+                    self.unset_weapon(attack_dict.get('weapon_choice'), ammo_type)
             # Атака убирается из списка доступных, если нужна перезарядка:
             if attack_dict.get('recharge')\
                     or attack_dict.get('weapon_type')\
@@ -2344,7 +2358,7 @@ class soldier_in_battle(soldier):
                         and attack_dict.get('Recharge_magazine') > 0:
                     attack_dict['Recharge_magazine'] -= 1
                 else:
-                    self.unset_weapon(attack_dict.get('weapon_of_choice'))
+                    self.unset_weapon(attack_dict.get('weapon_choice'))
 
     def get_ammo_from_squad(self, ammo_type, metadict_soldiers):
         """Боец просит боеприпасы у союзников.

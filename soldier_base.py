@@ -1305,6 +1305,7 @@ class soldier():
         # Укзаываем оптимальное оружие только для атак оружием.
         # Выбор природных атак рандомный, либо указан в самих атаках.
         for attack_name, dict_attack in metadict_attacks.items():
+            dict_attack['weapon_choice'] = attack_name[-1]
             if dict_attack.get('weapon') == True:
                 metadict_attacks[attack_name]['weapon_of_choice']\
                         = self.find_weapon_of_choice(attack_name[0])
