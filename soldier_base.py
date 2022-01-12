@@ -300,6 +300,10 @@ class soldier():
             self.name, self.name_translate = gen_name(config.LANGUAGE_DICT_REAL, name_length = 1)
         self.uuid = uuid.uuid4()
         self.sex = sex
+        # Берём шаблон солдата:
+        if self.metadict_animals[animal_type].get('base_unit'):
+            base_unit = self.metadict_animals[animal_type].get('base_unit')
+            self.__dict__.update(copy.deepcopy(self.metadict_animals[base_unit]))
         # Берём шаблон:
         self.__dict__.update(copy.deepcopy(self.metadict_animals[animal_type]))
         # Проверяем, есть ли особенные черты:
