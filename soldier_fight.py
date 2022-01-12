@@ -2170,14 +2170,24 @@ class soldier_in_battle(soldier):
                 elif enemy.distance > round(attack_dict['attack_range'] / self.tile_size):
                     disadvantage = True
         # Homebrew: урон огнестрела уменьшается, если дальность выше предельной:
+        # ------------------------------------------------------------
         # Это уменьшение урона зависит от того, насколько дальше нормальной дальности выстрел.
+        # Для пушек с 12d10 костью урона приходится мутить с переводом двоичных цифр. Некрасиво.
+        # ------------------------------------------------------------
         if attack_dict.get('weapon_type') and 'firearm' in attack_dict.get('weapon_type')\
                 and enemy.distance * self.tile_size > attack_dict['shoot_range_max']\
                 and attack_choice[0] == 'volley':
-            damage_throws = int(damage_dice[0])
+            try:
+                damage_throws = int(damage_dice[:2])
+                two_numbers = True
+            except ValueError:
+                damage_throws = int(damage_dice[0])
+                two_numbers = False
             damage_factor = round(enemy.distance * self.tile_size / attack_dict['shoot_range'])
             damage_throws = round(damage_throws / damage_factor)
-            if damage_throws > 0:
+            if damage_throws > 0 and two_numbers:
+                damage_dice = str(damage_throws) + damage_dice[2:]
+            elif damage_throws > 0:
                 damage_dice = str(damage_throws) + damage_dice[1:]
             else:
                 damage_dice = str(1) + damage_dice[1:]
