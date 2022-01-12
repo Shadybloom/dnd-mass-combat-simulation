@@ -280,6 +280,25 @@ metadict_squads['Company-test (standard) (Feat_Magic_Initiate)'] = {
 #----
 # Тестовые отряды (Чёрные флаги Ост-Индии)
 
+metadict_squads['Company-veteran (pirate-infantry-grenadiers)'] = {
+    # Абордажная команда, палубная команда.
+    'Warrior 2 lvl (grenadier line-infantry-veteran) (assault)':65,
+    'Warrior 4 lvl (grenadier line-infantry-sergeant) (assault)':3,
+    'Warrior 5 lvl (grenadier line-infantry-lieutenant) (assault)':3,
+    'Commoner 1 lvl (recruit)':100,
+    }
+
+metadict_squads['Company-veteran (pirate-infantry-fusiliers)'] = {
+    # Артиллерийская команда.
+    'Warrior 2 lvl (fusilier line-infantry-veteran)':65,
+    'Warrior 4 lvl (fusilier line-infantry-sergeant)':3,
+    'Warrior 5 lvl (fusilier line-infantry-lieutenant)':3,
+    'Commoner 1 lvl (recruit)':100,
+    }
+
+#----
+# Тестовые отряды (Чёрные флаги Ост-Индии)
+
 metadict_squads['Band-regular (black-flags) (assault, 8)'] = {
     # Испытываем свиты героев.
     'Warrior 3 lvl (grenadier line-infantry-corporal) (assault)':6,

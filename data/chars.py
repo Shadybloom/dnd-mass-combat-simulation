@@ -1413,7 +1413,6 @@ metadict_chars['Warrior 2 lvl (grenadier line-infantry-veteran)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Rune of Shielding':1,
         'Breastplate, 17 century':1,
         'Halberd':1,
         'Sabre':1,
@@ -1442,7 +1441,7 @@ metadict_chars['Warrior 3 lvl (grenadier line-infantry-corporal)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Rune of Shielding':1,
+        'Infusion of Vitality':1,
         'Breastplate, 17 century':1,
         'Halberd':1,
         'Sabre':1,
@@ -1472,8 +1471,8 @@ metadict_chars['Warrior 4 lvl (grenadier line-infantry-sergeant)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
+        'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
-        'Rune of Shielding':1,
         'Breastplate, 17 century':1,
         'Halberd':1,
         'Sabre':1,
@@ -1508,9 +1507,9 @@ metadict_chars['Warrior 5 lvl (grenadier line-infantry-lieutenant)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
+        'Infusion of Vitality':1,
         'Infusion of Heroism':1,
         'Rune of Absorbtion':1,
-        'Rune of Shielding':1,
         'Breastplate, 17 century':1,
         'Halberd':1,
         'Sabre':1,
@@ -1528,6 +1527,23 @@ metadict_chars['Warrior 5 lvl (grenadier line-infantry-lieutenant)'] = {
 #----
 # Вспомогательные войска (абордажники)
 
+metadict_chars['Warrior 2 lvl (grenadier line-infantry-veteran) (assault)'] = {
+    'base_unit':'Warrior 2 lvl (grenadier line-infantry-veteran)',
+    'char_class':'Warrior-heavy',
+    'equipment_weapon':{
+        'Breastplate, 17 century':1,
+        'Halberd':1,
+        'Sabre':1,
+        'Shield':1,
+        'Pistol, Lorenzony':1,
+        'Muskete Bullet':30,
+        'Hand Grenade':5,
+        'Smoke Grenade':1,
+        'Hand Mortar':1,
+        '2lb Bomb':3,
+        },
+    }
+
 metadict_chars['Warrior 3 lvl (grenadier line-infantry-corporal) (assault)'] = {
     'base_unit':'Warrior 3 lvl (grenadier line-infantry-corporal)',
     'char_class':'Warrior-heavy',
@@ -1539,8 +1555,10 @@ metadict_chars['Warrior 3 lvl (grenadier line-infantry-corporal) (assault)'] = {
         'Shield':1,
         'Pistol, Lorenzony':1,
         'Muskete Bullet':30,
-        'Hand Grenade':10,
-        'Smoke Grenade':2,
+        'Hand Grenade':5,
+        'Smoke Grenade':1,
+        'Hand Mortar':1,
+        '2lb Bomb':3,
         },
     }
 
@@ -1556,8 +1574,10 @@ metadict_chars['Warrior 4 lvl (grenadier line-infantry-sergeant) (assault)'] = {
         'Shield':1,
         'Pistol, Lorenzony':1,
         'Muskete Bullet':30,
-        'Hand Grenade':10,
+        'Hand Grenade':5,
         'Smoke Grenade':1,
+        'Hand Mortar':1,
+        '2lb Bomb':3,
         },
     }
 
@@ -1574,8 +1594,10 @@ metadict_chars['Warrior 5 lvl (grenadier line-infantry-lieutenant) (assault)'] =
         'Shield':1,
         'Pistol, Lorenzony':1,
         'Muskete Bullet':30,
-        'Hand Grenade':10,
+        'Hand Grenade':5,
         'Smoke Grenade':1,
+        'Hand Mortar':1,
+        '2lb Bomb':3,
         },
     }
 

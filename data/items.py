@@ -627,6 +627,9 @@ metadict_items['Muskete'] = {
     }
 
 metadict_items['Muskete, big'] = {
+    # Голландия, 1700 год, 7 гульденов, 2.3 gp.
+    # Фитильный мушкет в Китае 1558 года. 2.31-3.83 taels (85-142 грамм серебра, 2.3-3.8 gp).
+    # https://en.wikipedia.org/wiki/Gunpowder_weapons_in_the_Ming_dynasty
     'weapon':True,
     'direct_hit':True,
     'savethrow':True,
@@ -643,8 +646,8 @@ metadict_items['Muskete, big'] = {
     # Множитель радиуса неприцельной стрельбы
     'shoot_range_volley':600,
     'weight (lb)':15,
-    'cost (gp)':20,
-    'cost (grams_of_gold)':20,
+    'cost (gp)':10,
+    'cost (grams_of_gold)':10,
     }
 
 metadict_items['Muskete, Lorenzony'] = {
@@ -865,10 +868,10 @@ metadict_items['Akbar Shaitan-tube'] = {
     }
 
 metadict_items['Hand Grenade'] = {
-    # Фитильная пороховая бомба 50-мм калибра.
-    # 0.5 lb корпус (3-мм, 80 см²),
-    # 0.25 lb пороха (1.6 г/см³, 65 см³),
-    # 0.75 lb дробь (168 дробинок по 2 грамм)
+    # Фитильная пороховая бомба 60-мм калибра:
+    # 1 lb корпус (5-мм, 113 см²),
+    # 0.5 lb пороха (1.6 г/см³, 113 см³),
+    # 0.5 lb дробь (100 дробинок по 2 грамм)
     'weapon':True,
     'weapon_type':['martial','throw','volley'],
     'damage_type':'bludgeoning',
