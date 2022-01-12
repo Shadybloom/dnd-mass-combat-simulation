@@ -1672,7 +1672,7 @@ class soldier_in_battle(soldier):
             self.set_disabled()
         # Механизмы не бросают спасброски:
         if self.__dict__.get('mechanism') and not self.death:
-            self.stable = True
+            #self.stable = True
             return False
         # Тролли и прочие создания с регенерацией стабилизируются сами:
         # Их нельзя убить, уведя хиты в минусовой максимум. Только огнём.
@@ -2170,10 +2170,17 @@ class soldier_in_battle(soldier):
                 elif enemy.distance > round(attack_dict['attack_range'] / self.tile_size):
                     disadvantage = True
         # Homebrew: урон огнестрела уменьшается, если дальность выше предельной:
+        # Это уменьшение урона зависит от того, насколько дальше нормальной дальности выстрел.
         if attack_dict.get('weapon_type') and 'firearm' in attack_dict.get('weapon_type')\
                 and enemy.distance * self.tile_size > attack_dict['shoot_range_max']\
                 and attack_choice[0] == 'volley':
-            damage_dice = str(1) + damage_dice[1:]
+            damage_throws = int(damage_dice[0])
+            damage_factor = round(enemy.distance * self.tile_size / attack_dict['shoot_range'])
+            damage_throws = round(damage_throws / damage_factor)
+            if damage_throws > 0:
+                damage_dice = str(damage_throws) + damage_dice[1:]
+            else:
+                damage_dice = str(1) + damage_dice[1:]
         # Диапазон критического урона может увеличить Champion_Improved_Critical:
         crit_range = self.crit_range
         loss_range = self.loss_range
@@ -2269,7 +2276,7 @@ class soldier_in_battle(soldier):
                         and enemy_soldier.hitpoints > damage_throw_mod\
                         and advantage and not disadvantage\
                         or enemy_soldier.__dict__.get('mechanism')\
-                        and enemy_soldier.__dict__.get('ignore_damage')\
+                        and enemy_soldier.__dict__.get('damage_treshold')\
                         or 'kill' in self.commands\
                         and not disadvantage:
                     damage_throw_mod += 10
@@ -2958,8 +2965,12 @@ class soldier_in_battle(soldier):
         """
         attack_choice = attack_dict['attack_choice']
         # Крупные объекты (стены, корабли) имеют порог урона:
-        if self.__dict__.get('ignore_damage'):
-            damage -= self.ignore_damage
+        # ------------------------------------------------------------
+        # Если урон менее порога урона, то повреждений нет.
+        # Если урон больше порога урона, то он наносится в полном объёме.
+        # ------------------------------------------------------------
+        if self.__dict__.get('damage_treshold') and self.damage_treshold >= damage:
+            damage = 0
         # Умелые бойцы получают меньше урона в тяжёлой броне:
         if self.class_features.get('Feat_Heavy_Armor_Master'):
             if attack_dict['damage_type'] == 'bludgeoning'\
