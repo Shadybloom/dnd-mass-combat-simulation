@@ -307,11 +307,33 @@ dict_races = {
             'weight_base_lb':2000,
             'weight_mod_dice':'0d0',
             },
-        'Object-wood-ship-part':{
+        'Object-cloth-ship-part-huge':{
+            # 30x30-футовый парус.
+            'hero':False,
+            'size':'huge',
+            'base_speed':0,
+            'armor_class_natural':11,
+            'height_base_inches':30 * 12,
+            'height_mod_dice':'2d4',
+            'weight_base_lb':500,
+            'weight_mod_dice':'2d20',
+            },
+        'Object-wood-ship-part-big':{
             # 10x10-футовая часть корпуса.
             # Водоизмещение триеры -- 50 тонны (1/50 часть корпуса = 2000 lb)
             'hero':False,
             'size':'large',
+            'base_speed':0,
+            'armor_class_natural':15,
+            'height_base_inches':56,
+            'height_mod_dice':'2d4',
+            'weight_base_lb':2000,
+            'weight_mod_dice':'2d20',
+            },
+        'Object-wood-ship-part-medium':{
+            # 5x5-футовая часть набора корабля
+            'hero':False,
+            'size':'medium',
             'base_speed':0,
             'armor_class_natural':15,
             'height_base_inches':56,

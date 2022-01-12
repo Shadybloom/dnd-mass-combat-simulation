@@ -457,6 +457,89 @@ metadict_squads['крепостная стена (1200 hp)'] = {
     }
 
 #----
+# Корабли (Чёрные флаги Ост-Индии):
+
+metadict_squads['Ship frigate (верхняя палуба) (левый борт) (Фэнси)'] = {
+    'Ship frigate (шпангоут)':30,
+    'Ship frigate (обшивка борта)':15,
+    'Ship frigate (обшивка палубы)':20,
+    }
+
+metadict_squads['Ship frigate (орудийная палуба) (левый борт) (Фэнси)'] = {
+    'Ship frigate (шпангоут)':30,
+    'Ship frigate (обшивка борта)':15,
+    'Ship frigate (обшивка палубы)':20,
+    }
+
+metadict_squads['Ship frigate (верхняя палуба) (правый борт) (Фэнси)'] = {
+    'Ship frigate (шпангоут)':30,
+    'Ship frigate (обшивка борта)':15,
+    'Ship frigate (обшивка палубы)':20,
+    }
+
+metadict_squads['Ship frigate (орудийная палуба) (правый борт) (Фэнси)'] = {
+    'Ship frigate (шпангоут)':30,
+    'Ship frigate (обшивка борта)':15,
+    'Ship frigate (обшивка палубы)':20,
+    }
+
+metadict_squads['Ship frigate (паруса, основные) (Фэнси)'] = {
+    # Основные паруса
+    'Ship frigate (фок-брамсель)':1,
+    'Ship frigate (фок-марсель)':2,
+    'Ship frigate (фок)':3,
+    'Ship frigate (грот-брамсель)':1,
+    'Ship frigate (грот-марсель)':3,
+    'Ship frigate (грот)':3,
+    'Ship frigate (крюйс-брамсель)':1,
+    'Ship frigate (крюйс-марсель)':1,
+    'Ship frigate (крюйс)':1,
+    'Ship frigate (бизань-гафель)':1,
+    }
+
+metadict_squads['Ship frigate (паруса, косые) (Фэнси)'] = {
+    # Косые паруса
+    'Ship frigate (кливер)':1,
+    'Ship frigate (мидель-кливер)':1,
+    'Ship frigate (бом-кливер)':1,
+    'Ship frigate (фока-стаксель)':1,
+    'Ship frigate (грота-стаксель)':1,
+    'Ship frigate (грот-стень-стаксель)':1,
+    'Ship frigate (грот-брам-стень-стаксель)':1,
+    'Ship frigate (апсель)':1,
+    'Ship frigate (крюйс-стень-стаксель)':1,
+    'Ship frigate (крюйс-брам-стень-стаксель)':1,
+    }
+
+metadict_squads['Ship frigate (рангоут) (Фэнси)'] = {
+    # Мачты
+    'Ship frigate (бушприт)':1,
+    'Ship frigate (фок-мачта)':1,
+    'Ship frigate (грот-мачта)':1,
+    'Ship frigate (бизань-мачта)':1,
+    'Ship frigate (углетарь)':1,
+    'Ship frigate (фор-стеньга)':1,
+    'Ship frigate (грот-стеньга)':1,
+    'Ship frigate (крюйс-стеньга)':1,
+    'Ship frigate (фор-брам-стеньга)':1,
+    'Ship frigate (грот-брам-стеньга)':1,
+    'Ship frigate (крюйс-брам-стеньга)':1,
+    # Реи
+    'Ship frigate (фока-рей)':1,
+    'Ship frigate (грота-рей)':1,
+    'Ship frigate (крюйс-рей)':1,
+    'Ship frigate (бегин-рей)':1,
+    'Ship frigate (блинда-рей)':1,
+    'Ship frigate (фор-марса-рей)':1,
+    'Ship frigate (грот-марса-рей)':1,
+    'Ship frigate (крюйс-марса-рей)':1,
+    'Ship frigate (бом-блинда-рей)':1,
+    'Ship frigate (фор-брам-рей)':1,
+    'Ship frigate (грот-брам-рей)':1,
+    'Ship frigate (крюйс-брам-рей)':1,
+    }
+
+#----
 # Корабли:
 
 metadict_squads['Ship (trage)'] = {
@@ -1581,12 +1664,12 @@ metadict_squads['Company-veteran (line-infantry-bombardiers)'] = {
 #----
 # Ветеранские отряды (артиллерия):
 
-metadict_squads['Company-veteran (cannoneer artillery-battery) (6-lb Gannons)'] = {
+metadict_squads['Company-veteran (cannoneer artillery-battery) (6-lb Cannons)'] = {
     # Полковая батарея, 8 орудий, 96 бойцов в расчётах.
     'Warrior 1 lvl (cannoneer artillery)':30,
     'Warrior 2 lvl (cannoneer artillery-veteran)':60,
     'Warrior 3 lvl (cannoneer artillery-corporal)':10,
-    'Warrior 4 lvl (cannoneer artillery-sergeant) (6lb Gannon)':8,
+    'Warrior 4 lvl (cannoneer artillery-sergeant) (6lb Cannon)':8,
     'Warrior 5 lvl (cannoneer artillery-lieutenant)':6,
     'Commoner 1 lvl (recruit)':100,
     }
@@ -1596,6 +1679,15 @@ metadict_squads['Company-veteran (cannoneer artillery-battery) (12-lb Bombards)'
     'Warrior 2 lvl (cannoneer artillery-veteran)':60,
     'Warrior 3 lvl (cannoneer artillery-corporal)':10,
     'Warrior 4 lvl (cannoneer artillery-sergeant) (12lb Bombard)':8,
+    'Warrior 5 lvl (cannoneer artillery-lieutenant)':6,
+    'Commoner 1 lvl (recruit)':100,
+    }
+
+metadict_squads['Company-veteran (cannoneer artillery-battery) (12-lb Cannons, naval)'] = {
+    'Warrior 1 lvl (cannoneer artillery)':30,
+    'Warrior 2 lvl (cannoneer artillery-veteran)':60,
+    'Warrior 3 lvl (cannoneer artillery-corporal)':10,
+    'Warrior 4 lvl (cannoneer artillery-sergeant) (12lb Cannon, naval)':24,
     'Warrior 5 lvl (cannoneer artillery-lieutenant)':6,
     'Commoner 1 lvl (recruit)':100,
     }

@@ -20,7 +20,6 @@ metadict_animals['Onager'] = {
     'challenge_rating':'-',
     'char_class':'Commoner',
     'behavior':'mount',
-    'hitpoints_medial':True,
     'abilityes':{
         'strength':10,
         'dexterity':10,
@@ -38,14 +37,13 @@ metadict_animals['Onager'] = {
     'equipment_supply':{},
     }
 
-metadict_animals['6lb Gannon, chassis'] = {
-    # 6-фунтовая пушка.
+metadict_animals['Cannon, chassis'] = {
+    # Деревянный пушечный станок.
     'level':5,
     'mechanism':True,
     'challenge_rating':'-',
     'char_class':'Commoner',
     'behavior':'mount',
-    'hitpoints_medial':True,
     'abilityes':{
         'strength':10,
         'dexterity':10,
@@ -61,31 +59,35 @@ metadict_animals['6lb Gannon, chassis'] = {
     'equipment_weapon':{},
     'equipment_backpack':{},
     'equipment_supply':{},
+    }
+
+metadict_animals['6lb Cannon, chassis'] = {
+    # 6-фунтовая пушка.
+    'base_unit':'Cannon, chassis',
+    'hitpoints_base':50,
+    'armor_class_natural':15,
     }
 
 metadict_animals['12lb Bombard, chassis'] = {
-    # 12-фунтовая бомбарда
-    'level':5,
-    'mechanism':True,
-    'challenge_rating':'-',
-    'char_class':'Commoner',
-    'behavior':'mount',
-    'hitpoints_medial':True,
-    'abilityes':{
-        'strength':10,
-        'dexterity':10,
-        'constitution':10, 
-        'intelligence':10,
-        'wisdom':10,
-        'charisma':10,
-        },
-    'hit_dice':'1d12',
-    'race':'Object-wood-big',
-    'weapon_skill':[],
-    'armor_skill':[],
-    'equipment_weapon':{},
-    'equipment_backpack':{},
-    'equipment_supply':{},
+    # 12-фунтовая бомбарда.
+    # Лёгкая, весит всего 1000 lb.
+    'base_unit':'Cannon, chassis',
+    'hitpoints_base':50,
+    'armor_class_natural':15,
+    }
+
+metadict_animals['12lb Cannon, chassis'] = {
+    # 12-фунтовая пушка.
+    'base_unit':'Cannon, chassis',
+    'hitpoints_base':80,
+    'armor_class_natural':15,
+    }
+
+metadict_animals['24lb Cannon, chassis'] = {
+    # 24-фунтовая пушка.
+    'base_unit':'Cannon, chassis',
+    'hitpoints_base':120,
+    'armor_class_natural':15,
     }
 
 #----
@@ -96,7 +98,7 @@ metadict_animals['Palisade (wood) (120 hp)'] = {
     'level':1,
     'hitpoints_base':120,
     'armor_class_natural':15,
-    'ignore_damage':15,
+    'damage_treshold':15,
     'mechanism':True,
     'savethrow_autofail':True,
     'inactive_AI':True,
@@ -128,7 +130,7 @@ metadict_animals['Palisade (wood) (600 hp)'] = {
     'level':1,
     'hitpoints_base':600,
     'armor_class_natural':15,
-    'ignore_damage':15,
+    'damage_treshold':15,
     'mechanism':True,
     'savethrow_autofail':True,
     'inactive_AI':True,
@@ -163,7 +165,7 @@ metadict_animals['Wall (stone) (1200 hp)'] = {
     'inactive_AI':True,
     'hitpoints_base':1200,
     'armor_class_natural':17,
-    'ignore_damage':20,
+    'damage_treshold':20,
     'challenge_rating':'-',
     'char_class':'Commoner',
     'behavior':'commander',
@@ -197,7 +199,7 @@ metadict_animals['Wall (stone) (1200 hp + Arcane_Lock)'] = {
     'inactive_AI':True,
     'hitpoints_base':1200,
     'armor_class_natural':20,
-    'ignore_damage':20,
+    'damage_treshold':20,
     'challenge_rating':'-',
     'char_class':'Commoner',
     'behavior':'commander',
@@ -228,7 +230,7 @@ metadict_animals['Bridge-support (stone)'] = {
     'level':5,
     'hitpoints_base':600,
     'armor_class_natural':17,
-    'ignore_damage':20,
+    'damage_treshold':20,
     'mechanism':True,
     'savethrow_autofail':True,
     'inactive_AI':True,
@@ -262,7 +264,7 @@ metadict_animals['Bridge (stone)'] = {
     'level':5,
     'hitpoints_base':120,
     'armor_class_natural':17,
-    'ignore_damage':20,
+    'damage_treshold':20,
     'mechanism':True,
     'savethrow_autofail':True,
     'inactive_AI':True,
@@ -291,6 +293,409 @@ metadict_animals['Bridge (stone)'] = {
     }
 
 #----
+# Корабли, Чёрные флаги Ост-Индии
+
+metadict_animals['Ship frigate (wood-element-medium)'] = {
+    # Элемент набора корабля, объект 5-футового размера
+    # 24 дюйма, 240 hp
+    'level':1,
+    'hitpoints_base':240,
+    'armor_class_natural':15,
+    'damage_treshold':20,
+    'inactive_AI':True,
+    'mechanism':True,
+    'savethrow_autofail':True,
+    'challenge_rating':'-',
+    'char_class':'Commoner',
+    'behavior':'elite_warrior',
+    'class_features':{
+        'resistance':['piercing'],
+        'vultenability':['thunder'],
+        },
+    'abilityes':{
+        'strength':10,
+        'dexterity':10,
+        'constitution':10, 
+        'intelligence':10,
+        'wisdom':10,
+        'charisma':10,
+        },
+    'hit_dice':'1d10',
+    'race':'Object-wood-ship-part-medium',
+    'weapon_skill':[],
+    'armor_skill':[],
+    'equipment_weapon':{},
+    'equipment_backpack':{},
+    'equipment_supply':{},
+    }
+
+metadict_animals['Ship frigate (wood-element-big)'] = {
+    # Элемент обшивки корабля, объект 10-футового размера
+    # 6 дюймов, 60 hp
+    'level':1,
+    'hitpoints_base':60,
+    'armor_class_natural':15,
+    'damage_treshold':20,
+    'inactive_AI':True,
+    'mechanism':True,
+    'savethrow_autofail':True,
+    'challenge_rating':'-',
+    'char_class':'Commoner',
+    'behavior':'warrior',
+    'class_features':{
+        'resistance':['piercing'],
+        'vultenability':['thunder'],
+        },
+    'abilityes':{
+        'strength':10,
+        'dexterity':10,
+        'constitution':10, 
+        'intelligence':10,
+        'wisdom':10,
+        'charisma':10,
+        },
+    'hit_dice':'1d10',
+    'race':'Object-wood-ship-part-big',
+    'weapon_skill':[],
+    'armor_skill':[],
+    'equipment_weapon':{},
+    'equipment_backpack':{},
+    'equipment_supply':{},
+    }
+
+metadict_animals['Ship frigate (cloth-element-huge)'] = {
+    # Парус корабля. 50-100 кв.метров (5-11 больших объектов)
+    'level':1,
+    'hitpoints_base':50,
+    'armor_class_natural':11,
+    'damage_treshold':20,
+    'inactive_AI':True,
+    'mechanism':True,
+    'savethrow_autofail':True,
+    'challenge_rating':'-',
+    'char_class':'Commoner',
+    'behavior':'warrior',
+    'class_features':{
+        # Парус слишком велик, чтобы навредить ему пулями/ядрами.
+        'resistance':['piercing','bludgeoning'],
+        'vultenability':['slashing','fire'],
+        },
+    'abilityes':{
+        'strength':10,
+        'dexterity':10,
+        'constitution':10, 
+        'intelligence':10,
+        'wisdom':10,
+        'charisma':10,
+        },
+    'hit_dice':'1d10',
+    'race':'Object-cloth-ship-part-huge',
+    'weapon_skill':[],
+    'armor_skill':[],
+    'equipment_weapon':{},
+    'equipment_backpack':{},
+    'equipment_supply':{},
+    }
+
+#----
+# Корабли, Чёрные флаги Ост-Индии (набор судна)
+
+metadict_animals['Ship frigate (шпангоут)'] = {
+    # 24 дюйма, 240 hp, 2.2 тонны, 60 блоков/фрегат
+    'base_unit':'Ship frigate (wood-element-medium)',
+    'behavior':'elite_warrior',
+    'hitpoints_base':240,
+    'damage_treshold':30,
+    }
+
+metadict_animals['Ship frigate (киль)'] = {
+    # 24 дюйма, 240 hp, 2.2 тонны, 15 блоков/фрегат
+    'base_unit':'Ship frigate (wood-element-medium)',
+    'behavior':'elite_warrior',
+    'hitpoints_base':240,
+    'damage_treshold':30,
+    }
+
+metadict_animals['Ship frigate (руль)'] = {
+    # 24 дюйма, 240 hp, 2.2 тонны, 1 блоков/фрегат
+    'base_unit':'Ship frigate (wood-element-medium)',
+    'behavior':'elite_warrior',
+    'hitpoints_base':240,
+    'damage_treshold':30,
+    }
+
+#----
+# Корабли, Чёрные флаги Ост-Индии (обшивка)
+
+metadict_animals['Ship frigate (обшивка борта)'] = {
+    # 9 дюймов, 90 hp, 2 тонны, 15 блоков/фрегат
+    # Усилена заклинанием Arcane_Lock
+    'base_unit':'Ship frigate (wood-element-big)',
+    'behavior':'elite_warrior',
+    'hitpoints_base':90,
+    }
+
+metadict_animals['Ship frigate (обшивка днища)'] = {
+    # 9 дюймов, 90 hp, 2 тонны, 30 блоков/фрегат
+    # Покрыта 1-мм медными листами.
+    'base_unit':'Ship frigate (wood-element-big)',
+    'hitpoints_base':90,
+    }
+
+metadict_animals['Ship frigate (обшивка палубы)'] = {
+    # 6 дюймов, 60 hp, 2 тонны, 40 блоков/фрегат
+    'base_unit':'Ship frigate (wood-element-big)',
+    'hitpoints_base':60,
+    }
+
+#----
+# Корабли, Чёрные флаги Ост-Индии (мачты и стеньги)
+
+metadict_animals['Ship frigate (бушприт)'] = {
+    # 26 дюймов, 260 hp
+    'base_unit':'Ship frigate (wood-element-medium)',
+    'behavior':'commander',
+    'hitpoints_base':260,
+    'damage_treshold':30,
+    }
+
+metadict_animals['Ship frigate (фок-мачта)'] = {
+    'base_unit':'Ship frigate (wood-element-medium)',
+    'behavior':'commander',
+    'hitpoints_base':230,
+    'damage_treshold':30,
+    }
+
+metadict_animals['Ship frigate (грот-мачта)'] = {
+    'base_unit':'Ship frigate (wood-element-medium)',
+    'behavior':'commander',
+    'hitpoints_base':260,
+    'damage_treshold':30,
+    }
+
+metadict_animals['Ship frigate (бизань-мачта)'] = {
+    'base_unit':'Ship frigate (wood-element-medium)',
+    'behavior':'commander',
+    'hitpoints_base':170,
+    'damage_treshold':30,
+    }
+
+metadict_animals['Ship frigate (углетарь)'] = {
+    'base_unit':'Ship frigate (wood-element-medium)',
+    'behavior':'commander',
+    'hitpoints_base':110,
+    }
+
+metadict_animals['Ship frigate (фор-стеньга)'] = {
+    'base_unit':'Ship frigate (wood-element-medium)',
+    'behavior':'commander',
+    'hitpoints_base':150,
+    }
+
+metadict_animals['Ship frigate (грот-стеньга)'] = {
+    'base_unit':'Ship frigate (wood-element-medium)',
+    'behavior':'commander',
+    'hitpoints_base':150,
+    }
+
+metadict_animals['Ship frigate (крюйс-стеньга)'] = {
+    'base_unit':'Ship frigate (wood-element-medium)',
+    'behavior':'commander',
+    'hitpoints_base':110,
+    }
+
+metadict_animals['Ship frigate (фор-брам-стеньга)'] = {
+    'base_unit':'Ship frigate (wood-element-medium)',
+    'behavior':'commander',
+    'hitpoints_base':70,
+    }
+
+metadict_animals['Ship frigate (грот-брам-стеньга)'] = {
+    'base_unit':'Ship frigate (wood-element-medium)',
+    'behavior':'commander',
+    'hitpoints_base':80,
+    }
+
+metadict_animals['Ship frigate (крюйс-брам-стеньга)'] = {
+    'base_unit':'Ship frigate (wood-element-medium)',
+    'behavior':'commander',
+    'hitpoints_base':70,
+    }
+
+#----
+# Корабли, Чёрные флаги Ост-Индии (реи)
+
+metadict_animals['Ship frigate (фока-рей)'] = {
+    'base_unit':'Ship frigate (wood-element-medium)',
+    'hitpoints_base':160,
+    }
+
+metadict_animals['Ship frigate (грота-рей)'] = {
+    'base_unit':'Ship frigate (wood-element-medium)',
+    'hitpoints_base':180,
+    }
+
+metadict_animals['Ship frigate (крюйс-рей)'] = {
+    'base_unit':'Ship frigate (wood-element-medium)',
+    'hitpoints_base':110,
+    }
+
+metadict_animals['Ship frigate (бегин-рей)'] = {
+    'base_unit':'Ship frigate (wood-element-medium)',
+    'hitpoints_base':100,
+    }
+
+metadict_animals['Ship frigate (блинда-рей)'] = {
+    'base_unit':'Ship frigate (wood-element-medium)',
+    'hitpoints_base':100,
+    }
+
+metadict_animals['Ship frigate (фор-марса-рей)'] = {
+    'base_unit':'Ship frigate (wood-element-medium)',
+    'hitpoints_base':110,
+    }
+
+metadict_animals['Ship frigate (грот-марса-рей)'] = {
+    'base_unit':'Ship frigate (wood-element-medium)',
+    'hitpoints_base':120,
+    }
+
+metadict_animals['Ship frigate (крюйс-марса-рей)'] = {
+    'base_unit':'Ship frigate (wood-element-medium)',
+    'hitpoints_base':80,
+    }
+
+metadict_animals['Ship frigate (бом-блинда-рей)'] = {
+    'base_unit':'Ship frigate (wood-element-medium)',
+    'hitpoints_base':60,
+    }
+
+metadict_animals['Ship frigate (фор-брам-рей)'] = {
+    'base_unit':'Ship frigate (wood-element-medium)',
+    'hitpoints_base':60,
+    }
+
+metadict_animals['Ship frigate (грот-брам-рей)'] = {
+    'base_unit':'Ship frigate (wood-element-medium)',
+    'hitpoints_base':70,
+    }
+
+metadict_animals['Ship frigate (крюйс-брам-рей)'] = {
+    'base_unit':'Ship frigate (wood-element-medium)',
+    'hitpoints_base':50,
+    }
+
+#----
+# Корабли, Чёрные флаги Ост-Индии (основные паруса)
+
+metadict_animals['Ship frigate (фок-брамсель)'] = {
+    'base_unit':'Ship frigate (cloth-element-huge)',
+    'hitpoints_base':50,
+    }
+
+metadict_animals['Ship frigate (фок-марсель)'] = {
+    # Большой парус, 2 блока.
+    'base_unit':'Ship frigate (cloth-element-huge)',
+    'hitpoints_base':150,
+    }
+
+metadict_animals['Ship frigate (фок)'] = {
+    # Огромный парус, 3 блока.
+    'base_unit':'Ship frigate (cloth-element-huge)',
+    'hitpoints_base':150,
+    }
+
+metadict_animals['Ship frigate (грот-брамсель)'] = {
+    'base_unit':'Ship frigate (cloth-element-huge)',
+    'hitpoints_base':50,
+    }
+
+metadict_animals['Ship frigate (грот-марсель)'] = {
+    # Огромный парус, 3 блока.
+    'base_unit':'Ship frigate (cloth-element-huge)',
+    'hitpoints_base':150,
+    }
+
+metadict_animals['Ship frigate (грот)'] = {
+    # Огромный парус, 3 блока.
+    'base_unit':'Ship frigate (cloth-element-huge)',
+    'hitpoints_base':150,
+    }
+
+metadict_animals['Ship frigate (крюйс-брамсель)'] = {
+    'base_unit':'Ship frigate (cloth-element-huge)',
+    'hitpoints_base':25,
+    }
+
+metadict_animals['Ship frigate (крюйс-марсель)'] = {
+    'base_unit':'Ship frigate (cloth-element-huge)',
+    'hitpoints_base':100,
+    }
+
+metadict_animals['Ship frigate (крюйс)'] = {
+    'base_unit':'Ship frigate (cloth-element-huge)',
+    'hitpoints_base':100,
+    }
+
+metadict_animals['Ship frigate (бизань-гафель)'] = {
+    'base_unit':'Ship frigate (cloth-element-huge)',
+    'hitpoints_base':50,
+    }
+
+#----
+# Корабли, Чёрные флаги Ост-Индии (косые паруса)
+
+metadict_animals['Ship frigate (кливер)'] = {
+    'base_unit':'Ship frigate (cloth-element-huge)',
+    'hitpoints_base':25,
+    }
+
+metadict_animals['Ship frigate (мидель-кливер)'] = {
+    'base_unit':'Ship frigate (cloth-element-huge)',
+    'hitpoints_base':25,
+    }
+
+metadict_animals['Ship frigate (бом-кливер)'] = {
+    'base_unit':'Ship frigate (cloth-element-huge)',
+    'hitpoints_base':25,
+    }
+
+metadict_animals['Ship frigate (фока-стаксель)'] = {
+    'base_unit':'Ship frigate (cloth-element-huge)',
+    'hitpoints_base':25,
+    }
+
+metadict_animals['Ship frigate (грота-стаксель)'] = {
+    'base_unit':'Ship frigate (cloth-element-huge)',
+    'hitpoints_base':25,
+    }
+
+metadict_animals['Ship frigate (грот-стень-стаксель)'] = {
+    'base_unit':'Ship frigate (cloth-element-huge)',
+    'hitpoints_base':25,
+    }
+
+metadict_animals['Ship frigate (грот-брам-стень-стаксель)'] = {
+    'base_unit':'Ship frigate (cloth-element-huge)',
+    'hitpoints_base':25,
+    }
+
+metadict_animals['Ship frigate (апсель)'] = {
+    'base_unit':'Ship frigate (cloth-element-huge)',
+    'hitpoints_base':25,
+    }
+
+metadict_animals['Ship frigate (крюйс-стень-стаксель)'] = {
+    'base_unit':'Ship frigate (cloth-element-huge)',
+    'hitpoints_base':25,
+    }
+
+metadict_animals['Ship frigate (крюйс-брам-стень-стаксель)'] = {
+    'base_unit':'Ship frigate (cloth-element-huge)',
+    'hitpoints_base':25,
+    }
+
+#----
 # Корабли.
 
 metadict_animals['Ship trireme (deck)'] = {
@@ -300,7 +705,7 @@ metadict_animals['Ship trireme (deck)'] = {
     'level':1,
     'hitpoints_base':9,
     'armor_class_natural':15,
-    'ignore_damage':10,
+    'damage_treshold':10,
     'inactive_AI':True,
     'mechanism':True,
     'savethrow_autofail':True,
@@ -319,7 +724,7 @@ metadict_animals['Ship trireme (deck)'] = {
         'charisma':10,
         },
     'hit_dice':'1d10',
-    'race':'Object-wood-ship-part',
+    'race':'Object-wood-ship-part-big',
     'weapon_skill':[],
     'armor_skill':[],
     'equipment_weapon':{},
@@ -334,7 +739,7 @@ metadict_animals['Ship trireme (board)'] = {
     'level':2,
     'hitpoints_base':54,
     'armor_class_natural':15,
-    'ignore_damage':15,
+    'damage_treshold':15,
     'inactive_AI':True,
     'mechanism':True,
     'savethrow_autofail':True,
@@ -353,7 +758,7 @@ metadict_animals['Ship trireme (board)'] = {
         'charisma':10,
         },
     'hit_dice':'1d10',
-    'race':'Object-wood-ship-part',
+    'race':'Object-wood-ship-part-big',
     'weapon_skill':[],
     'armor_skill':[],
     'equipment_weapon':{},
@@ -366,7 +771,7 @@ metadict_animals['Ship trireme (command)'] = {
     'level':3,
     'hitpoints_base':54,
     'armor_class_natural':15,
-    'ignore_damage':15,
+    'damage_treshold':15,
     'inactive_AI':True,
     'mechanism':True,
     'savethrow_autofail':True,
@@ -385,7 +790,7 @@ metadict_animals['Ship trireme (command)'] = {
         'charisma':10,
         },
     'hit_dice':'1d10',
-    'race':'Object-wood-ship-part',
+    'race':'Object-wood-ship-part-big',
     'weapon_skill':[],
     'armor_skill':[],
     'equipment_weapon':{},
@@ -400,7 +805,7 @@ metadict_animals['Ship pentere (deck)'] = {
     'level':1,
     'hitpoints_base':18,
     'armor_class_natural':15,
-    'ignore_damage':10,
+    'damage_treshold':10,
     'inactive_AI':True,
     'mechanism':True,
     'savethrow_autofail':True,
@@ -419,7 +824,7 @@ metadict_animals['Ship pentere (deck)'] = {
         'charisma':10,
         },
     'hit_dice':'1d10',
-    'race':'Object-wood-ship-part',
+    'race':'Object-wood-ship-part-big',
     'weapon_skill':[],
     'armor_skill':[],
     'equipment_weapon':{},
@@ -434,7 +839,7 @@ metadict_animals['Ship pentere (board)'] = {
     'level':2,
     'hitpoints_base':81,
     'armor_class_natural':15,
-    'ignore_damage':15,
+    'damage_treshold':15,
     'inactive_AI':True,
     'mechanism':True,
     'savethrow_autofail':True,
@@ -453,7 +858,7 @@ metadict_animals['Ship pentere (board)'] = {
         'charisma':10,
         },
     'hit_dice':'1d10',
-    'race':'Object-wood-ship-part',
+    'race':'Object-wood-ship-part-big',
     'weapon_skill':[],
     'armor_skill':[],
     'equipment_weapon':{},
@@ -466,7 +871,7 @@ metadict_animals['Ship pentere (command)'] = {
     'level':3,
     'hitpoints_base':81,
     'armor_class_natural':15,
-    'ignore_damage':15,
+    'damage_treshold':15,
     'inactive_AI':True,
     'mechanism':True,
     'savethrow_autofail':True,
@@ -485,7 +890,7 @@ metadict_animals['Ship pentere (command)'] = {
         'charisma':10,
         },
     'hit_dice':'1d10',
-    'race':'Object-wood-ship-part',
+    'race':'Object-wood-ship-part-big',
     'weapon_skill':[],
     'armor_skill':[],
     'equipment_weapon':{},
@@ -500,7 +905,7 @@ metadict_animals['Ship trage (deck)'] = {
     'level':1,
     'hitpoints_base':9,
     'armor_class_natural':15,
-    'ignore_damage':10,
+    'damage_treshold':10,
     'inactive_AI':True,
     'mechanism':True,
     'savethrow_autofail':True,
@@ -519,7 +924,7 @@ metadict_animals['Ship trage (deck)'] = {
         'charisma':10,
         },
     'hit_dice':'1d10',
-    'race':'Object-wood-ship-part',
+    'race':'Object-wood-ship-part-big',
     'weapon_skill':[],
     'armor_skill':[],
     'equipment_weapon':{},
@@ -534,7 +939,7 @@ metadict_animals['Ship trage (board)'] = {
     'level':2,
     'hitpoints_base':41,
     'armor_class_natural':15,
-    'ignore_damage':15,
+    'damage_treshold':15,
     'inactive_AI':True,
     'mechanism':True,
     'savethrow_autofail':True,
@@ -553,7 +958,7 @@ metadict_animals['Ship trage (board)'] = {
         'charisma':10,
         },
     'hit_dice':'1d10',
-    'race':'Object-wood-ship-part',
+    'race':'Object-wood-ship-part-big',
     'weapon_skill':[],
     'armor_skill':[],
     'equipment_weapon':{},
@@ -565,7 +970,7 @@ metadict_animals['Ship trage (command)'] = {
     'level':3,
     'hitpoints_base':41,
     'armor_class_natural':15,
-    'ignore_damage':15,
+    'damage_treshold':15,
     'inactive_AI':True,
     'mechanism':True,
     'savethrow_autofail':True,
@@ -584,7 +989,7 @@ metadict_animals['Ship trage (command)'] = {
         'charisma':10,
         },
     'hit_dice':'1d10',
-    'race':'Object-wood-ship-part',
+    'race':'Object-wood-ship-part-big',
     'weapon_skill':[],
     'armor_skill':[],
     'equipment_weapon':{},
@@ -646,7 +1051,7 @@ metadict_animals['Weather (lightning)'] = {
             'attack_mod_type':'strength',
             'weapon_of_choice':'Lightning'},
         },
-    'race':'Object-wood-ship-part',
+    'race':'Object-wood-ship-part-big',
     'weapon_skill':[],
     'armor_skill':[],
     'equipment_weapon':{},
@@ -710,7 +1115,7 @@ metadict_animals['Weather (waves)'] = {
             'attack_mod_type':'strength',
             'weapon_of_choice':'Waves'},
         },
-    'race':'Object-wood-ship-part',
+    'race':'Object-wood-ship-part-big',
     'weapon_skill':[],
     'armor_skill':[],
     'equipment_weapon':{},

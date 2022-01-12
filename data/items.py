@@ -95,6 +95,10 @@ gun_ammunition = [
         '12lb Bomb',
         '6lb Bomb',
         '6lb Ball',
+        '12lb Ball',
+        '12lb Bar',
+        '24lb Ball',
+        '24lb Bar',
         ]
 
 rockets = [
@@ -2312,7 +2316,53 @@ metadict_items['12lb Bombard'] = {
     'cost (grams_of_gold)':8 * 60,
     }
 
-metadict_items['6lb Gannon'] = {
+metadict_items['24lb Cannon, naval'] = {
+    'weapon':True,
+    'direct_hit':True,
+    'savethrow':True,
+    'savethrow_all':True,
+    'savethrow_ability':'dexterity',
+    'ammo_type':gun_ammunition,
+    'weapon_type':['martial','ranged','two_handed','firearm','volley','reload'],
+    # Перезарядка за 40 действий.
+    'recharge':True,
+    'Recharge_help':True,
+    'Recharge_actions_need':40,
+    'Recharge_actions_use':0,
+    'shoot_range':150,
+    'shoot_range_max':300,
+    'shoot_range_volley':900,
+    'weight (lb)':4000,
+    'cost (gp)':8 * 60,
+    'cost (grams_of_gold)':8 * 60,
+    }
+
+metadict_items['12lb Cannon, naval'] = {
+    # Корабельные -- 12 калибров, 3000 lb (300 весов снаряда)
+    # - 1 выстрел/минуту.
+    # - Ядром -- 900/±30 футов, огромный разброс при стрельбе на море.
+    # - Книппелями -- 300 футов.
+    'weapon':True,
+    'direct_hit':True,
+    'savethrow':True,
+    'savethrow_all':True,
+    'savethrow_ability':'dexterity',
+    'ammo_type':gun_ammunition,
+    'weapon_type':['martial','ranged','two_handed','firearm','volley','reload'],
+    # Перезарядка за 30 действий.
+    'recharge':True,
+    'Recharge_help':True,
+    'Recharge_actions_need':30,
+    'Recharge_actions_use':0,
+    'shoot_range':100,
+    'shoot_range_max':200,
+    'shoot_range_volley':900,
+    'weight (lb)':3000,
+    'cost (gp)':4 * 60,
+    'cost (grams_of_gold)':4 * 60,
+    }
+
+metadict_items['6lb Cannon'] = {
     # Полковые -- 2-4 штук/полк 6-фунтовых пушек, 12 калибров, 1800 lb (300 весов снаряда)
     # * 3 выстрела/минуту. Ядром -- 1800 футов. Картечью -- 900 футов.
     # Стоимость бронзовых -- 8 эфес/тонна (4 эфеса/1000 lb)
@@ -2808,8 +2858,45 @@ metadict_items['6lb Bomb'] = {
     'cost (grams_of_gold)':7 + 3,
     }
 
-metadict_items['6lb Ball'] = {
+metadict_items['24lb Bar'] = {
+    # Книппель, чугунная гантеля.
+    'ammo':True,
+    'damage_dice':'12d10',
+    'damage_type':'slashing',
+    'weight (lb)':24 + 12,
+    'cost (gp)':4 + 12,
+    'cost (grams_of_gold)':4 + 12,
+    }
+
+metadict_items['12lb Bar'] = {
+    'ammo':True,
+    'damage_dice':'8d10',
+    'damage_type':'slashing',
+    'weight (lb)':12 + 6,
+    'cost (gp)':2 + 6,
+    'cost (grams_of_gold)':2 + 6,
+    }
+
+metadict_items['24lb Ball'] = {
     # Чугунное пушечное ядро
+    'ammo':True,
+    'damage_dice':'12d10',
+    'damage_type':'bludgeoning',
+    'weight (lb)':24 + 12,
+    'cost (gp)':2 + 12,
+    'cost (grams_of_gold)':2 + 12,
+    }
+
+metadict_items['12lb Ball'] = {
+    'ammo':True,
+    'damage_dice':'8d10',
+    'damage_type':'bludgeoning',
+    'weight (lb)':12 + 6,
+    'cost (gp)':1 + 6,
+    'cost (grams_of_gold)':1 + 6,
+    }
+
+metadict_items['6lb Ball'] = {
     'ammo':True,
     'damage_dice':'6d10',
     'damage_type':'bludgeoning',

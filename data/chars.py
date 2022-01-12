@@ -1983,17 +1983,45 @@ metadict_chars['Warrior 4 lvl (cannoneer artillery-sergeant)'] = {
     #'equipment_mount':{},
     }
 
-metadict_chars['Warrior 4 lvl (cannoneer artillery-sergeant) (6lb Gannon)'] = {
+metadict_chars['Warrior 4 lvl (cannoneer artillery-sergeant) (6lb Cannon)'] = {
     'base_unit':'Warrior 4 lvl (cannoneer artillery-sergeant)',
     'equipment_weapon':{
         'Rune of Absorbtion':1,
         'Rune of Armor':1,
-        '6lb Gannon':1,
+        '6lb Cannon':1,
         '6lb Bomb':100,
         #'6lb Ball':100,
         },
     'mount_combat':True,
-    'mount_type':'6lb Gannon, chassis',
+    'mount_type':'6lb Cannon, chassis',
+    'equipment_mount':{},
+    }
+
+metadict_chars['Warrior 4 lvl (cannoneer artillery-sergeant) (12lb Cannon, naval)'] = {
+    'base_unit':'Warrior 4 lvl (cannoneer artillery-sergeant)',
+    'equipment_weapon':{
+        'Rune of Absorbtion':1,
+        'Rune of Armor':1,
+        '12lb Cannon, naval':1,
+        #'12lb Ball':100,
+        '12lb Bar':100,
+        },
+    'mount_combat':True,
+    'mount_type':'12lb Cannon, chassis',
+    'equipment_mount':{},
+    }
+
+metadict_chars['Warrior 4 lvl (cannoneer artillery-sergeant) (24lb Cannon, naval)'] = {
+    'base_unit':'Warrior 4 lvl (cannoneer artillery-sergeant)',
+    'equipment_weapon':{
+        'Rune of Absorbtion':1,
+        'Rune of Armor':1,
+        '24lb Cannon, naval':1,
+        #'24lb Ball':100,
+        '24lb Bar':100,
+        },
+    'mount_combat':True,
+    'mount_type':'24lb Cannon, chassis',
     'equipment_mount':{},
     }
 
@@ -2066,17 +2094,17 @@ metadict_chars['Warrior 2 lvl (cannoneer-sergeant)'] = {
         'Breastplate, 17 century':1,
         'Shield':1,
         'Shortsword':1,
-        '6lb Gannon':1,
+        '6lb Cannon':1,
         '6lb Bomb':100,
         #'6lb Ball':100,
         },
     'mount_combat':True,
-    'mount_type':'6-lb Gannon',
+    'mount_type':'6-lb Cannon',
     'equipment_mount':{
         },
     }
 
-metadict_chars['Warrior 3 lvl (cannoneer-corporal) (6-lb Gannon)'] = {
+metadict_chars['Warrior 3 lvl (cannoneer-corporal) (6-lb Cannon)'] = {
     'level':3,
     'char_class':'Warrior-bowman',
     'hit_dice':'1d8',
@@ -2094,12 +2122,12 @@ metadict_chars['Warrior 3 lvl (cannoneer-corporal) (6-lb Gannon)'] = {
         'Breastplate, 17 century':1,
         'Shield':1,
         'Shortsword':1,
-        '6lb Gannon':1,
+        '6lb Cannon':1,
         '6lb Bomb':100,
         #'6lb Ball':100,
         },
     'mount_combat':True,
-    'mount_type':'6-lb Gannon',
+    'mount_type':'6-lb Cannon',
     'equipment_mount':{
         },
     }
