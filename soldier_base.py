@@ -1271,6 +1271,7 @@ class soldier():
                 and dict_attack['shoot_range_volley'] > dict_ammo['shoot_range_volley']:
             dict_attack['shoot_range_volley'] = dict_ammo['shoot_range_volley']
             dict_attack['attack_range_volley'] = dict_attack['shoot_range_volley']
+            dict_attack['attack_range_max'] = dict_attack['shoot_range_volley']
         # Боеприпас огнестрела может быть особенно точным:
         if dict_ammo.get('savethrow_all') == False and dict_attack['savethrow_all']:
             dict_attack['savethrow_all'] = dict_ammo['savethrow_all']
@@ -1504,6 +1505,9 @@ class soldier():
                     weapon_of_choice = attack_name[1]
                 if attack_type == 'volley'\
                         and attack_dict.get('spell_dict'):
+                    weapon_of_choice = attack_name[1]
+                if attack_type == 'volley'\
+                        and attack_dict.get('volley_optimal'):
                     weapon_of_choice = attack_name[1]
                 if len(attack_dict['weapon_skills_use']) >= test_weapon_skills:
                     test_weapon_skills = len(attack_dict['weapon_skills_use'])

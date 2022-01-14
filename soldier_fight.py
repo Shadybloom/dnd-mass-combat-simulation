@@ -2177,6 +2177,7 @@ class soldier_in_battle(soldier):
         if attack_dict.get('weapon_type') and 'firearm' in attack_dict.get('weapon_type')\
                 and enemy.distance * self.tile_size > attack_dict['shoot_range_max']\
                 and attack_choice[0] == 'volley':
+            # TODO: лучше сделай так. Дели на 2 для shoot_range_max и на 4 для shoot_range_volley
             try:
                 damage_throws = int(damage_dice[:2])
                 two_numbers = True
@@ -2375,7 +2376,7 @@ class soldier_in_battle(soldier):
                         and attack_dict.get('Recharge_magazine') > 0:
                     attack_dict['Recharge_magazine'] -= 1
                 else:
-                    self.unset_weapon(attack_dict.get('weapon_choice'))
+                    self.unset_weapon(attack_dict.get('weapon_use'))
 
     def get_ammo_from_squad(self, ammo_type, metadict_soldiers):
         """Боец просит боеприпасы у союзников.
@@ -2422,6 +2423,7 @@ class soldier_in_battle(soldier):
         for attack_choice, attack_dict in self.attacks.items():
             if not disarm:
                 if attack_choice[-1] == weapon_type\
+                        or attack_dict.get('weapon_use') == weapon_type\
                         or attack_dict.get('ammo_type') == ammo_type:
                     unset_list.append(attack_choice)
             elif disarm:
