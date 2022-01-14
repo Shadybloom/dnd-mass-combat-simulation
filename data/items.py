@@ -92,13 +92,14 @@ grenades = [
         ]
 
 gun_ammunition = [
+        '24lb Ball',
+        '12lb Ball',
+        '6lb Ball',
+        '2lb Ball',
+        '24lb Bar',
+        '12lb Bar',
         '12lb Bomb',
         '6lb Bomb',
-        '6lb Ball',
-        '12lb Ball',
-        '12lb Bar',
-        '24lb Ball',
-        '24lb Bar',
         ]
 
 rockets = [
@@ -2389,6 +2390,27 @@ metadict_items['6lb Cannon'] = {
     'cost (grams_of_gold)':8 * 60,
     }
 
+metadict_items['2lb Falconet'] = {
+    # Фальконет
+    'weapon':True,
+    'direct_hit':True,
+    'savethrow':True,
+    'savethrow_all':True,
+    'savethrow_ability':'dexterity',
+    'ammo_type':gun_ammunition,
+    'weapon_type':['martial','ranged','two_handed','firearm','volley','reload'],
+    'recharge':True,
+    'Recharge_help':True,
+    'Recharge_actions_need':10,
+    'Recharge_actions_use':0,
+    'shoot_range':200,
+    'shoot_range_max':600,
+    'shoot_range_volley':2400,
+    'weight (lb)':500,
+    'cost (gp)':2 * 60,
+    'cost (grams_of_gold)':2 * 60,
+    }
+
 metadict_items['Ballista, Heavy'] = {
     # Тяжёлая баллиста
     'weapon':True,
@@ -2765,7 +2787,7 @@ metadict_items['2lb Fire-Bomb'] = {
 
 metadict_items['20lb Fire-Rocket'] = {
     'ammo':True,
-    'damage_dice':'4d6',
+    'damage_dice':'3d10',
     'damage_type':'bludgeoning',
     'spell_dict':{
             'zone':True,
@@ -2806,7 +2828,7 @@ metadict_items['12lb Bomb'] = {
             'spell_save_DC':12,
             'spell_choice':('12lb Bomb','Explosion'),
             },
-    'weight (lb)':12 + 6,
+    'weight (lb)':12 + 6 + 2,
     'cost (gp)':12 + 6,
     'cost (grams_of_gold)':12 + 6,
     }
@@ -2814,7 +2836,7 @@ metadict_items['12lb Bomb'] = {
 metadict_items['10lb Bomb, mine'] = {
     # Мины с картечными зарядами.
     'ammo':True,
-    'damage_dice':'3d10',
+    'damage_dice':'2d10',
     'damage_type':'bludgeoning',
     'spell_dict':{
             'zone':True,
@@ -2838,7 +2860,7 @@ metadict_items['10lb Bomb, mine'] = {
 metadict_items['6lb Bomb'] = {
     # Снаряд полковой пушки
     'ammo':True,
-    'damage_dice':'2d10',
+    'damage_dice':'3d10',
     'damage_type':'bludgeoning',
     'spell_dict':{
             'zone':True,
@@ -2853,7 +2875,7 @@ metadict_items['6lb Bomb'] = {
             'spell_save_DC':12,
             'spell_choice':('6lb Bomb','Explosion'),
             },
-    'weight (lb)':6 + 3,
+    'weight (lb)':6 + 3 + 1,
     'cost (gp)':7 + 3,
     'cost (grams_of_gold)':7 + 3,
     }
@@ -2861,18 +2883,28 @@ metadict_items['6lb Bomb'] = {
 metadict_items['24lb Bar'] = {
     # Книппель, чугунная гантеля.
     'ammo':True,
+    'volley_optimal':True,
     'damage_dice':'12d10',
+    'weapon_type':['siege'],
     'damage_type':'slashing',
-    'weight (lb)':24 + 12,
+    'shoot_range':150,
+    'shoot_range_max':300,
+    'shoot_range_volley':300,
+    'weight (lb)':24 + 12 + 4,
     'cost (gp)':4 + 12,
     'cost (grams_of_gold)':4 + 12,
     }
 
 metadict_items['12lb Bar'] = {
     'ammo':True,
+    'volley_optimal':True,
     'damage_dice':'8d10',
+    'weapon_type':['siege'],
     'damage_type':'slashing',
-    'weight (lb)':12 + 6,
+    'shoot_range':100,
+    'shoot_range_max':200,
+    'shoot_range_volley':200,
+    'weight (lb)':12 + 6 + 2,
     'cost (gp)':2 + 6,
     'cost (grams_of_gold)':2 + 6,
     }
@@ -2881,8 +2913,9 @@ metadict_items['24lb Ball'] = {
     # Чугунное пушечное ядро
     'ammo':True,
     'damage_dice':'12d10',
+    'weapon_type':['siege'],
     'damage_type':'bludgeoning',
-    'weight (lb)':24 + 12,
+    'weight (lb)':24 + 12 + 4,
     'cost (gp)':2 + 12,
     'cost (grams_of_gold)':2 + 12,
     }
@@ -2890,8 +2923,9 @@ metadict_items['24lb Ball'] = {
 metadict_items['12lb Ball'] = {
     'ammo':True,
     'damage_dice':'8d10',
+    'weapon_type':['siege'],
     'damage_type':'bludgeoning',
-    'weight (lb)':12 + 6,
+    'weight (lb)':12 + 6 + 2,
     'cost (gp)':1 + 6,
     'cost (grams_of_gold)':1 + 6,
     }
@@ -2899,10 +2933,20 @@ metadict_items['12lb Ball'] = {
 metadict_items['6lb Ball'] = {
     'ammo':True,
     'damage_dice':'6d10',
+    'weapon_type':['siege'],
     'damage_type':'bludgeoning',
-    'weight (lb)':6 + 3,
+    'weight (lb)':6 + 3 + 1,
     'cost (gp)':1 + 3,
     'cost (grams_of_gold)':1 + 3,
+    }
+
+metadict_items['2lb Ball'] = {
+    'ammo':True,
+    'damage_dice':'3d10',
+    'damage_type':'bludgeoning',
+    'weight (lb)':2 + 1,
+    'cost (gp)':1,
+    'cost (grams_of_gold)':1,
     }
 
 #-------------------------------------------------------------------------

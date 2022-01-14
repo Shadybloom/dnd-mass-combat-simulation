@@ -1983,6 +1983,19 @@ metadict_chars['Warrior 4 lvl (cannoneer artillery-sergeant)'] = {
     #'equipment_mount':{},
     }
 
+metadict_chars['Warrior 4 lvl (cannoneer artillery-sergeant) (2lb Falconet)'] = {
+    'base_unit':'Warrior 4 lvl (cannoneer artillery-sergeant)',
+    'equipment_weapon':{
+        'Rune of Absorbtion':1,
+        'Rune of Armor':1,
+        '2lb Falconet':1,
+        '2lb Ball':100,
+        },
+    'mount_combat':True,
+    'mount_type':'2lb Cannon, chassis',
+    'equipment_mount':{},
+    }
+
 metadict_chars['Warrior 4 lvl (cannoneer artillery-sergeant) (6lb Cannon)'] = {
     'base_unit':'Warrior 4 lvl (cannoneer artillery-sergeant)',
     'equipment_weapon':{
@@ -2003,8 +2016,8 @@ metadict_chars['Warrior 4 lvl (cannoneer artillery-sergeant) (12lb Cannon, naval
         'Rune of Absorbtion':1,
         'Rune of Armor':1,
         '12lb Cannon, naval':1,
-        #'12lb Ball':100,
         '12lb Bar':100,
+        '12lb Ball':100,
         },
     'mount_combat':True,
     'mount_type':'12lb Cannon, chassis',
@@ -2017,8 +2030,8 @@ metadict_chars['Warrior 4 lvl (cannoneer artillery-sergeant) (24lb Cannon, naval
         'Rune of Absorbtion':1,
         'Rune of Armor':1,
         '24lb Cannon, naval':1,
-        #'24lb Ball':100,
         '24lb Bar':100,
+        '24lb Ball':100,
         },
     'mount_combat':True,
     'mount_type':'24lb Cannon, chassis',

@@ -61,6 +61,37 @@ metadict_animals['Cannon, chassis'] = {
     'equipment_supply':{},
     }
 
+metadict_animals['Cannon, chassis, small'] = {
+    # Станок фальконета
+    'level':5,
+    'mechanism':True,
+    'challenge_rating':'-',
+    'char_class':'Commoner',
+    'behavior':'mount',
+    'abilityes':{
+        'strength':10,
+        'dexterity':10,
+        'constitution':10, 
+        'intelligence':10,
+        'wisdom':10,
+        'charisma':10,
+        },
+    'hit_dice':'1d12',
+    'race':'Object-wood-medium',
+    'weapon_skill':[],
+    'armor_skill':[],
+    'equipment_weapon':{},
+    'equipment_backpack':{},
+    'equipment_supply':{},
+    }
+
+metadict_animals['2lb Cannon, chassis'] = {
+    # 2-фунтовый фальконет на станке.
+    'base_unit':'Cannon, chassis, small',
+    'hitpoints_base':20,
+    'armor_class_natural':15,
+    }
+
 metadict_animals['6lb Cannon, chassis'] = {
     # 6-фунтовая пушка.
     'base_unit':'Cannon, chassis',
@@ -376,7 +407,7 @@ metadict_animals['Ship frigate (cloth-element-huge)'] = {
     'char_class':'Commoner',
     'behavior':'warrior',
     'class_features':{
-        # Парус слишком велик, чтобы навредить ему пулями/ядрами.
+        # Парус слишком велик, чтобы навредить ему пулями/картечью.
         'resistance':['piercing','bludgeoning'],
         'vultenability':['slashing','fire'],
         },
@@ -403,7 +434,7 @@ metadict_animals['Ship frigate (cloth-element-huge)'] = {
 metadict_animals['Ship frigate (шпангоут)'] = {
     # 24 дюйма, 240 hp, 2.2 тонны, 60 блоков/фрегат
     'base_unit':'Ship frigate (wood-element-medium)',
-    'behavior':'elite_warrior',
+    'behavior':'commander',
     'hitpoints_base':240,
     'damage_treshold':30,
     }
@@ -411,7 +442,7 @@ metadict_animals['Ship frigate (шпангоут)'] = {
 metadict_animals['Ship frigate (киль)'] = {
     # 24 дюйма, 240 hp, 2.2 тонны, 15 блоков/фрегат
     'base_unit':'Ship frigate (wood-element-medium)',
-    'behavior':'elite_warrior',
+    'behavior':'commander',
     'hitpoints_base':240,
     'damage_treshold':30,
     }
@@ -419,7 +450,7 @@ metadict_animals['Ship frigate (киль)'] = {
 metadict_animals['Ship frigate (руль)'] = {
     # 24 дюйма, 240 hp, 2.2 тонны, 1 блоков/фрегат
     'base_unit':'Ship frigate (wood-element-medium)',
-    'behavior':'elite_warrior',
+    'behavior':'commander',
     'hitpoints_base':240,
     'damage_treshold':30,
     }

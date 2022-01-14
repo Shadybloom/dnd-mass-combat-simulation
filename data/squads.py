@@ -462,25 +462,25 @@ metadict_squads['крепостная стена (1200 hp)'] = {
 metadict_squads['Ship frigate (верхняя палуба) (левый борт) (Фэнси)'] = {
     'Ship frigate (шпангоут)':30,
     'Ship frigate (обшивка борта)':15,
-    'Ship frigate (обшивка палубы)':20,
+    #'Ship frigate (обшивка палубы)':20,
     }
 
 metadict_squads['Ship frigate (орудийная палуба) (левый борт) (Фэнси)'] = {
     'Ship frigate (шпангоут)':30,
     'Ship frigate (обшивка борта)':15,
-    'Ship frigate (обшивка палубы)':20,
+    #'Ship frigate (обшивка палубы)':20,
     }
 
 metadict_squads['Ship frigate (верхняя палуба) (правый борт) (Фэнси)'] = {
     'Ship frigate (шпангоут)':30,
     'Ship frigate (обшивка борта)':15,
-    'Ship frigate (обшивка палубы)':20,
+    #'Ship frigate (обшивка палубы)':20,
     }
 
 metadict_squads['Ship frigate (орудийная палуба) (правый борт) (Фэнси)'] = {
     'Ship frigate (шпангоут)':30,
     'Ship frigate (обшивка борта)':15,
-    'Ship frigate (обшивка палубы)':20,
+    #'Ship frigate (обшивка палубы)':20,
     }
 
 metadict_squads['Ship frigate (паруса, основные) (Фэнси)'] = {
@@ -1688,6 +1688,15 @@ metadict_squads['Company-veteran (cannoneer artillery-battery) (12-lb Cannons, n
     'Warrior 2 lvl (cannoneer artillery-veteran)':60,
     'Warrior 3 lvl (cannoneer artillery-corporal)':10,
     'Warrior 4 lvl (cannoneer artillery-sergeant) (12lb Cannon, naval)':24,
+    'Warrior 5 lvl (cannoneer artillery-lieutenant)':6,
+    'Commoner 1 lvl (recruit)':100,
+    }
+
+metadict_squads['Company-veteran (cannoneer artillery-battery) (2-lb Falconets)'] = {
+    'Warrior 1 lvl (cannoneer artillery)':30,
+    'Warrior 2 lvl (cannoneer artillery-veteran)':60,
+    'Warrior 3 lvl (cannoneer artillery-corporal)':10,
+    'Warrior 4 lvl (cannoneer artillery-sergeant) (2lb Falconet)':24,
     'Warrior 5 lvl (cannoneer artillery-lieutenant)':6,
     'Commoner 1 lvl (recruit)':100,
     }

@@ -286,6 +286,16 @@ dict_races = {
             'weight_base_lb':2000,
             'weight_mod_dice':'2d20',
             },
+        'Object-wood-medium':{
+            'hero':False,
+            'size':'medium',
+            'base_speed':0,
+            'armor_class_natural':15,
+            'height_base_inches':56,
+            'height_mod_dice':'2d4',
+            'weight_base_lb':500,
+            'weight_mod_dice':'2d20',
+            },
         'Object-wood-big':{
             # У больших деревянных предметов 15 AC
             'hero':False,
