@@ -27,6 +27,10 @@ def create_parser():
                         action='store_true', dest='save', default=False,
                         help='Сохранить отряд в базу данных.'
                         )
+    parser.add_argument('-g', '--graph',
+                        action='store_true', dest='graph', default=False,
+                        help='Вывод графика характеристик.'
+                        )
     return parser
 
 #-------------------------------------------------------------------------
@@ -572,24 +576,26 @@ if __name__ == '__main__':
         #print(soldier.rank, soldier.unit_cost)
         #if hasattr(soldier, 'spells'):
         #    print(soldier.spells, soldier.spells_generator.spellslots)
-        print('{r} cost:{c} hp:{hp:>2} AC:{ac} load:{l}/{l_max}'.format(
-            r = soldier.rank,
-            c = soldier.unit_cost['equipment_cost'],
-            hp = soldier.hitpoints_max,
-            ac = soldier.armor['armor_class'],
-            l = soldier.overload['equipment_weight (lb)'],
-            l_max = soldier.overload['normal_load (lb)'],
-            ))
-        #print('{r} sum:{s} STR:{str} DEX:{dex} CON:{con} INT:{int} WIS:{wis} CHA:{cha}'.format(
-        #    r = soldier.rank,
-        #    s = sum(soldier.abilityes.values()),
-        #    str = soldier.abilityes['strength'],
-        #    dex = soldier.abilityes['dexterity'],
-        #    con = soldier.abilityes['constitution'],
-        #    int = soldier.abilityes['intelligence'],
-        #    wis = soldier.abilityes['wisdom'],
-        #    cha = soldier.abilityes['charisma'],
-        #    ))
+        if namespace.graph:
+            print('{r} sum:{s} STR:{str} DEX:{dex} CON:{con} INT:{int} WIS:{wis} CHA:{cha}'.format(
+                r = soldier.rank,
+                s = sum(soldier.abilityes.values()),
+                str = soldier.abilityes['strength'],
+                dex = soldier.abilityes['dexterity'],
+                con = soldier.abilityes['constitution'],
+                int = soldier.abilityes['intelligence'],
+                wis = soldier.abilityes['wisdom'],
+                cha = soldier.abilityes['charisma'],
+                ))
+        else:
+            print('{r} cost:{c} hp:{hp:>2} AC:{ac} load:{l}/{l_max}'.format(
+                r = soldier.rank,
+                c = soldier.unit_cost['equipment_cost'],
+                hp = soldier.hitpoints_max,
+                ac = soldier.armor['armor_class'],
+                l = soldier.overload['equipment_weight (lb)'],
+                l_max = soldier.overload['normal_load (lb)'],
+                ))
         #print(soldier.rank, soldier.abilityes['charisma'], sum(soldier.abilityes.values()))
         #print('---------------------')
         #for key, value in soldier.__dict__.items():
@@ -633,4 +639,5 @@ if __name__ == '__main__':
             percent_sum += el
     print('chance: {0}%'.format(round(percent_sum, 1)))
     # Вывод графика:
-    #squad.print_ability_stat(squad.gen_ability_stat(squad.metadict_soldiers))
+    if namespace.graph:
+        squad.print_ability_stat(squad.gen_ability_stat(squad.metadict_soldiers))
