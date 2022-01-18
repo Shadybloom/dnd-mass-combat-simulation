@@ -1664,12 +1664,18 @@ class soldier_in_battle(soldier):
         if self.hitpoints <= -(self.hitpoints_max):
             self.death_save_loss = 3
             self.killer_mark = False
-            self.set_disabled(death_trauma = True)
+            self.set_disabled(disadvantage = True)
             self.death = True
             return True
         # Тяжелейшие ранения, если атака лишь чуть не убила бойца:
         elif self.hitpoints <= -(self.hitpoints_max / 2):
-            self.set_disabled()
+            self.set_disabled(disadvantage = True)
+        # Тяжелейшие увечья, если боец в безумной ярости:
+        elif 'death_rage' in self.buffs:
+            self.set_disabled(disadvantage = True)
+        # Лёгкое ранение в ином случае:
+        else:
+            self.set_disabled(advantage = True)
         # Механизмы не бросают спасброски:
         if self.__dict__.get('mechanism') and not self.death:
             #self.stable = True
@@ -1685,8 +1691,6 @@ class soldier_in_battle(soldier):
         # Homebrew: Помеха на спасброски от смерти от зелья с death_rage
         if 'death_rage' in self.buffs:
             disadvantage = True
-        else:
-            disadvantage = False
         if not self.stable and not self.death:
             # Играем в рулетку с мрачным жнецом:
             reaper_throw = dices.dice_throw_advantage('1d20', advantage, disadvantage)
@@ -1715,17 +1719,15 @@ class soldier_in_battle(soldier):
             #    self.stable, self.death))
 
     def set_disabled(self, advantage = False, disadvantage = False,
-            trauma_damage_type = None, death_trauma = False):
+            trauma_damage_type = None):
         """Тяжёлые раны калечат бойца.
         
         "Длительные травмы" из "Руководства мастера".
         """
         # Герои и офицеры реже получают серьёзные травмы.
         if not self.__dict__.get('mechanism'):
-            if self.hero or self.level >= 3:
+            if self.hero:
                 advantage = True
-            if death_trauma:
-                disadvantage = True
             if self.trauma_damage_type:
                 trauma_damage_type = self.trauma_damage_type
             trauma_throw = dices.dice_throw_advantage('1d20', advantage, disadvantage)
