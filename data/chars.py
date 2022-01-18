@@ -1324,6 +1324,7 @@ metadict_chars['Warrior 4 lvl (musketeer line-infantry-sergeant)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
+        'Potion of Antidote':1,
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
         'Breastplate, 17 century':1,
@@ -1357,6 +1358,7 @@ metadict_chars['Warrior 5 lvl (musketeer line-infantry-lieutenant)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
+        'Potion of Antidote':1,
         'Infusion of Heroism':1,
         'Rune of Absorbtion':1,
         'Rune of Shielding':1,
@@ -1471,6 +1473,7 @@ metadict_chars['Warrior 4 lvl (grenadier line-infantry-sergeant)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
+        'Potion of Antidote':1,
         'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
         'Breastplate, 17 century':1,
@@ -1507,6 +1510,7 @@ metadict_chars['Warrior 5 lvl (grenadier line-infantry-lieutenant)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
+        'Potion of Antidote':1,
         'Infusion of Vitality':1,
         'Infusion of Heroism':1,
         'Rune of Absorbtion':1,
@@ -2021,6 +2025,20 @@ metadict_chars['Warrior 4 lvl (cannoneer artillery-sergeant) (12lb Cannon, naval
         },
     'mount_combat':True,
     'mount_type':'12lb Cannon, chassis',
+    'equipment_mount':{},
+    }
+
+metadict_chars['Warrior 4 lvl (cannoneer artillery-sergeant) (24lb Cannon, naval)'] = {
+    'base_unit':'Warrior 4 lvl (cannoneer artillery-sergeant)',
+    'equipment_weapon':{
+        'Rune of Absorbtion':1,
+        'Rune of Armor':1,
+        '24lb Cannon, naval':1,
+        '24lb Bar':100,
+        '24lb Ball':100,
+        },
+    'mount_combat':True,
+    'mount_type':'24lb Cannon, chassis',
     'equipment_mount':{},
     }
 
@@ -4695,7 +4713,8 @@ metadict_chars['Warlock 5 lvl (otherworld seeker-ascendant)'] = {
     'hit_dice':'1d8',
     'behavior':'commander',
     'class_features':{
-        'Feat_Elemental_Adept':'fire',
+        #'Feat_Elemental_Adept':'fire',
+        'Feat_Spellsniper':True,
         'Otherworldly_Patron':True,
         'Otherworldly_Patron_The_Fiend':True,
         'Pact_Magic':True,
@@ -7307,6 +7326,9 @@ metadict_chars['Paladin 5 lvl (city sentry-lieutenant)'] = {
         'Horse Scale Mail':1,
         },
     }
+
+#-------------------------------------------------------------------------------
+# Народы моря, Sea Tribes
 
 #----
 # Сариссофоры (армия) (Протесилай):
@@ -10393,7 +10415,6 @@ metadict_chars['Paladin 5 lvl (враг) (Магор «Детоед»)'] = {
         'charisma':18,
         },
     'class_features':{
-        # TODO: Сделай Feat_Shield_Master.
         'Feat_Tough':True,
         'Feat_Heavy_Armor_Master':True,
         'Ability_Score_Improvement':{
@@ -13480,4 +13501,454 @@ metadict_chars['Warrior 5 lvl (друг) (капитан Тави)'] = {
     #'mount_type':'Riding Horse',
     #'equipment_mount':{
     #    },
+    }
+
+#-------------------------------------------------------------------------------
+# Чёрные флаги Ост-Индии, Black Flags
+
+#----
+# Противник (армия) (Салиф):
+
+metadict_chars['Warrior 4 lvl (враг) (гвардеец Салифа)'] = {
+    'level':4,
+    'char_class':'Warrior-pirate',
+    'hit_dice':'1d8',
+    'behavior':'elite_warrior',
+    'class_features':{
+        'Fighting_Style_Protection':True,
+        'Feat_Magic_Initiate':True,
+        'Spellcasting':True,
+        'Spells':[
+            ('cantrip', 'Mending'),
+            ('cantrip', 'Acid_Splash'),
+            ('ritual', 'Unseen_Servant'),
+            ],
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        #'Potion of Rage':1,
+        'Potion of Heroism':1,
+        'Potion of Antidote':1,
+        'Rune of Armor':1,
+        'Rune of Absorbtion':1,
+        'Heavy Shield':1,
+        'Sabre':1,
+        'Longbow':1,
+        'Poison Arrow':40,
+        'Poison Blade':10,
+        #'Flame Grenade':10,
+        'Smoke Grenade':1,
+        },
+    #'mount_combat':False,
+    #'mount_type':'Riding Horse',
+    #'equipment_mount':{
+    #    },
+    }
+
+metadict_chars['Warrior 5 lvl (враг) (лейтенант Салифа)'] = {
+    'level':5,
+    'char_class':'Warrior-pirate',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Protection':True,
+        'Feat_Magic_Initiate':True,
+        'Spellcasting':True,
+        'Spells':[
+            ('cantrip', 'Mending'),
+            ('cantrip', 'Acid_Splash'),
+            ('ritual', 'Unseen_Servant'),
+            ],
+        'Extra_Attack':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        #'Potion of Rage':1,
+        'Potion of Heroism':1,
+        'Potion of Antidote':1,
+        'Rune of Armor':1,
+        'Rune of Absorbtion':1,
+        'Rune of Shielding':1,
+        'Heavy Shield':1,
+        'Sabre':1,
+        'Longbow':1,
+        'Poison Arrow':40,
+        'Poison Blade':10,
+        #'Flame Grenade':10,
+        'Smoke Grenade':1,
+        },
+    #'mount_combat':False,
+    #'mount_type':'Riding Horse',
+    #'equipment_mount':{
+    #    },
+    }
+
+#----
+# Противник (свита) (Салиф):
+
+metadict_chars['Wizard 13 lvl (враг) (Салиф)'] = {
+    # Wizard 1 lvl (otherworld mage-disciple) sum:94 STR:13 DEX:17 CON:16 INT:19 WIS:14 CHA:15
+    # Черты:
+    # - Feat_Alert, -- нельзя застать врасплох.
+    # - Feat_Keen_Mind -- помнит всё.
+    # - Feat_Metamagic_Adept -- удвоенная дальность Arcane_Gate и неощутимые Mass_Suggestion
+    # Заклинания:
+    # - Изготовление (Fabricate) для ремонта корабля в бою.
+    # - Предосторожность (Contingency) хранит заклинание Wall_of_Force.
+    # - Волшебные врата (Arcane_Gate), портал для солдат на 1000 футов (с Metamagic_Distant_Spell)
+    # - Гомункул (Create_Homunculus), это разведчик с телепатической связью для телепортов.
+    'level':13,
+    'fireball_AI':True,
+    'disengage_AI':True,
+    'char_class':'Wizard',
+    'hit_dice':'1d6',
+    'behavior':'commander',
+    'hitpoints_medial':True,
+    'abilityes':{
+        'strength':13,
+        'dexterity':17,
+        'constitution':16,
+        'intelligence':19,
+        'wisdom':14,
+        'charisma':15,
+        },
+    'class_features':{
+        'Feat_Alert':True,
+        'Feat_Keen_Mind':True,
+        'Feat_Metamagic_Adept':True,
+        'Metamagic_Subtle_Spell':True,
+        'Metamagic_Distant_Spell':True,
+        'Ability_Score_Improvement':{
+            'dexterity':+1,
+            'intelligence':+1,
+            'charisma':+1,
+            },
+        'Arcane_Recovery':True,
+        'Spellcasting':True,
+        'Spells':[
+            # Уровень_персонажа + мод_интеллекта (18 заклинаний)
+            ('cantrip', 'Prestidigitation'),
+            ('cantrip', 'Acid_Splash'),
+            ('cantrip', 'Mending'),
+            ('cantrip', 'Message'),
+            ('cantrip', 'Mage_Hand'),
+            # Ритуалы из книги заклинаний:
+            ('ritual', 'Alarm'),
+            ('ritual', 'Identify'),
+            ('ritual', 'Detect_Magic'),
+            ('ritual', 'Unseen_Servant'),
+            ('ritual', 'Gentle_Repose'),
+            ('ritual', 'Find_Familiar'),
+            ('ritual', 'Comprehend_Languages'),
+            ('ritual', 'Feign_Death'),
+            ('ritual', 'Water_Breathing'),
+            ('ritual', 'Rary_Telepathic_Bond'),
+            ('ritual', 'Contact_Other_Plane'),
+            # Для свиты (6 заклинаний):
+            # TODO: допиливай Dust_Devil подобно Flaming_Sphere.
+            ('1_lvl', 'Shield'),
+            ('1_lvl', 'Fog_Cloud'),
+            ('1_lvl', 'Absorb_Elements'),
+            ('2_lvl', 'See_Invisibility'),
+            ('2_lvl', 'Invisibility'),
+            ('2_lvl', 'Dust_Devil'),
+            # Личные (12 заклинаний):
+            ('3_lvl', 'Counterspell'),
+            ('3_lvl', 'Sleet_Storm'),
+            ('3_lvl', 'Sending'),
+            ('4_lvl', 'Fabricate'),
+            ('4_lvl', 'Dimension_Door'),
+            ('4_lvl', 'Conjure_Minor_Elementals'),
+            ('5_lvl', 'Conjure_Elemental'),
+            ('5_lvl', 'Planar_Binding'),
+            ('5_lvl', 'Scrying'),
+            ('6_lvl', 'Arcane_Gate'),
+            ('6_lvl', 'Mass_Suggestion'),
+            ('7_lvl', 'Teleportation'),
+            # ----
+            # Книга заклинаний (все 1-3 lvl):
+            # ----
+            #('3_lvl', 'Blink'),
+            #('3_lvl', 'Animate_Dead'),
+            #('3_lvl', 'Dispel_Magic'),
+            #('3_lvl', 'Melf_Minute_Meteors'),
+            #('3_lvl', 'Summon_Lesser_Demons'),
+            # ----
+            #('4_lvl', 'Stoneskin'),
+            #('4_lvl', 'Arcane_Eye'),
+            #('4_lvl', 'Control_Water'),
+            #('4_lvl', 'Leomund_Secret_Chest'),
+            #('4_lvl', 'Otiluke_Resilent_Sphere'),
+            #('4_lvl', 'Mordenkainen_Private_Sanctum'),
+            #('4_lvl', 'Conjure_Minor_Elementals'),
+            #('4_lvl', 'Summon_Greater_Demon'),
+            #('4_lvl', 'Sickening_Radiance'),
+            #('4_lvl', 'Banishment'),
+            # ----
+            #('5_lvl', 'Animated_Objects'),
+            #('5_lvl', 'Conjure_Elemental'),
+            #('5_lvl', 'Planar_Binding'),
+            #('5_lvl', 'Wall_of_Force'),
+            #('5_lvl', 'Passwall'),
+            #('5_lvl', 'Scrying'),
+            #('5_lvl', 'Cone_of_Cold'),
+            #('5_lvl', 'Cloudkill'),
+            # ----
+            #('6_lvl', 'Soul_Cage'),
+            #('6_lvl', 'Arcane_Gate'),
+            #('6_lvl', 'True_Seeing'),
+            #('6_lvl', 'Contingency'),
+            #('6_lvl', 'Mass_Suggestion'),
+            #('6_lvl', 'Programmed_Illusion'),
+            #('6_lvl', 'Create_Homunculus'),
+            #('6_lvl', 'Whirlwind'),
+            # ----
+            #('7_lvl', 'Teleportation'),
+            #('7_lvl', 'Mordenkainens_Magnificent_Mansion'),
+            ],
+        # TODO: телепорт с Benign_Transposition и автоуспех концентрации с Focused_Conjuration
+        'School_of_Conjuration':True,
+        'Minor_Conjuration':True,
+        'Benign_Transposition':True,
+        'Focused_Conjuration':True,
+        #'Durable_Summons':True,
+        },
+    'race':'Human-hero',
+    'weapon_skill':['simple'],
+    'armor_skill':[],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        # TODO: руны 3-4 круга
+        # - Rune of Flying
+        # - Rune of Stoneskin
+        # - Rune of Greater Invisibility
+        'Rune of Absorbtion':1,
+        'Rune of Shielding':1,
+        'Rune of Armor':1,
+        'Dagger':1,
+        },
+    #'mount_combat':True,
+    #'mount_type':'Light Warhorse',
+    #'equipment_mount':{
+    #    },
+    }
+
+metadict_chars['Wizard 4 lvl (враг) (волшебник Салифа)'] = {
+    'level':4,
+    'archer_AI':True,
+    'fireball_AI':True,
+    'char_class':'Wizard',
+    'hit_dice':'1d6',
+    'behavior':'commander',
+    'class_features':{
+        'Feat_Alert':True,
+        'Ability_Score_Improvement':{
+            'intelligence':+2,
+            },
+        'Arcane_Recovery':True,
+        'Spellcasting':True,
+        'Spells':[
+            # Уровень_персонажа + мод_интеллекта (8 заклинаний)
+            ('cantrip', 'Prestidigitation'),
+            ('cantrip', 'Acid_Splash'),
+            ('cantrip', 'Mending'),
+            ('cantrip', 'Message'),
+            # Ритуалы из книги заклинаний:
+            ('ritual', 'Alarm'),
+            ('ritual', 'Identify'),
+            ('ritual', 'Detect_Magic'),
+            ('ritual', 'Unseen_Servant'),
+            ('ritual', 'Gentle_Repose'),
+            ('ritual', 'Find_Familiar'),
+            ('ritual', 'Comprehend_Languages'),
+            ('1_lvl', 'Shield'),
+            ('1_lvl', 'Fog_Cloud'),
+            ('1_lvl', 'Absorb_Elements'),
+            ('2_lvl', 'See_Invisibility'),
+            ('2_lvl', 'Invisibility'),
+            ('2_lvl', 'Dust_Devil'),
+            ],
+        'School_of_Conjuration':True,
+        'Minor_Conjuration':True,
+        'Benign_Transposition':True,
+        },
+    'race':'Human-hero',
+    'weapon_skill':['simple'],
+    'armor_skill':[],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Rune of Absorbtion':1,
+        'Rune of Shielding':1,
+        'Rune of Armor':1,
+        'Dagger':1,
+        },
+    #'mount_combat':True,
+    #'mount_type':'Light Warhorse',
+    #'equipment_mount':{
+    #    },
+    }
+
+#----
+# Противник (армия) (Намулис):
+
+metadict_chars['Warrior 4 lvl (враг) (гвардеец Намулиса)'] = {
+    'level':4,
+    'char_class':'Warrior-pirate',
+    'hit_dice':'1d8',
+    'behavior':'elite_warrior',
+    'class_features':{
+        'Fighting_Style_Archery':True,
+        'Feat_Defensive_Duelist':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        #'Potion of Rage':1,
+        'Potion of Heroism':1,
+        'Potion of Antidote':1,
+        'Rune of Armor':1,
+        'Rune of Absorbtion':1,
+        'Shield':1,
+        'Sabre':1,
+        'Glaive':1,
+        'Longbow':1,
+        'Poison Arrow':40,
+        'Poison Blade':10,
+        #'Smoke Grenade':1,
+        },
+    #'mount_combat':False,
+    #'mount_type':'Riding Horse',
+    #'equipment_mount':{
+    #    },
+    }
+
+metadict_chars['Warrior 5 lvl (враг) (лейтенант Намулиса)'] = {
+    'level':5,
+    'char_class':'Warrior-pirate',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Archery':True,
+        'Feat_Defensive_Duelist':True,
+        'Extra_Attack':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        #'Potion of Rage':1,
+        'Potion of Heroism':1,
+        'Potion of Antidote':1,
+        'Rune of Armor':1,
+        'Rune of Absorbtion':1,
+        'Rune of Shielding':1,
+        'Shield':1,
+        'Glaive':1,
+        'Sabre +1':1,
+        'Longbow':1,
+        'Poison Arrow':40,
+        'Poison Blade':10,
+        #'Smoke Grenade':1,
+        },
+    #'mount_combat':False,
+    #'mount_type':'Riding Horse',
+    #'equipment_mount':{
+    #    },
+    }
+
+#----
+# Противник (свита) (Намулис):
+
+metadict_chars['Monk 13 lvl (враг) (Намулис)'] = {
+    # Кенсэй
+    # Monk 1 lvl (city windsong-apprentice) sum:97 STR:16 DEX:19 CON:17 INT:14 WIS:19 CHA:12
+    # Tongue_of_the_Sun_and_Moon -- говорит на любом языке.
+    'level':13,
+    #'grappler_AI':True,
+    'carefull_AI':True,
+    'char_class':'Monk',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'hitpoints_medial':True,
+    'abilityes':{
+        'strength':16,
+        'dexterity':19,
+        'constitution':17,
+        'intelligence':14,
+        'wisdom':19,
+        'charisma':12,
+        },
+    'class_features':{
+        # TODO:
+        # ------
+        # 1. Stillness_of_Mind -- действием снимает очарование или испуг.
+        # 2. Unarmored_Movement_improvement -- бег по вертикальным стенам и воде.
+        # 3. Deft_Strike -- +кость урона оружия за 1 Ки, две кости при крите.
+        # 4. Sharpen_the_Blade -- +3 бонус оружия за 3 Ки на минуту.
+        # ------
+        'Feat_Defensive_Duelist':True,
+        'Ability_Score_Improvement':{
+            'wisdom':+1,
+            'dexterity':+1,
+            },
+        # Кенсэй:
+        # TODO: способности кенсэя пока что не работают.
+        'Agile_Parry':True,
+        'Kensei_Weapons':['Saber','Longbow','Glaive','Pistol'],
+        'Kensei_Shot':'1d4',
+        'Magic_Kensei_Weapons':True,
+        'Deft_Strike':True,
+        'Sharpen_the_Blade':True,
+        # Базовые способности монаха:
+        'Unarmored_Defense':True,
+        'Martial_Arts':True,
+        'Flurry_of_Blows':True,
+        'Patient_Defense':True,
+        'Step_of_the_Wind':True,
+        'Unarmored_Movement':True,
+        'Deflect_Missiles':True,
+        'Slow_Fall':True,
+        'Extra_Attack':True,
+        'Stunning_Strike':True,
+        'Ki_Empowered_Strikes':True,
+        'Evasion':True,
+        'Stillness_of_Mind':True,
+        'Unarmored_Movement_improvement':True,
+        'Purity_of_Body':True,
+        'immunity':['poison','disease'],
+        'Tongue_of_the_Sun_and_Moon':True,
+        },
+    'race':'Human-hero',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':[],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        # TODO:
+            # 2. Наручи защиты.
+            # 3. Руны 3-4 круга.
+        # Посох ударов продан за 4000 эфесов на оборону Илиона
+        'Potion of Antidote':1,
+        'Infusion of Vitality':1,
+        'Infusion of Heroism':1,
+        'Bracers of Defence':1,
+        'Rune of Shielding':1,
+        #'Staff of Striking +3':1,
+        'Shortsword +1':1,
+        },
     }

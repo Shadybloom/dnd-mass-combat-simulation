@@ -897,6 +897,33 @@ metadict_items['Hand Grenade'] = {
             'spell_choice':('Grenade','Explosion'),
             },
     'weight (lb)':2,
+    'cost (gp)':1.8,
+    'cost (grams_of_gold)':1.8,
+    }
+
+metadict_items['Flame Grenade'] = {
+    # С начинкой из алхимического огня.
+    'weapon':True,
+    'weapon_type':['martial','throw','volley'],
+    'damage_type':'bludgeoning',
+    'damage_dice':'1d4',
+    'throw_range':20,
+    'throw_range_max':60,
+    'spell_dict':{
+            'zone':True,
+            'safe':False,
+            'radius':5,
+            'zone_shape':'square',
+            'direct_hit':True,
+            'savethrow':True,
+            #'savethrow_all':True,
+            'savethrow_ability':'dexterity',
+            'damage_type':'fire',
+            'damage_dice':'2d6',
+            'spell_save_DC':12,
+            'spell_choice':('Grenade','Alchemist Fire'),
+            },
+    'weight (lb)':2,
     'cost (gp)':3.6,
     'cost (grams_of_gold)':3.6,
     }
@@ -1110,6 +1137,18 @@ metadict_items['Sabre'] = {
     'weight (lb)':3,
     'cost (gp)':15,
     'cost (grams_of_gold)':15,
+    }
+
+metadict_items['Sabre +1'] = {
+    'weapon':True,
+    'ammo_type':blade_poisons,
+    'weapon_type':['martial','close','versatile','finesse','magic','+1'],
+    'damage_type':'slashing',
+    'damage_dice':'1d8',
+    'damage_dice_versatile':'1d10',
+    'weight (lb)':3,
+    'cost (gp)':10*60,
+    'cost (grams_of_gold)':10*60,
     }
 
 #-------------------------------------------------------------------------
@@ -2253,7 +2292,7 @@ metadict_items['Longbow +1'] = {
     }
 
 #----
-# Artillery, осадное вооружение
+# Artillery, артиллерия
 
 metadict_items['Trebuchet, Heavy'] = {
     'weapon':True,
@@ -2333,9 +2372,9 @@ metadict_items['24lb Cannon, naval'] = {
     'shoot_range':150,
     'shoot_range_max':300,
     'shoot_range_volley':900,
-    'weight (lb)':4000,
-    'cost (gp)':8 * 60,
-    'cost (grams_of_gold)':8 * 60,
+    'weight (lb)':5000,
+    'cost (gp)':16 * 60,
+    'cost (grams_of_gold)':16 * 60,
     }
 
 metadict_items['12lb Cannon, naval'] = {
@@ -2359,8 +2398,8 @@ metadict_items['12lb Cannon, naval'] = {
     'shoot_range_max':200,
     'shoot_range_volley':900,
     'weight (lb)':3000,
-    'cost (gp)':4 * 60,
-    'cost (grams_of_gold)':4 * 60,
+    'cost (gp)':10 * 60,
+    'cost (grams_of_gold)':10 * 60,
     }
 
 metadict_items['6lb Cannon'] = {
@@ -2386,8 +2425,8 @@ metadict_items['6lb Cannon'] = {
     'shoot_range_max':1800,
     'shoot_range_volley':2400,
     'weight (lb)':1800,
-    'cost (gp)':8 * 60,
-    'cost (grams_of_gold)':8 * 60,
+    'cost (gp)':6 * 60,
+    'cost (grams_of_gold)':6 * 60,
     }
 
 metadict_items['2lb Falconet'] = {
@@ -2407,11 +2446,15 @@ metadict_items['2lb Falconet'] = {
     'shoot_range_max':600,
     'shoot_range_volley':2400,
     'weight (lb)':500,
-    'cost (gp)':2 * 60,
-    'cost (grams_of_gold)':2 * 60,
+    'cost (gp)':4 * 60,
+    'cost (grams_of_gold)':4 * 60,
     }
 
+#----
+# Artillery, баллисты
+
 metadict_items['Ballista, Heavy'] = {
+    # TODO: допили перезарядку и прочее в стиле пушек.
     # Тяжёлая баллиста
     'weapon':True,
     'ammo_type':catapult_shells,
@@ -2887,9 +2930,9 @@ metadict_items['24lb Bar'] = {
     'damage_dice':'12d10',
     'weapon_type':['siege'],
     'damage_type':'slashing',
-    'shoot_range':150,
-    'shoot_range_max':300,
-    'shoot_range_volley':300,
+    'shoot_range':100,
+    'shoot_range_max':200,
+    'shoot_range_volley':200,
     'weight (lb)':24 + 12 + 4,
     'cost (gp)':4 + 12,
     'cost (grams_of_gold)':4 + 12,
@@ -3170,7 +3213,7 @@ metadict_items['Sleep Blade'] = {
             'direct_hit':True,
             'savethrow':True,
             'savethrow_ability':'constitution',
-            'spell_save_DC':10,
+            'spell_save_DC':12,
             'spell_choice':('Sleep Blade','Unconscious'),
             },
     'weight (lb)':1/20,

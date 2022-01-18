@@ -53,6 +53,22 @@ metadict_squads['характеристики правителей'] = {
     # Кирос:
     # Fighter 1 lvl (legionary sentinel-battler) sum:103 STR:19 DEX:17 CON:18 INT:16 WIS:16 CHA:17
     #'Fighter 1 lvl (legionary sentinel-battler)':2000,
+    # Чёрные флаги Ост-Индии:
+        # 1 герой 5-6 lvl на 16 героев 1-2 lvl
+        # 1 герой 7-8 lvl на 62 героев 1-2 lvl
+        # 1 герой 9+ lvl на 250 героев 1 lvl
+    # Салиф:
+    # Wizard 1 lvl (otherworld mage-disciple) sum:94 STR:13 DEX:17 CON:16 INT:19 WIS:14 CHA:15
+    #'Wizard 1 lvl (otherworld mage-disciple)':250,
+    # Намулис:
+    # Monk 1 lvl (city windsong-apprentice) sum:97 STR:16 DEX:19 CON:17 INT:14 WIS:19 CHA:12
+    #'Monk 1 lvl (city windsong-apprentice)':250,
+    # Зуахир:
+    # Monk 1 lvl (city windsong-apprentice) sum:97 STR:16 DEX:17 CON:17 INT:14 WIS:17 CHA:16
+    #'Monk 1 lvl (city windsong-apprentice)':250,
+    # Вааму Лютый:
+    # Monk 1 lvl (city windsong-apprentice) sum:96 STR:17 DEX:19 CON:18 INT:12 WIS:18 CHA:12
+    #'Monk 1 lvl (city windsong-apprentice)':250,
     }
 
 metadict_squads['характеристики героев'] = {
@@ -1692,6 +1708,15 @@ metadict_squads['Company-veteran (cannoneer artillery-battery) (12-lb Cannons, n
     'Commoner 1 lvl (recruit)':100,
     }
 
+metadict_squads['Company-veteran (cannoneer artillery-battery) (24-lb Cannons, naval)'] = {
+    'Warrior 1 lvl (cannoneer artillery)':30,
+    'Warrior 2 lvl (cannoneer artillery-veteran)':60,
+    'Warrior 3 lvl (cannoneer artillery-corporal)':10,
+    'Warrior 4 lvl (cannoneer artillery-sergeant) (24lb Cannon, naval)':24,
+    'Warrior 5 lvl (cannoneer artillery-lieutenant)':6,
+    'Commoner 1 lvl (recruit)':100,
+    }
+
 metadict_squads['Company-veteran (cannoneer artillery-battery) (2-lb Falconets)'] = {
     'Warrior 1 lvl (cannoneer artillery)':30,
     'Warrior 2 lvl (cannoneer artillery-veteran)':60,
@@ -2047,4 +2072,39 @@ metadict_squads['Single-hero (warlocks)'] = {
 
 metadict_squads['Single-hero (monks)'] = {
     'Monk 5 lvl (city windsong-warmonger)':1,
+    }
+
+#-------------------------------------------------------------------------------
+# Чёрные флаги Ост-Индии, Black Flags
+
+#----
+# Армия Салифа:
+
+metadict_squads['Company-elite (гвардия Салифа) (враг)'] = {
+    # 1 рота гвардии.
+    'Warrior 4 lvl (враг) (гвардеец Салифа)':67,
+    'Warrior 5 lvl (враг) (лейтенант Салифа)':25,
+    'Commoner 1 lvl (recruit)':300,
+    }
+
+metadict_squads['Squad-elite (гвардия Салифа) (враг)'] = {
+    # 4 отдельный взвода гвардии.
+    'Warrior 4 lvl (враг) (гвардеец Салифа)':16,
+    'Warrior 5 lvl (враг) (лейтенант Салифа)':6,
+    'Commoner 1 lvl (recruit)':60,
+    }
+
+metadict_squads['Band-elite (волшебники Салифа) (враг)'] = {
+    'Wizard 4 lvl (враг) (волшебник Салифа)':3,
+    'Wizard 13 lvl (враг) (Салиф)':1,
+    }
+
+#----
+# Армия Намулиса:
+
+metadict_squads['Company-elite (гвардия Намулиса) (враг)'] = {
+    # 1 рота гвардии.
+    'Warrior 4 lvl (враг) (гвардеец Намулиса)':67,
+    'Warrior 5 lvl (враг) (лейтенант Намулиса)':25,
+    'Commoner 1 lvl (recruit)':300,
     }
