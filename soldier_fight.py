@@ -215,6 +215,7 @@ class soldier_in_battle(soldier):
         self.killer_mark = False
         self.shield_evasion = False
         self.reckless_attack = False
+        self.agile_parry = False
         self.dodge_action = False
         # Убираем окружение:
         self.danger = 0
@@ -422,6 +423,7 @@ class soldier_in_battle(soldier):
         self.dodge_action = False # это disadvantage на атаки врагов и преимущество ловксоти
         self.reckless_attack = False # Тактика варвара, преимущество и себе, и врагам
         self.shield_evasion = False # Уклонение реакцией от Feat_Shield_Master
+        self.agile_parry = False # Ловкое парирование кенсэя
         # Щит возвращается в боевое положение (если в прошлом ходу использовалось двуручное оружие):
         if self.armor['shield_use'] and not self.shield_ready:
             self.set_shield()
@@ -894,6 +896,9 @@ class soldier_in_battle(soldier):
                 self.bonus_action = False
                 attack_choice = ('close','unarmed')
                 attacks_chain_bonus.append(attack_choice)
+        # Ловкое парирование кенсэя даёт +2 AC, если он совершает безоружную атаку:
+        if self.class_features.get('Agile_Parry'):
+            self.agile_parry = True
         return attacks_chain_bonus
 
     def use_stunning_strike(self, enemy_soldier):
@@ -2274,6 +2279,19 @@ class soldier_in_battle(soldier):
                     sneak_attack_throw = dices.dice_throw_advantage(self.proficiency['sneak_attack_dice'],
                             advantage = False, disadvantage = False, max_throw = sharpness)
                     damage_throw += sneak_attack_throw
+        # Кенсэй использует свои Deft_Strike, чтобы усиливать криты (очень редкие):
+        if self.class_features.get('Deft_Strike') and attack_crit\
+                and hasattr(self, 'ki_points') and self.ki_points > 0:
+            self.ki_points -= 1
+            self.drop_spell(('ki', 'Kensei_Deft_Strike'))
+            for throw in range(0, self.crit_multiplier):
+                damage_throw += dices.dice_throw_advantage(damage_dice,
+                        advantage = damage_throw_advantage, disadvantage = False, max_throw = sharpness)
+        # Бонус урона на дальнобойные атаки кенсэя:
+        if self.class_features.get('Kensei_Shot'):
+            if attack_choice[0] == 'throw' or attack_choice[0] == 'ranged':
+                damage_throw += dices.dice_throw_advantage(self.class_features['Kensei_Shot'],
+                        advantage = damage_throw_advantage, disadvantage = False, max_throw = sharpness)
         # Наконец, выводим общий урон:
         damage_throw_mod = damage_throw + attack_dict['damage_mod']
         if damage_throw_mod < 0:
@@ -2282,6 +2300,9 @@ class soldier_in_battle(soldier):
         if self.class_features.get('Rage') and self.rage:
             if attack_choice[0] == 'close' or attack_choice[0] == 'reach':
                 damage_throw_mod += self.rage_damage
+        # Бонус урона от магического оружия кенсэя
+        if self.class_features.get('Sharpen_the_Blade') and self.sacred_weapon:
+            damage_throw_mod += self.sacred_weapon
         # Мастер тяжёлого оружия усиливает удар за счёт точности (если защита врага слаба):
         if attack_dict.get('weapon_skills_use'):
             if 'Feat_Great_Weapon_Master' in attack_dict['weapon_skills_use']:
@@ -2858,6 +2879,12 @@ class soldier_in_battle(soldier):
             armor_dict['armor_class_shield_impact'] += 2
             armor_dict['armor_class_armor_impact'] += 2
             armor_dict['armor_class'] += 2
+        # Ловкое парирование кенсэя даёт +2 AC
+        if self.agile_parry:
+            armor_dict['armor_class_no_impact'] += 2
+            armor_dict['armor_class_shield_impact'] += 2
+            armor_dict['armor_class_armor_impact'] += 2
+            armor_dict['armor_class'] += 2
         return armor_dict
 
     def take_damage(self, attack_choice, attack_dict, metadict_soldiers):
@@ -3004,6 +3031,8 @@ class soldier_in_battle(soldier):
                 damage_deflect = dices.dice_throw('1d10') + self.mods['dexterity'] + self.level
                 damage -= damage_deflect
                 self.reaction = False
+                self.drop_action(('reaction', 'Monk_Deflect_Missiles'))
+                self.drop_spell(('feature', 'Monk_Deflect_Missiles'))
                 #print('[+++] {0} {1} {2} reaction Deflect {3}/{4} << {5} atc {6} dmg {7}'.format(
                 #    self.ally_side, self.place, self.behavior,
                 #    damage_deflect, attack_dict['damage'],

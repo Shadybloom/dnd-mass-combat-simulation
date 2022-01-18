@@ -2525,13 +2525,10 @@ class battle_simulation(battlescape):
                         #spell_dict['spell_choice'] = spell_choice
                         self.fireball_action(soldier, squad, spell_dict, enemy.place,
                                 single_target = enemy)
-                # Монашьи боласы могут сбить с ног:
-                #if attack_result['hit'] and 'prone' in attack_result['weapon_type']\
-                #        and not enemy_soldier.prone:
-                #    prone = enemy_soldier.set_fall_prone(soldier, advantage, disadvantage)
                 # Ошеломляющий удар монаха, только по командирам врага:
                 if attack_dict['hit'] and soldier.class_features.get('Stunning_Strike')\
                         and enemy_soldier.behavior == 'commander'\
+                        and attack_choice[0] == 'close'\
                         and not enemy_soldier.stunned:
                     soldier.use_stunning_strike(enemy_soldier)
                 # Враг сбивается с ног, или лишается реакции:
@@ -2985,7 +2982,21 @@ class battle_simulation(battlescape):
                 self.set_squad_battle_stat(attack_result, squad)
 
     def channel_action(self, soldier, squad, enemy):
-        """Боец использует божественный канал."""
+        """Боец использует божественный канал.
+        
+        Или подобные ему способности:
+        - Sharpen_the_Blade монаха-кенсэя.
+        """
+        if soldier.bonus_action\
+                and soldier.class_features.get('Sharpen_the_Blade')\
+                and hasattr(soldier, 'ki_points') and soldier.ki_points > 0\
+                and not soldier.sacred_weapon:
+            soldier.ki_points -= 3
+            soldier.sacred_weapon = 3
+            soldier.sacred_weapon_timer = 10
+            soldier.bonus_action = False
+            soldier.drop_action(('bonus_action', 'Kensei_Sharpen_the_Blade'))
+            soldier.drop_spell(('ki', 'Kensei_Sharpen_the_Blade'))
         if soldier.battle_action\
                 and soldier.__dict__.get('channel_divinity')\
                 and soldier.channel_divinity > 0:

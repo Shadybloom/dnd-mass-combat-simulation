@@ -1355,19 +1355,24 @@ class soldier():
         # Монахи могут использовать ловкость для простого и не тяжёлого оружия:
         # Также Martial_Arts позволяет изменить damage_dice оружия:
         # https://www.dandwiki.com/wiki/5e_SRD:Monk#Table:_The_monk
-        if class_features.get('Martial_Arts') and dict_attack['attack_type'] == 'close':
+        if class_features.get('Martial_Arts') and dict_attack['attack_type'] == 'close'\
+                or class_features.get('Kensei_Weapons') and dict_attack.get('weapon'):
             if self.mods['dexterity'] >= self.mods['strength'] and 'heavy' not in weapon_type_list:
                 attack_mod_type = 'dexterity'
                 attack_mod = self.mods['dexterity'] + self.proficiency_bonus
                 damage_mod = self.mods['dexterity']
                 weapon_skills_use.append('Martial_Arts')
-                martial_arts_dice = self.proficiency['martial_arts_dice']
-                # Сравниваем кость атаки Martial_Arts и оружия, выбираем наибольший диапазон:
-                if int(damage_dice.split('d')[1]) < int(martial_arts_dice.split('d')[1]):
-                    damage_dice =  martial_arts_dice
+            # Сравниваем кость атаки Martial_Arts и оружия, выбираем наибольший диапазон:
+            martial_arts_dice = self.proficiency['martial_arts_dice']
+            if int(damage_dice.split('d')[1]) < int(martial_arts_dice.split('d')[1]):
+                damage_dice =  martial_arts_dice
         # Рукопашные атаки монаха 6+ lvl считаются магическими. Преодолевают сопротивление урону.
         if class_features.get('Ki_Empowered_Strikes') and dict_attack['attack_type'] == 'close'\
                 and not dict_attack.get('weapon') and not 'magic' in dict_attack['weapon_type']:
+            dict_attack['weapon_type'].append('magic')
+        # Оружие кенсэя считается магическим, преодолевая сопротивление урону.
+        if class_features.get('Magic_Kensei_Weapons') and dict_attack.get('weapon')\
+                and not 'magic' in dict_attack['weapon_type']:
             dict_attack['weapon_type'].append('magic')
         # Специализации:
         # Улучшенные критические попадания бойца-чемпиона:
