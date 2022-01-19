@@ -1479,7 +1479,8 @@ class battle_simulation(battlescape):
                 and squad.commanders_list\
                 and soldier.uuid == squad.commander.uuid:
             if len(soldier.near_allies) >= 1\
-                    or enemy and enemy.distance <= squad.enemy_recon['move'] * 2\
+                    or enemy and squad.__dict__.get('enemy_recon')\
+                    and enemy.distance <= squad.enemy_recon['move'] * 2\
                     or not 'very_carefull' in soldier.commands and soldier.hero\
                     or 'fearless' in soldier.commands:
                 # Командиры прорываются через зональные заклинания и атакуют магов:
