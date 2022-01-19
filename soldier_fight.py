@@ -2443,7 +2443,9 @@ class soldier_in_battle(soldier):
         Скорость бойца при этом пересчитывается.
         """
         unset_list = []
-        for attack_choice, attack_dict in self.attacks.items():
+        unidict_attacks = copy.copy(self.attacks)
+        unidict_attacks.update(self.metadict_recharge)
+        for attack_choice, attack_dict in unidict_attacks.items():
             if not disarm:
                 if attack_choice[-1] == weapon_type\
                         or attack_dict.get('weapon_use') == weapon_type\
@@ -2457,11 +2459,15 @@ class soldier_in_battle(soldier):
         if unset_list and len(unset_list) > 0:
             unset_list = list(set(unset_list))
             for attack in unset_list:
-                attack_dict = self.attacks.pop(attack)
+                attack_dict = unidict_attacks[attack]
+                if attack in self.attacks:
+                    attack_dict = self.attacks.pop(attack)
                 if attack_dict.get('recharge')\
                         or attack_dict.get('weapon_type')\
                         and 'reload' in attack_dict['weapon_type']:
                     self.metadict_recharge[attack] = attack_dict
+                if disarm and attack in self.metadict_recharge:
+                    self.metadict_recharge.pop(attack)
             if ammo_type and ammo_type in self.equipment_weapon:
                 self.drop_item(ammo_type, drop_all = True)
             if disarm:
@@ -3184,6 +3190,23 @@ class soldier_in_battle(soldier):
         enemy_soldier.battle_action = False
         enemy_soldier.bonus_action = False
         enemy_soldier.reaction = False
+        # Если лафет орудия уничтожен, артиллерист не может стрелять:
+        if enemy_soldier.behavior == 'mount' and hasattr(enemy_soldier, 'master_uuid')\
+                and enemy_soldier.master_uuid in enemy_soldier.squad.metadict_soldiers:
+            enemy_gunner = enemy_soldier.squad.metadict_soldiers[enemy_soldier.master_uuid]
+            weapon_use = False
+            if len(enemy_gunner.metadict_recharge) > 0:
+                for attack, attack_dict in enemy_gunner.metadict_recharge.items():
+                    if 'chassis' in attack_dict and 'weapon_use' in attack_dict:
+                        weapon_use = attack_dict['weapon_use']
+                        break
+            else:
+                for attack, attack_dict in enemy_gunner.attacks.items():
+                    if 'chassis' in attack_dict and 'weapon_use' in attack_dict:
+                        weapon_use = attack_dict['weapon_use']
+                        break
+            if weapon_use:
+                enemy_gunner.unset_weapon(weapon_use, disarm = True)
         # Противник теряет концентрацию:
         if enemy_soldier.concentration:
             enemy_soldier.set_concentration_break(autofail = True)

@@ -2361,6 +2361,7 @@ metadict_items['12lb Bombard'] = {
     # * 3 выстрела/минуту. Бомбой 230 м/с, 1800 футов выстрел
     # * Бомбарды стреляют только навесом.
     'weapon':True,
+    'chassis':True,
     # Спасброски ловкости вместо брони:
     'direct_hit':True,
     'savethrow':True,
@@ -2384,6 +2385,7 @@ metadict_items['12lb Bombard'] = {
 
 metadict_items['24lb Cannon, naval'] = {
     'weapon':True,
+    'chassis':True,
     'direct_hit':True,
     'savethrow':True,
     'savethrow_all':True,
@@ -2409,6 +2411,7 @@ metadict_items['12lb Cannon, naval'] = {
     # - Ядром -- 900/±30 футов, огромный разброс при стрельбе на море.
     # - Книппелями -- 300 футов.
     'weapon':True,
+    'chassis':True,
     'direct_hit':True,
     'savethrow':True,
     'savethrow_all':True,
@@ -2434,6 +2437,7 @@ metadict_items['6lb Cannon'] = {
     # Стоимость бронзовых -- 8 эфес/тонна (4 эфеса/1000 lb)
     # Станок -- 20% массы орудия.
     'weapon':True,
+    'chassis':True,
     # Спасброски ловкости вместо брони:
     'direct_hit':True,
     'savethrow':True,
@@ -2458,6 +2462,7 @@ metadict_items['6lb Cannon'] = {
 metadict_items['2lb Falconet'] = {
     # Фальконет
     'weapon':True,
+    'chassis':True,
     'direct_hit':True,
     'savethrow':True,
     'savethrow_all':True,

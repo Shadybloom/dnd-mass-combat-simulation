@@ -15,8 +15,9 @@ metadict_animals = {}
 metadict_animals['Onager'] = {
     # Игромеханически -- ездовые животные
     # Онагр
-    'level':5,
+    'level':1,
     'mechanism':True,
+    'damage_treshold':10,
     'challenge_rating':'-',
     'char_class':'Commoner',
     'behavior':'mount',
@@ -39,8 +40,9 @@ metadict_animals['Onager'] = {
 
 metadict_animals['Cannon, chassis'] = {
     # Деревянный пушечный станок.
-    'level':5,
+    'level':1,
     'mechanism':True,
+    'damage_treshold':10,
     'challenge_rating':'-',
     'char_class':'Commoner',
     'behavior':'mount',
@@ -63,8 +65,9 @@ metadict_animals['Cannon, chassis'] = {
 
 metadict_animals['Cannon, chassis, small'] = {
     # Станок фальконета
-    'level':5,
+    'level':1,
     'mechanism':True,
+    'damage_treshold':5,
     'challenge_rating':'-',
     'char_class':'Commoner',
     'behavior':'mount',
@@ -88,14 +91,14 @@ metadict_animals['Cannon, chassis, small'] = {
 metadict_animals['2lb Cannon, chassis'] = {
     # 2-фунтовый фальконет на станке.
     'base_unit':'Cannon, chassis, small',
-    'hitpoints_base':20,
+    'hitpoints_base':15,
     'armor_class_natural':15,
     }
 
 metadict_animals['6lb Cannon, chassis'] = {
     # 6-фунтовая пушка.
     'base_unit':'Cannon, chassis',
-    'hitpoints_base':50,
+    'hitpoints_base':30,
     'armor_class_natural':15,
     }
 
@@ -103,21 +106,21 @@ metadict_animals['12lb Bombard, chassis'] = {
     # 12-фунтовая бомбарда.
     # Лёгкая, весит всего 1000 lb.
     'base_unit':'Cannon, chassis',
-    'hitpoints_base':50,
+    'hitpoints_base':30,
     'armor_class_natural':15,
     }
 
 metadict_animals['12lb Cannon, chassis'] = {
     # 12-фунтовая пушка.
     'base_unit':'Cannon, chassis',
-    'hitpoints_base':80,
+    'hitpoints_base':30,
     'armor_class_natural':15,
     }
 
 metadict_animals['24lb Cannon, chassis'] = {
     # 24-фунтовая пушка.
     'base_unit':'Cannon, chassis',
-    'hitpoints_base':120,
+    'hitpoints_base':30,
     'armor_class_natural':15,
     }
 
