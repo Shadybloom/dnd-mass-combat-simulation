@@ -1155,6 +1155,7 @@ metadict_items['Sabre +1'] = {
 # Martial Ranged Weapons (homebrew)
 
 metadict_items['Chakram'] = {
+    # Чакрам
     # https://www.flight-toys.com/rings/chackrum.html
     # https://www.dandwiki.com/wiki/Chakram_(5e_Equipment)
     # https://www.dandwiki.com/wiki/Chakri_(5e_Equipment)
@@ -1162,12 +1163,12 @@ metadict_items['Chakram'] = {
     'ammo_type':blade_poisons,
     'weapon_type':['martial','finesse','light','throw'],
     'damage_type':'slashing',
-    'damage_dice':'1d6',
+    'damage_dice':'1d4',
     'throw_range':60,
-    'throw_range_max':300,
+    'throw_range_max':150,
     'weight (lb)':1,
-    'cost (gp)':15,
-    'cost (grams_of_gold)':2,
+    'cost (gp)':1,
+    'cost (grams_of_gold)':1,
     }
 
 #-------------------------------------------------------------------------
@@ -1979,7 +1980,7 @@ metadict_items['Bracers of Defence'] = {
 metadict_items['Sword of the Past +2'] = {
     # Клинок былого
     'weapon':True,
-    'weapon_type':['martial','close','two_handed','heavy','magic','+2','sword_burst'],
+    'weapon_type':['martial','close','two_handed','heavy','magic','+2'],
     'damage_type':'slashing',
     'damage_dice':'2d6',
     'spell_dict':{
@@ -2002,6 +2003,31 @@ metadict_items['Sword of the Past +2'] = {
     'cost (grams_of_gold)':5000*60,
     }
 
+metadict_items['Sword of Hopesfire'] = {
+    'weapon':True,
+    'weapon_type':['martial','close','finesse','magic','+2'],
+    'damage_type':'slashing',
+    'damage_dice':'1d8',
+    'spell_dict':{
+            'safe':True,
+            'zone':True,
+            'radius':5,
+            'zone_shape':'square',
+            'effect':'burst',
+            'direct_hit':True,
+            'savethrow':True,
+            'savethrow_all':True,
+            'savethrow_ability':'dexterity',
+            'damage_type':'lightning',
+            'damage_dice':'1d6',
+            'spell_save_DC':12,
+            'spell_choice':('Hopesfire','Lightning Strike'),
+            },
+    'weight (lb)':3,
+    'cost (gp)':2000*60,
+    'cost (grams_of_gold)':2000*60,
+    }
+
 metadict_items['Sword of Flame Tongue'] = {
     'weapon':True,
     #'ammo_type':blade_poisons,
@@ -2015,7 +2041,7 @@ metadict_items['Sword of Flame Tongue'] = {
             'attacks_number':1,
             'damage_type':'fire',
             'damage_dice':'2d6',
-            'spell_choice':('Sword of Flame Tongue','Fire Stike'),
+            'spell_choice':('Sword of Flame Tongue','Fire Strike'),
             },
     'weight (lb)':3,
     'cost (gp)':300*60,
@@ -2053,7 +2079,7 @@ metadict_items['Sword of Sharpness'] = {
     # Светится на 10+10 футов, активация действием.
     'weapon':True,
     #'ammo_type':blade_poisons,
-    'weapon_type':['martial','close','versatile','magic','sharpness'],
+    'weapon_type':['martial','close','versatile','finesse','magic','sharpness'],
     'damage_type':'slashing',
     'damage_dice':'1d8',
     'damage_dice_versatile':'1d10',
@@ -3028,7 +3054,7 @@ metadict_items['Holy Bullet'] = {
             'savethrow_all':True,
             'savethrow_ability':'charisma',
             'damage_dice':'1d6',
-            'damage_type':'radiant',
+            'damage_type':'radiance',
             'spell_save_DC':10,
             'spell_choice':('Holy Bullet','Святая вода'),
             },
@@ -3231,7 +3257,7 @@ metadict_items['Holy Blade'] = {
             'savethrow_all':True,
             'savethrow_ability':'charisma',
             'damage_dice':'1d6',
-            'damage_type':'radiant',
+            'damage_type':'radiance',
             'spell_save_DC':10,
             'spell_choice':('Holy Blade','Святая вода'),
             },

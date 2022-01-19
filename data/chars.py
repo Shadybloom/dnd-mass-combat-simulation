@@ -13880,6 +13880,7 @@ metadict_chars['Monk 13 lvl (враг) (Намулис)'] = {
     # Tongue_of_the_Sun_and_Moon -- говорит на любом языке.
     'level':13,
     #'grappler_AI':True,
+    'fireball_AI':True,
     'carefull_AI':True,
     'char_class':'Monk',
     'hit_dice':'1d8',
@@ -13898,18 +13899,19 @@ metadict_chars['Monk 13 lvl (враг) (Намулис)'] = {
         # ------
         # 1. Stillness_of_Mind -- действием снимает очарование или испуг.
         # 2. Unarmored_Movement_improvement -- бег по вертикальным стенам и воде.
-        # 3. Deft_Strike -- +кость урона оружия за 1 Ки, две кости при крите.
-        # 4. Sharpen_the_Blade -- +3 бонус оружия за 3 Ки на минуту.
         # ------
+        'Feat_Sharpshooter':True,
+        'Feat_Weapon_Master':True,
+        'Fighting_Style_Archery':True,
         'Feat_Defensive_Duelist':True,
         'Ability_Score_Improvement':{
             'wisdom':+1,
             'dexterity':+1,
             },
         # Кенсэй:
-        # TODO: способности кенсэя пока что не работают.
         'Agile_Parry':True,
-        'Kensei_Weapons':['Saber','Longbow','Glaive','Pistol'],
+        #'Kensei_Weapons':['Saber','Longbow','Glaive','Chakram'],
+        'Kensei_Weapons':['simple','martial'],
         'Kensei_Shot':'1d4',
         'Magic_Kensei_Weapons':True,
         'Deft_Strike':True,
@@ -13940,15 +13942,17 @@ metadict_chars['Monk 13 lvl (враг) (Намулис)'] = {
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
         # TODO:
-            # 2. Наручи защиты.
             # 3. Руны 3-4 круга.
-        # Посох ударов продан за 4000 эфесов на оборону Илиона
         'Potion of Antidote':1,
         'Infusion of Vitality':1,
         'Infusion of Heroism':1,
-        'Bracers of Defence':1,
         'Rune of Shielding':1,
-        #'Staff of Striking +3':1,
-        'Shortsword +1':1,
+        'Bracers of Defence':1,
+        #'Sword of Sharpness':1,
+        'Sword of Hopesfire':1,
+        'Longbow':1,
+        'Poison Arrow':80,
+        'Sleep Blade':10,
+        'Chakram':10,
         },
     }

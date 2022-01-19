@@ -2108,3 +2108,15 @@ metadict_squads['Company-elite (гвардия Намулиса) (враг)'] = 
     'Warrior 5 lvl (враг) (лейтенант Намулиса)':25,
     'Commoner 1 lvl (recruit)':300,
     }
+
+metadict_squads['Squad-elite (гвардия Намулиса) (враг)'] = {
+    # 4 отдельный взвода гвардии.
+    'Warrior 4 lvl (враг) (гвардеец Намулиса)':16,
+    'Warrior 5 lvl (враг) (лейтенант Намулиса)':6,
+    'Commoner 1 lvl (recruit)':60,
+    }
+
+metadict_squads['Single-hero (лично Намулис) (враг)'] = {
+    'Monk 13 lvl (враг) (Намулис)':1,
+    }
+
