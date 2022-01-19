@@ -879,7 +879,7 @@ class soldier_in_battle(soldier):
         https://www.dandwiki.com/wiki/5e_SRD:Monk#Martial_Arts
         """
         attacks_chain_bonus = []
-        if self.class_features.get('Flurry_of_Blows'):
+        if self.class_features.get('Flurry_of_Blows') and 'spellcast' in self.commands:
             if hasattr(self, 'ki_points') and self.ki_points > 0 and self.bonus_action == True:
                 self.ki_points -= 1
                 self.drop_spell(('ki', 'Flurry_of_Blows'))
@@ -910,7 +910,7 @@ class soldier_in_battle(soldier):
         
         Возвращает сложность спасброска.
         """
-        if self.class_features.get('Stunning_Strike')\
+        if self.class_features.get('Stunning_Strike') and 'spellcast' in self.commands\
                 and hasattr(self, 'ki_points')\
                 and self.ki_points > 0:
             self.ki_points -= 1
@@ -1242,10 +1242,10 @@ class soldier_in_battle(soldier):
         # Если оружие не выбрано, выбирается случайное:
         if not weapon:
             attack_choice = random.choice(recharge_list)
-            weapon = self.metadict_recharge[attack_choice]['weapon_use']
+            weapon = self.metadict_recharge[attack_choice].get('weapon_use',None)
         # Все атаки с этим оружием восстанавливаются:
         for attack_choice in recharge_list:
-            if weapon == self.metadict_recharge[attack_choice]['weapon_use']:
+            if weapon and weapon == self.metadict_recharge[attack_choice]['weapon_use']:
                 attack_dict = self.metadict_recharge.pop(attack_choice)
                 # Восполняется магазин винтовки:
                 if attack_dict.get('Recharge_magazine_max'):
@@ -2280,7 +2280,7 @@ class soldier_in_battle(soldier):
                             advantage = False, disadvantage = False, max_throw = sharpness)
                     damage_throw += sneak_attack_throw
         # Кенсэй использует свои Deft_Strike, чтобы усиливать криты (очень редкие):
-        if self.class_features.get('Deft_Strike') and attack_crit\
+        if self.class_features.get('Deft_Strike') and attack_crit and 'spellcast' in self.commands\
                 and hasattr(self, 'ki_points') and self.ki_points > 0:
             self.ki_points -= 1
             self.drop_spell(('ki', 'Kensei_Deft_Strike'))

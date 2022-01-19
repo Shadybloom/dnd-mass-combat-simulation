@@ -2707,6 +2707,7 @@ class battle_simulation(battlescape):
         # ------------------------------------------------------------
         # Умелый монах предпочитает "Ошеломляющие удары":
         if not enemy_soldier.stunned and soldier.class_features.get('Stunning_Strike')\
+                and 'spellcast' in soldier.commands\
                 and not disadvantage\
                 and soldier.ki_points > 0:
             return None
