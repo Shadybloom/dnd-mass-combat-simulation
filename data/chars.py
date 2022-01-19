@@ -1473,6 +1473,7 @@ metadict_chars['Warrior 4 lvl (grenadier line-infantry-sergeant)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
+        #'Potion of Rage':1,
         'Potion of Antidote':1,
         'Infusion of Vitality':1,
         'Rune of Absorbtion':1,
@@ -1510,6 +1511,7 @@ metadict_chars['Warrior 5 lvl (grenadier line-infantry-lieutenant)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
+        #'Potion of Rage':1,
         'Potion of Antidote':1,
         'Infusion of Vitality':1,
         'Infusion of Heroism':1,
@@ -8344,7 +8346,7 @@ metadict_chars['Brass Dragon, (Vaarsuvius) (Агаталара Огненная)
     # Реинкарнация Агаты
     # Молодой латунный дракон
     'level':13,
-    'Dash_AI':True,
+    #'Dash_AI':True,
     'fearless_AI':True,
     'disengage_AI':True,
     'recharge_AI':True,
@@ -8369,7 +8371,7 @@ metadict_chars['Brass Dragon, (Vaarsuvius) (Агаталара Огненная)
         'Spellcasting':True,
         'Spells':[
             ('cantrip', 'Druidcraft'),
-            ('cantrip', 'Mold_Earth'),
+            #('cantrip', 'Mold_Earth'),
             ('ritual', 'Speak_with_Animals'),
             #('1_lvl', 'Goodberry'),
             #('1_lvl', 'Cure_Wounds'),
@@ -13505,6 +13507,193 @@ metadict_chars['Warrior 5 lvl (друг) (капитан Тави)'] = {
 
 #-------------------------------------------------------------------------------
 # Чёрные флаги Ост-Индии, Black Flags
+
+#----
+# Союзники (армия) (Генри Эвери):
+
+metadict_chars['Warrior 4 lvl (враг) (абордажник Эвери)'] = {
+    'base_unit':'Warrior 4 lvl (grenadier line-infantry-sergeant)',
+    'char_class':'Warrior-heavy',
+    'behavior':'elite_warrior',
+    'class_features':{
+        'Feat_Martial_Adept':True,
+        'Menacing_Attack':True,
+        'Precision_Attack':True,
+        #'Parry':True,
+        },
+    'equipment_weapon':{
+        #'Potion of Rage':1,
+        'Potion of Heroism':1,
+        'Potion of Antidote':1,
+        'Infusion of Vitality':1,
+        'Rune of Absorbtion':1,
+        'Breastplate, 17 century':1,
+        'Halberd':1,
+        'Sabre':1,
+        'Shield':1,
+        'Pistol, Lorenzony':1,
+        'Muskete Bullet':30,
+        'Hand Grenade':10,
+        'Smoke Grenade':1,
+        #'Hand Mortar':1,
+        #'2lb Bomb':3,
+        },
+    }
+
+metadict_chars['Warrior 5 lvl (враг) (лейтенант Эвери)'] = {
+    'base_unit':'Warrior 5 lvl (grenadier line-infantry-lieutenant)',
+    'char_class':'Warrior-officer',
+    'class_features':{
+        'Feat_Martial_Adept':True,
+        'Menacing_Attack':True,
+        'Precision_Attack':True,
+        #'Parry':True,
+        'Extra_Attack':True,
+        },
+    'equipment_weapon':{
+        #'Potion of Rage':1,
+        'Potion of Heroism':1,
+        'Potion of Antidote':1,
+        'Infusion of Vitality':1,
+        'Rune of Absorbtion':1,
+        'Breastplate, 17 century':1,
+        'Halberd':1,
+        'Sabre':1,
+        'Shield':1,
+        'Pistol, Lorenzony':1,
+        'Muskete Bullet':30,
+        'Hand Grenade':10,
+        'Smoke Grenade':1,
+        #'Hand Mortar':1,
+        #'2lb Bomb':3,
+        },
+    }
+
+metadict_chars['Warrior 4 lvl (враг) (абордажник Эвери) (лидер)'] = {
+    'base_unit':'Warrior 4 lvl (grenadier line-infantry-sergeant)',
+    'char_class':'Warrior-heavy',
+    'behavior':'elite_warrior',
+    'equipment_weapon':{
+        #'Potion of Rage':1,
+        'Potion of Heroism':1,
+        'Potion of Antidote':1,
+        'Infusion of Vitality':1,
+        'Rune of Absorbtion':1,
+        'Breastplate, 17 century':1,
+        'Halberd':1,
+        'Sabre':1,
+        'Shield':1,
+        'Pistol, Lorenzony':1,
+        'Muskete Bullet':30,
+        'Hand Grenade':10,
+        'Smoke Grenade':1,
+        #'Hand Mortar':1,
+        #'2lb Bomb':3,
+        },
+    }
+
+metadict_chars['Warrior 5 lvl (враг) (лейтенант Эвери) (лидер)'] = {
+    'base_unit':'Warrior 5 lvl (grenadier line-infantry-lieutenant)',
+    'char_class':'Warrior-officer',
+    'equipment_weapon':{
+        #'Potion of Rage':1,
+        'Potion of Heroism':1,
+        'Potion of Antidote':1,
+        'Infusion of Vitality':1,
+        'Rune of Absorbtion':1,
+        'Breastplate, 17 century':1,
+        'Halberd':1,
+        'Sabre':1,
+        'Shield':1,
+        'Pistol, Lorenzony':1,
+        'Muskete Bullet':30,
+        'Hand Grenade':10,
+        'Smoke Grenade':1,
+        #'Hand Mortar':1,
+        #'2lb Bomb':3,
+        },
+    }
+
+#----
+# Противник (свита) (Генри Эвери):
+
+metadict_chars['Fighter 13 lvl (друг) (Генри Эвери)'] = {
+    # Fighter 1 lvl (legionary sentinel-battler) sum:103 STR:19 DEX:17 CON:18 INT:16 WIS:16 CHA:17
+    # Использует "Обнаружение мыслей" (Detect_Thoughts), чтобы читать мысли других.
+    'level':13,
+    'fearless_AI':True,
+    'hunter_AI':True,
+    'no_grappler_AI':True,
+    'char_class':'Eldritch_Knight',
+    'hit_dice':'1d10',
+    'behavior':'commander',
+    'hitpoints_medial':True,
+    'abilityes':{
+        'strength':19,
+        'dexterity':17,
+        'constitution':18,
+        'intelligence':16,
+        'wisdom':16,
+        'charisma':17,
+        },
+    'class_features':{
+        # TODO:
+        # - Eldritch_Strike -- удачный удар = помеха на спасброски от закл. до конца следующего хода.
+        'Feat_War_Caster':True,
+        'Feat_Shield_Master':True,
+        'Feat_Heavy_Armor_Master':True,
+        'Feat_Inspiring_Leader':True,
+        'Ability_Score_Improvement':{
+            'strength':+1,
+            'intelligence':+2,
+            },
+        'Fighting_Style_Blind_Fighting':True,
+        'Second_Wind':True,
+        'Action_Surge':True,
+        # Мистический рыцарь
+        'Martial_Archetype_Eldritch_Knight':True,
+        'Weapon_Bond':True,
+        'Spellcasting':True,
+        'Spells':[
+            # 9 заклинаний на 13 lvl (2 заклинания вне школ evocation и abjuration)
+            ('cantrip', 'Message'),
+            ('cantrip', 'Green_Flame_Blade'),
+            ('cantrip', 'Blade_Ward'),
+            ('ritual', 'Alarm'),
+            ('1_lvl', 'Shield'),
+            #('2_lvl', 'Shield'),
+            #('1_lvl', 'Fog_Cloud'),
+            ('2_lvl', 'Blur'),
+            #('3_lvl', 'Blur'),
+            ('2_lvl', 'Darkness'),
+            ('2_lvl', 'Flaming_Sphere'),
+            ('2_lvl', 'Detect_Thoughts'),
+            ('2_lvl', 'Gust_of_Wind'),
+            ('2_lvl', 'Warding_Wind'),
+            ('3_lvl', 'Counterspell'),
+            ('3_lvl', 'Fireball'),
+            ],
+        'Extra_Attack':True,
+        'Indomitable':True,
+        'War_Magic':True,
+        'Eldritch_Strike':True,
+        },
+    'race':'Human-hero',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        # TODO: руны 3 круга
+        #'Infusion of Regeneration':1,
+        'Rune of Absorbtion':2,
+        'Plate Armor +1':1,
+        'Heavy Shield +1':1,
+        #'Sword of Flame Tongue':1,
+        #'Sword of Life-Stealing':1,
+        'Longsword +2':1,
+        },
+    }
 
 #----
 # Противник (армия) (Салиф):
