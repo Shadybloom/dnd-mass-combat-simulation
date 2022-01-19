@@ -2072,7 +2072,8 @@ class soldier_in_battle(soldier):
                 return throw_attack
         if distance >= 2 and 'ranged' in [attack[0] for attack in self.attacks]:
             ranged_attack_list = [attack for attack in self.attacks if attack[0] == 'ranged'
-                    and distance <= self.attacks[attack]['attack_range_max'] / tile_size]
+                    and distance <= self.attacks[attack]['attack_range_max'] / tile_size
+                    and attack[1] == self.attacks[attack]['weapon_of_choice']]
             if ranged_attack_list:
                 ranged_attack = random.choice(ranged_attack_list)
             else:
