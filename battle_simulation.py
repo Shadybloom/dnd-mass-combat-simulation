@@ -2541,7 +2541,7 @@ class battle_simulation(battlescape):
                     self.fireball_action(soldier, squad, spell_dict, enemy.place, single_target = enemy)
                     soldier.drop_action(('free_action', 'Menacing_Attack'))
                     soldier.drop_spell(('feature', 'Menacing_Attack'))
-                # Grappling_Strike мастера боевых искусств:
+                # Disarming_Attack мастера боевых искусств:
                 elif attack_result['hit'] and attack_dict.get('weapon') == True\
                         and soldier.class_features.get('Disarming_Attack')\
                         and 'spellcast' in soldier.commands\
@@ -2825,6 +2825,7 @@ class battle_simulation(battlescape):
             spells_list = [
                     'Mold_Earth',
                     'Blade_Ward',
+                    'Mirror_Image',
                     ]
             for spell in spells_list:
                 if spell == 'Mold_Earth' and not 'cover_terrain' in self.dict_battlespace[soldier.place]:
@@ -2836,6 +2837,8 @@ class battle_simulation(battlescape):
                                 self.dict_battlespace[soldier.place].append('cover_terrain')
                                 break
                 elif spell == 'Blade_Ward':
+                    soldier.try_spellcast(spell, gen_spell = True)
+                elif spell == 'Mirror_Image' and not 'mirror_image' in soldier.buffs:
                     soldier.try_spellcast(spell, gen_spell = True)
         if soldier.concentration and soldier.bonus_action:
             # Hex перенацеливается за счёт бонусного действия:
