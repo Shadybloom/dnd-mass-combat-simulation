@@ -2160,8 +2160,6 @@ class soldier_in_battle(soldier):
         # Используется боеприпас (стрела, дротик, яд для меча), если указан:
         if attack_dict.get('ammo'):
             self.use_ammo(attack_dict, metadict_soldiers)
-        # Нельзя использовать два приёма баттлмастера за одну атаку:
-        superiority_use = False
         # Боец с двуручным оружием не может использовать щит:
         # Но только в том раунде, в котором пользовался двуручным оружием.
         # В set_actions щит каждый раз возвращается в боевое положение.
@@ -2224,14 +2222,13 @@ class soldier_in_battle(soldier):
                 + self.buffs['bardic_inspiration']['inspiration_mod']:
             attack_throw_mod += self.buffs.pop('bardic_inspiration')['inspiration_mod']
         # Precision_Attack мастера боевых искусств:
-        if self.class_features.get('Precision_Attack') and not superiority_use:
-            superiority_dice_mid = round(int(self.superiority_dice[-1]) / 2)
+        if self.class_features.get('Precision_Attack'):
+            superiority_dice_mid = round(int(self.superiority_dice.split('d')[1]) / 2)
             if self.superiority_dices\
                 and enemy_soldier.armor['armor_class'] > attack_throw_mod\
-                and not enemy_soldier.armor['armor_class'] > attack_throw_mod + superiority_dice_mid:
+                and not enemy_soldier.armor['armor_class'] >= attack_throw_mod + superiority_dice_mid:
                 attack_throw_mod += dices.dice_throw_advantage(self.superiority_dice)
                 self.superiority_dices -= 1
-                superiority_use = True
                 self.drop_spell(('feature', 'Battlemaster_Precision_Attack'))
         # Great_Weapon_Fighting даёт преимущество по урону (в среднем +2 для диапазона 2d6):
         if attack_dict.get('weapon_skills_use')\
@@ -2325,26 +2322,6 @@ class soldier_in_battle(soldier):
                         and not disadvantage:
                     damage_throw_mod += 10
                     attack_throw_mod -=5
-        # Menacing_Attack мастера боевых искусств может испугать противника:
-        # TODO: испугать можно тольпо при попадании. А здесь попадание не гарантировано.
-        if self.class_features.get('Menacing_Attack') and not superiority_use:
-            if self.superiority_dices and not enemy_soldier.fear\
-                    and enemy_soldier.armor['armor_class'] < attack_throw_mod:
-                damage_throw_mod += dices.dice_throw_advantage(self.superiority_dice)
-                self.superiority_dices -= 1
-                superiority_use = True
-                fear_difficult = 8 + max(self.mods.values()) + self.proficiency_bonus
-                fear = enemy_soldier.set_fear(self, fear_difficult)
-                self.drop_spell(('feature', 'Battlemaster_Menacing_Attack'))
-                #if fear:
-                #    print('[+++] {side_1}, {c1} {s} FEAR >> {side_2} {c2} {e}'.format(
-                #        side_1 = self.ally_side,
-                #        c1 = self.place,
-                #        s = self.behavior,
-                #        side_2 = enemy_soldier.ally_side,
-                #        c2 = enemy_soldier.place,
-                #        e = enemy_soldier.behavior,
-                #        ))
         attack_result_dict = {
                 'damage':damage_throw_mod,
                 'attack':attack_throw_mod,

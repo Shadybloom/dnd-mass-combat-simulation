@@ -2116,6 +2116,29 @@ class gen_spells():
             spell_dict = copy.deepcopy(spell_dict)
         if int(spell_level[0]) > 1:
             spell_dict['attacks_number'] = int(spell_level[0])
+        if gen_spell:
+            if not spell_dict.get('target_uuid'):
+                soldier = self.mage
+            else:
+                soldier = self.mage.metadict_soldiers[spell_dict['target_uuid']]
+            # Спасбросок мудрости против очарования:
+            difficult = spell_dict['spell_save_DC']
+            ability = spell_dict['savethrow_ability']
+            advantage = spell_dict.get('savethrow_advantage', False)
+            disadvantage = spell_dict.get('savethrow_disadvantage', False)
+            if soldier.get_savethrow(difficult, ability, advantage, disadvantage):
+                return False
+            else:
+                soldier.fear_difficult = difficult
+                soldier.fear_source = self.mage
+                soldier.fear = True
+                #if soldier.reaction:
+                #    # Солдат убегает за счёт реакции:
+                #    soldier.reaction = False
+                #    soldier.move_pool = soldier.base_speed
+                #    destination = soldier.battle.find_spawn(soldier.place, soldier.ally_side)
+                #    destination = random.choice(soldier.battle.point_to_field(destination))
+                #    soldier.battle.move_action(soldier, soldier.squad, destination, allow_replace = True)
         return spell_dict
 
     @modify_spell
