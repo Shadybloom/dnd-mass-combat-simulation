@@ -810,6 +810,28 @@ metadict_items['Pistol, Lorenzony'] = {
     'cost (grams_of_gold)':120,
     }
 
+metadict_items['Pistol, Ashbeard'] = {
+    # Пистолет Лоренцони
+    'weapon':True,
+    'direct_hit':True,
+    'savethrow':True,
+    'savethrow_all':True,
+    'savethrow_ability':'dexterity',
+    'ammo_type':muskete_bullets,
+    'weapon_type':['martial','ranged','light','firearm','automatic','volley','reload'],
+    'recharge':True,
+    'Recharge_magazine_max':4,
+    'Recharge_magazine':4,
+    'Recharge_dice':'1d6',
+    'Recharge_numbers':[5,6],
+    'shoot_range':30,
+    'shoot_range_max':90,
+    'shoot_range_volley':150,
+    'weight (lb)':5,
+    'cost (gp)':60 * 15,
+    'cost (grams_of_gold)':60 * 15,
+    }
+
 metadict_items['Hand Mortar'] = {
     # Ручная мортирка, hand bombard
     'weapon':True,
@@ -1977,6 +1999,27 @@ metadict_items['Bracers of Defence'] = {
 #----
 # Magic Weapon (homebrew)
 
+metadict_items['Rarity +2'] = {
+    'weapon':True,
+    'ammo_type':blade_poisons,
+    'weapon_type':['martial','close','finesse','magic','+2'],
+    'damage_type':'piercing',
+    'spell_dict':{
+            'safe':True,
+            'effect':'steal_life',
+            'direct_hit':True,
+            'attacks_number':1,
+            'damage_type':'piercing',
+            'damage_dice':'1d8',
+            'spell_choice':('Rarity','Courage'),
+            'ammo':6,
+            },
+    'damage_dice':'1d8',
+    'weight (lb)':2,
+    'cost (gp)':300*60,
+    'cost (grams_of_gold)':300*60,
+    }
+
 metadict_items['Sword of the Past +2'] = {
     # Клинок былого
     'weapon':True,
@@ -2074,6 +2117,7 @@ metadict_items['Sword of Life-Stealing'] = {
     }
 
 metadict_items['Sword of Sharpness'] = {
+    # Мечь остроты.
     # Наносит предметам максимальный урон.
     # При крите наносит 14 дополнительного урона и при повторном d20 отрубает конечность.
     # Светится на 10+10 футов, активация действием.
@@ -2167,10 +2211,20 @@ metadict_items['Shortsword +1'] = {
     }
 
 metadict_items['Rapier +1'] = {
-    # "Рапиры бронзового века"
     'weapon':True,
     'ammo_type':blade_poisons,
-    'weapon_type':['martial','close','finesse'],
+    'weapon_type':['martial','close','finesse','magic','+1'],
+    'damage_type':'piercing',
+    'damage_dice':'1d8',
+    'weight (lb)':2,
+    'cost (gp)':25,
+    'cost (grams_of_gold)':30,
+    }
+
+metadict_items['Rapier +2'] = {
+    'weapon':True,
+    'ammo_type':blade_poisons,
+    'weapon_type':['martial','close','finesse','magic','+2'],
     'damage_type':'piercing',
     'damage_dice':'1d8',
     'weight (lb)':2,

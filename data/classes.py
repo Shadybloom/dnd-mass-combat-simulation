@@ -342,7 +342,7 @@ metadict_class_proficiency = {
                 'Second_Wind':1,'Action_Surge':2,'Extra_Attack':2,'Indomitable':3,
                 'superiority_dices':6,'superiority_dice':'1d12',},
         ('Battlemaster',19):{
-                'Second_Wind':1,'Action_Surge':2,'Extra_Attack':3,'Indomitable':3,
+                'Second_Wind':1,'Action_Surge':2,'Extra_Attack':2,'Indomitable':3,
                 'superiority_dices':6,'superiority_dice':'1d12',},
         ('Battlemaster',20):{
                 'Second_Wind':1,'Action_Surge':2,'Extra_Attack':3,'Indomitable':3,

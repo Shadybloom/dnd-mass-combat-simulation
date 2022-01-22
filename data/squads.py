@@ -69,6 +69,9 @@ metadict_squads['характеристики правителей'] = {
     # Вааму Лютый:
     # Monk 1 lvl (city windsong-apprentice) sum:96 STR:17 DEX:19 CON:18 INT:12 WIS:18 CHA:12
     #'Monk 1 lvl (city windsong-apprentice)':250,
+    # Генри Эвери:
+    # Fighter 1 lvl (legionary slayer-rookie) sum:100 STR:19 DEX:18 CON:19 INT:15 WIS:12 CHA:17
+    #'Fighter 1 lvl (legionary slayer-rookie)':250,
     }
 
 metadict_squads['характеристики героев'] = {
@@ -2091,7 +2094,8 @@ metadict_squads['Company-elite (абордажники Эвери) (друг)'] 
     }
 
 metadict_squads['Single-hero (лично Эвери) (друг)'] = {
-    'Fighter 13 lvl (друг) (Генри Эвери)':1,
+    #'Fighter 13 lvl (друг) (Генри Эвери)':1,
+    'Fighter 11 lvl (друг) (Люсьен де ла Помпаж)':1,
     }
 
 #----

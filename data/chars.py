@@ -13617,7 +13617,79 @@ metadict_chars['Warrior 5 lvl (враг) (лейтенант Эвери) (лид
 #----
 # Противник (свита) (Генри Эвери):
 
+metadict_chars['Fighter 11 lvl (друг) (Люсьен де ла Помпаж)'] = {
+    # Тестовый вариант Эвери -- мастера боевых искусств. Боль-боль-боль, всего 17% шансы против кенсэя.
+    # Fighter 1 lvl (legionary slayer-rookie) sum:100 STR:19 DEX:18 CON:19 INT:15 WIS:12 CHA:17
+    # Commanding_Presence даёт +1d10 к проверкам Харизмы (Запугивание, Выступление, Убеждение)
+    # Tactical_Assessment даёт +1d10 к проверкам Мудрости (Проницательность) и Интеллекта (История, Анализ)
+    'level':11,
+    'fearless_AI':True,
+    'hunter_AI':True,
+    'sneak_AI':True,
+    'char_class':'Battlemaster',
+    'hit_dice':'1d10',
+    'behavior':'commander',
+    'hitpoints_medial':True,
+    'abilityes':{
+        'strength':19,
+        'dexterity':18,
+        'constitution':19,
+        'intelligence':15,
+        'wisdom':12,
+        'charisma':17,
+        },
+    'class_features':{
+        'Feat_Shield_Master':True,
+        'Feat_Heavy_Armor_Master':True,
+        'Fighting_Style_Defence':True,
+        'Second_Wind':True,
+        'Action_Surge':True,
+        'Extra_Attack':True,
+        'Indomitable':True,
+        'Ability_Score_Improvement':{
+            'strength':+1,
+            'constitution':+1,
+            },
+        # Мастер боевых искусств:
+        'Martial_Archetype_Battlemaster':True,
+        'Combat_Superiority':True,
+        'Student_of_War':True,
+        # Манёвры (11 lvl -- 7 приёмов, 5 костей превосходства 1d10):
+        # TODO:
+        # - Trip_Attack -- сбивание с ног.
+        # - Grappling_Strike -- захват атакой.
+        # - Bait_and_Switch -- обмен позициями и +1d10 к AC себя/союзника на ход.
+        #'Parry':True,
+        'Menacing_Attack':True,
+        'Disarming_Attack':True,
+        'Precision_Attack':True,
+        'Commanding_Presence':True,
+        'Tactical_Assessment':True,
+        #'Bait_and_Switch':True,
+        },
+    'race':'Human-hero',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Potion of Antidote':1,
+        'Infusion of Heroism':1,
+        'Rune of Shielding':2,
+        'Plate Armor +1':1,
+        'Heavy Shield +1':1,
+        'Rarity +2':1,
+        'Rapier +2':1,
+        'Pistol, Ashbeard':1,
+        'Muskete Bullet':60,
+        #'Hand Grenade':10,
+        'Smoke Grenade':2,
+        'Poison Blade':40,
+        },
+    }
+
 metadict_chars['Fighter 13 lvl (друг) (Генри Эвери)'] = {
+    # Тестовый вариант Эвери -- мистического рыцаря. С Mirror_Image и Blur побеждает кенсэя в 60% случаев.
     # Fighter 1 lvl (legionary sentinel-battler) sum:103 STR:19 DEX:17 CON:18 INT:16 WIS:16 CHA:17
     # Использует "Обнаружение мыслей" (Detect_Thoughts), чтобы читать мысли других.
     'level':13,
@@ -13658,16 +13730,16 @@ metadict_chars['Fighter 13 lvl (друг) (Генри Эвери)'] = {
             # 9 заклинаний на 13 lvl (2 заклинания вне школ evocation и abjuration)
             ('cantrip', 'Message'),
             ('cantrip', 'Green_Flame_Blade'),
-            ('cantrip', 'Blade_Ward'),
-            ('ritual', 'Alarm'),
+            #('cantrip', 'Blade_Ward'),
+            #('ritual', 'Alarm'),
             ('1_lvl', 'Shield'),
             #('2_lvl', 'Shield'),
             #('1_lvl', 'Fog_Cloud'),
-            ('2_lvl', 'Blur'),
-            #('3_lvl', 'Blur'),
+            ('2_lvl', 'Mirror_Image'),
+            ('3_lvl', 'Blur'),
             ('2_lvl', 'Darkness'),
-            ('2_lvl', 'Flaming_Sphere'),
-            ('2_lvl', 'Detect_Thoughts'),
+            #('2_lvl', 'Flaming_Sphere'),
+            #('2_lvl', 'Detect_Thoughts'),
             ('2_lvl', 'Gust_of_Wind'),
             ('2_lvl', 'Warding_Wind'),
             ('3_lvl', 'Counterspell'),
@@ -13691,7 +13763,8 @@ metadict_chars['Fighter 13 lvl (друг) (Генри Эвери)'] = {
         'Heavy Shield +1':1,
         #'Sword of Flame Tongue':1,
         #'Sword of Life-Stealing':1,
-        'Longsword +2':1,
+        #'Longsword +2':1,
+        'Rarity +2':1,
         },
     }
 
