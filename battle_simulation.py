@@ -2297,6 +2297,8 @@ class battle_simulation(battlescape):
                         spell_dict = attack_dict.get('spell_dict')
                         if spell_dict.get('ammo', 0) > 0 and enemy_soldier.behavior == 'commander'\
                                 or spell_dict.get('ammo') == None:
+                            if spell_dict.get('ammo'):
+                                spell_dict['ammo'] -=1
                             if spell_dict.get('zone') and not spell_dict.get('crit_only'):
                                 self.fireball_action(soldier, squad, spell_dict, target)
                             elif attack_result['hit'] and not spell_dict.get('crit_only'):
@@ -2504,11 +2506,14 @@ class battle_simulation(battlescape):
                     if spell_dict.get('ammo', 0) > 0 and enemy_soldier.behavior == 'commander'\
                             or spell_dict.get('ammo') == None:
                         if spell_dict.get('zone') and not spell_dict.get('crit_only'):
+                            if spell_dict.get('ammo'): spell_dict['ammo'] -=1
                             self.fireball_action(soldier, squad, spell_dict, enemy.place)
                         elif attack_result['hit'] and not spell_dict.get('crit_only'):
+                            if spell_dict.get('ammo'): spell_dict['ammo'] -=1
                             self.fireball_action(soldier, squad, spell_dict, enemy.place,
                                     single_target = enemy)
                         elif attack_result['crit'] and spell_dict.get('crit_only'):
+                            if spell_dict.get('ammo'): spell_dict['ammo'] -=1
                             self.fireball_action(soldier, squad, spell_dict, enemy.place,
                                     single_target = enemy)
                 # Menacing_Attack мастера боевых искусств может испугать противника:
