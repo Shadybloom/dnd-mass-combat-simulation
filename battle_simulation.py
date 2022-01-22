@@ -2513,9 +2513,11 @@ class battle_simulation(battlescape):
                                     single_target = enemy)
                 # Menacing_Attack мастера боевых искусств может испугать противника:
                 if attack_result['hit'] and attack_dict.get('weapon') == True\
-                        and 'spellcast' in soldier.commands\
                         and soldier.class_features.get('Menacing_Attack')\
-                        and soldier.superiority_dices and not enemy_soldier.fear:
+                        and 'spellcast' in soldier.commands\
+                        and soldier.superiority_dices\
+                        and not enemy_soldier.fear\
+                        and not 'fearless' in enemy_soldier.commands:
                     spell_dict = {
                         'safe':True,
                         'debuff':True,
@@ -2530,11 +2532,31 @@ class battle_simulation(battlescape):
                         'spell_save_DC':8 + max(soldier.mods.values()) + soldier.proficiency_bonus,
                         'spell_choice':('Superiority','Cause_Fear'),
                         }
-                    self.fireball_action(soldier, squad, spell_dict, enemy.place, single_target = enemy)
                     soldier.superiority_dices -= 1
-                    #fear_difficult = 8 + max(soldier.mods.values()) + soldier.proficiency_bonus
-                    #fear = enemy_soldier.set_fear(self, fear_difficult)
-                    soldier.drop_spell(('feature', 'Battlemaster_Menacing_Attack'))
+                    self.fireball_action(soldier, squad, spell_dict, enemy.place, single_target = enemy)
+                    soldier.drop_action(('free_action', 'Menacing_Attack'))
+                    soldier.drop_spell(('feature', 'Menacing_Attack'))
+                # Grappling_Strike мастера боевых искусств:
+                elif attack_result['hit'] and attack_dict.get('weapon') == True\
+                        and soldier.class_features.get('Disarming_Attack')\
+                        and 'spellcast' in soldier.commands\
+                        and soldier.superiority_dices\
+                        and enemy_soldier.weapon_ready:
+                    spell_dict = {
+                        'safe':True,
+                        'direct_hit':True,
+                        'attacks_number':1,
+                        'weapon_type':attack_result['weapon_type'],
+                        'damage_type':attack_result['damage_type'],
+                        'damage_dice':soldier.superiority_dice,
+                        'damage_mod':0,
+                        'spell_choice':('Superiority','Disarming_Attack'),
+                        }
+                    soldier.superiority_dices -= 1
+                    disarmed = enemy_soldier.set_disarm_weapon(soldier)
+                    self.fireball_action(soldier, squad, spell_dict, enemy.place, single_target = enemy)
+                    soldier.drop_action(('free_action', 'Disarming_Attack'))
+                    soldier.drop_spell(('feature', 'Disarming_Attack'))
                 # Эффект Crusaders_Mantle (срабатывает только для атак оружием):
                 if attack_result['hit'] and attack_dict.get('weapon') == True\
                         and 'crusaders_mantle' in self.dict_battlespace[soldier.place]:

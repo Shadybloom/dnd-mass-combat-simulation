@@ -867,6 +867,7 @@ class soldier_in_battle(soldier):
                     self.unset_shield()
                     self.set_shield_dual_wielder()
                     self.bonus_action = False
+                    self.drop_action(('bonus_action', 'Weapon_Attack'))
                     attacks_chain_bonus.append(attack_list_slice[-1])
         return attacks_chain_bonus
 
@@ -2225,6 +2226,7 @@ class soldier_in_battle(soldier):
         if self.class_features.get('Precision_Attack'):
             superiority_dice_mid = round(int(self.superiority_dice.split('d')[1]) / 2)
             if self.superiority_dices\
+                and 'spellcast' in self.commands\
                 and enemy_soldier.armor['armor_class'] > attack_throw_mod\
                 and not enemy_soldier.armor['armor_class'] >= attack_throw_mod + superiority_dice_mid:
                 attack_throw_mod += dices.dice_throw_advantage(self.superiority_dice)
@@ -3023,7 +3025,10 @@ class soldier_in_battle(soldier):
                 #    attack_choice, attack_dict['attack'], attack_dict['damage']))
         # Прирование мастера боевых искусств:
         if attack_choice[0] == 'close' or attack_choice[0] == 'reach':
-            if self.class_features.get('Parry') and self.superiority_dices and self.reaction == True:
+            if self.class_features.get('Parry')\
+                    and 'spellcast' in self.commands\
+                    and self.superiority_dices\
+                    and self.reaction:
                 damage_deflect = dices.dice_throw(self.superiority_dice) + self.mods['dexterity']
                 damage -= damage_deflect
                 self.reaction = False
