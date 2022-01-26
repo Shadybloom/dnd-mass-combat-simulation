@@ -120,8 +120,7 @@ class database_stat():
                         + Counter(soldier.trophy_items_dict))
                 squad.drop_items_dict = dict(Counter(squad.drop_items_dict)\
                         + Counter(soldier.drop_items_dict))
-                if hasattr(soldier, 'death') and soldier.death == True\
-                        and not soldier.behavior == 'mount':
+                if hasattr(soldier, 'death') and soldier.death:
                     if not soldier.rank in dict_dead:
                         dict_dead[soldier.rank] = 1
                     elif soldier.rank in dict_dead:
@@ -129,16 +128,14 @@ class database_stat():
                     squad.reinforce_cost += soldier.unit_cost['equipment_cost']
                     #trophy_cost += soldier.unit_cost['equipment_cost']
                     #trophy_dict = dict(Counter(trophy_dict) + Counter(soldier.equipment_weapon))
-                elif hasattr(soldier, 'disabled') and soldier.disabled == True\
-                        and not soldier.behavior == 'mount':
+                elif hasattr(soldier, 'disabled') and soldier.disabled:
                     if not soldier.rank in dict_disabled:
                         dict_disabled[soldier.rank] = 1
                     elif soldier.rank in dict_disabled:
                         dict_disabled[soldier.rank] += 1
                     # Стоимость лечения у жрецов -- 10 эфесов/100 солдат
                     squad.reinforce_cost += 0.1
-                elif hasattr(soldier, 'captured') and soldier.captured == True\
-                        and not soldier.behavior == 'mount':
+                elif hasattr(soldier, 'captured') and soldier.captured:
                     if not soldier.rank in dict_capture:
                         dict_capture[soldier.rank] = 1
                     elif soldier.rank in dict_capture:
@@ -210,8 +207,8 @@ class database_stat():
                 print('disabled', el, key)
             for key, el in dict_capture.items():
                 print('captured', el, key)
-            #for key, el in dict_fall.items():
-            #    print('fall', el, key)
+            for key, el in dict_fall.items():
+                print('fall', el, key)
             metadict_squads_stat[squad_name] = squad
             print('Потери:', squad.drop_ammo_dict)
             print('Трофеи:', squad.trophy_dict)
