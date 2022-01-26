@@ -596,7 +596,9 @@ class battlescape():
                         # К тому же может быть несколько бойцов на точке.
                         # Но чем больше проверок, тем хреновей оптимизация.
                     #for el in dict_battlespace[coordinates]:
-                    #    print(el)
+                    #    if 'soldier' in type(el).__name__:
+                    #        if el.behavior == 'mount':
+                    #            cover_sum -= 4
                     if 'prone' in dict_battlespace[coordinates]:
                         cover_sum += 1
                     elif 'kneel' in dict_battlespace[coordinates]:
@@ -967,10 +969,13 @@ class battlescape():
                     coord_list.append((x1,y1))
         return coord_list
 
-    def point_to_field_2x2(self, point):
+    def point_to_field_2x2(self, point, reverse = False):
         """Точка в область."""
         coord_list = []
-        x, y = point[0], point[1]
+        if reverse:
+            x, y = point[0] -1, point[1] -1
+        else: 
+            x, y = point[0], point[1]
         for x1 in range(x, x + 2):
             for y1 in range(y, y + 2):
                 if x1 >= 0 and y1 >= 0\

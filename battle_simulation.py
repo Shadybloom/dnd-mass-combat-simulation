@@ -295,7 +295,10 @@ class battle_simulation(battlescape):
             return True
         # Большие существа занимают 2x2 тайла:
         elif soldier.size == 'large':
-            soldier_place_field = self.point_to_field_2x2(place)
+            if soldier.ally_side == 'BLUEFOR':
+                soldier_place_field = self.point_to_field_2x2(place)
+            else:
+                soldier_place_field = self.point_to_field_2x2(place, reverse = True)
             for point in soldier_place_field:
                 if point in self.dict_battlespace:
                     self.dict_battlespace[point].append(soldier_tuple)
