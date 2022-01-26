@@ -2851,7 +2851,7 @@ class soldier_in_battle(soldier):
                 armor_dict['savethrow_bonus_cover'] = 5
         # Огнестрел лишается свойства direct_hit на большой дистанции:
         if attack_dict.get('weapon_type') and 'firearm' in attack_dict.get('weapon_type')\
-                and attack_dict['enemy_distance'] * self.tile_size > attack_dict['shoot_range']\
+                and attack_dict['enemy_distance'] * self.tile_size > attack_dict.get('shoot_range',0)\
                 and attack_dict.get('direct_hit'):
             attack_dict['direct_hit'] = False
         # Огнестрел не пробивает волшебные доспехи/щиты:
