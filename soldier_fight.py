@@ -118,7 +118,14 @@ class soldier_in_battle(soldier):
         - Восстананавливается список атак (стрелы/дротики могли кончиться)
         - Восстанавливается защита (щиты могли поломать пилумами)
         """
-        self.equipment_weapon = copy.deepcopy(self.metadict_chars[self.rank]['equipment_weapon'])
+        if hasattr(self, 'base_unit') and self.base_unit:
+            if 'equipment_weapon' in self.metadict_chars[self.rank]:
+                equipment_weapon = copy.deepcopy(self.metadict_chars[self.rank]['equipment_weapon'])
+            else:
+                equipment_weapon = copy.deepcopy(self.metadict_chars[self.base_unit]['equipment_weapon'])
+        else:
+            equipment_weapon = copy.deepcopy(self.metadict_chars[self.rank]['equipment_weapon'])
+        self.equipment_weapon = equipment_weapon
         self.overload = self.calculate_overload()
         self.base_speed = self.overload['base_speed']
         self.armor = self.takeoff_armor()
