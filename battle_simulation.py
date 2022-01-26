@@ -232,7 +232,7 @@ class battle_simulation(battlescape):
                 squad.set_enemy_side(self.ally_side)
             squad.set_hitpoints()
             squad.set_initiative()
-            squad.initiative = squad.throw_squad_initiative()
+            squad.initiative = squad.throw_squad_initiative(namespace.commands)
             squad.zone = zone
             squad.type = squad_type
             squad.exit_points = self.find_zone_exit_points(squad.zone)

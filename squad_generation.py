@@ -446,7 +446,7 @@ class squad_generation():
         metadict_soldiers = OrderedDict(reversed(sorted(metadict_soldiers.items(),key=lambda x: x[1].level)))
         return metadict_soldiers
 
-    def throw_squad_initiative(self):
+    def throw_squad_initiative(self, commands = False):
         """Инициатива отряда = инициативы командира.
         
         Ранее была сумма инициативы командиров, но так честнее.
@@ -454,7 +454,12 @@ class squad_generation():
         squad_initiative = 0
         for uuid,soldier in self.metadict_soldiers.items():
             if soldier.behavior == 'commander':
-                squad_initiative += soldier.initiative
+                if commands and 'BLUEFOR' in commands[0] and soldier.ally_side == 'BLUEFOR':
+                    squad_initiative += 100
+                elif commands and 'OPFOR' in commands[0] and soldier.ally_side == 'OPFOR':
+                    squad_initiative += 100
+                else:
+                    squad_initiative += soldier.initiative
                 break
         return squad_initiative
 
