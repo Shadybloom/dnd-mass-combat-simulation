@@ -1505,7 +1505,7 @@ class soldier_in_battle(soldier):
             self.grappled = False
             self.enemy_grappler = None
         # Герою проще прибить врага, чем пытаться вырваться:
-        elif self.hero:
+        elif self.hero and not self.enemy_grappler.hero:
             return False
         elif self.near_enemies:
             enemy_uuids = [enemy.uuid for enemy in self.near_enemies]
@@ -2212,7 +2212,7 @@ class soldier_in_battle(soldier):
         if 'bless' in self.buffs:
             attack_throw_mod += dices.dice_throw_advantage('1d4')
         # Channel_Sacred_Weapon усиливает атаку (и делает оружие волшебным):
-        if self.sacred_weapon:
+        if self.sacred_weapon and attack_dict.get('weapon') and attack_dict.get('weapon_use'):
             attack_throw_mod += self.sacred_weapon
             if attack_dict.get('weapon_type') and not 'magic' in attack_dict['weapon_type']:
                 attack_dict['weapon_type'].append('magic')

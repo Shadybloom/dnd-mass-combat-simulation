@@ -2578,7 +2578,8 @@ class battle_simulation(battlescape):
                         self.fireball_action(soldier, squad, spell_dict, enemy.place,
                                 single_target = enemy)
                 # Ошеломляющий удар монаха, только по командирам врага:
-                if attack_dict['hit'] and soldier.class_features.get('Stunning_Strike')\
+                if attack_result['hit'] and not attack_dict.get('weapon')\
+                        and soldier.class_features.get('Stunning_Strike')\
                         and enemy_soldier.behavior == 'commander'\
                         and attack_choice[0] == 'close'\
                         and not enemy_soldier.stunned:
@@ -2759,6 +2760,7 @@ class battle_simulation(battlescape):
         # ------------------------------------------------------------
         # Умелый монах предпочитает "Ошеломляющие удары":
         if not enemy_soldier.stunned and soldier.class_features.get('Stunning_Strike')\
+                and not 'grapple' in soldier.commands\
                 and 'spellcast' in soldier.commands\
                 and not disadvantage\
                 and soldier.ki_points > 0:
