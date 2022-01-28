@@ -110,6 +110,21 @@ class soldier_in_battle(soldier):
             self.hitpoints_max = max_hitpoints
         return self.hitpoints
 
+    def get_equipment_weapon_base(self):
+        """Базовый комплект снаряжения для rearm
+        """
+        if hasattr(self, 'base_unit') and self.base_unit:
+            if 'equipment_weapon' in self.metadict_chars[self.rank]:
+                equipment_weapon_base = copy.deepcopy(self.metadict_chars[
+                    self.rank]['equipment_weapon'])
+            else:
+                equipment_weapon_base = copy.deepcopy(self.metadict_chars[
+                    self.base_unit]['equipment_weapon'])
+        else:
+            equipment_weapon_base = copy.deepcopy(self.metadict_chars[
+                self.rank]['equipment_weapon'])
+        return equipment_weapon_base
+
     def set_short_rest_rearm(self):
         """Солдаты обновляют вооружение, боекомплект.
 
@@ -118,14 +133,7 @@ class soldier_in_battle(soldier):
         - Восстананавливается список атак (стрелы/дротики могли кончиться)
         - Восстанавливается защита (щиты могли поломать пилумами)
         """
-        if hasattr(self, 'base_unit') and self.base_unit:
-            if 'equipment_weapon' in self.metadict_chars[self.rank]:
-                equipment_weapon = copy.deepcopy(self.metadict_chars[self.rank]['equipment_weapon'])
-            else:
-                equipment_weapon = copy.deepcopy(self.metadict_chars[self.base_unit]['equipment_weapon'])
-        else:
-            equipment_weapon = copy.deepcopy(self.metadict_chars[self.rank]['equipment_weapon'])
-        self.equipment_weapon = equipment_weapon
+        self.equipment_weapon = self.get_equipment_weapon_base()
         self.overload = self.calculate_overload()
         self.base_speed = self.overload['base_speed']
         self.armor = self.takeoff_armor()
@@ -2415,7 +2423,7 @@ class soldier_in_battle(soldier):
                 else:
                     soldier.help_action = True
                     soldier.drop_action(('action', 'Help_Action_Transfer_Ammo'))
-                ammo_number = self.metadict_chars[self.rank]['equipment_weapon'].get(ammo_type, 1)
+                ammo_number = self.get_equipment_weapon_base().get(ammo_type, 1)
                 ammo_number_ally = soldier.equipment_weapon[ammo_type]
                 # Союзник передаёт половину своих боеприпасов:
                 if ammo_number >= ammo_number_ally:
@@ -2655,7 +2663,7 @@ class soldier_in_battle(soldier):
         """
         if item in self.equipment_weapon\
                 and self.equipment_weapon[item]\
-                < self.metadict_chars[self.rank]['equipment_weapon'].get(item, 0):
+                < self.get_equipment_weapon_base().get(item, 0):
             # Пополняется боекомплект:
             self.equipment_weapon[item] += number
             self.overload = self.calculate_overload()
