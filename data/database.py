@@ -66,7 +66,8 @@ class database():
         soldier.near_zone = []
         soldier.near_allies = []
         soldier.near_enemies = []
-        soldier.enemy_fear = None
+        soldier.fear = False
+        soldier.fear_source = None
         soldier.enemy_grappler = None
         # Сбрасываем параметры человеческой формы друида, но сохраняем её:
         if soldier.__dict__.get('wild_shape_old_form'):
