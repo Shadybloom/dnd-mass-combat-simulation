@@ -2058,16 +2058,16 @@ metadict_chars['Warrior 4 lvl (cannoneer artillery-sergeant) (24lb Cannon, naval
     'equipment_mount':{},
     }
 
-metadict_chars['Warrior 4 lvl (cannoneer artillery-sergeant) (12lb Bombard)'] = {
+metadict_chars['Warrior 4 lvl (cannoneer artillery-sergeant) (12lb Mortar)'] = {
     'base_unit':'Warrior 4 lvl (cannoneer artillery-sergeant)',
     'equipment_weapon':{
         'Rune of Absorbtion':1,
         'Rune of Armor':1,
-        '12lb Bombard':1,
+        '12lb Mortar':1,
         '12lb Bomb':100,
         },
     'mount_combat':True,
-    'mount_type':'12lb Bombard, chassis',
+    'mount_type':'12lb Mortar, chassis',
     'equipment_mount':{},
     }
 
@@ -2108,7 +2108,7 @@ metadict_chars['Warrior 5 lvl (cannoneer artillery-lieutenant)'] = {
 #----
 # Вспомогательные войска, артиллеристы.
 
-metadict_chars['Warrior 2 lvl (cannoneer-sergeant)'] = {
+metadict_chars['Warrior 2 lvl (cannoneer-veteran)'] = {
     # Расчёты орудий.
     'level':3,
     'char_class':'Warrior-bowman',
@@ -8000,7 +8000,7 @@ metadict_chars['Commoner 2 lvl (Vaarsuvius) (токсотай-ветеран)'] 
 #----
 # Ополчение (армия) (Павсаний):
 
-metadict_chars['Commoner 1 lvl (друг) (сатир-охотник)'] = {
+metadict_chars['Commoner 1 lvl (сатир-охотник)'] = {
     # Сатиры
     'level':1,
     'char_class':'Commoner',
@@ -8020,7 +8020,7 @@ metadict_chars['Commoner 1 lvl (друг) (сатир-охотник)'] = {
         },
     }
 
-metadict_chars['Commoner 2 lvl (друг) (сатир-ветеран)'] = {
+metadict_chars['Commoner 2 lvl (сатир-ветеран)'] = {
     'level':2,
     'char_class':'Commoner',
     'behavior':'warrior',
@@ -8039,7 +8039,7 @@ metadict_chars['Commoner 2 lvl (друг) (сатир-ветеран)'] = {
         },
     }
 
-metadict_chars['Warrior 3 lvl (друг) (сатир-сержант)'] = {
+metadict_chars['Warrior 3 lvl (сатир-сержант)'] = {
     'level':3,
     'char_class':'Warrior-bowman',
     'hit_dice':'1d8',
@@ -8062,7 +8062,7 @@ metadict_chars['Warrior 3 lvl (друг) (сатир-сержант)'] = {
         },
     }
 
-metadict_chars['Warrior 4 lvl (друг) (сын Павсания)'] = {
+metadict_chars['Warrior 4 lvl (сын Павсания)'] = {
     'level':4,
     'char_class':'Warrior-officer',
     'hit_dice':'1d8',
@@ -10067,7 +10067,7 @@ metadict_chars['Warrior 5 lvl (Gogan) (кимерийский пират-кап�
 #----
 # Враги (герои) (кара'Ям):
 
-metadict_chars['Warlock 1 lvl (враг) (колдун Кара\'Яма)'] = {
+metadict_chars['Warlock 1 lvl (колдун Кара\'Яма)'] = {
     'level':1,
     'char_class':'Warlock',
     'hit_dice':'1d8',
@@ -10104,7 +10104,7 @@ metadict_chars['Warlock 1 lvl (враг) (колдун Кара\'Яма)'] = {
         },
     }
 
-metadict_chars['Warlock 5 lvl (враг) (Кара\'Ям)'] = {
+metadict_chars['Warlock 5 lvl (Кара\'Ям)'] = {
     # Свободно накладывает на себя смену облика: Invocation_Mask_of_Many_Faces
     # Игнорирует сопротивление огню: Feat_Elemental_Adept
     'level':5,
@@ -10176,7 +10176,7 @@ metadict_chars['Warlock 5 lvl (враг) (Кара\'Ям)'] = {
 #----
 # Враги (герои) (Кема'Эш):
 
-metadict_chars['Warlock 1 lvl (враг) (колдун Кема\'Эша)'] = {
+metadict_chars['Warlock 1 lvl (колдун Кема\'Эша)'] = {
     'level':1,
     'char_class':'Warlock',
     'hit_dice':'1d8',
@@ -10213,7 +10213,7 @@ metadict_chars['Warlock 1 lvl (враг) (колдун Кема\'Эша)'] = {
         },
     }
 
-metadict_chars['Warlock 5 lvl (враг) (Кема\'Эш)'] = {
+metadict_chars['Warlock 5 lvl (Кема\'Эш)'] = {
     # Атакует издалека: Invocation_Eldritch_Spear.
     # Воодушевляет своих: Feat_Inspiring_Leader.
     # Передаёт команды с помощью Dancing_Lights и Message.
@@ -10282,7 +10282,7 @@ metadict_chars['Warlock 5 lvl (враг) (Кема\'Эш)'] = {
 #----
 # Враги (герои) (Энзиф):
 
-metadict_chars['Ranger 1 lvl (враг) (следопыт Энзифа)'] = {
+metadict_chars['Ranger 1 lvl (следопыт Энзифа)'] = {
     'level':1,
     'char_class':'Ranger',
     'hit_dice':'1d10',
@@ -10311,7 +10311,7 @@ metadict_chars['Ranger 1 lvl (враг) (следопыт Энзифа)'] = {
     #    },
     }
 
-metadict_chars['Ranger 5 lvl (враг) (Энзиф «Ходи-гора»)'] = {
+metadict_chars['Ranger 5 lvl (Энзиф «Ходи-гора»)'] = {
     'level':5,
     'char_class':'Ranger',
     'hit_dice':'1d10',
@@ -10368,7 +10368,7 @@ metadict_chars['Ranger 5 lvl (враг) (Энзиф «Ходи-гора»)'] = {
 #----
 # Враги (герои) (Магор):
 
-metadict_chars['Paladin 1 lvl (враг) (паладин Магора)'] = {
+metadict_chars['Paladin 1 lvl (паладин Магора)'] = {
     'level':1,
     'char_class':'Paladin',
     'hit_dice':'1d10',
@@ -10400,7 +10400,7 @@ metadict_chars['Paladin 1 lvl (враг) (паладин Магора)'] = {
     #    },
     }
 
-metadict_chars['Paladin 5 lvl (враг) (Магор «Детоед»)'] = {
+metadict_chars['Paladin 5 lvl (Магор «Детоед»)'] = {
     'level':5,
     'char_class':'Paladin',
     'hit_dice':'1d10',
@@ -10469,7 +10469,7 @@ metadict_chars['Paladin 5 lvl (враг) (Магор «Детоед»)'] = {
 #----
 # Враги (герои) (Хана'Вам):
 
-metadict_chars['Fighter 1 lvl (враг) (снайпер Хана\'Вама)'] = {
+metadict_chars['Fighter 1 lvl (снайпер Хана\'Вама)'] = {
     # Снайперы, корректируют "Град стрел" ополчения.
     'level':1,
     'char_class':'Battlemaster',
@@ -10502,7 +10502,7 @@ metadict_chars['Fighter 1 lvl (враг) (снайпер Хана\'Вама)'] =
         },
     }
 
-metadict_chars['Fighter 5 lvl (враг) (Хана\'Вам)'] = {
+metadict_chars['Fighter 5 lvl (Хана\'Вам)'] = {
     # Лучник-чемпион
     'level':5,
     'char_class':'Battlemaster',
@@ -10552,7 +10552,7 @@ metadict_chars['Fighter 5 lvl (враг) (Хана\'Вам)'] = {
 #----
 # Враги (герои) (Тик-Бо):
 
-metadict_chars['Druid 1 lvl (враг) (друид Тик-Бо)'] = {
+metadict_chars['Druid 1 lvl (друид Тик-Бо)'] = {
     # На них "Водное дыхание" или "Хождение по воде"
     'level':1,
     'water_walk':True,
@@ -10595,7 +10595,7 @@ metadict_chars['Druid 1 lvl (враг) (друид Тик-Бо)'] = {
         },
     }
 
-metadict_chars['Druid 5 lvl (враг) (Тик-Бо «Робкий»)'] = {
+metadict_chars['Druid 5 lvl (Тик-Бо «Робкий»)'] = {
     # Пацифист, призыватель зверей.
     'level':5,
     'fireball_AI':True,
@@ -10664,7 +10664,7 @@ metadict_chars['Druid 5 lvl (враг) (Тик-Бо «Робкий»)'] = {
 #----
 # Враги (армии) (демоны Кема'Эша):
 
-metadict_chars['Commoner 1 lvl (враг) (карл)'] = {
+metadict_chars['Commoner 1 lvl (карл)'] = {
     # Карлы с дубинками. Ничего особенного, только шкуры у них крепкие.
     'level':1,
     'char_class':'Commoner',
@@ -10682,7 +10682,7 @@ metadict_chars['Commoner 1 lvl (враг) (карл)'] = {
         },
     }
 
-metadict_chars['Commoner 1 lvl (враг) (карл-ветеран)'] = {
+metadict_chars['Commoner 1 lvl (карл-ветеран)'] = {
     'level':2,
     'char_class':'Commoner',
     'behavior':'warrior',
@@ -10699,7 +10699,7 @@ metadict_chars['Commoner 1 lvl (враг) (карл-ветеран)'] = {
         },
     }
 
-metadict_chars['Warrior 3 lvl (враг) (демон Кема\'Эша)'] = {
+metadict_chars['Warrior 3 lvl (демон Кема\'Эша)'] = {
     # Опасный гад.
     'level':3,
     #'fearless_AI':True,
@@ -10735,7 +10735,7 @@ metadict_chars['Warrior 3 lvl (враг) (демон Кема\'Эша)'] = {
 #----
 # Нейтралы (свита) (волшебники Менона):
 
-metadict_chars['Wizard 4 lvl (нейтрал) (волшебник Менона)'] = {
+metadict_chars['Wizard 4 lvl (волшебник Менона)'] = {
     'level':4,
     'archer_AI':True,
     'fireball_AI':True,
@@ -10798,7 +10798,7 @@ metadict_chars['Wizard 4 lvl (нейтрал) (волшебник Менона)'
     #    },
     }
 
-metadict_chars['Wizard 12 lvl (нейтрал) (Менон Теварин)'] = {
+metadict_chars['Wizard 12 lvl (Менон Теварин)'] = {
     # Wizard 1 lvl (otherworld mage-disciple) sum:100 STR:16 DEX:17 CON:17 INT:19 WIS:17 CHA:14
     # "Предосторожность" (Contingency) хранит заклинание Otiluke_Resilent_Sphere, или Wall_of_Force.
     # "Feat_Alert", -- нельзя застать врасплох. "Feat_Keen_Mind" -- помнит всё.
@@ -10939,7 +10939,7 @@ metadict_chars['Wizard 12 lvl (нейтрал) (Менон Теварин)'] = {
     #    },
     }
 
-metadict_chars['Wizard 12 lvl (нейтрал) (симулякр Менона)'] = {
+metadict_chars['Wizard 12 lvl (симулякр Менона)'] = {
     # "Feat_Alert", -- нельзя застать врасплох. "Feat_Keen_Mind" -- помнит всё.
     # Связан с самим Меноном через Rary_Telepathic_Bond.
     'level':12,
@@ -11031,7 +11031,7 @@ metadict_chars['Wizard 12 lvl (нейтрал) (симулякр Менона)']
 #----
 # Нейтралы (армии) (Бронзовые гоплиты Менона):
 
-metadict_chars['Warrior 4 lvl (нейтрал) (бронзовый гоплит Менона)'] = {
+metadict_chars['Warrior 4 lvl (бронзовый гоплит Менона)'] = {
     # Умертвие.
     'level':4,
     'sneak_AI':True,
@@ -11078,7 +11078,7 @@ metadict_chars['Warrior 4 lvl (нейтрал) (бронзовый гоплит 
     #    },
     }
 
-metadict_chars['Warrior 5 lvl (нейтрал) (бронзовый гоплит-капитан Менона)'] = {
+metadict_chars['Warrior 5 lvl (бронзовый гоплит-капитан Менона)'] = {
     'level':5,
     'sneak_AI':True,
     'killer_AI':True,
@@ -11133,7 +11133,7 @@ metadict_chars['Warrior 5 lvl (нейтрал) (бронзовый гоплит-
 #----
 # Нейтралы (армия) (ветераны Карагос):
 
-metadict_chars['Warrior 1 lvl (нейтрал) (пират Карагоса)'] = {
+metadict_chars['Warrior 1 lvl (пират Карагоса)'] = {
     # Щиты используют против лучников, но не в ближнем бою.
     'level':1,
     'char_class':'Warrior',
@@ -11153,7 +11153,7 @@ metadict_chars['Warrior 1 lvl (нейтрал) (пират Карагоса)'] =
         },
     }
 
-metadict_chars['Warrior 2 lvl (нейтрал) (ветеран Карагоса)'] = {
+metadict_chars['Warrior 2 lvl (ветеран Карагоса)'] = {
     # Штурмовики-ветераны
     'level':2,
     'char_class':'Warrior',
@@ -11177,7 +11177,7 @@ metadict_chars['Warrior 2 lvl (нейтрал) (ветеран Карагоса)
         },
     }
 
-metadict_chars['Warrior 3 lvl (нейтрал) (сержант Карагоса)'] = {
+metadict_chars['Warrior 3 lvl (сержант Карагоса)'] = {
     'level':3,
     'char_class':'Warrior',
     'hit_dice':'1d8',
@@ -11200,7 +11200,7 @@ metadict_chars['Warrior 3 lvl (нейтрал) (сержант Карагоса)
         },
     }
 
-metadict_chars['Warrior 4 lvl (нейтрал) (лейтенант Карагоса)'] = {
+metadict_chars['Warrior 4 lvl (лейтенант Карагоса)'] = {
     'level':4,
     'char_class':'Warrior-officer',
     'hit_dice':'1d8',
@@ -11227,7 +11227,7 @@ metadict_chars['Warrior 4 lvl (нейтрал) (лейтенант Караго�
         },
     }
 
-metadict_chars['Warrior 5 lvl (нейтрал) (капитан Карагоса)'] = {
+metadict_chars['Warrior 5 lvl (капитан Карагоса)'] = {
     'level':5,
     'char_class':'Warrior-officer',
     'hit_dice':'1d8',
@@ -11260,7 +11260,7 @@ metadict_chars['Warrior 5 lvl (нейтрал) (капитан Карагоса)
 #----
 # Нейтралы (герои) (Карагос):
 
-metadict_chars['Barbarian 9 lvl (нейтрал) (Карагос «Мудрый»)'] = {
+metadict_chars['Barbarian 9 lvl (Карагос «Мудрый»)'] = {
     # Barbarian 1 lvl (thracian slayer-dogface) sum:108 STR:19 DEX:18 CON:19 INT:18 WIS:16 CHA:18
     'level':9,
     'hunter_AI':True,
@@ -11323,7 +11323,7 @@ metadict_chars['Barbarian 9 lvl (нейтрал) (Карагос «Мудрый�
 #----
 # Нейтралы (герои) (Кирос):
 
-metadict_chars['Fighter 4 lvl (нейтрал) (боец Кироса)'] = {
+metadict_chars['Fighter 4 lvl (боец Кироса)'] = {
     'level':4,
     'char_class':'Eldritch_Knight',
     'hit_dice':'1d10',
@@ -11375,7 +11375,7 @@ metadict_chars['Fighter 4 lvl (нейтрал) (боец Кироса)'] = {
         },
     }
 
-metadict_chars['Fighter 13 lvl (нейтрал) (Кирос «Симарх»)'] = {
+metadict_chars['Fighter 13 lvl (Кирос «Симарх»)'] = {
     # Fighter 1 lvl (legionary sentinel-battler) sum:103 STR:19 DEX:17 CON:18 INT:16 WIS:16 CHA:17
     # Использует "Обнаружение мыслей" (Detect_Thoughts), чтобы читать мысли других.
     'level':13,
@@ -11465,7 +11465,7 @@ metadict_chars['Fighter 13 lvl (нейтрал) (Кирос «Симарх»)'] 
 #----
 # Враги (герои) (Радамант):
 
-metadict_chars['Barbarian 2 lvl (враг) (варвар Радаманта)'] = {
+metadict_chars['Barbarian 2 lvl (варвар Радаманта)'] = {
     'level':2,
     'char_class':'Barbarian',
     'hit_dice':'1d12',
@@ -11497,7 +11497,7 @@ metadict_chars['Barbarian 2 lvl (враг) (варвар Радаманта)'] =
         },
     }
 
-metadict_chars['Barbarian 5 lvl (враг) (Радамант «Бдительный»)'] = {
+metadict_chars['Barbarian 5 lvl (Радамант «Бдительный»)'] = {
     'level':5,
     'char_class':'Barbarian',
     'hit_dice':'1d12',
@@ -11545,7 +11545,7 @@ metadict_chars['Barbarian 5 lvl (враг) (Радамант «Бдительн�
 #----
 # Враги (свита) (Чара Атенак):
 
-metadict_chars['Warlock 3 lvl (враг) (колдун Чары)'] = {
+metadict_chars['Warlock 3 lvl (колдун Чары)'] = {
     # Фамильяр -- бес. Разведчик-невидимка.
     'level':3,
     'fireball_AI':True,
@@ -11604,7 +11604,7 @@ metadict_chars['Warlock 3 lvl (враг) (колдун Чары)'] = {
     #    },
     }
 
-metadict_chars['Warlock 11 lvl (враг) (Чара Атенак)'] = {
+metadict_chars['Warlock 11 lvl (Чара Атенак)'] = {
      # Warlock 1 lvl (otherworld seeker-follower) sum:97 STR:15 DEX:18 CON:16 INT:15 WIS:15 CHA:18
         # 18 слотов/сутки под "Вещий сон" (Dream) и "Наблюдение" (Scrying)
         # Неограниченный "Разговор с мёртвыми" (Speak_with_Dead).
@@ -11732,7 +11732,7 @@ metadict_chars['Warlock 11 lvl (враг) (Чара Атенак)'] = {
 #----
 # Враги (армии) (мирмидоны Чары):
 
-metadict_chars['Warrior 1 lvl (враг) (мирмидон)'] = {
+metadict_chars['Warrior 1 lvl (мирмидон)'] = {
     # Армия Номисто. "Универсальные солдаты", x2 стоимость снаряжения.
     'level':1,
     'char_class':'Warrior',
@@ -11755,7 +11755,7 @@ metadict_chars['Warrior 1 lvl (враг) (мирмидон)'] = {
         },
     }
 
-metadict_chars['Warrior 2 lvl (враг) (мирмидон-ветеран)'] = {
+metadict_chars['Warrior 2 lvl (мирмидон-ветеран)'] = {
     'level':2,
     'char_class':'Warrior',
     'behavior':'elite_warrior',
@@ -11781,7 +11781,7 @@ metadict_chars['Warrior 2 lvl (враг) (мирмидон-ветеран)'] = {
         },
     }
 
-metadict_chars['Warrior 3 lvl (враг) (мирмидон-сержант)'] = {
+metadict_chars['Warrior 3 lvl (мирмидон-сержант)'] = {
     'level':3,
     'char_class':'Warrior',
     'hit_dice':'1d8',
@@ -11808,7 +11808,7 @@ metadict_chars['Warrior 3 lvl (враг) (мирмидон-сержант)'] = {
         },
     }
 
-metadict_chars['Warrior 4 lvl (враг) (мирмидон-лейтенант)'] = {
+metadict_chars['Warrior 4 lvl (мирмидон-лейтенант)'] = {
     'level':4,
     'char_class':'Warrior-officer',
     'hit_dice':'1d8',
@@ -11840,7 +11840,7 @@ metadict_chars['Warrior 4 lvl (враг) (мирмидон-лейтенант)']
         },
     }
 
-metadict_chars['Warrior 5 lvl (враг) (мирмидон-капитан)'] = {
+metadict_chars['Warrior 5 lvl (мирмидон-капитан)'] = {
     'level':5,
     'char_class':'Warrior-officer',
     'hit_dice':'1d8',
@@ -11876,7 +11876,7 @@ metadict_chars['Warrior 5 lvl (враг) (мирмидон-капитан)'] = {
 #----
 # Враги (армии) (легионеры Акхена):
 
-metadict_chars['Warrior 1 lvl (враг) (легионер Акхена)'] = {
+metadict_chars['Warrior 1 lvl (легионер Акхена)'] = {
     # "Универсальные солдаты", удвоенная стоимость снаряжения.
     # Пользуются усыпляющим ядом. Очень хороши против варваров и больших зверей.
     'level':1,
@@ -11898,7 +11898,7 @@ metadict_chars['Warrior 1 lvl (враг) (легионер Акхена)'] = {
         },
     }
 
-metadict_chars['Warrior 2 lvl (враг) (ветеран Акхена)'] = {
+metadict_chars['Warrior 2 lvl (ветеран Акхена)'] = {
     'level':2,
     'char_class':'Warrior',
     'hit_dice':'1d8',
@@ -11921,7 +11921,7 @@ metadict_chars['Warrior 2 lvl (враг) (ветеран Акхена)'] = {
         },
     }
 
-metadict_chars['Warrior 3 lvl (враг) (сержант Акхена)'] = {
+metadict_chars['Warrior 3 lvl (сержант Акхена)'] = {
     'level':3,
     'char_class':'Warrior',
     'hit_dice':'1d8',
@@ -11945,7 +11945,7 @@ metadict_chars['Warrior 3 lvl (враг) (сержант Акхена)'] = {
         },
     }
 
-metadict_chars['Warrior 4 lvl (враг) (лейтенант Акхена)'] = {
+metadict_chars['Warrior 4 lvl (лейтенант Акхена)'] = {
     'level':4,
     'char_class':'Warrior-officer',
     'hit_dice':'1d8',
@@ -11975,7 +11975,7 @@ metadict_chars['Warrior 4 lvl (враг) (лейтенант Акхена)'] = {
         },
     }
 
-metadict_chars['Warrior 5 lvl (враг) (капитан Акхена)'] = {
+metadict_chars['Warrior 5 lvl (капитан Акхена)'] = {
     'level':5,
     'char_class':'Warrior-officer',
     'hit_dice':'1d8',
@@ -12051,7 +12051,7 @@ metadict_chars['Sorcerer 3 lvl (otherworld wildfire-enchanter)'] = {
 #----
 # Враги (армии) (демоны Ашеры):
 
-metadict_chars['Warrior 1 lvl (враг) (демон-рядовой)'] = {
+metadict_chars['Warrior 1 lvl (демон-рядовой)'] = {
     # У них природный доспех с 12 AC. Крепкая шкура. В лёгкой броне демоны не нуждаются.
     'level':1,
     'char_class':'Warrior',
@@ -12070,7 +12070,7 @@ metadict_chars['Warrior 1 lvl (враг) (демон-рядовой)'] = {
         },
     }
 
-metadict_chars['Warrior 2 lvl (враг) (демон-ветеран)'] = {
+metadict_chars['Warrior 2 lvl (демон-ветеран)'] = {
     # У демонов-ветеранов сопротивляемость к огню и обычному оружию.
     # Уязвимость к излучению и серебру.
     'level':2,
@@ -12095,7 +12095,7 @@ metadict_chars['Warrior 2 lvl (враг) (демон-ветеран)'] = {
         },
     }
 
-metadict_chars['Warrior 3 lvl (враг) (демон-сержант)'] = {
+metadict_chars['Warrior 3 lvl (демон-сержант)'] = {
     'level':3,
     'brave_AI':True,
     'killer_AI':True,
@@ -12122,7 +12122,7 @@ metadict_chars['Warrior 3 lvl (враг) (демон-сержант)'] = {
         },
     }
 
-metadict_chars['Warrior 4 lvl (враг) (демон-лейтенант)'] = {
+metadict_chars['Warrior 4 lvl (демон-лейтенант)'] = {
     'level':4,
     'brave_AI':True,
     'killer_AI':True,
@@ -12150,7 +12150,7 @@ metadict_chars['Warrior 4 lvl (враг) (демон-лейтенант)'] = {
         },
     }
 
-metadict_chars['Warrior 5 lvl (враг) (демон-капитан)'] = {
+metadict_chars['Warrior 5 lvl (демон-капитан)'] = {
     'level':5,
     'brave_AI':True,
     'killer_AI':True,
@@ -12182,7 +12182,7 @@ metadict_chars['Warrior 5 lvl (враг) (демон-капитан)'] = {
 #----
 # Враги (армии) (водяные Нингиримы):
 
-metadict_chars['Warrior 1 lvl (враг) (гоплит Нингиримы)'] = {
+metadict_chars['Warrior 1 lvl (гоплит Нингиримы)'] = {
     'level':1,
     'water_walk':True,
     'char_class':'Warrior',
@@ -12203,7 +12203,7 @@ metadict_chars['Warrior 1 lvl (враг) (гоплит Нингиримы)'] = {
         },
     }
 
-metadict_chars['Warrior 2 lvl (враг) (гоплит-ветеран Нингиримы)'] = {
+metadict_chars['Warrior 2 lvl (гоплит-ветеран Нингиримы)'] = {
     'level':2,
     'water_walk':True,
     'char_class':'Warrior',
@@ -12227,7 +12227,7 @@ metadict_chars['Warrior 2 lvl (враг) (гоплит-ветеран Нинги
         },
     }
 
-metadict_chars['Warrior 3 lvl (враг) (гоплит-сержант Нингиримы)'] = {
+metadict_chars['Warrior 3 lvl (гоплит-сержант Нингиримы)'] = {
     'level':3,
     'water_walk':True,
     'char_class':'Warrior',
@@ -12252,7 +12252,7 @@ metadict_chars['Warrior 3 lvl (враг) (гоплит-сержант Нинги
         },
     }
 
-metadict_chars['Warrior 4 lvl (враг) (гоплит-лейтенант Нингиримы)'] = {
+metadict_chars['Warrior 4 lvl (гоплит-лейтенант Нингиримы)'] = {
     'level':4,
     #'close_order_AI':True,
     'water_walk':True,
@@ -12280,7 +12280,7 @@ metadict_chars['Warrior 4 lvl (враг) (гоплит-лейтенант Нин
         },
     }
 
-metadict_chars['Warrior 5 lvl (враг) (гоплит-капитан Нингиримы)'] = {
+metadict_chars['Warrior 5 lvl (гоплит-капитан Нингиримы)'] = {
     'level':5,
     #'close_order_AI':True,
     'water_walk':True,
@@ -12313,7 +12313,7 @@ metadict_chars['Warrior 5 lvl (враг) (гоплит-капитан Нинги
 #----
 # Союзники (герои) (Кумар):
 
-metadict_chars['Monk 3 lvl (друг) (монах Кумара)'] = {
+metadict_chars['Monk 3 lvl (монах Кумара)'] = {
     # Путь тени
     'level':3,
     'grappler_AI':True,
@@ -12352,7 +12352,7 @@ metadict_chars['Monk 3 lvl (друг) (монах Кумара)'] = {
         },
     }
 
-metadict_chars['Monk 9 lvl (друг) (Кумар «Чугуннорукий»)'] = {
+metadict_chars['Monk 9 lvl (Кумар «Чугуннорукий»)'] = {
     # Путь тени
     # Monk 1 lvl (city windsong-apprentice) sum:104 STR:17 DEX:19 CON:17 INT:16 WIS:18 CHA:17
     'level':9,
@@ -12428,7 +12428,7 @@ metadict_chars['Monk 9 lvl (друг) (Кумар «Чугуннорукий»)'
 #----
 # Союзники (герои) (Тинв):
 
-metadict_chars['Wizard 3 lvl (друг) (кошка Тинв)'] = {
+metadict_chars['Wizard 3 lvl (кошка Тинв)'] = {
     'level':3,
     'fireball_AI':True,
     'char_class':'Wizard',
@@ -12469,7 +12469,7 @@ metadict_chars['Wizard 3 lvl (друг) (кошка Тинв)'] = {
     #    },
     }
 
-metadict_chars['Wizard 9 lvl (друг) (Тинв)'] = {
+metadict_chars['Wizard 9 lvl (Тинв)'] = {
     # Тинв, коттаямская кошка, волшебница школы Очарования.
     # Wizard 2 lvl (city cat-weaver) sum:101 STR:14 DEX:19 CON:17 INT:19 WIS:16 CHA:16
     # Feat_Observant +5 к пассивной внимательности. Читает по губам.
@@ -12537,7 +12537,7 @@ metadict_chars['Wizard 9 lvl (друг) (Тинв)'] = {
 #----
 # Союзники (армия) (Кумар):
 
-metadict_chars['Warrior 1 lvl (друг) (легионер Илиона)'] = {
+metadict_chars['Warrior 1 lvl (легионер Илиона)'] = {
     'level':1,
     'char_class':'Warrior',
     'hit_dice':'1d8',
@@ -12557,7 +12557,7 @@ metadict_chars['Warrior 1 lvl (друг) (легионер Илиона)'] = {
         },
     }
 
-metadict_chars['Warrior 2 lvl (друг) (ветеран Илиона)'] = {
+metadict_chars['Warrior 2 lvl (ветеран Илиона)'] = {
     'level':2,
     'char_class':'Warrior',
     'hit_dice':'1d8',
@@ -12580,7 +12580,7 @@ metadict_chars['Warrior 2 lvl (друг) (ветеран Илиона)'] = {
         },
     }
 
-metadict_chars['Warrior 3 lvl (друг) (сержант Илиона)'] = {
+metadict_chars['Warrior 3 lvl (сержант Илиона)'] = {
     'level':3,
     'char_class':'Warrior',
     'hit_dice':'1d8',
@@ -12604,7 +12604,7 @@ metadict_chars['Warrior 3 lvl (друг) (сержант Илиона)'] = {
         },
     }
 
-metadict_chars['Warrior 4 lvl (друг) (лейтенант Илиона)'] = {
+metadict_chars['Warrior 4 lvl (лейтенант Илиона)'] = {
     'level':4,
     #'rearm_AI':True,
     'defence_AI':True,
@@ -12637,7 +12637,7 @@ metadict_chars['Warrior 4 lvl (друг) (лейтенант Илиона)'] = {
     #    },
     }
 
-metadict_chars['Warrior 5 lvl (друг) (капитан Илиона)'] = {
+metadict_chars['Warrior 5 lvl (капитан Илиона)'] = {
     # Сидит на месте, обороняется. На врага не ведёт.
     'level':5,
     #'rearm_AI':True,
@@ -12673,7 +12673,7 @@ metadict_chars['Warrior 5 lvl (друг) (капитан Илиона)'] = {
     #    },
     }
 
-metadict_chars['Commoner 1 lvl (друг) (пращник Илиона)'] = {
+metadict_chars['Commoner 1 lvl (пращник Илиона)'] = {
     # Пращники Илиона
     'level':1,
     'char_class':'Commoner',
@@ -12695,7 +12695,7 @@ metadict_chars['Commoner 1 lvl (друг) (пращник Илиона)'] = {
         },
     }
 
-metadict_chars['Commoner 2 lvl (друг) (ветеран пращников Илиона)'] = {
+metadict_chars['Commoner 2 lvl (ветеран пращников Илиона)'] = {
     'level':2,
     'char_class':'Commoner',
     'behavior':'archer',
@@ -12716,7 +12716,7 @@ metadict_chars['Commoner 2 lvl (друг) (ветеран пращников И�
         },
     }
 
-metadict_chars['Warrior 3 lvl (друг) (сержант пращников Илиона)'] = {
+metadict_chars['Warrior 3 lvl (сержант пращников Илиона)'] = {
     'level':3,
     'rearm_AI':True,
     'volley_AI':True,
@@ -12749,7 +12749,7 @@ metadict_chars['Warrior 3 lvl (друг) (сержант пращников Ил
 #----
 # Союзники (герои) (Тетро):
 
-metadict_chars['Bard 2 lvl (друг) (бард Тетры)'] = {
+metadict_chars['Bard 2 lvl (бард Тетры)'] = {
     # TODO: Jack_of_All_Trades позволяет добавлять 1/2 бонуса мастерства к модификаторам характеристик.
     'level':2,
     'char_class':'Bard',
@@ -12794,7 +12794,7 @@ metadict_chars['Bard 2 lvl (друг) (бард Тетры)'] = {
     #    },
     }
 
-metadict_chars['Bard 6 lvl (друг) (Тетра Курио)'] = {
+metadict_chars['Bard 6 lvl (Тетра Курио)'] = {
     'level':6,
     'fireball_AI':True,
     'char_class':'Bard',
@@ -12881,7 +12881,7 @@ metadict_chars['Bard 6 lvl (друг) (Тетра Курио)'] = {
 #----
 # Союзники (армии) (Тетро):
 
-metadict_chars['Warrior 1 lvl (друг) (арбалетчик Тетры)'] = {
+metadict_chars['Warrior 1 lvl (арбалетчик Тетры)'] = {
     'level':1,
     #'archer_AI':True,
     'char_class':'Warrior-bowman',
@@ -12902,7 +12902,7 @@ metadict_chars['Warrior 1 lvl (друг) (арбалетчик Тетры)'] = {
         },
     }
 
-metadict_chars['Warrior 2 lvl (друг) (арбалетчик-ветеран Тетры)'] = {
+metadict_chars['Warrior 2 lvl (арбалетчик-ветеран Тетры)'] = {
     'level':2,
     #'archer_AI':True,
     'char_class':'Warrior-bowman',
@@ -12926,7 +12926,7 @@ metadict_chars['Warrior 2 lvl (друг) (арбалетчик-ветеран Т
         },
     }
 
-metadict_chars['Warrior 3 lvl (друг) (арбалетчик-сержант Тетры)'] = {
+metadict_chars['Warrior 3 lvl (арбалетчик-сержант Тетры)'] = {
     'level':3,
     #'archer_AI':True,
     'brave_AI':True,
@@ -12952,7 +12952,7 @@ metadict_chars['Warrior 3 lvl (друг) (арбалетчик-сержант Т
         },
     }
 
-metadict_chars['Warrior 4 lvl (друг) (арбалетчик-лейтенант Тетры)'] = {
+metadict_chars['Warrior 4 lvl (арбалетчик-лейтенант Тетры)'] = {
     'level':4,
     #'archer_AI':True,
     'brave_AI':True,
@@ -12984,7 +12984,7 @@ metadict_chars['Warrior 4 lvl (друг) (арбалетчик-лейтенан�
     #    },
     }
 
-metadict_chars['Warrior 5 lvl (друг) (арбалетчик-капитан Тетры)'] = {
+metadict_chars['Warrior 5 lvl (арбалетчик-капитан Тетры)'] = {
     'level':5,
     #'archer_AI':True,
     'brave_AI':True,
@@ -13021,7 +13021,7 @@ metadict_chars['Warrior 5 lvl (друг) (арбалетчик-капитан Т
 #----
 # Союзники (армии) (Коза):
 
-metadict_chars['Warlock 2 lvl (друг) (гневнорожка Козы)'] = {
+metadict_chars['Warlock 2 lvl (гневнорожка Козы)'] = {
     'level':2,
     'char_class':'Warlock',
     'hit_dice':'1d8',
@@ -13050,7 +13050,7 @@ metadict_chars['Warlock 2 lvl (друг) (гневнорожка Козы)'] = {
         },
     }
 
-metadict_chars['Warlock 3 lvl (друг) (главнорожка Козы)'] = {
+metadict_chars['Warlock 3 lvl (главнорожка Козы)'] = {
     'level':3,
     'char_class':'Warlock',
     'hit_dice':'1d8',
@@ -13086,7 +13086,7 @@ metadict_chars['Warlock 3 lvl (друг) (главнорожка Козы)'] = {
         },
     }
 
-metadict_chars['Warlock 3 lvl (друг) (Сефо Форонейская)'] = {
+metadict_chars['Warlock 3 lvl (Сефо Форонейская)'] = {
     'level':3,
     #'defence_AI':True,
     'fireball_AI':True,
@@ -13136,7 +13136,7 @@ metadict_chars['Warlock 3 lvl (друг) (Сефо Форонейская)'] = {
 #----
 # Союзники (герои) (Кема'Эш):
 
-metadict_chars['Warlock 2 lvl (друг) (колдун Кема\'Эша)'] = {
+metadict_chars['Warlock 2 lvl (колдун Кема\'Эша)'] = {
     'level':2,
     'char_class':'Warlock',
     'hit_dice':'1d8',
@@ -13183,7 +13183,7 @@ metadict_chars['Warlock 2 lvl (друг) (колдун Кема\'Эша)'] = {
     #    },
     }
 
-metadict_chars['Warlock 6 lvl (друг) (Кема\'Эш «Ловкач»)'] = {
+metadict_chars['Warlock 6 lvl (Кема\'Эш «Ловкач»)'] = {
     'level':6,
     'fireball_AI':True,
     'char_class':'Warlock',
@@ -13259,7 +13259,7 @@ metadict_chars['Warlock 6 lvl (друг) (Кема\'Эш «Ловкач»)'] = {
 #----
 # Союзники (герои) (Тави):
 
-metadict_chars['Wizard 2 lvl (друг) (кошка Тави)'] = {
+metadict_chars['Wizard 2 lvl (кошка Тави)'] = {
     'level':2,
     'commando_AI':True,
     'char_class':'Wizard',
@@ -13296,7 +13296,7 @@ metadict_chars['Wizard 2 lvl (друг) (кошка Тави)'] = {
         },
     }
 
-metadict_chars['Wizard 7 lvl (друг) (Тави)'] = {
+metadict_chars['Wizard 7 lvl (Тави)'] = {
     'level':7,
     'archer_AI':True,
     'commando_AI':True,
@@ -13362,7 +13362,7 @@ metadict_chars['Wizard 7 lvl (друг) (Тави)'] = {
 #----
 # Союзники (армии) (Тави):
 
-metadict_chars['Warrior 1 lvl (друг) (легионер Тави)'] = {
+metadict_chars['Warrior 1 lvl (легионер Тави)'] = {
     'level':1,
     'char_class':'Warrior',
     'hit_dice':'1d8',
@@ -13381,7 +13381,7 @@ metadict_chars['Warrior 1 lvl (друг) (легионер Тави)'] = {
         },
     }
 
-metadict_chars['Warrior 2 lvl (друг) (ветеран Тави)'] = {
+metadict_chars['Warrior 2 lvl (ветеран Тави)'] = {
     'level':2,
     'char_class':'Warrior',
     'hit_dice':'1d8',
@@ -13409,7 +13409,7 @@ metadict_chars['Warrior 2 lvl (друг) (ветеран Тави)'] = {
         },
     }
 
-metadict_chars['Warrior 3 lvl (друг) (сержант Тави)'] = {
+metadict_chars['Warrior 3 lvl (сержант Тави)'] = {
     'level':3,
     'char_class':'Warrior',
     'hit_dice':'1d8',
@@ -13437,7 +13437,7 @@ metadict_chars['Warrior 3 lvl (друг) (сержант Тави)'] = {
         },
     }
 
-metadict_chars['Warrior 4 lvl (друг) (лейтенант Тави)'] = {
+metadict_chars['Warrior 4 lvl (лейтенант Тави)'] = {
     'level':4,
     'char_class':'Warrior-officer',
     'hit_dice':'1d8',
@@ -13470,7 +13470,7 @@ metadict_chars['Warrior 4 lvl (друг) (лейтенант Тави)'] = {
     #    },
     }
 
-metadict_chars['Warrior 5 lvl (друг) (капитан Тави)'] = {
+metadict_chars['Warrior 5 lvl (капитан Тави)'] = {
     # Командир сотни легионеров, центурион (кентурион).
     'level':5,
     'char_class':'Warrior-officer',
@@ -13511,7 +13511,7 @@ metadict_chars['Warrior 5 lvl (друг) (капитан Тави)'] = {
 #----
 # Союзники (армия) (Генри Эвери):
 
-metadict_chars['Warrior 4 lvl (враг) (абордажник Эвери)'] = {
+metadict_chars['Warrior 4 lvl (абордажник Эвери)'] = {
     'base_unit':'Warrior 4 lvl (grenadier line-infantry-sergeant)',
     'char_class':'Warrior-heavy',
     'behavior':'elite_warrior',
@@ -13540,7 +13540,7 @@ metadict_chars['Warrior 4 lvl (враг) (абордажник Эвери)'] = {
         },
     }
 
-metadict_chars['Warrior 5 lvl (враг) (лейтенант Эвери)'] = {
+metadict_chars['Warrior 5 lvl (лейтенант Эвери)'] = {
     'base_unit':'Warrior 5 lvl (grenadier line-infantry-lieutenant)',
     'char_class':'Warrior-officer',
     'class_features':{
@@ -13569,7 +13569,7 @@ metadict_chars['Warrior 5 lvl (враг) (лейтенант Эвери)'] = {
         },
     }
 
-metadict_chars['Warrior 4 lvl (враг) (абордажник Эвери) (лидер)'] = {
+metadict_chars['Warrior 4 lvl (абордажник Эвери) (лидер)'] = {
     'base_unit':'Warrior 4 lvl (grenadier line-infantry-sergeant)',
     'char_class':'Warrior-heavy',
     'behavior':'elite_warrior',
@@ -13592,7 +13592,7 @@ metadict_chars['Warrior 4 lvl (враг) (абордажник Эвери) (ли
         },
     }
 
-metadict_chars['Warrior 5 lvl (враг) (лейтенант Эвери) (лидер)'] = {
+metadict_chars['Warrior 5 lvl (лейтенант Эвери) (лидер)'] = {
     'base_unit':'Warrior 5 lvl (grenadier line-infantry-lieutenant)',
     'char_class':'Warrior-officer',
     'equipment_weapon':{
@@ -13615,9 +13615,85 @@ metadict_chars['Warrior 5 lvl (враг) (лейтенант Эвери) (лид
     }
 
 #----
-# Противник (свита) (Генри Эвери):
+# Союзники (армия) (Генри Эвери):
 
-metadict_chars['Fighter 11 lvl (друг) (Люсьен де ла Помпаж)'] = {
+metadict_chars['Warrior 1 lvl (артиллерист)'] = {
+    'base_unit':'Warrior 1 lvl (cannoneer artillery)',
+    'behavior':'warrior',
+    }
+
+metadict_chars['Warrior 2 lvl (артиллерист-ветеран)'] = {
+    'base_unit':'Warrior 2 lvl (cannoneer artillery-veteran)',
+    'behavior':'warrior',
+    }
+
+metadict_chars['Warrior 3 lvl (артиллерист-капрал)'] = {
+    'base_unit':'Warrior 3 lvl (cannoneer artillery-corporal)',
+    'behavior':'warrior',
+    }
+
+metadict_chars['Warrior 4 lvl (артиллерист-сержант) (12lb Mortar)'] = {
+    'base_unit':'Warrior 4 lvl (cannoneer artillery-sergeant)',
+    'behavior':'elite_warrior',
+    'equipment_weapon':{
+        'Rune of Armor':1,
+        '12lb Mortar':1,
+        '12lb Bomb':100,
+        },
+    'mount_combat':True,
+    'mount_type':'12lb Mortar, chassis',
+    'equipment_mount':{},
+    }
+
+metadict_chars['Warrior 4 lvl (артиллерист-сержант) (2lb Falconet)'] = {
+    'base_unit':'Warrior 4 lvl (cannoneer artillery-sergeant)',
+    'behavior':'elite_warrior',
+    'equipment_weapon':{
+        'Rune of Armor':1,
+        '2lb Falconet':1,
+        '2lb Ball':100,
+        },
+    'mount_combat':True,
+    'mount_type':'2lb Cannon, chassis',
+    'equipment_mount':{},
+    }
+
+metadict_chars['Warrior 3 lvl (артиллерист-капрал) (6lb Cannon)'] = {
+    'base_unit':'Warrior 3 lvl (cannoneer artillery-corporal)',
+    'behavior':'elite_warrior',
+    'equipment_weapon':{
+        'Rune of Armor':1,
+        '6lb Cannon, naval':1,
+        '6lb Bar':100,
+        '6lb Ball':100,
+        },
+    'mount_combat':True,
+    'mount_type':'6lb Cannon, chassis',
+    'equipment_mount':{},
+    }
+
+metadict_chars['Warrior 3 lvl (артиллерист-капрал) (12lb Cannon)'] = {
+    'base_unit':'Warrior 3 lvl (cannoneer artillery-corporal)',
+    'behavior':'elite_warrior',
+    'equipment_weapon':{
+        'Rune of Armor':1,
+        '12lb Cannon, naval':1,
+        '12lb Bar':100,
+        '12lb Ball':100,
+        },
+    'mount_combat':True,
+    'mount_type':'12lb Cannon, chassis',
+    'equipment_mount':{},
+    }
+
+metadict_chars['Warrior 5 lvl (артиллерист-лейтенант)'] = {
+    'base_unit':'Warrior 5 lvl (cannoneer artillery-lieutenant)',
+    }
+
+#----
+# Союзники (свита) (Генри Эвери):
+
+metadict_chars['Fighter 11 lvl (Люсьен де ла Помпаж)'] = {
     # Тестовый вариант Эвери -- мастера боевых искусств. Боль-боль-боль, всего 17% шансы против кенсэя.
     # Fighter 1 lvl (legionary slayer-rookie) sum:100 STR:19 DEX:18 CON:19 INT:15 WIS:12 CHA:17
     # Commanding_Presence даёт +1d10 к проверкам Харизмы (Запугивание, Выступление, Убеждение)
@@ -13681,14 +13757,14 @@ metadict_chars['Fighter 11 lvl (друг) (Люсьен де ла Помпаж)'
         'Rarity +2':1,
         'Rapier +2':1,
         'Pistol, Ashbeard':1,
-        'Muskete Bullet':60,
+        'Muskete Bullet':30,
         #'Hand Grenade':10,
-        'Smoke Grenade':2,
+        'Smoke Grenade':1,
         'Poison Blade':40,
         },
     }
 
-metadict_chars['Fighter 13 lvl (друг) (Генри Эвери)'] = {
+metadict_chars['Fighter 13 lvl (Генри Эвери)'] = {
     # Тестовый вариант Эвери -- мистического рыцаря. С Mirror_Image и Blur побеждает кенсэя в 60% случаев.
     # Fighter 1 lvl (legionary sentinel-battler) sum:103 STR:19 DEX:17 CON:18 INT:16 WIS:16 CHA:17
     # Использует "Обнаружение мыслей" (Detect_Thoughts), чтобы читать мысли других.
@@ -13771,7 +13847,7 @@ metadict_chars['Fighter 13 lvl (друг) (Генри Эвери)'] = {
 #----
 # Противник (армия) (Салиф):
 
-metadict_chars['Warrior 4 lvl (враг) (гвардеец Салифа)'] = {
+metadict_chars['Warrior 4 lvl (гвардеец Салифа)'] = {
     'level':4,
     'char_class':'Warrior-pirate',
     'hit_dice':'1d8',
@@ -13811,7 +13887,7 @@ metadict_chars['Warrior 4 lvl (враг) (гвардеец Салифа)'] = {
     #    },
     }
 
-metadict_chars['Warrior 5 lvl (враг) (лейтенант Салифа)'] = {
+metadict_chars['Warrior 5 lvl (лейтенант Салифа)'] = {
     'level':5,
     'char_class':'Warrior-pirate',
     'hit_dice':'1d8',
@@ -13856,7 +13932,7 @@ metadict_chars['Warrior 5 lvl (враг) (лейтенант Салифа)'] = {
 #----
 # Противник (свита) (Салиф):
 
-metadict_chars['Wizard 13 lvl (враг) (Салиф)'] = {
+metadict_chars['Wizard 13 lvl (Салиф)'] = {
     # Wizard 1 lvl (otherworld mage-disciple) sum:94 STR:13 DEX:17 CON:16 INT:19 WIS:14 CHA:15
     # Черты:
     # - Feat_Alert, -- нельзя застать врасплох.
@@ -14004,7 +14080,7 @@ metadict_chars['Wizard 13 lvl (враг) (Салиф)'] = {
     #    },
     }
 
-metadict_chars['Wizard 4 lvl (враг) (волшебник Салифа)'] = {
+metadict_chars['Wizard 4 lvl (волшебник Салифа)'] = {
     'level':4,
     'archer_AI':True,
     'fireball_AI':True,
@@ -14063,7 +14139,7 @@ metadict_chars['Wizard 4 lvl (враг) (волшебник Салифа)'] = {
 #----
 # Противник (армия) (Намулис):
 
-metadict_chars['Warrior 4 lvl (враг) (гвардеец Намулиса)'] = {
+metadict_chars['Warrior 4 lvl (гвардеец Намулиса)'] = {
     'level':4,
     'char_class':'Warrior-pirate',
     'hit_dice':'1d8',
@@ -14097,7 +14173,7 @@ metadict_chars['Warrior 4 lvl (враг) (гвардеец Намулиса)'] =
     #    },
     }
 
-metadict_chars['Warrior 5 lvl (враг) (лейтенант Намулиса)'] = {
+metadict_chars['Warrior 5 lvl (лейтенант Намулиса)'] = {
     'level':5,
     'char_class':'Warrior-pirate',
     'hit_dice':'1d8',
@@ -14136,7 +14212,7 @@ metadict_chars['Warrior 5 lvl (враг) (лейтенант Намулиса)']
 #----
 # Противник (свита) (Намулис):
 
-metadict_chars['Monk 13 lvl (враг) (Намулис)'] = {
+metadict_chars['Monk 13 lvl (Намулис)'] = {
     # Кенсэй
     # Monk 1 lvl (city windsong-apprentice) sum:97 STR:16 DEX:19 CON:17 INT:14 WIS:19 CHA:12
     # Tongue_of_the_Sun_and_Moon -- говорит на любом языке.
@@ -14211,7 +14287,8 @@ metadict_chars['Monk 13 lvl (враг) (Намулис)'] = {
         'Rune of Shielding':1,
         'Bracers of Defence':1,
         #'Sword of Sharpness':1,
-        'Sword of Hopesfire':1,
+        #'Sword of Hopesfire':1,
+        'Sword of Flame Tongue':1,
         'Longbow':1,
         'Poison Arrow':80,
         'Sleep Blade':10,
