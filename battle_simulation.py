@@ -4135,9 +4135,10 @@ class battle_simulation(battlescape):
                     # Проверяем все uuid и если враг захвачен/мёрт, то собираем трофеи.
                     if victories_list:
                         for enemy_uuid in victories_list:
-                            enemy_soldier = self.metadict_soldiers[enemy_uuid]
-                            if enemy_soldier.captured or enemy_soldier.death:
-                                soldier.loot_enemy(enemy_soldier)
+                            enemy_soldier = self.metadict_soldiers.get(enemy_uuid, None)
+                            if enemy_soldier:
+                                if enemy_soldier.captured or enemy_soldier.death:
+                                    soldier.loot_enemy(enemy_soldier)
 
     def print_battle_statistics(self, short = False):
         """Вывод статистики после боя. Убитые, раненые по отрядам."""
