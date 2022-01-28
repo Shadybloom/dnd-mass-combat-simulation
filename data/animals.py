@@ -102,7 +102,7 @@ metadict_animals['6lb Cannon, chassis'] = {
     'armor_class_natural':15,
     }
 
-metadict_animals['12lb Bombard, chassis'] = {
+metadict_animals['12lb Mortar, chassis'] = {
     # 12-фунтовая бомбарда.
     # Лёгкая, весит всего 1000 lb.
     'base_unit':'Cannon, chassis',
@@ -477,7 +477,13 @@ metadict_animals['Ship frigate (обшивка днища)'] = {
     }
 
 metadict_animals['Ship frigate (обшивка палубы)'] = {
-    # 6 дюймов, 60 hp, 2 тонны, 40 блоков/фрегат
+    # 3 дюйма, 30 hp, 1 тонна, 20 блоков/палуба
+    'base_unit':'Ship frigate (wood-element-big)',
+    'hitpoints_base':30,
+    }
+
+metadict_animals['Ship frigate (обшивка орудийной палубы)'] = {
+    # 6 дюймов, 60 hp, 2 тонны, 20 блоков/палуба
     'base_unit':'Ship frigate (wood-element-big)',
     'hitpoints_base':60,
     }
@@ -658,7 +664,7 @@ metadict_animals['Ship frigate (грот)'] = {
 
 metadict_animals['Ship frigate (крюйс-брамсель)'] = {
     'base_unit':'Ship frigate (cloth-element-huge)',
-    'hitpoints_base':25,
+    'hitpoints_base':50,
     }
 
 metadict_animals['Ship frigate (крюйс-марсель)'] = {
@@ -681,52 +687,52 @@ metadict_animals['Ship frigate (бизань-гафель)'] = {
 
 metadict_animals['Ship frigate (кливер)'] = {
     'base_unit':'Ship frigate (cloth-element-huge)',
-    'hitpoints_base':25,
+    'hitpoints_base':50,
     }
 
 metadict_animals['Ship frigate (мидель-кливер)'] = {
     'base_unit':'Ship frigate (cloth-element-huge)',
-    'hitpoints_base':25,
+    'hitpoints_base':50,
     }
 
 metadict_animals['Ship frigate (бом-кливер)'] = {
     'base_unit':'Ship frigate (cloth-element-huge)',
-    'hitpoints_base':25,
+    'hitpoints_base':50,
     }
 
 metadict_animals['Ship frigate (фока-стаксель)'] = {
     'base_unit':'Ship frigate (cloth-element-huge)',
-    'hitpoints_base':25,
+    'hitpoints_base':50,
     }
 
 metadict_animals['Ship frigate (грота-стаксель)'] = {
     'base_unit':'Ship frigate (cloth-element-huge)',
-    'hitpoints_base':25,
+    'hitpoints_base':50,
     }
 
 metadict_animals['Ship frigate (грот-стень-стаксель)'] = {
     'base_unit':'Ship frigate (cloth-element-huge)',
-    'hitpoints_base':25,
+    'hitpoints_base':50,
     }
 
 metadict_animals['Ship frigate (грот-брам-стень-стаксель)'] = {
     'base_unit':'Ship frigate (cloth-element-huge)',
-    'hitpoints_base':25,
+    'hitpoints_base':50,
     }
 
 metadict_animals['Ship frigate (апсель)'] = {
     'base_unit':'Ship frigate (cloth-element-huge)',
-    'hitpoints_base':25,
+    'hitpoints_base':50,
     }
 
 metadict_animals['Ship frigate (крюйс-стень-стаксель)'] = {
     'base_unit':'Ship frigate (cloth-element-huge)',
-    'hitpoints_base':25,
+    'hitpoints_base':50,
     }
 
 metadict_animals['Ship frigate (крюйс-брам-стень-стаксель)'] = {
     'base_unit':'Ship frigate (cloth-element-huge)',
-    'hitpoints_base':25,
+    'hitpoints_base':50,
     }
 
 #----
