@@ -103,15 +103,20 @@ class database_stat():
                 and soldier.hitpoints >= soldier.hitpoints_max / 3
                 and not soldier.__dict__.get('mechanism')])
             dict_dead = {}
+            dict_traumas = {}
             dict_disabled = {}
+            dict_cripple = {}
             dict_capture = {}
             dict_fall = {}
+            fall_mechanism = False
             # Стоимость пополнения, по стоимости снаряжения:
             squad.reinforce_cost = 0
             # Стоимость трофеев и потерянного снаряжения:
             squad.trophy_cost = 0
             squad.drop_items_cost = 0
             squad.drop_ammo_cost = 0
+            # Словарь травма:
+            squad.traumas_dict = {}
             # Словари трофеев и потерянного снаряжения:
             squad.trophy_dict = {}
             squad.drop_items_dict = {}
@@ -120,6 +125,14 @@ class database_stat():
                         + Counter(soldier.trophy_items_dict))
                 squad.drop_items_dict = dict(Counter(squad.drop_items_dict)\
                         + Counter(soldier.drop_items_dict))
+                if hasattr(soldier, 'death') and not soldier.death:
+                    squad.traumas_dict = dict(Counter(squad.traumas_dict)\
+                            + Counter(soldier.traumas_dict))
+                    if hasattr(soldier, 'traumas_dict') and len(soldier.traumas_dict) > 0:
+                        if not soldier.rank in dict_traumas:
+                            dict_traumas[soldier.rank] = 1
+                        elif soldier.rank in dict_traumas:
+                            dict_traumas[soldier.rank] += 1
                 if hasattr(soldier, 'death') and soldier.death:
                     if not soldier.rank in dict_dead:
                         dict_dead[soldier.rank] = 1
@@ -135,6 +148,14 @@ class database_stat():
                         dict_disabled[soldier.rank] += 1
                     # Стоимость лечения у жрецов -- 10 эфесов/100 солдат
                     squad.reinforce_cost += 0.1
+                    # Самые тяжёлые травмы не лечатся заклинанием:
+                    if 'Потеря глаза' in soldier.traumas_dict\
+                            or 'Потеря руки или ладони' in soldier.traumas_dict\
+                            or 'Потеря ноги или ступни' in soldier.traumas_dict:
+                        if not soldier.rank in dict_cripple:
+                            dict_cripple[soldier.rank] = 1
+                        elif soldier.rank in dict_cripple:
+                            dict_cripple[soldier.rank] += 1
                 elif hasattr(soldier, 'captured') and soldier.captured:
                     if not soldier.rank in dict_capture:
                         dict_capture[soldier.rank] = 1
@@ -148,6 +169,8 @@ class database_stat():
                     elif soldier.rank in dict_fall:
                         dict_fall[soldier.rank] += 1
             dict_dead = OrderedDict(reversed(sorted(dict_dead.items(),key=lambda x: x)))
+            dict_traumas = OrderedDict(reversed(sorted(dict_traumas.items(),key=lambda x: x)))
+            dict_cripple = OrderedDict(reversed(sorted(dict_cripple.items(),key=lambda x: x)))
             dict_disabled = OrderedDict(reversed(sorted(dict_disabled.items(),key=lambda x: x)))
             dict_capture = OrderedDict(reversed(sorted(dict_capture.items(),key=lambda x: x)))
             dict_fall = OrderedDict(reversed(sorted(dict_fall.items(),key=lambda x: x)))
@@ -196,9 +219,11 @@ class database_stat():
                     fall = sum(dict_fall.values()),
                     ))
             print('--------------------------------------------------------------------------------')
-            print('* Восполнение потерь (солдат): {re} эфес {heal} Lesser_Restoration'.format(
+            print('* Восполнение потерь (солдат): {re} эфес {cripple}/{heal}/{heal_all} (калеки/тяжёлые/всего)'.format(
                 re = squad.reinforce_cost,
-                heal = sum(dict_disabled.values())))
+                heal = sum(dict_disabled.values()),
+                heal_all = sum(dict_traumas.values()),
+                cripple = sum(dict_cripple.values())))
             print('* Восполнение потерь (снаряжения): {ammo} эфес'.format(ammo = squad.drop_ammo_cost))
             print('* Трофеи солдат: {trophy} эфес'.format(trophy = squad.trophy_cost))
             for key, el in dict_dead.items():
@@ -212,6 +237,7 @@ class database_stat():
             metadict_squads_stat[squad_name] = squad
             print('Потери:', squad.drop_ammo_dict)
             print('Трофеи:', squad.trophy_dict)
+            print('Травмы:', squad.traumas_dict)
             print('--------------------------------------------------------------------------------')
         # Список трофеев:
         #for key, value in trophy_dict.items():
