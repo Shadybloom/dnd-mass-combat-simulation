@@ -2410,7 +2410,7 @@ metadict_items['Onager'] = {
     'cost (grams_of_gold)':16 * 60,
     }
 
-metadict_items['12lb Bombard'] = {
+metadict_items['12lb Mortar'] = {
     # Гаубицы -- 7-10 фунтов по бомбе, 800 фунтов/орудие (80 весов снаряда)
     # * 3 выстрела/минуту. Бомбой 230 м/с, 1800 футов выстрел
     # * Бомбарды стреляют только навесом.
@@ -2423,7 +2423,7 @@ metadict_items['12lb Bombard'] = {
     'savethrow_ability':'dexterity',
     'ammo_type':gun_ammunition,
     'weapon_type':['martial','two_handed','firearm','volley','reload'],
-    # Перезарядка за 30 действий.
+    # Перезарядка за 25 действий.
     # Это полевое орудие и расчётом в 10 бойцов.
     'recharge':True,
     'Recharge_help':True,
@@ -2472,10 +2472,10 @@ metadict_items['12lb Cannon, naval'] = {
     'savethrow_ability':'dexterity',
     'ammo_type':gun_ammunition,
     'weapon_type':['martial','ranged','two_handed','firearm','volley','reload'],
-    # Перезарядка за 30 действий.
+    # Перезарядка за 25 действий.
     'recharge':True,
     'Recharge_help':True,
-    'Recharge_actions_need':30,
+    'Recharge_actions_need':25,
     'Recharge_actions_use':0,
     'shoot_range':100,
     'shoot_range_max':200,
@@ -2483,6 +2483,28 @@ metadict_items['12lb Cannon, naval'] = {
     'weight (lb)':3000,
     'cost (gp)':10 * 60,
     'cost (grams_of_gold)':10 * 60,
+    }
+
+metadict_items['6lb Cannon, naval'] = {
+    'weapon':True,
+    'chassis':True,
+    'direct_hit':True,
+    'savethrow':True,
+    'savethrow_all':True,
+    'savethrow_ability':'dexterity',
+    'ammo_type':gun_ammunition,
+    'weapon_type':['martial','ranged','two_handed','firearm','volley','reload'],
+    'recharge':True,
+    'Recharge_help':True,
+    # Перезарядка за 20 действий.
+    'Recharge_actions_need':20,
+    'Recharge_actions_use':0,
+    'shoot_range':100,
+    'shoot_range_max':200,
+    'shoot_range_volley':900,
+    'weight (lb)':2000,
+    'cost (gp)':6 * 60,
+    'cost (grams_of_gold)':6 * 60,
     }
 
 metadict_items['6lb Cannon'] = {
@@ -2500,7 +2522,6 @@ metadict_items['6lb Cannon'] = {
     'ammo_type':gun_ammunition,
     'weapon_type':['martial','ranged','two_handed','firearm','volley','reload'],
     # Перезарядка за 20 действий.
-    # Это полевое орудие и расчётом в 10 бойцов.
     'recharge':True,
     'Recharge_help':True,
     'Recharge_actions_need':20,
@@ -2525,6 +2546,7 @@ metadict_items['2lb Falconet'] = {
     'weapon_type':['martial','ranged','two_handed','firearm','volley','reload'],
     'recharge':True,
     'Recharge_help':True,
+    # Перезарядка за 10 действий:
     'Recharge_actions_need':10,
     'Recharge_actions_use':0,
     'shoot_range':200,
@@ -3025,7 +3047,7 @@ metadict_items['24lb Bar'] = {
             #'savethrow_all':True,
             'savethrow_ability':'dexterity',
             'damage_type':'piercing',
-            'damage_dice':'1d4',
+            'damage_dice':'2d4',
             'spell_save_DC':12,
             'spell_choice':('Impact','Fragments'),
             },
@@ -3046,7 +3068,8 @@ metadict_items['12lb Bar'] = {
     'spell_dict':{
             'zone':True,
             'safe':False,
-            'zone_shape':'2x2',
+            'radius':5,
+            'zone_shape':'square',
             'direct_hit':True,
             'savethrow':True,
             #'savethrow_all':True,
@@ -3062,6 +3085,33 @@ metadict_items['12lb Bar'] = {
     'weight (lb)':12 + 6 + 2,
     'cost (gp)':2 + 6,
     'cost (grams_of_gold)':2 + 6,
+    }
+
+metadict_items['6lb Bar'] = {
+    'ammo':True,
+    'volley_optimal':True,
+    'damage_dice':'6d10',
+    'weapon_type':['siege'],
+    'damage_type':'slashing',
+    'spell_dict':{
+            'zone':True,
+            'safe':False,
+            'zone_shape':'2x2',
+            'direct_hit':True,
+            'savethrow':True,
+            #'savethrow_all':True,
+            'savethrow_ability':'dexterity',
+            'damage_type':'piercing',
+            'damage_dice':'1d4',
+            'spell_save_DC':12,
+            'spell_choice':('Impact','Fragments'),
+            },
+    'shoot_range':100,
+    'shoot_range_max':200,
+    'shoot_range_volley':200,
+    'weight (lb)':6 + 3 + 1,
+    'cost (gp)':1 + 3,
+    'cost (grams_of_gold)':1 + 3,
     }
 
 metadict_items['24lb Ball'] = {
