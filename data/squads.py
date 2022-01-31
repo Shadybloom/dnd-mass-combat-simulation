@@ -2192,3 +2192,13 @@ metadict_squads['Single-hero (лично Намулис) (враг)'] = {
     'Monk 13 lvl (Намулис)':1,
     }
 
+#----
+# Команда Фэнси:
+
+metadict_squads['Single-hero (лично Намулис) (враг)'] = {
+    'Monk 13 lvl (Намулис)':1,
+    }
+
+metadict_squads['Squad-hero (лично Питер Янсен) (Katorjnik)'] = {
+    'Ranger 5 lvl (Katorjnik) (Питер Янсен)':1,
+    }

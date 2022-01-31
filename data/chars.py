@@ -14295,3 +14295,74 @@ metadict_chars['Monk 13 lvl (Намулис)'] = {
         'Chakram':10,
         },
     }
+
+#----
+# Свои (Katorjnik) (Питер Янсен):
+
+metadict_chars['Ranger 5 lvl (Katorjnik) (Питер Янсен)'] = {
+    'level':5,
+    #'sneak_AI':True,
+    'firearm_AI':True,
+    'defence_AI':True,
+    #'killer_AI':True,
+    'char_class':'Ranger',
+    'hit_dice':'1d10',
+    'behavior':'commander',
+    'hitpoints_base':10+1 + 6*4 + 6*1,
+    'abilityes':{
+        # Голландец; +1 мудрость, +1 ловкость
+        'strength':14,
+        'dexterity':18+1,
+        'constitution':12,
+        'intelligence':10,
+        'wisdom':17+1,
+        'charisma':15,
+        },
+    'class_features':{
+        'Fighting_Style_Archery':True,
+        'Feat_Firearms_Expert':True,
+        'Feat_Sharpshooter':True,
+        'Feat_Alert':True,
+        'Favored_Enemy':['humans', 'spain'],
+        'Natural_Explorer':['sea', 'coast'],
+        'Spellcasting':True,
+        'Spells':[
+            #('ritual', 'Beast_Sense'),
+            ('1_lvl', 'Hunters_Mark'),
+            ('1_lvl', 'Hail_of_Thorns'),
+            ('2_lvl', 'Pass_Without_Trace'),
+            ('2_lvl', 'Lesser_Restoration'),
+            ],
+        'Primeval_Awareness':True,
+        'Ranger_Archetype_Hunter':True,
+        'Hunter_Colossus_Slayer':'1d8',
+        'Extra_Attack':True,
+        },
+    'race':'Human-hero',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','shield'],
+    'skills':[
+        # Инструменты (моряк): Инструменты навигатора, транспорт (водный)
+        # Инструменты (следопыт): Инструменты каллиграфа, инструменты картографа
+        'Athletics',
+        'Stealth',
+        'Insight',
+        'Perception',
+        'Survival',
+        'Persuasion',
+        ],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        # Настройка на штуцер Шварц Марка и две руны.
+        'Rune of Armor':1,
+        'Rune of Absorbtion':1,
+        'Bracers of Silver':1,
+        'Sabre':1,
+        'Shield':1,
+        'Rifle, Schwartz Mark':1,
+        'Pistol, Lorenzony':1,
+        'Muskete Bullet':60,
+        'Smoke Grenade':2,
+        },
+    }
