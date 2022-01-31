@@ -1287,6 +1287,11 @@ class soldier():
         #if dict_ammo.get('cost (gp)')\
         #        and dict_attack.get('cost (gp)'):
         #    dict_attack['cost (gp)'] += dict_ammo['cost (gp)']
+        # Боеприпас получает свойство магического, если в инвентаре таковой предмет.
+        if 'Bracers of Silver' in self.equipment_weapon\
+                and 'ranged' in dict_attack['weapon_type']\
+                and not 'magic' in dict_attack['weapon_type']:
+            dict_attack['weapon_type'].append('magic')
         # Наконец, оружию передаются прочие свойства боеприпаса (вроде встроенного заклинания):
         for key in dict_ammo:
             if key not in dict_attack:

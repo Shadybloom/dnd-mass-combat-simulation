@@ -1996,6 +1996,13 @@ metadict_items['Bracers of Defence'] = {
     'cost (grams_of_gold)':60 * 100,
     }
 
+metadict_items['Bracers of Silver'] = {
+    'effect':'magic_weapon',
+    'weight (lb)':2,
+    'cost (gp)':60 * 30,
+    'cost (grams_of_gold)':60 * 30,
+    }
+
 #----
 # Magic Weapon (homebrew)
 
