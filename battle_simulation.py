@@ -2519,6 +2519,28 @@ class battle_simulation(battlescape):
                             if spell_dict.get('ammo'): spell_dict['ammo'] -=1
                             self.fireball_action(soldier, squad, spell_dict, enemy.place,
                                     single_target = enemy)
+                # Colossus_Slayer рейнджера наносит дополнительный урон раз в ход:
+                # Но только в том случае, если до удара у врага было меньше максимума хитов.
+                # TODO: мутно получается. Пусть лучше будет бонусный урон как у Rage.
+                #if attack_result['hit'] and attack_dict.get('weapon') == True\
+                #        and soldier.class_features.get('Hunter_Colossus_Slayer')\
+                #        and not enemy_soldier.hitpoints +  attack_dict['damage']\
+                #        >= enemy_soldier.hitpoints_max\
+                #        and not soldier.colossus_slayer:
+                #    spell_dict = {
+                #        'safe':True,
+                #        'direct_hit':True,
+                #        'attacks_number':1,
+                #        'weapon_type':attack_result['weapon_type'],
+                #        'damage_type':attack_result['damage_type'],
+                #        'damage_dice':'1d8',
+                #        'damage_mod':0,
+                #        'spell_save_DC':8 + max(soldier.mods.values()) + soldier.proficiency_bonus,
+                #        'spell_choice':('Hunter','Colossus_Slayer'),
+                #        }
+                #    self.fireball_action(soldier, squad, spell_dict, enemy.place, single_target = enemy)
+                #    soldier.drop_action(('free_action', 'Colossus_Slayer'))
+                #    soldier.drop_spell(('feature', 'Colossus_Slayer'))
                 # Menacing_Attack мастера боевых искусств может испугать противника:
                 if attack_result['hit'] and attack_dict.get('weapon') == True\
                         and soldier.class_features.get('Menacing_Attack')\

@@ -230,6 +230,7 @@ class soldier_in_battle(soldier):
         self.killer_mark = False
         self.shield_evasion = False
         self.reckless_attack = False
+        self.colossus_slayer = False
         self.agile_parry = False
         self.dodge_action = False
         # Убираем окружение:
@@ -438,6 +439,7 @@ class soldier_in_battle(soldier):
         self.dodge_action = False # это disadvantage на атаки врагов и преимущество ловксоти
         self.reckless_attack = False # Тактика варвара, преимущество и себе, и врагам
         self.shield_evasion = False # Уклонение реакцией от Feat_Shield_Master
+        self.colossus_slayer = False # Усиления урона рейнджера-охотника
         self.agile_parry = False # Ловкое парирование кенсэя
         # Щит возвращается в боевое положение (если в прошлом ходу использовалось двуручное оружие):
         if self.armor['shield_use'] and not self.shield_ready:
@@ -2307,6 +2309,11 @@ class soldier_in_battle(soldier):
             if attack_choice[0] == 'throw' or attack_choice[0] == 'ranged':
                 damage_throw += dices.dice_throw_advantage(self.class_features['Kensei_Shot'],
                         advantage = damage_throw_advantage, disadvantage = False, max_throw = sharpness)
+        # Бонус урона от Hunter_Colossus_Slayer, если у врага меньше максимума hp:
+        if self.class_features.get('Hunter_Colossus_Slayer'):
+            if enemy_soldier.hitpoints < enemy_soldier.hitpoints_max:
+                damage_throw += dices.dice_throw_advantage(self.class_features['Hunter_Colossus_Slayer'],
+                        advantage = damage_throw_advantage, disadvantage = False)
         # Наконец, выводим общий урон:
         damage_throw_mod = damage_throw + attack_dict['damage_mod']
         if damage_throw_mod < 0:
