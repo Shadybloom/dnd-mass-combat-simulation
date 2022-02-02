@@ -1297,6 +1297,9 @@ class soldier_in_battle(soldier):
                 bonus_hitpoints = self.mods['constitution'] * 2
             self.set_hitpoints(bonus_hitpoints = bonus_hitpoints)
             self.hit_dices_use += 1
+        # homebrew, оружие Зеркальных ручьёв даёт защиту:
+        if dodge and self.hero:
+            self.use_item('Blade_Ward', gen_spell = True, use_action = False)
         if dodge:
             return dodge
 

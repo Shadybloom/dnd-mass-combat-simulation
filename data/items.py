@@ -2006,6 +2006,33 @@ metadict_items['Bracers of Silver'] = {
 #----
 # Magic Weapon (homebrew)
 
+metadict_items['Rapier of Sharpness'] = {
+    # TODO: допилить
+    # superiority +1 кость превосходства
+    # blade_ward, эффект кантрипа при Dodge_Action
+    'weapon':True,
+    'spell':'Blade_Ward',
+    'ammo_type':blade_poisons,
+    'weapon_type':['martial','close','finesse','magic', '+1', 'sharpness', 'superiority'],
+    'damage_type':'piercing',
+    'spell_dict':{
+            'safe':True,
+            'effect':'sharpness',
+            'crit_only':True,
+            'direct_hit':True,
+            'attacks_number':1,
+            'weapon_type':['magic','sharpness'],
+            'damage_type':'piercing',
+            'damage_dice':'0d0',
+            'damage_mod':14,
+            'spell_choice':('Rapier of Sharpness','Sharpness'),
+            },
+    'damage_dice':'1d8',
+    'weight (lb)':2,
+    'cost (gp)':60*60,
+    'cost (grams_of_gold)':60*60,
+    }
+
 metadict_items['Rarity +2'] = {
     'weapon':True,
     'ammo_type':blade_poisons,
