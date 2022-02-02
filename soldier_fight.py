@@ -1498,10 +1498,10 @@ class soldier_in_battle(soldier):
             else:
                 difficult = dices.dice_throw_advantage('1d20', advantage, disadvantage)\
                         + enemy_soldier.mods['dexterity'] + enemy_soldier.proficiency_bonus
-        if self.saves['strength'] >= self.saves['dexterity']:
-            ability = 'strength'
-        else:
+        if self.saves['dexterity'] >= self.saves['strength']:
             ability = 'dexterity'
+        else:
+            ability = 'strength'
         if self.get_savethrow(difficult, ability, advantage, disadvantage):
             return False
         else:
