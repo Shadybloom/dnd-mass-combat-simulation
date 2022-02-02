@@ -14308,7 +14308,7 @@ metadict_chars['Ranger 5 lvl (Katorjnik) (Питер Янсен)'] = {
     'char_class':'Ranger',
     'hit_dice':'1d10',
     'behavior':'commander',
-    'hitpoints_base':10+1 + 6*4 + 6*1,
+    'hitpoints_base':10 + 6*4,
     'abilityes':{
         # Голландец; +1 мудрость, +1 ловкость
         'strength':14,
@@ -14363,6 +14363,68 @@ metadict_chars['Ranger 5 lvl (Katorjnik) (Питер Янсен)'] = {
         'Rifle, Schwartz Mark':1,
         'Pistol, Lorenzony':1,
         'Muskete Bullet':60,
+        'Smoke Grenade':2,
+        },
+    }
+
+#----
+# Свои (Волшебник) (Тобиас Олдридж):
+
+metadict_chars['Fighter 5 lvl (Волшебник) (Тобиас Олдридж)'] = {
+    # Точная атака, Атака с выпадом, Активное уклонение
+    # TODO: допилить Lunging_Attack, Evasive_Footwork
+    'level':5,
+    #'defence_AI':True,
+    'no_grappler_AI':True,
+    'char_class':'Battlemaster',
+    'hit_dice':'1d10',
+    'behavior':'commander',
+    'hitpoints_base':10+1 + 6*4,
+    'abilityes':{
+        # Англичанин; +1 мудрость, +1 обаяние
+        # Черта: Отличная память (+ 1 интеллект)
+        # Черта: Языковед (+ 1 интеллект)
+        # Черта: Внимательный (+ 1 мудрость)
+        'strength':9,
+        'dexterity':16,
+        'constitution':8,
+        'intelligence':18+2,
+        'wisdom':18+2,
+        'charisma':17+1,
+        },
+    'class_features':{
+        # TODO: Feat_Martial_Adept даёт +1 кость превосходство, это эффект рапиры. Предмет допили.
+        'Feat_Martial_Adept':True,
+        'Feat_Keen_Mind':True,
+        'Feat_Observant':True,
+        'Feat_Linguist':True,
+        'Feat_Defensive_Duelist':True,
+        'Fighting_Style_Dueling':True,
+        'Second_Wind':True,
+        'Action_Surge':True,
+        'Martial_Archetype_Battlemaster':True,
+        'Combat_Superiority':True,
+        'Student_of_War':True,
+        #'Parry':True,
+        #'Lunging_Attack':True,
+        #'Evasive_Footwork':True,
+        'Disarming_Attack':True,
+        'Precision_Attack':True,
+        'Feinting_Attack':True,
+        'Extra_Attack':True,
+        },
+    'race':'Human-hero',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Rune of Absorbtion':1,
+        'Rune of Armor':1,
+        'Rapier of Sharpness':1,
+        'Shield':1,
+        'Pistol, Lorenzony':1,
+        'Muskete Bullet':30,
         'Smoke Grenade':2,
         },
     }

@@ -141,6 +141,16 @@ metadict_squads['Single-hero (empyrean)'] = {
     'Empyrean (CR 23)':1,
     }
 
+# Обычные бойцы дл тестовых поединков
+#----
+
+metadict_squads['Single-regular (infantry-lieutenant)'] = {
+    #'Warrior 5 lvl (legionary infantry-lieutenant)':1,
+    #'Warrior 5 lvl (thracian infantry-lieutenant)':1,
+    'Warrior 5 lvl (achean hoplite-lieutenant)':1,
+    #'Warrior 5 lvl (grenadier line-infantry-lieutenant)':1,
+    }
+
 #----
 # Тестовые (отряды из Monsters_Manual)
 
@@ -2195,10 +2205,10 @@ metadict_squads['Single-hero (лично Намулис) (враг)'] = {
 #----
 # Команда Фэнси:
 
-metadict_squads['Single-hero (лично Намулис) (враг)'] = {
-    'Monk 13 lvl (Намулис)':1,
+metadict_squads['Single-hero (лично Питер Янсен) (Katorjnik)'] = {
+    'Ranger 5 lvl (Katorjnik) (Питер Янсен)':1,
     }
 
-metadict_squads['Squad-hero (лично Питер Янсен) (Katorjnik)'] = {
-    'Ranger 5 lvl (Katorjnik) (Питер Янсен)':1,
+metadict_squads['Single-hero (лично Тобиас Олдридж) (Волшебник)'] = {
+    'Fighter 5 lvl (Волшебник) (Тобиас Олдридж)':1,
     }
