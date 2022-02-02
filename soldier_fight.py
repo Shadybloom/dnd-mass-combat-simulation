@@ -844,6 +844,7 @@ class soldier_in_battle(soldier):
 
     def set_cunning_action_defence(self):
         """Защитные приёмы вора."""
+        # Homebrew для кошек. У обычных воров только Рывок, Отход и Засада.
         if self.class_features.get('Cunning_Action'):
             if self.bonus_action == True:
                 self.drop_action(('bonus_action', 'Dodge_Action_Rogue'))
@@ -1280,9 +1281,10 @@ class soldier_in_battle(soldier):
         https://www.dandwiki.com/wiki/5e_SRD:Dodge_Action
         """
         dodge = False
-        # Защитные приёмы плута и монаха за счёт бонусного действия:
-        if self.bonus_action and self.class_features.get('Cunning_Action'):
+        # Homebrew для кошек. У обычных воров только Рывок, Отход и Засада.
+        if self.bonus_action and self.class_features.get('Cunning_Action_Defence'):
             dodge = self.set_cunning_action_defence()
+        # Защитные монаха за счёт бонусного действия:
         elif self.bonus_action and self.class_features.get('Patient_Defense'):
             dodge = self.set_patient_defense()
         elif self.battle_action:
