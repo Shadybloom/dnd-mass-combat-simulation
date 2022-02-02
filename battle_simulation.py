@@ -2541,6 +2541,22 @@ class battle_simulation(battlescape):
                 #    self.fireball_action(soldier, squad, spell_dict, enemy.place, single_target = enemy)
                 #    soldier.drop_action(('free_action', 'Colossus_Slayer'))
                 #    soldier.drop_spell(('feature', 'Colossus_Slayer'))
+                # Feinting_Attack мастера боевых искусств:
+                if attack_result['hit'] and soldier.feinting_attack:
+                    spell_dict = {
+                        'safe':True,
+                        'direct_hit':True,
+                        'attacks_number':1,
+                        'weapon_type':attack_result['weapon_type'],
+                        'damage_type':attack_result['damage_type'],
+                        'damage_dice':soldier.superiority_dice,
+                        'damage_mod':0,
+                        'spell_save_DC':8 + max(soldier.mods.values()) + soldier.proficiency_bonus,
+                        'spell_choice':('Superiority','Feinting_Attack'),
+                        }
+                    self.fireball_action(soldier, squad, spell_dict, enemy.place, single_target = enemy)
+                    soldier.drop_action(('free_action', 'Feinting_Attack_Hit'))
+                    soldier.feinting_attack = False
                 # Menacing_Attack мастера боевых искусств может испугать противника:
                 if attack_result['hit'] and attack_dict.get('weapon') == True\
                         and soldier.class_features.get('Menacing_Attack')\
@@ -3754,6 +3770,18 @@ class battle_simulation(battlescape):
         # Homebrew, идеальное взаимодействие свиты:
         if soldier.__dict__.get('squad_advantage'):
             advantage = True
+            return advantage
+        # Атака с финтом мастера боевых искусств:
+        elif soldier.class_features.get('Feinting_Attack')\
+                and not soldier.feinting_attack\
+                and soldier.superiority_dices\
+                and soldier.bonus_action\
+                and attack_choice[0] == 'close':
+            soldier.superiority_dices -= 1
+            soldier.bonus_action = False
+            soldier.drop_action(('bonus_action', 'Battlemaster_Feinting_Attack'))
+            soldier.drop_spell(('feature', 'Battlemaster_Feinting_Attack'))
+            soldier.feinting_attack = True
             return advantage
         # Безрассудная атака варвара, преимущество своим, преимущество врагу:
         elif attack_choice[0] == 'close' or attack_choice[0] == 'reach'\

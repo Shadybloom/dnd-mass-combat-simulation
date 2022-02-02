@@ -232,6 +232,7 @@ class soldier_in_battle(soldier):
         self.reckless_attack = False
         self.colossus_slayer = False
         self.agile_parry = False
+        self.feinting_attack = False
         self.dodge_action = False
         # Убираем окружение:
         self.danger = 0
@@ -440,6 +441,7 @@ class soldier_in_battle(soldier):
         self.reckless_attack = False # Тактика варвара, преимущество и себе, и врагам
         self.shield_evasion = False # Уклонение реакцией от Feat_Shield_Master
         self.colossus_slayer = False # Усиления урона рейнджера-охотника
+        self.feinting_attack = False # Атака с финтом мастера боевых искусств
         self.agile_parry = False # Ловкое парирование кенсэя
         # Щит возвращается в боевое положение (если в прошлом ходу использовалось двуручное оружие):
         if self.armor['shield_use'] and not self.shield_ready:
