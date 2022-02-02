@@ -2095,6 +2095,10 @@ metadict_squads['Single-hero (monks)'] = {
     'Monk 5 lvl (city windsong-warmonger)':1,
     }
 
+metadict_squads['Single-hero (cat)'] = {
+    'Rogue 5 lvl (city cat-mastermind)':1,
+    }
+
 #-------------------------------------------------------------------------------
 # Чёрные флаги Ост-Индии, Black Flags
 

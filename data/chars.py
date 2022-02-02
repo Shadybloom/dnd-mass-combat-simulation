@@ -6042,6 +6042,7 @@ metadict_chars['Rogue 2 lvl (city cat-meow)'] = {
         'Sneak_Attack':True,
         'Thieves\' Cant':True,
         'Cunning_Action':True,
+        'Cunning_Action_Defence':True,
         },
     'race':'Cat-hero',
     'weapon_skill':['simple'],
@@ -6068,6 +6069,7 @@ metadict_chars['Rogue 3 lvl (city cat-dodger)'] = {
         'Sneak_Attack':True,
         'Thieves\' Cant':True,
         'Cunning_Action':True,
+        'Cunning_Action_Defence':True,
         'Roguish_Archetype_Arcane_Tricker':True,
         'Spellcasting':True,
         'Spells':[
@@ -6105,6 +6107,7 @@ metadict_chars['Rogue 4 lvl (city cat-runner)'] = {
         'Sneak_Attack':True,
         'Thieves\' Cant':True,
         'Cunning_Action':True,
+        'Cunning_Action_Defence':True,
         'Roguish_Archetype_Arcane_Tricker':True,
         'Spellcasting':True,
         'Spells':[
@@ -6149,6 +6152,7 @@ metadict_chars['Rogue 5 lvl (city cat-mastermind)'] = {
         'Sneak_Attack':True,
         'Thieves\' Cant':True,
         'Cunning_Action':True,
+        'Cunning_Action_Defence':True,
         'Roguish_Archetype_Arcane_Tricker':True,
         'Spellcasting':True,
         'Spells':[
@@ -6159,7 +6163,7 @@ metadict_chars['Rogue 5 lvl (city cat-mastermind)'] = {
             ('1_lvl', 'Fog_Cloud'),
             ('1_lvl', 'Silent_Image'),
             #('1_lvl', 'Magic_Missile'),
-            ('1_lvl', 'Sleep'),
+            ('1_lvl', 'Shield'),
             ],
         'Mage_Hand_Legerdemain':True,
         'Uncanny_Dodge':True,
@@ -6173,10 +6177,8 @@ metadict_chars['Rogue 5 lvl (city cat-mastermind)'] = {
     'equipment_supply':{},
     'equipment_backpack':{},
     'equipment_weapon':{
-        'Infusion of Vitality':1,
         'Infusion of Claws':1,
         'Rune of Absorbtion':1,
-        'Rune of Shielding':1,
         'Rune of Armor':1,
         },
     }
@@ -14371,8 +14373,6 @@ metadict_chars['Ranger 5 lvl (Katorjnik) (Питер Янсен)'] = {
 # Свои (Волшебник) (Тобиас Олдридж):
 
 metadict_chars['Fighter 5 lvl (Волшебник) (Тобиас Олдридж)'] = {
-    # Точная атака, Атака с выпадом, Активное уклонение
-    # TODO: допилить Lunging_Attack, Evasive_Footwork
     'level':5,
     #'defence_AI':True,
     'no_grappler_AI':True,
@@ -14405,9 +14405,6 @@ metadict_chars['Fighter 5 lvl (Волшебник) (Тобиас Олдридж)
         'Martial_Archetype_Battlemaster':True,
         'Combat_Superiority':True,
         'Student_of_War':True,
-        #'Parry':True,
-        #'Lunging_Attack':True,
-        #'Evasive_Footwork':True,
         'Disarming_Attack':True,
         'Precision_Attack':True,
         'Feinting_Attack':True,
@@ -14416,15 +14413,24 @@ metadict_chars['Fighter 5 lvl (Волшебник) (Тобиас Олдридж)
     'race':'Human-hero',
     'weapon_skill':['simple','martial'],
     'armor_skill':['light','medium','heavy','shield'],
+    'skills':[
+        # Инструменты (благородный): Инструменты каллиграфа, Набор для фальсификации
+        # Инструменты (воин): Шахматы
+        # Инструменты (казначей): Набор казначея
+        'History',
+        'Investigation',
+        'Insight',
+        'Perception',
+        'Persuasion',
+        ],
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        'Rune of Absorbtion':1,
         'Rune of Armor':1,
+        'Rune of Shielding':2,
         'Rapier of Sharpness':1,
-        'Shield':1,
         'Pistol, Lorenzony':1,
         'Muskete Bullet':30,
-        'Smoke Grenade':2,
+        #'Smoke Grenade':1,
         },
     }
