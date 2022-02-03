@@ -1845,6 +1845,31 @@ metadict_items['Potion of Heroism'] = {
     'cost (grams_of_gold)':15,
     }
 
+metadict_items['Potion of Boldness'] = {
+    # Эликсир смелости изобретателя-алхимика. Experimental_Elixir.
+    'potion':True,
+    'spell':'Bless',
+    'concentration':False,
+    'attacks_number':1,
+    'effect_timer':10,
+    'weight (lb)':0.5,
+    'cost (gp)':15,
+    'cost (grams_of_gold)':15,
+    }
+
+metadict_items['Potion of Resilience'] = {
+    # Эликсир устойчивости изобретателя-алхимика. Experimental_Elixir.
+    # TODO: должен давать +1 AC, но в Shield_of_Faith жёстко забито +2.
+    'potion':True,
+    'spell':'Shield_of_Faith',
+    'concentration':False,
+    'attacks_number':1,
+    'effect_timer':100,
+    'weight (lb)':0.5,
+    'cost (gp)':15,
+    'cost (grams_of_gold)':15,
+    }
+
 metadict_items['Potion of Antidote'] = {
     # Антидот. Даёт преимущество к спасброскам от ядов.
     'spell':'Antidote',
@@ -1947,6 +1972,16 @@ metadict_items['Infusion of Claws'] = {
 
 #----
 # Magic items (homebrew) (руны):
+
+metadict_items['Rune of Message'] = {
+    # Кантрип "Сообщение", для отыгрыша.
+    'potion':True,
+    'rune':True,
+    #'spell':'Message',
+    'weight (lb)':1/2,
+    'cost (gp)':240,
+    'cost (grams_of_gold)':60,
+    }
 
 metadict_items['Rune of Absorbtion'] = {
     # Руны перезаряжаются магами.

@@ -505,6 +505,8 @@ class battle_simulation(battlescape):
                         'False_Life',
                         'Antidote',
                         'Rage',
+                        'Bless',
+                        'Shield_of_Faith',
                         ]
                 for spell in spells_list:
                     if not soldier.bonus_hitpoints and spell == 'Heroism':
@@ -515,6 +517,10 @@ class battle_simulation(battlescape):
                         soldier.use_item('Antidote', gen_spell = True, use_action = False)
                     if not 'rage' in soldier.buffs and spell == 'Rage':
                         soldier.use_item('Rage', gen_spell = True, use_action = False)
+                    if not 'bless' in soldier.buffs and spell == 'Bless':
+                        soldier.use_item('Bless', gen_spell = True, use_action = False)
+                    if not 'shield_of_faith' in soldier.buffs and spell == 'Shield_of_Faith':
+                        soldier.use_item('Shield_of_Faith', gen_spell = True, use_action = False)
             # Тратим слоты заклинаний:
             if 'spellcast' in soldier.commands and soldier.spells:
                 spells_list = [
