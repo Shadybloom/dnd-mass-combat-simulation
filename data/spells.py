@@ -100,6 +100,18 @@ class gen_spells():
                     ignore_resistance = soldier.class_features['Feat_Elemental_Adept']
                     if spell_dict['damage_type'] == ignore_resistance:
                         spell_dict['ignore_resistance'] = ignore_resistance
+                # Учёный алхимик добавляет модификатор интеллекта к урону:
+                if soldier.class_features.get('Alchemical_Savant'):
+                    if spell_dict.get('damage_type') == 'heal'\
+                            or spell_dict.get('damage_type') == 'fire'\
+                            or spell_dict.get('damage_type') == 'acid'\
+                            or spell_dict.get('damage_type') == 'necrotic'\
+                            or spell_dict.get('damage_type') == 'necrotic_energy'\
+                            or spell_dict.get('damage_type') == 'poison':
+                        if 'damage_mod' in spell_dict: spell_dict['damage_mod']\
+                                += self.mage.mods['intelligence']
+                        if 'healing_mod' in spell_dict: spell_dict['healing_mod']\
+                                += self.mage.mods['intelligence']
                 # Магическая защита восстанавливается или создаётся:
                 if soldier.class_features.get('Arcane_Ward')\
                         and spell_dict.get('school') == 'abjuration':
@@ -159,6 +171,7 @@ class gen_spells():
         """
         # TODO: перенеси это в список, в classes.py
         if self.mage.char_class == 'Wizard'\
+                or self.mage.char_class == 'Artificier'\
                 or self.mage.char_class == 'Arcane_Tricker'\
                 or self.mage.char_class == 'Eldritch_Knight'\
                 or self.mage.char_class == 'Rogue':
