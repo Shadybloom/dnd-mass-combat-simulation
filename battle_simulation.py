@@ -2662,7 +2662,7 @@ class battle_simulation(battlescape):
                     if enemy_soldier.near_allies and len(enemy_soldier.near_allies) >= 2\
                             or enemy_soldier.behavior == 'commander':
                         self.fireball_action(soldier, squad, soldier.concentration, enemy.place)
-                        soldier.set_concentration_break(autofail = True)
+                        if soldier.concentration: soldier.set_concentration_break(autofail = True)
                 # Паладин добивает врага с помощью Divine_Smite:
                 if attack_result['hit'] and not attack_result['fatal_hit']\
                         and soldier.spells_generator.find_spell('Divine_Smite')\
