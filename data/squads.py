@@ -2209,6 +2209,10 @@ metadict_squads['Single-hero (лично Намулис) (враг)'] = {
 #----
 # Команда Фэнси:
 
+metadict_squads['Single-hero (лично Тенза Йозора) (Shady)'] = {
+    'Artificier 5 lvl (Shady) (Тенза Йозора)':1,
+    }
+
 metadict_squads['Single-hero (лично Питер Янсен) (Katorjnik)'] = {
     'Ranger 5 lvl (Katorjnik) (Питер Янсен)':1,
     }

@@ -6141,11 +6141,12 @@ metadict_chars['Rogue 4 lvl (city cat-runner)'] = {
 
 metadict_chars['Rogue 5 lvl (city cat-mastermind)'] = {
     'level':5,
-    'fireball_AI':True,
+    #'fireball_AI':True,
+    'grappler_AI':True,
+    #'no_grappler_AI':True,
     'char_class':'Arcane_Tricker',
     'hit_dice':'1d8',
     'behavior':'commander',
-    'grappler_AI':True,
     'class_features':{
         'Feat_Alert':True,
         'Expertise':True,
@@ -14299,6 +14300,104 @@ metadict_chars['Monk 13 lvl (Намулис)'] = {
     }
 
 #----
+# Свои (Shady) (Тенза Йозора):
+
+metadict_chars['Artificier 5 lvl (Shady) (Тенза Йозора)'] = {
+    # TODO: Alchemical_Savant +5 урона заклинанием огня/кислоты/некротики и лечения. Один раз/каст.
+    'level':5,
+    #'sneak_AI':True,
+    'fireball_AI':True,
+    'enslave_AI':True,
+    #'defence_AI':True,
+    #'grenadier_AI':True,
+    #'firearm_AI':True,
+    'char_class':'Artificier',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'hitpoints_base':8 + 4*5,
+    'abilityes':{
+        # Монгол; +1 выносливость, +1 ловкость
+        'strength':9,
+        'dexterity':17+1,
+        'constitution':11+1,
+        'intelligence':18+2,
+        'wisdom':18,
+        'charisma':13,
+        },
+    'class_features':{
+        'Feat_Linguist':True,
+        'Feat_Healer':True,
+        'Feat_Skill_Expert':'medicine',
+        'Spellcasting':True,
+        'Spells':[
+            #('ritual', 'Beast_Sense'),
+            ('cantrip', 'Mending'),
+            ('cantrip', 'Mage_Hand'),
+            ('1_lvl', 'Healing_Word'),
+            #('1_lvl', 'Ray_of_Sickness'),
+            ('1_lvl', 'Expeditious_Retreat'),
+            ('1_lvl', 'Sanctuary'),
+            #('1_lvl', 'Identify'),
+            #('1_lvl', 'Alarm'),
+            #('1_lvl', 'Detect_Magic'),
+            #('1_lvl', 'Purify_Food_and_Drink'),
+            ('2_lvl', 'Flaming_Sphere'),
+            #('2_lvl', 'Melfs_Acid_Arrow'),
+            ('2_lvl', 'Lesser_Restoration'),
+            ('2_lvl', 'See_Invisibility'),
+            ('2_lvl', 'Invisibility'),
+            #('2_lvl', 'Blur'),
+            #('2_lvl', 'Web'),
+            #('2_lvl', 'Enhance_Ability'),
+            #('2_lvl', 'Continual_Flame'),
+            #('2_lvl', 'Arcane_Lock'),
+            #('2_lvl', 'Magic_Mouth'),
+            #('2_lvl', 'Skywrite'),
+            ],
+        'Magical_Tinkering':True,
+        'Infuse_Item':True,
+        'The_Right_Tool_for_the_Job':True,
+        'Experimental_Elixir':True,
+        'Alchemical_Savant':True,
+        },
+    'race':'Human-hero',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','shield'],
+    'skills':[
+        # Инструменты (аристократка): инструменты каллиграфа, инструменты картографа
+        # Инструменты (изобретатель): воровские инструменты, инструменты жестянщика, инструменты пивовара
+        # Инструменты (изобретатель-алхимик): инструменты алхимика
+        'History',
+        'Nature',
+        'Religion',
+        'Animal_Handling',
+        'Insight',
+        'Medicine',
+        ],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        #'Infusion of Claws':1,
+        #'Potion of Rage':1,
+        'Potion of Heroism':1,
+        'Potion of Antidote':1,
+        'Potion of Boldness':1,
+        'Potion of Resilience':1,
+        # ----
+        'Rune of Armor':1,
+        'Rune of Message':1,
+        'Rune of Shielding':1,
+        'Scimitar +1':1,
+        'Shield':1,
+        #'Muskete, Lorenzony':1,
+        #'Pistol, Lorenzony':1,
+        #'Muskete Bullet':30,
+        '10lb Bomb, mine':1,
+        'Smoke Grenade':1,
+        },
+    }
+
+#----
 # Свои (Katorjnik) (Питер Янсен):
 
 metadict_chars['Ranger 5 lvl (Katorjnik) (Питер Янсен)'] = {
@@ -14379,7 +14478,7 @@ metadict_chars['Fighter 5 lvl (Волшебник) (Тобиас Олдридж)
     'char_class':'Battlemaster',
     'hit_dice':'1d10',
     'behavior':'commander',
-    'hitpoints_base':10+1 + 6*4,
+    'hitpoints_base':10 + 6*4,
     'abilityes':{
         # Англичанин; +1 мудрость, +1 обаяние
         # Черта: Отличная память (+ 1 интеллект)
