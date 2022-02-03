@@ -14303,11 +14303,10 @@ metadict_chars['Monk 13 lvl (Намулис)'] = {
 # Свои (Shady) (Тенза Йозора):
 
 metadict_chars['Artificier 5 lvl (Shady) (Тенза Йозора)'] = {
-    # TODO: Alchemical_Savant +5 урона заклинанием огня/кислоты/некротики и лечения. Один раз/каст.
     'level':5,
-    #'sneak_AI':True,
+    'sneak_AI':True,
     'fireball_AI':True,
-    'enslave_AI':True,
+    #'enslave_AI':True,
     #'defence_AI':True,
     #'grenadier_AI':True,
     #'firearm_AI':True,
@@ -14392,8 +14391,8 @@ metadict_chars['Artificier 5 lvl (Shady) (Тенза Йозора)'] = {
         #'Muskete, Lorenzony':1,
         #'Pistol, Lorenzony':1,
         #'Muskete Bullet':30,
-        '10lb Bomb, mine':1,
-        'Smoke Grenade':1,
+        '10lb Bomb, mine':2,
+        #'Smoke Grenade':1,
         },
     }
 
