@@ -1234,8 +1234,12 @@ class soldier_in_battle(soldier):
             # Перезарядка за одно действие:
             else:
                 recharge_success = True
+            # Если не осталось боеприпасов, перезарядка невозможна;
+            elif self.metadict_recharge[attack_choice].get('ammo', 1) == 0:
+                self.metadict_recharge.pop(attack_choice)
+                return False
             # Умелые стрелки перезаряжают за счёт бонусного действия:
-            if recharge_success and self.class_features.get('Feat_Firearms_Expert') and self.bonus_action:
+            elif recharge_success and self.class_features.get('Feat_Firearms_Expert') and self.bonus_action:
                 self.bonus_action = False
                 self.drop_action(('bonus_action', 'Reload_Action_Success'))
                 return self.reload_weapon()
@@ -2405,7 +2409,7 @@ class soldier_in_battle(soldier):
                     and 'reload' in attack_dict['weapon_type']:
                 # Магазинные винтовки:
                 if attack_dict.get('Recharge_magazine')\
-                        and attack_dict.get('Recharge_magazine') > 0:
+                        and attack_dict['Recharge_magazine'] > 0:
                     attack_dict['Recharge_magazine'] -= 1
                 else:
                     self.unset_weapon(attack_dict.get('weapon_use'))
