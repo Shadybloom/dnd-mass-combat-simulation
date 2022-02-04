@@ -1234,6 +1234,15 @@ class soldier_in_battle(soldier):
             # Перезарядка за одно действие:
             else:
                 recharge_success = True
+            # Перезарядка оружия заклинанием:
+            if self.metadict_recharge[attack_choice].get('ammo', 1) == 0\
+                    and self.metadict_recharge[attack_choice].get('Recharge_magic'):
+                spell_choice = self.metadict_recharge[attack_choice]['Recharge_magic']
+                spell_dict = self.try_spellcast(spell_choice, gen_spell = True)
+                if spell_dict:
+                    self.metadict_recharge[attack_choice]['ammo'] = spell_dict['attacks_number']
+                self.drop_action(('bonus_action', 'Reload_Action_Success'))
+                return self.reload_weapon()
             # Если не осталось боеприпасов, перезарядка невозможна;
             elif self.metadict_recharge[attack_choice].get('ammo', 1) == 0:
                 self.metadict_recharge.pop(attack_choice)
