@@ -2103,6 +2103,27 @@ metadict_squads['Single-hero (cat)'] = {
 # Чёрные флаги Ост-Индии, Black Flags
 
 #----
+# Армия союзников:
+
+metadict_squads['Squad-regular (артиллеристы флота) (батарея опендека) (6lb Cannons)'] = {
+    'Warrior 1 lvl (артиллерист)':20 + dice_throw('2d10'),
+    'Warrior 2 lvl (артиллерист-ветеран) (6lb Cannon)':6,
+    'Warrior 4 lvl (артиллерист-сержант)':1,
+    }
+
+metadict_squads['Squad-regular (артиллеристы флота) (батарея фальконет) (2lb Falconets)'] = {
+    'Warrior 1 lvl (артиллерист)':20 + dice_throw('2d10'),
+    'Warrior 2 lvl (артиллерист-ветеран) (2lb Falconet)':6,
+    'Warrior 4 lvl (артиллерист-сержант)':1,
+    }
+
+metadict_squads['Squad-veteran (абордажники флота)'] = {
+    'Warrior 2 lvl (абордажник-ветеран)':25 + dice_throw('2d4'),
+    'Warrior 5 lvl (абордажник-лейтенант) (лидер)':1,
+    'Commoner 1 lvl (recruit)':35,
+    }
+
+#----
 # Армия Эвери:
 
 metadict_squads['Single-hero (лично Эвери) (друг)'] = {

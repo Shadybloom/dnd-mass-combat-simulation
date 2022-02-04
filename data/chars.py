@@ -13514,6 +13514,47 @@ metadict_chars['Warrior 5 lvl (капитан Тави)'] = {
 #----
 # Союзники (армия) (Генри Эвери):
 
+metadict_chars['Warrior 2 lvl (абордажник-ветеран)'] = {
+    'base_unit':'Warrior 2 lvl (grenadier line-infantry-veteran)',
+    'char_class':'Warrior-heavy',
+    'equipment_weapon':{
+        'Potion of Heroism':1,
+        'Potion of Antidote':1,
+        'Breastplate, 17 century':1,
+        'Halberd':1,
+        'Sabre':1,
+        'Shield':1,
+        'Pistol, Lorenzony':1,
+        'Muskete Bullet':30,
+        'Hand Grenade':5,
+        'Smoke Grenade':1,
+        #'Hand Mortar':1,
+        #'2lb Bomb':3,
+        },
+    }
+
+metadict_chars['Warrior 5 lvl (абордажник-лейтенант) (лидер)'] = {
+    'base_unit':'Warrior 5 lvl (grenadier line-infantry-lieutenant)',
+    'char_class':'Warrior-officer',
+    'equipment_weapon':{
+        'Potion of Heroism':1,
+        'Potion of Antidote':1,
+        'Infusion of Vitality':1,
+        'Rune of Absorbtion':1,
+        'Rune of Shielding':1,
+        'Breastplate, 17 century':1,
+        'Halberd':1,
+        'Sabre +1':1,
+        'Shield':1,
+        'Pistol, Lorenzony':1,
+        'Muskete Bullet':30,
+        'Hand Grenade':5,
+        'Smoke Grenade':1,
+        #'Hand Mortar':1,
+        #'2lb Bomb':3,
+        },
+    }
+
 metadict_chars['Warrior 4 lvl (абордажник Эвери)'] = {
     'base_unit':'Warrior 4 lvl (grenadier line-infantry-sergeant)',
     'char_class':'Warrior-heavy',
@@ -13630,26 +13671,22 @@ metadict_chars['Warrior 2 lvl (артиллерист-ветеран)'] = {
     'behavior':'warrior',
     }
 
-metadict_chars['Warrior 3 lvl (артиллерист-капрал)'] = {
-    'base_unit':'Warrior 3 lvl (cannoneer artillery-corporal)',
-    'behavior':'warrior',
-    }
-
-metadict_chars['Warrior 4 lvl (артиллерист-сержант) (12lb Mortar)'] = {
-    'base_unit':'Warrior 4 lvl (cannoneer artillery-sergeant)',
+metadict_chars['Warrior 2 lvl (артиллерист-ветеран) (6lb Cannon)'] = {
+    'base_unit':'Warrior 2 lvl (cannoneer artillery-veteran)',
     'behavior':'elite_warrior',
     'equipment_weapon':{
         'Rune of Armor':1,
-        '12lb Mortar':1,
-        '12lb Bomb':100,
+        '6lb Cannon, naval':1,
+        '6lb Bar':100,
+        '6lb Ball':100,
         },
     'mount_combat':True,
-    'mount_type':'12lb Mortar, chassis',
+    'mount_type':'6lb Cannon, chassis',
     'equipment_mount':{},
     }
 
-metadict_chars['Warrior 4 lvl (артиллерист-сержант) (2lb Falconet)'] = {
-    'base_unit':'Warrior 4 lvl (cannoneer artillery-sergeant)',
+metadict_chars['Warrior 2 lvl (артиллерист-ветеран) (2lb Falconet)'] = {
+    'base_unit':'Warrior 2 lvl (cannoneer artillery-veteran)',
     'behavior':'elite_warrior',
     'equipment_weapon':{
         'Rune of Armor':1,
@@ -13659,6 +13696,11 @@ metadict_chars['Warrior 4 lvl (артиллерист-сержант) (2lb Falco
     'mount_combat':True,
     'mount_type':'2lb Cannon, chassis',
     'equipment_mount':{},
+    }
+
+metadict_chars['Warrior 3 lvl (артиллерист-капрал)'] = {
+    'base_unit':'Warrior 3 lvl (cannoneer artillery-corporal)',
+    'behavior':'warrior',
     }
 
 metadict_chars['Warrior 3 lvl (артиллерист-капрал) (6lb Cannon)'] = {
@@ -13686,6 +13728,37 @@ metadict_chars['Warrior 3 lvl (артиллерист-капрал) (12lb Cannon
         },
     'mount_combat':True,
     'mount_type':'12lb Cannon, chassis',
+    'equipment_mount':{},
+    }
+
+metadict_chars['Warrior 4 lvl (артиллерист-сержант)'] = {
+    'base_unit':'Warrior 4 lvl (cannoneer artillery-sergeant)',
+    'behavior':'commander',
+    }
+
+metadict_chars['Warrior 4 lvl (артиллерист-сержант) (12lb Mortar)'] = {
+    'base_unit':'Warrior 4 lvl (cannoneer artillery-sergeant)',
+    'behavior':'elite_warrior',
+    'equipment_weapon':{
+        'Rune of Armor':1,
+        '12lb Mortar':1,
+        '12lb Bomb':100,
+        },
+    'mount_combat':True,
+    'mount_type':'12lb Mortar, chassis',
+    'equipment_mount':{},
+    }
+
+metadict_chars['Warrior 4 lvl (артиллерист-сержант) (2lb Falconet)'] = {
+    'base_unit':'Warrior 4 lvl (cannoneer artillery-sergeant)',
+    'behavior':'elite_warrior',
+    'equipment_weapon':{
+        'Rune of Armor':1,
+        '2lb Falconet':1,
+        '2lb Ball':100,
+        },
+    'mount_combat':True,
+    'mount_type':'2lb Cannon, chassis',
     'equipment_mount':{},
     }
 
