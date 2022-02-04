@@ -3313,6 +3313,7 @@ class gen_spells():
         if not spell_dict:
             spell_dict = {
                     'concentration':True,
+                    'debuff':True,
                     'effect':'fear',
                     'effect_timer':10,
                     'zone':True,
