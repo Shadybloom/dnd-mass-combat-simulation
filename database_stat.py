@@ -68,7 +68,7 @@ class database_stat():
         #trophy_dict = {}
         # TODO: Сохраняй это в словаре (что уже сделано). А вывод потом.
         # Ключи словаря -- кортежи (bluefor, squad_name)
-        print('[1/1 -- командиры] [100/100 -- боеспособные] [c:0 -- пленные] [i:0 -- калеки] [d:0 -- погибшие]')
+        print('[10/10 -- орудия] [100/100 -- бойцы] [c:0 -- пленные] [i:0 -- раненые] [d:0 -- погибшие]')
         print('--------------------------------------------------------------------------------')
         for squad_name in self.database.print_squads():
             squad = squad_generation()
@@ -102,6 +102,13 @@ class database_stat():
                 if soldier.behavior == 'commander'
                 and soldier.hitpoints >= soldier.hitpoints_max / 3
                 and not soldier.__dict__.get('mechanism')])
+            squad.mechanism_number = len([soldier for soldier\
+                in squad.metadict_soldiers.values()\
+                if soldier.__dict__.get('mechanism')])
+            squad.mechanism_number_ready = len([soldier for soldier\
+                in squad.metadict_soldiers.values()\
+                if soldier.__dict__.get('mechanism')
+                and soldier.hitpoints > 0])
             dict_dead = {}
             dict_traumas = {}
             dict_disabled = {}
@@ -133,7 +140,8 @@ class database_stat():
                             dict_traumas[soldier.rank] = 1
                         elif soldier.rank in dict_traumas:
                             dict_traumas[soldier.rank] += 1
-                if hasattr(soldier, 'death') and soldier.death:
+                if hasattr(soldier, 'death') and soldier.death\
+                        and not soldier.__dict__.get('mechanism'):
                     if not soldier.rank in dict_dead:
                         dict_dead[soldier.rank] = 1
                     elif soldier.rank in dict_dead:
@@ -198,14 +206,14 @@ class database_stat():
             else:
                 squad_combativity = '○'
             #print('{s} [{c}/{c_max}] [{n:>3}/{n_max:<3}] [capt:{cap:<2}] [dead:{dead:<2}] [dis:{dis:<2}] {name}'.format(
-            print('{s} [{c}/{c_max}] [{n:>3}/{n_max:<3}] [c:{cap:<2}] [i:{dis:<2}] [d:{dead:<2}] {name} (exp {exp})'.format(
+            print('{s} [{c:>2}/{c_max:<2}] [{n:>3}/{n_max:<3}] [c:{cap:<2}] [i:{dis:<2}] [d:{dead:<2}] {name} (exp {exp})'.format(
             #print('{s} [{c}/{c_max}] [{n:>3}/{n_max:<3}] [v:{vic:<2}] [c:{cap:<2}] [i:{dis:<2}] [d:{dead:<2}] {name}'.format(
             #print('{s} [{c}/{c_max}] [{n:>3}/{n_max:<3}] [c:{cap:<2}] [d:{dead:<2}] [r:{re:<2}] {name}'.format(
                     s = squad_combativity,
                     n = squad.soldiers_number_ready,
                     n_max = squad.soldiers_number,
-                    c = squad.commanders_number_ready,
-                    c_max = squad.commanders_number,
+                    c = squad.mechanism_number_ready,
+                    c_max = squad.mechanism_number,
                     name = squad.name,
                     hp = squad.hitpoints_new,
                     hp_max = squad.hitpoints_max,
