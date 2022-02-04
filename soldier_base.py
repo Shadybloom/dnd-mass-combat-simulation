@@ -964,8 +964,13 @@ class soldier():
             print('Исключение select_attack_mod (солдат не владеет оружием):', self.rank, error_output)
             weapon_skills_use = []
             proficiency_bonus = 0
+        # Волшебное оружие, где указан модификатор:
+        if dict_attack.get('weapon_mod'):
+            attack_mod_type = dict_attack['weapon_mod']
+            attack_mod = self.mods[attack_mod_type] + proficiency_bonus
+            damage_mod = self.mods[attack_mod_type]
         # Распределяем модификаторы в зависимости от типа оружия:
-        if dict_attack['attack_range'] >= 10 and 'ranged' in weapon_type_list:
+        elif dict_attack['attack_range'] >= 10 and 'ranged' in weapon_type_list:
             attack_mod_type = 'dexterity'
             attack_mod = dexterity_mod + proficiency_bonus
             damage_mod = dexterity_mod
