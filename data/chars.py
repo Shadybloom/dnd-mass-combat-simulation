@@ -2363,6 +2363,8 @@ metadict_chars['Warrior 4 lvl (fusilier line-infantry-sergeant) (sniper)'] = {
         'Dagger':1,
         'Longbow':1,
         'Arrow':60,
+        #'Rifle, Schwartz Mark':1,
+        #'Muskete Bullet':60,
         'Smoke Grenade':2,
         },
     }
@@ -2380,6 +2382,8 @@ metadict_chars['Warrior 5 lvl (fusilier line-infantry-lieutenant) (sniper)'] = {
         'Dagger':1,
         'Longbow':1,
         'Arrow':60,
+        #'Rifle, Schwartz Mark':1,
+        #'Muskete Bullet':60,
         'Smoke Grenade':2,
         },
     }
@@ -14402,7 +14406,6 @@ metadict_chars['Artificier 5 lvl (Shady) (Тенза Йозора)'] = {
         'Feat_Skill_Expert':'medicine',
         'Spellcasting':True,
         'Spells':[
-            #('ritual', 'Beast_Sense'),
             ('cantrip', 'Mending'),
             ('cantrip', 'Mage_Hand'),
             ('1_lvl', 'Healing_Word'),
@@ -14429,6 +14432,7 @@ metadict_chars['Artificier 5 lvl (Shady) (Тенза Йозора)'] = {
         'Magical_Tinkering':True,
         'Infuse_Item':True,
         'The_Right_Tool_for_the_Job':True,
+        'Artificier_Alchemist':True,
         'Experimental_Elixir':True,
         'Alchemical_Savant':True,
         },
@@ -14476,7 +14480,7 @@ metadict_chars['Ranger 5 lvl (Katorjnik) (Питер Янсен)'] = {
     'level':5,
     #'sneak_AI':True,
     'firearm_AI':True,
-    'defence_AI':True,
+    #'defence_AI':True,
     #'killer_AI':True,
     'char_class':'Ranger',
     'hit_dice':'1d10',
@@ -14534,8 +14538,8 @@ metadict_chars['Ranger 5 lvl (Katorjnik) (Питер Янсен)'] = {
         'Sabre':1,
         'Shield':1,
         'Rifle, Schwartz Mark':1,
-        'Pistol, Lorenzony':1,
-        'Muskete Bullet':60,
+        #'Pistol, Lorenzony':1,
+        'Muskete Bullet':90,
         'Smoke Grenade':2,
         },
     }
@@ -14603,5 +14607,153 @@ metadict_chars['Fighter 5 lvl (Волшебник) (Тобиас Олдридж)
         'Pistol, Lorenzony':1,
         'Muskete Bullet':30,
         #'Smoke Grenade':1,
+        },
+    }
+
+#----
+# Свои (Endeavour) (Джеймс Кук):
+
+metadict_chars['Bard 5 lvl (Endeavour) (Джеймс Кук)'] = {
+    # TODO: Combat_Inspiration допиливай.
+    # Бонусы вдохновения к урону -- польза сомнительная. Нужно потестить.
+    # Бонусы вдохновения к AC -- только пока неясен успех атаки врага.
+    'level':5,
+    'fireball_AI':True,
+    'char_class':'Bard',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'hitpoints_base':8 + 4*5,
+    'abilityes':{
+        # Народность (метис): +2 харизме;
+        # Народность (метис): +1 мудрость, +1 сила;
+        # Черта (Шеф-повар): +1 мудрости;
+        'strength':10+1,
+        'dexterity':18,
+        'constitution':8,
+        'intelligence':14,
+        'wisdom':18+2,
+        'charisma':18+2,
+        },
+    'class_features':{
+        # Расовые способности в классе, чтобы было видно:
+        'immunity':['sleep'],
+        'resistance':['charmed'],
+        'Darkvision':60,
+        # ----
+        'Feat_Chef':True,
+        'Feat_Healer':True,
+        'Bardic_Inspiration':True,
+        'Spellcasting':True,
+        'Spells':[
+            ('cantrip', 'Mending'),
+            ('cantrip', 'Mage_Hand'),
+            ('cantrip', 'Message'),
+            ('ritual', 'Unseen_Servant'),
+            ('ritual', 'Comprehend_Languages'),
+            #('1_lvl', 'Sleep'),
+            ('1_lvl', 'Expeditious_Retreat'),
+            ('2_lvl', 'Knock'),
+            ('2_lvl', 'Calm_Emotions'),
+            ('3_lvl', 'Catnap'),
+            ('3_lvl', 'Fear'),
+            ],
+        'Jack_of_All_Trades':True,
+        'Song_of_Rest':True,
+        'College_of_Valor':True,
+        'Combat_Inspiration':True,
+        'Expertise':['Survival','Deception'],
+        'Font_of_Inspiration':True,
+        },
+    'race':'Half-elf-hero',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','shield'],
+    'skills':[
+        # Инструменты (бард): флейта, барабаны, волынка
+        # Инструменты (шарлатан): набор для грима, набор для фальсификации
+        # Инструменты (кок): набор для готовки
+        'Sleight_of_Hand',
+        'Medicine',
+        'Perception',
+        'Survival',
+        'Deception',
+        'Performance',
+        'Persuasion',
+        ],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Rune of Absorbtion':1,
+        'Rune of Shielding':2,
+        'Armor, One-of-Many':1,
+        'Shield':1,
+        'Rapier':1,
+        'Hand Grenade':2,
+        #'Pistol, Lorenzony':1,
+        #'Muskete Bullet':30,
+        #'Smoke Grenade':1,
+        },
+    }
+
+#----
+# Свои (Гримсон) (Тим Серый):
+
+metadict_chars['Artificier 5 lvl (Гримсон) (Тим Серый)'] = {
+    # TODO: Пили призыв новой Eldritch_Cannon, если старую ломают.
+    'level':5,
+    'firearm_AI':True,
+    'fireball_AI':True,
+    'no_grappler_AI':True,
+    'disengage_AI':True,
+    'char_class':'Artificier',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'hitpoints_base':8 + 4*5,
+    'abilityes':{
+        # Человек; +1 ловкость, +1 интеллект
+        # Черта (???): +1 интеллект
+        'strength':13,
+        'dexterity':13+1,
+        'constitution':14,
+        'intelligence':18+2,
+        'wisdom':18,
+        'charisma':10,
+        },
+    'class_features':{
+        'Feat_Spellsniper':True,
+        'Feat_Sharpshooter':True,
+        'Feat_Observant':True,
+        'Spellcasting':True,
+        'Spells':[
+            ('cantrip', 'Magic_Stone'),
+            ],
+        'Magical_Tinkering':True,
+        'Infuse_Item':True,
+        'The_Right_Tool_for_the_Job':True,
+        'Artificier_Artillerist':True,
+        'Eldritch_Cannon':True,
+        'Arcane_Firearm':True,
+        },
+    'race':'Human-hero',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','shield'],
+    'skills':[
+        # Навыки пока не выбраны.
+        ],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        # TODO: щит-гранатомёт equalizer, уравнитель
+        'Rune of Armor':1,
+        'Rune of Message':1,
+        'Rune of Shielding':1,
+        'Half Plate, 17 century':1,
+        'Shield':1,
+        'Equalizer':1,
+        'Magic Boom-stone':3,
+        },
+    'mount_combat':True,
+    #'mount_type':'Eldritch Cannon (flamethrower)',
+    'mount_type':'Eldritch Cannon (force ballista)',
+    'equipment_mount':{
         },
     }

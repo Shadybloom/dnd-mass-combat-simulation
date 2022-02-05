@@ -620,13 +620,18 @@ metadict_squads['Company-hero (гневнорожки Сефо) (друг)'] = {
 #----
 # Призванные существа:
 
+metadict_squads['Company-summon (мастиффы)'] = {
+    # Призванные собаки:
+    'Mastiff, dog (CR 1/8)':96,
+    }
+
 metadict_squads['Squad-summon (оживлённые вещи)'] = {
     # Заклинание 5 круга "Оживление вещей" (Animated_Objects)
     'Animated swords (CR 1)':10,
     }
 
-metadict_squads['Squad-summon (меч Морденкайнена)'] = {
-    'Mordenkainen Sword (CR 10)':1,
+metadict_squads['Squad-summon (гигантские осьминоги)'] = {
+    'Giant Octopus (CR 1)':12,
     }
 
 metadict_squads['Squad-summon (громовые птицы)'] = {
@@ -641,21 +646,20 @@ metadict_squads['Squad-summon (земляные элементали)'] = {
     'Earth Elemental (CR 5)':6,
     }
 
+metadict_squads['Single-summon (меч Морденкайнена)'] = {
+    'Mordenkainen Sword (CR 10)':1,
+    }
+
+metadict_squads['Single-summon (Force Ballista)'] = {
+    'Eldritch Cannon (force ballista)':1,
+    }
+
 metadict_squads['Single-summon (земляной элементаль)'] = {
     'Earth Elemental (CR 5)':1,
     }
 
 metadict_squads['Single-summon (воздушный элементаль)'] = {
     'Air Elemental (CR 5)':1,
-    }
-
-metadict_squads['Squad-summon (гигантские осьминоги)'] = {
-    'Giant Octopus (CR 1)':12,
-    }
-
-metadict_squads['Company-militia (мастиффы)'] = {
-    # Призванные собаки:
-    'Mastiff, dog (CR 1/8)':96,
     }
 
 #-------------------------------------------------------------------------
@@ -2240,4 +2244,13 @@ metadict_squads['Single-hero (лично Питер Янсен) (Katorjnik)'] = 
 
 metadict_squads['Single-hero (лично Тобиас Олдридж) (Волшебник)'] = {
     'Fighter 5 lvl (Волшебник) (Тобиас Олдридж)':1,
+    }
+
+metadict_squads['Single-hero (лично Джеймс Кук) (Endeavour)'] = {
+    'Bard 5 lvl (Endeavour) (Джеймс Кук)':1,
+    }
+
+metadict_squads['Single-hero (лично Тим Серый) (Гримсон)'] = {
+    'Artificier 5 lvl (Гримсон) (Тим Серый)':1,
+    #'Eldritch Cannon (force ballista)':1,
     }
