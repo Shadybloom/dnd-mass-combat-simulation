@@ -100,6 +100,12 @@ class gen_spells():
                     ignore_resistance = soldier.class_features['Feat_Elemental_Adept']
                     if spell_dict['damage_type'] == ignore_resistance:
                         spell_dict['ignore_resistance'] = ignore_resistance
+                # Артиллерист добавляет 1d8 к урону заклинаний:
+                if soldier.class_features.get('Arcane_Firearm')\
+                        and spell_dict.get('damage_type')\
+                        and not 'use_bombs' in spell_dict:
+                    if 'damage_mod' in spell_dict: spell_dict['damage_mod']\
+                            += dices.dice_throw(soldier.class_features['Arcane_Firearm'])
                 # Учёный алхимик добавляет модификатор интеллекта к урону:
                 if soldier.class_features.get('Alchemical_Savant'):
                     if spell_dict.get('damage_type') == 'heal'\
@@ -1669,6 +1675,7 @@ class gen_spells():
         if not spell_dict:
             spell_dict = {
                     'zone':True,
+                    'use_bombs':True,
                     'attacks_number':1,
                     'attack_range':30,
                     'components':['verbal','somatic'],
