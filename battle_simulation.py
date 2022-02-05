@@ -777,6 +777,7 @@ class battle_simulation(battlescape):
                     self.place_unit(soldier, soldier.place)
                     soldier.blink = False
             if soldier.get_coordinates() and soldier.hitpoints > 0\
+                    and not soldier.__dict__.get('inactive')\
                     and not soldier.defeat\
                     and not 'sleep' in soldier.debuffs\
                     and not 'inactive' in squad.commands:
@@ -1373,7 +1374,7 @@ class battle_simulation(battlescape):
             print(squad.ally_side, squad.squad_type, commands_list)
         return commands_list
 
-    def round_run_soldier(self, soldier, squad):
+    def round_run_soldier(self, soldier, squad, commands = False):
         """Ход отдельного бойца."""
         # Разрешаем battle_action, move_action и т.д.
         soldier.set_actions(squad)
@@ -1383,6 +1384,13 @@ class battle_simulation(battlescape):
         # Команды отряду считаются личными:
         if squad.commands:
             soldier.commands.extend(squad.commands)
+            if commands:
+                for command in commands:
+                    if command[0] == '-':
+                        command = command[1:]
+                        if command in soldier.commands:soldier.commands.remove(command)
+                    elif command not in soldier.commands:
+                        soldier.commands.append(command)
             # Лучники не бросаются в ближний бой:
             if soldier.__dict__.get('archer_AI') or soldier.behavior == 'archer':
                 if 'engage' in soldier.commands:
@@ -1528,6 +1536,12 @@ class battle_simulation(battlescape):
             elif len(squad.danger_points) > 0:
                 destination = random.choice(list(squad.danger_points.keys()))
                 self.engage_action(soldier, squad, destination)
+        # Если необходима перезарядка оружия -- перезаряжаем:
+        if 'recharge' in soldier.commands and len(soldier.metadict_recharge) >= 1:
+            # Ищем союзников для перезарядки оружия:
+            if 'help' in soldier.commands and soldier.level >= 4:
+                self.recon_action(soldier, squad, distance = 2)
+            soldier.use_reload_action(squad)
         # Кастеры работают магией, сначала по группам, а потом целевой:
         if 'spellcast' in soldier.commands and enemy:
             self.recon_action(soldier, squad)
@@ -1542,6 +1556,9 @@ class battle_simulation(battlescape):
             if soldier.class_features.get('Wild_Shape'):
                 if soldier.near_enemies or 'change' in soldier.commands:
                     soldier.set_change_form(squad)
+            # Artificier_Artillerist активирует свою арканную пушку:
+            if soldier.class_features.get('Eldritch_Cannon'):
+                self.set_eldritch_cannon_online(soldier, squad)
         # Солдаты прячутся за дымовой завесой, если таков приказ:
         if 'sneak' in soldier.commands and enemy:
             self.sneak_action(soldier, squad, enemy)
@@ -1597,12 +1614,6 @@ class battle_simulation(battlescape):
         # Если не видно врагов, боец лечится добряникой:
         if not enemy and soldier.hitpoints < soldier.hitpoints_max:
             soldier.use_heal(use_minor_potion = True)
-        # Если необходима перезарядка оружия -- перезаряжаем:
-        if 'recharge' in soldier.commands and len(soldier.metadict_recharge) >= 1:
-            # Ищем союзников для перезарядки оружия:
-            if 'help' in soldier.commands and soldier.level >= 4:
-                self.recon_action(soldier, squad, distance = 2)
-            soldier.use_reload_action(squad)
         # Если действия не использовались -- защищаемся:
         if soldier.battle_action or soldier.bonus_action:
             soldier.use_dodge_action()
@@ -2159,6 +2170,7 @@ class battle_simulation(battlescape):
 
     def change_place_mount(self, coordinates, destination, soldier):
         """Перемещаем мультитайловое ездовое животное вместе с наездником."""
+        # TODO: маленькие ездовые животные занимают 1 тайл. А у тебя все считаются большими.
         mount_tuple = None
         mount_place_field = self.point_to_field(coordinates, 3)
         # Проверяем, есть ли рядом с бойцом его ездовое животное:
@@ -2373,7 +2385,7 @@ class battle_simulation(battlescape):
                                 and 'light' in attack_dict.get('weapon_type',[])
                                 and 'firearm' in attack_dict.get('weapon_type',[])
                                 and enemy.distance < attack_dict['shoot_range_max'] / self.tile_size}
-                        if pistol_attacks:
+                        if pistol_attacks and soldier.bonus_action:
                             # Выбираем случайный пистолет, если их несколько:
                             attacks_chain_bonus.append(random.choice(list(pistol_attacks.keys())))
                             soldier.drop_action(('feature', 'Feat_Firearms_Expert_Bonus_Attack'))
@@ -3617,6 +3629,26 @@ class battle_simulation(battlescape):
                                     and distance <= attack_range / 2\
                                     and not distance == 0:
                                 return spell_choice, zone_center
+
+    def set_eldritch_cannon_online(self, soldier, squad, commands = False):
+        """Изобретатель-артиллерист передаёт ход своей пушке за счёт бонусного действия.
+        
+        """
+        if soldier.class_features.get('Eldritch_Cannon')\
+                and hasattr(soldier, 'mount_uuid')\
+                and soldier.mount_uuid in squad.metadict_soldiers\
+                and soldier.bonus_action:
+            cannon = squad.metadict_soldiers[soldier.mount_uuid]
+            if cannon.__dict__.get('inactive') and cannon.__dict__.get('mechanism_construct')\
+                    and cannon.get_coordinates()\
+                    and cannon.hitpoints > 0\
+                    and not cannon.defeat:
+                soldier.bonus_action = False
+                soldier.drop_action(('bonus_action', 'Eldritch_Cannon_Control'))
+                soldier.drop_spell(('feature', 'Eldritch_Cannon_Online'))
+                #self.round_run_soldier(cannon, squad, commands = ['engage','fearless','seek','-follow'])
+                self.round_run_soldier(cannon, squad, commands = ['engage','fearless','seek'])
+                return True
 
     def check_danger_offence(self, soldier, enemy):
         """Проверяем, опасно ли атаковать врага."""

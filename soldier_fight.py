@@ -501,9 +501,13 @@ class soldier_in_battle(soldier):
         # Забираем у лошадок право свободно бегать, пока ими управляет всадник:
         if hasattr(self, 'master_uuid') and self.master_uuid in squad.metadict_soldiers:
             master = squad.metadict_soldiers[self.master_uuid]
-            if hasattr(self, 'place') and self.place == master.place:
+            # Eldritch_Cannon активируется:
+            if hasattr(self, 'inactive') and hasattr(self, 'mechanism_construct'):
+                self.move_pool = self.base_speed
+                self.battle_action = True
+            # По правилами DnD 5 управляемое ездовое животное не может атаковать:
+            elif hasattr(self, 'place') and self.place == master.place:
                 self.move_pool = 0
-                # По правилами DnD 5 управляемое ездовое животное не может атаковать:
                 self.battle_action = False
                 self.dodge_action = True
         # Убираем окружение:
@@ -1235,14 +1239,16 @@ class soldier_in_battle(soldier):
             else:
                 recharge_success = True
             # Перезарядка оружия заклинанием:
-            if self.metadict_recharge[attack_choice].get('ammo', 1) == 0\
+            if self.metadict_recharge[attack_choice].get('ammo', 1) <= 0\
                     and self.metadict_recharge[attack_choice].get('Recharge_magic'):
                 spell_choice = self.metadict_recharge[attack_choice]['Recharge_magic']
                 spell_dict = self.try_spellcast(spell_choice, gen_spell = True)
                 if spell_dict:
                     self.metadict_recharge[attack_choice]['ammo'] = spell_dict['attacks_number']
-                self.drop_action(('bonus_action', 'Reload_Action_Success'))
-                return self.reload_weapon()
+                    #self.drop_action(('free_action', 'Reload_Action_Success'))
+                    return self.reload_weapon()
+                else:
+                    return False
             # Если не осталось боеприпасов, перезарядка невозможна;
             elif self.metadict_recharge[attack_choice].get('ammo', 1) == 0:
                 self.metadict_recharge.pop(attack_choice)
@@ -2196,7 +2202,7 @@ class soldier_in_battle(soldier):
             self.weapon_ready = attack_dict.get('weapon_use')
         # TODO: перенеси в самый конец функции, чтобы работали бесконечные стрелы.
         # Используется боеприпас (стрела, дротик, яд для меча), если указан:
-        if attack_dict.get('ammo'):
+        if attack_dict.get('ammo', 0) >= 0 or attack_dict.get('ammo', 0) < 0:
             self.use_ammo(attack_dict, metadict_soldiers)
         # Боец с двуручным оружием не может использовать щит:
         # Но только в том раунде, в котором пользовался двуручным оружием.
@@ -2392,7 +2398,7 @@ class soldier_in_battle(soldier):
         - Если боеприпас закончился, ассциированные с ним атаки убираются.
         """
         # Используем боеприпас:
-        if attack_dict.get('ammo'):
+        if attack_dict.get('ammo', 0) >= 0 or attack_dict.get('ammo', 0) < 0:
             if attack_dict.get('ammo_type') and isinstance(attack_dict.get('ammo_type'), str):
                 ammo_type = attack_dict.get('ammo_type')
             else:
