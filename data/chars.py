@@ -14743,7 +14743,7 @@ metadict_chars['Artificier 5 lvl (Гримсон) (Тим Серый)'] = {
             ('1_lvl', 'Absorb_Elements'),
             ('1_lvl', 'Cure_Wounds'),
             #('2_lvl', 'Scorching_Ray'),
-            #('2_lvl', 'Shatter'),
+            ('2_lvl', 'Shatter'),
             ('2_lvl', 'Lesser_Restoration'),
             ],
         'Magical_Tinkering':True,
