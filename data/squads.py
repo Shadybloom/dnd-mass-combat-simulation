@@ -2246,8 +2246,8 @@ metadict_squads['Single-hero (лично Тобиас Олдридж) (Волш�
     'Fighter 5 lvl (Волшебник) (Тобиас Олдридж)':1,
     }
 
-metadict_squads['Single-hero (лично Джеймс Кук) (Endeavour)'] = {
-    'Bard 5 lvl (Endeavour) (Джеймс Кук)':1,
+metadict_squads['Single-hero (лично Джон Кук) (firesalamander)'] = {
+    'Bard 5 lvl (firesalamander) (Джон Кук)':1,
     }
 
 metadict_squads['Single-hero (лично Тим Серый) (Гримсон)'] = {

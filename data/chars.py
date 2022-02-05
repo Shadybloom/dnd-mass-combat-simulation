@@ -14611,9 +14611,9 @@ metadict_chars['Fighter 5 lvl (Волшебник) (Тобиас Олдридж)
     }
 
 #----
-# Свои (Endeavour) (Джеймс Кук):
+# Свои (Endeavour) (Джон Кук):
 
-metadict_chars['Bard 5 lvl (Endeavour) (Джеймс Кук)'] = {
+metadict_chars['Bard 5 lvl (firesalamander) (Джон Кук)'] = {
     # TODO: Combat_Inspiration допиливай.
     # Бонусы вдохновения к урону -- польза сомнительная. Нужно потестить.
     # Бонусы вдохновения к AC -- только пока неясен успех атаки врага.
@@ -14737,7 +14737,11 @@ metadict_chars['Artificier 5 lvl (Гримсон) (Тим Серый)'] = {
     'weapon_skill':['simple','martial'],
     'armor_skill':['light','medium','shield'],
     'skills':[
-        # Навыки пока не выбраны.
+        'Arcana',
+        'History',
+        'Nature',
+        'Religion',
+        'Perception',
         ],
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
