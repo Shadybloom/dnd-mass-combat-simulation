@@ -137,6 +137,18 @@ dict_races = {
             'wisdom':+1,
             'charisma':+1,
             },
+        'Half-elf-hero':{
+            'hero':True,
+            'size':'medium',
+            'base_speed':30,
+            'height_base_inches':4 * 12 + 8,
+            'height_mod_dice':'2d10',
+            'weight_base_lb':110,
+            'weight_mod_dice':'2d4',
+            'dexterity':+1,
+            'intelligence':+1,
+            'charisma':+2,
+            },
         'Primevial-medium':{
             'hero':False,
             'unholy':True,
@@ -350,6 +362,16 @@ dict_races = {
             'height_mod_dice':'2d4',
             'weight_base_lb':2000,
             'weight_mod_dice':'2d20',
+            },
+        'Object-steel-medium':{
+            'hero':False,
+            'size':'medium',
+            'base_speed':15,
+            'armor_class_natural':18,
+            'height_base_inches':56,
+            'height_mod_dice':'2d4',
+            'weight_base_lb':500,
+            'weight_mod_dice':'1d20',
             },
         'Object-steel-tiny':{
             # Оживление вещей.

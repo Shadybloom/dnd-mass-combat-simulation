@@ -4481,3 +4481,158 @@ metadict_animals['Mordenkainen Sword (CR 10)'] = {
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{},
     }
+
+#----
+# Arcane cannons, Artificier_Artillerist
+
+metadict_animals['Eldritch Cannon (force ballista)'] = {
+    # Пушка изобретателя 5 lvl.
+    # TODO: сделай передачу модификаторов атаки от владельца.
+    # ----
+    # Можно чинить кантрипом Mending на 2d6 хитов.
+    # Ход 15 футов, может взбираться.
+    # ----
+    'level':5,
+    #'killer_AI':True,
+    #'seeker_AI':True,
+    'fearless_AI':True,
+    'no_grappler_AI':True,
+    'inactive':True,
+    'mechanism':True,
+    'mechanism_construct':True,
+    'challenge_rating':'1',
+    'behavior':'mount',
+    'char_class':'Warrior',
+    'hit_dice':'1d8',
+    'hitpoints_base':25,
+    'armor_class_natural':18,
+    'class_features':{
+        'immunity':['poison','poisoned','psychic'],
+        },
+    'abilityes':{
+        'strength':10,
+        'dexterity':10,
+        'constitution':10,
+        'intelligence':10,
+        'wisdom':10,
+        'charisma':10,
+        },
+    'attacks':{
+        ('ranged', 'Force_Ballista'): {
+            'attack_mod':10,
+            'damage_mod':0,
+            'weapon': False,
+            'direct_hit':True,
+            'savethrow':True,
+            'savethrow_all':True,
+            'savethrow_ability':'dexterity',
+            'weapon_type':['simple','ranged'],
+            'damage_type':'force',
+            'damage_dice':'2d8',
+            'ammo':200,
+            'ammo_type':'force bolt',
+            'attack_type':'ranged',
+            'attack_range':240,
+            'attack_range_max':240,
+            'weapon_skills_use': ['simple'],
+            'attack_mod_type':'dexterity',
+            'weapon_of_choice':'Force_Ballista',
+            },
+        },
+    'race':'Object-steel-medium',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        },
+    }
+
+metadict_animals['Eldritch Cannon (flamethrower)'] = {
+    'level':5,
+    'seeker_AI':True,
+    #'killer_AI':True,
+    'fearless_AI':True,
+    'no_grappler_AI':True,
+    'disengage_AI':True,
+    'inactive':True,
+    'mechanism':True,
+    'mechanism_construct':True,
+    'challenge_rating':'1',
+    'behavior':'mount',
+    'char_class':'Warrior',
+    'hit_dice':'1d8',
+    'hitpoints_base':25,
+    'armor_class_natural':18,
+    'class_features':{
+        'immunity':['poison','poisoned','psychic'],
+        },
+    'abilityes':{
+        'strength':10,
+        'dexterity':10,
+        'constitution':10,
+        'intelligence':10,
+        'wisdom':10,
+        'charisma':10,
+        },
+    'attacks':{
+        ('zone', 'Fire_Breath'): {
+            'zone':True,
+            'zone_shape':'cone',
+            'attack_range':15,
+            'direct_hit':True,
+            'savethrow':True,
+            'savethrow_ability':'dexterity',
+            'damage_type':'fire',
+            'damage_dice':'2d8',
+            'spell_save_DC':16,
+            'weapon_of_choice':'Fire_Breath'
+            },
+        #('zone', 'Fire_Breath_Ray'): {
+        #    'zone':True,
+        #    'zone_shape':'ray',
+        #    'attack_range':40,
+        #    'direct_hit':True,
+        #    'savethrow':True,
+        #    'savethrow_ability':'dexterity',
+        #    'damage_type':'fire',
+        #    'damage_dice':'2d8',
+        #    'spell_save_DC':16,
+        #    'weapon_of_choice':'Fire_Breath_Ray'
+        #    },
+        #('close', 'Fire_Breath_Near'): {
+        #    'attack_mod':10,
+        #    'damage_mod':0,
+        #    'weapon': False,
+        #    'weapon_type':['simple'],
+        #    'damage_type':'fire',
+        #    'damage_dice':'2d8',
+        #    'attack_range':5,
+        #    'attack_type':'close',
+        #    'weapon_skills_use': ['simple'],
+        #    'attack_mod_type':'strength',
+        #    'weapon_of_choice':'Fire_Breath_Ray'
+        #    },
+        ('ranged', 'Cannon_Fire_Bolt'): {
+            'attack_mod':10,
+            'damage_mod':0,
+            'weapon': False,
+            'weapon_type':['simple','ranged'],
+            'damage_type':'fire',
+            'damage_dice':'2d8',
+            'attack_type':'ranged',
+            'attack_range':60,
+            'attack_range_max':60,
+            'weapon_skills_use': ['simple'],
+            'attack_mod_type':'dexterity',
+            'weapon_of_choice':'Fire_Breath',
+            },
+        },
+    'race':'Object-steel-medium',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        },
+    }
