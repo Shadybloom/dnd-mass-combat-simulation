@@ -2189,10 +2189,17 @@ class battle_simulation(battlescape):
                 if point in self.dict_battlespace:
                     if mount_tuple in self.dict_battlespace[point]:
                         self.dict_battlespace[point].remove(mount_tuple)
-            destination_field = self.point_to_field_2x2(destination)
-            for point in destination_field:
-                if point in self.dict_battlespace:
-                    self.dict_battlespace[point].append(mount_tuple)
+            if mount.size == 'medium'\
+                    or mount.size == 'small'\
+                    or mount.size == 'tiny':
+                self.dict_battlespace[destination].append(mount_tuple)
+            elif mount.size == 'large':
+                destination_field = self.point_to_field_2x2(destination)
+                for point in destination_field:
+                    if point in self.dict_battlespace:
+                        self.dict_battlespace[point].append(mount_tuple)
+            elif mount.size == 'huge':
+                destination_field = self.point_to_field(destination)
             # Пытаемся передвинуть точку обзора вместе с лошадкой:
             self.dict_battlespace[destination].append('mount_height')
             try:
