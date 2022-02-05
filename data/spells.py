@@ -1615,6 +1615,43 @@ class gen_spells():
 
     @modify_spell
     @update_spell_dict
+    def Magic_Stone(self, spell_level, gen_spell = False, spell_dict = False):
+        """Волшебный камень.
+
+        Level: Cantrip
+        Casting time: 1 Bonus Action
+        Range: touch
+        Components: V, S
+        Duration: 1 minute
+        https://www.dnd-spells.com/spell/magic-stone
+        """
+        # Создаёт 3 волшебных камешка для пращи в инвентаре.
+        if not spell_dict:
+            spell_dict = {
+                    'buff':True,
+                    'attacks_number':3,
+                    'effect':'magic_stone',
+                    'components':['verbal','somatic'],
+                    'casting_time':'bonus_action',
+                    'spell_level':spell_level,
+                    'spell_of_choice':'Mage_Hand',
+                    'school':'transmutation',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
+        if gen_spell:
+            if not spell_dict.get('target_uuid'):
+                soldier = self.mage
+            else:
+                soldier = self.mage.metadict_soldiers[spell_dict['target_uuid']]
+            # Создаёт в инвентаре 3 волшебных камня:
+            if 'Magic Stone' in soldier.equipment_weapon.keys():
+                soldier.equipment_weapon['Magic Stone'] = spell_dict['attacks_number']
+            elif 'Magic Boom-stone' in soldier.equipment_weapon.keys():
+                soldier.equipment_weapon['Magic Boom-stone'] = spell_dict['attacks_number']
+        return spell_dict    
+
+    @modify_spell
+    @update_spell_dict
     def Mage_Hand(self, spell_level, gen_spell = False, spell_dict = False):
         """Волшебная рука.
 

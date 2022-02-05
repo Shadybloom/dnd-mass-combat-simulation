@@ -77,6 +77,8 @@ sling_bullets = [
         'Fire Bullet',
         'Acid Bullet',
         'Holy Bullet',
+        'Magic Stone',
+        'Magic Boom-stone',
         ]
 
 muskete_bullets = [
@@ -852,6 +854,35 @@ metadict_items['Hand Mortar'] = {
     'cost (grams_of_gold)':60,
     }
 
+metadict_items['Equalizer'] = {
+    # - Боевой щит-гранатомет "Уравнитель": 240/240/600±20 футов, +10 атака (+5Int +3Prof +1Infusion(repeating) +1Infusion(improved focus)), 2d6 + 6 blund урон (+5 int +1 repeating), 3 снаряда, перезаряжается бонусным.
+    # Изначально праща, стреляет камнями от кантрипа Magic_Stone:
+    # - Дальность пращи x2 от Feat_Spellsniper
+    # - Оружие +1 от инфузии "Повторный выстрел"
+    # - Бонус к атаке +1 от инфузии "Улучшенная магическая фокусировка" (focus)
+    # - Вес в 1 lb, поскольку крепится к щиту, который отдельно в экипировке.
+    # - Пробивает обычную броню. Бросок атаки против спаса ловкости.
+    # - По Mage_Armor и волшебной броне бросок атаки против AC.
+    'weapon':True,
+    'direct_hit':True,
+    'savethrow':True,
+    'savethrow_all':True,
+    'savethrow_ability':'dexterity',
+    'weapon_mod':'intelligence',
+    'ammo_type':sling_bullets,
+    'weapon_type':['simple','light','ranged','volley','firearm','reload','magic','+1','focus'],
+    'recharge':True,
+    'Recharge_magic':'Magic_Stone',
+    'Recharge_magazine_max':3,
+    'Recharge_magazine':3,
+    'shoot_range':240,
+    'shoot_range_max':240,
+    'shoot_range_volley':600,
+    'weight (lb)':1,
+    'cost (gp)':60,
+    'cost (grams_of_gold)':60,
+    }
+
 metadict_items['King Bomba-san'] = {
     # Царь Бомба-сан, станковый автоматический гранатомёт.
     'weapon':True,
@@ -1476,6 +1507,18 @@ metadict_items['Draconic_Scales'] = {
     'weight (lb)':0,
     'cost (gp)':1,
     'cost (grams_of_gold)':1,
+    }
+
+metadict_items['Armor, One-of-Many'] = {
+    # TODO: меняет метку на карте на простого warrior. Должно сработать, проверь.
+    # Волшебная броня, меняет форму от лёгкой до латов.
+    'armor':True,
+    'unbreakable':True,
+    'armor_type':'light',
+    'armor_class_armor':13,
+    'weight (lb)':10,
+    'cost (gp)':30 * 60,
+    'cost (grams_of_gold)':30 * 60,
     }
 
 #-------------------------------------------------------------------------
@@ -3273,6 +3316,28 @@ metadict_items['Sling Bullet +1'] = {
     'weapon_type':['magic','+1'],
     'weight (lb)':0.9,
     'cost (grams_of_gold)':60 * 2,
+    }
+
+metadict_items['Magic Stone'] = {
+    # Создан кантрипом Magic_Stone
+    'ammo':True,
+    'damage_dice':'1d6',
+    'damage_type':'bludgeoning',
+    'weapon_type':['magic'],
+    'weight (lb)':1,
+    'cost (grams_of_gold)':0,
+    }
+
+metadict_items['Magic Boom-stone'] = {
+    # Создан кантрипом Magic_Stone + Arcane_Firearm изобретателя-артиллериста.
+    # 1d6 * 3 = 10.5; 2d4 * 3 = 15 (4.5 damage от Arcane_Firearm)
+    'ammo':True,
+    #'damage_dice':'2d4',
+    'damage_dice':'2d6',
+    'damage_type':'bludgeoning',
+    'weapon_type':['magic'],
+    'weight (lb)':1,
+    'cost (grams_of_gold)':0,
     }
 
 #-------------------------------------------------------------------------
