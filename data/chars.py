@@ -14406,6 +14406,7 @@ metadict_chars['Artificier 5 lvl (Shady) (Тенза Йозора)'] = {
         'Feat_Skill_Expert':'medicine',
         'Spellcasting':True,
         'Spells':[
+            # Подготовленные заклинания: 4 доменных +7 (+5 ИНТ +2 УРОВЕНЬ/2)
             ('cantrip', 'Mending'),
             ('cantrip', 'Mage_Hand'),
             ('1_lvl', 'Healing_Word'),
@@ -14698,7 +14699,10 @@ metadict_chars['Bard 5 lvl (firesalamander) (Джон Кук)'] = {
 # Свои (Гримсон) (Тим Серый):
 
 metadict_chars['Artificier 5 lvl (Гримсон) (Тим Серый)'] = {
-    # TODO: Пили призыв новой Eldritch_Cannon, если старую ломают.
+    # TODO:
+    # Shocking_Grasp доделай. Преимущество, если на цели металлические доспехи.
+    # Проставь метки на доспехи. Бонус урона от Arcane_Firearm проверь. Должен быть.
+    # ----
     'level':5,
     'firearm_AI':True,
     'fireball_AI':True,
@@ -14721,10 +14725,26 @@ metadict_chars['Artificier 5 lvl (Гримсон) (Тим Серый)'] = {
     'class_features':{
         'Feat_Spellsniper':True,
         'Feat_Sharpshooter':True,
-        'Feat_Observant':True,
+        'Feat_Telekinetic':True,
         'Spellcasting':True,
         'Spells':[
+            # Подготовленные заклинания: 4 доменных +7 (+5 ИНТ +2 УРОВЕНЬ/2)
+            # Scorching_Ray закомментирован, чтобы не жрал слоты. Слабое заклинание.
             ('cantrip', 'Magic_Stone'),
+            ('cantrip', 'Mending'),
+            ('cantrip', 'Mage_Hand'),
+            ('cantrip', 'Shocking_Grasp'),
+            ('ritual', 'Identify'),
+            ('ritual', 'Purify_Food_and_Drink'),
+            ('ritual', 'Detect_Magic'),
+            ('ritual', 'Skywrite'),
+            ('1_lvl', 'Shield'),
+            ('1_lvl', 'Thunderwave'),
+            ('1_lvl', 'Absorb_Elements'),
+            ('1_lvl', 'Cure_Wounds'),
+            #('2_lvl', 'Scorching_Ray'),
+            #('2_lvl', 'Shatter'),
+            ('2_lvl', 'Lesser_Restoration'),
             ],
         'Magical_Tinkering':True,
         'Infuse_Item':True,
@@ -14737,6 +14757,9 @@ metadict_chars['Artificier 5 lvl (Гримсон) (Тим Серый)'] = {
     'weapon_skill':['simple','martial'],
     'armor_skill':['light','medium','shield'],
     'skills':[
+        # Инструменты (происхождение): инструменты кузнеца, инструменты работы плотника
+        # Инструменты (изобретатель): воровские инструменты, инструменты ремотнтика, инструменты для работы с кожей
+        # Инструменты (изобретатель-артиллерист): инструменты резчика по дереву
         'Arcana',
         'History',
         'Nature',
@@ -14746,18 +14769,20 @@ metadict_chars['Artificier 5 lvl (Гримсон) (Тим Серый)'] = {
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
-        # TODO: щит-гранатомёт equalizer, уравнитель
-        'Rune of Armor':1,
-        'Rune of Message':1,
-        'Rune of Shielding':1,
+        'Infusion of Longstrider':1,
+        'Rune of Shielding':2,
         'Half Plate, 17 century':1,
         'Shield':1,
         'Equalizer':1,
         'Magic Boom-stone':3,
+        '10lb Bomb, mine':1,
+        'Smoke Grenade':1,
         },
     'mount_combat':True,
     #'mount_type':'Eldritch Cannon (flamethrower)',
     'mount_type':'Eldritch Cannon (force ballista)',
     'equipment_mount':{
+        '10lb Bomb, mine':4,
+        'Smoke Grenade':4,
         },
     }
