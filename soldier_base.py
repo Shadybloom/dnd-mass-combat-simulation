@@ -1475,6 +1475,8 @@ class soldier():
         elif '+1' in dict_attack['weapon_type']:
             attack_mod += 1
             damage_mod += 1
+        if 'focus' in dict_attack['weapon_type']:
+            attack_mod += 1
         attack_mod_dict = {
                 'attack_mod':attack_mod,
                 'damage_mod':damage_mod,
