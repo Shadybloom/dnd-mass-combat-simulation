@@ -3650,12 +3650,31 @@ class battle_simulation(battlescape):
                     and cannon.get_coordinates()\
                     and cannon.hitpoints > 0\
                     and not cannon.defeat:
-                soldier.bonus_action = False
-                soldier.drop_action(('bonus_action', 'Eldritch_Cannon_Control'))
-                soldier.drop_spell(('feature', 'Eldritch_Cannon_Online'))
-                #self.round_run_soldier(cannon, squad, commands = ['engage','fearless','seek','-follow'])
-                self.round_run_soldier(cannon, squad, commands = ['engage','fearless','seek'])
-                return True
+                # Пушка разведывает окружение и измеряет дистанции до цели и хозяина:
+                self.recon_action(cannon, squad)
+                enemy = self.find_enemy(cannon, squad)
+                cannon_attack_range = [attack.get('attack_range',0) for attack in cannon.attacks.values()]
+                cannon_attack_range = round(max(cannon_attack_range) / self.tile_size)
+                control_distance = soldier.class_features.get('Eldritch_Cannon_Control_Distance', 60)
+                control_distance = round(control_distance / self.tile_size)
+                master_distance = round(distance_measure(soldier.place, cannon.place))
+                # Пушка стреляет за счёт бонусного действия хозяина:
+                if cannon.near_enemies or enemy and enemy.distance <= cannon_attack_range:
+                    soldier.bonus_action = False
+                    soldier.drop_action(('bonus_action', 'Eldritch_Cannon_Control'))
+                    soldier.drop_spell(('feature', 'Eldritch_Cannon_Online'))
+                    self.round_run_soldier(cannon, squad, commands = ['engage','fearless','seek'])
+                    return True
+                # Пушка сама ищет цели:
+                elif control_distance > master_distance\
+                        and 'zone' in [key[0] for key in cannon.attacks.keys()]:
+                    soldier.drop_action(('free_action', 'Eldritch_Cannon_Seek'))
+                    self.round_run_soldier(cannon, squad, commands = ['engage','fearless','seek','-follow'])
+                    return True
+                else:
+                    soldier.drop_action(('free_action', 'Eldritch_Cannon_Follow'))
+                    self.round_run_soldier(cannon, squad, commands = ['follow'])
+                    return True
 
     def check_danger_offence(self, soldier, enemy):
         """Проверяем, опасно ли атаковать врага."""
