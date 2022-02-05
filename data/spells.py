@@ -1681,6 +1681,10 @@ class gen_spells():
                     'school':'conjuration',
                     }
             spell_dict = copy.deepcopy(spell_dict)
+        # Черта Телекинез делает руку невидимой, позволяет кастовать мысленно и удваивает радиус.
+        if self.mage.class_features.get('Feat_Telekinetic'):
+            spell_dict['attack_range'] = 60
+            spell_dict['components'] = []
         if gen_spell:
             if not spell_dict.get('target_uuid'):
                 soldier = self.mage
