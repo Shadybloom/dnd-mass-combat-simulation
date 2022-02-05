@@ -2021,7 +2021,7 @@ metadict_items['Rune of Message'] = {
     'potion':True,
     'rune':True,
     #'spell':'Message',
-    'weight (lb)':1/2,
+    'weight (lb)':0,
     'cost (gp)':240,
     'cost (grams_of_gold)':60,
     }
@@ -2031,7 +2031,7 @@ metadict_items['Rune of Absorbtion'] = {
     'potion':True,
     'rune':True,
     'spell':'Absorb_Elements',
-    'weight (lb)':1/2,
+    'weight (lb)':0,
     'cost (gp)':240,
     'cost (grams_of_gold)':60,
     }
@@ -2040,7 +2040,7 @@ metadict_items['Rune of Shielding'] = {
     'potion':True,
     'rune':True,
     'spell':'Shield',
-    'weight (lb)':1/2,
+    'weight (lb)':0,
     'cost (gp)':240,
     'cost (grams_of_gold)':60,
     }
@@ -2050,7 +2050,7 @@ metadict_items['Rune of Armor'] = {
     'potion':True,
     'rune':True,
     'spell':'Mage_Armor',
-    'weight (lb)':1/2,
+    'weight (lb)':0,
     'cost (gp)':240,
     'cost (grams_of_gold)':60,
     }
@@ -2060,7 +2060,7 @@ metadict_items['Rune of Message'] = {
     'potion':True,
     'rune':True,
     'spell':'Message',
-    'weight (lb)':1/2,
+    'weight (lb)':0,
     'cost (gp)':240,
     'cost (grams_of_gold)':60,
     }
