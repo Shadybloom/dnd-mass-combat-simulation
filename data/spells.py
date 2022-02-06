@@ -2306,6 +2306,7 @@ class gen_spells():
                     'effect_timer':100,
                     'attacks_number':1,
                     'attack_range':90,
+                    'radius':20,
                     'damage_type':'sleep',
                     'damage_dice':'5d8',
                     'components':['verbal','somatic','material'],
@@ -2323,6 +2324,28 @@ class gen_spells():
             spell_dict['damage_dice'] = str(dice) + spell_dict['damage_dice'][1:]
         if self.mage.class_features.get('Metamagic_Distant_Spell'):
             spell_dict['attack_range'] *= 2
+        if gen_spell:
+            if not spell_dict.get('target_uuid'):
+                soldier = self.mage
+            else:
+                soldier = self.mage.metadict_soldiers[spell_dict['target_uuid']]
+            if not 'sleep' in soldier.debuffs:
+                caster = soldier.metadict_soldiers[spell_dict['caster_uuid']]
+                sleep_pool = dices.dice_throw_advantage(spell_dict['damage_dice'])
+                # Перебираем цели, пока есть хоть кто-то с хитами меньшими, чем sleep_pool:
+                while sleep_pool > 0:
+                    if 'sleep' in soldier.debuffs or soldier.hitpoints > sleep_pool:
+                        soldier = caster.battle.find_target_for_debuff(caster, soldier, 'sleep')
+                        if not soldier:
+                            break
+                    sleep_pool -= soldier.hitpoints
+                    if sleep_pool > 0:
+                        soldier.debuffs[spell_dict['effect']] = spell_dict
+                        fall_place = soldier.place
+                        soldier.battle.dict_battlespace[fall_place].append('fall_place')
+                        soldier.battle.dict_battlespace[fall_place].append(soldier.ally_side)
+            else:
+                return False
         return spell_dict
 
     @modify_spell

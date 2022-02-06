@@ -2984,6 +2984,9 @@ class battle_simulation(battlescape):
                             r = enemy_soldier.rank,
                             effect_upper = effect_upper
                             ))
+                    # Заклинание Sleep (срабатывает в самом заклинании):
+                    if spell_dict.get('effect') == 'sleep':
+                        continue
                 # Заклинание Word_of_Radiance, избирательно бьющее по врагам вблизи.
                 elif spell_dict.get('effect') == 'burst':
                     spell_dict['spell_choice'] = spell_choice
@@ -3047,19 +3050,6 @@ class battle_simulation(battlescape):
                         #    self.dict_battlespace[fall_place].insert(0, 'bushes')
                         #    if not 'rough_terrain' in self.dict_battlespace[fall_place]:
                         #        self.dict_battlespace[fall_place].insert(1, 'rough_terrain')
-                    continue
-                # Заклинание Sleep:
-                elif spell_dict.get('effect') == 'sleep':
-                    sleep_pool = dices.dice_throw_advantage(spell_dict['damage_dice'])
-                    # Перебираем цели, пока есть хоть кто-то с хитами меньшими, чем sleep_pool:
-                    while sleep_pool > 0:
-                        if 'sleep' in enemy_soldier.debuffs or enemy_soldier.hitpoints > sleep_pool:
-                            enemy_soldier = self.find_target_for_debuff(soldier, enemy, 'sleep')
-                            if not enemy_soldier:
-                                break
-                        sleep_pool -= enemy_soldier.hitpoints
-                        if sleep_pool > 0:
-                            self.fireball_action_target(soldier, squad, spell_dict, enemy)
                     continue
                 if spell_dict.get('damage_dice'):
                     # Magic_Missile всегда попадает.
@@ -3168,8 +3158,6 @@ class battle_simulation(battlescape):
         enemy_list = [unit for unit in recon_enemy.values() if unit.side == soldier.enemy_side]
         for enemy in enemy_list:
             enemy_soldier = self.metadict_soldiers[enemy.uuid]
-            if getattr(enemy_soldier, debuff) != True:
-                return enemy_soldier
             if debuff not in enemy_soldier.debuffs:
                 return enemy_soldier
 
@@ -3414,11 +3402,6 @@ class battle_simulation(battlescape):
             debuff_dict = enemy_soldier.set_debuff(spell_dict)
             if debuff_dict:
                 debuff_dict['hit'] = True
-                # Показываем усыплённых:
-                if debuff_dict.get('effect') == 'sleep':
-                    fall_place = enemy_soldier.place
-                    self.dict_battlespace[fall_place].append('fall_place')
-                    self.dict_battlespace[fall_place].append(enemy_soldier.ally_side)
                 if not namespace.test:
                     effect_upper = debuff_dict.get('effect', spell_choice[-1]).upper()
                     print('[+++] {side_1}, {c1} {s} {effect_upper} >> {side_2} {c2} {e} {r}'.format(
@@ -3666,24 +3649,34 @@ class battle_simulation(battlescape):
                 master_distance = round(distance_measure(soldier.place, cannon.place))
                 # Пушка стреляет за счёт бонусного действия хозяина:
                 if cannon.near_enemies or enemy and enemy.distance <= cannon_attack_range:
-                    soldier.bonus_action = False
-                    soldier.drop_action(('bonus_action', 'Eldritch_Cannon_Control'))
-                    soldier.drop_spell(('feature', 'Eldritch_Cannon_Online'))
                     self.round_run_soldier(cannon, squad, commands = ['engage','fearless','seek'])
-                    return True
+                    # Пушка не тратит действие хозяина, если сохранила своё.
+                    if cannon.battle_action:
+                        soldier.drop_action(('free_action', 'Eldritch_Cannon_Seek'))
+                        return False
+                    else:
+                        soldier.bonus_action = False
+                        soldier.drop_action(('bonus_action', 'Eldritch_Cannon_Control'))
+                        soldier.drop_spell(('feature', 'Eldritch_Cannon_Online'))
+                        return True
                 # Пушка сама ищет цели:
                 elif control_distance > master_distance\
                         and 'zone' in [key[0] for key in cannon.attacks.keys()]:
                     soldier.drop_action(('free_action', 'Eldritch_Cannon_Seek'))
                     self.round_run_soldier(cannon, squad,
                             commands = ['engage','fearless','seek','-follow', '-spellcast'])
-                    return True
-                # TODO: сделай настройку для защитника и поставь здесь -spellcast
-                # Через recon_action на 10 футов, если есть союзники.
+                    return False
+                # Пушка следует за хозяином:
                 else:
-                    soldier.drop_action(('free_action', 'Eldritch_Cannon_Follow'))
                     self.round_run_soldier(cannon, squad, commands = ['follow'])
-                    return True
+                    if cannon.battle_action:
+                        soldier.drop_action(('free_action', 'Eldritch_Cannon_Follow'))
+                        return False
+                    else:
+                        soldier.bonus_action = False
+                        soldier.drop_action(('bonus_action', 'Eldritch_Cannon_Control'))
+                        soldier.drop_spell(('feature', 'Eldritch_Cannon_Online'))
+                        return True
 
     def check_danger_offence(self, soldier, enemy):
         """Проверяем, опасно ли атаковать врага."""
