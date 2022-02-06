@@ -2266,7 +2266,11 @@ class soldier_in_battle(soldier):
                 + self.buffs['bardic_inspiration']['inspiration_mod']:
             attack_throw_mod += self.buffs.pop('bardic_inspiration')['inspiration_mod']
         # Precision_Attack мастера боевых искусств:
-        if self.class_features.get('Precision_Attack'):
+        if self.class_features.get('Precision_Attack')\
+                or self.class_features.get('Precision_Attack_Close')\
+                and attack_choice[0] == 'close'\
+                or self.class_features.get('Precision_Attack_Close')\
+                and attack_choice[0] == 'reach':
             superiority_dice_mid = round(int(self.superiority_dice.split('d')[1]) / 2)
             if self.superiority_dices\
                 and 'spellcast' in self.commands\
