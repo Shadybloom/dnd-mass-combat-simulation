@@ -1207,6 +1207,9 @@ class battle_simulation(battlescape):
                 and squad.enemy_recon['distance'] <= squad.enemy_recon['move'] * 2\
                 and squad.enemy_recon['distance'] > save_distance:
                     commands_list.append('sneak')
+            # Action_Economy для героев, не помогаем с help_Action:
+            if squad.commander.__dict__.get('striker_AI'):
+                if 'rescue' in commands_list: commands_list.remove('rescue')
             # Захват пленных:
             if squad.commander.__dict__.get('enslave_AI'):
                 commands_list.append('enslave')
@@ -2475,6 +2478,7 @@ class battle_simulation(battlescape):
                     for soldier_tuple in enemy_soldier.near_allies:
                         enemy_ally = self.metadict_soldiers[soldier_tuple.uuid]
                         if enemy_ally.level >= 3\
+                                and 'rescue' in enemy_ally.commands\
                                 and enemy_ally.hitpoints >= enemy_ally.hitpoints_max * 0.8\
                                 and enemy_ally.reaction == True\
                                 and len(enemy_ally.near_enemies) <= 1\
@@ -4014,6 +4018,7 @@ class battle_simulation(battlescape):
             for ally in soldier.near_allies:
                 ally_soldier = self.metadict_soldiers[ally.uuid]
                 if len(ally_soldier.near_enemies) <= 1\
+                        and 'rescue' in ally_soldier.commands\
                         and not ally_soldier.escape\
                         and not ally_soldier.hitpoints <= 0\
                         and not ally_soldier.uuid == soldier.uuid\
