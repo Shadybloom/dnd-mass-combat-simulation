@@ -1801,6 +1801,59 @@ class gen_spells():
             spell_dict = copy.deepcopy(spell_dict)
         return spell_dict
 
+    @modify_spell
+    @update_spell_dict
+    def Protection_Field(self, spell_level, gen_spell = False, spell_dict = False):
+        """Защитник изобретателя-артиллериста даёт бонусные хиты союзникам.
+        
+        Даёт 1d8+мод.инт хозяина бонусных хитов.
+        """
+        if not spell_dict:
+            spell_dict = {
+                    'buff':True,
+                    'concentration':True,
+                    'effect':'protection_field',
+                    'effect_timer':1,
+                    'zone_effect':True,
+                    'zone_self':True,
+                    'direct_hit':True,
+                    'attack_range':0,
+                    'radius':10,
+                    'damage_type':'bonus_hitpoints',
+                    'healing_dice':'1d8',
+                    'healing_mod':5,
+                    'components':[],
+                    'casting_time':'action',
+                    'spell_level':spell_level,
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    'spell_of_choice':'Protection_Field',
+                    'school':'transmutation',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
+        if gen_spell:
+            if not spell_dict.get('target_uuid'):
+                soldier = self.mage
+            else:
+                soldier = self.mage.metadict_soldiers[spell_dict['target_uuid']]
+            # Защитнки узнаёт модификатор интеллекта хозяина:
+            if hasattr(soldier, 'master_uuid'):
+                master = soldier.metadict_soldiers[soldier.master_uuid]
+                spell_dict['healing_mod'] = master.mods['intelligence']
+            # Защитник передаёт свои бонусные хиты союзникам и себе родимому:
+            distance = round(spell_dict['radius'] / soldier.battle.tile_size)
+            soldier.battle.recon_action(soldier, soldier.squad, distance)
+            for ally in soldier.near_allies:
+                bonus_hitpoints = dices.dice_throw_advantage(spell_dict['healing_dice'])\
+                        + spell_dict['healing_mod']
+                ally_soldier = soldier.metadict_soldiers[ally.uuid]
+                if ally_soldier.bonus_hitpoints < bonus_hitpoints:
+                    ally_soldier.set_hitpoints(bonus_hitpoints = bonus_hitpoints)
+                    ally_soldier.buffs[spell_dict['effect']] = spell_dict
+            if soldier.bonus_hitpoints <= 0:
+                soldier.set_hitpoints(bonus_hitpoints = bonus_hitpoints)
+                soldier.buffs[spell_dict['effect']] = spell_dict
+        return spell_dict
+
 #----
 # 1 lvl
 

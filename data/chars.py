@@ -14732,7 +14732,7 @@ metadict_chars['Artificier 5 lvl (Гримсон) (Тим Серый)'] = {
             # Scorching_Ray закомментирован, чтобы не жрал слоты. Слабое заклинание.
             ('cantrip', 'Magic_Stone'),
             ('cantrip', 'Mending'),
-            ('cantrip', 'Mage_Hand'),
+            #('cantrip', 'Mage_Hand'),
             ('cantrip', 'Shocking_Grasp'),
             ('ritual', 'Identify'),
             ('ritual', 'Purify_Food_and_Drink'),
@@ -14751,7 +14751,8 @@ metadict_chars['Artificier 5 lvl (Гримсон) (Тим Серый)'] = {
         'The_Right_Tool_for_the_Job':True,
         'Artificier_Artillerist':True,
         'Eldritch_Cannon':True,
-        'Arcane_Firearm':True,
+        'Eldritch_Cannon_Control_Distance':60,
+        'Arcane_Firearm':'1d8',
         },
     'race':'Human-hero',
     'weapon_skill':['simple','martial'],
@@ -14780,7 +14781,8 @@ metadict_chars['Artificier 5 lvl (Гримсон) (Тим Серый)'] = {
         },
     'mount_combat':True,
     #'mount_type':'Eldritch Cannon (flamethrower)',
-    'mount_type':'Eldritch Cannon (force ballista)',
+    #'mount_type':'Eldritch Cannon (force ballista)',
+    'mount_type':'Eldritch Cannon (protector)',
     'equipment_mount':{
         '10lb Bomb, mine':4,
         'Smoke Grenade':4,

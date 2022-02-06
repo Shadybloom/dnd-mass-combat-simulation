@@ -4636,3 +4636,43 @@ metadict_animals['Eldritch Cannon (flamethrower)'] = {
     'equipment_weapon':{
         },
     }
+
+metadict_animals['Eldritch Cannon (protector)'] = {
+    'level':5,
+    #'seeker_AI':True,
+    #'killer_AI':True,
+    'fearless_AI':True,
+    'no_grappler_AI':True,
+    'disengage_AI':True,
+    'inactive':True,
+    'mechanism':True,
+    'mechanism_construct':True,
+    'challenge_rating':'1',
+    'behavior':'mount',
+    'char_class':'Warrior',
+    'hit_dice':'1d8',
+    'hitpoints_base':25,
+    'armor_class_natural':18,
+    'class_features':{
+        'immunity':['poison','poisoned','psychic'],
+        'Spellcasting':True,
+        'Spells':[
+            ('cantrip', 'Protection_Field'),
+            ],
+        },
+    'abilityes':{
+        'strength':10,
+        'dexterity':10,
+        'constitution':10,
+        'intelligence':10,
+        'wisdom':10,
+        'charisma':10,
+        },
+    'race':'Object-steel-medium',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        },
+    }

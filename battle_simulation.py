@@ -2883,6 +2883,7 @@ class battle_simulation(battlescape):
                     'Spirit_Guardians',
                     'Crusaders_Mantle',
                     'Blur',
+                    'Protection_Field',
                     ]
             for spell in spells_list:
                 soldier.try_spellcast(spell, gen_spell = True)
@@ -3641,6 +3642,7 @@ class battle_simulation(battlescape):
         """Изобретатель-артиллерист передаёт ход своей пушке за счёт бонусного действия.
         
         """
+        # TODO: добавь передачу commands вместо стандартных ниже.
         if soldier.class_features.get('Eldritch_Cannon')\
                 and hasattr(soldier, 'mount_uuid')\
                 and soldier.mount_uuid in squad.metadict_soldiers\
@@ -3669,8 +3671,11 @@ class battle_simulation(battlescape):
                 elif control_distance > master_distance\
                         and 'zone' in [key[0] for key in cannon.attacks.keys()]:
                     soldier.drop_action(('free_action', 'Eldritch_Cannon_Seek'))
-                    self.round_run_soldier(cannon, squad, commands = ['engage','fearless','seek','-follow'])
+                    self.round_run_soldier(cannon, squad,
+                            commands = ['engage','fearless','seek','-follow', '-spellcast'])
                     return True
+                # TODO: сделай настройку для защитника и поставь здесь -spellcast
+                # Через recon_action на 10 футов, если есть союзники.
                 else:
                     soldier.drop_action(('free_action', 'Eldritch_Cannon_Follow'))
                     self.round_run_soldier(cannon, squad, commands = ['follow'])
@@ -4154,6 +4159,9 @@ class battle_simulation(battlescape):
                         effect_end = [el['effect'] for el in soldier.buffs.values()
                                 if spell_uuid == el['spell_uuid']]
                         spell_dict = soldier.buffs.pop(effect_end[0])
+                        # Убираем бонусные хиты от Protection_Field:
+                        if spell_dict.get('damage_type') == 'bonus_hitpoints' and soldier.bonus_hitpoints:
+                            soldier.bonus_hitpoints = 0
                         #print('NYA', soldier.rank, spell_dict['spell_choice'])
                     # Дебафф:
                     if spell_uuid in [el['spell_uuid'] for el in soldier.debuffs.values()]:
