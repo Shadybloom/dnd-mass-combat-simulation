@@ -14480,6 +14480,7 @@ metadict_chars['Artificier 5 lvl (Shady) (Тенза Йозора)'] = {
 metadict_chars['Ranger 5 lvl (Katorjnik) (Питер Янсен)'] = {
     'level':5,
     #'sneak_AI':True,
+    'striker_AI':True,
     'firearm_AI':True,
     #'defence_AI':True,
     #'killer_AI':True,
@@ -14551,6 +14552,7 @@ metadict_chars['Ranger 5 lvl (Katorjnik) (Питер Янсен)'] = {
 metadict_chars['Fighter 5 lvl (Волшебник) (Тобиас Олдридж)'] = {
     'level':5,
     #'defence_AI':True,
+    'striker_AI':True,
     'no_grappler_AI':True,
     'char_class':'Battlemaster',
     'hit_dice':'1d10',
@@ -14582,7 +14584,7 @@ metadict_chars['Fighter 5 lvl (Волшебник) (Тобиас Олдридж)
         'Combat_Superiority':True,
         'Student_of_War':True,
         'Disarming_Attack':True,
-        'Precision_Attack':True,
+        'Precision_Attack_Close':True,
         'Feinting_Attack':True,
         'Extra_Attack':True,
         },
@@ -14619,6 +14621,7 @@ metadict_chars['Bard 5 lvl (firesalamander) (Джон Кук)'] = {
     # Бонусы вдохновения к урону -- польза сомнительная. Нужно потестить.
     # Бонусы вдохновения к AC -- только пока неясен успех атаки врага.
     'level':5,
+    'striker_AI':True,
     'fireball_AI':True,
     'char_class':'Bard',
     'hit_dice':'1d8',
@@ -14656,7 +14659,8 @@ metadict_chars['Bard 5 lvl (firesalamander) (Джон Кук)'] = {
             ('2_lvl', 'Knock'),
             ('2_lvl', 'Calm_Emotions'),
             ('3_lvl', 'Catnap'),
-            ('3_lvl', 'Fear'),
+            #('3_lvl', 'Fear'),
+            ('3_lvl', 'Sleep'),
             ],
         'Jack_of_All_Trades':True,
         'Song_of_Rest':True,
@@ -14704,6 +14708,7 @@ metadict_chars['Artificier 5 lvl (Гримсон) (Тим Серый)'] = {
     # Проставь метки на доспехи. Бонус урона от Arcane_Firearm проверь. Должен быть.
     # ----
     'level':5,
+    'striker_AI':True,
     'firearm_AI':True,
     'fireball_AI':True,
     'no_grappler_AI':True,
