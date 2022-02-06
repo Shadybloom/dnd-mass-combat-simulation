@@ -3434,15 +3434,18 @@ class gen_spells():
         Duration: Concentration, up to 1 minute 
         https://www.dnd-spells.com/spell/fear
         """
+        # TODO: Дальность расширена из-за проблем с наведением конуса. Ищи баг.
         if not spell_dict:
             spell_dict = {
                     'concentration':True,
                     'debuff':True,
                     'effect':'fear',
                     'effect_timer':10,
+                    'safe':True,
                     'zone':True,
                     'zone_shape':'cone',
-                    'attack_range':30,
+                    'attack_range':45,
+                    #'attack_range':30,
                     'direct_hit':True,
                     'savethrow':True,
                     'savethrow_all':True,
