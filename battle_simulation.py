@@ -269,6 +269,7 @@ class battle_simulation(battlescape):
                                 soldier = squad.metadict_soldiers[uuid]
                                 # Размещаем лошадей, если таковые есть:
                                 if hasattr(soldier, 'mount_uuid')\
+                                        and not 'unmount' in namespace.commands[0].split()\
                                         and soldier.mount_combat == True\
                                         and soldier.mount_uuid in squad.metadict_soldiers:
                                     mount = squad.metadict_soldiers[soldier.mount_uuid]
@@ -3883,8 +3884,8 @@ class battle_simulation(battlescape):
         if soldier.near_enemies:
             return soldier.select_enemy(soldier.near_enemies)
         # Если приказано брать пленных, то дальнее оружие не используем.
-        elif 'enslave' in soldier.commands and not soldier.near_enemies:
-            return None
+        #elif 'enslave' in soldier.commands and not soldier.near_enemies:
+        #    return None
         if 'reach' in [attack[0] for attack in soldier.attacks]:
             near_enemies = self.find_enemies_near(soldier, distance = 2)
             if near_enemies:
