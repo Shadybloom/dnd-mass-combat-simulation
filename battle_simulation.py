@@ -3323,6 +3323,11 @@ class battle_simulation(battlescape):
                         # Сфера перемещается дальше радиуса начального каста. Пока костыль:
                         path = sight_line_to_list(spell_dict['zone_center'], zone_center)
                         for n, place in enumerate(path):
+                            if place not in self.dict_battlespace:
+                                spell_dict['zone_center'] = soldier.place
+                                path = sight_line_to_list(spell_dict['zone_center'], zone_center)
+                                break
+                        for n, place in enumerate(path):
                             place = self.check_place(soldier, place)
                             if not place.free:
                                 zone_center = path[n-1]
