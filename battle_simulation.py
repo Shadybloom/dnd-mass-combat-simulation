@@ -3989,6 +3989,7 @@ class battle_simulation(battlescape):
         for soldier in squad.metadict_soldiers.values():
             # Спящего от заклинания Sleep разбудят (или сам проснётся)
             if 'sleep' in soldier.debuffs and not soldier.captured:
+                if soldier.concentration: soldier.set_concentration_break(autofail = True)
                 self.rescue(soldier, squad)
             # Тяжелораненые играют в рулетку с мрачным жнецом:
             if soldier.hitpoints <= 0 and not soldier.death and not soldier.stable:
