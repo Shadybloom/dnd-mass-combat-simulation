@@ -1320,9 +1320,16 @@ class soldier_in_battle(soldier):
                 bonus_hitpoints = self.mods['constitution'] * 2
             self.set_hitpoints(bonus_hitpoints = bonus_hitpoints)
             self.hit_dices_use += 1
+        # Для парирования берётся в руки оружие ближнего боя:
+        weapon_list = self.get_weapon_list(close = True)
+        if len(weapon_list) > 0:
+            self.weapon_ready = random.choice(weapon_list)
         # homebrew, оружие Зеркальных ручьёв даёт защиту:
-        if dodge and self.hero:
-            self.use_item('Blade_Ward', gen_spell = True, use_action = False)
+        if dodge and self.weapon_ready and self.metadict_items[self.weapon_ready].get('weapon_spell'):
+            weapon_spell = self.metadict_items[self.weapon_ready].get('weapon_spell')
+            if weapon_spell == 'Blade_Ward':
+                weapon_spell_dict = self.try_spellcast('Blade_Ward',
+                        use_spell_slot = False, use_action = 'reaction', gen_spell = True)
         if dodge:
             return dodge
 

@@ -2100,7 +2100,7 @@ metadict_items['Rapier of Sharpness'] = {
     # TODO: допилить
     # superiority +1 кость превосходства
     'weapon':True,
-    'spell':'Blade_Ward',
+    'weapon_spell':'Blade_Ward',
     'ammo_type':blade_poisons,
     'weapon_type':['martial','close','finesse','reach','sharpness','superiority'],
     'damage_type':'piercing',
