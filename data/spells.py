@@ -94,6 +94,10 @@ class gen_spells():
                         soldier.spells_active[spell_dict['spell_uuid']] = spell_dict
                     #print(len(soldier.spells_active))
                     #print('NYA', spell_choice)
+                # Заклинание с соматическим компонентом не удаётся, если кастер схвачен:
+                if 'somatic' in spell_dict.get('components',[])\
+                        and soldier.grappled:
+                    return False
                 # Стихийный адепт преодолевает сопротивляемость определённому урону:
                 if soldier.class_features.get('Feat_Elemental_Adept')\
                         and spell_dict.get('damage_type'):
