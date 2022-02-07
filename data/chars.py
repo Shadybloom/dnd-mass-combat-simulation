@@ -14470,7 +14470,7 @@ metadict_chars['Artificier 5 lvl (Shady) (Тенза Йозора)'] = {
         #'Pistol, Lorenzony':1,
         #'Muskete Bullet':30,
         '10lb Bomb, mine':2,
-        #'Smoke Grenade':1,
+        'Smoke Grenade':1,
         },
     }
 
@@ -14739,7 +14739,6 @@ metadict_chars['Artificier 5 lvl (Гримсон) (Тим Серый)'] = {
             ('cantrip', 'Mending'),
             #('cantrip', 'Mage_Hand'),
             ('cantrip', 'Shocking_Grasp'),
-            ('ritual', 'Identify'),
             ('ritual', 'Purify_Food_and_Drink'),
             ('ritual', 'Detect_Magic'),
             ('ritual', 'Skywrite'),
@@ -14750,6 +14749,7 @@ metadict_chars['Artificier 5 lvl (Гримсон) (Тим Серый)'] = {
             #('2_lvl', 'Scorching_Ray'),
             ('2_lvl', 'Shatter'),
             ('2_lvl', 'Lesser_Restoration'),
+            ('2_lvl', 'Levitate'),
             ],
         'Magical_Tinkering':True,
         'Infuse_Item':True,
@@ -14778,7 +14778,7 @@ metadict_chars['Artificier 5 lvl (Гримсон) (Тим Серый)'] = {
         'Infusion of Longstrider':1,
         'Rune of Shielding':2,
         'Half Plate, 17 century':1,
-        'Shield':1,
+        'Shield, Bladebreaker':1,
         'Equalizer':1,
         'Magic Boom-stone':3,
         '10lb Bomb, mine':1,
