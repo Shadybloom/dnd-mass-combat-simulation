@@ -3575,8 +3575,13 @@ class battle_simulation(battlescape):
             if spell_choice_once:
                 spell_choice_list = [spell_choice_once]
             else:
-                # Сортируем. Сначала заклинания высших уровней:
+                # Сортируем. Сначала заклинания высших уровней, в конце кантрипы:
                 spell_choice_list = sorted(spell_choice_list, reverse = True)
+                cantrips_sort_list = spell_choice_list
+                for el in cantrips_sort_list:
+                    if el[0] == 'cantrip' or el[0] == 'subspell':
+                        spell_choice_list.remove(el)
+                        spell_choice_list.append(el)
             for spell_choice in spell_choice_list:
                 # Заклинание может быть в списке атак:
                 if spell_choice in soldier.attacks:
