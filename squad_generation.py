@@ -103,6 +103,9 @@ class squad_generation():
         self.name_translate = squad_name
         soldiers_uuid_list = self.database.print_squad_soldiers(squad_name)
         self.metadict_soldiers = self.load_soldiers_from_DB(soldiers_uuid_list, get_injured, get_all)
+        if len(self.metadict_soldiers) == 0:
+            self.metadict_soldiers = self.load_soldiers_from_DB(
+                    soldiers_uuid_list, get_injured, get_all = True)
         self.squad_number = len(self.metadict_soldiers)
         self.soldiers_list = list(self.metadict_soldiers.keys())
         self.commander_uuid = self.find_best(self.metadict_soldiers)
