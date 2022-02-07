@@ -14604,6 +14604,8 @@ metadict_chars['Fighter 5 lvl (Волшебник) (Тобиас Олдридж)
     'equipment_supply':soldier_supply,
     'equipment_backpack':soldiers_pack,
     'equipment_weapon':{
+        # Честь дороже жизни. Щитом не пользуется.
+        #'Shield, Bladebreaker':1,
         'Rune of Armor':1,
         'Rune of Shielding':2,
         'Rapier of Sharpness':1,
@@ -14654,12 +14656,12 @@ metadict_chars['Bard 5 lvl (firesalamander) (Джон Кук)'] = {
             ('cantrip', 'Message'),
             ('ritual', 'Unseen_Servant'),
             ('ritual', 'Comprehend_Languages'),
-            #('1_lvl', 'Sleep'),
+            ('1_lvl', 'Sleep'),
             ('1_lvl', 'Expeditious_Retreat'),
             ('2_lvl', 'Knock'),
             ('2_lvl', 'Calm_Emotions'),
             ('3_lvl', 'Catnap'),
-            #('3_lvl', 'Fear'),
+            ('3_lvl', 'Fear'),
             ('3_lvl', 'Sleep'),
             ],
         'Jack_of_All_Trades':True,
@@ -14737,7 +14739,7 @@ metadict_chars['Artificier 5 lvl (Гримсон) (Тим Серый)'] = {
             # Scorching_Ray закомментирован, чтобы не жрал слоты. Слабое заклинание.
             ('cantrip', 'Magic_Stone'),
             ('cantrip', 'Mending'),
-            #('cantrip', 'Mage_Hand'),
+            ('cantrip', 'Mage_Hand'),
             ('cantrip', 'Shocking_Grasp'),
             ('ritual', 'Purify_Food_and_Drink'),
             ('ritual', 'Detect_Magic'),
