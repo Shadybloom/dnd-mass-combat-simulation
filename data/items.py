@@ -1612,6 +1612,18 @@ metadict_items['Shield +1'] = {
     'cost (grams_of_gold)':300 * 60,
     }
 
+metadict_items['Shield, Bladebreaker'] = {
+    # Не пробивается пилумами.
+    'shield':True,
+    'unbreakable':True,
+    'slashing_disadvantage':True,
+    'armor_type':'shield',
+    'armor_class_shield':2,
+    'weight (lb)':6,
+    'cost (gp)':30 * 60,
+    'cost (grams_of_gold)':30 * 60,
+    }
+
 #----
 # Shield (homebrew)
     # ------------------------------------------------------------

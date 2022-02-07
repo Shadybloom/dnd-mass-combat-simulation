@@ -2219,6 +2219,12 @@ class soldier_in_battle(soldier):
                     disadvantage = True
                 elif enemy.distance > round(attack_dict['attack_range'] / self.tile_size):
                     disadvantage = True
+        # Homebrew: помеха к атаке против "Отражающего лезвия":
+        if attack_dict.get('damage_type') == 'slashing'\
+                and enemy_soldier.shield_ready\
+                and enemy_soldier.metadict_items[enemy_soldier.armor
+                        ['shield_use']].get('slashing_disadvantage'):
+            disadvantage = True
         # Homebrew: урон огнестрела уменьшается, если дальность выше предельной:
         # ------------------------------------------------------------
         # Это уменьшение урона зависит от того, насколько дальше нормальной дальности выстрел.
