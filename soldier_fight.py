@@ -1725,13 +1725,16 @@ class soldier_in_battle(soldier):
             return True
         # Тяжелейшие ранения, если атака лишь чуть не убила бойца:
         elif self.hitpoints <= -(self.hitpoints_max / 2):
-            self.set_disabled(disadvantage = True)
+            if not self.death_save_success or not self.death_save_loss:
+                self.set_disabled(disadvantage = True)
         # Тяжелейшие увечья, если боец в безумной ярости:
         elif 'death_rage' in self.buffs:
-            self.set_disabled(disadvantage = True)
+            if not self.death_save_success or not self.death_save_loss:
+                self.set_disabled(disadvantage = True)
         # Лёгкое ранение в ином случае:
         else:
-            self.set_disabled(advantage = True)
+            if not self.death_save_success or not self.death_save_loss:
+                self.set_disabled(advantage = True)
         # Механизмы не бросают спасброски:
         if self.__dict__.get('mechanism') and not self.death:
             #self.stable = True
