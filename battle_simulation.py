@@ -2943,6 +2943,10 @@ class battle_simulation(battlescape):
                 spell_choice = soldier.select_spell(squad, enemy, self.tile_size)
                 if spell_choice == None:
                     return False
+                if spell_choice and 'fireball_manual' in soldier.commands:
+                    print(soldier.rank, spell_choice)
+                    string_number = input('---кастуем (y/n):')
+                    if not string_number or not string_number == 'y': return False
             if type(spell_choice) == dict:
                 spell_dict = spell_choice
             elif use_spell:
@@ -3206,7 +3210,7 @@ class battle_simulation(battlescape):
             safe = False, single_target = False):
         """Маг работает артиллерией."""
         if hasattr(soldier, 'spells') and soldier.battle_action\
-                and self.select_zone_spell(soldier, squad)\
+                and self.select_zone_spell(soldier, squad, auto_test = True)\
                 or spell_dict and zone_center\
                 or spell_dict:
             if spell_dict and zone_center:
@@ -3540,7 +3544,7 @@ class battle_simulation(battlescape):
         else:
             return False
 
-    def select_zone_spell(self, soldier, squad, spell_choice_once = False):
+    def select_zone_spell(self, soldier, squad, spell_choice_once = False, auto_test = False):
         """Выбор заклинания, бьющего по территории и точки атаки для него."""
         spell_choice_list = []
         if soldier.concentration and type(soldier.concentration) == dict\
@@ -3554,7 +3558,9 @@ class battle_simulation(battlescape):
         # Выбор заклинаний, использующих ячейки:
         for spell_slot in soldier.spellslots:
             # Без приказа только заклинания 1 круга:
-            if int(spell_slot[0]) < 2 or 'fireball' in soldier.commands:
+            if int(spell_slot[0]) < 2\
+                    or 'fireball' in soldier.commands\
+                    or 'fireball_manual' in soldier.commands:
                 slot_spells_list = [attack for attack in soldier.spells
                         if attack[0] == spell_slot
                         and soldier.spells[attack].get('zone')]
@@ -3589,6 +3595,12 @@ class battle_simulation(battlescape):
                 attack_range = round(spell_dict['attack_range'] / self.tile_size)
                 if squad.enemies and attack_range < squad.enemy_recon['distance']:
                     continue
+                # Пропускаем заклинание по команде:
+                if 'fireball_manual' in soldier.commands and auto_test\
+                        and spell_choice[0].split('_')[0].isnumeric():
+                    print(soldier.rank, spell_choice)
+                    string_number = input('---кастуем (y/n):')
+                    if not string_number or not string_number == 'y': continue
                 for zone_center, danger in squad.danger_points.items():
                     distance = round(distance_measure(soldier.place, zone_center))
                     # На себя не наводим:

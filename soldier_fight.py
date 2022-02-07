@@ -2150,7 +2150,7 @@ class soldier_in_battle(soldier):
         spellslots_list = reversed(list(self.spellslots.keys()))
         for spell_slot in spellslots_list:
             # Без приказа только заклинания 1 круга:
-            if int(spell_slot[0]) < 2 or 'fireball' in self.commands:
+            if int(spell_slot[0]) < 2 or 'fireball' in self.commands or 'fireball_manual' in self.commands:
                 if distance >= 2 and spell_slot in [attack[0] for attack in self.spells]:
                     spell_attack_list = [attack for attack in self.spells if attack[0] == spell_slot
                             and attack[1] == self.spells[attack]['spell_of_choice']]
