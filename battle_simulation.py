@@ -269,11 +269,12 @@ class battle_simulation(battlescape):
                                 soldier = squad.metadict_soldiers[uuid]
                                 # Размещаем лошадей, если таковые есть:
                                 if hasattr(soldier, 'mount_uuid')\
-                                        and not 'unmount' in namespace.commands[0].split()\
                                         and soldier.mount_combat == True\
                                         and soldier.mount_uuid in squad.metadict_soldiers:
-                                    mount = squad.metadict_soldiers[soldier.mount_uuid]
-                                    self.place_unit(mount, spawn_point.place)
+                                    if not namespace.commands or namespace.commands\
+                                            and not 'unmount' in namespace.commands[0].split():
+                                        mount = squad.metadict_soldiers[soldier.mount_uuid]
+                                        self.place_unit(mount, spawn_point.place)
                                 # Метка солдата, это кортеж/кортежи на поле боя:
                                 self.place_unit(soldier, spawn_point.place)
                                 break
