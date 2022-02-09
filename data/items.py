@@ -1914,11 +1914,11 @@ metadict_items['Potion of Boldness'] = {
 
 metadict_items['Potion of Resilience'] = {
     # Эликсир устойчивости изобретателя-алхимика. Experimental_Elixir.
-    # TODO: должен давать +1 AC, но в Shield_of_Faith жёстко забито +2.
     'potion':True,
     'spell':'Shield_of_Faith',
     'concentration':False,
     'attacks_number':1,
+    'healing_mod':1,
     'effect_timer':100,
     'weight (lb)':0.5,
     'cost (gp)':15,

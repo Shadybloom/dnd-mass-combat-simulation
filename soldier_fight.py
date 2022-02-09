@@ -2929,10 +2929,12 @@ class soldier_in_battle(soldier):
             attack_dict['direct_hit'] = False
         # Заклинание "Shield_of_Faith" даёт +2 AC:
         if 'shield_of_faith' in self.buffs:
-            armor_dict['armor_class_no_impact'] += 2
-            armor_dict['armor_class_shield_impact'] += 2
-            armor_dict['armor_class_armor_impact'] += 2
-            armor_dict['armor_class'] += 2
+            armor_bonus = self.buffs['shield_of_faith']['healing_mod']
+            armor_dict['armor_class_no_impact'] += armor_bonus
+            armor_dict['armor_class_shield_impact'] += armor_bonus
+            armor_dict['armor_class_armor_impact'] += armor_bonus
+            armor_dict['armor_class'] += armor_bonus
+            print(armor_dict)
         # Ловкое парирование кенсэя даёт +2 AC
         if self.agile_parry:
             armor_dict['armor_class_no_impact'] += 2
