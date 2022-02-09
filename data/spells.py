@@ -851,6 +851,40 @@ class gen_spells():
             self.mage.inspiring_bard_number -= 1
         return spell_dict
 
+    @modify_spell
+    @update_spell_dict
+    def Repair_Eldritch_Cannon(self, spell_level, gen_spell = False, spell_dict = False):
+        """Изобретатель-артиллерист восстанавливает своё орудие."""
+        if not spell_dict:
+            spell_dict = {
+                    'direct_hit':True,
+                    'attacks_number':1,
+                    'attack_range':0,
+                    'damage_type':'heal',
+                    'healing_dice':'0d0',
+                    'healing_mod':0,
+                    'components':['somatic'],
+                    'casting_time':'action',
+                    'spell_level':spell_level,
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    'spell_of_choice':'Bane',
+                    'school':'transmutation',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
+        if gen_spell:
+            if not spell_dict.get('target_uuid'):
+                soldier = self.mage
+            else:
+                soldier = self.mage.metadict_soldiers[spell_dict['target_uuid']]
+            cannon = soldier.squad.metadict_soldiers[soldier.mount_uuid]
+            cannon.captured = False
+            cannon.defeat = False
+            cannon.death = False
+            cannon.fall = False
+            cannon.hitpoints = cannon.hitpoints_max
+            soldier.battle.place_unit(cannon, soldier.place)
+        return spell_dict
+
 
 #------------------------------------------------------------
 # Заклинания
@@ -1901,6 +1935,8 @@ class gen_spells():
                     ally_soldier.set_hitpoints(bonus_hitpoints = bonus_hitpoints)
                     ally_soldier.buffs[spell_dict['effect']] = spell_dict
             if soldier.bonus_hitpoints <= 0:
+                bonus_hitpoints = dices.dice_throw_advantage(spell_dict['healing_dice'])\
+                        + spell_dict['healing_mod']
                 soldier.set_hitpoints(bonus_hitpoints = bonus_hitpoints)
                 soldier.buffs[spell_dict['effect']] = spell_dict
         return spell_dict

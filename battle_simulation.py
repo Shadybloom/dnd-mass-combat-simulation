@@ -3666,6 +3666,17 @@ class battle_simulation(battlescape):
                 and soldier.mount_uuid in squad.metadict_soldiers\
                 and soldier.bonus_action:
             cannon = squad.metadict_soldiers[soldier.mount_uuid]
+            # Если пушка уничтожена, восстанавливаем действием за счёт слота 1 круга:
+            if cannon.__dict__.get('inactive') and cannon.__dict__.get('mechanism_construct')\
+                    and cannon.get_coordinates()\
+                    and cannon.hitpoints <= 0\
+                    and cannon.defeat:
+                if soldier.battle_action\
+                        and hasattr(soldier, 'spellslots')\
+                        and soldier.spellslots.get('1_lvl'):
+                    soldier.try_spellcast('Repair_Eldritch_Cannon', gen_spell = True,
+                            use_action = True, use_spell_slot = '1_lvl')
+            # Если пушка готова к бою, берём управление:
             if cannon.__dict__.get('inactive') and cannon.__dict__.get('mechanism_construct')\
                     and cannon.get_coordinates()\
                     and cannon.hitpoints > 0\
