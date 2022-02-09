@@ -4519,6 +4519,7 @@ metadict_animals['Unseen Servant (CR 0)'] = {
 
 metadict_animals['Unseen Servant (30-lb bomb)'] = {
     'base_unit':'Unseen Servant (CR 0)',
+    'kamikaze_AI':True,
     'killer_AI':True,
     'seeker_AI':True,
     'equipment_weapon':{

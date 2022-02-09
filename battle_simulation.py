@@ -1185,6 +1185,9 @@ class battle_simulation(battlescape):
                 commands_list.append('fearless')
             else:
                 commands_list.append('rescue')
+            # Камикадзе бахает после своей смерти:
+            if squad.commander.__dict__.get('kamikaze_AI'):
+                commands_list.append('kamikaze')
             # Если потери больше 50%, то все отступают:
             if not 'fearless' in commands_list\
                     and squad.casualty['casualty_percent'] > squad.casualty['ready_one_percent']:
@@ -2710,6 +2713,10 @@ class battle_simulation(battlescape):
                         attacks_chain.append(attack_choice)
                         soldier.drop_action(('bonus_action', 'Feat_Great_Weapon_Master'))
                         soldier.bonus_action = False
+                # Камикадзе бахает, если его атакуют вблизи;
+                if attack_result['fatal_hit'] and 'kamikaze' in enemy_soldier.commands:
+                    self.attack_action(enemy_soldier, enemy_squad,
+                            enemy, reaction = True)
                 # Победа приносит бойцу опыт:
                 if attack_result['fatal_hit']:
                     soldier.set_victory_and_enemy_defeat(enemy_soldier)
