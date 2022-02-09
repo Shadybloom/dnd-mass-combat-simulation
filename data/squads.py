@@ -2169,6 +2169,14 @@ metadict_squads['Squad-veteran (артиллеристы Эвери) (батар
 #----
 # Армия Салифа:
 
+metadict_squads['Company-militia (паломники с Ганг-и-Савайя) (враг)'] = {
+    'Commoner 1 lvl (паломник с Ганг-и-Савайя)':80 + dice_throw('1d12'),
+    'Commoner 2 lvl (дворянин с Ганг-и-Савайя)':10 + dice_throw('1d12'),
+    'Warrior 3 lvl (охранник с Ганг-и-Савайя)':6,
+    'Warrior 4 lvl (охранник-сержант с Ганг-и-Савайя)':1,
+    'Warrior 5 lvl (охранник-лейтенант с Ганг-и-Савайя)':1,
+    }
+
 metadict_squads['Company-elite (гвардия Салифа) (враг)'] = {
     # 1 рота гвардии.
     'Warrior 4 lvl (гвардеец Салифа)':67,

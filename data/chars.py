@@ -13925,6 +13925,74 @@ metadict_chars['Fighter 13 lvl (Генри Эвери)'] = {
     }
 
 #----
+# Противник (армия) (Гангсвэй, Gunsway):
+
+metadict_chars['Commoner 1 lvl (паломник с Ганг-и-Савайя)'] = {
+    'base_unit':'Commoner 1 lvl (militia bowman)',
+    'behavior':'warrior',
+    'equipment_weapon':{
+        'Dagger':1,
+        'Shortbow':1,
+        'Arrow':40,
+        },
+    }
+
+metadict_chars['Commoner 2 lvl (дворянин с Ганг-и-Савайя)'] = {
+    'base_unit':'Commoner 2 lvl (militia bowman-veteran)',
+    'behavior':'warrior',
+    'weapon_skill':['simple','martial'],
+    'equipment_weapon':{
+        'Shield':1,
+        'Scimitar':1,
+        'Shortbow':1,
+        'Arrow':40,
+        },
+    }
+
+metadict_chars['Warrior 3 lvl (охранник с Ганг-и-Савайя)'] = {
+    'base_unit':'Warrior 3 lvl (sqythian bowman-corporal)',
+    'behavior':'elite_warrior',
+    'equipment_weapon':{
+        'Rune of Armor':1,
+        'Shield':1,
+        'Scimitar':1,
+        'Longbow':1,
+        'Arrow':40,
+        #'Pistol, Lorenzony':1,
+        #'Muskete Bullet':30,
+        },
+    }
+
+metadict_chars['Warrior 4 lvl (охранник-сержант с Ганг-и-Савайя)'] = {
+    'base_unit':'Warrior 4 lvl (sqythian bowman-sergeant)',
+    'equipment_weapon':{
+        'Rune of Armor':1,
+        'Rune of Shielding':1,
+        'Shield':1,
+        'Scimitar':1,
+        'Longbow':1,
+        'Arrow':40,
+        #'Pistol, Lorenzony':1,
+        #'Muskete Bullet':30,
+        },
+    }
+
+metadict_chars['Warrior 5 lvl (охранник-лейтенант с Ганг-и-Савайя)'] = {
+    'base_unit':'Warrior 5 lvl (sqythian bowman-lieutenant)',
+    'equipment_weapon':{
+        'Rune of Armor':1,
+        'Rune of Shielding':1,
+        'Rune of Absorbtion':1,
+        'Shield':1,
+        'Scimitar +1':1,
+        'Longbow':1,
+        'Arrow':40,
+        #'Pistol, Lorenzony':1,
+        #'Muskete Bullet':30,
+        },
+    }
+
+#----
 # Противник (армия) (Салиф):
 
 metadict_chars['Warrior 4 lvl (гвардеец Салифа)'] = {
