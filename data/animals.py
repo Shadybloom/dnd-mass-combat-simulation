@@ -4483,6 +4483,50 @@ metadict_animals['Mordenkainen Sword (CR 10)'] = {
     }
 
 #----
+# Невидимый слуга, Unseen_Servant
+
+metadict_animals['Unseen Servant (CR 0)'] = {
+    'level':1,
+    'fearless_AI':True,
+    'no_grappler_AI':True,
+    'air_walk':True,
+    'water_walk':True,
+    'mechanism':True,
+    'mechanism_construct':True,
+    'challenge_rating':'-',
+    'behavior':'warrior',
+    'char_class':'Commoner',
+    'hitpoints_base':1,
+    'class_features':{
+        'immunity':['poison','poisoned'],
+        },
+    'abilityes':{
+        'strength':10,
+        'dexterity':10,
+        'constitution':10,
+        'intelligence':10,
+        'wisdom':10,
+        'charisma':10,
+        },
+    'hit_dice':'1d4',
+    'race':'Object-force-medium',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{},
+    }
+
+metadict_animals['Unseen Servant (30-lb bomb)'] = {
+    'base_unit':'Unseen Servant (CR 0)',
+    'killer_AI':True,
+    'seeker_AI':True,
+    'equipment_weapon':{
+        '30lb Bomb, mine':1,
+        },
+    }
+
+#----
 # Arcane cannons, Artificier_Artillerist
 
 metadict_animals['Eldritch Cannon (force ballista)'] = {

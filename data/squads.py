@@ -2258,7 +2258,14 @@ metadict_squads['Single-hero (лично Джон Кук) (firesalamander)'] = {
     'Bard 5 lvl (firesalamander) (Джон Кук)':1,
     }
 
+metadict_squads['Band-summon (камикадзе Джона Кука) (firesalamander)'] = {
+    'Unseen Servant (30-lb bomb)':6,
+    }
+
+metadict_squads['Single-summon (камикадзе Джона Кука) (firesalamander)'] = {
+    'Unseen Servant (30-lb bomb)':1,
+    }
+
 metadict_squads['Single-hero (лично Тим Серый) (Гримсон)'] = {
     'Artificier 5 lvl (Гримсон) (Тим Серый)':1,
-    #'Eldritch Cannon (force ballista)':1,
     }

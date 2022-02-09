@@ -3130,6 +3130,31 @@ metadict_items['10lb Bomb, mine'] = {
     'cost (grams_of_gold)':10,
     }
 
+metadict_items['30lb Bomb, mine'] = {
+    'weapon':True,
+    'direct_hit':True,
+    'savethrow':True,
+    'savethrow_ability':'dexterity',
+    'weapon_type':['simple','close'],
+    'damage_type':'bludgeoning',
+    'damage_dice':'2d6',
+    'spell_dict':{
+            'zone':True,
+            'safe':False,
+            'radius':10,
+            'direct_hit':True,
+            'savethrow':True,
+            'savethrow_ability':'dexterity',
+            'damage_type':'piercing',
+            'damage_dice':'2d6',
+            'spell_save_DC':15,
+            'spell_choice':('30lb Bomb','Explosion'),
+            },
+    'weight (lb)':30,
+    'cost (gp)':30,
+    'cost (grams_of_gold)':30,
+    }
+
 metadict_items['6lb Bomb'] = {
     # Снаряд полковой пушки
     'ammo':True,

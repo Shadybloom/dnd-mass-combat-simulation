@@ -385,7 +385,7 @@ dict_races = {
             'weight_mod_dice':'1d2',
             },
         'Object-force-tiny':{
-            # Меч Морденкайнена.
+            # Меч Морденкайнена, Mordenkainens_Sword
             'hero':False,
             'size':'tiny',
             'base_speed':60,
@@ -395,8 +395,19 @@ dict_races = {
             'weight_base_lb':4,
             'weight_mod_dice':'1d2',
             },
+        'Object-force-medium':{
+            # Невидимый слуга, Unseen_Servant
+            'hero':False,
+            'size':'medium',
+            'base_speed':15,
+            'armor_class_natural':10,
+            'height_base_inches':12,
+            'height_mod_dice':'1d2',
+            'weight_base_lb':4,
+            'weight_mod_dice':'1d2',
+            },
         'Object-force-big':{
-            # Тензеров парящий диск
+            # Тензеров парящий диск, Tensers_Floating_Disk
             'hero':False,
             'size':'big',
             'base_speed':120,
