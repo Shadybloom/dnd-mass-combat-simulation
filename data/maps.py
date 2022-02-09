@@ -215,6 +215,18 @@ enslave_map = (
         '.....!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!.....',
         )
 
+battle_map_ship_deck = (
+        # Палуба Ганг-и-Савайя
+        '||||||||||||||||||||||||||||||',
+        '11wwwce!.!eecwwwwwwwwwwwwww51.',
+        '12wwwce!.!eecwwwwwwwwwwwwww52.',
+        '13wwwce!.!eecwwwwwwwwwwwwww53.',
+        '14wwwce!.!eecwwwwwwwwwwwwww54.',
+        '15wwwce!.!eecwwwwwwwwwwwwww55.',
+        '16wwwce!.!eecwwwwwwwwwwwwww56.',
+        '||||||||||||||||||||||||||||||',
+        )
+
 battle_map_city_cats = (
         # Наши:
         # 2 -- сотня лучников с короткими луками
