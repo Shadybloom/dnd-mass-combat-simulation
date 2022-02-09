@@ -3773,6 +3773,12 @@ class battle_simulation(battlescape):
         # Преимущество от "Тактики стаи", если союзник рядом с врагом:
         if soldier.class_features.get('Pack_Tactic') and len(enemy_soldier.near_enemies) > 1:
             advantage = True
+        # Преимущество от атаки с Shocking_Grasp по металлической броне;
+        # TODO: проставь метки металла на доспехи. Тут только против тяжёлой брони.
+        if 'shocking_grasp' in enemy_soldier.debuffs\
+                and enemy_soldier.armor.get('armor_stealth_disadvantage')\
+                and ('cantrip', 'Shocking_Grasp') in soldier.spells.keys():
+            advantage = True
         # Верховой боец атакует с преимуществом, если цель не всадник:
         if attack_choice[0] == 'close' or attack_choice[0] == 'reach':
             if soldier.class_features.get('Feat_Mounted_Combatant')\

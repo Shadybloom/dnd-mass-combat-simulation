@@ -1083,6 +1083,53 @@ class gen_spells():
 
     @modify_spell
     @update_spell_dict
+    def Shocking_Grasp(self, spell_level, gen_spell = False, spell_dict = False):
+        """Электрошок.
+
+        Level: Cantrip
+        Casting time: 1 Action
+        Range: Touch
+        Components: V, S
+        Duration: Instantaneous
+        https://www.dnd-spells.com/spell/shocking-grasp
+        """
+        # Преимущество по бойцам в доспехах из металла в test_enemy_defence.
+        if not spell_dict:
+            spell_dict = {
+                    'debuff':True,
+                    'effect':'shocking_grasp',
+                    'effect_timer':2,
+                    'attacks_number':1,
+                    'attack_range':5,
+                    'damage_type':'lightning',
+                    'damage_dice':'1d8',
+                    'components':['verbal','somatic'],
+                    'casting_time':'action',
+                    'spell_level':spell_level,
+                    'damage_mod':0,
+                    'attack_mod':self.find_spell_attack_mod(),
+                    'spell_save_DC':8 + self.find_spell_attack_mod(),
+                    'spell_of_choice':'Shocking_Grasp',
+                    'school':'evocation',
+                    }
+            spell_dict = copy.deepcopy(spell_dict)
+        if self.mage.level >= 5:
+            spell_dict['damage_dice'] = '2d8'
+        if self.mage.level >= 11:
+            spell_dict['damage_dice'] = '3d8'
+        if self.mage.level >= 17:
+            spell_dict['damage_dice'] = '4d8'
+        if gen_spell:
+            if not spell_dict.get('target_uuid'):
+                soldier = self.mage
+            else:
+                soldier = self.mage.metadict_soldiers[spell_dict['target_uuid']]
+                if soldier.reaction:
+                    soldier.reaction = False
+        return spell_dict
+
+    @modify_spell
+    @update_spell_dict
     def Acid_Splash(self, spell_level, gen_spell = False, spell_dict = False):
         """Брызги кислоты.
         
