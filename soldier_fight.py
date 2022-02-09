@@ -3264,7 +3264,8 @@ class soldier_in_battle(soldier):
         # У схваченного отбирают всё оружие, чтобы не натворил дел, если вдруг очнётся:
         if enemy_soldier.grappled\
                 or not enemy_soldier.near_allies and enemy_soldier.near_enemies and not self.hero:
-            self.loot_enemy(enemy_soldier, use_action = True)
+            if self.hitpoints > 0:
+                self.loot_enemy(enemy_soldier, use_action = True)
         # Оружие и щит выпадают из рук:
         if enemy_soldier.shield_ready:
             enemy_soldier.unset_shield(disarm = True)

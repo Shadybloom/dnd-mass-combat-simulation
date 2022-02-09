@@ -4289,7 +4289,8 @@ class battle_simulation(battlescape):
                             enemy_soldier = self.metadict_soldiers.get(enemy_uuid, None)
                             if enemy_soldier:
                                 if enemy_soldier.captured or enemy_soldier.death:
-                                    soldier.loot_enemy(enemy_soldier)
+                                    if soldier.hitpoints > 0:
+                                        soldier.loot_enemy(enemy_soldier)
 
     def print_battle_statistics(self, short = False):
         """Вывод статистики после боя. Убитые, раненые по отрядам."""
