@@ -2573,6 +2573,8 @@ class gen_spells():
                     'effect':'shield',
                     'effect_timer':1,
                     'attack_range':0,
+                    'damage_type':'shield',
+                    'healing_mod':5,
                     'components':['verbal','somatic'],
                     'casting_time':'reaction',
                     'spell_level':spell_level,

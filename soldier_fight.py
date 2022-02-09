@@ -2827,10 +2827,11 @@ class soldier_in_battle(soldier):
             # И защищает от волшебных стрел:
             armor_class_before = armor_dict['armor_class']
             if 'shield' in self.buffs:
-                armor_dict['armor_class_no_impact'] += 5
-                armor_dict['armor_class_shield_impact'] += 5
-                armor_dict['armor_class_armor_impact'] += 5
-                armor_dict['armor_class'] += 5
+                armor_bonus = self.buffs['shield']['healing_mod']
+                armor_dict['armor_class_no_impact'] += armor_bonus
+                armor_dict['armor_class_shield_impact'] += armor_bonus
+                armor_dict['armor_class_armor_impact'] += armor_bonus
+                armor_dict['armor_class'] += armor_bonus
                 if attack_dict.get('direct_hit'):
                     # Защищает от волшебных стрел:
                     if attack_choice[-1] == 'Magic_Missile':
@@ -2838,15 +2839,6 @@ class soldier_in_battle(soldier):
                     # Защищает от бронебойных пуль, вместо savethrow_all проверка armor_class:
                     if 'firearm' in attack_dict.get('weapon_type',[]):
                         attack_dict['direct_hit'] = False
-                # Вывод результата:
-                # TODO: в отдельную функцию.
-                #if attack_dict.get('attack', 0) >= armor_class_before\
-                #        and attack_dict.get('attack',0) < (armor_dict['armor_class'])\
-                #        and not attack_dict['attack_crit']:
-                #    print('[+++] {0} {1} {2} reaction Shield {3}/{4} << {5} atc {6} dmg {7}'.format(
-                #        self.ally_side, self.place, self.behavior,
-                #        armor_dict['armor_class'], armor_class_before,
-                #        attack_choice, attack_dict['attack'], attack_dict['damage']))
             return armor_dict
         return wrapper
 
@@ -2934,7 +2926,6 @@ class soldier_in_battle(soldier):
             armor_dict['armor_class_shield_impact'] += armor_bonus
             armor_dict['armor_class_armor_impact'] += armor_bonus
             armor_dict['armor_class'] += armor_bonus
-            print(armor_dict)
         # Ловкое парирование кенсэя даёт +2 AC
         if self.agile_parry:
             armor_dict['armor_class_no_impact'] += 2
