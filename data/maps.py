@@ -82,6 +82,16 @@ duel_map_ship_deck = (
         '||||||||||||||||||||||||||||||',
         )
 
+duel_map_ship_gang = (
+        # Кубрик Гангсвэя, пороховой погреб, атака тензиной банды.
+        '||||||||||||||||||',
+        '.0......c!.ceee.5|',
+        '.1......c!.ceee.6|',
+        '.2......c!.ceee.7|',
+        '.3.......!.ceee..|',
+        '||||||||||||||||||',
+        )
+
 duel_map_near = (
         '5c',
         '--',
@@ -224,6 +234,18 @@ battle_map_ship_deck = (
         '14wwwce!.!eecwwwwwwwwwwwwww54.',
         '15wwwce!.!eecwwwwwwwwwwwwww55.',
         '16wwwce!.!eecwwwwwwwwwwwwww56.',
+        '||||||||||||||||||||||||||||||',
+        )
+
+battle_map_ship_deck_surround = (
+        # Палуба Ганг-и-Савайя
+        '||||||||||||||||||||||||||||||',
+        '11wwwce!.!eecwwwwwwwwwww51!21.',
+        '12wwwce!.!eecwwwwwwwwwww52!ww.',
+        '13wwwce!.!eecwwwwwwwwwww53!ww.',
+        '14wwwce!.!eecwwwwwwwwwww54!ww.',
+        '15wwwce!.!eecwwwwwwwwwww55!ww.',
+        '16wwwce!.!eecwwwwwwwwwww56!ww.',
         '||||||||||||||||||||||||||||||',
         )
 
