@@ -2827,7 +2827,7 @@ class soldier_in_battle(soldier):
             # И защищает от волшебных стрел:
             armor_class_before = armor_dict['armor_class']
             if 'shield' in self.buffs:
-                armor_bonus = self.buffs['shield']['healing_mod']
+                armor_bonus = self.buffs['shield'].get('healing_mod',5)
                 armor_dict['armor_class_no_impact'] += armor_bonus
                 armor_dict['armor_class_shield_impact'] += armor_bonus
                 armor_dict['armor_class_armor_impact'] += armor_bonus
@@ -2921,7 +2921,7 @@ class soldier_in_battle(soldier):
             attack_dict['direct_hit'] = False
         # Заклинание "Shield_of_Faith" даёт +2 AC:
         if 'shield_of_faith' in self.buffs:
-            armor_bonus = self.buffs['shield_of_faith']['healing_mod']
+            armor_bonus = self.buffs['shield_of_faith'].get('healing_mod',2)
             armor_dict['armor_class_no_impact'] += armor_bonus
             armor_dict['armor_class_shield_impact'] += armor_bonus
             armor_dict['armor_class_armor_impact'] += armor_bonus
