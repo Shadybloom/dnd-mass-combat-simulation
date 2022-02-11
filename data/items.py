@@ -84,7 +84,12 @@ sling_bullets = [
 muskete_bullets = [
         'Muskete Bullet',
         'Muskete Bullet +1',
+        'Muskete Bullet, birdshot',
+        ]
+
+muskete_bullets_big = [
         'Muskete Bullet, big',
+        'Muskete Bullet, bess',
         'Muskete Bullet, birdshot',
         ]
 
@@ -642,7 +647,7 @@ metadict_items['Muskete, big'] = {
     'savethrow':True,
     'savethrow_all':True,
     'savethrow_ability':'dexterity',
-    'ammo_type':muskete_bullets,
+    'ammo_type':muskete_bullets_big,
     'weapon_type':['martial','ranged','two_handed','firearm','volley','reload'],
     # Перезарядка за раунд с вероятностью 30%
     'recharge':True,
@@ -677,6 +682,28 @@ metadict_items['Muskete, Lorenzony'] = {
     'weight (lb)':10,
     'cost (gp)':60 * 2,
     'cost (grams_of_gold)':60 * 2,
+    }
+
+metadict_items['Muskete, Brown Bess'] = {
+    # Ружье Микеле Лоренцони -- 10 выстрелов/минуту
+    'weapon':True,
+    'direct_hit':True,
+    'savethrow':True,
+    'savethrow_all':True,
+    'savethrow_ability':'dexterity',
+    'ammo_type':muskete_bullets_big,
+    'weapon_type':['martial','ranged','two_handed','firearm','volley','reload'],
+    'recharge':True,
+    'Recharge_magazine_max':2,
+    'Recharge_magazine':2,
+    'Recharge_dice':'1d6',
+    'Recharge_numbers':[5,6],
+    'shoot_range':100,
+    'shoot_range_max':200,
+    'shoot_range_volley':600,
+    'weight (lb)':10,
+    'cost (gp)':60 * 10,
+    'cost (grams_of_gold)':60 * 10,
     }
 
 metadict_items['Muskete, van Graf'] = {
@@ -2983,6 +3010,16 @@ metadict_items['Muskete Bullet, big'] = {
     'damage_dice':'2d8',
     'damage_type':'piercing',
     'weight (lb)':0.3,
+    'cost (sp)':3 / 20,
+    'cost (grams_of_gold)':12 / 60,
+    }
+
+metadict_items['Muskete Bullet, bess'] = {
+    # Патроны Смуглянки Бес.
+    'ammo':True,
+    'damage_dice':'2d10',
+    'damage_type':'piercing',
+    'weight (lb)':0.5,
     'cost (sp)':3 / 20,
     'cost (grams_of_gold)':12 / 60,
     }
