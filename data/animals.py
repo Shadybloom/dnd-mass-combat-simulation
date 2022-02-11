@@ -434,6 +434,13 @@ metadict_animals['Ship frigate (cloth-element-huge)'] = {
 #----
 # Корабли, Чёрные флаги Ост-Индии (набор судна)
 
+metadict_animals['Ship sloop (шпангоут)'] = {
+    'base_unit':'Ship frigate (wood-element-medium)',
+    'behavior':'commander',
+    'hitpoints_base':120,
+    'damage_treshold':20,
+    }
+
 metadict_animals['Ship frigate (шпангоут)'] = {
     # 24 дюйма, 240 hp, 2.2 тонны, 60 блоков/фрегат
     'base_unit':'Ship frigate (wood-element-medium)',
@@ -461,9 +468,14 @@ metadict_animals['Ship frigate (руль)'] = {
 #----
 # Корабли, Чёрные флаги Ост-Индии (обшивка)
 
+metadict_animals['Ship sloop (обшивка борта)'] = {
+    'base_unit':'Ship frigate (wood-element-big)',
+    'behavior':'elite_warrior',
+    'hitpoints_base':60,
+    }
+
 metadict_animals['Ship frigate (обшивка борта)'] = {
     # 9 дюймов, 90 hp, 2 тонны, 15 блоков/фрегат
-    # Усилена заклинанием Arcane_Lock
     'base_unit':'Ship frigate (wood-element-big)',
     'behavior':'elite_warrior',
     'hitpoints_base':90,
@@ -471,7 +483,6 @@ metadict_animals['Ship frigate (обшивка борта)'] = {
 
 metadict_animals['Ship frigate (обшивка днища)'] = {
     # 9 дюймов, 90 hp, 2 тонны, 30 блоков/фрегат
-    # Покрыта 1-мм медными листами.
     'base_unit':'Ship frigate (wood-element-big)',
     'hitpoints_base':90,
     }
