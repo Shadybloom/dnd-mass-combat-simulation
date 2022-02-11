@@ -2960,6 +2960,8 @@ class battle_simulation(battlescape):
                 spell_dict = soldier.try_spellcast(spell_choice)
             else:
                 spell_dict = soldier.spells[spell_choice]
+            if not spell_dict:
+                return False
             attacks_number = spell_dict['attacks_number']
             spell_chain = [spell_choice] * attacks_number
             while spell_chain:
@@ -3612,6 +3614,9 @@ class battle_simulation(battlescape):
                 attack_range = round(spell_dict['attack_range'] / self.tile_size)
                 if squad.enemies and attack_range < squad.enemy_recon['distance']:
                     continue
+                # Это костыль для отдельного боя:
+                #if spell_choice == ('cantrip', 'Mage_Hand'):
+                #    continue
                 # Пропускаем заклинание по команде:
                 if 'fireball_manual' in soldier.commands and auto_test\
                         and spell_choice[0].split('_')[0].isnumeric():
