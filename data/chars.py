@@ -14447,6 +14447,60 @@ metadict_chars['Monk 13 lvl (Намулис)'] = {
 #----
 # Свои (Shady) (Тенза Йозора):
 
+metadict_chars['Warrior 3 lvl (Тензина девчонка)'] = {
+    'base_unit':'Warrior 3 lvl (fusilier line-infantry-corporal)',
+    'behavior':'elite_warrior',
+    'equipment_weapon':{
+        'Infusion of Longstrider':1,
+        'Scimitar':1,
+        'Shield':1,
+        'Muskete, Lorenzony':1,
+        'Muskete Bullet':30,
+        'Smoke Grenade':1,
+        },
+    }
+
+metadict_chars['Warrior 4 lvl (Тензина девчонка поопытнее)'] = {
+    'base_unit':'Warrior 4 lvl (fusilier line-infantry-sergeant)',
+    'equipment_weapon':{
+        'Rune of Armor':1,
+        'Infusion of Longstrider':1,
+        'Scimitar':1,
+        'Shield':1,
+        'Muskete, Lorenzony':1,
+        'Muskete Bullet':30,
+        'Smoke Grenade':1,
+        },
+    }
+
+metadict_chars['Warrior 5 lvl (Шакти)'] = {
+    'base_unit':'Warrior 5 lvl (fusilier line-infantry-lieutenant)',
+    'hitpoints_medial':True,
+    'abilityes':{
+        'strength':12,
+        'dexterity':16,
+        'constitution':14,
+        'intelligence':10,
+        'wisdom':6,
+        'charisma':16,
+        },
+    'class_features':{
+        'Fighting_Style_Archery':True,
+        'Feat_Inspiring_Leader':True,
+        'Extra_Attack':True,
+        },
+    'equipment_weapon':{
+        'Rune of Armor':1,
+        'Rune of Message':1,
+        'Infusion of Longstrider':1,
+        'Dagger':1,
+        #'Scimitar':1,
+        'Muskete, Brown Bess':1,
+        'Muskete Bullet, bess':30,
+        'Smoke Grenade':1,
+        },
+    }
+
 metadict_chars['Artificier 5 lvl (Shady) (Тенза Йозора)'] = {
     'level':5,
     'sneak_AI':True,
@@ -14773,11 +14827,8 @@ metadict_chars['Bard 5 lvl (firesalamander) (Джон Кук)'] = {
 # Свои (Гримсон) (Тим Серый):
 
 metadict_chars['Artificier 5 lvl (Гримсон) (Тим Серый)'] = {
-    # TODO:
-    # Shocking_Grasp доделай. Преимущество, если на цели металлические доспехи.
-    # Проставь метки на доспехи. Бонус урона от Arcane_Firearm проверь. Должен быть.
-    # ----
     'level':5,
+    #'accurate_AI':True,
     'striker_AI':True,
     'firearm_AI':True,
     'fireball_AI':True,

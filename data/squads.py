@@ -578,6 +578,14 @@ metadict_squads['Ship frigate (рангоут)'] = {
     }
 
 #----
+# Корабли (Чёрные флаги Ост-Индии) (шлюп):
+
+metadict_squads['Ship sloop (верхняя палуба) (борт)'] = {
+    'Ship sloop (шпангоут)':9,
+    'Ship sloop (обшивка борта)':9,
+    }
+
+#----
 # Корабли:
 
 metadict_squads['Ship (trage)'] = {
@@ -2240,11 +2248,20 @@ metadict_squads['Single-hero (лично Намулис) (враг)'] = {
     }
 
 #----
-# Команда Фэнси:
+# Сами-по-себе кошки:
+
+metadict_squads['Band-hero (свита Тензы Йозоры) (Shady)'] = {
+    'Warrior 3 lvl (Тензина девчонка)':6,
+    'Warrior 4 lvl (Тензина девчонка поопытнее)':1,
+    'Warrior 5 lvl (Шакти)':1,
+    }
 
 metadict_squads['Single-hero (лично Тенза Йозора) (Shady)'] = {
     'Artificier 5 lvl (Shady) (Тенза Йозора)':1,
     }
+
+#----
+# Команда Фэнси:
 
 metadict_squads['Single-hero (лично Питер Янсен) (Katorjnik)'] = {
     'Ranger 5 lvl (Katorjnik) (Питер Янсен)':1,
