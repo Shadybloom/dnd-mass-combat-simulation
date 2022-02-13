@@ -156,6 +156,8 @@ class soldier_in_battle(soldier):
                 rest_heal = dices.dice_throw_advantage(self.hit_dice) + self.mods['constitution']
                 self.set_hitpoints(heal = rest_heal)
                 self.hit_dices_use += 1
+        if self.hitpoints > 0 and self.fall:
+            self.fall = False
 
     def set_short_rest_restoration(self):
         """Короткий отдых (1 час). Восстанавливает способности.
