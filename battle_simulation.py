@@ -377,34 +377,46 @@ class battle_simulation(battlescape):
         - стабилизация раненого возвращает ему 1 hp.
         - перевязка на 1d6+4 + максимум_кости_хитов
         - только одна перевязка перед коротким/продолжительным отдыхом.
+
+        Homebrew (теперь так):
+        за минуту работы восстанавливает хиты в количестве
+        бонус_мастерства_лекаря + модификатор_мудрости_лекаря + кость_хитов_пациента
+        тратя при этом кость хитов пациента.
         """
         bless_list = []
         bless_type = 'treated'
         for soldier in squad.metadict_soldiers.values():
             if soldier.class_features.get('Feat_Healer'):
-                bless_list.append(dices.dice_throw_advantage("1d6") + 4)
+                proficiency_bonus = soldier.proficiency_bonus
+                bless_list.append(soldier.uuid)
         soldiers_list_elite = self.select_soldiers_for_bless(
                 len(self.metadict_soldiers), squad.ally_side, bless_type)
         # Лечим раненых:
         for soldier in soldiers_list_elite:
             if not soldier.disabled and not soldier.death:
-                if bless_list and soldier.hitpoints <= soldier.hitpoints_max / 2\
-                        or bless_list and heal_all and soldier.hitpoints < soldier.hitpoints_max:
-                    #print(bless_type, soldier.rank)
-                    max_hit_dice = int(soldier.hit_dice.split('d')[1])
-                    heal = bless_list.pop() + max_hit_dice
-                    soldier.set_hitpoints(heal = heal)
-                    soldier.treated = True
-                    #soldier.fall = False
-                    #print('{side} Feat_Healer, {p} {b} {n} heal: {hit}/{hit_max} ({heal})'.format(
-                    #    side = soldier.ally_side,
-                    #    p = soldier.place,
-                    #    b = soldier.behavior,
-                    #    n = soldier.name,
-                    #    hit = soldier.hitpoints,
-                    #    hit_max = soldier.hitpoints_max,
-                    #    heal = heal,
-                    #    ))
+                if bless_list and soldier.hitpoints <= soldier.hitpoints_max * 0.5\
+                        or bless_list and heal_all and soldier.hitpoints <= soldier.hitpoints_max * 0.8:
+                    # Солдат лечится за счёт навыка лекаря, используя свою кость хитов:
+                    if soldier.hit_dices_use < soldier.level:
+                        healer_uuid = bless_list.pop()
+                        healer = self.metadict_soldiers[healer_uuid]
+                        healer.drop_action(('long_action', 'Feat_Healer'))
+                        heal_bonus = healer.proficiency_bonus + healer.mods['wisdom']
+                        heal = dices.dice_throw_advantage(soldier.hit_dice) + heal_bonus
+                        soldier.set_hitpoints(heal = heal)
+                        soldier.hit_dices_use += 1
+                        #soldier.treated = True
+                        if soldier.hitpoints > 0 and soldier.fall:
+                            soldier.fall = False
+                        print('{side} Feat_Healer, {p} {b} {n} heal: {hit}/{hit_max} ({heal})'.format(
+                            side = soldier.ally_side,
+                            p = soldier.place,
+                            b = soldier.behavior,
+                            n = soldier.name,
+                            hit = soldier.hitpoints,
+                            hit_max = soldier.hitpoints_max,
+                            heal = heal,
+                            ))
 
     def set_squad_buffs(self, squad):
         """Кастеры баффают солдат.
@@ -431,10 +443,11 @@ class battle_simulation(battlescape):
                 soldiers_list = self.select_soldiers_for_bless(spell_dict['attacks_number'],
                         squad.ally_side, spell_dict['effect'])
                 for ally_soldier in soldiers_list:
-                    soldier.try_spellcast('Bardic_Inspiration',
-                            gen_spell = {'target_uuid':ally_soldier.uuid},
-                            use_action = False, use_spell_slot = 'feature')
-                    #print(ally_soldier.rank, ally_soldier.buffs.keys())
+                    if soldier.inspiring_bard_number:
+                        soldier.try_spellcast('Bardic_Inspiration',
+                                gen_spell = {'target_uuid':ally_soldier.uuid},
+                                use_action = False, use_spell_slot = 'feature')
+                        #print(ally_soldier.rank, ally_soldier.buffs.keys())
 
     def set_squad_spells_bless(self, squad):
         """Жрецы и маги обкастовывают союзников, начиная с командиров.
@@ -566,8 +579,7 @@ class battle_simulation(battlescape):
         Сначала офицеры, затем ветераны, после обычные бойцы.
         Ездовых животных не выбираем.
         """
-        # TODO: В список не должны включаться объекты с тегом mechanism
-        # А вот лошадок можно и нужно лечить, добавь параметр get_all
+        # TODO: Лошадок можно и нужно лечить, добавь параметр get_all
         soldiers_list = [ ] 
         max_level = max([soldier.level for soldier in self.metadict_soldiers.values()])
         # Сначала выбираем героев, а затем командиров и простых бойцов:
@@ -576,6 +588,7 @@ class battle_simulation(battlescape):
                 if not number <= 0\
                         and soldier.hero\
                         and not soldier.behavior == 'mount'\
+                        and not soldier.__dict__.get('mechanism')\
                         and not soldier.__dict__.get(bless_type)\
                         and not bless_type in soldier.__dict__.get('buffs',{})\
                         and soldier.ally_side == ally_side\
@@ -587,6 +600,7 @@ class battle_simulation(battlescape):
                 if not number <= 0\
                         and not soldier.hero\
                         and not soldier.behavior == 'mount'\
+                        and not soldier.__dict__.get('mechanism')\
                         and not soldier.__dict__.get(bless_type)\
                         and not bless_type in soldier.__dict__.get('buffs',{})\
                         and soldier.ally_side == ally_side\
