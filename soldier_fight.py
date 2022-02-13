@@ -851,7 +851,7 @@ class soldier_in_battle(soldier):
     def set_cunning_action_defence(self):
         """Защитные приёмы вора."""
         # Homebrew для кошек. У обычных воров только Рывок, Отход и Засада.
-        if self.class_features.get('Cunning_Action'):
+        if self.class_features.get('Cunning_Action_Defence'):
             if self.bonus_action == True:
                 self.drop_action(('bonus_action', 'Dodge_Action_Rogue'))
                 self.bonus_action = False
