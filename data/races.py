@@ -211,9 +211,9 @@ dict_races = {
             'height_mod_dice':'1d2',
             'weight_base_lb':50,
             'weight_mod_dice':'1d2',
-            'dexterity':+2,
-            'intelligence':+1,
-            'wisdom':+1,
+            'dexterity':+4,
+            #'intelligence':+1,
+            #'wisdom':+1,
             },
         'Horse':{
             # Верховые кони (высота в холке).

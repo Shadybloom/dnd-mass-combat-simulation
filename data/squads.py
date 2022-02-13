@@ -2142,6 +2142,11 @@ metadict_squads['Squad-veteran (абордажники флота)'] = {
     'Commoner 1 lvl (recruit)':35,
     }
 
+metadict_squads['Squad-veteran (абордажники флота) (кошки)'] = {
+    'Warrior 2 lvl (абордажник-ветеран) (кошка)':25 + dice_throw('2d4'),
+    'Warrior 5 lvl (абордажник-лейтенант) (котяра)':1,
+    }
+
 #----
 # Армия Эвери:
 

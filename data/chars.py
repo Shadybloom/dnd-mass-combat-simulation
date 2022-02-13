@@ -13584,6 +13584,53 @@ metadict_chars['Warrior 5 lvl (капитан Тави)'] = {
 #-------------------------------------------------------------------------------
 # Чёрные флаги Ост-Индии, Black Flags
 
+metadict_chars['Warrior 2 lvl (абордажник-ветеран) (кошка)'] = {
+    'sneak_AI':True,
+    'grappler_AI':True,
+    'disengage_AI':True,
+    'base_unit':'Warrior 2 lvl (grenadier line-infantry-veteran)',
+    'char_class':'Warrior-pirate',
+    'race':'Cat-hero',
+    'class_features':{
+        'Cunning_Action':True,
+        'Cunning_Action_Defence':True,
+        'Fighting_Style_Blind_Fighting':True,
+        },
+    'equipment_weapon':{
+        'Potion of Heroism':1,
+        'Potion of Antidote':1,
+        'Infusion of Claws':1,
+        'Hand Grenade':10,
+        'Smoke Grenade':2,
+        },
+    }
+
+metadict_chars['Warrior 5 lvl (абордажник-лейтенант) (котяра)'] = {
+    'sneak_AI':True,
+    'grappler_AI':True,
+    'disengage_AI':True,
+    'base_unit':'Warrior 5 lvl (grenadier line-infantry-lieutenant)',
+    'char_class':'Warrior-pirate',
+    'race':'Cat-hero',
+    'class_features':{
+        'Cunning_Action':True,
+        'Cunning_Action_Defence':True,
+        'Fighting_Style_Blind_Fighting':True,
+        'Feat_Inspiring_Leader':True,
+        'Extra_Attack':True,
+        },
+    'equipment_weapon':{
+        'Potion of Heroism':1,
+        'Potion of Antidote':1,
+        'Infusion of Claws':1,
+        'Infusion of Vitality':1,
+        'Rune of Shielding':1,
+        'Rune of Armor':1,
+        'Hand Grenade':10,
+        'Smoke Grenade':2,
+        },
+    }
+
 #----
 # Союзники (армия) (Генри Эвери):
 
@@ -13675,7 +13722,7 @@ metadict_chars['Warrior 5 lvl (лейтенант Эвери)'] = {
         'Rune of Absorbtion':1,
         'Breastplate, 17 century':1,
         'Halberd':1,
-        'Sabre':1,
+        'Sabre +1':1,
         'Shield':1,
         'Pistol, Lorenzony':1,
         'Muskete Bullet':30,
@@ -13720,7 +13767,7 @@ metadict_chars['Warrior 5 lvl (лейтенант Эвери) (лидер)'] = {
         'Rune of Absorbtion':1,
         'Breastplate, 17 century':1,
         'Halberd':1,
-        'Sabre':1,
+        'Sabre +1':1,
         'Shield':1,
         'Pistol, Lorenzony':1,
         'Muskete Bullet':30,
