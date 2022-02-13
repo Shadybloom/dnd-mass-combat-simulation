@@ -1745,12 +1745,12 @@ metadict_items['Warhorse'] = {
 # https://www.dandwiki.com/wiki/5e_SRD:Adventuring_Gear
 
 metadict_items['Healer Kit'] = {
-    # На 10 использований:
+    # На 100 использований:
     'gear':True,
     'healer':True,
-    'weight (lb)':3,
-    'cost (gp)':5,
-    'cost (grams_of_gold)':5,
+    'weight (lb)':30,
+    'cost (gp)':60 * 10,
+    'cost (grams_of_gold)':60 * 10,
     }
 
 metadict_items['Clothes, Common'] = {

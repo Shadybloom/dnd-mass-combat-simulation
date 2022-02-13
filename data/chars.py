@@ -2190,6 +2190,75 @@ metadict_chars['Warrior 4 lvl (cannoneer-sergeant)'] = {
         },
     }
 
+#----
+# Вспомогательные войска, лекари.
+
+metadict_chars['Warrior 4 lvl (healer-sergeant)'] = {
+    # Санитар
+    'level':4,
+    'char_class':'Warrior-healer',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Archery':True,
+        'Feat_Healer':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        #'Potion of Heroism':1,
+        #'Potion of Antidote':1,
+        'Rune of Armor':1,
+        'Rune of Absorbtion':1,
+        'Shield':1,
+        'Sabre':1,
+        'Pistol, Lorenzony':1,
+        'Muskete Bullet':30,
+        'Smoke Grenade':1,
+        'Healer Kit':1,
+        },
+    #'mount_combat':False,
+    #'mount_type':'Riding Horse',
+    #'equipment_mount':{
+    #    },
+    }
+
+metadict_chars['Warrior 5 lvl (healer-lieutenant)'] = {
+    'level':5,
+    'char_class':'Warrior-healer',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'class_features':{
+        'Fighting_Style_Archery':True,
+        'Feat_Healer':True,
+        'Extra_Attack':True,
+        },
+    'race':'Human-common',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        #'Potion of Heroism':1,
+        #'Potion of Antidote':1,
+        'Rune of Armor':1,
+        'Rune of Absorbtion':1,
+        'Rune of Shielding':1,
+        'Shield':1,
+        'Sabre':1,
+        'Pistol, Lorenzony':1,
+        'Muskete Bullet':30,
+        'Smoke Grenade':1,
+        'Healer Kit':1,
+        },
+    #'mount_combat':False,
+    #'mount_type':'Riding Horse',
+    #'equipment_mount':{
+    #    },
+    }
 
 #----
 # Стрелки с фузилями, фузилёры.
@@ -14187,6 +14256,7 @@ metadict_chars['Wizard 13 lvl (Салиф)'] = {
             #('5_lvl', 'Scrying'),
             #('5_lvl', 'Cone_of_Cold'),
             #('5_lvl', 'Cloudkill'),
+            #('5_lvl', 'Teleportation_Circle'),
             # ----
             #('6_lvl', 'Soul_Cage'),
             #('6_lvl', 'Arcane_Gate'),

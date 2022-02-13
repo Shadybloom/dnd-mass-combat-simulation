@@ -328,6 +328,13 @@ metadict_squads['Company-veteran (pirate-infantry-fusiliers)'] = {
 #----
 # Тестовые отряды (Чёрные флаги Ост-Индии)
 
+metadict_squads['Band-regular (black-flags) (healers)'] = {
+    # Испытываем свиты героев.
+    'Warrior 4 lvl (healer-sergeant)':3,
+    'Warrior 5 lvl (healer-lieutenant)':1,
+    'Commoner 1 lvl (recruit)':6,
+    }
+
 metadict_squads['Band-regular (black-flags) (assault, 8)'] = {
     # Испытываем свиты героев.
     'Warrior 3 lvl (grenadier line-infantry-corporal) (assault)':6,
@@ -2258,6 +2265,11 @@ metadict_squads['Band-hero (свита Тензы Йозоры) (Shady)'] = {
 
 metadict_squads['Single-hero (лично Тенза Йозора) (Shady)'] = {
     'Artificier 5 lvl (Shady) (Тенза Йозора)':1,
+    }
+
+metadict_squads['Single-hero (лично Януш Кобыла) (Динки)'] = {
+    # Сын Стефана Кобылы, конезаводчика с Гангсвэя.
+    'Warrior 5 lvl (healer-lieutenant)':1,
     }
 
 #----
