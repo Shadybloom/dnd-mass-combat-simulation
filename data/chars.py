@@ -4593,8 +4593,7 @@ metadict_chars['Warlock 1 lvl (otherworld seeker-follower)'] = {
     'class_features':{
         #'Feat_Elemental_Adept':'fire',
         'Feat_Spellsniper':True,
-        'Otherworldly_Patron':True,
-        'Otherworldly_Patron_The_Fiend':True,
+        'Otherworldly_Patron':'Fiend',
         'Pact_Magic':True,
         'Spells':[
             ('cantrip', 'Eldritch_Blast'),
@@ -4638,8 +4637,7 @@ metadict_chars['Warlock 2 lvl (otherworld seeker-adept)'] = {
     'class_features':{
         #'Feat_Elemental_Adept':'fire',
         'Feat_Spellsniper':True,
-        'Otherworldly_Patron':True,
-        'Otherworldly_Patron_The_Fiend':True,
+        'Otherworldly_Patron':'Fiend',
         'Pact_Magic':True,
         'Spells':[
             ('cantrip', 'Eldritch_Blast'),
@@ -4681,8 +4679,7 @@ metadict_chars['Warlock 3 lvl (otherworld seeker-emissary)'] = {
     'class_features':{
         #'Feat_Elemental_Adept':'fire',
         'Feat_Spellsniper':True,
-        'Otherworldly_Patron':True,
-        'Otherworldly_Patron_The_Fiend':True,
+        'Otherworldly_Patron':'Fiend',
         'Pact_Magic':True,
         'Spells':[
             ('cantrip', 'Eldritch_Blast'),
@@ -4736,8 +4733,7 @@ metadict_chars['Warlock 4 lvl (otherworld seeker-envoy)'] = {
     'class_features':{
         #'Feat_Elemental_Adept':'fire',
         'Feat_Spellsniper':True,
-        'Otherworldly_Patron':True,
-        'Otherworldly_Patron_The_Fiend':True,
+        'Otherworldly_Patron':'Fiend',
         'Pact_Magic':True,
         'Spells':[
             ('cantrip', 'Eldritch_Blast'),
@@ -4790,8 +4786,7 @@ metadict_chars['Warlock 5 lvl (otherworld seeker-ascendant)'] = {
     'class_features':{
         #'Feat_Elemental_Adept':'fire',
         'Feat_Spellsniper':True,
-        'Otherworldly_Patron':True,
-        'Otherworldly_Patron_The_Fiend':True,
+        'Otherworldly_Patron':'Fiend',
         'Pact_Magic':True,
         'Spells':[
             ('cantrip', 'Eldritch_Blast'),
@@ -10150,8 +10145,7 @@ metadict_chars['Warlock 1 lvl (колдун Кара\'Яма)'] = {
     'behavior':'archer',
     'class_features':{
         'Feat_Mounted_Combatant':True,
-        'Otherworldly_Patron':True,
-        'Otherworldly_Patron_The_Fiend':True,
+        'Otherworldly_Patron':'Fiend',
         'Pact_Magic':True,
         'Spells':[
             ('cantrip', 'Eldritch_Blast'),
@@ -10199,8 +10193,7 @@ metadict_chars['Warlock 5 lvl (Кара\'Ям)'] = {
         },
     'class_features':{
         'Feat_Mounted_Combatant':True,
-        'Otherworldly_Patron':True,
-        'Otherworldly_Patron_The_Fiend':True,
+        'Otherworldly_Patron':'Fiend',
         'Pact_Magic':True,
         'Spells':[
             # Unseen_Servant для разминирования. Для учеников.
@@ -10259,8 +10252,7 @@ metadict_chars['Warlock 1 lvl (колдун Кема\'Эша)'] = {
     'behavior':'archer',
     'class_features':{
         'Feat_Mounted_Combatant':True,
-        'Otherworldly_Patron':True,
-        'Otherworldly_Patron_The_Fiend':True,
+        'Otherworldly_Patron':'Fiend',
         'Pact_Magic':True,
         'Spells':[
             ('cantrip', 'Eldritch_Blast'),
@@ -10309,8 +10301,7 @@ metadict_chars['Warlock 5 lvl (Кема\'Эш)'] = {
         },
     'class_features':{
         'Feat_Mounted_Combatant':True,
-        'Otherworldly_Patron':True,
-        'Otherworldly_Patron_The_Fiend':True,
+        'Otherworldly_Patron':'Fiend',
         'Pact_Magic':True,
         'Spells':[
             ('cantrip', 'Eldritch_Blast'),
@@ -11637,8 +11628,7 @@ metadict_chars['Warlock 3 lvl (колдун Чары)'] = {
             },
         #'Feat_Spellsniper':True,
         #'Feat_Elemental_Adept':'fire',
-        'Otherworldly_Patron':True,
-        'Otherworldly_Patron_The_Fiend':True,
+        'Otherworldly_Patron':'Fiend',
         'Pact_Magic':True,
         'Spells':[
             # Дополнительный кантрип за Feat_Spellsniper
@@ -11710,8 +11700,7 @@ metadict_chars['Warlock 11 lvl (Чара Атенак)'] = {
             },
         #'Feat_Spellsniper':True,
         #'Feat_Elemental_Adept':'fire',
-        'Otherworldly_Patron':True,
-        'Otherworldly_Patron_The_Fiend':True,
+        'Otherworldly_Patron':'Fiend',
         'Pact_Magic':True,
         'Spells':[
             # Дополнительный кантрип за Feat_Spellsniper
@@ -13103,7 +13092,7 @@ metadict_chars['Warlock 2 lvl (гневнорожка Козы)'] = {
     'hit_dice':'1d8',
     'behavior':'elite_warrior',
     'class_features':{
-        'Otherworldly_Patron':True,
+        'Otherworldly_Patron':'Archfey',
         'Pact_Magic':True,
         'Spells':[
             ('cantrip', 'Thunderclap'),
@@ -13132,8 +13121,7 @@ metadict_chars['Warlock 3 lvl (главнорожка Козы)'] = {
     'hit_dice':'1d8',
     'behavior':'commander',
     'class_features':{
-        'Otherworldly_Patron':True,
-        'Otherworldly_Patron_The_Fiend':True,
+        'Otherworldly_Patron':'Archfey',
         'Pact_Magic':True,
         'Spells':[
             ('cantrip', 'Thunderclap'),
@@ -13171,8 +13159,7 @@ metadict_chars['Warlock 3 lvl (Сефо Форонейская)'] = {
     'behavior':'commander',
     'class_features':{
         # TODO: пакт фамильяра
-        'Otherworldly_Patron':True,
-        'Otherworldly_Patron_The_Fiend':True,
+        'Otherworldly_Patron':'Archfey',
         'Pact_Magic':True,
         'Spells':[
             ('cantrip', 'Thunderclap'),
@@ -13219,8 +13206,7 @@ metadict_chars['Warlock 2 lvl (колдун Кема\'Эша)'] = {
     'behavior':'archer',
     'class_features':{
         'Feat_Mounted_Combatant':True,
-        'Otherworldly_Patron':True,
-        'Otherworldly_Patron_The_Archfey':True,
+        'Otherworldly_Patron':'Fiend',
         'Pact_Magic':True,
         'Spells':[
             ('cantrip', 'Shape_Water'),
@@ -13276,8 +13262,7 @@ metadict_chars['Warlock 6 lvl (Кема\'Эш «Ловкач»)'] = {
         },
     'class_features':{
         'Feat_Mounted_Combatant':True,
-        'Otherworldly_Patron':True,
-        'Otherworldly_Patron_The_Archfey':True,
+        'Otherworldly_Patron':'Fiend',
         'Pact_Magic':True,
         'Spells':[
             # Козочка даёт кантрип Shape_Water вместо Create_Bonfire Ашеры:
@@ -14562,6 +14547,80 @@ metadict_chars['Monk 13 lvl (Намулис)'] = {
     }
 
 #----
+# Свои (Динки) (Томас Стью):
+
+metadict_chars['Warlock 5 lvl (Динки) (Томас Стью)'] = {
+    # Эксперт в скрытности, +10 и +20 под Pass_Without_Trace. Также +10 ловкости рук.
+    # Pact_of_the_Chain: фамильяр -- попугай
+    'level':5,
+    'fireball_AI':True,
+    'char_class':'Warlock',
+    'hit_dice':'1d8',
+    'behavior':'commander',
+    'hitpoints_medial':True,
+    'abilityes':{
+        # Народность (шайтан): +2 харизме;
+        # Народность (шайтан): +2 ловкость
+        'strength':11,
+        'dexterity':18+2,
+        'constitution':16,
+        'intelligence':13,
+        'wisdom':10,
+        'charisma':18+2,
+        },
+    'class_features':{
+        # Расовые способности в классе, чтобы было видно:
+        'immunity':['sleep'],
+        'resistance':['charmed'],
+        'Darkvision':60,
+        # ----
+        'Feat_Elemental_Adept':'fire',
+        'Otherworldly_Patron':'Efreeti',
+        'Pact_Magic':True,
+        'Spells':[
+            # 3 кантрипа и 6 заклинаний на 5 lvl
+            ('cantrip','Create_Bonfire'),
+            ('cantrip','Minor_Illusion'),
+            ('cantrip','Mage_Hand'),
+            ('cantrip','Silent_Image'),
+            ('ritual', 'Find_Familiar'),
+            ('3_lvl','Invisibility'),
+            ('3_lvl','Enhance_Ability'),
+            ('3_lvl','Phantasmal_Force'),
+            ('3_lvl','Armor_of_Agathys'),
+            ('3_lvl','Fireball'),
+            ('3_lvl','Tongues'),
+            #('3_lvl','Hypnotic_Pattern'),
+            ],
+        'Pact_Boon':True,
+        'Pact_of_the_Chain':True,
+        'Genies_Vessel':True,
+        'Genies_Wrath':'fire',
+        'Bottled_Respite':True,
+        'Eldritch_Invocations':True,
+        'Invocation_Misty_Visions':True,
+        'Invocation_Mask_of_Many_Faces':True,
+        'Invocation_Voice_of_the_Chain_Master':True,
+        },
+    'race':'Primevial-medium-hero',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        #'Infusion of Heroism':1,
+        #'Infusion of Claws':1,
+        'Rune of Shielding':1,
+        'Rune of Absorbtion':1,
+        'Rune of Armor':1,
+        'Rarity +2':1,
+        'Pistol, Lorenzony':1,
+        'Muskete Bullet':30,
+        'Smoke Grenade':1,
+        },
+    }
+
+#----
 # Свои (Shady) (Тенза Йозора):
 
 metadict_chars['Warrior 3 lvl (Тензина девчонка)'] = {
@@ -14612,8 +14671,8 @@ metadict_chars['Warrior 5 lvl (Шакти)'] = {
         'Infusion of Longstrider':1,
         'Dagger':1,
         #'Scimitar':1,
-        'Muskete, Brown Bess':1,
-        'Muskete Bullet, bess':30,
+        #'Muskete, Brown Bess':1,
+        #'Muskete Bullet, bess':30,
         'Smoke Grenade':1,
         },
     }

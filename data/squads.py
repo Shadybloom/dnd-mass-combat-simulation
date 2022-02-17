@@ -2273,8 +2273,17 @@ metadict_squads['Single-hero (лично Тенза Йозора) (Shady)'] = {
     }
 
 metadict_squads['Single-hero (лично Януш Кобыла) (Динки)'] = {
+    # TODO: single-regular
     # Сын Стефана Кобылы, конезаводчика с Гангсвэя.
     'Warrior 5 lvl (healer-lieutenant)':1,
+    }
+
+metadict_squads['Single-hero (лично Томас Стью) (Динки)'] = {
+    'Warlock 5 lvl (Динки) (Томас Стью)':1,
+    }
+
+metadict_squads['Single-regular (лично Шакти) (Shady)'] = {
+    'Warrior 5 lvl (Шакти)':1,
     }
 
 #----

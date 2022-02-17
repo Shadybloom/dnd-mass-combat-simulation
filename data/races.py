@@ -149,6 +149,17 @@ dict_races = {
             'intelligence':+1,
             'charisma':+2,
             },
+        'Primevial-medium-hero':{
+            'hero':False,
+            'unholy':True,
+            'size':'medium',
+            'base_speed':30,
+            'armor_class_natural':12,
+            'height_base_inches':4 * 12 + 8,
+            'height_mod_dice':'2d10',
+            'weight_base_lb':110,
+            'weight_mod_dice':'2d4',
+            },
         'Primevial-medium':{
             'hero':False,
             'unholy':True,
