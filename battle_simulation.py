@@ -2651,6 +2651,20 @@ class battle_simulation(battlescape):
                     self.fireball_action(soldier, squad, spell_dict, enemy.place, single_target = enemy)
                     soldier.drop_action(('free_action', 'Disarming_Attack'))
                     soldier.drop_spell(('feature', 'Disarming_Attack'))
+                # Genies_Wrath варлока, бонус мастерства к урону с броском атаки:
+                if attack_result['hit'] and soldier.class_features.get('Genies_Wrath'):
+                    spell_dict = {
+                        'safe':True,
+                        'direct_hit':True,
+                        'attacks_number':1,
+                        'damage_type':soldier.class_features['Genies_Wrath'],
+                        'damage_dice':'0d0',
+                        'damage_mod':soldier.proficiency_bonus,
+                        'spell_choice':('Genies_Wrath',soldier.class_features['Genies_Wrath']),
+                        }
+                    self.fireball_action(soldier, squad, spell_dict, enemy.place, single_target = enemy)
+                    #soldier.drop_action(('free_action', 'Genies_Wrath'))
+                    #soldier.drop_spell(('feature', 'Genies_Wrath'))
                 # Эффект Crusaders_Mantle (срабатывает только для атак оружием):
                 if attack_result['hit'] and attack_dict.get('weapon') == True\
                         and 'crusaders_mantle' in self.dict_battlespace[soldier.place]:
