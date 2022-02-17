@@ -675,6 +675,8 @@ class soldier_in_battle(soldier):
                 if spell_dict:
                     spell_dict['spell_choice'] = spell_choice
                     self.set_concentration(spell_dict)
+                    if use_action and type(use_action) == str:
+                        self.use_action_to_spellcast(spell_dict, action = use_action)
                     if use_action:
                         self.use_action_to_spellcast(spell_dict)
                     if use_spell_slot:
@@ -695,13 +697,15 @@ class soldier_in_battle(soldier):
         else:
             return False
 
-    def use_action_to_spellcast(self, spell_dict):
+    def use_action_to_spellcast(self, spell_dict, action = False):
         """Каст заклинания тратит действие.
         
         - Действие
         - Бонусное действие
         - Реакция
         """
+        if action and type(action) == str:
+            spell_dict['casting_time'] = action
         if spell_dict.get('casting_time'):
             casting_time = spell_dict['casting_time']
             if casting_time == 'action':
@@ -2773,6 +2777,19 @@ class soldier_in_battle(soldier):
                 'fatal_hit':False,
                 'crit':False,
                 }
+        # Бардовский Cutting_Words вычитается из броска атаки:
+        if self.class_features.get('Cutting_Words')\
+                and attack_dict.get('attack_throw')\
+                and self.inspiring_bard_number\
+                and self.reaction:
+            if not 'bardic_inspiration' in self.buffs:
+                self.try_spellcast('Bardic_Inspiration',
+                        gen_spell = True,
+                        use_action = 'reaction',
+                        use_spell_slot = 'feature')
+            if 'bardic_inspiration' in self.buffs:
+                attack_dict['attack_throw'] -= self.buffs.pop('bardic_inspiration')['inspiration_mod']
+                if attack_dict['attack_throw'] < 0: attack_dict['attack_throw'] = 0
         armor_dict = self.modify_armor(attack_choice, attack_dict)
         attack_dict['savethrow_bonus_cover'] = armor_dict['savethrow_bonus_cover']
         if attack_dict.get('attack') and not attack_dict.get('direct_hit'):
