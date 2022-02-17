@@ -2216,10 +2216,10 @@ class soldier_in_battle(soldier):
         # Оружие в руки:
         if attack_dict.get('weapon') and attack_dict.get('weapon_use'):
             self.weapon_ready = attack_dict.get('weapon_use')
-        # TODO: перенеси в самый конец функции, чтобы работали бесконечные стрелы.
         # Используется боеприпас (стрела, дротик, яд для меча), если указан:
         if attack_dict.get('ammo', -1) >= 0 or attack_dict.get('ammo', 0) < 0:
-            self.use_ammo(attack_dict, metadict_soldiers)
+            if not 'unlimited_ammo' in attack_dict.get('weapon_type',[]):
+                self.use_ammo(attack_dict, metadict_soldiers)
         # Боец с двуручным оружием не может использовать щит:
         # Но только в том раунде, в котором пользовался двуручным оружием.
         # В set_actions щит каждый раз возвращается в боевое положение.

@@ -2343,7 +2343,8 @@ class battle_simulation(battlescape):
                 else:
                     # Стрелы расходуются, если летят совсем не туда:
                     attack_dict = soldier.attacks[attack_choice]
-                    soldier.use_ammo(attack_dict, squad.metadict_soldiers)
+                    if not 'unlimited_ammo' in attack_dict.get('weapon_type',[]):
+                        soldier.use_ammo(attack_dict, squad.metadict_soldiers)
                     self.set_squad_battle_stat(attack_dict, squad, attack_choice)
                     # Действие тоже расходуется:
                     soldier.battle_action = False
@@ -2751,6 +2752,10 @@ class battle_simulation(battlescape):
                 if attack_result['fatal_hit'] and 'kamikaze' in enemy_soldier.commands:
                     self.attack_action(enemy_soldier, enemy_squad,
                             enemy, reaction = True)
+                # Лук "Чёрные Облака" расходует боеприпасы только при попадании:
+                if attack_result['hit'] and 'unlimited_ammo' in attack_result.get('weapon_type',[])\
+                        and 'only_hit_ammo' in attack_result.get('weapon_type',[]):
+                    soldier.use_ammo(attack_dict, squad.metadict_soldiers)
                 # Победа приносит бойцу опыт:
                 if attack_result['fatal_hit']:
                     soldier.set_victory_and_enemy_defeat(enemy_soldier)

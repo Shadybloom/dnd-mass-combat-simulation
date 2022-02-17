@@ -2524,7 +2524,6 @@ metadict_items['Longbow +1'] = {
     }
 
 metadict_items['Longbow, Black Skies'] = {
-    # TODO: Тратит снаряды только при попадании в цель. Сделай расходование после 'hit'.
     'weapon':True,
     'ammo_type':longbow_arrows,
     'weapon_type':['martial','ranged','volley','two_handed','unlimited_ammo','only_hit_ammo'],
