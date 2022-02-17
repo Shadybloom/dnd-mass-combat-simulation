@@ -1188,11 +1188,12 @@ class soldier():
                             dict_attack.update(self.modify_attack_ammo(dict_attack, ammo))
                             dict_attack.update(self.select_attack_mod(dict_attack))
                             # Это неприцельный огонь, положительные модификаторы отменяются:
-                            dict_attack['weapon_skills_use'] = []
-                            if dict_attack['damage_mod'] > 0:
-                                dict_attack['damage_mod'] = 0
-                            if dict_attack['attack_mod'] > 0:
-                                dict_attack['attack_mod'] = 0
+                            if not 'volley_aim' in dict_attack.get('weapon_type',[]):
+                                dict_attack['weapon_skills_use'] = []
+                                if dict_attack['damage_mod'] > 0:
+                                    dict_attack['damage_mod'] = 0
+                                if dict_attack['attack_mod'] > 0:
+                                    dict_attack['attack_mod'] = 0
                             name = '{0} ({1})'.format(item, ammo)
                             metadict_attacks['volley',name] = {}
                             metadict_attacks['volley',name].update(dict_attack)
@@ -1204,11 +1205,12 @@ class soldier():
                                 dict_attack.update(self.modify_attack_ammo(dict_attack, ammo))
                                 dict_attack.update(self.select_attack_mod(dict_attack))
                                 # Это неприцельный огонь, положительные модификаторы отменяются:
-                                dict_attack['weapon_skills_use'] = []
-                                if dict_attack['damage_mod'] > 0:
-                                    dict_attack['damage_mod'] = 0
-                                if dict_attack['attack_mod'] > 0:
-                                    dict_attack['attack_mod'] = 0
+                                if not 'volley_aim' in dict_attack.get('weapon_type',[]):
+                                    dict_attack['weapon_skills_use'] = []
+                                    if dict_attack['damage_mod'] > 0:
+                                        dict_attack['damage_mod'] = 0
+                                    if dict_attack['attack_mod'] > 0:
+                                        dict_attack['attack_mod'] = 0
                                 name = '{0} ({1})'.format(item, ammo)
                                 metadict_attacks['volley',name] = {}
                                 metadict_attacks['volley',name].update(dict_attack)
@@ -1218,23 +1220,25 @@ class soldier():
                         dict_attack['ammo'] = self.equipment_weapon[item]
                         dict_attack.update(self.modify_attack_ammo(dict_attack, item))
                         dict_attack.update(self.select_attack_mod(dict_attack))
-                        dict_attack['weapon_skills_use'] = []
-                        if dict_attack['damage_mod'] > 0:
-                            dict_attack['damage_mod'] = 0
-                        if dict_attack['attack_mod'] > 0:
-                            dict_attack['attack_mod'] = 0
+                        if not 'volley_aim' in dict_attack.get('weapon_type',[]):
+                            dict_attack['weapon_skills_use'] = []
+                            if dict_attack['damage_mod'] > 0:
+                                dict_attack['damage_mod'] = 0
+                            if dict_attack['attack_mod'] > 0:
+                                dict_attack['attack_mod'] = 0
                         metadict_attacks['volley',item] = {}
                         metadict_attacks['volley',item].update(dict_attack)
                     # Если боеприпас в оружии не указан, считается бесконечным:
                     else:
                         dict_attack.update(self.select_attack_mod(dict_attack))
                         # Это неприцельный огонь, положительные модификаторы отменяются:
-                        dict_attack['weapon_skills_use'] = []
-                        if dict_attack['damage_mod'] > 0:
-                            dict_attack['damage_mod'] = 0
-                        if dict_attack['attack_mod'] > 0:
-                            dict_attack['attack_mod'] = 0
-                        name = '{0} ({1})'.format(item, 'endless_ammo')
+                        if not 'volley_aim' in dict_attack.get('weapon_type',[]):
+                            dict_attack['weapon_skills_use'] = []
+                            if dict_attack['damage_mod'] > 0:
+                                dict_attack['damage_mod'] = 0
+                            if dict_attack['attack_mod'] > 0:
+                                dict_attack['attack_mod'] = 0
+                            name = '{0} ({1})'.format(item, 'endless_ammo')
                         metadict_attacks['volley',name] = {}
                         metadict_attacks['volley',name].update(dict_attack)
         return metadict_attacks

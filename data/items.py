@@ -54,6 +54,7 @@ longbow_arrows = [
         'Silver Arrow',
         'Hunting Arrow',
         'Slashing Arrow',
+        'Seeking Arrow',
         'Poison Arrow',
         'Fire Arrow',
         'Acid Arrow',
@@ -2522,6 +2523,20 @@ metadict_items['Longbow +1'] = {
     'cost (grams_of_gold)':30*60,
     }
 
+metadict_items['Longbow, Black Skies'] = {
+    # TODO: Тратит снаряды только при попадании в цель. Сделай расходование после 'hit'.
+    'weapon':True,
+    'ammo_type':longbow_arrows,
+    'weapon_type':['martial','ranged','volley','two_handed','unlimited_ammo','only_hit_ammo'],
+    'damage_type':'piercing',
+    'damage_dice':'1d6',
+    'shoot_range':150,
+    'shoot_range_max':600,
+    'weight (lb)':2,
+    'cost (gp)':30*60,
+    'cost (grams_of_gold)':30*60,
+    }
+
 #----
 # Artillery, артиллерия
 
@@ -3437,8 +3452,21 @@ metadict_items['Arrow +1'] = {
     'damage_type':'piercing',
     'weapon_type':['magic','+1'],
     'weight (lb)':3/20,
-    'cost (gp)':1/20,
-    'cost (grams_of_gold)':60 * 2,
+    'cost (gp)':12,
+    'cost (grams_of_gold)':12,
+    }
+
+metadict_items['Seeking Arrow'] = {
+    # Прицельный град стрел. Самонаведение.
+    'ammo':True,
+    'volley_optimal':True,
+    'damage_dice':'1d6',
+    'damage_type':'piercing',
+    'weapon_type':['volley_aim'],
+    'shoot_range_volley':600,
+    'weight (lb)':4/20,
+    'cost (gp)':12,
+    'cost (grams_of_gold)':12,
     }
 
 metadict_items['Slashing Arrow'] = {

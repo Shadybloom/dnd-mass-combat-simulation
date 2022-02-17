@@ -2306,7 +2306,13 @@ class battle_simulation(battlescape):
                             break
         # Рассчитываем зону обстрела (зависит от положения бойца в строю и рассеивания стрел):
         if attack_choice:
-            if 'volley_random' in soldier.commands:
+            # Самонаводящиеся стрелы:
+            if 'volley_aim' in soldier.attacks[attack_choice]['weapon_type']:
+                recon_targets = self.recon(target, 2)
+                if len(recon_targets) > 0:
+                    enemy = recon_targets[random.choice(list(recon_targets.keys()))]
+                    target = enemy.place
+            elif 'volley_random' in soldier.commands:
                 target = random.choice(self.point_to_field(target, round(distance / 5)))
             elif hasattr(soldier, 'place_in_order') and soldier.place_in_order:
                 target_point = [c1 + c2 for c1, c2 in zip(target, soldier.place_in_order)]
