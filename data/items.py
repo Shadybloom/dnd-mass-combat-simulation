@@ -104,6 +104,7 @@ gun_ammunition = [
         '12lb Ball',
         '6lb Ball',
         '2lb Ball',
+        '2lb Bomb',
         '24lb Bar',
         '12lb Bar',
         '12lb Bomb',
