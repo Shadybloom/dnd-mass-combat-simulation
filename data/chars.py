@@ -13796,7 +13796,8 @@ metadict_chars['Warrior 2 lvl (артиллерист-ветеран) (2lb Falco
     'equipment_weapon':{
         'Rune of Armor':1,
         '2lb Falconet':1,
-        '2lb Ball':100,
+        #'2lb Ball':100,
+        '2lb Bomb':100,
         },
     'mount_combat':True,
     'mount_type':'2lb Cannon, chassis',
@@ -13861,6 +13862,7 @@ metadict_chars['Warrior 4 lvl (артиллерист-сержант) (2lb Falco
         'Rune of Armor':1,
         '2lb Falconet':1,
         '2lb Ball':100,
+        #'2lb Bomb':100,
         },
     'mount_combat':True,
     'mount_type':'2lb Cannon, chassis',
@@ -14090,6 +14092,78 @@ metadict_chars['Warrior 5 lvl (охранник-лейтенант с Ганг-�
         'Arrow':40,
         #'Pistol, Lorenzony':1,
         #'Muskete Bullet':30,
+        },
+    }
+
+#----
+# Противник (армия) (Аурелис):
+
+metadict_chars['Ranger 5 lvl (лейтенант Аурелиса) (следопыт)'] = {
+    # Шайтаны
+    'volley_AI':True,
+    'base_unit':'Ranger 5 lvl (otherworld wanderer-lieutenant)',
+    'race':'Primevial-medium-hero',
+    'equipment_weapon':{
+        'Potion of Heroism':1,
+        'Potion of Antidote':1,
+        'Infusion of Regeneration':1,
+        'Rune of Armor':1,
+        'Rune of Shielding':1,
+        'Shield':1,
+        'Longsword +1':1,
+        'Longbow, Black Skies':1,
+        'Seeking Arrow':60,
+        'Sleep Blade':60,
+        #'Poison Blade':40,
+        },
+    }
+
+metadict_chars['Barbarian 5 lvl (лейтенант Аурелиса) (берсерк)'] = {
+    'volley_AI':True,
+    'base_unit':'Barbarian 5 lvl (thracian slayer-lord)',
+    'race':'Primevial-medium-hero',
+    'equipment_weapon':{
+        'Potion of Heroism':1,
+        'Potion of Antidote':1,
+        'Infusion of Regeneration':1,
+        #'Rune of Armor':1,
+        'Rune of Absorbtion':1,
+        'Rune of Shielding':1,
+        'Heavy Shield':1,
+        'Greatsword +1':1,
+        'Longbow, Black Skies':1,
+        'Seeking Arrow':60,
+        'Sleep Blade':60,
+        },
+    }
+
+metadict_chars['Warrior 5 lvl (лейтенант Аурелиса)'] = {
+    'level':5,
+    'char_class':'Warrior-bowman',
+    'hit_dice':'1d8',
+    'behavior':'elite_warrior',
+    'class_features':{
+        'Fighting_Style_Archery':True,
+        'Feat_Sharpshooter':True,
+        'Extra_Attack':True,
+        },
+    'race':'Primevial-medium',
+    'weapon_skill':['simple','martial'],
+    'armor_skill':['light','medium','heavy','shield'],
+    'equipment_supply':soldier_supply,
+    'equipment_backpack':soldiers_pack,
+    'equipment_weapon':{
+        'Potion of Heroism':1,
+        'Potion of Antidote':1,
+        'Infusion of Regeneration':1,
+        'Rune of Armor':1,
+        'Rune of Shielding':1,
+        'Shield':1,
+        'Longsword +1':1,
+        'Longbow, Black Skies':1,
+        'Seeking Arrow':60,
+        'Sleep Blade':60,
+        #'Poison Blade':40,
         },
     }
 

@@ -329,10 +329,26 @@ metadict_squads['Company-veteran (pirate-infantry-fusiliers)'] = {
 # Тестовые отряды (Чёрные флаги Ост-Индии)
 
 metadict_squads['Band-regular (black-flags) (healers)'] = {
-    # Испытываем свиты героев.
     'Warrior 4 lvl (healer-sergeant)':3,
     'Warrior 5 lvl (healer-lieutenant)':1,
     'Commoner 1 lvl (recruit)':6,
+    }
+
+metadict_squads['Band-regular (black-flags) (абордажники Эвери) (2)'] = {
+    'Warrior 4 lvl (абордажник Эвери)':2,
+    'Commoner 1 lvl (recruit)':6,
+    }
+
+metadict_squads['Band-regular (black-flags) (абордажники Эвери) (4)'] = {
+    'Warrior 4 lvl (абордажник Эвери)':3,
+    'Warrior 5 lvl (лейтенант Эвери)':1,
+    'Commoner 1 lvl (recruit)':10,
+    }
+
+metadict_squads['Band-regular (black-flags) (абордажники Эвери) (8)'] = {
+    'Warrior 4 lvl (абордажник Эвери)':6,
+    'Warrior 5 lvl (лейтенант Эвери)':2,
+    'Commoner 1 lvl (recruit)':20,
     }
 
 metadict_squads['Band-regular (black-flags) (assault, 8)'] = {
@@ -2236,6 +2252,17 @@ metadict_squads['Squad-veteran (артиллеристы Салифа) (бата
     'Warrior 4 lvl (артиллерист-сержант) (2lb Falconet)':10,
     'Warrior 5 lvl (артиллерист-лейтенант)':4,
     'Commoner 1 lvl (recruit)':50,
+    }
+
+#----
+# Армия Аурелиса:
+
+metadict_squads['Band-elite (гвардия Аурелиса) (враг)'] = {
+    # Шайтаны, призванные Салифом в битве за Ганг-и-Савай
+    'Barbarian 5 lvl (лейтенант Аурелиса) (берсерк)':2,
+    'Ranger 5 lvl (лейтенант Аурелиса) (следопыт)':1,
+    'Warrior 5 lvl (лейтенант Аурелиса)':6,
+    'Commoner 1 lvl (recruit)':100,
     }
 
 #----
