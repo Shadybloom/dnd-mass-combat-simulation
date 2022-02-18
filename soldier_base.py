@@ -1188,7 +1188,7 @@ class soldier():
                             dict_attack.update(self.modify_attack_ammo(dict_attack, ammo))
                             dict_attack.update(self.select_attack_mod(dict_attack))
                             # Это неприцельный огонь, положительные модификаторы отменяются:
-                            if not 'volley_aim' in dict_attack.get('weapon_type',[]):
+                            if not 'volley_aim_super' in dict_attack.get('weapon_type',[]):
                                 dict_attack['weapon_skills_use'] = []
                                 if dict_attack['damage_mod'] > 0:
                                     dict_attack['damage_mod'] = 0
@@ -1205,7 +1205,7 @@ class soldier():
                                 dict_attack.update(self.modify_attack_ammo(dict_attack, ammo))
                                 dict_attack.update(self.select_attack_mod(dict_attack))
                                 # Это неприцельный огонь, положительные модификаторы отменяются:
-                                if not 'volley_aim' in dict_attack.get('weapon_type',[]):
+                                if not 'volley_aim_super' in dict_attack.get('weapon_type',[]):
                                     dict_attack['weapon_skills_use'] = []
                                     if dict_attack['damage_mod'] > 0:
                                         dict_attack['damage_mod'] = 0
@@ -1220,7 +1220,7 @@ class soldier():
                         dict_attack['ammo'] = self.equipment_weapon[item]
                         dict_attack.update(self.modify_attack_ammo(dict_attack, item))
                         dict_attack.update(self.select_attack_mod(dict_attack))
-                        if not 'volley_aim' in dict_attack.get('weapon_type',[]):
+                        if not 'volley_aim_super' in dict_attack.get('weapon_type',[]):
                             dict_attack['weapon_skills_use'] = []
                             if dict_attack['damage_mod'] > 0:
                                 dict_attack['damage_mod'] = 0
@@ -1232,7 +1232,7 @@ class soldier():
                     else:
                         dict_attack.update(self.select_attack_mod(dict_attack))
                         # Это неприцельный огонь, положительные модификаторы отменяются:
-                        if not 'volley_aim' in dict_attack.get('weapon_type',[]):
+                        if not 'volley_aim_super' in dict_attack.get('weapon_type',[]):
                             dict_attack['weapon_skills_use'] = []
                             if dict_attack['damage_mod'] > 0:
                                 dict_attack['damage_mod'] = 0
