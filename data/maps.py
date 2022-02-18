@@ -258,6 +258,15 @@ battle_map_ship_deck_surround = (
         '||||||||||||||||||||||||||||||',
         )
 
+battle_map_ship_deck_small = (
+        # Палуба шлюпа
+        'h|||||||||||||||||||||',
+        '.51eec!.!eecwwwwwww11!',
+        '.52eec!.!eecwwwwwww12!',
+        '.53eec!.!eecwwwwwww13!',
+        '||||||||||||||||||||||',
+        )
+
 battle_map_city_cats = (
         # Наши:
         # 2 -- сотня лучников с короткими луками
@@ -2101,10 +2110,10 @@ battle_map_archers_volley = (
         '################################',
         '.....!................01..!.....',
         '.....!eeeeeeeeeeeeeeeeeeee!.....',
-        '.....!aaaaaaaaaaaaaaaaaaaa!.....',
-        '.....!aaaaaaaaaaaaaaaaaaaa!.....',
-        '.....!aaaaaaaaaaaaaaaaaaaa!.....',
         '.....!.....cccccccccc.....!.....',
+        '.....!aaaaaaaaaaaaaaaaaaaa!.....',
+        '.....!aaaaaaaaaaaaaaaaaaaa!.....',
+        '.....!aaaaaaaaaaaaaaaaaaaa!.....',
         '.....!aaaaaaaaaaaaaaaaaaaa!.....',
         '.....!aaaaaaaaaaaaaaaaaaaa!.....',
         '.....!aaaaaaaaaaaaaaaaaaaa!.....',
